@@ -11,8 +11,8 @@ typedef std::complex<double> Comp;
 typedef ublas::matrix <Comp> Mat;
 typedef std::map< std::size_t, Mat> Map_mat;
 
-//namespace cst
-//{
+namespace cst
+{
    extern const double pi;
    extern const std::complex<double> ii;
    extern const double a_t_phase;
@@ -32,6 +32,6 @@ typedef std::map< std::size_t, Mat> Map_mat;
    extern const std::size_t t_change_temp;
    extern const double delta;
    extern const double temp_init;
-//}
+}
 
 #endif

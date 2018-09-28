@@ -4,17 +4,8 @@
 #include <boost/numeric/ublas/io.hpp>
 #include "constants.h"
 
-/*
-namespace ublas = boost::numeric::ublas;
-typedef std::complex<double> Comp;
-typedef ublas::matrix <Comp> Mat;
-//typedef ublas::vector <Comp> Vec;
-typedef std::map< std::size_t, Mat> Map_mat;
-//typedef std::map< std::size_t, std::map< std::size_t, Mat> > Map_map_mat;
-*/
-
-//namespace cst
-//{
+namespace cst
+{
    extern const double pi =3.14159265358979;
    extern const std::complex<double> ii =std::sqrt(-1);
    extern const double a_t_phase =0.5; // a phase factor in uniform linear array of Tx
@@ -34,5 +25,4 @@ typedef std::map< std::size_t, Mat> Map_mat;
    extern const std::size_t t_change_temp =10; // interval between subsequent record
    extern const double delta =0.3; // simulation step
    extern const double temp_init =1; // initial temperature
-//}
-
+}

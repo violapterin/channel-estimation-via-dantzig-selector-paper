@@ -44,7 +44,7 @@ int main( int argc, char** argv )
 /*
    Map_mat map_f;
    for(std::size_t i=0; i<=num_ff-1; i++)
-      { map_f[i] =ublas::zero_matrix <std::complex> (nn,nn); }
+      { map_f[i] =ublas::zero_matrix <std::complex> (cst::nn,cst::nn); }
 
    Map_mat map_h;
    for(std::size_t i=0; i<=kk-1; i++)
@@ -55,9 +55,9 @@ int main( int argc, char** argv )
    double new_sum_rate =0;
    Map_mat map_d;
    for(std::size_t i=0; i<=num_ff-1; i++)
-      { map_d[i] =ublas::zero_matrix <std::complex> (nn,nn); }
+      { map_d[i] =ublas::zero_matrix <std::complex> (cst::nn,cst::nn); }
 
-   for(std::size_t idx=0; idx <=max_iter-1; idx++)
+   for(std::size_t idx=0; idx <=cst::max_iter-1; idx++)
    {
       set_random_step(&map_d);
       new_sum_rate =find_new_sum_rate(map_h, map_f, &map_d);
@@ -69,8 +69,8 @@ int main( int argc, char** argv )
          old_sum_rate =new_sum_rate;
       }
 
-      if( idx %t_record ==0 ){ (*ios) << old_sum_rate << ' '; }
-      if( idx %t_change_temp ==0 ){ temp *=0.8; }
+      if( idx %cst::t_record ==0 ){ (*ios) << old_sum_rate << ' '; }
+      if( idx %cst::t_change_temp ==0 ){ temp *=0.8; }
    }
 */
 
