@@ -5,7 +5,7 @@
 #CFLAGS="-Wall -g"
 #eval "${CC}" "${CFLAGS}" -o "${OBJS}"
 
-#g++ -o ./bin/main ./src/main.cpp ./src/functions.cpp ./src/constants.cpp 
-g++ -Wall -g -o ./bin/main ./src/main.cpp ./src/functions.cpp ./src/constants.cpp 
+g++ -Wall -O3 -o ./bin/main.o ./src/main.cpp ./src/functions.cpp ./src/constants.cpp 
+#g++ -Wall -g -o ./bin/main.o ./src/main.cpp ./src/functions.cpp ./src/constants.cpp 
 
 
