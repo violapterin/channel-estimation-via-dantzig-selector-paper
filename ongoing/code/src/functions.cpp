@@ -67,10 +67,10 @@ void set_rand_channel( Mat& h )
    }
 }
 
-void accept_random_step(Map_mat* map_f, Map_mat* map_dd)
+void accept_random_step(Map_mat* p_map_f, Map_mat* p_map_d)
 {
    for(std::size_t i=0; i<=cst::ff-1; i++)
-      { (*map_f)[i] +=(*map_f)[i]; }
+      { (*p_map_f)[i] +=(*p_map_d)[i]; }
 }
 
 void set_random_step(Map_mat* p_map_d)
@@ -105,3 +105,44 @@ double find_new_sum_rate(Map_mat* p_map_h, Map_mat* p_map_f, Map_mat* p_map_d)
    return ret;
 }
 
+void write_idx( std::ostream* p_ios )
+{
+   for(std::size_t idx=0; idx <=cst::max_iter-1; idx++)
+   {
+      if( idx %cst::t_record ==0 ){ (*p_ios) << idx << ' '; }
+   }
+}
+
+void simulated_annealing( double cooling_param, std::ostream* p_ios )
+{
+   double temp =cst::temp_init;
+   Map_mat map_f;
+   for(std::size_t i=0; i<=cst::ff-1; i++)
+      { map_f[i] =ublas::zero_matrix <Comp> (cst::nn, cst::nn); }
+
+   Map_mat map_h;
+   for(std::size_t i=0; i<=cst::kk-1; i++)
+      { set_rand_channel(map_h[i]); }
+
+   double old_sum_rate =0;
+   double new_sum_rate =0;
+   Map_mat map_d;
+   for(std::size_t i=0; i<=cst::ff-1; i++)
+      { map_d[i] =ublas::zero_matrix <Comp> (cst::nn,cst::nn); }
+
+   for(std::size_t idx=0; idx <=cst::max_iter-1; idx++)
+   {
+      set_random_step(&map_d);
+      new_sum_rate =find_new_sum_rate(&map_h, &map_f, &map_d);
+
+      double bar =new_sum_rate -old_sum_rate;
+      if( rand() /RAND_MAX >std::exp(-bar/temp) )
+      {
+         accept_random_step(&map_f, &map_d);
+         old_sum_rate =new_sum_rate;
+      }
+
+      if( idx %cst::t_record ==0 ){ (*p_ios) << old_sum_rate << ' '; }
+      if( idx %cst::t_change_temp ==0 ){ temp *=cooling_param; }
+   }
+}

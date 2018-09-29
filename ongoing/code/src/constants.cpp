@@ -23,6 +23,8 @@ namespace cst
    extern const std::size_t nn_s =6; // # of scatterer
    extern const std::size_t t_record =10; // interval between subsequent record
    extern const std::size_t t_change_temp =10; // interval between subsequent record
+   extern const double max_iter =10;
    extern const double delta =0.3; // simulation step
    extern const double temp_init =1; // initial temperature
+   extern const double arr_cooling_param[] ={0.8,0.6,0.4};
 }

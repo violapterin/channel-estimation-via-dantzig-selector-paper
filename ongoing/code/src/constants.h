@@ -14,7 +14,7 @@ typedef std::map< std::size_t, Mat> Map_mat;
 namespace cst
 {
    extern const double pi;
-   extern const std::complex<double> ii;
+   extern const Comp ii;
    extern const double a_t_phase;
    extern const double a_r_phase;
    extern const double spread;
@@ -30,8 +30,10 @@ namespace cst
    extern const std::size_t nn_s;
    extern const std::size_t t_record;
    extern const std::size_t t_change_temp;
+   extern const double max_iter;
    extern const double delta;
    extern const double temp_init;
+   extern const double arr_cooling_param[3];
 }
 
 #endif
