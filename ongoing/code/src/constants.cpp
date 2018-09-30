@@ -21,9 +21,10 @@ namespace cst
    extern const std::size_t ff =(kk/s_blk_kk) *(uu/s_blk_uu); // # of different precoders
    extern const std::size_t nn_c =6; // # of cluster
    extern const std::size_t nn_s =6; // # of scatterer
-   extern const std::size_t t_record =10; // interval between subsequent record
-   extern const std::size_t t_change_temp =5; // interval between subsequent record
-   extern const double max_iter =300;
+   extern const double pp =100; // maximum power
+   extern const std::size_t t_record =100; // interval between subsequent record
+   extern const std::size_t t_change_temp =10; // interval between subsequent record
+   extern const double max_iter =1000;
    extern const double delta =0.3; // simulation step
    extern const double temp_init =1; // initial temperature
    extern const double arr_cooling_param[] ={0.99, 0.98, 0.97};

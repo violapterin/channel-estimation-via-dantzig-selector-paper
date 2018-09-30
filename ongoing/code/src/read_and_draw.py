@@ -18,7 +18,7 @@ list_line =content.split('\n') # newline as delimiter
 # to set axis & title
 #plt.close("all")
 fig =plt.figure()
-plt.title( "SA", fontsize =15 )
+plt.title( "Simulated Annealing", fontsize =15 )
 plt.xlabel( "Time", fontsize =12 )
 plt.ylabel( "Rate", fontsize =12 )
 
@@ -70,9 +70,5 @@ for idx, line in enumerate(list_line):
 # end for each line
 
 # to set legend and save figure
-#distShift =-9.0 # shifted, to the left, considerably
-#plt.legend( loc='center left', borderaxespad =distShift )
-#fig.show()
 fig.savefig( out_fig_path, bbox_inches ="tight" )
-#plt.show()
 

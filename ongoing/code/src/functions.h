@@ -4,8 +4,8 @@
 #include "constants.h"
 //extern typedef Vec;
 
-Comp determinant(Mat);
-double frob_norm(Mat&);
+Comp determinant(const Mat&);
+double frob_norm(const Mat&);
 Mat get_array_response(double, std::size_t);
 void set_rand_channel( Mat& );
 void accept_random_step(Map_mat*, Map_mat*);

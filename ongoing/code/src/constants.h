@@ -28,6 +28,7 @@ namespace cst
    extern const std::size_t ff;
    extern const std::size_t nn_c;
    extern const std::size_t nn_s;
+   extern const double pp;
    extern const std::size_t t_record;
    extern const std::size_t t_change_temp;
    extern const double max_iter;
