@@ -1,0 +1,353 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+
+\author{Tzu-Yu Jeng}
+\date{\today}
+\title{An Explicit Probability Bound for Estimation of Multipath Millimeter Channel}
+\begin{document}
+\maketitle
+
+\section{Abstract}
+
+
+Multiple-input-multiple-output (MIMO) communication is adopted as the next generation of wireless communication scheme.
+However, reliable communication in such r\`egime usually requires that the channel response be known at the receiver, necessary for example in beamforming algorithm and channel calibration.
+It is then a non-trivial problem to estimate real-world wireless channels 
+
+Meanwhile, in the millimeter wave r\`egime, which is usually used in tandem with MIMO, channel often exhibits sparse properties.
+If the sparsity is exploited, few observations may suffice to estimate the channel, and such algorithm falls under the study of compressive sensing.
+A promiment estimator is The Dantzig Selector proposed by Tao and Cand\'es.
+In this article, we extend their proof to derive a specific bound in the setting of estimation of millimeter wave channel, utilizing an all-phase-shifter combiner in the receiver end.
+Simulation compares our result and the 
+
+
+
+\section{Introduction}
+
+\subsection{Background}
+
+Millimeter waves communication has been proposed to be the next-generation specification.
+The smaller wavelength entails higher frequency bands, and thus wider available bandwith to be available.
+In addition, the smaller closer spaced antennae makes it possible to increase the number antennae.
+Multiple-input multiple-output (MIMO) systems with a large number of antennae of both sides (hereafter massive MIMO) is therefore expected to improve spectral efficiency.
+
+But MIMO presents new obstacles as well.
+The hardware overhead due to large number of antennas increases complexity and power consumption, and new precoders are being invented to take account of this.
+It is important to devise feasible simulation method, as the systems themselves are growing more complicated, and the cost of simulations is large.
+
+The figure of merit of a MIMO system is usually considered to be the channel capacity.
+The capacity \(C\) of a MIMO channel \(H\) at perfect CSI (here, the matrix form of \(H\)) is well-known, which is first proved by Teletar.
+But that knowledge is hardly always available.
+What makes things more difficult is the case that \(H\) is determined from not only \(n(\omega)\), but also parameter \(\theta\).
+It is pointed out that the explicit form of \(C(\theta)\) is a difficult and long-standing problem (Goldsmith et.\ al.\ 2003).
+Consequently, the perfect-CSI expression of channel capacity is often used regardless of these issues.
+Indeed, analysis of precoding algorithm, for example, usually makes use of the sum rate \(\log \det (I +\mathrm{SNR})\).
+Therefore the real-time estimation, \(\hat{H}\), of \(H\) is of paramount importance.
+Needless to say, when the \(\hat{H}\) is imprecise, resulting analysis is also undermined.
+
+In real applications, channel may also be fast varying with respect to time, and a high complexity algorithm is surely less than being ideal.
+With more antennae present, conventional algorithms also increase in complexity and storage.
+A design of new algorithms that addressed these issues is thus in need.
+
+\subsection{The Dantzig Selector}
+
+It is a recent developemnt that the estimation of channels is facilitated by advances of compressed sensing.
+A series of paper by Cand\`es and Tao (2006) marks its advent.
+The idea is that, in many important statsitical applications, the number of variables or parameters \(p\) is much larger than the number of observations \(n\).
+In such case of insufficient observations, possibly even with noise, do we have the knowledge of all \(p\) variables?
+Of course, more assumption must be made to make the question meaningful.
+Cand\`es and Tao's pioneering work reveals the phenomenon that few observations of the signal in question may be sufficient for us to resonstruct the signal when it is sparse in a certain sense.
+They argue that such recovery of signals is possible, if we make a few carefully constructed, and seemingly random measurements.
+Ever since, it becomes feasible that a camera equipped with few sensors may obtain high quality images, greatly reducing the subsequent cost.
+
+Particularly relevant and inspiring to the present article is Cand\`es and Tao (2006), where they proposed a convex program called The Dantzig Selector (hencefore DS).
+Cand\`es and Tao argues in their work that DS has many advantages, and the error probability is upper bounded quantatively and shown to be vanishingly small.
+From the realistic perspective, DS formulates the sparse sensing problem as an \(\ell_2\) minimization problem, which is convex, thus techniques from convex optimization may readily be used.
+Indeed, they have put the code on the web for the reader to access and verify (Cand\`es \& Romberg 2005).
+
+Several notions related to compressed sensing are necessary in the presentation of results:
+
+\textbf{Definition}. We call \(h \in \mathbb{R}^p\) to be \(S\)-sparse, for \(S =1,2,3,\dotsc\), if only \(S\) components of \(h\) is nonzero.
+
+
+Denote as \(X_T\) the columns of \(X\) having indices in \(T\), where \(T \subset \{1,\dotsc,p\}\).
+
+\textbf{Definition}.
+Let \(X\) be an \(n \times p\) matrix having unit \(\ell_2\)-norm columns.
+For each integer \(S \in \mathbb{N}\), we say that \(X\) satisfies the RIP of order \(S\) with respect to parameter \(0 \leq \delta_S \leq 1\), if, for all \(\theta\) with \(\|\theta\|_0 \leq S\), for all \(T\) with \(|T| \leq S\),
+\begin{gather*}
+(1-\delta_S) \|\theta\|^2
+\leq \|X_T \theta\|_2^2
+\leq (1+\delta_S) \|\theta\|^2
+\end{gather*}
+RIP of order \(S\) is essentially saying that the matrix \(X\) is ``almost isometry'' up to ``relative error'' \(\theta_S\).
+
+Moreover, for \(T,T' \subset \{1, \dotsc, p \}\), let \(\theta_{S,S'}\) be the smallest constant such that
+\begin{gather*}
+| \langle X_T c, X_{T'} c' \rangle |
+\leq \theta_{S,S'} \cdot \| c \|_2 \|c'\|_2
+\end{gather*}
+
+
+It is shown that (Cand\'es and Tao 2005), in the noiseless case, the convex program
+\begin{gather*}
+\min_{\hat{h} \in \mathbb{R}^p}  \|\hat{h}\|_1 \\
+\mathrm{subject}\; \mathrm{to} \quad X \hat{h} =y
+\end{gather*}
+recovers \(\hat{h}\) completely if \(\delta_{S} +\delta_{2S} +\delta_{3S} <1\).
+
+
+For concreteness, consider a channel with noise,
+\begin{gather*}
+y =\sqrt{\mathcal{E}} X h +z
+\end{gather*}
+where \(z\) is an i.i.d., zero-mean, \(\sigma\)-variance AWGN vector.
+(They also discussed specially the noiseless case, but we will not pursue the bounds here.)
+
+
+
+How can we hope to estimate \(h\) when, in addition to insufficient observations, there are too few observations?
+Let the following linear program, DS, be defined
+\begin{gather*}
+\min_{\hat{h} \in \mathbb{R}^p}  \|\hat{h}\|_1 \\
+\mathrm{subject}\; \mathrm{to} \quad \|X^\dagger r\|_\infty \leq \lambda_p \sigma
+\end{gather*}
+where \(r =y -X \hat{h}\).
+
+DS may be written as
+\begin{gather*}
+\min_{x \in \mathbb{R}^p}  \|x\|_1 \\
+\mathrm{subject}\; \mathrm{to} \quad \|Ax+b\|_\infty \leq c
+\end{gather*}
+And it can be shown that this \(\ell_\infty\)-constraint problem may be recast as a linear program.
+
+The proof of DS is non-constructive, and it is not clear at first what matrices serves as the RIP condition.
+But later, () have found there is a particularly convenient sufficient condition to verify RIP.
+Tao explicitly remarked that the bound can be refined, but they did not undergo such task.
+
+\subsection{Compressed Channel Sensing}
+
+Meanwhile, physical evidences suggest that millimeter wave channels can be said to be sparse in the frequency domain in a certain senses.
+For example, Bajwa et.\ al.\ (2010) argues the \(\ell_0\)-norm of the channel matrix may be bounded by a constant, and in such settings the Dantzig Selector may be applied.
+They explore the estimation of single-antenna channel response with respect to time.
+Another paper by the same group of scholars (Bajwa et.\ al.\ 2008) shows that \(X\) is RIP for overwhelming probability.
+
+To explain the idea, consider a simplified scenario.
+Let \(x[t] \in \mathbb{R}^N\) be random instances of i.i.d.\ Rademacher distribution.
+Consider a linear time-invariant channel with
+\begin{gather*}
+y[t] =(x[t] \star h[t]) +z[t]
+\end{gather*}
+where \(h[t] \in \mathbb{R}^L\) is the channel's impulse response, \(x[t] \in \mathbb{R}^N\) as the input, \(y[t] \in \mathbb{R}^N\) as the output, and \(z[t] \in \mathbb{R}^L\) are random instances of i.i.d.\ normalized AWGN, and \(N \gg L\).
+Here, if the convolutional relation is expressed by a matrix \(X\), \(X\) is a Toeplitz matrix, so that
+\begin{gather*}
+y =X h
+\end{gather*}
+where \(X\) takes the form
+\begin{align*}
+X
+=\begin{bmatrix}
+x_1, &0, &\cdots, &0 \\
+x_2, &x_1, &\cdots, &0 \\
+\vdots, &\vdots, &\ddots, &0 \\
+x_N, &x_{N-1}, &\cdots, &x_1
+\end{bmatrix}
+\end{align*}
+We seek to get \(h\) in this undertermined system.
+
+Then \(X\) is RIP of overwhelmingly probability.
+
+\subsection{Contribution}
+
+This being said, previous work only makes the assumption on the bound of the norm of the channel matrix, and, to the best knowledge of the author, has not characterized the such probability bounds as involving, say, number of channel paths and vector of array response.
+This article suggests a convex program analogous of DS in order to directly estimate the channel under hypothesis of uniform linear array response.
+Moreover, inspired by the lines of proof of Cand\`es and Tao (2006), the author gives such an asymptotic bound for the probability will be shown, that indicates our method is successful for overwhelming probability.
+
+
+\section{Problem Setting}
+
+\subsection{Notation}
+
+We restrict our discussion to the Hilbert space over the field of \(\mathbb{C}\), equipped with usual inner product.
+The complex numbers has natural interpretation as the phasor of electronic waves.
+Boldface lower case Latin alphabets denote vectors, and boldface upper case Latin alphabets denote matrices.
+Let \(\omega =(\omega_1, \omega_2, \omega_3) \in \Omega =[0,1)^3\) denote the overall index of the probability space.
+\(\omega_1\) stands for the probability index of the transmitter end, and \(\omega_2\) for the channel, and \(\omega_3\) for the receiver.
+
+Define the uniform linear array, which can be modeled as
+\begin{gather*}
+\mathbf{a}(\phi')
+=\sum_{n=1}^{N} e^{n \phi' i} \mathbf{u}_n
+\end{gather*}
+where \(i\) is the imaginary unit, \(\mathbf{u}_n\) is the unit vector of the \(n\)-th component.
+
+And consider channel of the form
+\begin{gather*}
+H
+=\sum_{l=0}^L \alpha_l \mathbf{a}(\phi_l) \mathbf{a}(\theta_l)^\dagger
+\end{gather*}
+The physical meaning of  \(\theta_l\) is the \(l\)-th angle of arrival, and \(\theta_l\) the \(l\)-th angle of arrival.
+It is noted that in real scenario, the exponent \(i n \phi_l\) should be multiplied by a factor accounting for the spacing of two adjacent antenna.
+But, since we consider uniform distribution of \(\theta_l, \phi_l\)'s, it suffices to absorb such factors into the values of \(\theta_l, \phi_l\)'s.
+
+Moreover, let the convention for discrete Fourier transform be adopted as below for completeness of presentation.
+
+\textbf{Definition.} Let \(\mathbf{v} \in \mathbb{R}^m\) be given.
+We say \(u \in \mathbb{R}^m\) is the discrete Fourier transform of \(\mathbf{v}\), if
+\begin{gather*}
+\mathbf{u} =F \mathbf{v}
+\end{gather*}
+where each entry of the matrix \(F\) is defined to be
+\begin{gather*}
+F_{k,n} =e^{2\pi ikn/N},
+\quad k,n =0,1,2,\dotsc, N-1
+\end{gather*}
+
+\(H\) has \(N\) columns, but to estimate it, we may agree to send one pilot signal at one time, which consists of only one antenna sending signal, namely \(\mathbf{u}_n\).
+This way, we get
+\begin{gather*}
+\tilde{H}_n
+:=H \mathbf{u}_n
+=\sum_{l=0}^L \alpha_l \exp(-i n \theta_l) \mathbf{a}(\phi_l)
+\end{gather*}
+If we absorb angle of incidence (formed by the ray of electronic wave and the normal line)
+\((d/\lambda) \sin \tilde{\theta}_l\)
+
+
+\section{Results and Proofs}
+
+\textbf{Lemma.} Let \(\phi(\omega_3)\) be a uniformly distributed in \([0,2\pi)\) according to probability space index \(\omega_3 \in \Omega\).
+And the function \(\mathbf{a}(\phi)\) is defined as in \eqref{}.
+Then the discrete Fourier transform 
+
+To find the \(l\)-th path's contribution to the frequency domain, recall the identity
+\begin{align*}
+S(\phi)
+:=&\left| \sum_{n=0}^{N-1} e^{i n \phi} \right| \\
+=&\left| \frac{e^{i N \phi} -1}{e^{i \phi} -1} \right| \\
+=&\left| \frac{e^{i N \phi/2} -e^{-i N \phi/2}}{e^{i \phi /2} -e^{-i \phi /2}} \cdot e^{i (N-1) \phi/2} \right| \\
+=&\frac{|\sin(N \phi/2)|}{|\sin(\phi /2)|},
+\quad 0 \leq \phi \leq \pi
+\end{align*}
+By taking the first two term of the expansion \(\sin x =x -x^3/6 +- \dotsc\), and noting the monotony, 
+\begin{align*}
+S(\phi)
+\leq& \frac{1}{\phi/2 -(\phi/2)^3/6} \\
+=& \frac{-48}{\phi^3 -24\phi}
+\quad 0 \leq \phi \leq \pi,
+\end{align*}
+
+The fraction above can be bounded.
+
+By the same token, more generally,
+\begin{align*}
+&\left| \frac{1}{N} \sum_{n=0}^{N-1} e^{-2\pi i k n/N} e^{i n \phi} \right| \\
+=&\frac{|\sin( \phi N /2 )|}{N |\sin( \pi k /N -\phi /2 )|} \\
+=&\frac{1}{N} S(\pi \phi') \\
+\leq& \frac{48}{N \pi^3 (\phi'^3 -24 \phi' /\pi^2)}
+\end{align*}
+where \(\phi' =k/N -\phi/2\pi\), and the cubic expression is split.
+We wish to bound the tail of \(S(\pi \phi')\), and apply the na\"ive bound
+\begin{align*}
+&\frac{N}{2\pi} \cdot \frac{48}{N \pi^3} \int_{L/N}^1 \frac{1}{\phi'^3 -24 \phi' /\pi^2}
+ d\phi' \\
+=&\frac{1}{2\pi^2} \cdot \left( 2 \log \frac{L}{N} +\log \frac{24-\pi^2}{24-\pi^2 L^2 /N^2} \right) \\
+\leq& \frac{1}{\pi^2} \log \frac{L}{N}
+\end{align*}
+Here, the integral in the first line is immediate.
+The second term in the bracket is smaller than 0 and is dropped in the last inequality.
+The bound is satisfying enough, though refinement is surely possible.
+Indeed, \(\log L/N \to 0\) as \(N \to \infty\) and limited by the number of paths \(L\).
+
+%A =\mathrm{supp} \beta
+
+where
+\begin{gather*}
+\mathcal{A}, \mathca{B}, \mathcal{C} \subset \mathbb{N} \\
+\mathcal{A} \cap \mathcal{B} =B \cap C =A \cap C =\varempty \\
+A \cup B \cup C =\{1, \dotsc, N\}.
+\end{gather*}
+
+
+\textbf{Proposition}.
+Let \(h \in \mathbb{R}^n\) and \(\eta \in \mathbb{R}^p\) are defined as in \eqref{}.
+Then
+\begin{align*}
+\|h_A\|_1 -\|\eta_A\|_1 +\|\eta_C\|_1 -\|h_C\|_1
+\leq& \|h +\eta\|_1 \\
+\leq& \|h\|_1
+\end{align*}
+
+\textbf{Proof}.
+
+
+\begin{align*}
+\|X^\dagger_{AB} X \eta\|_\infty
+<&\|X^\dagger X \eta\|_\infty \\
+\leq& 2 \lambda_p
+\end{align*}
+
+\begin{align*}
+\|\eta_Ah\|_2
+\leq K_1 \|X^\dagger_{AB} X \eta\|_2 +K_2 \|\eta_C\|_2
+\end{align*}
+Tao, Lemma 1-1
+
+
+Tao, Lemma 1-2
+\begin{align*}
+\|\eta\|_2^2
+\leq \|\eta_{AB}\|_2^2 +K_3 \|\eta_C\|_2^2
+\end{align*}
+
+Another difference is that this article solves the optimization problem solely using the method of greatest descent.
+While OMP is widely used 
+With the analysis of [], OMP is usually used
+But 
+
+% % % % % % % % % % % % % % % %
+
+
+
+\section{References}
+
+\begin{enumerate}
+
+\item F Sohrabi and W Yu, ``Hybrid Digital and Analog Beamforming Design for Large-Scale Antenna Arrays'', \textit{IEEE Journal of Selected Topics in Signal Processing}, Vol. 10, No. 3, April 2016.
+
+\item F Sohrabi and W Yu, ``Hybrid Analog and Digital Beamforming for OFDM-Based Large-Scale MIMO Systems''. 2016 IEEE 17th International Workshop on Signal Processing Advances in Wireless Communications (SPAWC).
+
+\item A Goldsmith, S A Jafar, N Jindal, and S Vishwanath, ``Capacity Limits of MIMO Channels'', \textit{IEEE Journal on Selected Areas in Communications}, Vol. 21, No.5, June 2003.
+
+\item R W Heath Jr, N González-Prelcic, S Rangan, W Roh, and A M Sayeed, ``An Overview of Signal Processing Techniques for Millimeter Wave MIMO Systems''. \textit{IEEE Journal of Selected Topics in Signal Processing}, Vol. 10, No. 3, April 2016.
+
+\item H Li, Q Gao, R Chen, R Tamrakar, S Sun, and W Chen, ``Codebook Design for Massive MIMO Systems in LTE'', \textit{2016 IEEE 83rd Vehicular Technology Conference (VTC Spring)}.
+
+\item W U Bajwa, J Haupt, A M Sayeed, and R Nowak (2010), ``Compressed Channel Sensing: A New Approach to Estimating Sparse Multipath Channels''. Proceedings of the IEEE, Vol.98, No.6.
+
+\item W U Bajwa, J Haupt, G Raz, and R Nowak (2008), ``Compressed Channel Sensing''. 2008 42nd Annual Conference on Information Sciences and Systems.
+
+\item S Boyd, L Vandenberghe (2004), \textit{Convex Optimization}. Cambridge U. Press.
+
+\item E J Cand\`es, J Romberg, and T Tao (2006), ``Robust Uncertainty Principles: Exact Signal Reconstruction From Highly Incomplete Frequency Information'' \textit{IEEE Transactions on Information Theory}, Vol.52, No.2.
+
+\item E J Cand\`es and J Romberg (2005), ``\(\ell_1\)-MAGIC: Recovery of Sparse Signals via Convex Programming''. Retrieved from ``https://statweb.stanford.edu/~candes/l1magic/downloads/l1magic.pdf''.
+
+\item E J Cand\`es and T Tao (2005), ``Decoding by Linear Programming.'' \textit{IEEE Transactions on Information Theory}, Vol.51, No.12.
+
+\item E J Cand\`es and T Tao (2006), ``Near-Optimal Signal Recovery From Random Projections: Universal Encoding Strategies?'' \textit{IEEE Transactions on Information Theory}, Vol.52, No.12.
+
+\item E Cand\`es and T Tao (2007), ``The Dantzig Selector: Statistical Estimation when \(p\) is Much Larger than \(n\)''. \textit{The Annals of Statistics}, Vol.35, No.6.
+
+\item R W Heath Jr, N González-Prelcic, S Rangan, W Roh, and A M Sayeed (2016), ``An Overview of Signal Processing Techniques for Millimeter Wave MIMO Systems''. \textit{IEEE Journal of Selected Topics in Signal Processing}, Vol.10, No.3
+
+\item R Baraniuk, M Davenport, R DeVore, and M Wakin (2008), ``A Simple Proof of the Restricted Isometry Property for Random Matrices''. \textit{Constructive Approximation} \textbf{28}: 253–263
+
+\item M R Akdeniz et.\ al.\ (2014), ``Millimeter Wave Channel Modeling and Cellular Capacity Evaluation''. \textit{IEEE Journal on Selected Areas in Communications}, Vol.\ 32, No.\ 6
+
+
+\end{enumerate}
+
+\end{document}
