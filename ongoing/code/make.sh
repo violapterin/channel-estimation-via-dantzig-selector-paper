@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
 
-#OBJS="main.o functions.o constants.o"
-#CC="g++"
-#CFLAGS="-Wall -g"
-#eval "${CC}" "${CFLAGS}" -o "${OBJS}"
+OBJS="main.o functions.o constants.o channel.cpp oommpp.cpp"
+CPPS="src/main.cpp src/functions.cpp src/const.cpp src/channel.cpp src/oommpp.cpp src/ddss.cpp"
+CC="g++"
+CFLAGS="-I lib/ -Wall -g -O3 -o"
+#CFLAGS="-I lib/ -no-canonical-prefixes -Wall -g -O3 -o"
+NAME="main"
 
-g++ -Wall -O3 -o ./bin/main.o ./src/main.cpp ./src/functions.cpp ./src/constants.cpp 
-#g++ -Wall -g -o ./bin/main.o ./src/main.cpp ./src/functions.cpp ./src/constants.cpp 
-
-
+eval "${CC}" "${CFLAGS}" "${NAME}" "${CPPS}"
