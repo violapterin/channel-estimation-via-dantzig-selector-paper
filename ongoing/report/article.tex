@@ -12,12 +12,12 @@
 \title{Compressive Channel Sensing of Multipath Millimeter Channel via a Beamspace Dantzig Selector and its Probabilitic Performance Bound}
 
 \newcounter{numResult}
-%\setcounter{numResult}{1}
 \newcommand{\myCount}
 {
    \stepcounter{numResult}
    \textbf{\arabic{numResult}}
 }
+%\newcommand{\qed}{\tag*{$\blacksquare$}}
 
 \begin{document}
 
@@ -299,6 +299,8 @@ The physical meaning of \(\theta_l\) is the \(l\)-th angle of arrival, and \(\th
 It is noted that in real scenario, the exponent \(i n \phi_l\) should be multiplied by a factor \((1/\lambda) \sin \eta\), \(\eta\) being the incident angle, accounting for the spacing of two adjacent antenna.
 But, since we consider uniform distribution of \(\theta_l, \phi_l\)'s, it suffices to absorb such factors into the values of \(\theta_l, \phi_l\)'s.
 
+If we absorb angle of incidence (formed by the ray of electronic wave and the normal line)
+\((d/\lambda) \sin \tilde{\theta}_l\)
 Moreover, let the convention for discrete Fourier transform be adopted as below for completeness of presentation.
 
 \myCount
@@ -321,23 +323,95 @@ We say \(u \in \mathbb{R}^m\) is the discrete Fourier transform of \(\mathbf{v}\
 \end{gather}
 where each entry of the matrix \(F\) is defined to be
 \begin{gather}
-F_{k,n} =e^{2\pi ikn/N},
-\quad k,n =0,1,2,\dotsc, N-1
+F_{m,n} =e^{2\pi ikm/N},
+\quad m,n =0,1,2,\dotsc, N-1
 \end{gather}
 
-\(H\) has \(N\) columns, but to estimate it, we may agree to send one pilot signal at one time, which consists of only one antenna sending signal, namely \(\mathbf{u}_n\).
-This way, we get
+In summary, the effective channel may be written as
 \begin{gather}
-\tilde{H}_n
-:=H \mathbf{u}_n
-=\sum_{l=0}^L \alpha_l \exp(-i n \theta_l) \mathbf{a}(\phi_l)
+Y (\omega_h, \omega_z)
+:=W_B W_R ( H(\omega_h) F_R F_B \mathbf{u}_m +z(\omega_z) )
 \end{gather}
-If we absorb angle of incidence (formed by the ray of electronic wave and the normal line)
-\((d/\lambda) \sin \tilde{\theta}_l\)
+Supress the probabilistic index for simplicity, we restate the same equation as
+\begin{gather}
+Y
+:=W_B W_R ( H F_R F_B \mathbf{u}_m +z )
+\end{gather}
 
-\subsection{Proposed Algorithm}
+\subsection{Proposed Method}
 
+The effective channel \(Y\) has \(N\) columns, but to estimate it, we may agree to send one pilot signal at one time, which consists of only one antenna sending signal, namely \(\mathbf{u}_n\).
+This way, we may denote the acquired effective channel matrix \(Y\) under noisy observation as (borrowing Matlab's colon notation to denote submatrix)
+\begin{gather}
+Y_{:,n}
+:=W_B W_R ( H F_R F_B \mathbf{u}_m +z ), \quad
+n =1, 2, \dotsc, N_B
+\end{gather}
+The crux of the matter is the recovery of \(H\) with knowledge of \(Y\), and of course \(W_R, W_B, F_R, F_B\) which are in our control.
 
+We recall that, as the author has argued above, existent literature often makes use of OMP, and exploit the relation
+
+\begin{gather}
+\mathrm{vec}(Y) -z
+=\big[ (F_R^\dagger F_B^\dagger) \otimes (W_B W_R) \big] \mathrm{vec}(H)
+\end{gather}
+
+as sparse recovery problem of \(\mathrm{vec}(H)\).
+But that suffers the problem of grid quantization, and 
+On the other hand, the author argues in favor of DS, since it is provably ideal in certain senses, guaranteed even under noisy condition,
+So why do we not simply formulate the recovery of \(H\) as a DS program?
+DS is an \(\ell_1\)-minimization problem, and, since it is well known to be convex, it is no less tractable than OMP.
+
+In addition, observe that, if we write
+\begin{gather}
+G =K^\dagger H
+\end{gather}
+as the spatial frequency domain representation of \(H\), then
+\begin{gather}
+Y
+:=W_B W_R K ( G F_R F_B +K^\dagger z ), \quad
+n =1, 2, \dotsc, N_B
+\end{gather}
+If at the end of day, \(G\) is sparse, then we recover \(G\) instead, and our use of DS is fully justified.
+
+That is to say, \(K^\dagger z\) may be absorbed, and a similar Kronecker product may be used.
+\begin{gather}
+\mathrm{vec}(Y)
+\approx \big[ (K F_R^\dagger F_B^\dagger) \otimes (W_B W_R) \big] \mathrm{vec}(H)
+\end{gather}
+If so, our program reads
+
+\myCount
+\textbf{Program}.
+Let \(H(\omega_h, \omega_n)\) be the virtual channel, and \(W_R(\omega_r)\) the random analog combiner, \(W_B(\omega_r)\) the random analog combiner, \(F_R(\omega_t)\) the random analog combiner, \(F_B(\omega_t)\) the random analog combiner, and \(K\) the discrete Fourier matrix, all as described in previous sections.
+Suppose \(Y\) is the acquired effective channel matrix under noisy observation.
+Set the beamspace vector representation of \(H\) to be
+\begin{gather}
+\tilde{h} := \mathrm{vec}(H) \\
+\tilde{y} := \mathrm{vec}(Y) \\
+A =(K^\dagger F_R F_B) \otimes (W_B W_R K)
+\end{gather}
+and set
+\begin{gather}
+r =\tilde{y} -A \tilde{h}
+\end{gather}
+Then, with parameter \(\gamma\) specified, define the following program
+\begin{gather}
+\hat{\tilde{g}}
+=\underset {{\tilde{h}}} {\mathrm{min}} \|\tilde{h}\|_1 \quad
+\mathrm{s.t.}\;\; \|A^\dagger r\|_\infty \leq \gamma
+\end{gather}
+And convert \(\hat{\tilde{g}}\) back to the space domain as
+\begin{gather}
+\hat{\tilde{h}}
+=K^\dagger \hat{\tilde{g}}.
+\end{gather}
+And finally recover the estimated \(H\) as
+\begin{gather}
+\hat{H} =\mathrm{vec}^{-1} (\hat{\tilde{h}}) \quad \blacksquare
+\end{gather}
+
+It will not be hard to establish Cand\`es and Tao's result to the setting of millimeter wave virtual channel, and resulting bound is immediate under straighforward work, as below.
 
 \section{Results and Proofs}
 
@@ -416,7 +490,7 @@ Then
 \leq& 2 \lambda_p
 \end{align}
 
-From ``Dantzig Selector'' (Cand\`es and T Tao 2007), Lemma 1, first equation.
+From ``Dantzig Selector'' (Cand\`es and Tao 2007), Lemma 1, first equation.
 
 \stepcounter{numResult}
 \arabic{numResult}
@@ -427,7 +501,7 @@ From ``Dantzig Selector'' (Cand\`es and T Tao 2007), Lemma 1, first equation.
 \end{align}
 
 
-From ``Dantzig Selector'' (Cand\`es and T Tao 2007), Lemma 1, second equation.
+From ``Dantzig Selector'' (Cand\`es and Tao 2007), Lemma 1, second equation.
 
 \stepcounter{numResult}
 \arabic{numResult}
@@ -443,6 +517,15 @@ With the analysis of [], OMP is usually used
 
 
 \section{Simulation}
+
+With the preperation of notation in the previous section, and a discussion on its theory, we shall now formulate our algorithm and focus on the practical aspect.
+
+\subsection{Main Problem Written as an Convex Optimization Program}
+
+
+
+\subsection{Primal-Dual Algorithm for Our DS Program}
+
 
 Since our setting is slightly different
 In this section we first describe the DS algorithm, which is our target of investigation, and briefly review the OMP algorithm, for sake of comparison.
