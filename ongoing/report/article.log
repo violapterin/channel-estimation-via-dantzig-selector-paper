@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/Arch Linux) (preloaded format=pdflatex 2018.12.22)  31 DEC 2018 18:10
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018/Arch Linux) (preloaded format=pdflatex 2018.12.22)  1 JAN 2019 02:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -545,36 +545,29 @@ ield of $\U/msb/m/n/12 C$\OT1/cmr/m/n/12 , equipped
  []
 
 [2] [3] [4] [5] [6] [7] [8] [9] [10]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 387.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 389.
 
 
 (/usr/share/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 387.
- [11] [12] [13]
-
-LaTeX Warning: Reference `' on page 14 undefined on input line 519.
-
-[14] [15]
-
-LaTeX Warning: Reference `' on page 16 undefined on input line 574.
-
-[16] [17] [18] [19]
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 389.
+ [11] [12] [13] [14] [15]
+[16] [17] [18] [19] [20] [21]
 
 Package ocgx2 Warning: Rerun to get OCG references right!
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 711.
-[20]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 711.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 790.
+[22]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 790.
  (./article.aux
 
 Package pdfbase Warning: Rerun to get internal references right!
 
 )
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 711.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 711.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 790.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 790.
 
 
 Package rerunfilecheck Warning: File `article.out' has changed.
@@ -582,18 +575,15 @@ Package rerunfilecheck Warning: File `article.out' has changed.
 (rerunfilecheck)                or use package `bookmark'.
 
 Package rerunfilecheck Info: Checksums for `article.out':
-(rerunfilecheck)             Before: 3ECD3A2069BF9C83F46528915B799891;736
-(rerunfilecheck)             After:  157FD905869C2902CC7C485DA9E8FCC2;1280.
-
-LaTeX Warning: There were undefined references.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 711.
+(rerunfilecheck)             Before: ED97D7A33E5FFD9B429A33C35618DDDA;1093
+(rerunfilecheck)             After:  97256FE4ED3355A0FE41DD19C809D397;1342.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 790.
  ) 
 Here is how much of TeX's memory you used:
- 16684 strings out of 492639
- 292439 string characters out of 6135496
- 366920 words of memory out of 5000000
- 20357 multiletter control sequences out of 15000+600000
+ 16716 strings out of 492639
+ 292931 string characters out of 6135496
+ 366957 words of memory out of 5000000
+ 20370 multiletter control sequences out of 15000+600000
  542598 words of font info for 63 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  47i,16n,65p,333b,418s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -603,18 +593,18 @@ ts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fonts/type1/publi
 c/amsfonts/cm/cmmi6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/c
 mmi8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/
 share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmsy6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></
-usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texmf-dist/fonts/t
-ype1/public/amsfonts/symbols/msam10.pfb></usr/share/texmf-dist/fonts/type1/publ
-ic/amsfonts/symbols/msbm10.pfb></usr/share/texmf-dist/fonts/type1/urw/zapfding/
-uzdr.pfb>
-Output written on article.pdf (20 pages, 221433 bytes).
+t/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></u
+sr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmtt12.pfb></usr/share/texmf-dist/fonts/type1/public/amsf
+onts/symbols/msam10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/symb
+ols/msbm10.pfb></usr/share/texmf-dist/fonts/type1/urw/zapfding/uzdr.pfb>
+Output written on article.pdf (22 pages, 236006 bytes).
 PDF statistics:
- 321 PDF objects out of 1000 (max. 8388607)
- 280 compressed objects within 3 object streams
- 117 named destinations out of 1000 (max. 500000)
- 105 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 372 PDF objects out of 1000 (max. 8388607)
+ 327 compressed objects within 4 object streams
+ 136 named destinations out of 1000 (max. 500000)
+ 153 words of extra memory for PDF output out of 10000 (max. 10000000)
 

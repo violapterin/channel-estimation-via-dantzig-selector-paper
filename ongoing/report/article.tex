@@ -46,7 +46,7 @@ If the sparsity is exploited, few observations may suffice to estimate the chann
 A promiment estimator is The Dantzig Selector (DS) proposed by Tao and Cand\'es, and it is DS which was first applied in channel estimation context.
 However, Orthogonal Matching Pursuit (OMP) later emerges as a low-complexity solution, and following-up literature usually used OMP rather than DS as a result.
 
-In this article, we utilize a hybrid structure at both transmitter and receiver end, consisting of both digital and analog percoders and combiners.
+In this article, we utilize a hybrid structure at both transmitter and receiver end, each of them having both digital and analog percoders and combiners.
 We argue in favor of DS, and verify that DS is, as originally perceived, ideal in certain senses.
 DS encompasses a more general setting than OMP, such as in its requirement of restricted isometry property (RIP) only, and as in its allowance of noise corruption.
 Moreover, we extend their proof to derive a stronger bound in the setting of estimation of millimeter wave channel for almost-sparse channel matrix
@@ -374,14 +374,16 @@ Our contribution include:
 
 \section{Problem Setting}
 
-Let the direct product
+\subsection{Channel Model}
+
+Since expression involving probability will get very complecated, introduce the direct product
 %
 \begin{gather}
 \Omega
 =\Omega_t \times \Omega_h \times \Omega_n \times \Omega_r
 \end{gather}
 %
-denote the overall sample space, where:
+to denote the overall sample space, where
 %
 \begin{itemize}
 \item \(\Omega_t\) denotes the collection of probability samples at the transmitter end,
@@ -390,11 +392,8 @@ denote the overall sample space, where:
 \item \(\Omega_r\) denotes that at the receiver end.
 \end{itemize}
 %
-\(\omega_1\) stands for the probability index of the transmitter end, and \(\omega_2\) for the channel, and \(\omega_3\) for the receiver.
+\(\omega_1\) stands for the event space index of the transmitter end, and \(\omega_2\) for the channel, and \(\omega_3\) for the receiver.
 
-
-
-\subsection{Channel Model}
 
 We restrict our consideration to the uniform linear array, which can be modeled as
 \begin{gather}
@@ -406,33 +405,61 @@ where \(i\) is the imaginary unit, \(\mathbf{u}_n\) is the unit vector of the \(
 And consider the virtual representation of the MIMO channel (see for example Akdeniz et.\ al.\ 2014).
 \begin{gather}
 H
+=\sum_{l=0}^L \alpha_l \mathbf{a}\big( \frac{d}{\lambda} \sin \phi_l' \big) \mathbf{a}\big( \frac{d}{\lambda} \sin \theta_l' \big)^\dagger
+\end{gather}
+The physical meaning of \(\theta_l\) is the \(l\)-th angle of incidence (formed by the ray and the normal line) of departure electronic wave, and \(\theta_l\), the \(l\)-th that of arrival wave.
+
+For our purpose, we may absorb the argument of \(\mathbf{a}\) as
+\begin{gather}
+\phi_l
+=\frac{d}{\lambda} \sin \phi_l' \\
+\theta_l
+=\frac{d}{\lambda} \sin \theta_l'
+\end{gather}
+to get a simpler form
+\begin{gather}
+H
 =\sum_{l=0}^L \alpha_l \mathbf{a}(\phi_l) \mathbf{a}(\theta_l)^\dagger
 \end{gather}
-The physical meaning of \(\theta_l\) is the \(l\)-th angle of arrival, and \(\theta_l\) the \(l\)-th angle of arrival.
-It is noted that in real scenario, the exponent \(i n \phi_l\) should be multiplied by a factor \((1/\lambda) \sin \eta\), \(\eta\) being the incident angle, accounting for the spacing of two adjacent antenna.
-But, since we consider uniform distribution of \(\theta_l, \phi_l\)'s, it suffices to absorb such factors into the values of \(\theta_l, \phi_l\)'s.
 
-If we absorb angle of incidence (formed by the ray of electronic wave and the normal line)
-\((d/\lambda) \sin \tilde{\theta}_l\)
 Moreover, let the convention for discrete Fourier transform be adopted as below for completeness of presentation.
 
-
-
-\myCount
-\textbf{Definition.} Let \(\mathbf{v} \in \mathbb{R}^m\) be given.
+\Result
+{Definition.}
+{
+Let \(\mathbf{v} \in \mathbb{R}^m\) be given.
 We say \(u \in \mathbb{R}^m\) is the discrete Fourier transform of \(\mathbf{v}\), if
 \begin{gather}
-\mathbf{u} =F \mathbf{v}
+\mathbf{u} =\dagger F \mathbf{v}
 \end{gather}
-where each entry of the matrix \(F\) is defined to be
+where each entry of the matrix \(K\) is defined to be
 \begin{gather}
-F_{m,n} =e^{2\pi ikm/N},
+   K(m,n) =\frac{1}{\sqrt{N}} e^{2\pi imn/N},
 \quad m,n =0,1,2,\dotsc, N-1
 \end{gather}
+where \(i =\sqrt{-1}\).
+}
+
+\subsection{System Model}
+
+We consider the situation with a hybrid structure at both transmitter and receiver end.
+Each end consists of both digital and analog percoders and combiners.
+In the transmitter end, there are digital precoder \(F_B\) and analog precoder \(F_R\).
+Similarly, in the receiver end, there are digital combiner \(W_B\) and analog combiner \(W_R\).
+Recall that analog precoder is restricted to have value with magnitude being unity.
+To set up notation, we list them as below.
+\begin{gather}
+F_B \in \mathbb{R}^{N_r \cdot N_s} \\
+F_R \in \mathbb{R}^{N_h \cdot N_r}, |F_R(i,j)| =1 \\
+F_B \in \mathbb{R}^{N_r \cdot N_h} \\
+F_B \in \mathbb{R}^{N_s \cdot N_r}, |F_R(i,j)| =1.
+\end{gather}
+And we consider zero-mean, unity-variance additive white Gaussian noise \(z\).
+Since we restrict our discussion to a specific slice of time, the signal \(z\) degrades as a entrywise i.i.d.\ standard normal distribution vector.
 
 In summary, the effective channel may be written as
 \begin{gather}
-Y (\omega_h, \omega_z)
+U (\omega_h, \omega_e)
 :=W_B W_R ( H(\omega_h) F_R F_B \mathbf{u}_m +z(\omega_z) )
 \end{gather}
 Supress the probabilistic index for simplicity, we restate the same equation as
@@ -443,23 +470,26 @@ Y
 
 \subsection{Proposed Method}
 
-The effective channel \(Y\) has \(N\) columns, but to estimate it, we may agree to send one pilot signal at one time, which consists of only one antenna sending signal, namely \(\mathbf{u}_n\).
-This way, we may denote the acquired effective channel matrix \(Y\) under noisy observation as (borrowing Matlab's colon notation to denote submatrix)
+The effective channel \(U\) has \(N\) columns, but to estimate it, we may agree to send one pilot signal at one time, which consists of only one antenna sending signal, namely \(\mathbf{u}_n\).
+This way, we may denote the acquired effective channel matrix \(U\) under noisy observation as (borrowing Matlab's colon notation to denote submatrix)
 \begin{gather}
 Y_{:,n}
 :=W_B W_R ( H F_R F_B \mathbf{u}_m +z ), \quad
 n =1, 2, \dotsc, N_B
 \end{gather}
-The crux of the matter is the recovery of \(H\) with knowledge of \(Y\), and of course \(W_R, W_B, F_R, F_B\) which are in our control.
+The crux of the matter is the recovery of \(H\) with knowledge of \(U\), and of course \(W_R, W_B, F_R, F_B\) which are in our control.
 
+Following previous work on CSS, we write
+\begin{gather}
+h := \mathrm{vec}(H) \\
+u := \mathrm{vec}(U) \\
+A =(K^\dagger F_R F_B) \otimes (W_B W_R K)
+\end{gather}
+to formulate our goal as sparse recovery problem of \(\mathrm{vec}(H)\).
+But, as we have motivated in previous sections, we want to elimitate the angle grid quantization problem, and we want to use DS by considering sparse vector.
+What shall we do?
 
-as sparse recovery problem of \(\mathrm{vec}(H)\).
-But that suffers the problem of grid quantization, and 
-On the other hand, the author argues in favor of DS, since it is provably ideal in certain senses, guaranteed even under noisy condition,
-So why do we not simply formulate the recovery of \(H\) as a DS program?
-DS is an \(\ell_1\)-minimization problem, and, since it is well known to be convex, it is no less tractable than OMP.
-
-In addition, observe that, if we write
+Observe that, if we write
 \begin{gather}
 G =K^\dagger H
 \end{gather}
@@ -470,61 +500,91 @@ Y
 n =1, 2, \dotsc, N_B
 \end{gather}
 If at the end of day, \(G\) is sparse, then we recover \(G\) instead, and our use of DS is fully justified.
+To the best of our knowledge, no work has explicitly considered the beamspace CSS.
 
 That is to say, \(K^\dagger z\) may be absorbed, and a similar Kronecker product may be used.
 \begin{gather}
 \mathrm{vec}(Y)
-\approx \big[ (K F_R^\dagger F_B^\dagger) \otimes (W_B W_R) \big] \mathrm{vec}(H)
+\approx \big[ (F_B^\dagger F_R^\dagger) \otimes (W_B W_R K) \big] \mathrm{vec}(H)
+\end{gather}
+To simplify notation, set 
+\begin{gather}
+P =(F_B^\dagger F_R^\dagger) \otimes (W_B W_R K)
+\end{gather}
+The instances of \(P\) is completely determined in the transmitter and receiver end, that is
+\begin{gather}
+P =P(\omega_t, \omega_r)
 \end{gather}
 If so, our program reads
 
-\myCount
-\textbf{Program}.
+\Result
+{Program}
+{
 Let \(H(\omega_h, \omega_n)\) be the virtual channel, and \(W_R(\omega_r)\) the random analog combiner, \(W_B(\omega_r)\) the random analog combiner, \(F_R(\omega_t)\) the random analog combiner, \(F_B(\omega_t)\) the random analog combiner, and \(K\) the discrete Fourier matrix, all as described in previous sections.
-Suppose \(Y\) is the acquired effective channel matrix under noisy observation.
-Set the beamspace vector representation of \(H\) to be
+Suppose \(U\) is the acquired effective channel matrix under noisy observation.
+\(A\) is defined just above in ().
+Set
 \begin{gather}
-h := \mathrm{vec}(H) \\
-\tilde{y} := \mathrm{vec}(Y) \\
-A =(K^\dagger F_R F_B) \otimes (W_B W_R K)
-\end{gather}
-and set
-\begin{gather}
-r =\tilde{y} -A h
+r =u -P h
 \end{gather}
 Then, with parameter \(\gamma\) specified, define the following program
 \begin{gather}
-\hat{\tilde{g}}
+\hat{g}
 =\underset {{h}} {\mathrm{min}} \|h\|_1 \quad
 \mathrm{s.t.}\;\; \|A^\dagger r\|_\infty \leq \gamma
 \end{gather}
-And convert \(\hat{\tilde{g}}\) back to the space domain as
+And convert \(\hat{g}\) back to the space domain as
 \begin{gather}
 \hat{h}
-=K^\dagger \hat{\tilde{g}}.
+=K^\dagger \hat{g}.
 \end{gather}
 And finally recover the estimated \(H\) as
 \begin{gather}
 \hat{H} =\mathrm{vec}^{-1} (\hat{h})
 \end{gather}
+}
 
-It will not be hard to establish Cand\`es and Tao's result to the setting of millimeter wave virtual channel, and resulting bound is immediate under straighforward work, as below.
-
-
+It will not be hard to establish Cand\`es and Tao's result to the setting of millimeter wave virtual channel, and resulting bound is immediate under straighforward work, as follows.
 
 \section{Results and Proofs}
 
-\myCount
-\textbf{Lemma.} Let \(\phi(\omega_3)\) be a uniformly distributed in \([0,2\pi)\) according to probability space index \(\omega_3 \in \Omega\).
-And the function \(\mathbf{a}(\phi)\) is defined as in \eqref{}.
-Then the discrete Fourier transform 
+We follow the argument outlined in ``The Dantzig Selector'' and fill the content.
+The sparse vector to be recovered of our investigation is \(g \in \mathbb{R}^{N_H^2}\), and we continue to use \(\hat{g}\) to denote the Dantzig Selector.
 
-To find the \(l\)-th path's contribution to the frequency domain, recall the identity
+We first establish a technical lemma that shows \(\mathrm{supp}(g)\) has roughly cardinal \(L\).
+At the heart of the argument, the lemma provides the basis on which \(g\) is almost-sparse.
+
+Consider
+\begin{gather}
+d =g -\hat{g}
+\end{gather}
+And let
+\begin{itemize}
+\item \(\mathcal{A}\) be the largest \(L\) position of \(g\).
+\item \(\mathcal{B}\) be the largest \(L\) position of \(d\) except on \(\mathcal{A}\).
+\item \(\mathcal{C} =\{1, \dotsc, N_H^2\} -( \mathcal{B} \cup \mathcal{C} )\), i.e., the complementary index set.
+\end{itemize}
+So \(\mathcal{A}, \mathcal{B}, \mathcal{C}\) are mutually exclusive index sets by construction:
+\begin{gather}
+\mathcal{A}, \mathcal{B}, \mathcal{C} \subset \{1, \dotsc, N_H^2\} \\
+\mathcal{A} \cap \mathcal{B} =B \cap C =A \cap C =\varnothing \\
+A \cup B \cup C =\{1, \dotsc, N\}.
+\end{gather}
+
+
+
+\Result
+{Lemma.}
+{
+Let \(\phi(\omega_h)\) and \(\theta(\omega_h)\) be both uniformly, independently distributed in \([0,2\pi)\), and beamspace channel matrix \(G\) defined as in ().
+\begin{gather}
+\|g\|_1 \leq \frac{1}{\pi^2} \log \frac{L}{N}.
+\end{gather}
+
+To find the \(l\)-th path's contribution to the frequency domain, recall the identity for Dirichlet kernel
 \begin{align}
 S(\phi)
 :=&\left| \sum_{n=0}^{N-1} e^{i n \phi} \right| \\ \notag
-=&\left| \frac{e^{i N \phi} -1}{e^{i \phi} -1} \right| \\ \notag
-=&\left| \frac{e^{i N \phi/2} -e^{-i N \phi/2}}{e^{i \phi /2} -e^{-i \phi /2}} \cdot e^{i (N-1) \phi/2} \right| \\ \notag
 =&\frac{|\sin(N \phi/2)|}{|\sin(\phi /2)|},
 \quad 0 \leq \phi \leq \pi
 \end{align}
@@ -555,62 +615,81 @@ We wish to bound the tail of \(S(\pi \phi')\), and apply the na\"ive bound
 \end{align}
 Here, the integral in the first line is immediate.
 The second term in the bracket is smaller than 0 and is dropped in the last inequality.
+}
+
 The bound is satisfying enough, though refinement is surely possible.
 Indeed, \(\log L/N \to 0\) as \(N \to \infty\) and limited by the number of paths \(L\).
 
-%A =\mathrm{supp} \beta
+The rest follows ``The Dantzig Selector'' very closely.
 
-
-
-where
-\begin{gather}
-\mathcal{A}, \mathcal{B}, \mathcal{C} \subset \mathbb{N} \\ \notag
-\mathcal{A} \cap \mathcal{B} =B \cap C =A \cap C =\varnothing \\ \notag
-A \cup B \cup C =\{1, \dotsc, N\}.
-\end{gather}
-
-
-\textbf{Proposition}.
-Let \(h \in \mathbb{R}^n\) and \(\eta \in \mathbb{R}^p\) are defined as in \eqref{}.
+\Result
+{Proposition}
+{
+Let \(h \in \mathbb{R}^n\) and \(\eta \in \mathbb{R}^p\) are defined as in ().
 Then
 \begin{align}
-\|h_A\|_1 -\|\eta_A\|_1 +\|\eta_C\|_1 -\|h_C\|_1
-\leq& \|h +\eta\|_1 \\ \notag
-\leq& \|h\|_1
+\|d_{BC}\|_1
+\leq \|d_A\|_1 +\|g_{BC}\|_1
 \end{align}
-
-\textbf{Proof}.
-
-
+}
+To show this, observe
 \begin{align}
-\|X^\dagger_{AB} X \eta\|_\infty
-<&\|X^\dagger X \eta\|_\infty \\ \notag
-\leq& 2 \lambda_p
+\|g\|_1 -\|d_A\|_1 +\|d_{BC}\|_1 -\|g_{BC}\|_1
+\leq& \|g +d\|_1 \\ \notag
+\leq& \|g\|_1
 \end{align}
-
-From ``Dantzig Selector'' (Cand\`es and Tao 2007), Lemma 1, first equation.
+In the first line, we recall \(g =g_A\).
 
 \Result
 {Lemma}
 {
 \begin{align}
-\|\eta_Ah\|_2
-\leq K_1 \|X^\dagger_{AB} X \eta\|_2 +K_2 \|\eta_C\|_2
+|\langle e, P_{:,j} \rangle| \leq \sqrt{2 \log p}
 \end{align}
 }
-
-
-From ``Dantzig Selector'' (Cand\`es and Tao 2007), Lemma 1, second equation.
 
 \Result
 {Lemma}
 {
 \begin{align}
-\|\eta\|_2^2
-\leq \|\eta_{AB}\|_2^2 +K_3 \|\eta_C\|_2^2
+\|P^\dagger P d\|_\infty
+\leq& 2 \sqrt{2 \log p}.
+\end{align}
+}
+To show this, start with
+\begin{align}
+\langle e -r, P_{:,j} \rangle
+=\langle P \hat{g} -P g, P_{:,j} \rangle
+=\langle P g, P_{:,j} \rangle
+\end{align}
+Result follows from triangle inequality, and Lemma ().
+
+From ``Dantzig Selector'' (Cand\`es and Tao 2007), Lemma 1, first equation, we have the result below.
+
+\Result
+{Lemma}
+{
+\begin{align}
+\|d_A\|_2
+\leq \frac{1}{1-\delta} \|P^\dagger_{AB} P \eta\|_2 +\frac{\theta}{(1-\delta) \sqrt{L}} \|d_{BC}\|_1
 \end{align}
 }
 
+
+From ``Dantzig Selector'' (Cand\`es and Tao 2007), Lemma 1, second equation, we have the result below.
+
+\Result
+{Lemma}
+{
+\begin{align}
+\|d\|_2^2
+\leq \|d_{AB}\|_2^2 +\frac{1}{L} \|d_C\|_1^2
+\end{align}
+}
+
+We can formulate our main theorem:
+
+(To be done)
 
 \section{Simulation}
 
