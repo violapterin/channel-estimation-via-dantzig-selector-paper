@@ -1,17 +1,20 @@
 \BOOKMARK [1][-]{section.1}{Acknowledgement}{}% 1
 \BOOKMARK [1][-]{section.2}{Abstract}{}% 2
 \BOOKMARK [1][-]{section.3}{Introduction}{}% 3
-\BOOKMARK [2][-]{subsection.3.1}{Background}{section.3}% 4
-\BOOKMARK [2][-]{subsection.3.2}{The Dantzig Selector}{section.3}% 5
-\BOOKMARK [2][-]{subsection.3.3}{Compressed Channel Sensing}{section.3}% 6
-\BOOKMARK [2][-]{subsection.3.4}{Contribution}{section.3}% 7
-\BOOKMARK [1][-]{section.4}{Problem Setting}{}% 8
-\BOOKMARK [2][-]{subsection.4.1}{Notation}{section.4}% 9
-\BOOKMARK [2][-]{subsection.4.2}{Channel Model}{section.4}% 10
-\BOOKMARK [2][-]{subsection.4.3}{Proposed Method}{section.4}% 11
-\BOOKMARK [1][-]{section.5}{Results and Proofs}{}% 12
-\BOOKMARK [1][-]{section.6}{Simulation}{}% 13
-\BOOKMARK [2][-]{subsection.6.1}{Main Problem Written as an Convex Optimization Program}{section.6}% 14
-\BOOKMARK [2][-]{subsection.6.2}{Primal-Dual Algorithm for Our DS Program}{section.6}% 15
-\BOOKMARK [1][-]{section.7}{Conclusion and Future Work}{}% 16
-\BOOKMARK [1][-]{section.8}{References}{}% 17
+\BOOKMARK [2][-]{subsection.3.1}{Notation}{section.3}% 4
+\BOOKMARK [2][-]{subsection.3.2}{Background}{section.3}% 5
+\BOOKMARK [2][-]{subsection.3.3}{Recovery of Sparse Vector in the Noiseless Case}{section.3}% 6
+\BOOKMARK [2][-]{subsection.3.4}{The Dantzig Selector}{section.3}% 7
+\BOOKMARK [2][-]{subsection.3.5}{Condition of RIP Linear Transformation}{section.3}% 8
+\BOOKMARK [2][-]{subsection.3.6}{Compressed Channel Sensing}{section.3}% 9
+\BOOKMARK [2][-]{subsection.3.7}{Orthogonal Matching Pursuit}{section.3}% 10
+\BOOKMARK [2][-]{subsection.3.8}{Further development on CSS}{section.3}% 11
+\BOOKMARK [2][-]{subsection.3.9}{Contribution}{section.3}% 12
+\BOOKMARK [1][-]{section.4}{Problem Setting}{}% 13
+\BOOKMARK [2][-]{subsection.4.1}{Channel Model}{section.4}% 14
+\BOOKMARK [2][-]{subsection.4.2}{Proposed Method}{section.4}% 15
+\BOOKMARK [1][-]{section.5}{Results and Proofs}{}% 16
+\BOOKMARK [1][-]{section.6}{Simulation}{}% 17
+\BOOKMARK [2][-]{subsection.6.1}{Transformation into Second Order Cone Problem}{section.6}% 18
+\BOOKMARK [1][-]{section.7}{Conclusion and Future Work}{}% 19
+\BOOKMARK [1][-]{section.8}{References}{}% 20
