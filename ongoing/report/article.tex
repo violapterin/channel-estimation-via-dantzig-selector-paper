@@ -6,11 +6,22 @@
 \usepackage[linkcolor=blue]{hyperref}
 \usepackage{xcolor}
 \usepackage[ocgcolorlinks]{ocgx2}
+\usepackage{stackengine}
 
 \author{Tzu-Yu Jeng}
 \date{\today}
 \title{Compressive Channel Sensing of Multipath Millimeter Channel via a Beamspace Dantzig Selector and its Probabilitic Performance Bound}
 
+\newcommand{\MB}[1]{\mathbb{#1}}
+\newcommand{\MC}[1]{\mathcal{#1}}
+\newcommand{\MF}[1]{\mathfrak{#1}}
+\newcommand{\RM}[1]{\mathrm{#1}}
+\newcommand{\T}[1]{\tilde{#1}}
+\newcommand{\V}[1]{\stackunder[1.2pt]{$#1$}{\rule{.9ex}{.075ex}}}
+\newcommand{\M}[1]{\V{\V{#1}}}
+
+\newcommand{\LA}{\langle}
+\newcommand{\RA}{\rangle}
 
 \newcounter{NumResult}
 \newcommand{\myCount}
@@ -65,11 +76,22 @@ Particularly, we will summerize present results on DS and OMP, and argue that DS
 
 Before we start, let us remind that, in this article, to avoid confusion all results other than the major theorems to be proved are called lemmata, so the classification may be different from its source.
 
-We restrict our discussion to the Hilbert space over the field of \(\mathbb{C}\), equipped with usual inner product, here the complex numbers has natural interpretation as the phasor of electronic waves.
-Boldface lower case Latin alphabets, like \(\mathbf{a}\), denote vectors, and boldface upper case Latin alphabets, like \(\mathbf{A}\), denote matrices.
+We restrict our discussion to the Hilbert space over the field of \(\MB{R}\) or \(\MB{C}\), equipped with usual inner product, here the complex numbers has natural interpretation as the phasor of electronic waves.
+We use \(\MB{K}\) to refer to either \(\MB{R}\) or \(\MB{C}\).
+Lower case Latin alphabets with single underline, like \(\V{a}\), denote vectors, and upper case Latin alphabets with double underlines, like \(\M{A}\), denote matrices.
+To avoid being too pedantic, we simply write \(\V{a} \in \MB{C}^N\) to stress \(\V{a}\) is a \(N\)-dimensional vector, and the role it plays in the vector space is understood.
+Similarly, we also write \(\V{A} \in \MB{M}(M,N)\) to stress \(\V{A}\) is a \(M\) by \(N\) matrix, and the role it plays as linear transformation is understood.
+Inner product is denoted as \(\LA \MB{a}, \MB{b} \RA\).
+Slightly abusing notation, denote as \(\V{a}(n)\) the \(n\)-th component of \(\V{a}\), and denote as \(\V{A}(m,n)\) the \((m,n)\)-entry of \(\V{A}\)
+Especially, \(\V{u}_n\) is the \(n\)-th unit vector in the Cartesian coordinates (not to be confused with the noise).
 
-Denote \(\mathbb{E}(X)[\cdot]\) the probability, \(\mathbb{E}(X)[\cdot]\) the expectation, \(\mathbb{Var}(X)[\cdot]\) the variance.
-Since our discussion involving the entire communication system will get very complicated, we shall add subscripts on probabilistic integrals, including \(\mathbb{P}\) and \(\mathbb{E}\).
+\(|a|\) denotes the magnitude for real or complex numbers.
+\(\|\V{a}\|_p\) denotes the \(\ell_\infty\)-norm of \(\V{a}\).
+Recall that \(\ell_\infty\)-norm is the maximum-magnitude norm.
+The real and imaginary part of \(a\) will be denoted respectively as \(\MF{Re}(a)\) and \(\MF{Im}(a)\), respectively, thus \(\MF{Re}(a) +i \MF{Im}(a)\)
+
+Denote as \(\MB{P}(X)\) the probability, \(\MB{E}(X)\) the expectation, \(\MB{Var}(X)\) the variance.
+Since our discussion involving the entire communication system will get very complicated, we shall add subscripts on probabilistic integrals, including \(\MB{P}\) and \(\MB{E}\).
 
 
 \subsection{Background}
@@ -84,15 +106,15 @@ In addition, the smaller closer spaced antennae makes it possible to increase th
 Consequently, this article considers MIMO in the millimeter r\`egime.
 
 The figure of merit of a MIMO system is usually considered to be the channel capacity.
-The capacity \(C\) of a MIMO channel \(H\) at perfect channel state information (CSI) is well-known, as was first proved by Teletar, to be roughly in the form \(\log \det (I +\mathrm{SNR})\).
+The capacity \(C\) of a MIMO channel \(\M{H}\) at perfect channel state information (CSI) is well-known, as was first proved by Teletar, to be roughly in the form \(\log \det (I +\RM{SNR})\).
 But that knowledge is hardly always available.
-What makes things more difficult is the case that \(H\) is determined from not only the noise itself, but also inherent parameter --- such as, in our case, as shall be seen, the angle of departure and arrival.
+What makes things more difficult is the case that \(\M{H}\) is determined from not only the noise itself, but also inherent parameter --- such as, in our case, as shall be seen, the angle of departure and arrival.
 It is pointed out that the capacity written in explicit dependence of such parameters is a difficult and long-standing problem (Goldsmith et.\ al.\ 2003).
 Nevertheless, the perfect-CSI expression of channel capacity is often used regardless of these issues.
-Indeed, analysis of precoding algorithm, for example, usually makes use of the sum rate \(\log \det (I +\mathrm{SNR})\).
+Indeed, analysis of precoding algorithm, for example, usually makes use of the sum rate \(\log \det (I +\RM{SNR})\).
 
-Therefore the real-time estimation, \(\hat{H}\), of \(H\) is of paramount importance.
-Needless to say, when the \(\hat{H}\) is imprecise, resulting analysis is also undermined.
+Therefore the real-time estimation, \(\hat{\M{H}}\), of \(\M{H}\) is of paramount importance.
+Needless to say, when the \(\hat{\M{H}}\) is imprecise, resulting analysis is also undermined.
 With more antennae present, conventional training-based algorithm also increase in complexity and storage.
 In real applications, channel may also be fast varying with respect to time, and a high complexity algorithm is surely less than being ideal.
 A design of new algorithms that addressed these issues is thus in need.
@@ -114,9 +136,9 @@ They showed that that in the noiseless case (Cand\`es and Tao 2006,``Decoding by
 \Result
 {Definition}
 {
-\(x \in \mathbb{R}^N\) is called \(s\)-sparse, if
+\(x \in \MB{K}^N\) is called \(s\)-sparse, if
 \begin{gather} 
-\# \{\mathrm{supp}(x)\} \leq s
+\# \{\RM{supp}(x)\} \leq s
 \end{gather}
 That is, only at most \(s\) components of vector \(x\) is nonzero.
 }
@@ -127,8 +149,8 @@ That is, only at most \(s\) components of vector \(x\) is nonzero.
 Let \(A,y\) be given.
 Find \(x\) with
 \begin{gather}
-\mathrm{min}_{x' \in \mathbb{R}^N} \quad \|x'\|_1
-\mathrm{s.t.} \quad Ax =y
+\RM{min}_{x' \in \MB{R}^K} \quad \|x'\|_1
+\RM{s.t.} \quad Ax =y
 \end{gather}
 }
 
@@ -147,7 +169,7 @@ That is, a noiseless linear transformation of a sparse vector is completely reco
 \Result
 {Notation}
 {
-Let \(T \subset \mathbb{N}\).
+Let \(T \subset \MB{N}\).
 Denote as \(X_T\) the columns of \(X\) having indices in \(T\).
 }
 
@@ -155,20 +177,20 @@ Denote as \(X_T\) the columns of \(X\) having indices in \(T\).
 {Definition}.
 {
 Let \(X\) be an \(n \times p\) matrix having unit \(\ell_2\)-norm columns.
-For each integer \(S \in \mathbb{N}\), we say that \(X\) satisfies the RIP of order \(S\) with respect to parameter \(0 \leq \delta_S \leq 1\), if, for all \(\theta\) with \(\|\theta\|_0 \leq S\), for all \(T\) with \(|T| \leq S\),
+For each integer \(S \in \MB{N}\), we say that \(X\) satisfies the RIP of order \(S\) with respect to parameter \(0 \leq \delta_S \leq 1\), if, for all \(\vartheta\) with \(\|\vartheta\|_0 \leq S\), for all \(T\) with \(|T| \leq S\),
 \begin{gather}
-(1-\delta_S) \|\theta\|^2
-\leq \|X_T \theta\|_2^2
-\leq (1+\delta_S) \|\theta\|^2
+(1-\delta_S) \|\vartheta\|^2
+\leq \|X_T \vartheta\|_2^2
+\leq (1+\delta_S) \|\vartheta\|^2
 \end{gather}
 }
 
-RIP of order \(S\) is essentially saying that the matrix \(X\) is ``almost isometry'' up to ``relative error'' \(\theta_S\).
+RIP of order \(S\) is essentially saying that the matrix \(X\) is ``almost isometry'' up to ``relative error'' \(\vartheta_S\).
 
-Moreover, for \(T,T' \subset \{1, \dotsc, p \}\), let \(\theta_{S,S'}\) be the smallest constant such that
+Moreover, for \(T,T' \subset \{1, \dotsc, p \}\), let \(\vartheta_{S,S'}\) be the smallest constant such that
 \begin{gather}
-| \langle X_T c, X_{T'} c' \rangle |
-\leq \theta_{S,S'} \cdot \| c \|_2 \|c'\|_2
+| \LA X_T c, X_{T'} c' \RA |
+\leq \vartheta_{S,S'} \cdot \| c \|_2 \|c'\|_2
 \end{gather}
 
 \subsection{The Dantzig Selector}
@@ -191,8 +213,8 @@ How can we hope to estimate \(h\) when, in addition to insufficient observations
 Let \(A,y\) be given.
 Find \(x\) with
 \begin{gather}
-\min_{x' \in \mathbb{R}^p}  \|\hat{x'}\|_1 \\ \notag
-\mathrm{subject}\; \mathrm{to} \quad \|A^\dagger r\|_\infty \leq \lambda_p \sigma
+\min_{x' \in \MB{K}^p}  \|\hat{x'}\|_1 \\ \notag
+\RM{subject}\; \RM{to} \quad \|A^\dagger r\|_\infty \leq \lambda_p \sigma
 \end{gather}
 where \(r =y -A \hat{x}\).
 }
@@ -209,10 +231,10 @@ But later, Baraniuk (2008) have found there is a particularly convenient suffici
 \Result
 {Theorem}
 {
-Let each entry of random matrix \(A \in \mathbb{R}^{M \cdot N}\) be defined as i.i.d.\ Bernoulli with value \(\pm 1/\sqrt{M}\) (that is, Rademacher distribution).
+Let each entry of random matrix \(A \in \MB{V}(M \cdot N)\) be defined as i.i.d.\ Bernoulli with value \(\pm 1/\sqrt{M}\) (that is, Rademacher distribution).
 Then, with \(0 <\epsilon <1\),
 \begin{gather}
-   \mathbb{P}( |\|Ax\|_2^2 -\|x\|_2^2| \geq \epsilon \|x\|_2^2)
+   \MB{P}( |\|Ax\|_2^2 -\|x\|_2^2| \geq \epsilon \|x\|_2^2)
    \leq 2 \exp(-n c_0(\epsilon))
 \end{gather}
 where we have
@@ -234,12 +256,12 @@ What they explored was the estimation of single-antenna channel response with re
 Another paper by the same group of scholars (Bajwa et.\ al.\ 2008) shows that \(X\) is RIP for overwhelming probability, providing the ground for the former paper.
 
 To explain the idea, consider a simplified scenario.
-Let \(x[t] \in \mathbb{R}^N\) be random instances of i.i.d.\ Rademacher distribution.
+Let \(x[t] \in \MB{R}^N\) be random instances of i.i.d.\ Rademacher distribution.
 Consider a linear time-invariant channel with
 \begin{gather}
 y[t] =(x[t] \star h[t]) +z[t]
 \end{gather}
-where \(h[t] \in \mathbb{R}^L\) is the channel's impulse response, \(x[t] \in \mathbb{R}^N\) as the input, \(y[t] \in \mathbb{R}^N\) as the output, and \(z[t] \in \mathbb{R}^L\) are random instances of i.i.d.\ normalized AWGN, and \(N \gg L\).
+where \(h[t] \in \MB{R}^L\) is the channel's impulse response, \(x[t] \in \MB{R}^N\) as the input, \(y[t] \in \MB{R}^N\) as the output, and \(z[t] \in \MB{R}^L\) are random instances of i.i.d.\ normalized AWGN, and \(N \gg L\).
 Here, if the convolutional relation is expressed by a matrix \(X\), \(X\) is a Toeplitz matrix, so that
 \begin{gather}
 y =X h
@@ -263,7 +285,7 @@ Bajwa et.\ al.\ was able to show that \(X\) is RIP of overwhelmingly probability
 Around that time, Tropp and A C Gilbert (2007b) points out if we apply a greedy algorithm called Orthogonal Matching Pursuit, that a i.i.d.\ matrix being generated the similar way as Baraniuk (2008) suggested, may perform sufficiently well, even recover the original signal in an overwhemingly probability too.
 
 The setting here is \(y =Ax\), the noiseless, real-number case.
-Same as before, let \(y \in \mathbb{R}^{M}\), \(x \in \mathbb{R}^{N}\) which is \(s\)-sparse, while \(M \ll N\).
+Same as before, let \(y \in \MB{V}(M)\), \(x \in \MB{V}(N)\) which is \(s\)-sparse, while \(M \ll N\).
 We pick up the columns of \(A\) greedily, hoping to correspond to the support of \(x\).
 
 \Result
@@ -288,29 +310,29 @@ For the proof, see the technical report: Tropp and A C Gilbert (2007a).
 
 It is interesting to note that, ever since, the direct application of \(\ell_1\)-problem following the orignal Cand\`es-and-Tao approach has been seemingly rare.
 Scholars has applied OMP in favor of DS, in the ease of implementation of the former, and OMP becomes perhaps the most widely used channel estimation technique.
-To see this, let \(F\) be the precoder and \(W\) the combiner, and \(H\) the channel, and consider the noiseless case.
+To see this, let \(\M{F}\) be the precoder and \(\M{W}\) the combiner, and \(\M{H}\) the channel, and consider the noiseless case.
 Let signal \(x\) be sent, and \(y\) be receiverd, that is
 \begin{gather}
-y =WHF x
+   \V{y} =\M{W} \M{H} \M{F} \V{x}
 \end{gather}
 
 \Result
 {Definition}
 {
-Define \(\mathrm{vec}(A) \in \mathbb{R}^{nm}\) to be the vectorization of \(A \in \mathbb{M}(n,m)\).
+Define \(\RM{vec}(\M{A}) \in \MB{K}^{nm}\) to be the vectorization of \(\M{A} \in \MB{M}(n,m)\).
 }
 
 \Result
 {Definition.}
 {
-For \(\mathrm{vec}(A) \in \mathbb{M}(n,m)\) and \(\mathrm{vec}(A) \in \mathbb{M}(n,m)\)
-Define the Kronecker product \(\mathrm{vec}(A) \in \mathbb{R}^{nm}\) 
+For \(\RM{vec}(A) \in \MB{M}(n,m)\) and \(\RM{vec}(A) \in \MB{M}(n,m)\)
+Define the Kronecker product \(\RM{vec}(A) \in \MB{K}^{nm}\) 
 }
 
 With (), scholars often exploit the relation
 \begin{gather}
-\mathrm{vec}(Y)
-=\big[ (F^\dagger) \otimes W \big] \mathrm{vec}(H)
+\RM{vec}(Y)
+=\big[ (F^\dagger) \otimes W \big] \RM{vec}(\M{H})
 \end{gather}
 
 The matrix consisting of the collection of possible response according to available paths --- called the dictionary --- plays the role of the sensing matrix of OMP.
@@ -397,47 +419,33 @@ to denote the overall sample space, where
 
 We restrict our consideration to the uniform linear array, which can be modeled as
 \begin{gather}
-\mathbf{a}(\phi')
-=\sum_{n=1}^{N} e^{n \phi' i} \mathbf{u}_n
+\V{a}(\varphi')
+=\sum_{n=1}^{N} \RM{e}^{n \varphi' i} \V{u}_n
 \end{gather}
-where \(i\) is the imaginary unit, \(\mathbf{u}_n\) is the unit vector of the \(n\)-th component.
+where \(i\) is the imaginary unit, \(\V{u}_n\) is the unit vector of the \(n\)-th component.
 
 And consider the virtual representation of the MIMO channel (see for example Akdeniz et.\ al.\ 2014).
 \begin{gather}
 H
-=\sum_{l=0}^L \alpha_l \mathbf{a}\big( \frac{d}{\lambda} \sin \phi_l' \big) \mathbf{a}\big( \frac{d}{\lambda} \sin \theta_l' \big)^\dagger
+=\sum_{l=0}^L \alpha_l \V{a}\big( \frac{d}{\lambda} \sin \varphi_l' \big) \V{a}\big( \frac{d_{\RM{arr}}}{\lambda} \sin \vartheta_l' \big)^\dagger
 \end{gather}
-The physical meaning of \(\theta_l\) is the \(l\)-th angle of incidence (formed by the ray and the normal line) of departure electronic wave, and \(\theta_l\), the \(l\)-th that of arrival wave.
-
-For our purpose, we may absorb the argument of \(\mathbf{a}\) as
+The physical meaning of \(\vartheta_l\) is the \(l\)-th angle of incidence (formed by the ray and the normal line) of departure electronic wave, and \(\vartheta_l\), the \(l\)-th that of arrival wave, while \(d_{\RM{arr}}\) is the distance between two adjacent antennae.
+For our purpose, we may absorb the argument of \(\V{a}\) as
 \begin{gather}
-\phi_l
-=\frac{d}{\lambda} \sin \phi_l' \\
-\theta_l
-=\frac{d}{\lambda} \sin \theta_l'
+\varphi_l
+=\frac{d_{\RM{arr}}}{\lambda} \sin \varphi_l' \\
+\vartheta_l
+=\frac{d_{\RM{arr}}}{\lambda} \sin \vartheta_l'
 \end{gather}
 to get a simpler form
 \begin{gather}
 H
-=\sum_{l=0}^L \alpha_l \mathbf{a}(\phi_l) \mathbf{a}(\theta_l)^\dagger
+=\sum_{l=0}^L \alpha_l \V{a}(\varphi_l) \V{a}(\vartheta_l)^\dagger
 \end{gather}
-
-Moreover, let the convention for discrete Fourier transform be adopted as below for completeness of presentation.
 
 \Result
 {Definition.}
 {
-Let \(\mathbf{v} \in \mathbb{R}^m\) be given.
-We say \(u \in \mathbb{R}^m\) is the discrete Fourier transform of \(\mathbf{v}\), if
-\begin{gather}
-\mathbf{u} =\dagger F \mathbf{v}
-\end{gather}
-where each entry of the matrix \(K\) is defined to be
-\begin{gather}
-   K(m,n) =\frac{1}{\sqrt{N}} e^{2\pi imn/N},
-\quad m,n =0,1,2,\dotsc, N-1
-\end{gather}
-where \(i =\sqrt{-1}\).
 }
 
 \subsection{System Model}
@@ -446,66 +454,85 @@ We consider the situation with a hybrid structure at both transmitter and receiv
 Each end consists of both digital and analog percoders and combiners.
 In the transmitter end, there are digital precoder \(F_B\) and analog precoder \(F_R\).
 Similarly, in the receiver end, there are digital combiner \(W_B\) and analog combiner \(W_R\).
-Recall that analog precoder is restricted to have value with magnitude being unity.
 To set up notation, we list them as below.
 \begin{gather}
-F_B \in \mathbb{R}^{N_r \cdot N_s} \\
-F_R \in \mathbb{R}^{N_h \cdot N_r}, |F_R(i,j)| =1 \\
-F_B \in \mathbb{R}^{N_r \cdot N_h} \\
-F_B \in \mathbb{R}^{N_s \cdot N_r}, |F_R(i,j)| =1.
+F_B \in \MB{C}^{N_r \cdot N_y} \\
+F_R \in \MB{C}^{N_h \cdot N_r} \\
+F_B \in \MB{C}^{N_r \cdot N_h} \\
+F_B \in \MB{C}^{N_y \cdot N_r}.
 \end{gather}
+Recall that analog precoder is restricted to have value with magnitude being unity.
+\begin{gather}
+ |F_R(n_1,n_2)| =1, \quad
+ n_1 =1, \dotsc N_h, \quad
+n_2 =1, \dotsc N_r \\
+ |W_R(n_1,n_2)| =1, \quad
+ n_1 =1, \dotsc N_r, \quad
+n_2 =1, \dotsc N_h
+\end{gather}
+
 And we consider zero-mean, unity-variance additive white Gaussian noise \(z\).
 Since we restrict our discussion to a specific slice of time, the signal \(z\) degrades as a entrywise i.i.d.\ standard normal distribution vector.
 
 In summary, the effective channel may be written as
 \begin{gather}
-U (\omega_h, \omega_e)
-:=W_B W_R ( H(\omega_h) F_R F_B \mathbf{u}_m +z(\omega_z) )
+Y (\omega_h, \omega_e)
+:=W_B(\omega_r) W_R(\omega_r) ( H(\omega_h) F_R(\omega_t) F_B(\omega_t) +Z(\omega_z) )
 \end{gather}
-Supress the probabilistic index for simplicity, we restate the same equation as
+Supress the event space index for brevity, we restate the same equation as
 \begin{gather}
 Y
-:=W_B W_R ( H F_R F_B \mathbf{u}_m +z )
+:=W_B W_R ( H F_R F_B +z )
 \end{gather}
 
 \subsection{Proposed Method}
 
-The effective channel \(U\) has \(N\) columns, but to estimate it, we may agree to send one pilot signal at one time, which consists of only one antenna sending signal, namely \(\mathbf{u}_n\).
-This way, we may denote the acquired effective channel matrix \(U\) under noisy observation as (borrowing Matlab's colon notation to denote submatrix)
+The effective channel \(\M{Y}\) has \(N_y\) columns, but to estimate it, we may agree to send one pilot signal, which is one of the standard basis, at a time, namely \(\V{u}_n\).
+This way, we may denote the acquired effective channel matrix \(\M{Y}\) under noisy observation as (borrowing Matlab's colon notation to denote columns)
 \begin{gather}
-Y_{:,n}
-:=W_B W_R ( H F_R F_B \mathbf{u}_m +z ), \quad
-n =1, 2, \dotsc, N_B
+\M{Y}(:,n)
+:=\M{W}_B \M{W}_R ( \M{H} \M{F}_R \M{F}_B \V{u}_m +\V{z} ), \quad
+n =1, 2, \dotsc, N_y
 \end{gather}
-The crux of the matter is the recovery of \(H\) with knowledge of \(U\), and of course \(W_R, W_B, F_R, F_B\) which are in our control.
+The crux of the matter is the recovery of \(\M{H}\) with knowledge of \(\M{Y}\), and of course \(\M{W}_R, \M{W}_B, \M{F}_R, \M{F}_B\) which are in our control.
 
 Following previous work on CSS, we write
 \begin{gather}
-h := \mathrm{vec}(H) \\
-u := \mathrm{vec}(U) \\
-A =(K^\dagger F_R F_B) \otimes (W_B W_R K)
+\V{h} := \RM{vec}(\M{H}) \\
+\V{y} := \RM{vec}(\M{Y}) \\
+\M{P}' :=(\M{F}_R \M{F}_B) \otimes (\M{W}_B \M{W}_R)
 \end{gather}
-to formulate our goal as sparse recovery problem of \(\mathrm{vec}(H)\).
+to formulate our goal as sparse recovery problem of \(\RM{vec}(H)\) to be
+\begin{gather}
+\V{y} =\M{P}' \V{h} +\V{z}
+\end{gather}
 But, as we have motivated in previous sections, we want to elimitate the angle grid quantization problem, and we want to use DS by considering sparse vector.
 What shall we do?
 
-Observe that, if we write
+Introduce the discrete Fourier matrix \(K\) defined to be
 \begin{gather}
-G =K^\dagger H
+\M{K} \in \MB{M}(N_h, N_h) \\
+\M{K}(n_1, n_2) =\frac{1}{\sqrt{N}} \RM{e}^{2\pi i n_1 n_2 /N},
+\quad n_1, n_2 =0,1,2,\dotsc, N-1
 \end{gather}
-as the spatial frequency domain representation of \(H\), then
+where \(i =\sqrt{-1}\).
+And observe that, if we write
 \begin{gather}
-Y
-:=W_B W_R K ( G F_R F_B +K^\dagger z ), \quad
-n =1, 2, \dotsc, N_B
+\M{G}
+=\M{K}^\dagger \M{H}
+\end{gather}
+which has the interpretation as the spatial frequency domain representation of \(H\), then
+\begin{gather}
+\M{Y}
+:=\M{W}_B \M{W}_R \M{K} ( \M{G} \M{F}_R \M{F}_B +\M{K}^\dagger \M{Z} )
 \end{gather}
 If at the end of day, \(G\) is sparse, then we recover \(G\) instead, and our use of DS is fully justified.
 To the best of our knowledge, no work has explicitly considered the beamspace CSS.
 
 That is to say, \(K^\dagger z\) may be absorbed, and a similar Kronecker product may be used.
 \begin{gather}
-\mathrm{vec}(Y)
-\approx \big[ (F_B^\dagger F_R^\dagger) \otimes (W_B W_R K) \big] \mathrm{vec}(H)
+\RM{vec}(Y)
+\approx \big[ (F_B^\dagger F_R^\dagger) \otimes (W_B W_R K) \big] \RM{vec}(H)
 \end{gather}
 To simplify notation, set 
 \begin{gather}
@@ -521,37 +548,33 @@ If so, our program reads
 {Program}
 {
 Let \(H(\omega_h, \omega_n)\) be the virtual channel, and \(W_R(\omega_r)\) the random analog combiner, \(W_B(\omega_r)\) the random analog combiner, \(F_R(\omega_t)\) the random analog combiner, \(F_B(\omega_t)\) the random analog combiner, and \(K\) the discrete Fourier matrix, all as described in previous sections.
-Suppose \(U\) is the acquired effective channel matrix under noisy observation.
-\(A\) is defined just above in ().
-Set
-\begin{gather}
-r =u -P h
-\end{gather}
+Suppose \(Y\) is the acquired effective channel matrix under corruption of noise \(z\).
+\(P\) is defined just above in ().
 Then, with parameter \(\gamma\) specified, define the following program
 \begin{gather}
 \hat{g}
-=\underset {{h}} {\mathrm{min}} \|h\|_1 \quad
-\mathrm{s.t.}\;\; \|A^\dagger r\|_\infty \leq \gamma
+=\underset {{h}} {\RM{min}} \|h\|_1 \quad
+\RM{s.t.}\;\; \|P^\dagger (y -P h)\|_\infty \leq \gamma
 \end{gather}
 And convert \(\hat{g}\) back to the space domain as
 \begin{gather}
 \hat{h}
-=K^\dagger \hat{g}.
+=K \hat{g}.
 \end{gather}
 And finally recover the estimated \(H\) as
 \begin{gather}
-\hat{H} =\mathrm{vec}^{-1} (\hat{h})
+\hat{H} =\RM{vec}^{-1} (\hat{h})
 \end{gather}
 }
 
-It will not be hard to establish Cand\`es and Tao's result to the setting of millimeter wave virtual channel, and resulting bound is immediate under straighforward work, as follows.
+It, then, will not be hard to establish Cand\`es and Tao's result to the setting of millimeter wave virtual channel, and resulting bound is immediate under straighforward work, as follows.
 
 \section{Results and Proofs}
 
 We follow the argument outlined in ``The Dantzig Selector'' and fill the content.
-The sparse vector to be recovered of our investigation is \(g \in \mathbb{R}^{N_H^2}\), and we continue to use \(\hat{g}\) to denote the Dantzig Selector.
+The sparse vector to be recovered of our investigation is \(g \in \MB{C}^{N_h^2}\), and we continue to use \(\hat{g}\) to denote the Dantzig Selector.
 
-We first establish a technical lemma that shows \(\mathrm{supp}(g)\) has roughly cardinal \(L\).
+We first establish a technical lemma that shows \(\RM{supp}(g)\) has roughly cardinal \(L\).
 At the heart of the argument, the lemma provides the basis on which \(g\) is almost-sparse.
 
 Consider
@@ -560,91 +583,98 @@ d =g -\hat{g}
 \end{gather}
 And let
 \begin{itemize}
-\item \(\mathcal{A}\) be the largest \(L\) position of \(g\).
-\item \(\mathcal{B}\) be the largest \(L\) position of \(d\) except on \(\mathcal{A}\).
-\item \(\mathcal{C} =\{1, \dotsc, N_H^2\} -( \mathcal{B} \cup \mathcal{C} )\), i.e., the complementary index set.
+\item \(\MC{A}\) be the largest \(L\) position of \(g\).
+\item \(\MC{B}\) be the largest \(L\) position of \(d\) except on \(\MC{A}\).
+\item \(\MC{C} =\{1, \dotsc, N_h^2\} -( \MC{B} \cup \MC{C} )\), i.e., the complementary index set.
 \end{itemize}
-So \(\mathcal{A}, \mathcal{B}, \mathcal{C}\) are mutually exclusive index sets by construction:
+So \(\MC{A}, \MC{B}, \MC{C}\) are mutually exclusive index sets by construction:
 \begin{gather}
-\mathcal{A}, \mathcal{B}, \mathcal{C} \subset \{1, \dotsc, N_H^2\} \\
-\mathcal{A} \cap \mathcal{B} =B \cap C =A \cap C =\varnothing \\
-A \cup B \cup C =\{1, \dotsc, N\}.
+\MC{A}, \MC{B}, \MC{C} \subset \{1, \dotsc, N_h^2\} \\
+   \MC{A} \cap \MC{B} =\MC{B} \cap \MC{C} =\MC{A} \cap \MC{C} =\varnothing \\
+\MC{A} \cup \MC{C} \cup \MC{C} =\{1, \dotsc, N\}.
 \end{gather}
-
 
 
 \Result
 {Lemma.}
 {
-Let \(\phi(\omega_h)\) and \(\theta(\omega_h)\) be both uniformly, independently distributed in \([0,2\pi)\), and beamspace channel matrix \(G\) defined as in ().
+Let \(\varphi(\omega_h)\) and \(\vartheta(\omega_h)\) be both uniformly, independently distributed in \([0,2\pi)\), and beamspace channel matrix \(G\) defined as in ().
 \begin{gather}
-\|g\|_1 \leq \frac{1}{\pi^2} \log \frac{L}{N}.
+\|g_{\MC{A}}\|_1 \leq \frac{1}{\pi^2} \log \frac{L}{N}.
 \end{gather}
+}
 
 To find the \(l\)-th path's contribution to the frequency domain, recall the identity for Dirichlet kernel
 \begin{align}
-S(\phi)
-:=&\left| \sum_{n=0}^{N-1} e^{i n \phi} \right| \\ \notag
-=&\frac{|\sin(N \phi/2)|}{|\sin(\phi /2)|},
-\quad 0 \leq \phi \leq \pi
+D(\varphi)
+:=&\left| \sum_{n=0}^{N-1} \RM{e}^{i n \varphi} \right| \\ \notag
+=&\frac{|\sin(N \varphi/2)|}{|\sin(\varphi /2)|},
+\quad 0 \leq \varphi \leq \pi
 \end{align}
-By taking the first two term of the expansion \(\sin x =x -x^3/6 +- \dotsc\), and noting the monotony, 
-\begin{align}
-S(\phi)
-\leq& \frac{1}{\phi/2 -(\phi/2)^3/6} \\ \notag
-=& \frac{-48}{\phi^3 -24\phi}
-\quad 0 \leq \phi \leq \pi,
-\end{align}
+where \(\RM{e}\) is the base of natural logarithm, and \(i =\sqrt{-1}\).
 
+By taking the first two term of the expansion
+\begin{align}
+\sin x =x -x^3/6 + \MC{O}(x^5), \quad x \ll 1
+\end{align}
+and noting the monotony of the first two terms,
+\begin{align}
+D(\varphi)
+\leq& \frac{1}{\varphi/2 -(\varphi/2)^3/6} \notag \\
+=& \frac{-48}{\varphi^3 -24\varphi}
+\quad 0 \leq \varphi \leq \pi,
+\end{align}
 The fraction above can be bounded.
 
 By the same token, more generally,
 \begin{align}
-&\left| \frac{1}{N} \sum_{n=0}^{N-1} e^{-2\pi i k n/N} e^{i n \phi} \right| \\ \notag
-=&\frac{|\sin( \phi N /2 )|}{N |\sin( \pi k /N -\phi /2 )|} \\ \notag
-=&\frac{1}{N} S(\pi \phi') \\ \notag
-\leq& \frac{48}{N \pi^3 (\phi'^3 -24 \phi' /\pi^2)}
+&\left| \frac{1}{N} \sum_{n=0}^{N-1} \RM{e}^{-2\pi i k n/N} \RM{e}^{i n \varphi} \right| \notag \\
+=&\frac{1}{N} S(\pi \varphi') \notag \\
+\leq& \frac{48}{N \pi^3 (\varphi'^3 -24 \varphi' /\pi^2)}
 \end{align}
-where \(\phi' =k/N -\phi/2\pi\), and the cubic expression is split.
-We wish to bound the tail of \(S(\pi \phi')\), and apply the na\"ive bound
+where \(\varphi' =k/N -\varphi/2\pi\), and the cubic expression is split.
+We wish to bound the tail of \(S(\pi \varphi')\), and apply the na\"ive bound
 \begin{align}
-&\frac{N}{2\pi} \cdot \frac{48}{N \pi^3} \int_{L/N}^1 \frac{1}{\phi'^3 -24 \phi' /\pi^2}
- d\phi' \\ \notag
-=&\frac{1}{2\pi^2} \cdot \left( 2 \log \frac{L}{N} +\log \frac{24-\pi^2}{24-\pi^2 L^2 /N^2} \right) \\ \notag
+&\frac{N}{2\pi} \cdot \frac{48}{N \pi^3} \int_{L/N}^1 \frac{1}{\varphi'^3 -24 \varphi' /\pi^2}
+ d\varphi' \notag \\
+=&\frac{1}{2\pi^2} \cdot \left( 2 \log \frac{L}{N} +\log \frac{24-\pi^2}{24-\pi^2 L^2 /N^2} \right) \notag \\
 \leq& \frac{1}{\pi^2} \log \frac{L}{N}
 \end{align}
 Here, the integral in the first line is immediate.
 The second term in the bracket is smaller than 0 and is dropped in the last inequality.
-}
+The proof of Lemma () is complete.
 
 The bound is satisfying enough, though refinement is surely possible.
 Indeed, \(\log L/N \to 0\) as \(N \to \infty\) and limited by the number of paths \(L\).
+Intuitively, this says that when there are few paths, but many antennas, we expect the spatial frequency domain of the virtual channel to be sparse too.
 
 The rest follows ``The Dantzig Selector'' very closely.
+
 
 \Result
 {Proposition}
 {
-Let \(h \in \mathbb{R}^n\) and \(\eta \in \mathbb{R}^p\) are defined as in ().
+Let \(h \in \MB{R}^n\) and \(\eta \in \MB{R}^p\) are defined as in ().
 Then
 \begin{align}
 \|d_{BC}\|_1
-\leq \|d_A\|_1 +\|g_{BC}\|_1
+\leq \|d_{\MC{A}}\|_1 +\|g_{BC}\|_1
 \end{align}
 }
+
 To show this, observe
 \begin{align}
-\|g\|_1 -\|d_A\|_1 +\|d_{BC}\|_1 -\|g_{BC}\|_1
-\leq& \|g +d\|_1 \\ \notag
+&\|g\|_1 -\|d_{\MC{A}}\|_1 +\|d_{BC}\|_1 -\|g_{BC}\|_1 \\
+\leq& \|g +d\|_1 \notag \\
 \leq& \|g\|_1
 \end{align}
-In the first line, we recall \(g =g_A\).
+In the first line, we recall \(g =g_{\MC{A}}\).
 
 \Result
 {Lemma}
 {
 \begin{align}
-|\langle e, P_{:,j} \rangle| \leq \sqrt{2 \log p}
+|\LA e, P_{:,j} \RA| \leq \sqrt{2 \log p}
 \end{align}
 }
 
@@ -656,38 +686,41 @@ In the first line, we recall \(g =g_A\).
 \leq& 2 \sqrt{2 \log p}.
 \end{align}
 }
+
 To show this, start with
 \begin{align}
-\langle e -r, P_{:,j} \rangle
-=\langle P \hat{g} -P g, P_{:,j} \rangle
-=\langle P g, P_{:,j} \rangle
+\LA e -r, P_{:,j} \RA
+=\LA P \hat{g} -P g, P_{:,j} \RA
+=\LA P g, P_{:,j} \RA
 \end{align}
 Result follows from triangle inequality, and Lemma ().
 
 From ``Dantzig Selector'' (Cand\`es and Tao 2007), Lemma 1, first equation, we have the result below.
+The original result is for real vector spaces, but we have checked that the proof is completely valid in complex vector spaces.
+Of course the interpretation of modulus and the inner product changes accordingly.
 
 \Result
 {Lemma}
 {
 \begin{align}
-\|d_A\|_2
-\leq \frac{1}{1-\delta} \|P^\dagger_{AB} P \eta\|_2 +\frac{\theta}{(1-\delta) \sqrt{L}} \|d_{BC}\|_1
+\|d_{\MC{A}}\|_2
+\leq \frac{1}{1-\delta} \|P^\dagger_{\MC{A}\MC{B}} P \eta\|_2 +\frac{\vartheta}{(1-\delta) \sqrt{L}} \|d_{BC}\|_1
 \end{align}
 }
 
-
 From ``Dantzig Selector'' (Cand\`es and Tao 2007), Lemma 1, second equation, we have the result below.
+Again, their proof works with complex vector spaces in place of real ones.
 
 \Result
 {Lemma}
 {
 \begin{align}
 \|d\|_2^2
-\leq \|d_{AB}\|_2^2 +\frac{1}{L} \|d_C\|_1^2
+\leq \|d_{\MC{A}\MC{B}}\|_2^2 +\frac{1}{L} \|d_{\MC{C}}\|_1^2
 \end{align}
 }
 
-We can formulate our main theorem:
+We can formulate our main theorem.
 
 (To be done)
 
@@ -695,7 +728,7 @@ We can formulate our main theorem:
 
 With the preperation of notation in the previous section, and a discussion on its theory, we shall now formulate our algorithm and focus on the practical aspect.
 
-As of now, we have transformed the sparse-recovery problem of complex matrix \(H\) to complex vector \(h\), and finally to real vector \(\mathcal{R}(h)\).
+As of now, we have transformed the sparse-recovery problem of complex matrix \(H\) to complex vector \(h\), and finally to real vector \(\MC{R}(h)\).
 But it is not the end.
 In fact, Cand\`es and Tao's analysis in ``\(\ell_1\)-magic'' transforms DS into a linear program (LP), but that does not directly applies
 Actually they pointed out that complex DS may be cast into a second order cone program (SOCP), but (as they admit in the paper) they did not pursue the matter.
@@ -704,31 +737,148 @@ Thus our proposed algorithm is not a corollary of the DS program outlines in ``\
 
 \subsection{Transformation into Second Order Cone Problem}
 
-Since our setting is slightly different from ``\(\ell_1\)-Magic'', for completeness of exposition we write down derivation of the dual problem from the primal problem.
-Recapitulate that, as we explained in the above, DS involves a 
-We transform the \(\ell_1\)-minimization problem to a primal-dual algorithm, which is a well-known technique for convex optimization problems.
+Since our setting is slightly different from ``\(\ell_1\)-Magic'', for completeness of exposition we write down derivation of the dual problem from the primal problem, as follows.
+Recapitulate that, as we explained in the above, DS involves the calculation of \(\ell_1\)-1 norm.
+This, for real vectors, can be transformed into a linear program (LP).
+But in the complex case, that becomes a quadratic expression of the real and imaginary part of the vector, and is no longer equivalent to an LP.
+Still, the comparison arising from primal-dual problem is not easily done in complex numbers, and we cast it into a real \(\ell_1\)-1 norm problem.
+Afterwards we will further transform the SOCP to a primal-dual algorithm, which is a well-known technique for convex optimization problems.
+The bound in the previous section is valid, since in the course of transformation, nothing is lost or weakened.
 
+For convenience, define the following function that maps a complex vector to the real representation of it.
 
+\Result
+{Definition}
+{
+For \(x \in \MB{R}^N\), We say \(\MC{R}(x) \in \MB{V}(2N)\) is the real representation of \(x\), defined by
+\begin{gather}
+x \in \MB{V}(2N^2) \notag \\
+x(n) =
+\begin{cases}
+\MF{Re}(x(n)), &n =2n' \\
+\MF{Im}(x(n)), &n =2n'+1
+\end{cases} \\
+n' =1, \dotsc, N \notag
+\end{gather}
+}
 
-% % % % % % % % % % % % % % % %
+A moment's reflection shows the following definition of real representation of matrices.
+
+\Result
+{Definition}
+{
+For \(A \in \MB{M}(N_1,N_2)\), We say \(\MC{R}(A) \in \MB{M}(2N_1,2N_2)\) is the real representation of \(A\), defined by
+\begin{gather}
+A \in \MB{V}(2N^2) \notag \\
+A(n_1,n_2) =
+\begin{cases}
+\MF{Re}(A(n_1,n_2)), &n_1 =2n_1'-1,\; n_2 =2n_2'-1  \\
+\MF{Im}(A(n_1,n_2)), &n_1 =2n_1',\; n_2 =2n_2'-1  \\
+-\MF{Im}(A(n_1,n_2)), &n_1 =2n_1'-1,\; n_2 =2n_2'  \\
+\MF{Re}(A(n_1,n_2)), &n_1 =2n_1',\; n_2 =2n_2'  \\
+\end{cases} \\
+n_1' = 1, \dotsc, N_1 \notag \\
+n_2' = 1, \dotsc, N_2 \notag
+\end{gather}
+}
+
+We continue the notation of program ().
+
+\begin{gather}
+\V{\T{y}}
+=\MC{R}(y) \in \MB{V}(N_h) \\
+\V{\T{g}}
+=\MC{R}(g) \in \MB{V}(N_h) \\
+\M{\T{P}}
+=\MC{R}(\M{P}) \in \MB{M}(2 N_y^2, 2 N_h^2)
+\end{gather}
+such that
+\begin{gather}
+\V{\T{y}} =\M{\T{P}} \V{\T{g}} +\V{\T{z}}
+\end{gather}
+where by construction
+\begin{gather}
+\V{\T{z}}
+=\MC{R}(\V{z}) \in \MB{V}(N_y)
+\end{gather}
+
+Finally, introduce these indicator matrices to identify the place where we want to take \(\ell_2\)-norm.
+
+\begin{gather}
+I_{n_y}^{(y)} \in \MB{M}(N_y, N_y) \\
+I_{n_y}^{(y)}(n_y')
+=\begin{cases}
+1, &n_y' =2n_y \quad \RM{or} \quad n_y' =2n_y+1 \notag \\
+0, &\RM{otherwise}
+\end{cases} \\
+n_h =1, \dotsc, N_h \notag \\
+I_{n_h}^{(h)} \in \MB{M}(N_h, N_h) \\
+I_{n_h}^{(h)}(n_h')
+=\begin{cases}
+1, &n_h' =2n_h \quad \RM{or} \quad n_h' =2n_h+1 \notag \\
+0, &\RM{otherwise}
+\end{cases} \\
+n_h =1, \dotsc, N_h \notag
+\end{gather}
+
+If we introduce vector \(\V{m}\) to denote the entrywise complex modulus, we see that Program () now take the form
+
+\Result
+{Program}
+{
+Given are \(\T{P}, \T{y}, \gamma\).
+Find \(\T{g}\) with
+\begin{gather}
+   \min_{\T{g}, \V{m}} \LA \V{1}, \V{m} \RA \notag \\
+\RM{s.t.}
+\begin{cases}
+\| I_{n_h}^{(h)} \T{g} \|_2
+   \leq \LA \V{y}_{n_h}, \V{m} \RA \\
+\| I_{n_y}^{(y)} \T{P}^\dagger ( \T{P} \T{g} - \T{y} ) \|_2
+\leq \gamma  \\
+\end{cases}
+\end{gather}
+where \(\V{1}\) is the all-1 vector.
+}
+
+which is an SOCP.
+
+We further rewrite Program () into a stricter, extended block matrix form to make the point clearer.
+
+\subsection{Primal-Dual Interior Point Algorithm}
+
+It remains to convert primal-dual interior point algorithm to make the SOCP easier to calculate.
+Of course it is not the only way to do this.
+We mention, again, Boyd and Vandenberghe (2004), \textit{Convex Optimization} chap.11 as a standard reference, and ``\(\ell_1\)-MAGIC'' (Cand\`es and J Romberg 2005) for discussion of application to DS.
+
+To clarify notation and for complentess of exposition, we derive the dual problem here.
+Start with the Lagrangian \(\MC{L}\), where we note we have to introduce one auxiliary vector and one auxiliary scalar for each \(\ell_2\)-norm constraint.
+
+\begin{align}
+   &\MC{L}(\V{m}, \T{g}, \mu^{(h)}, \mu^{(y)}, \lambda^{(h)}, \lambda^{(y)}) \notag \\
+=& \LA \V{1}, m \RA 
+   +\sum_{n_h} \big[ \LA \mu^{(h)}, I_{n_h}^{(h)} \T{g} \RA -\lambda^{(h)} \LA \V{y}_{n_h}, \V{m} \RA \big] \notag \\
+\quad & +\sum_{n_y} \big[ \LA \mu^{(h)}, I_{n_y}^{(y)} \T{P}^\dagger ( \T{P} \T{g} -\T{u} ) \RA -\lambda^{(h)} \gamma \big]
+\end{align}
+
 
 \section{Conclusion and Future Work}
 
-Firstly,
-Meanwhile, DS goes not without criticism for large complexity.
-Indeed it is clear, even from the primal-dual implementation above, that DS requires large dimensional vector
+This article applies DS rather than OMP, like many of previous work, as the algorithm via which we estimate the millimeter wave channel.
 
-Secondly
-And comparison of bounds of OMP and DS
-The author criticises the tendency of current literature to mix up results for DS and OMP without clear justification, since they are two quite different approaches to the compressed sensing problem.
-It is however not trivial to make meaningful comparison, since DS works with a RIP matrix, and OMP for Gaussian... the distinction is slight but definite...
-The author critizises In OMP we don't know whether the measurement matrix is the same as channel
-And OMP has stricter condition than DS
-Tao, however, specifies a noise relation
+We should keep in mind that DS goes not without criticism for large complexity of it (Friedlander and Saunders 2007).
+Indeed it is clear, even from the primal-dual implementation above, that DS requires memory for large dimensional vector, but OMP does not.
 
-Bounds of performance in different setting are often nontrivial to obtain, and one cannot think OMP, or indeed every algorithm, as a universal solution.
-OMP trades off precision for time complexity, and for DS the other way around is true, hence we cannot say which is definitely better than the other.
-All in all, different problems requires different technique and algorihm within the constraint at hand, as is probably true in every discipline of engineering.
+And a meaningful comparison of bounds of OMP and DS is not easy, as their settings are somewhat different.
+The author thus criticises the tendency of current literature to mix up results for DS and OMP without clear justification.
+It is however not trivial to make meaningful comparison, since their setting is different.
+Indeed, the distinction is slight but definite.
+DS calls for a RIP matrix and guarantees such performance even in noisy observation (Cand\`es and Tao 2005, 2007), while RIP is not easily to justify rigorously, and its easy construction is even an open problem.
+On the other hand, as of OMP, besides the original justification of entrywise i.i.d.\ Gaussian sensing matrix (Tropp and Gilbert 2007a), and existent attempt to characterize MIP condition, there is much to be done OMP for Gaussian.
+
+Since, as we have seen, bounds of performance in different setting are often nontrivial to obtain, and one cannot think OMP, or indeed every algorithm, as a universal solution.
+OMP trades off precision for time and space complexity, and for DS the other way around is true, hence we cannot say which is definitely better than the other.
+All in all, different problems requires different technique and algorihm within the current constraint, as is probably true in every discipline of engineering.
 
 \section{References}
 

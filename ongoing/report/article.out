@@ -17,5 +17,6 @@
 \BOOKMARK [1][-]{section.5}{Results and Proofs}{}% 17
 \BOOKMARK [1][-]{section.6}{Simulation}{}% 18
 \BOOKMARK [2][-]{subsection.6.1}{Transformation into Second Order Cone Problem}{section.6}% 19
-\BOOKMARK [1][-]{section.7}{Conclusion and Future Work}{}% 20
-\BOOKMARK [1][-]{section.8}{References}{}% 21
+\BOOKMARK [2][-]{subsection.6.2}{Primal-Dual Interior Point Algorithm}{section.6}% 20
+\BOOKMARK [1][-]{section.7}{Conclusion and Future Work}{}% 21
+\BOOKMARK [1][-]{section.8}{References}{}% 22
