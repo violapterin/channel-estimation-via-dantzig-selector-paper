@@ -10,18 +10,19 @@
 
 \author{Tzu-Yu Jeng}
 \date{\today}
+
 \title{Compressive Channel Sensing of Multipath Millimeter Channel via a Beamspace Dantzig Selector and its Probabilitic Performance Bound}
 
 \newcommand{\MB}[1]{\mathbb{#1}}
 \newcommand{\MC}[1]{\mathcal{#1}}
 \newcommand{\MF}[1]{\mathfrak{#1}}
 \newcommand{\RM}[1]{\mathrm{#1}}
-\newcommand{\T}[1]{\tilde{#1}}
 \newcommand{\V}[1]{\stackunder[1.2pt]{$#1$}{\rule{.9ex}{.075ex}}}
 \newcommand{\M}[1]{\V{\V{#1}}}
+\newcommand{\T}[1]{\tilde{#1}}
+\newcommand{\IP}[1]{\langle #1 \rangle}
 
-\newcommand{\LA}{\langle}
-\newcommand{\RA}{\rangle}
+\renewcommand{\H}{\dagger}
 
 \newcounter{NumResult}
 \newcommand{\myCount}
@@ -81,7 +82,7 @@ We use \(\MB{K}\) to refer to either \(\MB{R}\) or \(\MB{C}\).
 Lower case Latin alphabets with single underline, like \(\V{a}\), denote vectors, and upper case Latin alphabets with double underlines, like \(\M{A}\), denote matrices.
 To avoid being too pedantic, we simply write \(\V{a} \in \MB{C}^N\) to stress \(\V{a}\) is a \(N\)-dimensional vector, and the role it plays in the vector space is understood.
 Similarly, we also write \(\V{A} \in \MB{M}(M,N)\) to stress \(\V{A}\) is a \(M\) by \(N\) matrix, and the role it plays as linear transformation is understood.
-Inner product is denoted as \(\LA \MB{a}, \MB{b} \RA\).
+Inner product is denoted as \(\IP{ \MB{a}, \MB{b} }\).
 Slightly abusing notation, denote as \(\V{a}(n)\) the \(n\)-th component of \(\V{a}\), and denote as \(\V{A}(m,n)\) the \((m,n)\)-entry of \(\V{A}\)
 Especially, \(\V{u}_n\) is the \(n\)-th unit vector in the Cartesian coordinates (not to be confused with the noise).
 
@@ -138,7 +139,7 @@ They showed that that in the noiseless case (Cand\`es and Tao 2006,``Decoding by
 {
 \(x \in \MB{K}^N\) is called \(s\)-sparse, if
 \begin{gather} 
-\# \{\RM{supp}(x)\} \leq s
+\# \RM{supp}(x) \leq s
 \end{gather}
 That is, only at most \(s\) components of vector \(x\) is nonzero.
 }
@@ -149,8 +150,9 @@ That is, only at most \(s\) components of vector \(x\) is nonzero.
 Let \(A,y\) be given.
 Find \(x\) with
 \begin{gather}
-\RM{min}_{x' \in \MB{R}^K} \quad \|x'\|_1
-\RM{s.t.} \quad Ax =y
+\RM{min}_{x' \in \MB{R}^K}
+\quad \|x'\|_1
+\quad \RM{s.t.} \quad A x' =y
 \end{gather}
 }
 
@@ -166,30 +168,24 @@ That is, a noiseless linear transformation of a sparse vector is completely reco
 }
 
 
-\Result
-{Notation}
-{
-Let \(T \subset \MB{N}\).
-Denote as \(X_T\) the columns of \(X\) having indices in \(T\).
-}
 
 \Result
 {Definition}.
 {
-Let \(X\) be an \(n \times p\) matrix having unit \(\ell_2\)-norm columns.
-For each integer \(S \in \MB{N}\), we say that \(X\) satisfies the RIP of order \(S\) with respect to parameter \(0 \leq \delta_S \leq 1\), if, for all \(\vartheta\) with \(\|\vartheta\|_0 \leq S\), for all \(T\) with \(|T| \leq S\),
+Let \(A\) be an \(n \times p\) matrix having unit \(\ell_2\)-norm columns.
+For each integer \(S \in \MB{N}\), we say that \(A\) satisfies the RIP of order \(S\) with respect to parameter \(0 \leq \delta_S \leq 1\), if, for all \(x\) with \(\|x\|_0 \leq S\), for all \(T\) with \(|T| \leq S\),
 \begin{gather}
-(1-\delta_S) \|\vartheta\|^2
-\leq \|X_T \vartheta\|_2^2
-\leq (1+\delta_S) \|\vartheta\|^2
+(1-\delta_S) \|x\|^2
+\leq \|A_T x\|_2^2
+\leq (1+\delta_S) \|x\|^2
 \end{gather}
 }
 
-RIP of order \(S\) is essentially saying that the matrix \(X\) is ``almost isometry'' up to ``relative error'' \(\vartheta_S\).
+RIP of order \(S\) is essentially saying that the matrix \(X\) is ``almost isometry'' up to ``relative error'' \(\delta_S\).
 
 Moreover, for \(T,T' \subset \{1, \dotsc, p \}\), let \(\vartheta_{S,S'}\) be the smallest constant such that
 \begin{gather}
-| \LA X_T c, X_{T'} c' \RA |
+| \IP{ X_T c, X_{T'} c' } |
 \leq \vartheta_{S,S'} \cdot \| c \|_2 \|c'\|_2
 \end{gather}
 
@@ -214,7 +210,7 @@ Let \(A,y\) be given.
 Find \(x\) with
 \begin{gather}
 \min_{x' \in \MB{K}^p}  \|\hat{x'}\|_1 \\ \notag
-\RM{subject}\; \RM{to} \quad \|A^\dagger r\|_\infty \leq \lambda_p \sigma
+\RM{subject}\; \RM{to} \quad \|A^\H r\|_\infty \leq \lambda_p \sigma
 \end{gather}
 where \(r =y -A \hat{x}\).
 }
@@ -332,7 +328,7 @@ Define the Kronecker product \(\RM{vec}(A) \in \MB{K}^{nm}\)
 With (), scholars often exploit the relation
 \begin{gather}
 \RM{vec}(Y)
-=\big[ (F^\dagger) \otimes W \big] \RM{vec}(\M{H})
+=\big[ (F^\H) \otimes W \big] \RM{vec}(\M{H})
 \end{gather}
 
 The matrix consisting of the collection of possible response according to available paths --- called the dictionary --- plays the role of the sensing matrix of OMP.
@@ -399,14 +395,12 @@ Our contribution include:
 \subsection{Channel Model}
 
 Since expression involving probability will get very complecated, introduce the direct product
-%
 \begin{gather}
 \Omega
 =\Omega_t \times \Omega_h \times \Omega_n \times \Omega_r
 \end{gather}
-%
 to denote the overall sample space, where
-%
+
 \begin{itemize}
 \item \(\Omega_t\) denotes the collection of probability samples at the transmitter end,
 \item \(\Omega_h\) denotes that of the communication channel,
@@ -419,15 +413,16 @@ to denote the overall sample space, where
 
 We restrict our consideration to the uniform linear array, which can be modeled as
 \begin{gather}
-\V{a}(\varphi')
-=\sum_{n=1}^{N} \RM{e}^{n \varphi' i} \V{u}_n
+\V{a} \in \MB{V}(N_h) \\
+\V{a}(\psi')
+=\sum_{n=1}^{N} \RM{e}^{n \psi' i} \V{u}_n
 \end{gather}
 where \(i\) is the imaginary unit, \(\V{u}_n\) is the unit vector of the \(n\)-th component.
 
 And consider the virtual representation of the MIMO channel (see for example Akdeniz et.\ al.\ 2014).
 \begin{gather}
 H
-=\sum_{l=0}^L \alpha_l \V{a}\big( \frac{d}{\lambda} \sin \varphi_l' \big) \V{a}\big( \frac{d_{\RM{arr}}}{\lambda} \sin \vartheta_l' \big)^\dagger
+=\sum_{l=0}^L \alpha_l \V{a}\big( \frac{d}{\lambda} \sin \varphi_l' \big) \V{a}\big( \frac{d_{\RM{arr}}}{\lambda} \sin \vartheta_l' \big)^\H
 \end{gather}
 The physical meaning of \(\vartheta_l\) is the \(l\)-th angle of incidence (formed by the ray and the normal line) of departure electronic wave, and \(\vartheta_l\), the \(l\)-th that of arrival wave, while \(d_{\RM{arr}}\) is the distance between two adjacent antennae.
 For our purpose, we may absorb the argument of \(\V{a}\) as
@@ -440,7 +435,7 @@ For our purpose, we may absorb the argument of \(\V{a}\) as
 to get a simpler form
 \begin{gather}
 H
-=\sum_{l=0}^L \alpha_l \V{a}(\varphi_l) \V{a}(\vartheta_l)^\dagger
+=\sum_{l=0}^L \alpha_l \V{a}(\varphi_l) \V{a}(\vartheta_l)^\H
 \end{gather}
 
 \Result
@@ -491,8 +486,8 @@ The effective channel \(\M{Y}\) has \(N_y\) columns, but to estimate it, we may 
 This way, we may denote the acquired effective channel matrix \(\M{Y}\) under noisy observation as (borrowing Matlab's colon notation to denote columns)
 \begin{gather}
 \M{Y}(:,n)
-:=\M{W}_B \M{W}_R ( \M{H} \M{F}_R \M{F}_B \V{u}_m +\V{z} ), \quad
-n =1, 2, \dotsc, N_y
+:=\M{W}_B \M{W}_R ( \M{H} \M{F}_R \M{F}_B \V{u}_{n_y} +\V{z} ), \quad
+n_y =1, 2, \dotsc, N_y
 \end{gather}
 The crux of the matter is the recovery of \(\M{H}\) with knowledge of \(\M{Y}\), and of course \(\M{W}_R, \M{W}_B, \M{F}_R, \M{F}_B\) which are in our control.
 
@@ -509,7 +504,7 @@ to formulate our goal as sparse recovery problem of \(\RM{vec}(H)\) to be
 But, as we have motivated in previous sections, we want to elimitate the angle grid quantization problem, and we want to use DS by considering sparse vector.
 What shall we do?
 
-Introduce the discrete Fourier matrix \(K\) defined to be
+Introduce the discrete Fourier matrix \(\M{K}\) defined to be
 \begin{gather}
 \M{K} \in \MB{M}(N_h, N_h) \\
 \M{K}(n_1, n_2) =\frac{1}{\sqrt{N}} \RM{e}^{2\pi i n_1 n_2 /N},
@@ -519,42 +514,42 @@ where \(i =\sqrt{-1}\).
 And observe that, if we write
 \begin{gather}
 \M{G}
-=\M{K}^\dagger \M{H}
+=\M{K}^\H \M{H}
 \end{gather}
-which has the interpretation as the spatial frequency domain representation of \(H\), then
+which has the interpretation as the spatial frequency domain representation of \(\M{H}\), then
 \begin{gather}
 \M{Y}
-:=\M{W}_B \M{W}_R \M{K} ( \M{G} \M{F}_R \M{F}_B +\M{K}^\dagger \M{Z} )
+:=\M{W}_B \M{W}_R \M{K} ( \M{G} \M{F}_R \M{F}_B +\M{K}^\H \M{Z} )
 \end{gather}
-If at the end of day, \(G\) is sparse, then we recover \(G\) instead, and our use of DS is fully justified.
+If at the end of day, \(\M{G}\) is sparse, then we recover \(\M{G}\) instead, and our use of DS is fully justified.
 To the best of our knowledge, no work has explicitly considered the beamspace CSS.
 
-That is to say, \(K^\dagger z\) may be absorbed, and a similar Kronecker product may be used.
+That is to say, \(\M{K}^\H \V{z}\) may be absorbed, and a similar Kronecker product may be used.
 \begin{gather}
-\RM{vec}(Y)
-\approx \big[ (F_B^\dagger F_R^\dagger) \otimes (W_B W_R K) \big] \RM{vec}(H)
+\RM{vec}(\M{Y})
+\approx \big[ (\M{F}_B^\H \M{F}_R^\H) \otimes (\M{W}_B \M{W}_R \M{K}) \big] \RM{vec}(\M{H})
 \end{gather}
 To simplify notation, set 
 \begin{gather}
-P =(F_B^\dagger F_R^\dagger) \otimes (W_B W_R K)
+\M{P} =(\M{F}_B^\H \M{F}_R^\H) \otimes (\M{W}_B \M{W}_R \M{K})
 \end{gather}
-The instances of \(P\) is completely determined in the transmitter and receiver end, that is
+The instances of \(\M{P}\) is completely determined in the transmitter and receiver end, that is
 \begin{gather}
-P =P(\omega_t, \omega_r)
+\M{P} =\M{P}(\omega_t, \omega_r)
 \end{gather}
 If so, our program reads
 
 \Result
 {Program}
 {
-Let \(H(\omega_h, \omega_n)\) be the virtual channel, and \(W_R(\omega_r)\) the random analog combiner, \(W_B(\omega_r)\) the random analog combiner, \(F_R(\omega_t)\) the random analog combiner, \(F_B(\omega_t)\) the random analog combiner, and \(K\) the discrete Fourier matrix, all as described in previous sections.
-Suppose \(Y\) is the acquired effective channel matrix under corruption of noise \(z\).
-\(P\) is defined just above in ().
+Let \(\M{H}(\omega_h, \omega_n)\) be the virtual channel, and \(\M{W}_R(\omega_r)\) the random analog combiner, \(\M{W}_B(\omega_r)\) the random analog combiner, \(\M{F}_R(\omega_t)\) the random analog combiner, \(\M{F}_B(\omega_t)\) the random analog combiner, and \(K\) the discrete Fourier matrix, all as described in previous sections.
+Suppose \(\M{Y}\) is the acquired effective channel matrix under corruption of noise \(\V{z}\).
+\(\M{P}\) is defined just above in ().
 Then, with parameter \(\gamma\) specified, define the following program
 \begin{gather}
-\hat{g}
-=\underset {{h}} {\RM{min}} \|h\|_1 \quad
-\RM{s.t.}\;\; \|P^\dagger (y -P h)\|_\infty \leq \gamma
+\hat{\V{g}}
+=\underset {\V{h}} {\RM{min}} \|\V{h}\|_1 \quad
+\RM{s.t.}\quad \|P^\H (y -P h)\|_\infty \leq \gamma
 \end{gather}
 And convert \(\hat{g}\) back to the space domain as
 \begin{gather}
@@ -590,13 +585,19 @@ And let
 So \(\MC{A}, \MC{B}, \MC{C}\) are mutually exclusive index sets by construction:
 \begin{gather}
 \MC{A}, \MC{B}, \MC{C} \subset \{1, \dotsc, N_h^2\} \\
-   \MC{A} \cap \MC{B} =\MC{B} \cap \MC{C} =\MC{A} \cap \MC{C} =\varnothing \\
-\MC{A} \cup \MC{C} \cup \MC{C} =\{1, \dotsc, N\}.
+\MC{A} \cap \MC{B} =\MC{B} \cap \MC{C} =\MC{A} \cap \MC{C} =\varnothing \\
+\MC{A} \cup \MC{B} \cup \MC{C} =\{1, \dotsc, N\}.
 \end{gather}
 
+\Result
+{Notation}
+{
+Let \(T \subset \MB{N}\).
+Denote as \(X_T\) the columns of \(X\) having indices in \(T\).
+}
 
 \Result
-{Lemma.}
+{Lemma}
 {
 Let \(\varphi(\omega_h)\) and \(\vartheta(\omega_h)\) be both uniformly, independently distributed in \([0,2\pi)\), and beamspace channel matrix \(G\) defined as in ().
 \begin{gather}
@@ -674,7 +675,7 @@ In the first line, we recall \(g =g_{\MC{A}}\).
 {Lemma}
 {
 \begin{align}
-|\LA e, P_{:,j} \RA| \leq \sqrt{2 \log p}
+|\IP{ e, P_{:,j} }| \leq \sqrt{2 \log p}
 \end{align}
 }
 
@@ -682,20 +683,20 @@ In the first line, we recall \(g =g_{\MC{A}}\).
 {Lemma}
 {
 \begin{align}
-\|P^\dagger P d\|_\infty
+\|P^\H P d\|_\infty
 \leq& 2 \sqrt{2 \log p}.
 \end{align}
 }
 
 To show this, start with
 \begin{align}
-\LA e -r, P_{:,j} \RA
-=\LA P \hat{g} -P g, P_{:,j} \RA
-=\LA P g, P_{:,j} \RA
+\IP{ z -(y -P h), P(:,n_y) }
+=\IP{ P \hat{g} -P g, P(:,n_y) }
+=\IP{ P g, P(:,n_y) }
 \end{align}
 Result follows from triangle inequality, and Lemma ().
 
-From ``Dantzig Selector'' (Cand\`es and Tao 2007), Lemma 1, first equation, we have the result below.
+From ``Dantzig Selector'' (Cand\`es and Tao 2007), Lemma 1, first equation, we have the result as below.
 The original result is for real vector spaces, but we have checked that the proof is completely valid in complex vector spaces.
 Of course the interpretation of modulus and the inner product changes accordingly.
 
@@ -704,12 +705,12 @@ Of course the interpretation of modulus and the inner product changes accordingl
 {
 \begin{align}
 \|d_{\MC{A}}\|_2
-\leq \frac{1}{1-\delta} \|P^\dagger_{\MC{A}\MC{B}} P \eta\|_2 +\frac{\vartheta}{(1-\delta) \sqrt{L}} \|d_{BC}\|_1
+\leq \frac{1}{1-\delta} \|P^\H_{\MC{A}\MC{B}} P \eta\|_2 +\frac{\vartheta}{(1-\delta) \sqrt{L}} \|d_{BC}\|_1
 \end{align}
 }
 
-From ``Dantzig Selector'' (Cand\`es and Tao 2007), Lemma 1, second equation, we have the result below.
-Again, their proof works with complex vector spaces in place of real ones.
+From ``Dantzig Selector'' (Cand\`es and Tao 2007), Lemma 1, second equation, we have the result as below.
+Again, their proof works with complex vector spaces in place of real ones too.
 
 \Result
 {Lemma}
@@ -750,15 +751,15 @@ For convenience, define the following function that maps a complex vector to the
 \Result
 {Definition}
 {
-For \(x \in \MB{R}^N\), We say \(\MC{R}(x) \in \MB{V}(2N)\) is the real representation of \(x\), defined by
+For \(x \in \MB{V}(M)\), We say \(\MC{R}(x) \in \MB{V}(2M)\) is the real representation of \(x\), defined by
 \begin{gather}
-x \in \MB{V}(2N^2) \notag \\
-x(n) =
+x \in \MB{V}(2M^2) \notag \\
+x(m) =
 \begin{cases}
-\MF{Re}(x(n)), &n =2n' \\
-\MF{Im}(x(n)), &n =2n'+1
+\MF{Re}(x(m)), &m =2m' \\
+\MF{Im}(x(m)), &m =2m'+1
 \end{cases} \\
-n' =1, \dotsc, N \notag
+m' =1, \dotsc, M \notag
 \end{gather}
 }
 
@@ -767,18 +768,18 @@ A moment's reflection shows the following definition of real representation of m
 \Result
 {Definition}
 {
-For \(A \in \MB{M}(N_1,N_2)\), We say \(\MC{R}(A) \in \MB{M}(2N_1,2N_2)\) is the real representation of \(A\), defined by
+For \(A \in \MB{M}(m_1,m_2)\), We say \(\MC{R}(A) \in \MB{M}(2m_1,2m_2)\) is the real representation of \(A\), defined by
 \begin{gather}
-A \in \MB{V}(2N^2) \notag \\
-A(n_1,n_2) =
+A \in \MB{V}(2M^2) \notag \\
+A(m_1,m_2) =
 \begin{cases}
-\MF{Re}(A(n_1,n_2)), &n_1 =2n_1'-1,\; n_2 =2n_2'-1  \\
-\MF{Im}(A(n_1,n_2)), &n_1 =2n_1',\; n_2 =2n_2'-1  \\
--\MF{Im}(A(n_1,n_2)), &n_1 =2n_1'-1,\; n_2 =2n_2'  \\
-\MF{Re}(A(n_1,n_2)), &n_1 =2n_1',\; n_2 =2n_2'  \\
+\MF{Re}(A(m_1,m_2)), &m_1 =2m_1'-1,\; m_2 =2m_2'-1  \\
+\MF{Im}(A(m_1,m_2)), &m_1 =2m_1',\; m_2 =2m_2'-1  \\
+-\MF{Im}(A(m_1,m_2)), &m_1 =2m_1'-1,\; m_2 =2m_2'  \\
+\MF{Re}(A(m_1,m_2)), &m_1 =2m_1',\; m_2 =2m_2'  \\
 \end{cases} \\
-n_1' = 1, \dotsc, N_1 \notag \\
-n_2' = 1, \dotsc, N_2 \notag
+m_1' = 1, \dotsc, m_1 \notag \\
+m_2' = 1, \dotsc, m_2 \notag
 \end{gather}
 }
 
@@ -829,12 +830,12 @@ If we introduce vector \(\V{m}\) to denote the entrywise complex modulus, we see
 Given are \(\T{P}, \T{y}, \gamma\).
 Find \(\T{g}\) with
 \begin{gather}
-   \min_{\T{g}, \V{m}} \LA \V{1}, \V{m} \RA \notag \\
+   \min_{\T{g}, \V{m}} \IP{ \V{1}, \V{m} } \notag \\
 \RM{s.t.}
 \begin{cases}
 \| I_{n_h}^{(h)} \T{g} \|_2
-   \leq \LA \V{y}_{n_h}, \V{m} \RA \\
-\| I_{n_y}^{(y)} \T{P}^\dagger ( \T{P} \T{g} - \T{y} ) \|_2
+   \leq \IP{ \V{y}_{n_h}, \V{m} } \\
+\| I_{n_y}^{(y)} \T{P}^\H ( \T{P} \T{g} - \T{y} ) \|_2
 \leq \gamma  \\
 \end{cases}
 \end{gather}
@@ -856,9 +857,9 @@ Start with the Lagrangian \(\MC{L}\), where we note we have to introduce one aux
 
 \begin{align}
    &\MC{L}(\V{m}, \T{g}, \mu^{(h)}, \mu^{(y)}, \lambda^{(h)}, \lambda^{(y)}) \notag \\
-=& \LA \V{1}, m \RA 
-   +\sum_{n_h} \big[ \LA \mu^{(h)}, I_{n_h}^{(h)} \T{g} \RA -\lambda^{(h)} \LA \V{y}_{n_h}, \V{m} \RA \big] \notag \\
-\quad & +\sum_{n_y} \big[ \LA \mu^{(h)}, I_{n_y}^{(y)} \T{P}^\dagger ( \T{P} \T{g} -\T{u} ) \RA -\lambda^{(h)} \gamma \big]
+=& \IP{ \V{1}, m } 
+   +\sum_{n_h} \big[ \IP{ \mu^{(h)}, I_{n_h}^{(h)} \T{g} } -\lambda^{(h)} \IP{ \V{y}_{n_h}, \V{m} } \big] \notag \\
+\quad & +\sum_{n_y} \big[ \IP{ \mu^{(h)}, I_{n_y}^{(y)} \T{P}^\H ( \T{P} \T{g} -\T{u} ) } -\lambda^{(h)} \gamma \big]
 \end{align}
 
 
