@@ -1,5 +1,8 @@
 *.png
 *.pdf
+*.aux
+*.log
+*.out
 *.o
 bin/
 lib/

@@ -1,0 +1,227 @@
+
+\subsection{Channel Model}
+
+Since expression involving probability will get very complecated, sometimes we will explicit mark the independence on event space index.
+Introduce the direct product
+%
+\Disp{
+\Omega
+=\Omega_t \times \Omega_h \times \Omega_n \times \Omega_r
+}
+%
+to denote the overall event space, where
+
+\begin{itemize}
+\item \(\Omega_t\) denotes the event space of the transmitter end,
+\item \(\Omega_h\) denotes the event space of the communication channel itself,
+\item \(\Omega_z\) denotes the event space of the noise arising in the communication channel,
+\item \(\Omega_r\) denotes the event space of the receiver end.
+\end{itemize}
+%
+
+We restrict our consideration to the uniform linear array, which can be modeled as
+%
+\Disp{
+\V{a} \in \MB{V}_\MB{K} (N_h) \\
+\V{a} (\psi')
+=\sum_{n=1}^{N} \RM{e}^{n \psi' i} \V{u}_n
+}
+%
+where \(\RM{e}\) is the base of natural logarithm, and \(i\) the imaginary unit.
+
+And consider the virtual representation of the MIMO channel (see for example Akdeniz et.\ al.\ 2014).
+%
+\Disp{
+H
+=\sum_{l=1}^L \alpha_l \V{a} \left( \frac{d} {\lambda} \sin \varphi_l' \right) \V{a} \left( \frac{d_{\RM{arr}}} {\lambda} \sin \vartheta_l' \right)^\H
+}
+%
+The physical meaning of \(\vartheta_l\) is the \(l\)-th angle of incidence (formed by the ray and the normal line) of departure electronic wave, and \(\vartheta_l\), the \(l\)-th that of arrival wave, while \(d_{\RM{arr}}\) is the distance between two adjacent antennae.
+For our purpose, we may absorb the argument of \(\V{a}\) as
+%
+\Disp{
+\varphi_l
+=\frac{d_{\RM{arr}}} {\lambda} \sin \varphi_l' \\
+\vartheta_l
+=\frac{d_{\RM{arr}}} {\lambda} \sin \vartheta_l'
+}
+%
+to get a simpler form
+%
+\Disp{
+H
+=\sum_{l=0}^L \alpha_l \V{a} (\varphi_l) \V{a} (\vartheta_l)^\H
+}
+%
+
+\Result
+{Definition.}
+{
+}
+
+\subsection{System Model}
+
+We consider the hybrid configuration at both transmitter and receiver end.
+That is to say, each end consists of both digital and analog percoders and combiners, as follows.
+In the transmitter end, there are, in order seeing from the end, digital precoder \(F_B\) and analog precoder \(F_R\).
+Similarly, in the receiver end, there are, in order seeing from the end, digital combiner \(W_B\) and analog combiner \(W_R\).
+To set up notation, we list them as below.
+%
+\Disp{
+\M{F}_B \in &\MB{M}_{\MB{C}} (N_r, N_y) \\
+\M{F}_R \in &\MB{M}_{\MB{C}} (N_h, N_r) \\
+\M{W}_R \in &\MB{M}_{\MB{C}} (N_r, N_h) \\
+\M{W}_B \in &\MB{M}_{\MB{C}} (N_y, N_r).
+}
+%
+Recall that analog precoder is restricted to have value with magnitude being unity, i.e.,
+%
+\Disp{
+|\M{F}_R (n_h, n_r)| =&1, \\
+|\M{W}_R (n_r, n_h)| =&1, \\
+n_h =&1, \dotsc N_h, \NT \\
+n_r =&1, \dotsc N_r \NT
+}
+%
+And we assume
+\Disp{
+N_h \gg &N_r \\
+N_r \gg &N_s
+}
+
+This is analogous to (), and we will exploit the fact when applying compressive sensing techinique.
+
+We consider zero-mean, unity-variance additive white Gaussian noise \(z\).
+Since we restrict our discussion to a specific slice of time, the signal \(z\) degrades as a entrywise i.i.d.\ standard normal distribution vector.
+
+We may introduce the effective channel
+%
+\Disp{
+Y (\omega_h, \omega_e)
+:=W_B (\omega_r) W_R (\omega_r) \Big[ H (\omega_h) F_R (\omega_t) F_B (\omega_t) +Z (\omega_z) \Big]
+}
+%
+Supress the event space index for brevity, we restate the same equation as
+%
+\Disp{
+Y
+:=W_B W_R ( H F_R F_B +z )
+}
+
+\subsection{Proposed Method}
+
+\(\M{Y}\) has \(N_y\) columns, but to estimate it, we may agree to send one pilot signal, which is one of the standard basis, at a time, namely \(\V{u}_n\).
+This way, we may denote the acquired effective channel matrix \(\M{Y}\) under noisy observation as (borrowing Matlab's colon notation to denote columns)
+%
+\Disp{
+\M{Y} (:,n_y)
+:=\M{W}_B \M{W}_R \Big[ \M{H} \M{F}_R \M{F}_B \V{u}_{n_y} +\V{z} \Big], \quad
+n_y =1, 2, \dotsc, N_y
+}
+%
+The crux of the matter is the recovery of \(\M{H}\) with knowledge of \(\M{Y}\), while \(\M{W}_R\), \(\M{W}_B\), \(\M{F}_R\), and \(\M{F}_B\) are in our control.
+
+Following previous work on CSS, we write
+%
+\Disp{
+\V{h}
+:= &\RM{vec} (\M{H})
+\in \MB{V}_{\MB{C}} (N_h^2) \\
+\V{y}
+:= &\RM{vec} (\M{Y})
+\in \MB{M}_{\MB{C}} (N_y^2) \\
+\V{z}^\star
+:= &\RM{vec} (\M{Z})
+\in \MB{M}_{\MB{C}} (N_y^2) \\
+\M{P}^\star
+:= &(\M{F}_R \M{F}_B) \otimes (\M{W}_B \M{W}_R)
+\in \MB{M}_{\MB{C}} (N_h, N_h).
+}
+%
+to formulate our goal as sparse recovery problem of \(\RM{vec} (H)\) to be
+%
+\Disp{
+\V{y} =\M{P}^\star \V{h} +\V{z}^\star
+}
+%
+But, as we have motivated in previous sections, we want to use DS by considering sparse vector, and at the same time to get rid of the angle grid quantization problem.
+What shall we do?
+
+Introduce the discrete Fourier matrix \(\M{K}\) defined to be
+%
+\Disp{
+\M{K} \in &\MB{M}_{\MB{C}} (N_h, N_h) \notag \\
+\M{K} (n_1, n_2) =&\frac{1} {\sqrt{N}} \RM{e}^{2\pi i n_1 n_2 /N}, \\
+\quad n_1, n_2 =&0, 1, \dotsc, N_h-1 \notag
+}
+%
+Observe that, if we write
+%
+\Disp{
+\M{G}
+=\M{K}^\H \M{H} \M{K}
+}
+%
+which has the interpretation as the spatial frequency domain representation of \(\M{H}\), then
+%
+\Disp{
+\M{Y}
+:=\M{W}_B \M{W}_R \M{K} ( \M{G} \M{K}^\H \M{F}_R \M{F}_B +\M{K}^\H \M{Z} )
+}
+%
+If at the end of day, \(\M{G}\) is sparse, then we recover \(\M{G}\) instead, and our use of DS is fully justified.
+To the best of our knowledge, no work has explicitly considered the beamspace CSS.
+
+That is to say, \(\M{K}^\H \V{z}\) may be absorbed, and a similar Kronecker product may be used.
+To simplify notation, set 
+%
+\Disp{
+\M{P}
+=(\M{F}_B^\H \M{F}_R^\H K) \otimes (\M{W}_B \M{W}_R \M{K})
+\in \MB{M}_{\MB{C}} (N_y^2, N_h^2)
+}
+%
+And accordingly
+\Disp{
+\V{z}
+:= &\RM{vec} (\M{K}^\H \M{Z})
+\in \MB{V}_{\MB{C}} (N_y^2)
+}
+%
+Then
+%
+\Disp{
+\V{y}
+=\M{P} \V{g} +\V{z}
+}
+%
+If so, our program reads
+
+\Result
+{Program}
+{
+Let \(\M{P}, \V{y}\) be defined just above in ().
+Then, with parameter \(\gamma\) specified, define the following program
+%
+\Disp{
+\hat{\V{g}}
+=\underset {\V{h}} {\RM{min}} \|\V{h}\|_1 \quad
+\RM{subject}\; \RM{to}\quad \|P^\H (y -P h)\|_\infty \leq \gamma
+}
+%
+And convert \(\hat{g}\) back to the space domain as
+%
+\Disp{
+\hat{h}
+=K \hat{g}.
+}
+%
+And finally recover the estimated \(H\) as
+%
+\Disp{
+\hat{H} =\RM{vec}^{-1} (\hat{h})
+}
+%
+}
+
+It, then, will not be hard to establish Cand\`es and Tao's result to the setting of millimeter wave virtual channel, and resulting bound is immediate under straighforward work, as follows.

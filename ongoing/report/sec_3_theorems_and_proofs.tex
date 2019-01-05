@@ -1,0 +1,218 @@
+
+We follow the argument outlined in ``The Dantzig Selector'' and fill the content.
+The sparse vector to be recovered of our investigation is \(g \in \MB{C}^{N_h^2}\), and we continue to use \(\hat{g}\) to denote the Dantzig Selector.
+
+We first establish a technical lemma that shows \(\RM{supp}(g)\) has roughly cardinal \(L\).
+At the heart of the argument, the lemma provides the basis on which \(g\) is almost-sparse.
+
+Consider
+%
+\Disp{
+d =g -\hat{g}
+}
+%
+And let
+\begin{itemize}
+\item \(\MC{A}\) be the largest \(L\) position of \(g\).
+\item \(\MC{B}\) be the largest \(L\) position of \(d\) except on \(\MC{A}\).
+\item \(\MC{C} =\{1, \dotsc, N_h^2\} -( \MC{B} \cup \MC{C} )\), i.e., the complementary index set.
+\end{itemize}
+So \(\MC{A}, \MC{B}, \MC{C}\) are mutually exclusive index sets by construction:
+%
+\Disp{
+\MC{A}, \MC{B}, \MC{C} \subset \{1, \dotsc, N_h^2\} \\
+\MC{A} \cap \MC{B} =\MC{B} \cap \MC{C} =\MC{A} \cap \MC{C} =\varnothing \\
+\MC{A} \cup \MC{B} \cup \MC{C} =\{1, \dotsc, N\}.
+}
+
+
+Recall the definition () in section 1.
+
+\Result
+{Definition}
+{
+Suppose \(\M{A} \in \MB{M}_{\MB{K}} (N_1, N_2)\).
+Let \(\MC{T} \subset T (N_2)\).
+Denote as \(\M{A}_{\MC{T}}\) the columns of \(\M{A}\) having indices in \(\MC{T}\).
+}
+
+\Result
+{Definition}
+{
+The function \(S:\; \MB{V}_{\MB{K}}(N) \mapsto \MB{V}_{\MB{K}}(N)\), \(N \in \MB{N}\), sorts the vector \(x \in \MB{V}_{\MB{K}}(N))\), so that
+\Disp{
+S (x)(n_1) \geq S (x)(n_2),
+\quad n_1, n_2 \in T (N).
+}
+Note that there are infinitely many sorting functions depending on how to break the tie, but we fix any \(S\) throughout this article.
+For definiteness, we may compare the first component first, and the second, and so on.
+If still there is a tie for a certain component (for complex numbers), we compare the real part first, then the imaginary part.
+}
+
+
+\Result
+{Definition}
+{
+Let function \(f:\; T (N) \mapsto \MB{R}_+\), \(N \in \MB{N}\), be given.
+For \(x \in \MB{V}_{\MB{K}}(N)\), we say \(x\) is confined in sorted magnitude according to \(f\), if
+\Disp{
+x (n) <f (n),
+\quad n \in T (N).
+}
+}
+
+
+\Result
+{Lemma}
+{
+Let \(\varphi (\omega_h)\) be uniformly, independently distributed in \([0,2\pi)\), and array response \(\V{a} (\varphi)\) defined as in ().
+%
+\Disp{
+\| \V{a} (\varphi) \|_1
+\leq \frac{1}{\pi^2} \log \frac{L}{N}.
+}
+%
+}
+
+To find the \(l\)-th path's contribution to the frequency domain, recall the identity for Dirichlet kernel
+%
+\Disp{
+D (\varphi)
+:=&\left| \sum_{n=0}^{N-1} \RM{e}^{i n \varphi} \right| \\ \NT
+=&\frac{|\sin (N \varphi/2)|}{|\sin (\varphi /2)|},
+\quad 0 \leq \varphi \leq \pi
+}
+%
+
+By taking the first two term of the expansion
+%
+\Disp{
+\sin x =x -x^3/6 + \MC{O}(x^5), \quad x \ll 1
+}
+%
+and noting the monotony of the first two terms,
+%
+\Disp{
+D (\varphi)
+\leq& \frac{1}{\varphi/2 -(\varphi/2)^3/6} \NT \\
+=& \frac{-48}{\varphi^3 -24\varphi} \\
+\quad 0 \leq \varphi \leq \pi,
+}
+%
+The fraction above can be bounded.
+
+By the same token, more generally,
+%
+\Disp{
+\frac{1}{N} S (\pi \varphi')
+=&\left| \frac{1}{N} \sum_{n=0}^{N-1} \RM{e}^{-2\pi i k n/N} \RM{e}^{i n \varphi} \right| \NT \\
+\leq& \frac{48}{N \pi^3 (\varphi'^3 -24 \varphi' /\pi^2)}
+}
+%
+where \(\varphi' =k/N -\varphi/2\pi\), and the cubic expression is split.
+We wish to bound the tail of \(S (\pi \varphi')\), and apply the na\"ive bound
+%
+\Disp{
+&\frac{N}{2\pi} \cdot \frac{48}{N \pi^3} \int_{L/N}^1 \frac{1}{\varphi'^3 -24 \varphi' /\pi^2}
+ d\varphi' \NT \\
+=&\frac{1}{2\pi^2} \cdot \left( 2 \log \frac{L}{N} +\log \frac{24-\pi^2}{24-\pi^2 L^2 /N^2} \right) \NT \\
+\leq& \frac{1}{\pi^2} \log \frac{L}{N}
+}
+%
+Here, the integral in the first line is immediate.
+The second term in the bracket is smaller than 0 and is dropped in the last inequality.
+The proof of Lemma () is complete.
+
+The bound is satisfying enough, though refinement is surely possible.
+Indeed, \(\log L/N \to 0\) as \(N \to \infty\) and limited by the number of paths \(L\).
+Intuitively, this says that when there are few paths, but many antennas, we expect the spatial frequency domain of the virtual channel to be sparse too.
+
+The rest follows ``The Dantzig Selector'' very closely.
+
+
+\Result
+{Proposition}
+{
+Let \(h \in \MB{R}^n\) and \(\eta \in \MB{R}^p\) are defined as in ().
+Then
+%
+\Disp{
+\|d_{BC}\|_1
+\leq \|d_{\MC{A}}\|_1 +\|g_{BC}\|_1
+}
+%
+}
+
+To show this, observe
+%
+\Disp{
+&\|g\|_1 -\|d_{\MC{A}}\|_1 +\|d_{BC}\|_1 -\|g_{BC}\|_1 \\
+\leq& \|g +d\|_1 \NT \\
+\leq& \|g\|_1
+}
+%
+In the first line, we recall \(g =g_{\MC{A}}\).
+
+\Result
+{Lemma}
+{
+%
+\Disp{
+|\IP{ e, P_{:,j} }| \leq \sqrt{2 \log p}
+}
+%
+}
+
+\Result
+{Lemma}
+{
+%
+\Disp{
+\|P^\H P d\|_\infty
+\leq& 2 \sqrt{2 \log p}.
+}
+%
+}
+
+To show this, start with
+%
+\Disp{
+\IP{ z -(y -P h), P (:,n_y) }
+=\IP{ P \hat{g} -P g, P (:,n_y) }
+=\IP{ P g, P (:,n_y) }
+}
+%
+Result follows from triangle inequality, and Lemma ().
+
+From ``Dantzig Selector'' (Cand\`es and Tao 2007), Lemma 1, first equation, we have the result as below.
+The original result is for real vector spaces, but we have checked that the proof is completely valid in complex vector spaces.
+Of course the interpretation of modulus and the inner product changes accordingly.
+
+\Result
+{Lemma}
+{
+%
+\Disp{
+\|d_{\MC{A}}\|_2
+\leq \frac{1}{1-\delta} \|P^\H_{\MC{A}\MC{B}} P \eta\|_2 +\frac{\vartheta}{(1-\delta) \sqrt{L}} \|d_{BC}\|_1
+}
+%
+}
+
+From ``Dantzig Selector'' (Cand\`es and Tao 2007), Lemma 1, second equation, we have the result as below.
+Again, their proof works with complex vector spaces in place of real ones too.
+
+\Result
+{Lemma}
+{
+%
+\Disp{
+\|d\|_2^2
+\leq \|d_{\MC{A}\MC{B}}\|_2^2 +\frac{1}{L} \|d_{\MC{C}}\|_1^2
+}
+%
+}
+
+We can formulate our main theorem.
+
+{ \color{red} (To be done) }

@@ -1,0 +1,166 @@
+
+With the preperation of notation in the previous section, and a discussion on its theory, we shall now formulate our algorithm and focus on the practical aspect.
+
+As of now, we have transformed the sparse-recovery problem of complex matrix \(H\) to complex vector \(h\), and finally to real vector \(\MC{R}(h)\).
+But it is not the end.
+In fact, Cand\`es and Tao's analysis in ``\(\ell_1\)-MAGIC'' transforms DS into a linear program (LP), but that does not directly applies
+Actually they pointed out that complex DS may be cast into a second order cone program (SOCP), but (as they admit in the paper) they did not pursue the matter.
+Since the proof is, for the present purpose, not entirely trivial, we include here for completeness of exposition.
+Thus our proposed algorithm is not a corollary of the DS program outlines in ``\(\ell_1\)-MAGIC''.
+
+\subsection{Transformation into Second Order Cone Problem}
+
+Since our setting is slightly different from ``\(\ell_1\)-MAGIC'', for completeness of exposition we write down derivation of the dual problem from the primal problem, as follows.
+Recapitulate that, as we explained in the above, DS involves the calculation of \(\ell_1\)-1 norm.
+This, for real vectors, can be transformed into a linear program (LP).
+But in the complex case, that becomes a quadratic expression of the real and imaginary part of the vector, and is no longer equivalent to an LP.
+Still, the comparison arising from primal-dual problem is not easily done in complex numbers, and we cast it into a real \(\ell_1\)-1 norm problem.
+Afterwards we will further transform the SOCP to a primal-dual algorithm, which is a well-known technique for convex optimization problems.
+The bound in the previous section is valid, since in the course of transformation, nothing is lost or weakened.
+
+For convenience, define the following real representation function for complex vectors.
+
+\Result
+{Definition}
+{
+For \(x \in \MB{V}(M)\), we say \(\MC{R}(x)\) is the real representation of \(x\), defined by
+%
+\Disp{
+\MC{R}(x) \in &\MB{V}(2M) \NT \\
+\MC{R}(x)(m) =
+&\begin{cases}
+\MF{Re}(\MC{R}(x)(m)), &m =2m' \\
+\MF{Im}(\MC{R}(x)(m)), &m =2m'+1
+\end{cases} \\
+m' =& 1, \dotsc, M \NT
+}
+%
+}
+
+A moment's reflection reveals the corresponding definition of real representation of matrices.
+
+\Result
+{Definition}
+{
+For \(A \in \MB{M}_{\MB{C}} (M_1, M_2)\), we say \(\MC{R}(A)\) is the real representation of \(A\), defined by
+%
+\Disp{
+A \in &\MB{V}_{\MB{R}} (2M_1, 2M_2) \NT \\
+A (m_1,m_2) =
+&\begin{cases}
+\MF{Re}(A (m_1,m_2)), &m_1 =2m_1'-1,\; m_2 =2m_2'-1  \\
+\MF{Im}(A (m_1,m_2)), &m_1 =2m_1',\; m_2 =2m_2'-1  \\
+-\MF{Im}(A (m_1,m_2)), &m_1 =2m_1'-1,\; m_2 =2m_2'  \\
+\MF{Re}(A (m_1,m_2)), &m_1 =2m_1',\; m_2 =2m_2'  \\
+\end{cases} \\
+m_1' = &1, \dotsc, m_1 \NT \\
+m_2' = &1, \dotsc, m_2 \NT
+}
+%
+}
+
+We continue the notation of program ().
+
+%
+\Disp{
+\V{\T{y}}
+=\MC{R}(y) \in \MB{V}(N_h) \\
+\V{\T{g}}
+=\MC{R}(g) \in \MB{V}(N_h) \\
+\M{\T{P}}
+=\MC{R}(\M{P}) \in \MB{M}_{\MB{C}} (2 N_y^2, 2 N_h^2)
+}
+%
+such that
+%
+\Disp{
+\V{\T{y}} =\M{\T{P}} \V{\T{g}} +\V{\T{z}}
+}
+%
+where by construction
+%
+\Disp{
+\V{\T{z}}
+=\MC{R}(\V{z}) \in \MB{V}(N_y)
+}
+%
+
+Finally, introduce these indicator matrices to identify the place where we want to take \(\ell_2\)-norm.
+
+%
+\Disp{
+I_{n_y}^{(y)} \in &\MB{M}_{\MB{C}} (N_y, N_y) \NT \\
+I_{n_y}^{(y)}(n_y')
+=&\begin{cases}
+1, &n_y' =2n_y \\
+1, &n_y' =2n_y +1 \\
+0, &\RM{otherwise}
+\end{cases} \\
+I_{n_h}^{(h)} \in &\MB{M}_{\MB{C}} (N_h, N_h) \NT \\
+I_{n_h}^{(h)}(n_h')
+=&\begin{cases}
+1, &n_h' =2n_h \\
+1, &n_h' =2n_h +1 \\
+0, &\RM{otherwise}
+\end{cases} \\
+n_y =&1, \dotsc, N_y \NT \\
+n_h =&1, \dotsc, N_h \NT
+}
+%
+
+If we introduce vector \(\V{m}\) to denote the entrywise complex modulus, we see that Program () now take the form
+
+\Result
+{Program}
+{
+   Given are \(\T{\M{P}}, \T{\V{y}}, \gamma\).
+Find \(\T{\V{g}}\) with
+%
+\Disp{
+&\min_{\T{\V{g}}, \V{m}} \IP{ \V{1}, \V{m} } \NT \\
+\RM{s.t.}
+&\begin{cases}
+\| I_{n_h}^{(h)} \T{\V{g}} \|_2
+\leq \IP{ \V{y}_{n_h}, \V{m} } \\
+\| I_{n_y}^{(y)} \T{\M{P}}^\H ( \T{\M{P}} \T{\V{g}} -\T{\V{y}} ) \|_2
+\leq \gamma  \\
+\end{cases}
+}
+%
+where \(\V{1}\) is the all-1 vector.
+}
+
+The program, we see, is an SOCP.
+
+We further rewrite Program () into a stricter, extended block matrix form to make the point clearer.
+
+{ \color{red} (To be done) }
+
+\subsection{Primal-Dual Interior Point Algorithm}
+
+It remains to convert primal-dual interior point algorithm to make the SOCP easier to calculate.
+Of course it is not the only way to do this.
+We mention, again, Boyd and Vandenberghe (2004), \textit{Convex Optimization} chap.11 as a standard reference, and ``\(\ell_1\)-MAGIC'' (Cand\`es and J Romberg 2005) for discussion of application to DS.
+
+To clarify notation and for complentess of exposition, we derive the dual problem here.
+Start with the Lagrangian \(\MC{L}\), where we note we have to introduce one auxiliary vector and one auxiliary scalar for each \(\ell_2\)-norm constraint.
+
+%
+\Disp{
+&\MC{L}(\V{m}, \T{g}, \mu^{(h)}, \mu^{(y)}, \lambda^{(h)}, \lambda^{(y)}) \NT \\
+=& \IP{ \V{1}, m } 
++\sum_{n_h} \big[ \IP{ \mu^{(h)}, I_{n_h}^{(h)} \T{g} } -\lambda^{(h)} \IP{ \V{y}_{n_h}, \V{m} } \big] \NT \\
+\quad & +\sum_{n_y} \big[ \IP{ \mu^{(h)}, I_{n_y}^{(y)} \T{P}^\H ( \T{P} \T{g} -\T{u} ) } -\lambda^{(h)} \gamma \big]
+}
+%
+
+\subsection{Discussion}
+
+
+On the other hand, DS goes not without criticism for large complexity of it (Friedlander and Saunders 2007).
+Indeed it is clear, even from the primal-dual implementation above, that DS requires memory for large dimensional vector, but OMP does not.
+
+And a meaningful comparison of bounds of OMP and DS is not easy, as their settings are somewhat different.
+The author thus criticises the tendency of current literature to mix up results for DS and OMP without clear justification.
+Indeed, DS calls for a RIP matrix and guarantees such performance even in noisy observation (Cand\`es and Tao 2005, 2007), while RIP is not easily to justify rigorously, and its easy construction is even an open problem.
+On the other hand, as of OMP, besides the original justification of entrywise i.i.d.\ Gaussian sensing matrix (Tropp and Gilbert 2007a), and existent attempt to characterize MIP condition, there is much to be done OMP for Gaussian.
