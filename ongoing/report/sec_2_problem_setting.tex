@@ -107,21 +107,20 @@ Supress the event space index for brevity, we restate the same equation as
 Y
 :=W_B W_R ( H F_R F_B +z )
 }
-
-\subsection{Proposed Method}
-
 \(\M{Y}\) has \(N_y\) columns, but to estimate it, we may agree to send one pilot signal, which is one of the standard basis, at a time, namely \(\V{u}_n\).
 This way, we may denote the acquired effective channel matrix \(\M{Y}\) under noisy observation as (borrowing Matlab's colon notation to denote columns)
 %
 \Disp{
 \M{Y} (:,n_y)
-:=\M{W}_B \M{W}_R \Big[ \M{H} \M{F}_R \M{F}_B \V{u}_{n_y} +\V{z} \Big], \quad
-n_y =1, 2, \dotsc, N_y
+:=\M{W}_B \M{W}_R \Big[ \M{H} \M{F}_R \M{F}_B \V{u}_{n_y} +\V{z} \Big], \\
+\quad n_y &=1, 2, \dotsc, N_y \NT
 }
 %
-The crux of the matter is the recovery of \(\M{H}\) with knowledge of \(\M{Y}\), while \(\M{W}_R\), \(\M{W}_B\), \(\M{F}_R\), and \(\M{F}_B\) are in our control.
+Still, the crux of the matter is the recovery of \(\M{H}\) with knowledge of \(\M{Y}\), while \(\M{W}_R\), \(\M{W}_B\), \(\M{F}_R\), and \(\M{F}_B\) are in our control.
 
-Following previous work on CSS, we write
+\subsection{Vectorization}
+
+If we had followed the widely accepted approach of compressive channel sensing, we would have written
 %
 \Disp{
 \V{h}
@@ -129,13 +128,13 @@ Following previous work on CSS, we write
 \in \MB{V}_{\MB{C}} (N_h^2) \\
 \V{y}
 := &\RM{vec} (\M{Y})
-\in \MB{M}_{\MB{C}} (N_y^2) \\
+\in \MB{V}_{\MB{C}} (N_y^2) \\
 \V{z}^\star
 := &\RM{vec} (\M{Z})
-\in \MB{M}_{\MB{C}} (N_y^2) \\
+\in \MB{V}_{\MB{C}} (N_y^2) \\
 \M{P}^\star
-:= &(\M{F}_R \M{F}_B) \otimes (\M{W}_B \M{W}_R)
-\in \MB{M}_{\MB{C}} (N_h, N_h).
+:= &(\M{F}_R^\Tr \M{F}_B^\Tr) \otimes (\M{W}_B \M{W}_R)
+\in \MB{M}_{\MB{C}} (N_y^2, N_h^2).
 }
 %
 to formulate our goal as sparse recovery problem of \(\RM{vec} (H)\) to be
@@ -147,12 +146,14 @@ to formulate our goal as sparse recovery problem of \(\RM{vec} (H)\) to be
 But, as we have motivated in previous sections, we want to use DS by considering sparse vector, and at the same time to get rid of the angle grid quantization problem.
 What shall we do?
 
+\subsection{Proposed Method}
+
 Introduce the discrete Fourier matrix \(\M{K}\) defined to be
 %
 \Disp{
-\M{K} \in &\MB{M}_{\MB{C}} (N_h, N_h) \notag \\
-\M{K} (n_1, n_2) =&\frac{1} {\sqrt{N}} \RM{e}^{2\pi i n_1 n_2 /N}, \\
-\quad n_1, n_2 =&0, 1, \dotsc, N_h-1 \notag
+\M{K} \in &\MB{M}_{\MB{C}} (N_h, N_h) \NT \\
+\M{K} (n_1, n_2) =&\frac{1} {\sqrt{N_h}} \RM{e}^{2\pi i n_1 n_2 /N_h}, \\
+\quad n_1, n_2 =&0, 1, \dotsc, N_h-1 \NT
 }
 %
 Observe that, if we write
@@ -162,7 +163,7 @@ Observe that, if we write
 =\M{K}^\H \M{H} \M{K}
 }
 %
-which has the interpretation as the spatial frequency domain representation of \(\M{H}\), then
+which has the interpretation as the beamspace (i.e., spatial frequency domain) representation of \(\M{H}\), then
 %
 \Disp{
 \M{Y}
@@ -170,19 +171,21 @@ which has the interpretation as the spatial frequency domain representation of \
 }
 %
 If at the end of day, \(\M{G}\) is sparse, then we recover \(\M{G}\) instead, and our use of DS is fully justified.
-To the best of our knowledge, no work has explicitly considered the beamspace CSS.
 
 That is to say, \(\M{K}^\H \V{z}\) may be absorbed, and a similar Kronecker product may be used.
 To simplify notation, set 
 %
 \Disp{
 \M{P}
-=(\M{F}_B^\H \M{F}_R^\H K) \otimes (\M{W}_B \M{W}_R \M{K})
+=(\M{F}_B^\Tr \M{F}_R^\Tr K^\ast) \otimes (\M{W}_B \M{W}_R \M{K})
 \in \MB{M}_{\MB{C}} (N_y^2, N_h^2)
 }
 %
 And accordingly
 \Disp{
+\V{g}
+:= &\RM{vec} (\M{G})
+\in \MB{M}_{\MB{C}} (N_h^2) \\
 \V{z}
 := &\RM{vec} (\M{K}^\H \M{Z})
 \in \MB{V}_{\MB{C}} (N_y^2)
@@ -205,21 +208,20 @@ Then, with parameter \(\gamma\) specified, define the following program
 %
 \Disp{
 \hat{\V{g}}
-=\underset {\V{h}} {\RM{min}} \|\V{h}\|_1 \quad
-\RM{subject}\; \RM{to}\quad \|P^\H (y -P h)\|_\infty \leq \gamma
+=\min_{\V{g}'} \|\V{g}'\|_1 \quad
+\RM{subject}\; \RM{to}\quad \|\M{P}^\H (\V{y} -\M{P} \V{g}')\|_\infty \leq \gamma
 }
 %
-And convert \(\hat{g}\) back to the space domain as
+And convert \(\hat{\V{g}}\) back to the space domain as
 %
 \Disp{
-\hat{h}
-=K \hat{g}.
+\hat{G} =\RM{vec}^{-1} (\hat{g})
 }
 %
 And finally recover the estimated \(H\) as
 %
 \Disp{
-\hat{H} =\RM{vec}^{-1} (\hat{h})
+\hat{\M{H}} =\M{K} \hat{\M{G}} \M{K}^\H.
 }
 %
 }

@@ -64,11 +64,14 @@ We continue the notation of program ().
 %
 \Disp{
 \V{\T{y}}
-=\MC{R}(y) \in \MB{V}(N_h) \\
+=&\MC{R}(y)
+\in \MB{V}(N_h) \\
 \V{\T{g}}
-=\MC{R}(g) \in \MB{V}(N_h) \\
+=&\MC{R}(g)
+\in \MB{V}(N_h) \\
 \M{\T{P}}
-=\MC{R}(\M{P}) \in \MB{M}_{\MB{C}} (2 N_y^2, 2 N_h^2)
+=&\MC{R}(\M{P})
+\in \MB{M}_{\MB{C}} (2 N_y^2, 2 N_h^2)
 }
 %
 such that
@@ -89,15 +92,15 @@ Finally, introduce these indicator matrices to identify the place where we want 
 
 %
 \Disp{
-I_{n_y}^{(y)} \in &\MB{M}_{\MB{C}} (N_y, N_y) \NT \\
-I_{n_y}^{(y)}(n_y')
+\M{I}_{n_y}^{(y)} \in &\MB{M}_{\MB{R}} (2N_y^2, 2N_y^2) \NT \\
+\M{I}_{n_y}^{(y)}(n_y')
 =&\begin{cases}
 1, &n_y' =2n_y \\
 1, &n_y' =2n_y +1 \\
 0, &\RM{otherwise}
 \end{cases} \\
-I_{n_h}^{(h)} \in &\MB{M}_{\MB{C}} (N_h, N_h) \NT \\
-I_{n_h}^{(h)}(n_h')
+\M{I}_{n_h}^{(h)} \in &\MB{M}_{\MB{R}} (2N_h^2, 2N_h^2) \NT \\
+\M{I}_{n_h}^{(h)}(n_h')
 =&\begin{cases}
 1, &n_h' =2n_h \\
 1, &n_h' =2n_h +1 \\
@@ -117,12 +120,13 @@ If we introduce vector \(\V{m}\) to denote the entrywise complex modulus, we see
 Find \(\T{\V{g}}\) with
 %
 \Disp{
-&\min_{\T{\V{g}}, \V{m}} \IP{ \V{1}, \V{m} } \NT \\
-\RM{s.t.}
+\min_{\T{\V{g}}, \V{m}} \quad
+&\IP{ \V{1}, \V{m} } \NT \\
+\RM{subject}\; \RM{to} \quad
 &\begin{cases}
-\| I_{n_h}^{(h)} \T{\V{g}} \|_2
+\| \M{I}_{n_h}^{(h)} \T{\V{g}} \|_2
 \leq \IP{ \V{y}_{n_h}, \V{m} } \\
-\| I_{n_y}^{(y)} \T{\M{P}}^\H ( \T{\M{P}} \T{\V{g}} -\T{\V{y}} ) \|_2
+\| \M{I}_{n_y}^{(y)} \T{\M{P}}^\H ( \T{\M{P}} \T{\V{g}} -\T{\V{y}} ) \|_2
 \leq \gamma  \\
 \end{cases}
 }
@@ -147,10 +151,10 @@ Start with the Lagrangian \(\MC{L}\), where we note we have to introduce one aux
 
 %
 \Disp{
-&\MC{L}(\V{m}, \T{g}, \mu^{(h)}, \mu^{(y)}, \lambda^{(h)}, \lambda^{(y)}) \NT \\
-=& \IP{ \V{1}, m } 
-+\sum_{n_h} \big[ \IP{ \mu^{(h)}, I_{n_h}^{(h)} \T{g} } -\lambda^{(h)} \IP{ \V{y}_{n_h}, \V{m} } \big] \NT \\
-\quad & +\sum_{n_y} \big[ \IP{ \mu^{(h)}, I_{n_y}^{(y)} \T{P}^\H ( \T{P} \T{g} -\T{u} ) } -\lambda^{(h)} \gamma \big]
+&\MC{L}(\V{m}, \T{\V{g}}, \V{\mu}^{(h)}, \V{\mu}^{(y)}, \lambda^{(h)}, \lambda^{(y)}) \NT \\
+=& \IP{ \V{1}, \V{m} } 
++\sum_{n_h} \left[ \IP{ \V{\mu}^{(h)}, \M{I}_{n_h}^{(h)} \T{\M{g}} } -\lambda^{(h)} \IP{ \V{y}_{n_h}, \V{m} } \right] \NT \\
+\quad & +\sum_{n_y} \left[ \IP{ \V{\mu}^{(h)}, \M{I}_{n_y}^{(y)} \T{\M{P}}^\H ( \T{\M{P}} \T{\V{g}} -\T{\V{y}} ) } -\lambda^{(h)} \gamma \right]
 }
 %
 

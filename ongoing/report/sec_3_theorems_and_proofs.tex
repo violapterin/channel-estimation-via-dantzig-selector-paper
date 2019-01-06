@@ -1,9 +1,12 @@
 
 We follow the argument outlined in ``The Dantzig Selector'' and fill the content.
 The sparse vector to be recovered of our investigation is \(g \in \MB{C}^{N_h^2}\), and we continue to use \(\hat{g}\) to denote the Dantzig Selector.
+To simplify the exposition, we will continue to use the variables \(\V{P}\), \(\V{g}\), \(\V{y}\), and \(\V{z}\) introduced in previous sections, without defining them over and over (by which one would make each statement completely self-containing but considerably more verbose).
 
 We first establish a technical lemma that shows \(\RM{supp}(g)\) has roughly cardinal \(L\).
 At the heart of the argument, the lemma provides the basis on which \(g\) is almost-sparse.
+
+\subsection{Beamspace Channel is Almost Sparse}
 
 Consider
 %
@@ -15,14 +18,14 @@ And let
 \begin{itemize}
 \item \(\MC{A}\) be the largest \(L\) position of \(g\).
 \item \(\MC{B}\) be the largest \(L\) position of \(d\) except on \(\MC{A}\).
-\item \(\MC{C} =\{1, \dotsc, N_h^2\} -( \MC{B} \cup \MC{C} )\), i.e., the complementary index set.
+\item \(\MC{C} =T(N_h^2) -\MC{B} -\MC{C}\), i.e., the complementary index set.
 \end{itemize}
 So \(\MC{A}, \MC{B}, \MC{C}\) are mutually exclusive index sets by construction:
 %
 \Disp{
-\MC{A}, \MC{B}, \MC{C} \subset \{1, \dotsc, N_h^2\} \\
+\MC{A}, \MC{B}, \MC{C} \subset T(N_h^2) \\
 \MC{A} \cap \MC{B} =\MC{B} \cap \MC{C} =\MC{A} \cap \MC{C} =\varnothing \\
-\MC{A} \cup \MC{B} \cup \MC{C} =\{1, \dotsc, N\}.
+\MC{A} \cup \MC{B} \cup \MC{C} =T(N_h^2).
 }
 
 
@@ -41,13 +44,15 @@ Denote as \(\M{A}_{\MC{T}}\) the columns of \(\M{A}\) having indices in \(\MC{T}
 {
 The function \(S:\; \MB{V}_{\MB{K}}(N) \mapsto \MB{V}_{\MB{K}}(N)\), \(N \in \MB{N}\), sorts the vector \(x \in \MB{V}_{\MB{K}}(N))\), so that
 \Disp{
-S (x)(n_1) \geq S (x)(n_2),
-\quad n_1, n_2 \in T (N).
+|S (x)(n_1)| \geq &|S (x)(n_2)|, \\
+n_1 >&n_2,
+\quad n_1, n_2 \in T (N) \NT
 }
+}
+
 Note that there are infinitely many sorting functions depending on how to break the tie, but we fix any \(S\) throughout this article.
 For definiteness, we may compare the first component first, and the second, and so on.
 If still there is a tie for a certain component (for complex numbers), we compare the real part first, then the imaginary part.
-}
 
 
 \Result
@@ -56,16 +61,16 @@ If still there is a tie for a certain component (for complex numbers), we compar
 Let function \(f:\; T (N) \mapsto \MB{R}_+\), \(N \in \MB{N}\), be given.
 For \(x \in \MB{V}_{\MB{K}}(N)\), we say \(x\) is confined in sorted magnitude according to \(f\), if
 \Disp{
-x (n) <f (n),
+|S(x) (n)| <&f (n),
 \quad n \in T (N).
 }
 }
-
 
 \Result
 {Lemma}
 {
 Let \(\varphi (\omega_h)\) be uniformly, independently distributed in \([0,2\pi)\), and array response \(\V{a} (\varphi)\) defined as in ().
+Then
 %
 \Disp{
 \| \V{a} (\varphi) \|_1
@@ -127,6 +132,10 @@ The bound is satisfying enough, though refinement is surely possible.
 Indeed, \(\log L/N \to 0\) as \(N \to \infty\) and limited by the number of paths \(L\).
 Intuitively, this says that when there are few paths, but many antennas, we expect the spatial frequency domain of the virtual channel to be sparse too.
 
+\subsection{Design of RIP Precoders and Combiners}
+
+\subsection{DS for Complex Vectors}
+
 The rest follows ``The Dantzig Selector'' very closely.
 
 
@@ -158,7 +167,9 @@ In the first line, we recall \(g =g_{\MC{A}}\).
 {
 %
 \Disp{
-|\IP{ e, P_{:,j} }| \leq \sqrt{2 \log p}
+|\IP{ d, P(:, n_h) }|
+\leq& 4 \sqrt{\log N_h},
+\quad n_h =1, \dotsc, N_h^2.
 }
 %
 }
@@ -169,7 +180,8 @@ In the first line, we recall \(g =g_{\MC{A}}\).
 %
 \Disp{
 \|P^\H P d\|_\infty
-\leq& 2 \sqrt{2 \log p}.
+\leq& 4 \sqrt{\log N_h},
+\quad n_h =1, \dotsc, N_h^2.
 }
 %
 }
@@ -177,9 +189,9 @@ In the first line, we recall \(g =g_{\MC{A}}\).
 To show this, start with
 %
 \Disp{
-\IP{ z -(y -P h), P (:,n_y) }
-=\IP{ P \hat{g} -P g, P (:,n_y) }
-=\IP{ P g, P (:,n_y) }
+&\IP{ z -(y -P g), P (:,n_y) } \NT \\
+=&\IP{ P \hat{g} -P g, P (:,n_y) } \NT \\
+=&\IP{ P g, P (:,n_y) }
 }
 %
 Result follows from triangle inequality, and Lemma ().
@@ -194,7 +206,7 @@ Of course the interpretation of modulus and the inner product changes accordingl
 %
 \Disp{
 \|d_{\MC{A}}\|_2
-\leq \frac{1}{1-\delta} \|P^\H_{\MC{A}\MC{B}} P \eta\|_2 +\frac{\vartheta}{(1-\delta) \sqrt{L}} \|d_{BC}\|_1
+\leq \frac{1}{1-\delta} \|P^\H_{\MC{A}\MC{B}} P d\|_2 +\frac{\delta}{(1-\delta) \sqrt{L}} \|d_{BC}\|_1
 }
 %
 }
@@ -212,6 +224,8 @@ Again, their proof works with complex vector spaces in place of real ones too.
 }
 %
 }
+
+\subsection{Putting Together}
 
 We can formulate our main theorem.
 

@@ -9,7 +9,7 @@ Particularly, we will summerize present results on DS and OMP, and argue that DS
 Before we start, let us remind that, in this article, to avoid confusion all results other than the major theorems to be proved are called lemmata, so the classification may be different from its source.
 
 \(|a|\) denotes the magnitude for real or complex numbers \(a\).
-The real and imaginary part of \(a\) will be denoted respectively as \(\MF{Re}(a)\) and \(\MF{Im}(a)\), respectively, thus \(a =\MF{Re}(a) +i \MF{Im}(a)\)
+The real and imaginary part of \(a\) will be denoted respectively as \(\MF{Re}(a)\) and \(\MF{Im}(a)\), respectively, thus \(a =\MF{Re}(a) + i \MF{Im}(a)\)
 
 We restrict our discussion to \(\MB{R}^N\) or \(\MB{C}^N\) seen as the Hilbert space , equipped with standard inner product.
 Lower case Latin alphabets with single underline, like \(\V{a}\), denote vectors, and upper case Latin alphabets with double underlines, like \(\M{A}\), denote matrices.
@@ -58,51 +58,49 @@ A design of new algorithms that addressed these issues is thus necessary.
 It is a recent developement that the estimation of channels is facilitated by advances of compressed sensing.
 A series of paper by Cand\`es and Tao (2006) marks its advent.
 
-To motivate their work, note that it is a common situation in statsitical applications that the number of model parameters \(N_p\) is much larger than the number of observations \(N_o\).
+To motivate their work, note that it is a common situation in statsitical applications that the number of model parameters \(N_p\) is much larger than the number of measurements \(N_m\).
 Here, we consider
+%
 \Disp{
-N_p \gg N_o
+N_p \gg N_m
 }
-
-
-In such case of insufficient observations, possibly even with noise, do we have the knowledge of all \(p\) variables?
-
-
-
+In such case of insufficient measurements, possibly even with corruption of noise, do we have the knowledge of all \(N_p\) parameters?
 Of course, more assumption must be made to make the question meaningful.
-They showed frst that that in the noiseless case (Cand\`es and Tao 2006,``Decoding by Linear Programming''), it is possible to recover the sparse signal, under a \(\ell_1\)-1 minimization program.
+Any two vectors of parameters differing an element in the null space of the sensing matrix will produce the same measurement.
+
+Cand\`es and Tao showed frst that that in the noiseless case (``Decoding by Linear Programming'', 2006), it is possible to recover the sparse signal, under a \(\ell_1\) minimization program.
 The work reveals the phenomenon that few observations of the signal in question may be sufficient for us to resonstruct the signal when it is sparse in a certain sense.
 
-Later they established a stronger result that (``The Dantzig Selector'' Cand\`es and Tao 2006), with another \(\ell_1\)-1 minimization program they named The Dantzig Selector (hencefore DS), they can recover the noisy case too.
-They argue that such recovery of signals is possible, if we make a few carefully constructed, and seemingly random measurements.
+Later they established a stronger result that (``The Dantzig Selector'', 2007), with another \(\ell_1\) minimization program they named The Dantzig Selector (hencefore DS), they can recover the noisy case too.
+Such recovery of signals is possible, if we make a few carefully constructed, and seemingly random measurements.
 Ever since, it becomes feasible that a camera equipped with few sensors may obtain high quality images, greatly reducing the subsequent cost.
 In addition, they derived a probability bound of mean suqare error, showing the probability of successful recovery is overwhelming.
 
-From the realistic perspective, DS formulates the sparse sensing problem as an \(\ell_2\) minimization problem, which is convex, thus techniques from convex optimization may readily be used.
-Indeed, they have put the code on the web for the reader to access and verify (Cand\`es \& Romberg 2005).
+From the realistic perspective, the formulation as an \(\ell_1\) minimization problem, which is convex, made techniques from convex optimization usable.
+Indeed, relevent code has been put on the web for the reader to access and verify (Cand\`es \& Romberg 2005).
 
-In this article we focuss on DS, and we introduce several notions before we describe their wok.
-To facilitate reader's understanding, in this section we will consistently use \(N_s\) and \(N_s\) to denote matrix dimensions.
+In this article we focuss on DS, and we introduce several notions before we describe their work.
+To facilitate reader's understanding, in this section we will consistently use \(N_p\) and \(N_m\) to denote matrix dimensions.
 Following Cand\`es and Tao, we borrow the term ``support'' from the context of analysis, where it denotes the set on which a function is nonzero.
 
 \Result
 {Definition}
 {
-We say \(T (N) =\{1, \dotsc, N\}\), \(N \in \MB{N}\) is the support of vector space \(\MB{V}_{\MB{K}} (N)\).
+We say \(T (N_m) =\{1, \dotsc, N_m\}\), \(N_m \in \MB{N}\) is the support of vector space \(\MB{V}_{\MB{K}} (N_m)\).
 }
 
 \Result
 {Definition}
 {
-Suppose \(\M{A} \in \MB{M}_{\MB{K}} (N_1, N_2)\).
-Let \(\MC{T} \subset T (N_2)\).
+Suppose \(\M{A} \in \MB{M}_{\MB{K}} (N_m, N_p)\).
+Let \(\MC{T} \subset T (N_p)\).
 Denote as \(\M{A}_{\MC{T}}\) the columns of \(\M{A}\) having indices in \(\MC{T}\).
 }
 
 \Result
 {Definition}
 {
-\(x \in \MB{V}_{\MB{K}} (N)\) is called \(s\)-sparse with support \(\MC{A}\), \(s \in \MB{N}\), if there is \(\MC{A} \subset T (N)\) such that
+\(x \in \MB{V}_{\MB{K}} (N_m)\) is called \(s\)-sparse with support \(\MC{A}\), \(s \in \MB{N_m}\), if there is \(\MC{A} \subset T (N_m)\) such that
 %
 \Disp{ 
 x_{T (N) -\MC{A}} =\V{0}
@@ -180,7 +178,7 @@ Moreover, for \(T,T' \subset \{1, \dotsc, p \}\), let \(\vartheta_{S,S'}\) be th
 For concreteness, consider a linear transformation with noise,
 %
 \Disp{
-y =Ax +z
+y =Ax + z
 }
 %
 where \(z\) is an i.i.d., zero-mean, \(\sigma\)-variance AWGN vector.
@@ -245,7 +243,7 @@ Let \(x[t] \in \MB{R}^N\) be random instances of i.i.d.\ Rademacher distribution
 Consider a linear time-invariant channel with
 %
 \Disp{
-y[t] =(x[t] \star h[t]) +z[t]
+y[t] =(x[t] \star h[t]) + z[t]
 }
 %
 where \(h[t] \in \MB{R}^L\) is the channel's impulse response, \(x[t] \in \MB{R}^N\) as the input, \(y[t] \in \MB{R}^N\) as the output, and \(z[t] \in \MB{R}^L\) are random instances of i.i.d.\ normalized AWGN, and \(N \gg L\).
@@ -283,23 +281,23 @@ We pick up the columns of \(A\) greedily, hoping to correspond to the support of
 {Algorithm}
 {
 \begin{enumerate}
-\item
+\item To be done.
 \end{enumerate}
 }
 
 \Result
 {Theorem}
 {
-   Following the setting described above, suppose, for \(0 <\delta <1\),
+Following the setting described above, suppose, for \(0 <\delta <1\),
 %
 \Disp{
-   M \geq 16s \log (N/\delta)
+M \geq 16s \log (N/\delta)
 }
 %
-Then Algorithm () recovers \(x\) completely, with overwhelming probability \(1-\delta\).
+Then OMP (Algorithm \_\_) recovers \(x\) completely, with overwhelming probability \(1-\delta\).
 }
 
-For the proof, see the technical report: Tropp and A C Gilbert (2007a).
+For the proof, see the technical report: Tropp and Gilbert (2007a).
 
 It is interesting to note that, ever since, the direct application of \(\ell_1\)-problem following the orignal Cand\`es-and-Tao approach has been seemingly rare.
 Scholars has applied OMP in favor of DS, in the ease of implementation of the former, and OMP becomes perhaps the most widely used channel estimation technique.
@@ -366,20 +364,20 @@ Alkhateeb, Leus, and Heath (2015), being a recent paper, cites Ben-Haim et.\ al.
 
 Gao et.\ al.\ (2015) discusses the jointly reconstruction of several high-dimensional sparse signals having the same support, using different measurement matrices in a modified basis pursuit problem.
 
-\subsection{Contribution}
-
 We remark several observation on past literature, that has been, to the best of our knowledge, lacking or less than ideal.
 
 \begin{enumerate}
-\item As said, previous work the favor on OMP rather than DS (let alone other sparse algorithm) is evident.
-\item In view of The requirement that the sensing matrix should be elementwise i.i.d.\ Gaussian, Tropp and Gilvert (2007) seems to be more restrictive than Cand\`es and Tao (2007).
-\item Previous work only takes the assumption on the bound of the norm of the channel matrix to be granted.
-\item Likewise, such probability bounds on the sparsity of the channel as involving, say, number of channel paths and vector of array response has not be explored.
+\item Previous work favors OMP rather than DS, let alone other sparse algorithm.
+\item Previous work simply assumes the bound of the norm of the channel matrix.
+\item The requirement that the sensing matrix should be elementwise i.i.d.\ Gaussian (Tropp and Gilvert 2007) seems to be more restrictive than RIP (Cand\`es and Tao 2007).
+\item No bounds is derived that explicitly depends on the sparsity of the channel parameters as, say, number of channel paths and array response.
 \end{enumerate}
+
+\subsection{Contribution}
 
 We consider a system model where both digital and analog beamformer are i.i.d.\ random matrix combiner that serve readily as the sensing matrix satisfying the RIP property.
 We apply a convex program analogous of DS in order to directly estimate the channel under hypothesis of uniform linear array response.
-Moreover, inspired by the lines of proof of Cand\`es and Tao (2006), the author gives such an asymptotic bound for the probability will be shown, that indicates our method is successful for overwhelming probability.
+Moreover, inspired by the lines of proof of Cand\`es and Tao (2006), we give a bound that indicates our method is to be successful for overwhelming probability.
 
 Our contribution include:
 
