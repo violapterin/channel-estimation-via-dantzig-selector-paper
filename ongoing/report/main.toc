@@ -1,0 +1,29 @@
+\contentsline {section}{\numberline {0}Front Material}{2}{section.0}
+\contentsline {subsection}{\numberline {0.1}Acknowledgement}{2}{subsection.0.1}
+\contentsline {subsection}{\numberline {0.2}Abstract}{2}{subsection.0.2}
+\contentsline {section}{\numberline {1}Introduction}{2}{section.1}
+\contentsline {subsection}{\numberline {1.1}Notation}{3}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}Background}{3}{subsection.1.2}
+\contentsline {subsection}{\numberline {1.3}The Dantzig Selector}{4}{subsection.1.3}
+\contentsline {subsection}{\numberline {1.4}Sufficient Conditions of RIP}{6}{subsection.1.4}
+\contentsline {subsection}{\numberline {1.5}Compressed Channel Sensing}{6}{subsection.1.5}
+\contentsline {subsection}{\numberline {1.6}Orthogonal Matching Pursuit}{7}{subsection.1.6}
+\contentsline {subsection}{\numberline {1.7}Further Development on Compressive Channel Sensing}{8}{subsection.1.7}
+\contentsline {subsection}{\numberline {1.8}Contribution}{9}{subsection.1.8}
+\contentsline {section}{\numberline {2}Problem Setting}{9}{section.2}
+\contentsline {subsection}{\numberline {2.1}Channel Model}{9}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}System Model}{10}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}Vectorization}{11}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.4}Proposed Method}{12}{subsection.2.4}
+\contentsline {section}{\numberline {3}Theorems and Proofs}{13}{section.3}
+\contentsline {subsection}{\numberline {3.1}Beamspace Channel is Almost Sparse}{13}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Design of RIP Precoders and Combiners}{15}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}DS for Complex Vectors}{15}{subsection.3.3}
+\contentsline {subsection}{\numberline {3.4}The Main Bound}{17}{subsection.3.4}
+\contentsline {section}{\numberline {4}Simulation}{17}{section.4}
+\contentsline {subsection}{\numberline {4.1}Transformation into Second Order Cone Problem}{17}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Primal-Dual Interior Point Algorithm}{19}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Discussion}{20}{subsection.4.3}
+\contentsline {section}{\numberline {5}Back matter}{20}{section.5}
+\contentsline {subsection}{\numberline {5.1}Conclusion}{20}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}References}{21}{subsection.5.2}

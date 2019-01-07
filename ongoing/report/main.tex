@@ -1,55 +1,12 @@
-\documentclass[12pt]{article}
 
-\usepackage{mathtools}
-\usepackage{amssymb}
-\usepackage{graphicx}
-\usepackage[linkcolor=blue]{hyperref}
-\usepackage{xcolor}
-\usepackage[ocgcolorlinks]{ocgx2}
-\usepackage{stackengine}
-\usepackage[a4paper, margin=1in, footskip=0.25in] {geometry}
+\input{./preamble.tex}
 
-\setcounter{section}{-1}
-
-\author{Tzu-Yu Jeng}
-\date{Nov.\ 2018 to \_\_\_\_}
-
-\title{Compressive Channel Sensing of Multipath Millimeter Channel via a Beamspace Dantzig Selector and its Probabilitic Performance Bound}
-
-\newcommand{\Disp}[1]{\begin{align} #1 \end{align}}
-
-\renewcommand{\H}{\dagger}
-\newcommand{\Tr}{\intercal}
-\newcommand{\NT}{\notag}
-
-\newcommand{\MB}[1]{\mathbb{#1}}
-\newcommand{\MC}[1]{\mathcal{#1}}
-\newcommand{\MF}[1]{\mathfrak{#1}}
-\newcommand{\RM}[1]{\mathrm{#1}}
-\newcommand{\V}[1]{\stackunder[1.2pt]{$#1$}{\rule{.9ex}{.075ex}}}
-\newcommand{\M}[1]{\V{\V{#1}}}
-\newcommand{\T}[1]{\tilde{#1}}
-\newcommand{\IP}[1]{\langle #1 \rangle}
-
-\newcounter{NumResult}
-\newcommand{\myCount}
-{
-   \stepcounter{NumResult}
-   \textbf{\arabic{NumResult}}
-}
-
-\newcommand {\Result} [2]
-{
-   \bigskip
-   \myCount \textbf{#1} \par
-   {#2} \par
-   \hfill \(\blacksquare\)
-   %\bigskip
-}
 
 \begin{document}
 
 \maketitle
+
+\tableofcontents
 
 \section{Front Material}
 

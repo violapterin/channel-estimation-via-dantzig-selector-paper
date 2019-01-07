@@ -74,7 +74,7 @@ Then
 %
 \Disp{
 \| \V{a} (\varphi) \|_1
-\leq \frac{1}{\pi^2} \log \frac{L}{N}.
+\leq \F{1}{\pi^2} \log \F{L}{N}.
 }
 %
 }
@@ -82,46 +82,51 @@ Then
 To find the \(l\)-th path's contribution to the frequency domain, recall the identity for Dirichlet kernel
 %
 \Disp{
-D (\varphi)
-:=&\left| \sum_{n=0}^{N-1} \RM{e}^{i n \varphi} \right| \\ \NT
-=&\frac{|\sin (N \varphi/2)|}{|\sin (\varphi /2)|},
-\quad 0 \leq \varphi \leq \pi
+D (\varphi')
+:=&\left| \sum_{n=0}^{N-1} \RM{e}^{i n \varphi'} \right| \\ \NT
+=&\F{|\sin (N \varphi'/2)|}{|\sin (\varphi' /2)|},
+\quad 0 \leq \varphi' \leq \pi
 }
 %
 
-By taking the first two term of the expansion
+Recall the Taylor expansion of sin for the first two terms with respect to zero
 %
 \Disp{
-\sin x =x -x^3/6 + \MC{O}(x^5), \quad x \ll 1
+\sin x =x -\F{x^3}{6} + \MC{O}(x^5), \quad x \ll 1
 }
 %
-and noting the monotony of the first two terms,
+Actually it can be shown that we have a inequality
 %
 \Disp{
-D (\varphi)
-\leq& \frac{1}{\varphi/2 -(\varphi/2)^3/6} \NT \\
-=& \frac{-48}{\varphi^3 -24\varphi} \\
-\quad 0 \leq \varphi \leq \pi,
+\left| x -\F{x^3}{6} \right| \leq \sin x, \quad -\pi \leq x \leq \pi
+}
+%
+Applying the above inequality to the denominator and bounding the nominator by 1, we have
+%
+\Disp{
+\left| D (\varphi') \right|
+= \F{48}{|\varphi'^2 -24| |\varphi'|}
+\quad 0 \leq \varphi' \leq \pi,
 }
 %
 The fraction above can be bounded.
 
-By the same token, more generally,
+Particularly,
 %
 \Disp{
-\frac{1}{N} S (\pi \varphi')
-=&\left| \frac{1}{N} \sum_{n=0}^{N-1} \RM{e}^{-2\pi i k n/N} \RM{e}^{i n \varphi} \right| \NT \\
-\leq& \frac{48}{N \pi^3 (\varphi'^3 -24 \varphi' /\pi^2)}
+\F{1}{N} S \left( \varphi' -\F{2\pi k}{N} \right)
+=&\F{1}{N} \left| \sum_{n=0}^{N-1} \RM{e}^{-2\pi i k n/N} \RM{e}^{i n \varphi} \right| \NT \\
+\leq& \F{48}{N \pi^3 (\varphi'^3 -24 \varphi' /\pi^2)}
 }
 %
 where \(\varphi' =k/N -\varphi/2\pi\), and the cubic expression is split.
 We wish to bound the tail of \(S (\pi \varphi')\), and apply the na\"ive bound
 %
 \Disp{
-&\frac{N}{2\pi} \cdot \frac{48}{N \pi^3} \int_{L/N}^1 \frac{1}{\varphi'^3 -24 \varphi' /\pi^2}
+&\F{N}{2\pi} \cdot \F{48}{N \pi^3} \int_{L/N}^1 \F{1}{\varphi'^3 -24 \varphi' /\pi^2}
  d\varphi' \NT \\
-=&\frac{1}{2\pi^2} \cdot \left( 2 \log \frac{L}{N} +\log \frac{24-\pi^2}{24-\pi^2 L^2 /N^2} \right) \NT \\
-\leq& \frac{1}{\pi^2} \log \frac{L}{N}
+=&\F{1}{2\pi^2} \cdot \left( 2 \log \F{L}{N} +\log \F{24-\pi^2}{24-\pi^2 L^2 /N^2} \right) \NT \\
+\leq& \F{1}{\pi^2} \log \F{L}{N}
 }
 %
 Here, the integral in the first line is immediate.
@@ -136,20 +141,40 @@ Intuitively, this says that when there are few paths, but many antennas, we expe
 
 \subsection{DS for Complex Vectors}
 
+\Result
+{Definition}
+{
+For \(\MC{T}, \MC{T}' \subset \{1, \dotsc, N_p\}\), define the \(s,s'\)-restricted orthogonality constant \(\tau_{s,s'} >0\) to be the smallest such that
+%
+\Disp{
+| \IP{ P_{\MC{T}} h, P_{\MC{T}'} h' } |
+\leq \tau_{s, s'} \cdot \| h \|_2 \|h'\|_2
+}
+}
+
+From ``Decoding from Linear Programming'',
+\Result
+{Lemma}
+{
+%
+\Disp{
+\leq 
+\tau_{s, s'}
+\leq \delta_s
+}
+}
+
 The rest follows ``The Dantzig Selector'' very closely.
-
-
 \Result
 {Proposition}
 {
-Let \(h \in \MB{R}^n\) and \(\eta \in \MB{R}^p\) are defined as in ().
+Let \(g\) and \(d\) be defined as above.
 Then
 %
 \Disp{
 \|d_{BC}\|_1
 \leq \|d_{\MC{A}}\|_1 +\|g_{BC}\|_1
 }
-%
 }
 
 To show this, observe
@@ -165,6 +190,7 @@ In the first line, we recall \(g =g_{\MC{A}}\).
 \Result
 {Lemma}
 {
+Let \(d\) and \(P\) be defined as above, and \(P\) satisfies RIP as in ().
 %
 \Disp{
 |\IP{ d, P(:, n_h) }|
@@ -177,6 +203,7 @@ In the first line, we recall \(g =g_{\MC{A}}\).
 \Result
 {Lemma}
 {
+Let \(d\) and \(P\) be defined as above, and \(P\) satisfies RIP as in ().
 %
 \Disp{
 \|P^\H P d\|_\infty
@@ -203,10 +230,11 @@ Of course the interpretation of modulus and the inner product changes accordingl
 \Result
 {Lemma}
 {
+Let \(d\) and \(P\) be defined as above, and \(P\) satisfies RIP as in () with constant \(\delta\).
 %
 \Disp{
 \|d_{\MC{A}}\|_2
-\leq \frac{1}{1-\delta} \|P^\H_{\MC{A}\MC{B}} P d\|_2 +\frac{\delta}{(1-\delta) \sqrt{L}} \|d_{BC}\|_1
+\leq \F{1}{1-\delta} \|P^\H_{\MC{A}\MC{B}} P d\|_2 +\F{\delta}{(1-\delta) \sqrt{L}} \|d_{BC}\|_1
 }
 %
 }
@@ -217,16 +245,18 @@ Again, their proof works with complex vector spaces in place of real ones too.
 \Result
 {Lemma}
 {
+Let \(d\) be defined as above.
+Then
 %
 \Disp{
 \|d\|_2^2
-\leq \|d_{\MC{A}\MC{B}}\|_2^2 +\frac{1}{L} \|d_{\MC{C}}\|_1^2
+\leq \|d_{\MC{A}\MC{B}}\|_2^2 +\F{1}{L} \|d_{\MC{C}}\|_1^2
 }
 %
 }
 
-\subsection{Putting Together}
+\subsection{The Main Bound}
 
-We can formulate our main theorem.
+We can now formulate and prove the main bound of ours.
 
 { \color{red} (To be done) }
