@@ -58,8 +58,7 @@ A design of new algorithms that addressed these issues is thus necessary.
 It is a recent developement that the estimation of channels is facilitated by advances of compressed sensing.
 A series of paper by Cand\`es and Tao (2006) marks its advent.
 
-To motivate their work, note that it is a common situation in statsitical applications that the number of model parameters \(N_p\) is much larger than the number of measurements \(N_m\).
-Here, we consider
+To motivate their work, note that it is a common situation in statsitical applications that the number of model parameters \(N_p \in \MB{N}\) is much larger than the number of measurements \(N_m \in \MB{N}\), namely,
 %
 \Disp{
 N_p \gg N_m
@@ -84,11 +83,7 @@ In this article we focuss on DS, and we introduce several notions before we desc
 To facilitate reader's understanding, in this section we will consistently use \(N_p\) and \(N_m\) to denote matrix dimensions.
 Following Cand\`es and Tao, we borrow the term ``support'' from the context of analysis, where it denotes the set on which a function is nonzero.
 
-\Result
-{Definition}
-{
-We say \(T (N_m) =\{1, \dotsc, N_m\}\), \(N_m \in \MB{N}\) is the support of vector space \(\MB{V}_{\MB{K}} (N_m)\).
-}
+We will use \(T (N_m) =\{1, \dotsc, N_m\}\) to denote the support of \(\MB{V}_{\MB{K}} (N_m)\).
 
 \Result
 {Definition}
@@ -101,7 +96,7 @@ Denote as \(\M{A}_{\MC{T}}\) the columns of \(\M{A}\) having indices in \(\MC{T}
 \Result
 {Definition}
 {
-\(h \in \MB{V}_{\MB{K}} (N_m)\) is called \(s\)-sparse with support \(\MC{A}\), \(s <N_m\), if there is \(\MC{A} \subset T (N_m)\) such that
+\(x \in \MB{V}_{\MB{K}} (N_m)\) is called \(s\)-sparse with support \(\MC{A}\), \(s <N_m\), if there is \(\MC{A} \subset T (N_m)\) such that
 %
 \Disp{ 
 x_{T (N) -\MC{A}} =\V{0}
@@ -110,7 +105,7 @@ with
 \Disp{ 
 \# \MC{A} \leq s.
 }
-That is, only at most \(s\) components of vector \(x\) is nonzero.
+That is, only at most \(s\) components of \(x\) is nonzero.
 }
 
 \Result
@@ -135,18 +130,18 @@ That is, a noiseless linear transformation of a sparse vector is completely reco
 {Definition}
 {
 Consider \(P \in \MB{M}_{\MB{K}} (N_m, N_p)\), with unity-\(\ell_2\)-norm columns.
-For \(s =1, \dotsc N_p\), we say that \(P\) satisfies the RIP of order \(s\) with respect to parameter \(0 \leq \d_S \leq 1\), if, for all \(x\) with \(\|x\|_0 \leq s\), for all \(\MC{T} \subset T(N_m)\) with \(|\MC{T}| \leq s\),
+For \(s =1, \dotsc N_p\), we say that \(P\) satisfies the restricted isometry property (RIP) of sparsity \(s\) with respect to \(0 \leq \d_s \leq 1\), if, for all \(s\)-sparse \(\V{x} \in \MB{V}_{\MB{K}} (N_p)\), for all \(\MC{T} \subset T(N_m)\) with \(\#\{\MC{T}\} \leq s\),
 %
 \Disp{
-(1-\d_s) \|h\|^2
-\leq \|P_{\MB{T}} h\|_2^2
-\leq (1+\d_s) \|h\|^2
+(1-\d_s) \|\V{x}\|^2
+\leq \|P_{\MC{T}} \V{x}\|_2^2
+\leq (1+\d_s) \|\V{x}\|_2^2
 }
 }
 
-RIP of order \(s\) is essentially saying that the matrix \(X\) is ``almost unitary'' up to ``relative error'' \(\d_s\).
+RIP is essentially saying that \(P\) is ``almost unitary'' up to ``relative error'' \(\d_s\).
 
-Consider a linear transformation with noise corruption,
+Now, consider a linear transformation with noise corruption,
 %
 \Disp{
 \V{y} =\M{P} \V{h} + \V{z}
@@ -167,6 +162,7 @@ Find \(\V{h} \in \MB{V}_\MB{R} (N_m)\) with
 }
 }
 
+They was able to show that, with Program (), the mean square error is bounded with overwhelming probability.
 And it can be shown that this \(\ell_1\)-minimization problem with \(\ell_\infty\)-constraint may be recast as a linear program (LP), lending convex programming technique applicable.
 Note that they confined their discussion for real vectors.
 
@@ -209,7 +205,7 @@ Then Bajwa et.\ al.\ was able to show that, \(X\) is RIP of overwhelmingly proba
 
 \subsection{Orthogonal Matching Pursuit}
 
-Around that time, Tropp and A C Gilbert (2007b) points out if we apply a greedy algorithm called Orthogonal Matching Pursuit, that a i.i.d.\ matrix being generated the similar way as Baraniuk (2008) suggested, may perform sufficiently well, even recover the original signal in an overwhemingly probability too.
+Around that time, Tropp and Gilbert (2007b) points out if we apply a greedy algorithm called Orthogonal Matching Pursuit (OMP), that an i.i.d.\ random matrix being generated the similar way as Baraniuk (2008) suggested, may perform sufficiently well, even recover the original signal in an overwhemingly probability too.
 
 Same as before, consider \(\V{y} \in \MB{V}_\MB{K} (N_p)\), \(\V{h} \in \MB{V}_\MB{K} (N_s)\), where \(\V{h}\) is \(s\)-sparse, with \(N_p \gg N_s\).
 If
@@ -217,7 +213,7 @@ If
 \V{y} =\M{P} \M{h},
 }
 that is, the noiseless, real-number case.
-We pick up the columns of \(\M{P}\) greedily, hoping to correspond to the support of \(\V{h}\).
+We pick up the columns of \(\M{P}\) greedily, hoping to correspond to the support of \(\V{h}\), thus recovering the original signal.
 
 \Result
 {Algorithm}
@@ -311,6 +307,7 @@ We remark several observation on past literature, that has been, to the best of 
 \item Previous work favors OMP rather than DS, let alone other sparse algorithm.
 \item Previous work simply assumes the bound of the norm of the channel matrix.
 \item The requirement that the sensing matrix should be elementwise i.i.d.\ Gaussian (Tropp and Gilvert 2007) seems to be more restrictive than RIP (Cand\`es and Tao 2007).
+\item The quantization of angle in generating may be a problem, and that is difficult to analyze in OMP's setting
 \item No bounds is derived that explicitly depends on the sparsity of the channel parameters as, say, number of channel paths and array response.
 \end{enumerate}
 
