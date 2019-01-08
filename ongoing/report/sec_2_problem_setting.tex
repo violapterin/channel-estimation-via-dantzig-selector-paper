@@ -22,9 +22,9 @@ to denote the overall event space, where
 We restrict our consideration to the uniform linear array, which can be modeled as
 %
 \Disp{
-\V{a} \in \MB{V}_\MB{K} (N_H) \\
 \V{a} (\psi')
 =\sum_{n=1}^{N} \RM{e}^{n \psi' i} \V{u}_n
+\in \MB{V}_\MB{C} (N_H)
 }
 %
 where \(\RM{e}\) is the base of natural logarithm, and \(i\) the imaginary unit.
@@ -51,6 +51,7 @@ to get a simpler form
 \Disp{
 H
 =\sum_{l=0}^L \alpha_l \V{a} (\f_l) \V{a} (\th_l)^\H
+\in \MB{M}_\MB{C} (N_H)
 }
 %
 
@@ -105,7 +106,7 @@ Supress the event space index for brevity, we restate the same equation as
 %
 \Disp{
 Y
-:=W_B W_R ( H F_R F_B +z )
+:=W_B W_R ( H F_R F_B +Z )
 }
 \(\M{Y}\) has \(N_Y\) columns, but to estimate it, we may agree to send one pilot signal, which is one of the standard basis, at a time, namely \(\V{u}_n\).
 This way, we may denote the acquired effective channel matrix \(\M{Y}\) under noisy observation as (borrowing Matlab's colon notation to denote columns)
@@ -168,6 +169,7 @@ which has the interpretation as the beamspace (i.e., spatial frequency domain) r
 \Disp{
 \M{Y}
 :=\M{W}_B \M{W}_R \M{K} ( \M{G} \M{K}^\H \M{F}_R \M{F}_B +\M{K}^\H \M{Z} )
+\in \MB{M}_{\MB{C}} (N_Y, N_Y)
 }
 %
 If at the end of day, \(\M{G}\) is sparse, then we recover \(\M{G}\) instead, and our use of DS is fully justified.
@@ -177,7 +179,7 @@ To simplify notation, set
 %
 \Disp{
 \M{P}
-=(\M{F}_B^\Tr \M{F}_R^\Tr K^\ast) \otimes (\M{W}_B \M{W}_R \M{K})
+:=(\M{F}_B^\Tr \M{F}_R^\Tr K^\ast) \otimes (\M{W}_B \M{W}_R \M{K})
 \in \MB{M}_{\MB{C}} (N_y, N_g)
 }
 %

@@ -3,8 +3,7 @@ We follow the argument outlined in ``The Dantzig Selector'' and fill the content
 The sparse vector to be recovered of our investigation is \(g \in \MB{C}^{N_g}\), and we continue to use \(\hat{g}\) to denote the Dantzig Selector.
 To simplify the exposition, we will continue to use the variables \(\V{P}\), \(\V{g}\), \(\V{y}\), and \(\V{z}\) introduced in previous sections, without defining them over and over (by which one would make each statement completely self-containing but considerably more verbose).
 
-We first establish a technical lemma that shows \(\RM{supp}(g)\) has roughly cardinal \(s\).
-At the heart of the argument, the lemma provides the basis on which \(g\) is almost-sparse.
+We first establish a technical lemma that shows \(\RM{supp}(g)\) has roughly cardinal \(L\), which guarantees, at the heart of the argument, that \(g\) is almost-sparse 
 
 \subsection{Almost-Sparsity of Beamspace Channel Matrix}
 
@@ -66,9 +65,9 @@ For \(x \in \MB{V}_{\MB{K}}(N)\), we say \(x\) is confined in sorted magnitude a
 \Result
 {Definition}
 {
-For \(x \in \MB{V}_{\MB{K}}(N)\), we say \(x\) is almost-\(s\)-sparse with \(\ell_1\)-residue \(R\), where \(s \ll N\), if
+For \(\V{x} \in \MB{V}_{\MB{K}}(N)\), we say \(\V{x}\) is almost-\(s\)-sparse with \(\ell_1\)-residue \(R\), where \(s \ll N\), if
 \Disp{
-\sum_{n=s+1}^N |S(x) (n)|
+\sum_{n=s+1}^N |S(\V{x}) (n)|
 \leq R.
 }
 }
@@ -126,7 +125,7 @@ Particularly, for arbitrary \(\f\), find \(k\) so that
 %
 Then observe
 \Disp{
-K^\H a(\f) (k)
+\M{K}^\H \V{a}(\f) (k)
 =\F{1}{N_H} D \left( \f -\F{2 \pi k} {N_H} \right)
 }
 So we need only bound
@@ -143,7 +142,7 @@ Bound \(D\) by above technique, meanwhile we notice \(\f' <24\).
 \Disp{
 R(\f)
 \leq &\F{1}{2\pi} \int_{\f'=2\pi L/N_H}^{2\pi} \F{48}{(24 -\f'^2) \f'} d \f'
-+\F{2\pi} {N_H} \\
++\F{2\pi} {N_H} \NT \\
 =&\F{1}{\pi} \log \F{2\pi N_H}{L}
 -\F{1}{N_H} \log \F{4\pi^2 -24} {L^2/N_H^2 -24}
 +\F{2\pi} {N_H}
@@ -160,8 +159,8 @@ R(\f)
 {Lemma (Tentative)}
 {
 Let \(\f\) and \(\th\) be uniformly, independently distributed in \([0,2\pi)\), and linear array response \(\V{a}\) defined as in ().
-Let \(g\) be defined as above.
-Then \(g\) is almost-\(L\)-sparse with \(\ell_1\)-residue \(R(N_H, L)\) to be
+Let \(\V{g}\) be defined as above.
+Then \(\V{g}\) is almost-\(L\)-sparse with \(\ell_1\)-residue \(R(N_H, L)\) to be
 %
 \Disp{
 R
@@ -174,7 +173,7 @@ R
 \Result
 {Definition}
 {
-For \(\MC{T}, \MC{T}' \subset \{1, \dotsc, N_p\}\), define the \(s,s'\)-restricted orthogonality constant \(\tau_{s,s'} >0\) to be the smallest such that
+For \(\MC{T}, \MC{T}' \subset \{1, \dotsc, N_p\}\), define the \(s, s'\)-restricted orthogonality constant \(\tau_{s,s'} >0\) to be the smallest such that
 %
 \Disp{
 | \IP{ P_{\MC{T}} h, P_{\MC{T}'} h' } |
@@ -205,7 +204,7 @@ We may well keep track of \(\d_s\) only.
 Let \(P\) be i.i.d.\ Radmacher, as defined in Lemma ().
 Then \(P\) is RIP according to \(\d\) for at least probability
 \Disp{
-   1 -2 \left( \F{12}{\d} \right)^s \exp \left[ - \left( \F{\epsilon^2}{4} -\F{\epsilon^3}{6} \right) \F{\d}{2} N_p \right]
+1 -2 \left( \F{12}{\d} \right)^s \exp \left[ - \left( \F{\epsilon^2}{4} -\F{\epsilon^3}{6} \right) \F{\d}{2} N_p \right]
 }
 }
 
@@ -221,40 +220,40 @@ We spell out the proof when such generalization is nontrivial.
 \Result
 {Proposition}
 {
-Let \(g\) and \(d\) be defined as above.
+Let \(\V{g}\) and \(\V{d}\) be defined as above.
 Then
 %
 \Disp{
-\|d_{\MC{C}}\|_1
-\leq \|d_{\MC{A}}\|_1 +2\|g_{C}\|_1
+\|\V{d}_{\MC{C}}\|_1
+\leq \|\V{d}_{\MC{A}}\|_1 +2\|\V{g}_{C}\|_1
 }
 }
 
 To show this, observe that with triangle inequality applied respectively on \(\MC{A}\) and \(\MC{C}\),
 \Disp{
-\|g\|_1
--\|d_{\MC{A}}\|_1
-+\|d_{\MC{C}}\|_1
--\|g_{\MC{C}}\|_1
-\leq \|g+d\|_1
+\|\V{g}\|_1
+-\|\V{d}_{\MC{A}}\|_1
++\|\V{d}_{\MC{C}}\|_1
+-\|\V{g}_{\MC{C}}\|_1
+\leq \|\V{g} +\V{d}\|_1
 }
-In the first line, we recall \(g =g_{\MC{A}}\).
+In the first line, we recall \(\V{g} =\V{g}_{\MC{A}}\).
 On the other hand, by construction that \(\hat{g}\) minimizes the \(\ell_1\)-norm,
 \Disp{
-\|g+d\|_1
-=\|\hat{g}\|_1
-\leq \|g\|_1
+\|\V{g} +\V{d}\|_1
+=\|\hat{\V{g}}\|_1
+\leq \|\V{g}\|_1
 }
 The result follows by combining.
 
 \Result
 {Lemma}
 {
-Let \(z\) and \(P\) be defined as above.
+Let \(\V{z}\) and \(\M{P}\) be defined as above.
 Then
 %
 \Disp{
-|\IP{ z, P(:, n_g) }|
+|\IP{ \V{z}, \M{P}(:, n_g) }|
 \leq& 2 \R{\log N_g},
 \quad n_g =1, \dotsc, N_g.
 }
@@ -262,17 +261,28 @@ Then
 with overwhelming probability.
 }
 
-This only depends on the fact that \(P(:, n_g)\) has unity \(\ell_2\)-norm, and on the randomness of \(z\).
+This only depends on the fact that \(\M{P}(:, n_g)\) has unity \(\ell_2\)-norm, and on the randomness of \(\V{z}\).
+
+Recall the following bound for \(Q\) function
+\Disp{
+Q(x)
+\leq \F{1}{2} \RM{e}^{-x^2/2}
+}
+Particularly, for \(x =\R{2 \log N_g}\), according to CLT,
+\Disp{
+Q(\R{2 \log N_g})
+=\F{1}{N_g}.
+}
 
 { \color{red} (To be done) }
 
 \Result
 {Lemma}
 {
-Let \(d\) and \(P\) be defined as above, and \(P\) satisfies RIP as in ().
+Let \(\V{d}\) and \(\M{P}\) be defined as above, and \(\M{P}\) satisfies RIP as in ().
 %
 \Disp{
-\|P^\H P d\|_\infty
+\|\M{P}^\H \M{P} \V{d}\|_\infty
 \leq& 4 \R{\log N_g},
 \quad n_g =1, \dotsc, N_g.
 }
@@ -281,26 +291,26 @@ Let \(d\) and \(P\) be defined as above, and \(P\) satisfies RIP as in ().
 To show this, by definition
 %
 \Disp{
-&\IP{ z -(y -P \hat{g}), P (:,n_y) } \NT \\
-=&\IP{ P \hat{g} -P g, P (:,n_y) } \NT \\
-=&\IP{ P d, P (:,n_y) }
+&\IP{ \V{z} -(\V{y} -\M{P} \hat{\V{g}}), \M{P} (:,n_y) } \NT \\
+=&\IP{ \M{P} \hat{\V{g}} -\M{P} \V{g}, \M{P} (:,n_y) } \NT \\
+=&\IP{ \M{P} \V{d}, \M{P} (:,n_y) }
 }
 
 By construction
 \Disp{
-\| P (:,n_y)^\H (y -P \hat{g}) \|
-\leq &\| P^\H (y -P \hat{g}) \|_\infty \\
+\| \M{P} (:,n_y)^\H (\V{y} -\M{P} \hat{\V{g}}) \|
+\leq &\| \M{P}^\H (\V{y} -\M{P} \hat{\V{g}}) \|_\infty \NT \\
 \leq &2\R{\log N_g}
 }
-By triangle inequality, together with lemma (), we have
+By triangle inequality, together with Lemma (), we have
 \Disp{
-\|P (:,n_y)^\H P d\|
-\leq &\|\IP{ z, P (:,n_y) }\| +\IP{ y -P \hat{g}, P (:,n_y) } \\
+\|\M{P} (:,n_y)^\H \M{P} \V{d}\|
+\leq &\|\IP{ \V{z}, \M{P} (:,n_y) }\| +\IP{ \V{y} -\M{P} \hat{\V{g}}, \M{P} (:,n_y) } \NT \\
 \leq &2 \R{\log N_g} +2 \R{\log N_g}
 }
 which implies
 \Disp{
-\|P^\H P d\|_\infty
+\|\M{P}^\H \M{P} \V{d}\|_\infty
 \leq &4 \R{\log N_g}.
 }
 
@@ -311,11 +321,11 @@ Of course the interpretation of modulus and the inner product changes accordingl
 \Result
 {Lemma}
 {
-Let \(d\) and \(P\) be defined as above, and \(P\) satisfies RIP as in () with respect to \(\d_s\).
+Let \(\V{d}\) and \(\M{P}\) be defined as above, and \(\M{P}\) satisfies RIP as in () with respect to \(\d_s\).
 %
 \Disp{
-\|d_{\MC{AB}}\|_2
-\leq \F{1}{1-\d_{2L}} \|P_{\MC{A}\MC{B}}^\Tr P d\|_2 +\F{\d_{3L}}{(1-\d_{2L}) \R{L}} \|d_{C}\|_1
+\|\V{d}_{\MC{AB}}\|_2
+\leq \F{1}{1-\d_{2s}} \|P_{\MC{A}\MC{B}}^\Tr P d\|_2 +\F{\d_{3s}}{(1-\d_{2s}) \R{s}} \|d_{C}\|_1
 }
 %
 }
@@ -326,12 +336,12 @@ Again, their proof works with complex vector spaces in place of real ones too.
 \Result
 {Lemma}
 {
-Let \(d\) be defined as above.
+Let \(\V{d}\) be defined as above.
 Then
 %
 \Disp{
-\|d\|_2^2
-\leq \|d_{\MC{A}\MC{B}}\|_2^2 +\F{1}{L} \|d_{\MC{C}}\|_1^2
+\|\V{d}\|_2^2
+\leq \|\V{d}_{\MC{A}\MC{B}}\|_2^2 +\F{1}{s} \|\V{d}_{\MC{C}}\|_1^2
 }
 %
 }
@@ -339,15 +349,16 @@ Then
 \subsection{The Main Bound}
 
 We can now formulate and prove the main bound of ours.
+Here, we use \(s=L\) as the sparsity threshold.
 
 \Result
 {Theorem}
 {
-Let \(y\), \(P\), \(g\), \(\hat{g}\), \(d\) be defined as above.
+Let \(\V{y}\), \(\M{P}\), \(\V{g}\), \(\hat{\V{g}}\), \(\V{d}\) be defined as above.
 Then
 \Disp{
-\|d\|_2
-\leq \F{4 L^4}{\pi^4} \d_{3L}^4 (1-2\d_{2L}) ( \log N_H )^4
+\|\V{d}\|_2
+\leq \F{4}{\pi^4} \d_{3L}^4 (1-2\d_{2L}) L^4 ( \log N_H )^4
 }
 with overwhelming probability.
 }
@@ -355,44 +366,44 @@ with overwhelming probability.
 We are ready to combine previous lemmata.
 The first quantity we want to bound away is
 \Disp{
-\|P_{\MC{A}\MC{B}}^\Tr P d\|_2
-\leq &\|P^\Tr P d\|_2 \NT \\
-\leq &\R{N_g} \|P^\Tr P d\|_\infty \NT \\
+\|\M{P}_{\MC{A}\MC{B}}^\Tr \M{P} \V{d}\|_2
+\leq &\|\M{P}^\Tr \M{P} \V{d}\|_2 \NT \\
+\leq &\R{N_g} \|\M{P}^\Tr \M{P} \V{d}\|_\infty \NT \\
 \leq &4 \R{ N_g \log N_g }
 }
 Thus, by virtue of Lemma (),
 \Disp{
-\| d_{A} \|_1
-\leq &\R{L} \| d_{A} \|_2 \NT \\
-\leq &\R{L} \| d_{\MC{AB}} \|_2 \NT \\
-\leq &\F {\d_{3L}} {1-\d_{2L}} \| d_{\MC{C}} \|_1 +\F {4} {1-\d_{2L}} \R{L N_g \log N_g} 
+\| \V{d}_{A} \|_1
+\leq &\R{L} \| \V{d}_{A} \|_2 \NT \\
+\leq &\R{L} \| \V{d}_{\MC{AB}} \|_2 \NT \\
+\leq &\F {\d_{3L}} {1-\d_{2L}} \| \V{d}_{\MC{C}} \|_1 +\F {4} {1-\d_{2L}} \R{L N_g \log N_g} 
 }
 
 As the next step, we must eliminate \(\|d_{\MC{A}}\|_1\) in rhs of Lemma ().
 \Disp{
-\| d_{\MC{C}} \|_1
-\leq &\| d_{\MC{A}} \|_1 +2 \| g_{\MC{C}} \|_1 \NT \\
-\leq &\F {\d_{3L}} {1-\d_{2L}} \| d_{\MC{C}} \|_1
-+2 \| g_{\MC{C}} \|_1
+\| \V{d}_{\MC{C}} \|_1
+\leq &\| \V{d}_{\MC{A}} \|_1 +2 \| \V{g}_{\MC{C}} \|_1 \NT \\
+\leq &\F {\d_{3L}} {1-\d_{2L}} \| \V{d}_{\MC{C}} \|_1
++2 \| \V{g}_{\MC{C}} \|_1
 +\F {4} {1-\d_{2L}} \R{L N_g \log N_g}
 }
 Or,
 \Disp{
-\| d_{\MC{C}} \|_1
-\leq &2 \F{1-\d_{2L}} {1 -\d_{2L} -\d_{3L}} \| g_{\MC{C}} \|_1
+\| \V{d}_{\MC{C}} \|_1
+\leq &2 \F{1-\d_{2L}} {1 -\d_{2L} -\d_{3L}} \| \V{g}_{\MC{C}} \|_1
 +\F {4} {1-\d_{2L} -\d_{3L}} \R{L N_g \log N_g}
 }
 
 We are ready to bound \(\| d \|_2^2\).
 Using Lemma () again, we have
 \Disp{
-\| d \|_2^2
-\leq &\|d_{\MC{A}\MC{B}}\|_2^2 +\F{1}{L} \|d_{\MC{C}}\|_1^2 \NT \\
-\leq & \left( \F{\d_{3L}^2} {L^2 (1-\d_{2L})^2} +\F{1}{L} \right) \|d_{\MC{C}}\|_1^2
-+\F{8 \d_{3L}} {L (1-\d_{2L})^2} \R{N_g \log N_g} \|d_{\MC{C}}\|_1 \NT \\
+\| \V{d} \|_2^2
+\leq &\|\V{d}_{\MC{A}\MC{B}}\|_2^2 +\F{1}{L} \|\V{d}_{\MC{C}}\|_1^2 \NT \\
+\leq & \left( \F{\d_{3L}^2} {L^2 (1-\d_{2L})^2} +\F{1}{L} \right) \|\V{d}_{\MC{C}}\|_1^2
++\F{8 \d_{3L}} {L (1-\d_{2L})^2} \R{N_g \log N_g} \|\V{d}_{\MC{C}}\|_1 \NT \\
 &\quad +\F{16}{(1-\d_{2L})^2} N_g \log N_g
 }
-Finally, plug in the bound for \(\|d_{\MC{C}}\|_1\), the last unknown, and we make use of the almost-sparsity condition of \(\|d_{\MC{C}}\|_1\).
+Finally, plug in the bound for \(\|\V{d}_{\MC{C}}\|_1\), the last unknown, and we make use of the almost-sparsity condition of \(\|\V{d}_{\MC{C}}\|_1\).
 There are several dozens of terms if we expand all.
 but for simplicity, we keep only the leading term under the approximation
 \Disp{
@@ -404,8 +415,8 @@ And expand to the first order expressions containing \(\d_{2L}\) or \(\d_{3L}\) 
 }
 Then
 \Disp{
-\|d\|_2^2
-\leq \F{4 L^4}{\pi^4} \d_{3L}^4 (1-2\d_{2L}) ( \log N_H )^4
+\|\V{d}\|_2^2
+\leq \F{4}{\pi^4} \d_{3L}^4 (1-2\d_{2L}) L^4 ( \log N_H )^4
 }
 
 

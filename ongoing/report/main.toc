@@ -21,7 +21,7 @@
 \contentsline {subsection}{\numberline {3.3}DS for Complex Vectors}{16}{subsection.3.3}
 \contentsline {subsection}{\numberline {3.4}The Main Bound}{18}{subsection.3.4}
 \contentsline {section}{\numberline {4}Simulation}{19}{section.4}
-\contentsline {subsection}{\numberline {4.1}Transformation into Second Order Cone Problem}{19}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.1}Transformation into Second Order Cone Problem}{20}{subsection.4.1}
 \contentsline {subsection}{\numberline {4.2}Primal-Dual Interior Point Algorithm}{21}{subsection.4.2}
 \contentsline {subsection}{\numberline {4.3}Discussion}{22}{subsection.4.3}
 \contentsline {section}{\numberline {5}Back matter}{22}{section.5}
