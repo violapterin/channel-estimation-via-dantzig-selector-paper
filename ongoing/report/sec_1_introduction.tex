@@ -185,10 +185,12 @@ Let each entry of random matrix \(P \in \MB{M}_\MB{K} (N_m, N_p)\) be defined as
 Then, with \(0 <\epsilon <1\),
 %
 \Disp{
-   \MB{P} ( |\|P h\|_2^2 -\|h\|_2^2| \geq \epsilon \|h\|_2^2)
-   \leq 2 \exp (-n (\epsilon^2/4 -\epsilon^3/6) )
+\MB{P} ( |\|P h\|_2^2 -\|h\|_2^2| \geq \epsilon \|h\|_2^2)
+\leq 2 \exp (-n (\epsilon^2/4 -\epsilon^3/6) )
 }
 }
+
+{ \color{red} (To be done) }
 
 \subsection{Compressed Channel Sensing}
 
@@ -201,7 +203,7 @@ One of the first papers, Bajwa et.\ al.\ (2010) argues the \(\ell_0\)-norm of th
 What they explored was the estimation of single-antenna channel response with respect to time.
 Another paper by the same group of scholars (Bajwa et.\ al.\ 2008) shows that \(X\) is RIP for overwhelming probability, providing the ground for the former paper.
 
-To explain the idea, consider a linear time-invariant channel that \(y(t) =(x \star h)(t) + z(t)\), where \(x(t)\) is random instances of i.i.d.\ Rademacher distribution drawn in each time index, \(h(t)\) is the channel's impulse response, \(y(t)\) as the output, and \(z(t)\) is i.i.d.\ normalized AWGN
+To explain the idea, consider a linear time-invariant channel that \(y(t) =(x \star h)(t) + z(t)\), where \(h(t)\) is the channel's impulse response, \(y(t)\) is the output, and, for each time index, \(x(t)\) is i.i.d.\ Rademacher, and \(z(t)\) is i.i.d.\ Gaussian.
 Simply assuming \(h\) has sparse support, and let the convolution with \(x\) be expressed by a matrix \(X\), \(X\) is a Toeplitz matrix, so that \(y =X h +z\).
 Then Bajwa et.\ al.\ was able to show that, \(X\) is RIP of overwhelmingly probability, and DS is ready to be applied, with some nice bounds on its performance drawing from Cand\`es and Tao's theorems.
 

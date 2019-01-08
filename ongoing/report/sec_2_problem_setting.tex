@@ -22,7 +22,7 @@ to denote the overall event space, where
 We restrict our consideration to the uniform linear array, which can be modeled as
 %
 \Disp{
-\V{a} \in \MB{V}_\MB{K} (N_h) \\
+\V{a} \in \MB{V}_\MB{K} (N_H) \\
 \V{a} (\psi')
 =\sum_{n=1}^{N} \RM{e}^{n \psi' i} \V{u}_n
 }
@@ -68,10 +68,10 @@ Similarly, in the receiver end, there are, in order seeing from the end, digital
 To set up notation, we list them as below.
 %
 \Disp{
-\M{F}_B \in &\MB{M}_{\MB{C}} (N_r, N_y) \\
-\M{F}_R \in &\MB{M}_{\MB{C}} (N_h, N_r) \\
-\M{W}_R \in &\MB{M}_{\MB{C}} (N_r, N_h) \\
-\M{W}_B \in &\MB{M}_{\MB{C}} (N_y, N_r).
+\M{F}_B \in &\MB{M}_{\MB{C}} (N_R, N_Y) \\
+\M{F}_R \in &\MB{M}_{\MB{C}} (N_H, N_R) \\
+\M{W}_R \in &\MB{M}_{\MB{C}} (N_R, N_H) \\
+\M{W}_B \in &\MB{M}_{\MB{C}} (N_Y, N_R).
 }
 %
 Recall that analog precoder is restricted to have value with magnitude being unity, i.e.,
@@ -79,14 +79,14 @@ Recall that analog precoder is restricted to have value with magnitude being uni
 \Disp{
 |\M{F}_R (n_h, n_r)| =&1, \\
 |\M{W}_R (n_r, n_h)| =&1, \\
-n_h =&1, \dotsc N_h, \NT \\
-n_r =&1, \dotsc N_r \NT
+n_h =&1, \dotsc N_H, \NT \\
+n_r =&1, \dotsc N_R \NT
 }
 %
 And we assume
 \Disp{
-N_h \gg &N_r \\
-N_r \gg &N_s
+N_H \gg &N_R \\
+N_R \gg &N_s
 }
 
 This is analogous to (), and we will exploit the fact when applying compressive sensing techinique.
@@ -107,13 +107,13 @@ Supress the event space index for brevity, we restate the same equation as
 Y
 :=W_B W_R ( H F_R F_B +z )
 }
-\(\M{Y}\) has \(N_y\) columns, but to estimate it, we may agree to send one pilot signal, which is one of the standard basis, at a time, namely \(\V{u}_n\).
+\(\M{Y}\) has \(N_Y\) columns, but to estimate it, we may agree to send one pilot signal, which is one of the standard basis, at a time, namely \(\V{u}_n\).
 This way, we may denote the acquired effective channel matrix \(\M{Y}\) under noisy observation as (borrowing Matlab's colon notation to denote columns)
 %
 \Disp{
 \M{Y} (:,n_y)
 :=\M{W}_B \M{W}_R \Big[ \M{H} \M{F}_R \M{F}_B \V{u}_{n_y} +\V{z} \Big], \\
-\quad n_y &=1, 2, \dotsc, N_y \NT
+\quad n_y &=1, 2, \dotsc, N_Y \NT
 }
 %
 Still, the crux of the matter is the recovery of \(\M{H}\) with knowledge of \(\M{Y}\), while \(\M{W}_R\), \(\M{W}_B\), \(\M{F}_R\), and \(\M{F}_B\) are in our control.
@@ -125,16 +125,16 @@ If we had followed the widely accepted approach of compressive channel sensing, 
 \Disp{
 \V{h}
 := &\RM{vec} (\M{H})
-\in \MB{V}_{\MB{C}} (N_h^2) \\
+\in \MB{V}_{\MB{C}} (N_g) \\
 \V{y}
 := &\RM{vec} (\M{Y})
-\in \MB{V}_{\MB{C}} (N_y^2) \\
+\in \MB{V}_{\MB{C}} (N_y) \\
 \V{z}^\star
 := &\RM{vec} (\M{Z})
-\in \MB{V}_{\MB{C}} (N_y^2) \\
+\in \MB{V}_{\MB{C}} (N_y) \\
 \M{P}^\star
 := &(\M{F}_R^\Tr \M{F}_B^\Tr) \otimes (\M{W}_B \M{W}_R)
-\in \MB{M}_{\MB{C}} (N_y^2, N_h^2).
+\in \MB{M}_{\MB{C}} (N_y, N_g).
 }
 %
 to formulate our goal as sparse recovery problem of \(\RM{vec} (H)\) to be
@@ -151,9 +151,9 @@ What shall we do?
 Introduce the discrete Fourier matrix \(\M{K}\) defined to be
 %
 \Disp{
-\M{K} \in &\MB{M}_{\MB{C}} (N_h, N_h) \NT \\
-\M{K} (n_1, n_2) =&\F{1} {\sqrt{N_h}} \RM{e}^{2\pi i n_1 n_2 /N_h}, \\
-\quad n_1, n_2 =&0, 1, \dotsc, N_h-1 \NT
+\M{K} \in &\MB{M}_{\MB{C}} (N_H, N_H) \NT \\
+\M{K} (n_1, n_2) =&\F{1} {\sqrt{N_H}} \RM{e}^{2\pi i n_1 n_2 /N_H}, \\
+\quad n_1, n_2 =&0, 1, \dotsc, N_H-1 \NT
 }
 %
 Observe that, if we write
@@ -173,22 +173,27 @@ which has the interpretation as the beamspace (i.e., spatial frequency domain) r
 If at the end of day, \(\M{G}\) is sparse, then we recover \(\M{G}\) instead, and our use of DS is fully justified.
 
 That is to say, \(\M{K}^\H \V{z}\) may be absorbed, and a similar Kronecker product may be used.
-To simplify notation, set 
+To simplify notation, set
 %
 \Disp{
 \M{P}
 =(\M{F}_B^\Tr \M{F}_R^\Tr K^\ast) \otimes (\M{W}_B \M{W}_R \M{K})
-\in \MB{M}_{\MB{C}} (N_y^2, N_h^2)
+\in \MB{M}_{\MB{C}} (N_y, N_g)
 }
 %
 And accordingly
 \Disp{
 \V{g}
 := &\RM{vec} (\M{G})
-\in \MB{M}_{\MB{C}} (N_h^2) \\
+\in \MB{M}_{\MB{C}} (N_g) \\
 \V{z}
 := &\RM{vec} (\M{K}^\H \M{Z})
-\in \MB{V}_{\MB{C}} (N_y^2)
+\in \MB{V}_{\MB{C}} (N_y)
+}
+where for short we set
+\Disp{
+N_g =&N_H^2 \\
+N_y =&N_Y^2
 }
 %
 Then
@@ -208,8 +213,8 @@ Then, with parameter \(\gamma\) specified, define the following program
 %
 \Disp{
 \hat{\V{g}}
-=\min_{\V{g}'} \|\V{g}'\|_1 \quad
-\RM{subject}\; \RM{to}\quad \|\M{P}^\H (\V{y} -\M{P} \V{g}')\|_\infty \leq \gamma
+=\min_{\V{g}'} &\|\V{g}'\|_1 \quad
+\RM{subject}\; \RM{to}\quad &\|\M{P}^\H (\V{y} -\M{P} \V{g}')\|_\infty \leq \gamma
 }
 %
 And convert \(\hat{\V{g}}\) back to the space domain as
