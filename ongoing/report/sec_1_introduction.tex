@@ -135,16 +135,16 @@ That is, a noiseless linear transformation of a sparse vector is completely reco
 {Definition}
 {
 Consider \(P \in \MB{M}_{\MB{K}} (N_m, N_p)\), with unity-\(\ell_2\)-norm columns.
-For \(s =1, \dotsc N_p\), we say that \(P\) satisfies the RIP of order \(s\) with respect to parameter \(0 \leq \delta_S \leq 1\), if, for all \(x\) with \(\|x\|_0 \leq s\), for all \(\MC{T} \subset T(N_m)\) with \(|\MC{T}| \leq s\),
+For \(s =1, \dotsc N_p\), we say that \(P\) satisfies the RIP of order \(s\) with respect to parameter \(0 \leq \d_S \leq 1\), if, for all \(x\) with \(\|x\|_0 \leq s\), for all \(\MC{T} \subset T(N_m)\) with \(|\MC{T}| \leq s\),
 %
 \Disp{
-(1-\delta_s) \|h\|^2
+(1-\d_s) \|h\|^2
 \leq \|P_{\MB{T}} h\|_2^2
-\leq (1+\delta_s) \|h\|^2
+\leq (1+\d_s) \|h\|^2
 }
 }
 
-RIP of order \(s\) is essentially saying that the matrix \(X\) is ``almost unitary'' up to ``relative error'' \(\delta_s\).
+RIP of order \(s\) is essentially saying that the matrix \(X\) is ``almost unitary'' up to ``relative error'' \(\d_s\).
 
 Consider a linear transformation with noise corruption,
 %
@@ -172,8 +172,8 @@ Note that they confined their discussion for real vectors.
 
 \subsection{Sufficient Conditions of RIP}
 
-The constant \(\delta\) in the proof of DS is significant.
-Indeed, we may observe that in theorem (), the bound is not tightest when \(\delta=0\), i.e., that \(P\) is fully unitary, rendering the RIP an important role.
+The constant \(\d\) in the proof of DS is significant.
+Indeed, we may observe that in theorem (), the bound is not tightest when \(\d=0\), i.e., that \(P\) is fully unitary, rendering the RIP an important role.
 Here, it is not clear at first what matrices serves as the RIP condition.
 
 But later, Baraniuk (2008) have found there is a particularly convenient sufficient condition to verify RIP.
@@ -181,7 +181,7 @@ But later, Baraniuk (2008) have found there is a particularly convenient suffici
 \Result
 {Theorem}
 {
-Let each entry of random matrix \(P \in \MB{M}_\MB{K} (N_m, N_p)\) be defined as i.i.d.\ Bernoulli with value \(\pm 1/\sqrt{N_m}\) (that is, Rademacher distribution).
+Let each entry of random matrix \(P \in \MB{M}_\MB{K} (N_m, N_p)\) be defined as i.i.d.\ Bernoulli with value \(\pm 1/\R{N_m}\) (that is, Rademacher distribution).
 Then, with \(0 <\epsilon <1\),
 %
 \Disp{
@@ -232,13 +232,13 @@ From Tropp and Gilbert (2007a),
 \Result
 {Theorem}
 {
-Following the setting described above, suppose, for \(0 <\delta <1\),
+Following the setting described above, suppose, for \(0 <\d <1\),
 %
 \Disp{
-M \geq 16s \log (N/\delta)
+M \geq 16s \log (N/\d)
 }
 %
-Then OMP (Algorithm \_\_) recovers \(x\) completely, with overwhelming probability \(1-\delta\).
+Then OMP (Algorithm \_\_) recovers \(x\) completely, with overwhelming probability \(1-\d\).
 }
 
 It is interesting to note that, ever since, scholars has applied OMP in favor of DS, due the simplicity of former's implementation, making OMP perhaps the most widely used channel estimation technique.

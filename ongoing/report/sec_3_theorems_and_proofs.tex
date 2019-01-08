@@ -10,7 +10,7 @@ At the heart of the argument, the lemma provides the basis on which \(g\) is alm
 
 We apply DS to find \(\hat{g}\), setting
 \Disp{
-\gamma =\sqrt{2 \log N_g}
+\gamma =\R{2 \log N_g}
 }
 Other values are of course possible, but this is enough to illustrate our purpose.
 Also set for short
@@ -77,9 +77,9 @@ For \(x \in \MB{V}_{\MB{K}}(N)\), we say \(x\) is almost-\(s\)-sparse with \(\el
 \Result
 {Lemma (Tentative)}
 {
-Suppose \(0 \leq \varphi \leq 2\pi k /N_H\), \(k =0, \dotsc, N_H-1\).
-Let \(\varphi\) be given, and array response \(\V{a} (\varphi)\) defined as in ().
-Then \(\V{a} (\varphi)\) is almost-\(L\)-sparse with \(\ell_1\)-residue \(R\)
+Suppose \(0 \leq \f \leq 2\pi k /N_H\), \(k =0, \dotsc, N_H-1\).
+Let \(\f\) be given, and array response \(\V{a} (\f)\) defined as in ().
+Then \(\V{a} (\f)\) is almost-\(L\)-sparse with \(\ell_1\)-residue \(R(N_H, L)\) to be
 %
 \Disp{
 R
@@ -91,10 +91,10 @@ The lemma is the key to estimating sparsity of \(h\), which we now show.
 Recall the identity for Dirichlet kernel
 %
 \Disp{
-D (\varphi')
-:=&\left| \sum_{n=0}^{N_H-1} \RM{e}^{i n \varphi'} \right| \NT \\
-=&\F{|\sin (N_H \varphi'/2)|}{|\sin (\varphi' /2)|},
-\quad 0 \leq \varphi' \leq \pi
+D (\f')
+:=&\left| \sum_{n=0}^{N_H-1} \RM{e}^{i n \f'} \right| \NT \\
+=&\F{|\sin (N_H \f'/2)|}{|\sin (\f' /2)|},
+\quad 0 \leq \f' \leq \pi
 }
 %
 And recall the Taylor expansion of sin for the first two terms with respect to zero
@@ -112,58 +112,60 @@ Actually it can be shown that we have a inequality
 Applying the above inequality to the denominator and bounding the nominator by 1, we have
 %
 \Disp{
-\left| D (\varphi') \right|
-= \F{48}{|\varphi'^2 -24| |\varphi'|}
-\quad 0 \leq \varphi' \leq \pi,
+\left| D (\f') \right|
+= \F{48}{|\f'^2 -24| |\f'|}
+\quad 0 \leq \f' \leq \pi,
 }
 
-Particularly, for arbitrary \(\varphi\), find \(k\) so that
+Particularly, for arbitrary \(\f\), find \(k\) so that
 \Disp{
-\eta :=&\varphi -\F{2\pi k}{N_H}, \\
+\eta :=&\f -\F{2\pi k}{N_H}, \\
 \left| \eta \right|
 \leq &\F{2\pi}{N_H}.
 }
 %
 Then observe
 \Disp{
-K^\H a(\varphi) (k)
-=D \left( \varphi -\F{2 \pi k} {N_H} \right)
+K^\H a(\f) (k)
+=\F{1}{N_H} D \left( \f -\F{2 \pi k} {N_H} \right)
 }
 So we need only bound
 \Disp{
-R(\eta) :=\sum_{n_H =s}^{N_H -1} D \left( \eta +\F{2 \pi n_H} {N_H} \right)
+R(\eta)
+:=\F{1}{N_H} \sum_{n_H =s}^{N_H -1} D \left( \eta +\F{2 \pi n_H} {N_H} \right)
 }
 By the approximation of rectangle to integral,
 \Disp{
 R(\eta) -\F{2\pi} {N_H}
-\leq N_H \int_{\varphi'=2\pi L/N_H}^{2\pi} |D(\varphi')| d \varphi'
+\leq \F{1}{N_H} N_H \int_{\f'=2\pi L/N_H}^{2\pi} |D(\f')| d \f'
 }
-Bound \(D\) by above technique, meanwhile we notice \(\varphi' <24\).
+Bound \(D\) by above technique, meanwhile we notice \(\f' <24\).
 \Disp{
-R(\varphi)
-\leq &\F{N_H}{2\pi} \int_{\varphi'=2\pi L/N_H}^{2\pi} \F{48}{(24 -\varphi'^2) \varphi'} d \varphi'
+R(\f)
+\leq &\F{1}{2\pi} \int_{\f'=2\pi L/N_H}^{2\pi} \F{48}{(24 -\f'^2) \f'} d \f'
 +\F{2\pi} {N_H} \\
-=&\F{N_H}{\pi} \log \F{2\pi N_H}{L} -\log \F{4\pi^2 -24} {L^2/N_H^2 -24}
+=&\F{1}{\pi} \log \F{2\pi N_H}{L}
+-\F{1}{N_H} \log \F{4\pi^2 -24} {L^2/N_H^2 -24}
 +\F{2\pi} {N_H}
 }
-Notice the second log term \(<1\) and we drop that.
+Notice the argument of log in the second term \(<1\), and we drop that.
 Also drop \(2\pi /N_H\) since it is small.
 Furthermore the \(2\pi\) factor in log can be dropped too.
 \Disp{
-R(\varphi)
-\leq \F{N_H}{\pi} \log \F{N_H}{L}.
+R(\f)
+\leq \F{1}{\pi} \log \F{N_H}{L}.
 }
 
 \Result
 {Lemma (Tentative)}
 {
-Let \(\varphi\) and \(\vartheta\) be uniformly, independently distributed in \([0,2\pi)\), and linear array response \(\V{a}\) defined as in ().
+Let \(\f\) and \(\th\) be uniformly, independently distributed in \([0,2\pi)\), and linear array response \(\V{a}\) defined as in ().
 Let \(g\) be defined as above.
-Then \(g\) is almost-\(L\)-sparse with \(\ell_1\)-residue
+Then \(g\) is almost-\(L\)-sparse with \(\ell_1\)-residue \(R(N_H, L)\) to be
 %
 \Disp{
 R
-\leq \F{L N_H^2}{\pi^2} \left( \log \F{N_H}{L} \right)
+\leq \F{L}{\pi^2} \left( \log \F{N_H}{L} \right)^2
 }
 }
 
@@ -188,22 +190,22 @@ From ``Decoding from Linear Programming'' (Cand\`es and Tao 2005), Lemma 1.1:
 Let \(P\) be given.
 Then \(\tau_{s, s'}\) is bounded in both direction as follows,
 \Disp{
-\delta_{s+s'} -\max (\{\delta_s, \delta_{s'}\})
+\d_{s+s'} -\max (\{\d_s, \d_{s'}\})
 \leq \tau_{s, s'}
-\leq \delta_{s+s'}
+\leq \d_{s+s'}
 }
 }
 
-Thus \(\delta_s\), which defines how much the deformation of norm is, also tells us how much the inner product is deformed.
-We may well keep track of \(\delta_s\) only.
+Thus \(\d_s\), which defines how much the deformation of norm is, also tells us how much the inner product is deformed.
+We may well keep track of \(\d_s\) only.
 
 \Result
 {Lemma}
 {
 Let \(P\) be i.i.d.\ Radmacher, as defined in Lemma ().
-Then \(P\) is RIP according to \(\delta\) for at least probability
+Then \(P\) is RIP according to \(\d\) for at least probability
 \Disp{
-   1 -2 \left( \F{12}{\delta} \right)^s \exp \left[ - \left( \F{\epsilon^2}{4} -\F{\epsilon^3}{6} \right) \F{\delta}{2} N_p \right]
+   1 -2 \left( \F{12}{\d} \right)^s \exp \left[ - \left( \F{\epsilon^2}{4} -\F{\epsilon^3}{6} \right) \F{\d}{2} N_p \right]
 }
 }
 
@@ -253,7 +255,7 @@ Then
 %
 \Disp{
 |\IP{ z, P(:, n_g) }|
-\leq& 2 \sqrt{\log N_g},
+\leq& 2 \R{\log N_g},
 \quad n_g =1, \dotsc, N_g.
 }
 %
@@ -271,7 +273,7 @@ Let \(d\) and \(P\) be defined as above, and \(P\) satisfies RIP as in ().
 %
 \Disp{
 \|P^\H P d\|_\infty
-\leq& 4 \sqrt{\log N_g},
+\leq& 4 \R{\log N_g},
 \quad n_g =1, \dotsc, N_g.
 }
 }
@@ -288,18 +290,18 @@ By construction
 \Disp{
 \| P (:,n_y)^\H (y -P \hat{g}) \|
 \leq &\| P^\H (y -P \hat{g}) \|_\infty \\
-\leq &2\sqrt{\log N_g}
+\leq &2\R{\log N_g}
 }
 By triangle inequality, together with lemma (), we have
 \Disp{
 \|P (:,n_y)^\H P d\|
 \leq &\|\IP{ z, P (:,n_y) }\| +\IP{ y -P \hat{g}, P (:,n_y) } \\
-\leq &2 \sqrt{\log N_g} +2 \sqrt{\log N_g}
+\leq &2 \R{\log N_g} +2 \R{\log N_g}
 }
 which implies
 \Disp{
 \|P^\H P d\|_\infty
-\leq &4 \sqrt{\log N_g}.
+\leq &4 \R{\log N_g}.
 }
 
 From ``Dantzig Selector'' (Cand\`es and Tao 2007), Lemma 1, first equation, we have the result as below.
@@ -309,11 +311,11 @@ Of course the interpretation of modulus and the inner product changes accordingl
 \Result
 {Lemma}
 {
-Let \(d\) and \(P\) be defined as above, and \(P\) satisfies RIP as in () with respect to \(\delta_s\).
+Let \(d\) and \(P\) be defined as above, and \(P\) satisfies RIP as in () with respect to \(\d_s\).
 %
 \Disp{
 \|d_{\MC{AB}}\|_2
-\leq \F{1}{1-\delta_{2s}} \|P_{\MC{A}\MC{B}}^\Tr P d\|_2 +\F{\delta_{3s}}{(1-\delta_{2s}) \sqrt{L}} \|d_{C}\|_1
+\leq \F{1}{1-\d_{2L}} \|P_{\MC{A}\MC{B}}^\Tr P d\|_2 +\F{\d_{3L}}{(1-\d_{2L}) \R{L}} \|d_{C}\|_1
 }
 %
 }
@@ -342,24 +344,70 @@ We can now formulate and prove the main bound of ours.
 {Theorem}
 {
 Let \(y\), \(P\), \(g\), \(\hat{g}\), \(d\) be defined as above.
-Then, if \(g\) is almost-\(L\)-sparse with residue \(\epsilon(N,L)\), then
+Then
 \Disp{
--\|g_{\MC{C}}\|_2
-\leq C 4 (\log N_g) \cdot \left( L +\F{1}{L} \epsilon(N,L) \right)
+\|d\|_2
+\leq \F{4 L^4}{\pi^4} \d_{3L}^4 (1-2\d_{2L}) ( \log N_H )^4
 }
 with overwhelming probability.
 }
 
+We are ready to combine previous lemmata.
+The first quantity we want to bound away is
+\Disp{
+\|P_{\MC{A}\MC{B}}^\Tr P d\|_2
+\leq &\|P^\Tr P d\|_2 \NT \\
+\leq &\R{N_g} \|P^\Tr P d\|_\infty \NT \\
+\leq &4 \R{ N_g \log N_g }
+}
+Thus, by virtue of Lemma (),
+\Disp{
+\| d_{A} \|_1
+\leq &\R{L} \| d_{A} \|_2 \NT \\
+\leq &\R{L} \| d_{\MC{AB}} \|_2 \NT \\
+\leq &\F {\d_{3L}} {1-\d_{2L}} \| d_{\MC{C}} \|_1 +\F {4} {1-\d_{2L}} \R{L N_g \log N_g} 
+}
+
+As the next step, we must eliminate \(\|d_{\MC{A}}\|_1\) in rhs of Lemma ().
+\Disp{
+\| d_{\MC{C}} \|_1
+\leq &\| d_{\MC{A}} \|_1 +2 \| g_{\MC{C}} \|_1 \NT \\
+\leq &\F {\d_{3L}} {1-\d_{2L}} \| d_{\MC{C}} \|_1
++2 \| g_{\MC{C}} \|_1
++\F {4} {1-\d_{2L}} \R{L N_g \log N_g}
+}
+Or,
+\Disp{
+\| d_{\MC{C}} \|_1
+\leq &2 \F{1-\d_{2L}} {1 -\d_{2L} -\d_{3L}} \| g_{\MC{C}} \|_1
++\F {4} {1-\d_{2L} -\d_{3L}} \R{L N_g \log N_g}
+}
+
+We are ready to bound \(\| d \|_2^2\).
+Using Lemma () again, we have
 \Disp{
 \| d \|_2^2
-\leq &\|d_{\MC{A}\MC{B}}\|_2^2 +\F{1}{L} \|d_{\MC{C}}\|_1^2 \\
-\leq \F{1}{(1-\delta_{2s})^2}
-\left(
-\|P_{\MC{A}\MC{B}}^\Tr P d\|_2^2
-+\F{\delta_{3s}^2} {(1-\delta_{2s})^2 L} \|d_{C}\|_1^2
-\right)
-+\F{1}{L} \|d_{\MC{C}}\|_1^2
+\leq &\|d_{\MC{A}\MC{B}}\|_2^2 +\F{1}{L} \|d_{\MC{C}}\|_1^2 \NT \\
+\leq & \left( \F{\d_{3L}^2} {L^2 (1-\d_{2L})^2} +\F{1}{L} \right) \|d_{\MC{C}}\|_1^2
++\F{8 \d_{3L}} {L (1-\d_{2L})^2} \R{N_g \log N_g} \|d_{\MC{C}}\|_1 \NT \\
+&\quad +\F{16}{(1-\d_{2L})^2} N_g \log N_g
 }
+Finally, plug in the bound for \(\|d_{\MC{C}}\|_1\), the last unknown, and we make use of the almost-sparsity condition of \(\|d_{\MC{C}}\|_1\).
+There are several dozens of terms if we expand all.
+but for simplicity, we keep only the leading term under the approximation
+\Disp{
+1 \ll L \ll N_g
+}
+And expand to the first order expressions containing \(\d_{2L}\) or \(\d_{3L}\) in the denominator using
+\Disp{
+\d_{2L} <\d_{3L} \ll 1.
+}
+Then
+\Disp{
+\|d\|_2^2
+\leq \F{4 L^4}{\pi^4} \d_{3L}^4 (1-2\d_{2L}) ( \log N_H )^4
+}
+
 
 
 { \color{red} (To be done) }

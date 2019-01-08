@@ -33,24 +33,24 @@ And consider the virtual representation of the MIMO channel (see for example Akd
 %
 \Disp{
 H
-=\sum_{l=1}^L \alpha_l \V{a} \left( \F{d} {\lambda} \sin \varphi_l' \right) \V{a} \left( \F{d_{\RM{arr}}} {\lambda} \sin \vartheta_l' \right)^\H
+=\sum_{l=1}^L \alpha_l \V{a} \left( \F{d} {\lambda} \sin \f_l' \right) \V{a} \left( \F{d_{\RM{arr}}} {\lambda} \sin \th_l' \right)^\H
 }
 %
-The physical meaning of \(\vartheta_l\) is the \(l\)-th angle of incidence (formed by the ray and the normal line) of departure electronic wave, and \(\vartheta_l\), the \(l\)-th that of arrival wave, while \(d_{\RM{arr}}\) is the distance between two adjacent antennae.
+The physical meaning of \(\th_l\) is the \(l\)-th angle of incidence (formed by the ray and the normal line) of departure electronic wave, and \(\th_l\), the \(l\)-th that of arrival wave, while \(d_{\RM{arr}}\) is the distance between two adjacent antennae.
 For our purpose, we may absorb the argument of \(\V{a}\) as
 %
 \Disp{
-\varphi_l
-=\F{d_{\RM{arr}}} {\lambda} \sin \varphi_l' \\
-\vartheta_l
-=\F{d_{\RM{arr}}} {\lambda} \sin \vartheta_l'
+\f_l
+=\F{d_{\RM{arr}}} {\lambda} \sin \f_l' \\
+\th_l
+=\F{d_{\RM{arr}}} {\lambda} \sin \th_l'
 }
 %
 to get a simpler form
 %
 \Disp{
 H
-=\sum_{l=0}^L \alpha_l \V{a} (\varphi_l) \V{a} (\vartheta_l)^\H
+=\sum_{l=0}^L \alpha_l \V{a} (\f_l) \V{a} (\th_l)^\H
 }
 %
 
@@ -152,7 +152,7 @@ Introduce the discrete Fourier matrix \(\M{K}\) defined to be
 %
 \Disp{
 \M{K} \in &\MB{M}_{\MB{C}} (N_H, N_H) \NT \\
-\M{K} (n_1, n_2) =&\F{1} {\sqrt{N_H}} \RM{e}^{2\pi i n_1 n_2 /N_H}, \\
+\M{K} (n_1, n_2) =&\F{1} {\R{N_H}} \RM{e}^{2\pi i n_1 n_2 /N_H}, \\
 \quad n_1, n_2 =&0, 1, \dotsc, N_H-1 \NT
 }
 %
