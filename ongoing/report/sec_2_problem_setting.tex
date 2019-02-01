@@ -23,7 +23,7 @@ We restrict our consideration to the uniform linear array, which can be modeled 
 %
 \Disp{
 \V{a} (\psi')
-=\sum_{n=1}^{N} \RM{e}^{n \psi' i} \V{u}_n
+=\F{1}{\R{N_H}} \sum_{n=1}^{N} \RM{e}^{n \psi' i} \V{u}_n
 \in \MB{V}_\MB{C} (N_H)
 }
 %
@@ -215,8 +215,10 @@ Then, with parameter \(\gamma\) specified, define the following program
 %
 \Disp{
 \hat{\V{g}}
-=\min_{\V{g}'} &\|\V{g}'\|_1 \quad
-\RM{subject}\; \RM{to}\quad &\|\M{P}^\H (\V{y} -\M{P} \V{g}')\|_\infty \leq \gamma
+\begin{cases}
+=\min_{\V{g}'} &\|\V{g}'\|_1 \\
+\RM{subject}\; \RM{to} \quad &\|\M{P}^\H (\V{y} -\M{P} \V{g}')\|_\infty \leq \gamma
+\end{cases}
 }
 %
 And convert \(\hat{\V{g}}\) back to the space domain as

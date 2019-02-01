@@ -1,8 +1,12 @@
 *.png
+*.jpg
 *.pdf
 *.aux
 *.log
 *.out
+*.snm
+*.nav
+*.toc
 *.o
 bin/
 lib/

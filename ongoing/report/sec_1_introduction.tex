@@ -83,23 +83,23 @@ In this article we focuss on DS, and we introduce several notions before we desc
 To facilitate reader's understanding, in this section we will consistently use \(N_p\) and \(N_m\) to denote matrix dimensions.
 Following Cand\`es and Tao, we borrow the term ``support'' from the context of analysis, where it denotes the set on which a function is nonzero.
 
-We will use \(T (N_m) =\{1, \dotsc, N_m\}\) to denote the support of \(\MB{V}_{\MB{K}} (N_m)\).
+We will use \(T \RB{N_m} =\{1, \dotsc, N_m\}\) to denote the support of \(\MB{V}_{\MB{K}} (N_m)\).
 
 \Result
 {Definition}
 {
 Suppose \(\M{A} \in \MB{M}_{\MB{K}} (N_m, N_p)\).
-Let \(\MC{T} \subset T (N_p)\).
+Let \(\MC{T} \subset T \RB{N_p}\).
 Denote as \(\M{A}_{\MC{T}}\) the columns of \(\M{A}\) having indices in \(\MC{T}\).
 }
 
 \Result
 {Definition}
 {
-\(x \in \MB{V}_{\MB{K}} (N_m)\) is called \(s\)-sparse with support \(\MC{A}\), \(s <N_m\), if there is \(\MC{A} \subset T (N_m)\) such that
+   \(x \in \MB{V}_{\MB{K}} (N_m)\) is called \(s\)-sparse with support \(\MC{A}\), \(s <N_m\), if there is \(\MC{A} \subset T \RB{N_m}\) such that
 %
 \Disp{ 
-x_{T (N) -\MC{A}} =\V{0}
+x_{T\RB{N} -\MC{A}} =\V{0}
 }
 with
 \Disp{ 
@@ -154,11 +154,14 @@ How can we hope to estimate \(h\) when, in addition to insufficient observations
 {Program}
 {
 Let \(\M{P} \in \MB{V}_\MB{R} (N_m, N_p)\) and \(\V{y} \in \MB{V}_\MB{R} (N_m)\) be given.
-Find \(\V{h} \in \MB{V}_\MB{R} (N_m)\) with
+Find \(\V{h} \in \MB{V}_\MB{R} (N_m)\) by
 %
 \Disp{
-\min_{\V{h}'} \quad &\|\V{h}'\|_1 \\ \NT
+\V{h}
+=\begin{cases}
+\min_{\V{h}'} \quad &\|\V{h}'\|_1 \NT \\
 \RM{subject}\; \RM{to} \quad &\|\M{P}^\H (\M{P} \V{h} -\V{y})\|_\infty \leq \gamma
+\end{cases}
 }
 }
 
@@ -210,7 +213,7 @@ Around that time, Tropp and Gilbert (2007b) points out if we apply a greedy algo
 Same as before, consider \(\V{y} \in \MB{V}_\MB{K} (N_p)\), \(\V{h} \in \MB{V}_\MB{K} (N_s)\), where \(\V{h}\) is \(s\)-sparse, with \(N_p \gg N_s\).
 If
 \Disp{
-\V{y} =\M{P} \M{h},
+\V{y} =\M{P} \V{h},
 }
 that is, the noiseless, real-number case.
 We pick up the columns of \(\M{P}\) greedily, hoping to correspond to the support of \(\V{h}\), thus recovering the original signal.

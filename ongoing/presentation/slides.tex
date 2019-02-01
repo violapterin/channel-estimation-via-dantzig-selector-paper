@@ -6,7 +6,7 @@
 \usepackage{stackengine}
 
 \setcounter{section}{-1}
-
+\newcounter{countRef}
 
 \newcommand{\Disp}[1]{\begin{align} #1 \end{align}}
 
@@ -54,8 +54,8 @@
 \begin{itemize}
 \I Multiple-input-multiple-output (MIMO) wireless communication is widely expected to be the next-generation communication scheme.
 \I Recall that reliable communication requires that the channel response be known at the receiver, to facilitate beamforming algorithm and channel calibration
-\I And in the MIMO system, it is a non-trivial problem to estimate wireless channels.
-Meanwhile, in the millimeter wave r\`egime, which is often used together with MIMO, channel often exhibits sparse properties.
+\I And in the MIMO system, it is a non-trivial problem to estimate wireless channels due to high complexity
+\I Meanwhile, in the millimeter wave r\`egime, which is often used together with MIMO, channel often exhibits sparse properties.
 \I If the sparsity is exploited, few observations may suffice to estimate the channel
 \end{itemize}
 \end{frame}
@@ -67,8 +67,9 @@ Meanwhile, in the millimeter wave r\`egime, which is often used together with MI
 \I CS addresses the common situation in statsitical applications that the number of model parameters \(N_p \gg\) the number of measurements \(N_m\).
 \I With insufficient (possibly noisy) measurements, how well can we recover all \(N_p\) parameters?
 Of course, more assumption must be made.
-\I The work reveals that few observations of the signal may be sufficient for us to resonstruct the signal when it is sparse.
-\I Cand\`es and Tao (2006) proposes the Dantzig Selector (DS), which was first applied in channel estimation context
+\I Work on CS reveals that few observations of the signal may be sufficient for us to resonstruct the signal when it is sparse.
+\I In the advent, Cand\`es and Tao (2006) proposes the Dantzig Selector (DS).
+It was first applied in channel estimation context
 \end{itemize}
 \end{frame}
 
@@ -87,21 +88,21 @@ Of course, more assumption must be made.
 \begin{frame}
 \frametitle{Definitions: Sparsity}
 \begin{itemize}
-\I \(T (N_m) =\{1, \dotsc, N_m\}\) is the support of \(\MB{V}_{\MB{K}} (N_m)\).
 \I Suppose \(\M{A} \in \MB{M}_{\MB{K}} (N_m, N_p)\).
-Let \(\MC{T} \subset T (N_p)\).
+Let \(\MC{T} \subset \{1, \dotsc, N_m\}\).
 Denote as \(\M{A}_{\MC{T}}\) the columns of \(\M{A}\) having indices in \(\MC{T}\).
-\I \(x \in \MB{V}_{\MB{K}} (N_m)\) is called \(s\)-sparse with support \(\MC{A}\), \(s <N_m\), if only at most \(s\) components of \(x\) is nonzero.
+\I \(\V{x} \in \MB{V}_{\MB{K}} (N_m)\) is called \(s\)-sparse with support \(\MC{A}\), \(s <N_m\), if only at most \(s\) components of \(\V{x}\) is nonzero.
+\I (New def.) We say \(\V{x}\) is almost-\(s\)-sparse with \(\ell_1\)-residue \(R\), if \( \sum_{n=s+1}^N |S(\V{x}) (n)| \leq R \) where \(S(\V{x})\) is sorted in magnitude.
 \end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{Program: The Dantzig Selector}
-Let \(\M{P} \in \MB{V}_\MB{R} (N_m, N_p)\) and \(\V{y} \in \MB{V}_\MB{R} (N_m)\) be given.
+Let \(\M{P} \in \MB{V}_\MB{R} (N_m, N_p)\) and \(\V{y} \in \MB{V}_\MB{R} (N_m)\) be given, and \(\gamma\) be fixed.
 Find \(\hat{\V{h}} \in \MB{V}_\MB{R} (N_m)\) with
 \Disp{
 \hat{\V{h}} =\min_{\V{h}'} \quad &\|\V{h}'\|_1 \\ \NT
-\RM{subject}\; \RM{to} \quad &\|\M{P}^\H (\M{P} \V{h} -\V{y})\|_\infty \leq \gamma
+\RM{subject}\; \RM{to} \quad &\|\M{P}^\H (\M{P} \V{h'} -\V{y})\|_\infty \leq \gamma
 }
 \end{frame}
 
@@ -124,7 +125,7 @@ where \(\V{z}\) is i.i.d.\ standard Gaussian.
 \frametitle{Definition: Restricted Isometry Property}
 \begin{itemize}
 \I Consider \(P \in \MB{M}_{\MB{K}} (N_m, N_p)\), with unity-\(\ell_2\)-norm columns.
-For \(s =1, \dotsc N_p\), we say that \(P\) satisfies the restricted isometry property (RIP) of sparsity \(s\) with respect to \(0 \leq \d_s \leq 1\), if, for all \(s\)-sparse \(\V{x} \in \MB{V}_{\MB{K}} (N_p)\), for all \(\MC{T} \subset T(N_m)\) with \(\#\{\MC{T}\} \leq s\),
+For \(s =1, \dotsc N_p\), we say that \(P\) satisfies the restricted isometry property (RIP) of sparsity \(s\) with respect to \(0 \leq \d_s \leq 1\), if, for all \(s\)-sparse \(\V{x} \in \MB{V}_{\MB{K}} (N_p)\), for all \(\MC{T} \subset \{1, \dotsc, N_p\}\) with \(\#\{\MC{T}\} \leq s\),
 %
 \Disp{
 (1-\d_s) \|\V{x}\|^2
@@ -138,7 +139,7 @@ For \(s =1, \dotsc N_p\), we say that \(P\) satisfies the restricted isometry pr
 \begin{frame}
 \frametitle{Orthogonal Matching Pursuit}
 \begin{itemize}
-\I Afterwards, scholars (Tropp and A C Gilbert 2007b) proposed a greedy algorithm called Orthogonal Matching Pursuit (OMP)
+\I Afterwards, scholars (Tropp and Gilbert 2007b) proposed a greedy algorithm called Orthogonal Matching Pursuit (OMP)
 \I Here, we pick up the columns of the sensing matrix \(\M{P}\) greedily, hoping to correspond to the support of \(\V{h}\), thus recovering the original signal.
 \I An i.i.d.\ random sensing matrix may perform sufficiently well, and may even recover the original signal in an overwhemingly probability too.
 \end{itemize}
@@ -148,9 +149,9 @@ For \(s =1, \dotsc N_p\), we say that \(P\) satisfies the restricted isometry pr
 \frametitle{Recent Literature on Compressive Channel Sensing}
 \begin{itemize}
 \I Scholars has since favored OMP rather than DS, let alone other sparse algorithm, without clear justification
+\I Previous work simply assumes the norm of the channel matrix is bounded in some way, and dependency on the sparsity of the channel parameters is unknown
 \I OMP's requirement on the sensing matrix (elementwise i.i.d.\ Gaussian) seems to be more restrictive than DS's (RIP)
 \I The quantization of angle in generating may be a problem, and that is difficult to analyze in OMP's setting
-\I Previous work simply assumes the norm of the channel matrix is bounded in some way, and dependency on the sparsity of the channel parameters is unknown
 \end{itemize}
 \end{frame}
 
@@ -170,7 +171,7 @@ For \(s =1, \dotsc N_p\), we say that \(P\) satisfies the restricted isometry pr
 \I The response of uniform linear array is
 \Disp{
 \V{a} (\psi')
-=\sum_{n=1}^{N} \RM{e}^{n \psi' i} \V{u}_n
+=\F{1}{\R{N_H}} \sum_{n=1}^{N} \RM{e}^{n \psi' i} \V{u}_n
 \in \MB{V}_\MB{C} (N_H)
 }
 \I Let the virtual angle of departure and arrival be defined as thus to simplify expression
@@ -247,13 +248,14 @@ so that
 
 \begin{frame}
 \frametitle{Beamspace Channel Representation}
-But if we write \( \M{G} =\M{K}^\H \M{H} \M{K} \), i.e.\ the beamspace (i.e., spatial frequency domain) representation of \(\M{H}\), then
+Let \(\M{K}\) be the DFT matrix.
+If we write \( \M{G} =\M{K}^\H \M{H} \M{K} \), i.e.\ the beamspace (i.e., spatial frequency domain) representation of \(\M{H}\), then
 \Disp{
 \M{Y}
 :=&\M{W}_B \M{W}_R \M{K} ( \M{G} \M{K}^\H \M{F}_R \M{F}_B +\M{K}^\H \M{Z} )
 \in \MB{M}_{\MB{C}} (N_Y, N_Y) \\
 \M{P}
-:=&(\M{F}_B^\Tr \M{F}_R^\Tr K^\ast) \otimes (\M{W}_B \M{W}_R \M{K})
+:=&(\M{F}_B^\Tr \M{F}_R^\Tr \M{K}^\ast) \otimes (\M{W}_B \M{W}_R \M{K})
 \in \MB{M}_{\MB{C}} (N_y, N_g)
 }
 where accordingly
@@ -266,16 +268,37 @@ so that
 \V{y}
 =\M{P} \V{g} +\V{z}
 }
-
 \end{frame}
 
+\begin{frame}
+\frametitle{Proposed Program}
+\begin{itemize}
+\I Let \(\M{P}, \V{y}\) be given.
+Then, with parameter \(\gamma\) specified, find
+%
+\Disp{
+\hat{\V{g}}
+=\min_{\V{g}'} &\|\V{g}'\|_1 \quad \\
+\RM{subject}\; \RM{to}\quad
+&\|\M{P}^\H (\V{y} -\M{P} \V{g}')\|_\infty \leq \gamma
+}
+\I And convert \(\hat{\V{g}}\) back to matrix form as
+\Disp{
+\hat{G} =\RM{vec}^{-1} (\hat{g})
+}
+\I And finally recover the estimated \(H\) in the space domain as
+\Disp{
+\hat{\M{H}} =\M{K} \hat{\M{G}} \M{K}^\H.
+}
+\end{itemize}
+\end{frame}
 
 \begin{frame}
 \frametitle{Lemma: \(\V{a}\) is Almost Sparse}
-\(\forall \f\), \(\V{a} (\f)\) is almost-\(L\)-sparse with \(\ell_1\)-residue \(R(N_H, L)\) to be
+For arbitrary \(\f\), for \(N_H \gg 1\), \(\V{a} (\f)\) is almost-\(L\)-sparse with \(\ell_1\)-residue \(R(N_H, L)\) to be
 \Disp{
 R
-\leq 2 N_H \log \F{2\pi N_H}{L}.
+   \leq \F{1}{\pi} \log \F{N_H}{L}.
 }
 \end{frame}
 
@@ -355,45 +378,52 @@ Then \(P\) is RIP according to \(\d\) for at least probability
 \end{frame}
 
 \begin{frame}
-\frametitle{Definitions}
-\begin{itemize}
-\I Let \(\MC{A}\) be the largest \(s\) position of \(g\), \(\MC{B}\) be the largest \(s\) position of \(d_{T(N_g) -\MC{A}}\), and \(\MC{C} =T(N_g) -\MC{A}\)
-\I Denote as \(\M{A}_{\MC{T}}\) the columns of \(\M{A}\) having indices in \(\MC{T}\).
-\I we say \(\V{x}\) is almost-\(s\)-sparse with \(\ell_1\)-residue \(R\), if \( \sum_{n=s+1}^N |S(\V{x}) (n)| \leq R \)
-\I Denote \(d =\hat{g} -g\)
-where \(S(x)\) is sorted in magnitude.
-\end{itemize}
+\frametitle{The Main Bound}
+Let \(\V{d}\) be defined as above, then, for overwhelming probability
+\Disp{
+\|\V{d}\|_2
+\leq \F{4}{\pi^4} \d_{3L}^4 (1-2\d_{2L}) L^4 ( \log N_H )^4
+}
 \end{frame}
 
-
 \begin{frame}
-\frametitle{Lemmata on RIP Matrix}
-For overwhelming probability,
+\frametitle{Preparation for the Proof}
 \begin{itemize}
-\I \( |\IP{ \V{z}, \M{P}(:, n_g) }| \leq 2 \R{\log N_g}, \quad n_g =1, \dotsc, N_g. \)  (generalized from real case)
-\I \( \|\M{P}^\H \M{P} \V{d}\|_\infty \leq 4 \R{\log N_g}, \quad n_g =1, \dotsc, N_g \) (generalized from real case)
-\I \( \|\V{d}_{\MC{AB}}\|_2 \leq \dfrac{1}{1-\d_{2s}} \|P_{\MC{A}\MC{B}}^\Tr P d\|_2 +\dfrac{\d_{3s}}{(1-\d_{2s}) \R{s}} \|d_{C}\|_1 \)
+\I Use \(s=L\) in our case
+\I Let \(\MC{A}\) be the index set of the largest \(L\) components of \(g\), \(\MC{B}\) be the index set of the largest \(L\) position of \(d\) except \(\MC{A}\), and \(\MC{C} =\{1, \dotsc, N_g\} -\MC{A}\)
+\I Denote as \(\M{A}_{\MC{T}}\) the columns of \(\M{A}\) having indices in \(\MC{T}\).
+\I Denote \(\V{d} =\hat{\V{g}} -\V{g}\)
 \end{itemize}
-{\small Source: Cand\`es and Tao (2007), ``The Dantzig Selector''}
 \end{frame}
 
 
 \begin{frame}
 \frametitle{Lemmata on Vector Supports}
 \begin{itemize}
+\I \( \|\V{d}\|_2^2 \leq \|\V{d}_{\MC{A}\MC{B}}\|_2^2 +\dfrac{1}{L} \|\V{d}_{\MC{C}}\|_1^2 \)
 \I \( \|\V{d}_{\MC{C}}\|_1 \leq \|\V{d}_{\MC{A}}\|_1 +2\|\V{g}_{C}\|_1 \)
-\I \( \|\V{d}\|_2^2 \leq \|\V{d}_{\MC{A}\MC{B}}\|_2^2 +\dfrac{1}{s} \|\V{d}_{\MC{C}}\|_1^2 \)
+\begin{itemize}
+\item (modified to account nonzero \(\|\V{g}_{C}\|_1\))
+\end{itemize}
 \end{itemize}
 {\small Source: Cand\`es and Tao (2007), ``The Dantzig Selector''}
 \end{frame}
 
 \begin{frame}
-\frametitle{The Main Bound}
-Let \(\V{d}\) be defined as above, and set \(s=L\), then
-\Disp{
-\|\V{d}\|_2
-\leq \F{4}{\pi^4} \d_{3L}^4 (1-2\d_{2L}) L^4 ( \log N_H )^4
-}
+\frametitle{Lemmata on RIP Matrix}
+For overwhelming probability,
+\begin{itemize}
+\I \( \|\V{d}_{\MC{AB}}\|_2 \leq \dfrac{1}{1-\d_{2L}} \left( \|\M{P}_{\MC{A}\MC{B}}^\Tr \M{P} \V{d}\|_2 +\dfrac{\d_{3L}}{\R{L}} \|\V{d}_{C}\|_1 \right) \)
+\I \( |\IP{ \V{z}, \M{P}(:, n_g) }| \leq 2 \R{\log N_g}, \quad n_g =1, \dotsc, N_g. \)
+\begin{itemize}
+\item (generalized from real case)
+\end{itemize}
+\I \( \|\M{P}^\H \M{P} \V{d}\|_\infty \leq 4 \R{\log N_g}, \quad n_g =1, \dotsc, N_g \)
+\begin{itemize}
+\item (generalized from real case)
+\end{itemize}
+\end{itemize}
+{\small Source: Cand\`es and Tao (2007), ``The Dantzig Selector''}
 \end{frame}
 
 \begin{frame}
@@ -454,7 +484,7 @@ Let \(\V{d}\) be defined as above, and set \(s=L\), then
 &\quad +\F{8 \d_{3L}} {L (1-\d_{2L})^2} \R{N_g \log N_g} \|\V{d}_{\MC{C}}\|_1 \NT \\
 &\quad +\F{16}{(1-\d_{2L})^2} N_g \log N_g \\
 \|\V{d}\|_2^2
-\leq &\F{4}{\pi^4} \d_{3L}^4 (1-2\d_{2L}) L^4 ( \log N_H )^4
+\leq &\F{1}{4 \pi^4} \d_{3L}^4 (1-2\d_{2L}) L^4 ( \log N_g )^4
 }
 \begin{enumerate}
 \I Copy the Lemma for \(\| \V{d} \|_2^2\)
@@ -477,12 +507,14 @@ Let \(\V{d}\) be defined as above, and set \(s=L\), then
 \frametitle{Future Work}
 It remains to
 \begin{enumerate}
+\I Find the explicit ``overwhelming'' probability
 \I Transform DS into Second Order Cone Problem
 \I Find the Lagrangian and dual problem
-\I Complete the simulation
-\I Compare the theoretical bound
+\I Write the simulation, using Newton method
+\I Compare the probability bound with the simulation result
 \end{enumerate}
 \end{frame}
+
 
 \begin{frame}
 \frametitle{References}
@@ -493,13 +525,14 @@ It remains to
 \I S Boyd, L Vandenberghe (2004), \textit{Convex Optimization}. Cambridge U.\ Press.
 \I E J Cand\`es and J Romberg (2005), ``\(\ell_1\)-MAGIC: Recovery of Sparse Signals via Convex Programming'', Retrieved from \url{https://statweb.stanford.edu/~candes/l1magic/downloads/l1magic.pdf}.
 }
+\setcounter{countRef}{\value{enumi}}
 \end{enumerate}
 \end{frame}
 
 \begin{frame}
 \frametitle{References}
 \begin{enumerate}
-{ \small
+\setcounter{enumi}{\value{countRef}} { \small
 \I E J Cand\`es and T Tao (2005), ``Decoding by Linear Programming'', \textit{IEEE Transactions on Information Theory}, Vol.51, No.12.
 \I E Cand\`es and T Tao (2007), ``The Dantzig Selector: Statistical Estimation when \(p\) is Much Larger than \(n\)'', \textit{The Annals of Statistics}, Vol.35, No.6.
 \I J A Tropp and A C Gilbert (2007a), ``Signal Recovery from Random Measurements via Orthogonal Matching Pursuit: The Gaussian Case'', Caltech, ACM Tech.\ Rep. Retrieved from: \url{www.acm.caltech.edu/~jtropp/reports/TG07-Signal-RecoveryTR.pdf}
