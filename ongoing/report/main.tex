@@ -1,34 +1,47 @@
-\documentclass[12pt]{article}
+\input{./definitions.tex}
 
 \input{./preamble.tex}
 
-\begin{document}
+\starttext
 
-\maketitle
-\tableofcontents
+\startfrontmatter
+   \startmakeup[titlepage]
+   \titlestyle{\titletext}
+   \blank[big]
+   \authorstyle{\authortext}
+   \stopmakeup
+\stopfrontmatter
 
-\section{Front Material}
+\startbodymatter
 
-%\input{./sec_0_front_matter.tex}
+\completecontent
 
-\section{Introduction}
 
+\startsection[title={Front Material}]
+\input{./sec_0_front_matter.tex}
+\stopsection
+
+\startsection[title={Introduction}]
 %\input{./sec_1_introduction.tex}
+\stopsection
 
-\section{Problem Setting}
-
+\startsection[title={Problem Setting}]
 %\input{./sec_2_problem_setting.tex}
+\stopsection
 
-\section{Theorems and Proofs}
+\startsection[title={Theorems and Proofs}]
+%\input{./sec_3_theorems_and_proofs.tex}
+\stopsection
 
-\input{./sec_3_theorems_and_proofs.tex}
 
-\section{Simulation}
-
+\startsection[title={Simulation}]
 %\input{./sec_4_simulation.tex}
+\stopsection
 
-\section{Back matter}
-
+\startsection[title={Back matter}]
 %\input{./sec_5_back_matter.tex}
+\stopsection
 
-\end{document}
+\stopbodymatter
+
+\stoptext

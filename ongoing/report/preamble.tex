@@ -1,60 +1,49 @@
-\usepackage{mathtools}
-\usepackage{amssymb}
-\usepackage{graphicx}
-\usepackage[linkcolor=blue]{hyperref}
-\usepackage{xcolor}
-\usepackage[ocgcolorlinks]{ocgx2}
-\usepackage{stackengine}
-\usepackage[a4paper, margin=3cm, footskip=0.25in] {geometry}
 
-\setcounter{section}{-1}
+\setupcolors[state=start]
+\definecolor[headingcolor][r=0.2, g=0.25, b=0.5]
 
-\author{Tzu-Yu Jeng}
-\date{Nov.\ 2018 to \_\_\_\_}
+\setuppapersize[A4][A4]
+\setuplayout[ topspace=1cm, backspace=2cm, header=24pt ]
 
-\title{Compressive Channel Sensing of Multipath Millimeter Channel via a Beamspace Dantzig Selector and its Probabilitic Performance Bound}
+\setuppagenumbering[location={footer,middle}, style=slanted]
+\setupbodyfont[12pt]
 
-\newcommand{\Disp}[1]{\begin{align} #1 \end{align}}
+\setuphead[section, chapter] [color=headingcolor]
+\setuphead[section][style={\ss\bfd}]
+\setuphead[subsection][style={\ss\bfd}]
 
-\renewcommand{\H}{\dagger}
-\newcommand{\Tr}{\intercal}
-\newcommand{\NT}{\notag}
-\renewcommand{\d}{\delta}
-\newcommand{\f}{\varphi}
-\renewcommand{\th}{\vartheta}
+\setupitemize[inbetween={}, style=bold]
 
-\newcommand{\MB}[1]{\mathbb{#1}}
-\newcommand{\MC}[1]{\mathcal{#1}}
-\newcommand{\MF}[1]{\mathfrak{#1}}
-\newcommand{\RM}[1]{\mathrm{#1}}
 
-\newcommand{\RB}[1]{ \left( #1 \right) }
-\newcommand{\SB}[1]{ \left[ #1 \right] }
-\newcommand{\CB}[1]{ \left{ #1 \right} }
-\newcommand{\DB}[1]{ \left[ \! \left[ #1 \right] \! \right] }
-\newcommand{\Nm}[1]{ \left| #1 \right| }
+\definemakeup[titlepage][align=middle]
 
-\newcommand{\R}[1]{\sqrt{#1}}
-\newcommand{\F}[1]{\frac{#1}}
-\newcommand{\V}[1]{\stackunder[1.2pt]{$#1$}{\rule{.9ex}{.075ex}}}
-\newcommand{\M}[1]{\V{\V{#1}}}
-\newcommand{\T}[1]{\tilde{#1}}
-\newcommand{\IP}[1]{\langle #1 \rangle}
+\definealternativestyle[titlestyle][\ss\bfd][]
+\definealternativestyle[authorstyle][\ss\tfb][]
 
-\newcounter{NumResult}
-\newcommand{\myCount}
-{
-   \stepcounter{NumResult}
-   \textbf{\arabic{NumResult}}
-}
 
-\newcommand {\Result} [2]
-{
-   \bigskip
-   \myCount \textbf{#1} \par
-   {#2} \par
-   %\vskip -1mm
-   \vspace{-1em}
-   \hfill \(\blacksquare\)
-}
+\define[]{\authortext}{ Author: Tzu-Yu Jeng \\ Advisor: Prof.\ H.\ J.\ Su \\ Nov.\ 2018 to (Mar.\ 2019) \_\_\_\_ }
+\define[]{\titletext}{ Compressive Channel Sensing of Multipath Millimeter Channel via a Beamspace Dantzig Selector and its Probabilitic Performance Bound }
+
+
+\setuplist[chapter]
+  [alternative=b,
+   style=sansbold,
+   before={\blank[4*big]}]
+
+\setuplist
+  [section]
+  [width=2.2em]
+
+\setupwhitespace
+  [medium]
+
+
+\setuplist[subsubsection][width=20mm, style=slanted, pagestyle=normal]
+
+%\setuplist[chapter][width=5mm, style=bold]
+\setuplist[section][width=10mm, style=bold]
+\setuplist[subsection][width=20mm]
+
+% pagestyle=normal for changing the appearance of pagenumber
+\setuplist[subsubsection][width=20mm, style=slanted, pagestyle=normal]
 
