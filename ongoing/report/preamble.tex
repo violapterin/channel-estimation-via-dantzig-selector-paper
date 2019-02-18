@@ -1,49 +1,44 @@
 
-\setupcolors[state=start]
-\definecolor[headingcolor][r=0.2, g=0.25, b=0.5]
+\setupcolors [state=start]
+\definecolor [headingcolor] [r=0.2, g=0.25, b=0.5]
 
-\setuppapersize[A4][A4]
-\setuplayout[ topspace=1cm, backspace=2cm, header=24pt ]
+\setuppapersize [A4] [A4]
+\setuplayout [
+   topspace=1cm,
+   backspace=1cm,
+   margin=1cm,
+   header=24pt ]
 
-\setuppagenumbering[location={footer,middle}, style=slanted]
-\setupbodyfont[12pt]
+\setuppagenumbering [location={footer,middle}, style=slanted]
+\setupbodyfont [12pt]
 
-\setuphead[section, chapter] [color=headingcolor]
-\setuphead[section][style={\ss\bfd}]
-\setuphead[subsection][style={\ss\bfd}]
+\setuphead [section, chapter] [color=headingcolor]
+\setuphead [section] [style={\ss\bfd}]
+\setuphead [subsection] [style={\ss\bfd}]
 
-\setupitemize[inbetween={}, style=bold]
+\setupitemize [inbetween={}, style=bold]
+\definemakeup [titlepage] [align=middle]
 
-
-\definemakeup[titlepage][align=middle]
-
-\definealternativestyle[titlestyle][\ss\bfd][]
-\definealternativestyle[authorstyle][\ss\tfb][]
-
-
-\define[]{\authortext}{ Author: Tzu-Yu Jeng \\ Advisor: Prof.\ H.\ J.\ Su \\ Nov.\ 2018 to (Mar.\ 2019) \_\_\_\_ }
-\define[]{\titletext}{ Compressive Channel Sensing of Multipath Millimeter Channel via a Beamspace Dantzig Selector and its Probabilitic Performance Bound }
+\definealternativestyle [titlestyle] [\ss\bfd] []
+\definealternativestyle [authorstyle] [\ss\tfb] []
 
 
-\setuplist[chapter]
-  [alternative=b,
-   style=sansbold,
-   before={\blank[4*big]}]
+\define [0] {\Author_text}
+{
+   Author: Tzu-Yu Jeng \\
+   Advisor: Prof.\ H.\ J.\ Su \\
+   Nov.\ 2018 to (Mar.\ 2019) \_\_\_\_
+}
+\define [0] {\Title_text}
+{
+   Compressive Channel Sensing \\
+   of Multipath Millimeter Channel \\
+   via a Angular Domain Dantzig Selector \\
+   and its Probabilitic Performance Bound
+}
 
-\setuplist
-  [section]
-  [width=2.2em]
 
-\setupwhitespace
-  [medium]
-
-
-\setuplist[subsubsection][width=20mm, style=slanted, pagestyle=normal]
-
-%\setuplist[chapter][width=5mm, style=bold]
-\setuplist[section][width=10mm, style=bold]
-\setuplist[subsection][width=20mm]
-
-% pagestyle=normal for changing the appearance of pagenumber
-\setuplist[subsubsection][width=20mm, style=slanted, pagestyle=normal]
+\setuplist [chapter] [width=5mm, style=bold]
+\setuplist [section] [width=10mm, style=bold]
+\setuplist [subsection] [width=20mm]
 

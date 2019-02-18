@@ -1,45 +1,52 @@
-\input{./definitions.tex}
+\input {./definitions.tex}
 
-\input{./preamble.tex}
+\input {./preamble.tex}
 
 \starttext
 
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
 \startfrontmatter
-   \startmakeup[titlepage]
-   \titlestyle{\titletext}
-   \blank[big]
-   \authorstyle{\authortext}
-   \stopmakeup
+
+\startmakeup [titlepage]
+   \titlestyle {\Title_text}
+   \blank [big]
+   \authorstyle {\Author_text}
+\stopmakeup
+
+\completecontent [criterium=all]
+
+\input {./sec_0_front_matter.tex}
+
 \stopfrontmatter
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
 \startbodymatter
 
-\completecontent
-
-
-\startsection[title={Front Material}]
-\input{./sec_0_front_matter.tex}
+\startsection [title={Introduction}]
+%\input {./sec_1_introduction.tex}
 \stopsection
 
-\startsection[title={Introduction}]
-%\input{./sec_1_introduction.tex}
+\startsection [title={Problem Setting}]
+%\input {./2_problem_setting.tex}
 \stopsection
 
-\startsection[title={Problem Setting}]
-%\input{./sec_2_problem_setting.tex}
-\stopsection
-
-\startsection[title={Theorems and Proofs}]
-%\input{./sec_3_theorems_and_proofs.tex}
+\startsection [title={Theorems and Proofs}]
+%\input {./3_theorems_and_proofs.tex}
 \stopsection
 
 
-\startsection[title={Simulation}]
-%\input{./sec_4_simulation.tex}
+\startsection [title={Simulation}]
+%\input {./4_simulation.tex}
 \stopsection
 
-\startsection[title={Back matter}]
-%\input{./sec_5_back_matter.tex}
+\startsection [title={Conclusion}]
+%\input {./5_conclusion.tex}
+\stopsection
+
+\startsection [title={References}]
+%\input {./6_references.tex}
 \stopsection
 
 \stopbodymatter

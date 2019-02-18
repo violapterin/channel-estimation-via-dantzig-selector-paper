@@ -66,6 +66,9 @@ if not utilitydata.structures then utilitydata.structures = { } end
 if not utilitydata.structures.counters then utilitydata.structures.counters = { } end
 
 utilitydata.structures.counters.collected={
+ ["NumResult"]={
+  { 0 },
+ },
  ["chemical"]={
   { 0, 0 },
  },
@@ -121,14 +124,13 @@ utilitydata.structures.lists.collected={
   ["metadata"]=1,
   ["numberdata"]=3,
   ["references"]={
-   ["block"]="bodypart",
+   ["block"]="frontpart",
    ["internal"]=1,
    ["realpage"]=2,
    ["reference"]="content",
    ["section"]=0,
   },
   ["titledata"]={
-   ["label"]="chapter",
    ["title"]="\\headtext {content}",
   },
  },
@@ -136,46 +138,44 @@ utilitydata.structures.lists.collected={
   ["metadata"]=4,
   ["numberdata"]=6,
   ["references"]={
-   ["block"]="bodypart",
+   ["block"]="frontpart",
    ["internal"]=2,
    ["realpage"]=2,
    ["section"]=1,
   },
   ["titledata"]={
-   ["label"]="section",
-   ["title"]="Front Material",
+   ["title"]="Acknowledgement",
   },
  },
  {
-  ["metadata"]=7,
-  ["numberdata"]=9,
+  ["metadata"]=4,
+  ["numberdata"]=8,
   ["references"]={
-   ["block"]="bodypart",
+   ["block"]="frontpart",
    ["internal"]=3,
    ["realpage"]=2,
    ["section"]=2,
   },
   ["titledata"]={
-   ["label"]="subsection",
-   ["title"]="Acknowledgement",
-  },
- },
- {
-  ["metadata"]=7,
-  ["numberdata"]=11,
-  ["references"]={
-   ["block"]="bodypart",
-   ["internal"]=4,
-   ["realpage"]=2,
-   ["section"]=3,
-  },
-  ["titledata"]={
-   ["label"]="subsection",
    ["title"]="Abstract",
   },
  },
  {
-  ["metadata"]=4,
+  ["metadata"]=9,
+  ["numberdata"]=11,
+  ["references"]={
+   ["block"]="bodypart",
+   ["internal"]=4,
+   ["realpage"]=3,
+   ["section"]=3,
+  },
+  ["titledata"]={
+   ["label"]="section",
+   ["title"]="Introduction",
+  },
+ },
+ {
+  ["metadata"]=9,
   ["numberdata"]=13,
   ["references"]={
    ["block"]="bodypart",
@@ -185,11 +185,11 @@ utilitydata.structures.lists.collected={
   },
   ["titledata"]={
    ["label"]="section",
-   ["title"]="Introduction",
+   ["title"]="Problem Setting",
   },
  },
  {
-  ["metadata"]=4,
+  ["metadata"]=9,
   ["numberdata"]=15,
   ["references"]={
    ["block"]="bodypart",
@@ -199,11 +199,11 @@ utilitydata.structures.lists.collected={
   },
   ["titledata"]={
    ["label"]="section",
-   ["title"]="Problem Setting",
+   ["title"]="Theorems and Proofs",
   },
  },
  {
-  ["metadata"]=4,
+  ["metadata"]=9,
   ["numberdata"]=17,
   ["references"]={
    ["block"]="bodypart",
@@ -213,11 +213,11 @@ utilitydata.structures.lists.collected={
   },
   ["titledata"]={
    ["label"]="section",
-   ["title"]="Theorems and Proofs",
+   ["title"]="Simulation",
   },
  },
  {
-  ["metadata"]=4,
+  ["metadata"]=9,
   ["numberdata"]=19,
   ["references"]={
    ["block"]="bodypart",
@@ -227,11 +227,11 @@ utilitydata.structures.lists.collected={
   },
   ["titledata"]={
    ["label"]="section",
-   ["title"]="Simulation",
+   ["title"]="Conclusion",
   },
  },
  {
-  ["metadata"]=4,
+  ["metadata"]=9,
   ["numberdata"]=21,
   ["references"]={
    ["block"]="bodypart",
@@ -241,7 +241,7 @@ utilitydata.structures.lists.collected={
   },
   ["titledata"]={
    ["label"]="section",
-   ["title"]="Back matter",
+   ["title"]="References",
   },
  },
 }
@@ -258,7 +258,7 @@ utilitydata.structures.pages.collected={
   ["state"]="stop",
  },
  {
-  ["block"]="bodypart",
+  ["block"]="frontpart",
   ["number"]=1,
   ["numberdata"]=22,
   ["prefixdata"]=23,
@@ -344,7 +344,7 @@ utilitydata.job.packed={
   },
   { 0, 0 },
   {
-   ["block"]="bodypart",
+   ["block"]="frontpart",
    ["conversionset"]="default",
    ["hidenumber"]=true,
    ["language"]="en",
@@ -357,15 +357,26 @@ utilitydata.job.packed={
    ["coding"]="tex",
    ["increment"]="yes",
    ["kind"]="section",
-   ["level"]=3,
-   ["name"]="section",
+   ["level"]=4,
+   ["name"]="subsection",
   },
-  { 0, 0, 1 },
+  { 0, 0, 0, 1 },
   {
-   ["block"]="bodypart",
+   ["block"]="frontpart",
    ["conversionset"]="default",
+   ["hidenumber"]=true,
    ["language"]="en",
    ["numbers"]=5,
+   ["separatorset"]="default",
+   ["set"]="all",
+  },
+  { 0, 0, 0, 2 },
+  {
+   ["block"]="frontpart",
+   ["conversionset"]="default",
+   ["hidenumber"]=true,
+   ["language"]="en",
+   ["numbers"]=7,
    ["separatorset"]="default",
    ["set"]="all",
   },
@@ -374,19 +385,10 @@ utilitydata.job.packed={
    ["coding"]="tex",
    ["increment"]="yes",
    ["kind"]="section",
-   ["level"]=4,
-   ["name"]="subsection",
+   ["level"]=3,
+   ["name"]="section",
   },
-  { 0, 0, 1, 1 },
-  {
-   ["block"]="bodypart",
-   ["conversionset"]="default",
-   ["language"]="en",
-   ["numbers"]=8,
-   ["separatorset"]="default",
-   ["set"]="all",
-  },
-  { 0, 0, 1, 2 },
+  { 0, 0, 1 },
   {
    ["block"]="bodypart",
    ["conversionset"]="default",
