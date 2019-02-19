@@ -2,6 +2,23 @@
 
 \input {./preamble.tex}
 
+
+% % Following does not work: Why?
+% \definefontfeature [default][default][onum=yes]
+% \definefontfamily [MainFace][rm][Source Han Serif SC]
+% \definefontfamily [MainFace][ss] [Source Han Sans SC]
+% \definefontfamily [MainFace][tt] [Sarasa Mono SC][features=none]
+% \definefontfamily [MainFace][math] [TeX Gyre Pagella Math]
+% \setupbodyfont [MainFace, 12pt]
+
+
+\definefontfeature [default] [default] [onum=yes]
+\definefontfamily [MainFace] [serif] [TeX Gyre Pagella]
+\definefontfamily [MainFace] [sans] [TeX Gyre Heros]
+\definefontfamily [MainFace] [mono] [TeX Gyre Cursor] [features=none]
+\definefontfamily [MainFace] [math] [TeX Gyre Pagella Math]
+\setupbodyfont [MainFace, 12pt]
+
 \starttext
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
@@ -9,14 +26,15 @@
 \startfrontmatter
 
 \startmakeup [titlepage]
-   \titlestyle {\Title_text}
+   \TitleStyle {\TitleText}
    \blank [big]
-   \authorstyle {\Author_text}
+   \AuthorStyle {\AuthorText}
 \stopmakeup
 
 \completecontent [criterium=all]
 
-\input {./sec_0_front_matter.tex}
+\input {./abstract.tex}
+\input {./acknowledgement.tex}
 
 \stopfrontmatter
 
@@ -36,7 +54,6 @@
 %\input {./3_theorems_and_proofs.tex}
 \stopsection
 
-
 \startsection [title={Simulation}]
 %\input {./4_simulation.tex}
 \stopsection
@@ -46,7 +63,7 @@
 \stopsection
 
 \startsection [title={References}]
-%\input {./6_references.tex}
+%\input {./references.tex}
 \stopsection
 
 \stopbodymatter

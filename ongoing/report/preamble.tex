@@ -12,24 +12,25 @@
 \setuppagenumbering [location={footer,middle}, style=slanted]
 \setupbodyfont [12pt]
 
-\setuphead [section, chapter] [color=headingcolor]
-\setuphead [section] [style={\ss\bfd}]
-\setuphead [subsection] [style={\ss\bfd}]
+\setuphead [chapter, section, subsection] [color=headingcolor]
+\setuphead [chapter] [style={\ss\bfd}]
+\setuphead [section] [style={\ss\tfc}]
+\setuphead [subsection] [style={\ss\itb}]
 
 \setupitemize [inbetween={}, style=bold]
 \definemakeup [titlepage] [align=middle]
 
-\definealternativestyle [titlestyle] [\ss\bfd] []
-\definealternativestyle [authorstyle] [\ss\tfb] []
+\definealternativestyle [TitleStyle] [\ss\bfd] []
+\definealternativestyle [AuthorStyle] [\ss\tfb] []
 
 
-\define [0] {\Author_text}
+\define [0] {\AuthorText}
 {
    Author: Tzu-Yu Jeng \\
    Advisor: Prof.\ H.\ J.\ Su \\
    Nov.\ 2018 to (Mar.\ 2019) \_\_\_\_
 }
-\define [0] {\Title_text}
+\define [0] {\TitleText}
 {
    Compressive Channel Sensing \\
    of Multipath Millimeter Channel \\
@@ -38,7 +39,8 @@
 }
 
 
-\setuplist [chapter] [width=5mm, style=bold]
-\setuplist [section] [width=10mm, style=bold]
-\setuplist [subsection] [width=20mm]
+%\setuplist [title] [style=\ss\bfd]
+%\setuplist [chapter] [width=5mm, style=bold]
+%\setuplist [section] [width=10mm, style=bold]
+%\setuplist [subsection] [width=20mm]
 

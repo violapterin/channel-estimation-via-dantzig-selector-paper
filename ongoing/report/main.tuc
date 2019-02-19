@@ -103,7 +103,7 @@ utilitydata.structures.counters.collected={
   { 0, 0 },
  },
  ["realpage"]={
-  { 3 },
+  { 4 },
  },
  ["subpage"]={
   { 1 },
@@ -112,7 +112,7 @@ utilitydata.structures.counters.collected={
   { 0, 0 },
  },
  ["userpage"]={
-  { 2 },
+  { 3 },
  },
 }
 
@@ -166,7 +166,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=4,
-   ["realpage"]=3,
+   ["realpage"]=4,
    ["section"]=3,
   },
   ["titledata"]={
@@ -180,7 +180,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=5,
-   ["realpage"]=3,
+   ["realpage"]=4,
    ["section"]=4,
   },
   ["titledata"]={
@@ -194,7 +194,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=6,
-   ["realpage"]=3,
+   ["realpage"]=4,
    ["section"]=5,
   },
   ["titledata"]={
@@ -208,7 +208,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=7,
-   ["realpage"]=3,
+   ["realpage"]=4,
    ["section"]=6,
   },
   ["titledata"]={
@@ -222,7 +222,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=8,
-   ["realpage"]=3,
+   ["realpage"]=4,
    ["section"]=7,
   },
   ["titledata"]={
@@ -236,7 +236,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=9,
-   ["realpage"]=3,
+   ["realpage"]=4,
    ["section"]=8,
   },
   ["titledata"]={
@@ -265,8 +265,15 @@ utilitydata.structures.pages.collected={
   ["state"]="start",
  },
  {
-  ["block"]="bodypart",
+  ["block"]="frontpart",
   ["number"]=2,
+  ["numberdata"]=22,
+  ["prefixdata"]=23,
+  ["state"]="start",
+ },
+ {
+  ["block"]="bodypart",
+  ["number"]=3,
   ["numberdata"]=22,
   ["prefixdata"]=23,
   ["state"]="start",
