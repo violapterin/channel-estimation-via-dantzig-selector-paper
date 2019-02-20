@@ -1,23 +1,4 @@
-\input {./definitions.tex}
-
 \input {./preamble.tex}
-
-
-% % Following does not work: Why?
-% \definefontfeature [default][default][onum=yes]
-% \definefontfamily [MainFace][rm][Source Han Serif SC]
-% \definefontfamily [MainFace][ss] [Source Han Sans SC]
-% \definefontfamily [MainFace][tt] [Sarasa Mono SC][features=none]
-% \definefontfamily [MainFace][math] [TeX Gyre Pagella Math]
-% \setupbodyfont [MainFace, 12pt]
-
-
-\definefontfeature [default] [default] [onum=yes]
-\definefontfamily [MainFace] [serif] [TeX Gyre Pagella]
-\definefontfamily [MainFace] [sans] [TeX Gyre Heros]
-\definefontfamily [MainFace] [mono] [TeX Gyre Cursor] [features=none]
-\definefontfamily [MainFace] [math] [TeX Gyre Pagella Math]
-\setupbodyfont [MainFace, 12pt]
 
 \starttext
 
@@ -31,10 +12,7 @@
    \AuthorStyle {\AuthorText}
 \stopmakeup
 
-\completecontent [criterium=all]
-
-\input {./abstract.tex}
-\input {./acknowledgement.tex}
+\completecontent [criterium=all, alternative=c]
 
 \stopfrontmatter
 
@@ -42,29 +20,33 @@
 
 \startbodymatter
 
-\startsection [title={Introduction}]
+\input {./abstract.tex}
+
+\input {./acknowledgement.tex}
+
+\startchapter [title={Introduction}]
 %\input {./sec_1_introduction.tex}
-\stopsection
+\stopchapter
 
-\startsection [title={Problem Setting}]
+\startchapter [title={Problem Setting}]
 %\input {./2_problem_setting.tex}
-\stopsection
+\stopchapter
 
-\startsection [title={Theorems and Proofs}]
+\startchapter [title={Theorems and Proofs}]
 %\input {./3_theorems_and_proofs.tex}
-\stopsection
+\stopchapter
 
-\startsection [title={Simulation}]
+\startchapter [title={Simulation}]
 %\input {./4_simulation.tex}
-\stopsection
+\stopchapter
 
-\startsection [title={Conclusion}]
+\startchapter [title={Conclusion}]
 %\input {./5_conclusion.tex}
-\stopsection
+\stopchapter
 
-\startsection [title={References}]
+\startchapter [title={References}]
 %\input {./references.tex}
-\stopsection
+\stopchapter
 
 \stopbodymatter
 

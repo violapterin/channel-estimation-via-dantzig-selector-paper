@@ -1,13 +1,65 @@
 
+
+\define[1] {\Disp} {\begin {align} #1 \end {align}}
+
+\define {\H} {\dagger}
+\define {\Tr} {\intercal}
+\define {\NT} {\notag}
+\define {\d} {\delta}
+\define {\f} {\varphi}
+\define {\th} {\vartheta}
+
+\define [1] {\MB} {\mathbb {#1}}
+\define [1] {\MC} {\mathcal {#1}}
+\define [1] {\MF} {\mathfrak {#1}}
+\define [1] {\RM} {\mathrm {#1}}
+
+\define [1] {\RB} {\left( #1 \right)}
+\define [1] {\SB} {\left[ #1 \right]}
+\define [1] {\CB} {\left { #1 \right}}
+\define [1] {\DB} {\left[ \! \left[ #1 \right] \! \right]}
+\define [1] {\Nm} {\left| #1 \right|}
+
+\define [1] {\R} {\sqrt {#1}}
+\define [1] {\F} {\frac {#1}}
+\define [1] {\V} {\stackunder[1.2pt] {$#1$} {\rule {.9ex} {.075ex}}}
+\define [1] {\M} {\V {\V {#1}}}
+\define [1] {\T} {\tilde {#1}}
+\define [1] {\IP} {\langle #1 \rangle}
+
+\definecounter [NumResult] [start=0, way=text]
+\define [0] {\TheCount}
+{%
+   \incrementcounter [NumResult]%
+   \textbf {\rawcountervalue [NumResult]}%
+}
+
+\define[2] {\Result}
+{
+   \bigskip
+   \TheCount \textbf {#1} \par
+   {#2} \par
+   %\vskip -1mm
+   \vspace {-1em}
+   \hfill \(\blacksquare\)
+}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\definefontfeature [default] [default] [onum=yes]
+\definefontfamily [MainFace] [rm] [TeX Gyre Pagella]
+\definefontfamily [MainFace] [ss] [TeX Gyre Heros]
+\definefontfamily [MainFace] [tt] [TeX Gyre Cursor] [features=none]
+\definefontfamily [MainFace] [mm] [TeX Gyre Pagella Math]
+\setupbodyfont [MainFace]
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
 \setupcolors [state=start]
 \definecolor [headingcolor] [r=0.2, g=0.25, b=0.5]
 
 \setuppapersize [A4] [A4]
-\setuplayout [
-   topspace=1cm,
-   backspace=1cm,
-   margin=1cm,
-   header=24pt ]
+\setuplayout [topspace=1cm, backspace=1cm, margin=1cm, header=24pt]
 
 \setuppagenumbering [location={footer,middle}, style=slanted]
 \setupbodyfont [12pt]
@@ -20,9 +72,10 @@
 \setupitemize [inbetween={}, style=bold]
 \definemakeup [titlepage] [align=middle]
 
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
 \definealternativestyle [TitleStyle] [\ss\bfd] []
 \definealternativestyle [AuthorStyle] [\ss\tfb] []
-
 
 \define [0] {\AuthorText}
 {
@@ -38,9 +91,4 @@
    and its Probabilitic Performance Bound
 }
 
-
-%\setuplist [title] [style=\ss\bfd]
-%\setuplist [chapter] [width=5mm, style=bold]
-%\setuplist [section] [width=10mm, style=bold]
-%\setuplist [subsection] [width=20mm]
 
