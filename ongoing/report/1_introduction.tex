@@ -1,35 +1,38 @@
+\startchapter [title={Introduction}]
+
 
 This section is organized as follows.
 Before we start, we introduce our notation in the very beginning, since the literature survery quickly goes into technical details.
 And we first provide the motivation, and then overview the existent literature on channel estimation.
 Particularly, we will summerize present results on DS and OMP, and argue that DS is a viable solution that has been ignored, and then claim our contribution in this article that will be shown in the later sections.
 
-\subsection{Notation}
+\startsection [title={Notation}]
 
 Before we start, let us remind that, in this article, to avoid confusion all results other than the major theorems to be proved are called lemmata, so the classification may be different from its source.
 
-\(|a|\) denotes the magnitude for real or complex numbers \(a\).
-The real and imaginary part of \(a\) will be denoted respectively as \(\MF{Re} (a)\) and \(\MF{Im} (a)\), respectively, thus \(a =\MF{Re} (a) + i \MF{Im} (a)\)
+\m{\Nm{a}} denotes the magnitude for real or complex numbers \m{a}.
+The real and imaginary part of \m{a} will be denoted respectively as \m{\MF{Re} (a)} and \m{\MF{Im} (a)}, respectively, thus \m{a =\MF{Re} (a) + i \MF{Im} (a)}
 
-We restrict our discussion to \(\MB{R}^N\) or \(\MB{C}^N\) seen as the Hilbert space , equipped with standard inner product.
-Lower case Latin alphabets with single underline, like \(\V{a}\), denote vectors, and upper case Latin alphabets with double underlines, like \(\M{A}\), denote matrices.
-Particularly, define \(\V{1} =\IP{ 1, \dotsc, 1 }\) and \(\V{1} =\IP{ 1, \dotsc, 1 }\).
+We restrict our discussion to \m{\MB{R}^N} or \m{\MB{C}^N} seen as the Hilbert space , equipped with standard inner product.
+Lower case Latin alphabets with single underline, like \m{\V{a}}, denote vectors, and upper case Latin alphabets with double underlines, like \m{\M{A}}, denote matrices.
+Particularly, define \m{\V{1} =\IP {1, \dots, 1}} and \m{\V{1} =\IP {1, \dots, 1}}.
 
 In our context, the complex numbers has natural interpretation as the phasor of electronic waves.
-Of course, scalar operation on \(\MB{R}^N\) is over field \(\MB{R}\), and that on \(\MB{C}^N\) is over field \(\MB{C}\).
-We use \(\MB{K}\) to refer to either \(\MB{R}\) or \(\MB{C}\).
-Not to avoid confusion, we call the Hilbert space \(\MB{K}^N\) over \(\MB{K}\) to be \(\MB{V}_{\MB{K}} (N)\).
-We also call the collection of \(M\) by \(N\) matrices to be \(\MB{M}_{\MB{K}} (M,N)\), and its role as linear transformation is understood.
-Inner product of \(\V{a}\) and \(\V{b}\) is denoted as \(\IP{ \V{a}, \V{b} }\).
-Slightly abusing notation, we denote as \(\V{a} (n)\) the \(n\)-th component of \(\V{a}\), and denote as \(\V{A} (m,n)\) the \((m,n)\)-entry of \(\V{A}\)
-Particularly, \(\V{u}_n\) is the \(n\)-th unit vector in the Cartesian coordinates (not to be confused with the noise).
-\(\|\V{a}\|_p\) denotes the \(\ell_p\)-norm of vector \(\V{a}\).
-Recall that \(\ell_\infty\)-norm is the maximum-magnitude norm.
+Of course, scalar operation on \m{\MB{R}^N} is over field \m{\MB{R}}, and that on \m{\MB{C}^N} is over field \m{\MB{C}}.
+We use \m{\MB{K}} to refer to either \m{\MB{R}} or \m{\MB{C}}.
+Not to avoid confusion, we call the Hilbert space \m{\MB{K}^N} over \m{\MB{K}} to be \m{\MB{V}_{\MB{K}} (N)}.
+We also call the collection of \m{M} by \m{N} matrices to be \m{\MB{M}_{\MB{K}} (M,N)}, and its role as linear transformation is understood.
+Inner product of \m{\V{a}} and \m{\V{b}} is denoted as \m{\IP{ \V{a}, \V{b} }}.
+Slightly abusing notation, we denote as \m{\V{a} (n)} the \m{n}-th component of \m{\V{a}}, and denote as \m{\V{A} (m,n)} the \m{(m,n)}-entry of \m{\V{A}}
+Particularly, \m{\V{u}_n} is the \m{n}-th unit vector in the Cartesian coordinates (not to be confused with the noise).
+\m{\VNm {\V{a}} _p} denotes the \m{\ell_p}-norm of vector \m{\V{a}}.
+Recall that \m{\ell_\infty}-norm is the maximum-magnitude norm.
 
-Denote as \(\MB{P} (X)\) the probability, and \(\MB{E} (X)\) the expectation.
+Denote as \m{\MB{P} (X)} the probability, and \m{\MB{E} (X)} the expectation.
 Since our discussion involving the entire communication system will get very complicated, we may spell out the dependence of event space index on random variables.
 
-\subsection{Background}
+\stopsection
+\startsection [title={Background}]
 
 Multiple-input multiple-output (MIMO) communication system has been proposed to be the next-generation specification.
 With a large number of antennae of both transmitter and receiver sides (hereafter massive MIMO) is therefore expected to improve spectral efficiency.
@@ -41,138 +44,147 @@ In addition, the smaller closer spaced antennae makes it possible to increase th
 Consequently, this article considers MIMO in the millimeter r\`egime.
 
 The figure of merit of a MIMO system is usually considered to be the channel capacity.
-In vague terms, the capacity \(C\) of a MIMO channel \(\M{H}\) at perfect channel state information is well-known to be roughly in the form \(\log \det (I +\RM{SNR})\), but that knowledge is hardly always available.
-What makes things more difficult is the case that \(\M{H}\) is determined from not only the noise itself, but also inherent parameter --- such as, in our case, as shall be seen, the angle of departure and arrival.
+In vague terms, the capacity \m{C} of a MIMO channel \m{\M{H}} at perfect channel state information is well-known to be roughly in the form \m{\log \det (I +\RM{SNR})}, but that knowledge is hardly always available.
+What makes things more difficult is the case that \m{\M{H}} is determined from not only the noise itself, but also inherent parameter --- such as, in our case, as shall be seen, the angle of departure and arrival.
 It is pointed out that the capacity written in explicit dependence of such parameters is a difficult and long-standing problem (Goldsmith et.\ al.\ 2003).
 Nevertheless, the perfect-channel-state-information expression of channel capacity is often used regardless of these issues.
-Indeed, analysis of precoding algorithm, for example, usually makes use of the sum rate \(\log \det (I +\RM{SNR})\).
+Indeed, analysis of precoding algorithm, for example, usually makes use of the sum rate \m{\log \det (I +\RM{SNR})}.
 
-Therefore the real-time estimation, \(\hat{\M{H}}\), of \(\M{H}\) is of paramount importance.
-Needless to say, when the \(\hat{\M{H}}\) is imprecise, resulting analysis is also undermined.
+Therefore the real-time estimation, \m{\hat{\M{H}}}, of \m{\M{H}} is of paramount importance.
+Needless to say, when the \m{\hat{\M{H}}} is imprecise, resulting analysis is also undermined.
 With more antennae present, conventional training-based algorithms also increase in complexity and storage.
 In real applications, channel may also be fast varying with respect to time, and a high complexity algorithm is surely less than being ideal.
 A design of new algorithms that addressed these issues is thus necessary.
 
-\subsection{The Dantzig Selector}
+\stopsection
+\startsection [title={The Dantzig Selector}]
 
 It is a recent developement that the estimation of channels is facilitated by advances of compressed sensing.
 A series of paper by Cand\`es and Tao (2006) marks its advent.
 
-To motivate their work, note that it is a common situation in statsitical applications that the number of model parameters \(N_p \in \MB{N}\) is much larger than the number of measurements \(N_m \in \MB{N}\), namely,
+To motivate their work, note that it is a common situation in statsitical applications that the number of model parameters \m{N_p \in \MB{N}} is much larger than the number of measurements \m{N_m \in \MB{N}}, namely,
 %
 \Disp{
-N_p \gg N_m
+\NC N_p \gg N_m \NR
 }
 %
-In such case of insufficient measurements, possibly even with corruption of noise, do we have the knowledge of all \(N_p\) parameters?
+In such case of insufficient measurements, possibly even with corruption of noise, do we have the knowledge of all \m{N_p} parameters?
 Of course, more assumption must be made to make the question meaningful.
 Any two vectors of parameters differing an element in the null space of the sensing matrix will produce the same measurement.
 
-Cand\`es and Tao showed frst that that in the noiseless case (``Decoding by Linear Programming'', 2006), it is possible to recover the sparse signal, under a \(\ell_1\) minimization program.
+Cand\`es and Tao showed frst that that in the noiseless case (``Decoding by Linear Programming'', 2006), it is possible to recover the sparse signal, under a \m{\ell_1} minimization program.
 The work reveals the phenomenon that few observations of the signal in question may be sufficient for us to resonstruct the signal when it is sparse in a certain sense.
 
-Later they established a stronger result that (``The Dantzig Selector'', 2007), with another \(\ell_1\) minimization program they named The Dantzig Selector (hencefore DS), they can recover the noisy case too.
+Later they established a stronger result that (``The Dantzig Selector'', 2007), with another \m{\ell_1} minimization program they named The Dantzig Selector (hencefore DS), they can recover the noisy case too.
 Such recovery of signals is possible, if we make a few carefully constructed, and seemingly random measurements.
 Ever since, it becomes feasible that a camera equipped with few sensors may obtain high quality images, greatly reducing the subsequent cost.
 In addition, they derived a probability bound of mean suqare error, showing the probability of successful recovery is overwhelming.
 
-From the realistic perspective, the formulation as an \(\ell_1\) minimization problem, which is convex, made techniques from convex optimization usable.
+From the realistic perspective, the formulation as an \m{\ell_1} minimization problem, which is convex, made techniques from convex optimization usable.
 Indeed, relevent code has been put on the web for the reader to access and verify (Cand\`es \& Romberg 2005).
 
 In this article we focuss on DS, and we introduce several notions before we describe their work.
-To facilitate reader's understanding, in this section we will consistently use \(N_p\) and \(N_m\) to denote matrix dimensions.
+To facilitate reader's understanding, in this section we will consistently use \m{N_p} and \m{N_m} to denote matrix dimensions.
 Following Cand\`es and Tao, we borrow the term ``support'' from the context of analysis, where it denotes the set on which a function is nonzero.
 
-We will use \(T \RB{N_m} =\{1, \dotsc, N_m\}\) to denote the support of \(\MB{V}_{\MB{K}} (N_m)\).
+We will use \m{T \RB{N_m} =\{1, \dots, N_m\}} to denote the support of \m{\MB{V}_{\MB{K}} (N_m)}.
 
 \Result
 {Definition}
 {
-Suppose \(\M{A} \in \MB{M}_{\MB{K}} (N_m, N_p)\).
-Let \(\MC{T} \subset T \RB{N_p}\).
-Denote as \(\M{A}_{\MC{T}}\) the columns of \(\M{A}\) having indices in \(\MC{T}\).
+Suppose \m{\M{A} \in \MB{M}_{\MB{K}} (N_m, N_p)}.
+Let \m{\MC{T} \subset T \RB{N_p}}.
+Denote as \m{\M{A}_{\MC{T}}} the columns of \m{\M{A}} having indices in \m{\MC{T}}.
 }
 
 \Result
 {Definition}
 {
-   \(x \in \MB{V}_{\MB{K}} (N_m)\) is called \(s\)-sparse with support \(\MC{A}\), \(s <N_m\), if there is \(\MC{A} \subset T \RB{N_m}\) such that
+\m{x \in \MB{V}_{\MB{K}} (N_m)} is called \m{s}-sparse with support \m{\MC{A}}, \m{s <N_m}, if there is \m{\MC{A} \subset T \RB{N_m}} such that
 %
 \Disp{ 
-x_{T\RB{N} -\MC{A}} =\V{0}
+\NC x_{T(N) -\MC{A}}
+=\NC \V{0} \NR
 }
 with
 \Disp{ 
-\# \MC{A} \leq s.
+\NC \# \MC{A} \leq s. \NR
 }
-That is, only at most \(s\) components of \(x\) is nonzero.
+That is, only at most \m{s} components of \m{x} is nonzero.
 }
 
 \Result
 {Program}
 {
-Let \(P \in \MB{M}_\MB{K} (N_m, N_p)\) and \(y \in \MB{V}_\MB{K} (N_p)\) be given.
-Find \(h \in \MB{V}_\MB{K} (N_p)\) with
+Let \m{P \in \MB{M}_\MB{K} (N_m, N_p)} and \m{y \in \MB{V}_\MB{K} (N_p)} be given.
+Find \m{h \in \MB{V}_\MB{K} (N_p)} with
 %
 \Disp{
-\min_{h'}
-\quad &\|h'\|_1 \\
-\quad \RM{subject}\; \RM{to}
-\quad &P h' =y
+\NC
+h
+= \NC \startcases
+\NC \Min {h'}
+\quad \MC \VNm {h'} _1 \NR[+]
+\NC \RM{subject}\; \RM{to}
+\quad \MC P h' =y \NR
+\stopcases \NR
 }
 }
 
-Now let \(y =P h\).
-Suppose \(h\) is \(s\)-sparse, then the program () completely recovers \(h\).
-That is, a noiseless linear transformation of a sparse vector is completely recovered by a \(\ell_1\)-minization program with an overwhelming probability.
+Now let \m{y =P h}.
+Suppose \m{h} is \m{s}-sparse, then the program () completely recovers \m{h}.
+That is, a noiseless linear transformation of a sparse vector is completely recovered by a \m{\ell_1}-minimization program with an overwhelming probability.
 
 \Result
 {Definition}
 {
-Consider \(P \in \MB{M}_{\MB{K}} (N_m, N_p)\), with unity-\(\ell_2\)-norm columns.
-For \(s =1, \dotsc N_p\), we say that \(P\) satisfies the restricted isometry property (RIP) of sparsity \(s\) with respect to \(0 \leq \d_s \leq 1\), if, for all \(s\)-sparse \(\V{x} \in \MB{V}_{\MB{K}} (N_p)\), for all \(\MC{T} \subset T(N_m)\) with \(\#\{\MC{T}\} \leq s\),
+Consider \m{P \in \MB{M}_{\MB{K}} (N_m, N_p)}, with unity-\m{\ell_2}-norm columns.
+For \m{s =1, \dots N_p}, we say that \m{P} satisfies the restricted isometry property (RIP) of sparsity \m{s} with respect to \m{0 \leq \d_s \leq 1}, if, for all \m{s}-sparse \m{\V{x} \in \MB{V}_{\MB{K}} (N_p)}, for all \m{\MC{T} \subset T(N_m)} with \m{\#\{\MC{T}\} \leq s},
 %
 \Disp{
-(1-\d_s) \|\V{x}\|^2
-\leq \|P_{\MC{T}} \V{x}\|_2^2
-\leq (1+\d_s) \|\V{x}\|_2^2
+\NC \NC (1-\d_s) \VNm {V{x}}^2 \NR
+\NC \leq \NC \VNm {P_{\MC{T}} \V{x}} _2^2 \NR
+\NC \leq \NC (1+\d_s) \VNm {\V{x}} _2^2 \NR[+]
 }
 }
 
-RIP is essentially saying that \(P\) is ``almost unitary'' up to ``relative error'' \(\d_s\).
+RIP is essentially saying that \m{P} is ``almost unitary'' up to ``relative error'' \m{\d_s}.
 
 Now, consider a linear transformation with noise corruption,
 %
 \Disp{
-\V{y} =\M{P} \V{h} + \V{z}
+\NC \V{y} =\M{P} \V{h} + \V{z} \NR
 }
 %
-where (w.l.o.g.) \(z\) is an i.i.d.\ normalized Gaussian vector.
-How can we hope to estimate \(h\) when, in addition to insufficient observations, there are too few observations?
+where (w.l.o.g.) \m{z} is an i.i.d.\ normalized Gaussian vector.
+How can we hope to estimate \m{h} when, in addition to insufficient observations, there are too few observations?
 
 \Result
 {Program}
 {
-Let \(\M{P} \in \MB{V}_\MB{R} (N_m, N_p)\) and \(\V{y} \in \MB{V}_\MB{R} (N_m)\) be given.
-Find \(\V{h} \in \MB{V}_\MB{R} (N_m)\) by
+Let \m{\M{P} \in \MB{V}_\MB{R} (N_m, N_p)} and \m{\V{y} \in \MB{V}_\MB{R} (N_m)} be given.
+Find \m{\V{h} \in \MB{V}_\MB{R} (N_m)} by
 %
+
 \Disp{
-\V{h}
-=\begin{cases}
-\min_{\V{h}'} \quad &\|\V{h}'\|_1 \NT \\
-\RM{subject}\; \RM{to} \quad &\|\M{P}^\H (\M{P} \V{h} -\V{y})\|_\infty \leq \gamma
-\end{cases}
+\NC \V{h}
+=
+\NC \startcases
+\NC \Min {\V{h}'} \quad \MC \VNm {\V{h}'} _1 \NR
+\NC \RM{subject}\; \RM{to} \quad \MC \VNm {\M{P}^\H (\M{P} \V{h} -\V{y})} _\infty \leq \gamma \NR
+\stopcases \NR
 }
 }
 
 They was able to show that, with Program (), the mean square error is bounded with overwhelming probability.
-And it can be shown that this \(\ell_1\)-minimization problem with \(\ell_\infty\)-constraint may be recast as a linear program (LP), lending convex programming technique applicable.
+And it can be shown that this \m{\ell_1}-minimization problem with \m{\ell_\infty}-constraint may be recast as a linear program (LP), lending convex programming technique applicable.
 Note that they confined their discussion for real vectors.
 
-\subsection{Sufficient Conditions of RIP}
+\stopsection
+\startsection [title={Sufficient Conditions of RIP}]
 
-The constant \(\d\) in the proof of DS is significant.
-Indeed, we may observe that in theorem (), the bound is not tightest when \(\d=0\), i.e., that \(P\) is fully unitary, rendering the RIP an important role.
+The constant \m{\d} in the proof of DS is significant.
+Indeed, we may observe that in theorem (), the bound is not tightest when \m{\d=0}, i.e., that \m{P} is fully unitary, rendering the RIP an important role.
 Here, it is not clear at first what matrices serves as the RIP condition.
 
 But later, Baraniuk (2008) have found there is a particularly convenient sufficient condition to verify RIP.
@@ -180,50 +192,52 @@ But later, Baraniuk (2008) have found there is a particularly convenient suffici
 \Result
 {Theorem}
 {
-Let each entry of random matrix \(P \in \MB{M}_\MB{K} (N_m, N_p)\) be defined as i.i.d.\ Bernoulli with value \(\pm 1/\R{N_m}\) (that is, Rademacher distribution).
-Then, with \(0 <\epsilon <1\),
+Let each entry of random matrix \m{P \in \MB{M}_\MB{K} (N_m, N_p)} be defined as i.i.d.\ Bernoulli with value \m{\pm 1/\R{N_m}} (that is, Rademacher distribution).
+Then, with \m{0 <\epsilon <1},
 %
 \Disp{
-\MB{P} ( |\|P h\|_2^2 -\|h\|_2^2| \geq \epsilon \|h\|_2^2)
-\leq 2 \exp (-n (\epsilon^2/4 -\epsilon^3/6) )
+\NC \NC \MB{P} ( \Nm {\VNm {P h} _2^2 -\VNm {h}_2^2} \geq \epsilon \VNm{h} _2^2) \NR
+\NC \leq \NC 2 \exp (-n (\epsilon^2/4 -\epsilon^3/6) ) \NR
 }
 }
 
-{ \color{red} (To be done) }
+\color[red] {(To be done)}
 
-\subsection{Compressed Channel Sensing}
+\stopsection
+\startsection [title={Compressed Channel Sensing}]
 
 We have summarised results in compressed sensing, and we now relate the matter to the communication scenario.
 Recall that the overhead of channel estimation has been a concern in the millimeter wave MIMO setting.
 Meanwhile, physical evidences suggest that millimeter wave channels can be said to be sparse in the frequency domain in a certain senses.
 Some scholars thus has applied compressive sensing techniques to the problem.
 
-One of the first papers, Bajwa et.\ al.\ (2010) argues the \(\ell_0\)-norm of the channel matrix may be bounded by a constant, and in such settings the Dantzig Selector may be applied.
+One of the first papers, Bajwa et.\ al.\ (2010) argues the \m{\ell_0}-norm of the channel matrix may be bounded by a constant, and in such settings the Dantzig Selector may be applied.
 What they explored was the estimation of single-antenna channel response with respect to time.
-Another paper by the same group of scholars (Bajwa et.\ al.\ 2008) shows that \(X\) is RIP for overwhelming probability, providing the ground for the former paper.
+Another paper by the same group of scholars (Bajwa et.\ al.\ 2008) shows that \m{X} is RIP for overwhelming probability, providing the ground for the former paper.
 
-To explain the idea, consider a linear time-invariant channel that \(y(t) =(x \star h)(t) + z(t)\), where \(h(t)\) is the channel's impulse response, \(y(t)\) is the output, and, for each time index, \(x(t)\) is i.i.d.\ Rademacher, and \(z(t)\) is i.i.d.\ Gaussian.
-Simply assuming \(h\) has sparse support, and let the convolution with \(x\) be expressed by a matrix \(X\), \(X\) is a Toeplitz matrix, so that \(y =X h +z\).
-Then Bajwa et.\ al.\ was able to show that, \(X\) is RIP of overwhelmingly probability, and DS is ready to be applied, with some nice bounds on its performance drawing from Cand\`es and Tao's theorems.
+To explain the idea, consider a linear time-invariant channel that \m{y(t) =(x \star h)(t) + z(t)}, where \m{h(t)} is the channel's impulse response, \m{y(t)} is the output, and, for each time index, \m{x(t)} is i.i.d.\ Rademacher, and \m{z(t)} is i.i.d.\ Gaussian.
+Simply assuming \m{h} has sparse support, and let the convolution with \m{x} be expressed by a matrix \m{X}, \m{X} is a Toeplitz matrix, so that \m{y =X h +z}.
+Then Bajwa et.\ al.\ was able to show that, \m{X} is RIP of overwhelmingly probability, and DS is ready to be applied, with some nice bounds on its performance drawing from Cand\`es and Tao's theorems.
 
-\subsection{Orthogonal Matching Pursuit}
+\stopsection
+\startsection [title={Orthogonal Matching Pursuit}]
 
 Around that time, Tropp and Gilbert (2007b) points out if we apply a greedy algorithm called Orthogonal Matching Pursuit (OMP), that an i.i.d.\ random matrix being generated the similar way as Baraniuk (2008) suggested, may perform sufficiently well, even recover the original signal in an overwhemingly probability too.
 
-Same as before, consider \(\V{y} \in \MB{V}_\MB{K} (N_p)\), \(\V{h} \in \MB{V}_\MB{K} (N_s)\), where \(\V{h}\) is \(s\)-sparse, with \(N_p \gg N_s\).
+Same as before, consider \m{\V{y} \in \MB{V}_\MB{K} (N_p)}, \m{\V{h} \in \MB{V}_\MB{K} (N_s)}, where \m{\V{h}} is \m{s}-sparse, with \m{N_p \gg N_s}.
 If
 \Disp{
-\V{y} =\M{P} \V{h},
+\NC \V{y} =\M{P} \V{h}, \NR
 }
 that is, the noiseless, real-number case.
-We pick up the columns of \(\M{P}\) greedily, hoping to correspond to the support of \(\V{h}\), thus recovering the original signal.
+We pick up the columns of \m{\M{P}} greedily, hoping to correspond to the support of \m{\V{h}}, thus recovering the original signal.
 
 \Result
 {Algorithm}
 {
-\begin{enumerate}
+\startitemize[n]
 \item To be done.
-\end{enumerate}
+\stopitemize
 }
 
 From Tropp and Gilbert (2007a),
@@ -231,50 +245,51 @@ From Tropp and Gilbert (2007a),
 \Result
 {Theorem}
 {
-Following the setting described above, suppose, for \(0 <\d <1\),
+Following the setting described above, suppose, for \m{0 <\d <1},
 %
 \Disp{
-M \geq 16s \log (N/\d)
+\NC M \geq 16s \log (N/\d) \NR
 }
 %
-Then OMP (Algorithm \_\_) recovers \(x\) completely, with overwhelming probability \(1-\d\).
+Then OMP (Algorithm \_\_) recovers \m{x} completely, with overwhelming probability \m{1-\d}.
 }
 
 It is interesting to note that, ever since, scholars has applied OMP in favor of DS, due the simplicity of former's implementation, making OMP perhaps the most widely used channel estimation technique.
 
-For concreteness, let \(\M{F}\) be the precoder and \(\M{W}\) the combiner, and \(\M{H}\) the channel, and consider the noiseless case.
-Let signal \(\V{x}\) be sent, and \(\V{y}\) be receiverd, that is
+For concreteness, let \m{\M{F}} be the precoder and \m{\M{W}} the combiner, and \m{\M{H}} the channel, and consider the noiseless case.
+Let signal \m{\V{x}} be sent, and \m{\V{y}} be receiverd, that is
 %
 \Disp{
-\V{y} =\M{W} \M{H} \M{F} \V{x}
+\NC \V{y} =\M{W} \M{H} \M{F} \V{x} \NR
 }
 %
 
 \Result
 {Definition}
 {
-Define \(\RM{vec} (\M{A}) \in \MB{K}^{NM}\) to be the vectorization of \(\M{A} \in \MB{M}_{\MB{K}} (N,M)\).
+Define \m{\RM{vec} (\M{A}) \in \MB{K}^{NM}} to be the vectorization of \m{\M{A} \in \MB{M}_{\MB{K}} (N,M)}.
 }
 
 \Result
 {Definition.}
 {
-For \(\RM{vec} (A) \in \MB{M}_{\MB{K}} (N,M)\) and \(\RM{vec} (A) \in \MB{M}_{\MB{K}} (N,M)\)
-Define the Kronecker product \(\RM{vec} (A) \in \MB{K}^{nm}\) 
+For \m{\RM{vec} (A) \in \MB{M}_{\MB{K}} (N,M)} and \m{\RM{vec} (A) \in \MB{M}_{\MB{K}} (N,M)}
+Define the Kronecker product \m{\RM{vec} (A) \in \MB{K}^{nm}} 
 }
 
 With (), scholars often exploit the relation
 %
 \Disp{
-\RM{vec} (Y)
-=\big[ (F^\H) \otimes W \big] \RM{vec} (\M{H})
+\NC \RM{vec} (Y)
+=\big[ (F^\H) \otimes W \big] \RM{vec} (\M{H}) \NR
 }
 %
 
 The matrix consisting of the collection of possible response according to available paths --- called the dictionary --- plays the role of the sensing matrix of OMP.
 The combiner at the receiver end corresponds to the step where we map the data from high to low dimension.
 
-\subsection{Further Development on Compressive Channel Sensing}
+\stopsection
+\startsection [title={Further Development on Compressive Channel Sensing}]
 
 The literature on Compressive Channel Sensing has since been vast, and we need not and cannot go through all of them here.
 Rather, we analyze the respective contribution and weakness on some of the recent seminal papers.
@@ -306,15 +321,15 @@ Gao et.\ al.\ (2015) discusses the jointly reconstruction of several high-dimens
 
 We remark several observation on past literature, that has been, to the best of our knowledge, lacking or less than ideal.
 
-\begin{enumerate}
+\startitemize
 \item Previous work favors OMP rather than DS, let alone other sparse algorithm.
 \item Previous work simply assumes the bound of the norm of the channel matrix.
 \item The requirement that the sensing matrix should be elementwise i.i.d.\ Gaussian (Tropp and Gilvert 2007) seems to be more restrictive than RIP (Cand\`es and Tao 2007).
 \item The quantization of angle in generating may be a problem, and that is difficult to analyze in OMP's setting
 \item No bounds is derived that explicitly depends on the sparsity of the channel parameters as, say, number of channel paths and array response.
-\end{enumerate}
+\stopitemize
 
-\subsection{Contribution}
+\startsection [title={Contribution}]
 
 We consider a system model where both digital and analog beamformer are i.i.d.\ random matrix combiner that serve readily as the sensing matrix satisfying the RIP property.
 We apply a convex program analogous of DS in order to directly estimate the channel under hypothesis of uniform linear array response.
@@ -322,9 +337,14 @@ Moreover, inspired by the lines of proof of Cand\`es and Tao (2006), we give a b
 
 Our contribution includes:
 
-\begin{enumerate}
-\item As a \textit{prima face} difference, we use a modified DS rather than OMP, done on the beamspace rather than the spatial domain, and involving complex numbers rather than real numbers.
+\startitemize
+\item As a {\it prima face} difference, we use a modified DS rather than OMP, done on the beamspace rather than the spatial domain, and involving complex numbers rather than real numbers.
 \item Moreover, an explicit bound has been shown to provide realistic guide for engineering, where the sparsity of the virtual channel matrix, rather than just assumed, is written out as a function of the number of paths of the channel.
 \item Accordingly, the concern of quantization error of the virtual channel's phase angle (which is inevitable when designing the OMP beambook) has already been considered in the proof of our main bound.
 \item We derive explicitly the SOCP problem and afterwards its dual problem, and wrote a proof-of-concept but efficient code.
-\end{enumerate}
+\stopitemize
+
+\stopsection
+
+\stopchapter
+

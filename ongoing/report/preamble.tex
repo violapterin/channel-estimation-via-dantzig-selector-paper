@@ -1,48 +1,60 @@
 
 
-\define[1] {\Disp} {\begin {align} #1 \end {align}}
+\define[1] {\Disp}
+{
+\placeformula
+\startformula
+\startalign
+#1 %
+\stopalign
+\stopformula
+}
 
 \define {\H} {\dagger}
 \define {\Tr} {\intercal}
-\define {\NT} {\notag}
 \define {\d} {\delta}
 \define {\f} {\varphi}
 \define {\th} {\vartheta}
 
-\define [1] {\MB} {\mathbb {#1}}
-\define [1] {\MC} {\mathcal {#1}}
-\define [1] {\MF} {\mathfrak {#1}}
-\define [1] {\RM} {\mathrm {#1}}
+\define [1] {\MB} {{\mathbb {#1}}}
+\define [1] {\MC} {{\mathcal {#1}}}
+\define [1] {\MF} {{\mathfrak {#1}}}
+\define [1] {\RM} {{\mathrm {#1}}}
 
 \define [1] {\RB} {\left( #1 \right)}
 \define [1] {\SB} {\left[ #1 \right]}
-\define [1] {\CB} {\left { #1 \right}}
-\define [1] {\DB} {\left[ \! \left[ #1 \right] \! \right]}
-\define [1] {\Nm} {\left| #1 \right|}
+\define [1] {\CB} {\left{ #1 \right}}
+\define [1] {\DB} {\left[ \!\! \left[ #1 \right] \!\! \right]}
+\define [1] {\Nm} {\left \vert #1 \right \vert}
+\define [1] {\VNm} {\left \Vert #1 \right \Vert}
 
 \define [1] {\R} {\sqrt {#1}}
 \define [1] {\F} {\frac {#1}}
-\define [1] {\V} {\stackunder[1.2pt] {$#1$} {\rule {.9ex} {.075ex}}}
-\define [1] {\M} {\V {\V {#1}}}
 \define [1] {\T} {\tilde {#1}}
 \define [1] {\IP} {\langle #1 \rangle}
+\define [1] {\V} {\underline {#1\mkern-2mu} \mkern2mu}
+\define [1] {\M} {\V {\V {#1}}}
+\define [1] {\Min} {\underset {#1} {{\rm min}}}
 
 \definecounter [NumResult] [start=0, way=text]
 \define [0] {\TheCount}
 {%
    \incrementcounter [NumResult]%
-   \textbf {\rawcountervalue [NumResult]}%
+   {\bf \rawcountervalue [NumResult]}%
 }
 
 \define[2] {\Result}
 {
    \bigskip
-   \TheCount \textbf {#1} \par
-   {#2} \par
-   %\vskip -1mm
-   \vspace {-1em}
-   \hfill \(\blacksquare\)
+   \TheCount \; {\bf #1} \par
+   #2 \par
+   \hfill
+   \m{\blacksquare}
 }
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\usemodule[amsl]
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
@@ -50,16 +62,26 @@
 \definefontfamily [MainFace] [rm] [TeX Gyre Pagella]
 \definefontfamily [MainFace] [ss] [TeX Gyre Heros]
 \definefontfamily [MainFace] [tt] [TeX Gyre Cursor] [features=none]
-\definefontfamily [MainFace] [mm] [TeX Gyre Pagella Math]
-\setupbodyfont [MainFace]
+\definefontfamily [MainFace] [mm] [Tex Gyre Pagella Math]
+\setupbodyfont [MainFace, 12pt]
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\setupparagraphs [n=3, before={\blank}, after={\blank}]
+
+\definemeasure
+  [pointoneline]
+  [1.5\baselineskip]
 
 \setupcolors [state=start]
 \definecolor [headingcolor] [r=0.2, g=0.25, b=0.5]
 
 \setuppapersize [A4] [A4]
-\setuplayout [topspace=1cm, backspace=1cm, margin=1cm, header=24pt]
+\setuplayout
+[
+   width=middle,
+   margin=0pt
+]
 
 \setuppagenumbering [location={footer,middle}, style=slanted]
 \setupbodyfont [12pt]

@@ -67,10 +67,10 @@ if not utilitydata.structures.counters then utilitydata.structures.counters = { 
 
 utilitydata.structures.counters.collected={
  ["NumResult"]={
-  { 0 },
+  { 1 },
  },
  ["chemical"]={
-  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+  { 0, 0, 0, 0, 0 },
  },
  ["combination"]={
   { 0 },
@@ -79,40 +79,40 @@ utilitydata.structures.counters.collected={
   { 0 },
  },
  ["figure"]={
-  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+  { 0, 0, 0, 0, 0 },
  },
  ["footnote"]={
   { 0 },
  },
  ["formula"]={
-  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+  { 0, 0, 1, 0, 0 },
  },
  ["graphic"]={
-  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+  { 0, 0, 0, 0, 0 },
  },
  ["intermezzo"]={
-  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+  { 0, 0, 0, 0, 0 },
  },
  ["itemgroup:itemize"]={
-  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+  { 0, 0, 0, 0, 0 },
  },
  ["linenote"]={
   { 0 },
  },
  ["paragraph"]={
-  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+  { 0, 0, 0, 0, 0 },
  },
  ["realpage"]={
-  { 10 },
+  { 6 },
  },
  ["subpage"]={
   { 1 },
  },
  ["table"]={
-  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+  { 0, 0, 0, 0, 0 },
  },
  ["userpage"]={
-  { 9 },
+  { 5 },
  },
 }
 
@@ -135,83 +135,13 @@ utilitydata.structures.lists.collected={
   },
  },
  {
-  ["metadata"]=1,
-  ["numberdata"]=4,
+  ["metadata"]=4,
+  ["numberdata"]=6,
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=2,
    ["realpage"]=3,
-   ["section"]=0,
-  },
-  ["titledata"]={
-   ["label"]="chapter",
-   ["title"]="Abstract",
-  },
- },
- {
-  ["metadata"]=1,
-  ["numberdata"]=4,
-  ["references"]={
-   ["block"]="bodypart",
-   ["internal"]=3,
-   ["realpage"]=4,
-   ["section"]=0,
-  },
-  ["titledata"]={
-   ["label"]="chapter",
-   ["title"]="Acknowledgement",
-  },
- },
- {
-  ["metadata"]=5,
-  ["numberdata"]=7,
-  ["references"]={
-   ["block"]="bodypart",
-   ["internal"]=4,
-   ["realpage"]=5,
    ["section"]=1,
-  },
-  ["titledata"]={
-   ["label"]="chapter",
-   ["title"]="Introduction",
-  },
- },
- {
-  ["metadata"]=5,
-  ["numberdata"]=9,
-  ["references"]={
-   ["block"]="bodypart",
-   ["internal"]=5,
-   ["realpage"]=6,
-   ["section"]=2,
-  },
-  ["titledata"]={
-   ["label"]="chapter",
-   ["title"]="Problem Setting",
-  },
- },
- {
-  ["metadata"]=5,
-  ["numberdata"]=11,
-  ["references"]={
-   ["block"]="bodypart",
-   ["internal"]=6,
-   ["realpage"]=7,
-   ["section"]=3,
-  },
-  ["titledata"]={
-   ["label"]="chapter",
-   ["title"]="Theorems and Proofs",
-  },
- },
- {
-  ["metadata"]=5,
-  ["numberdata"]=13,
-  ["references"]={
-   ["block"]="bodypart",
-   ["internal"]=7,
-   ["realpage"]=8,
-   ["section"]=4,
   },
   ["titledata"]={
    ["label"]="chapter",
@@ -219,12 +149,54 @@ utilitydata.structures.lists.collected={
   },
  },
  {
-  ["metadata"]=5,
+  ["metadata"]=7,
+  ["numberdata"]=9,
+  ["references"]={
+   ["block"]="bodypart",
+   ["internal"]=3,
+   ["realpage"]=3,
+   ["section"]=2,
+  },
+  ["titledata"]={
+   ["label"]="section",
+   ["title"]="Transformation into Second Order Cone Problem",
+  },
+ },
+ {
+  ["metadata"]=7,
+  ["numberdata"]=11,
+  ["references"]={
+   ["block"]="bodypart",
+   ["internal"]=4,
+   ["realpage"]=4,
+   ["section"]=3,
+  },
+  ["titledata"]={
+   ["label"]="section",
+   ["title"]="Primal-Dual Interior Point Algorithm",
+  },
+ },
+ {
+  ["metadata"]=7,
+  ["numberdata"]=13,
+  ["references"]={
+   ["block"]="bodypart",
+   ["internal"]=5,
+   ["realpage"]=4,
+   ["section"]=4,
+  },
+  ["titledata"]={
+   ["label"]="section",
+   ["title"]="Discussion",
+  },
+ },
+ {
+  ["metadata"]=4,
   ["numberdata"]=15,
   ["references"]={
    ["block"]="bodypart",
-   ["internal"]=8,
-   ["realpage"]=9,
+   ["internal"]=6,
+   ["realpage"]=5,
    ["section"]=5,
   },
   ["titledata"]={
@@ -233,12 +205,12 @@ utilitydata.structures.lists.collected={
   },
  },
  {
-  ["metadata"]=5,
+  ["metadata"]=4,
   ["numberdata"]=17,
   ["references"]={
    ["block"]="bodypart",
-   ["internal"]=9,
-   ["realpage"]=10,
+   ["internal"]=7,
+   ["realpage"]=6,
    ["section"]=6,
   },
   ["titledata"]={
@@ -290,34 +262,6 @@ utilitydata.structures.pages.collected={
  {
   ["block"]="bodypart",
   ["number"]=5,
-  ["numberdata"]=18,
-  ["prefixdata"]=19,
-  ["state"]="start",
- },
- {
-  ["block"]="bodypart",
-  ["number"]=6,
-  ["numberdata"]=18,
-  ["prefixdata"]=19,
-  ["state"]="start",
- },
- {
-  ["block"]="bodypart",
-  ["number"]=7,
-  ["numberdata"]=18,
-  ["prefixdata"]=19,
-  ["state"]="start",
- },
- {
-  ["block"]="bodypart",
-  ["number"]=8,
-  ["numberdata"]=18,
-  ["prefixdata"]=19,
-  ["state"]="start",
- },
- {
-  ["block"]="bodypart",
-  ["number"]=9,
   ["numberdata"]=18,
   ["prefixdata"]=19,
   ["state"]="start",
@@ -404,15 +348,6 @@ utilitydata.job.packed={
    ["set"]="all",
   },
   {
-   ["block"]="bodypart",
-   ["conversionset"]="default",
-   ["hidenumber"]=true,
-   ["language"]="en",
-   ["numbers"]=2,
-   ["separatorset"]="default",
-   ["set"]="all",
-  },
-  {
    ["catcodes"]=8,
    ["coding"]="tex",
    ["increment"]="yes",
@@ -425,11 +360,19 @@ utilitydata.job.packed={
    ["block"]="bodypart",
    ["conversionset"]="default",
    ["language"]="en",
-   ["numbers"]=6,
+   ["numbers"]=5,
    ["separatorset"]="default",
    ["set"]="all",
   },
-  { 0, 2 },
+  {
+   ["catcodes"]=8,
+   ["coding"]="tex",
+   ["increment"]="yes",
+   ["kind"]="section",
+   ["level"]=3,
+   ["name"]="section",
+  },
+  { 0, 1, 1 },
   {
    ["block"]="bodypart",
    ["conversionset"]="default",
@@ -438,7 +381,7 @@ utilitydata.job.packed={
    ["separatorset"]="default",
    ["set"]="all",
   },
-  { 0, 3 },
+  { 0, 1, 2 },
   {
    ["block"]="bodypart",
    ["conversionset"]="default",
@@ -447,7 +390,7 @@ utilitydata.job.packed={
    ["separatorset"]="default",
    ["set"]="all",
   },
-  { 0, 4 },
+  { 0, 1, 3 },
   {
    ["block"]="bodypart",
    ["conversionset"]="default",
@@ -456,7 +399,7 @@ utilitydata.job.packed={
    ["separatorset"]="default",
    ["set"]="all",
   },
-  { 0, 5 },
+  { 0, 2 },
   {
    ["block"]="bodypart",
    ["conversionset"]="default",
@@ -465,7 +408,7 @@ utilitydata.job.packed={
    ["separatorset"]="default",
    ["set"]="all",
   },
-  { 0, 6 },
+  { 0, 3 },
   {
    ["block"]="bodypart",
    ["conversionset"]="default",

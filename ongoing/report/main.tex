@@ -1,3 +1,27 @@
+
+% TODO:
+% Don't start section at new pages
+% Larger font
+% Larger line space
+% Chinese font?
+% Font mixing mechanism
+% `\notag` equivalent
+% Paragraph indentation, wider spacing
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+% XXX
+% Hold regex:
+% Replace math mode:
+%       %s/\\(\(.\{-}\)\\)/\\m{\1}/g
+% Replace eq numbering:
+%       %s/\\NT/
+%       %s/\\
+%       %s/\\
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+
 \input {./preamble.tex}
 
 \starttext
@@ -20,28 +44,20 @@
 
 \startbodymatter
 
-\input {./abstract.tex}
+%\input {./abstract.tex}
 
-\input {./acknowledgement.tex}
+%\input {./acknowledgement.tex}
 
-\startchapter [title={Introduction}]
-%\input {./sec_1_introduction.tex}
-\stopchapter
+%\input {./1_introduction.tex}
 
-\startchapter [title={Problem Setting}]
 %\input {./2_problem_setting.tex}
-\stopchapter
 
-\startchapter [title={Theorems and Proofs}]
 %\input {./3_theorems_and_proofs.tex}
-\stopchapter
 
-\startchapter [title={Simulation}]
 %\input {./4_simulation.tex}
-\stopchapter
 
 \startchapter [title={Conclusion}]
-%\input {./5_conclusion.tex}
+\input {./5_conclusion.tex}
 \stopchapter
 
 \startchapter [title={References}]

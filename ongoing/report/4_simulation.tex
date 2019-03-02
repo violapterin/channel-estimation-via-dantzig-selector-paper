@@ -1,3 +1,4 @@
+\startchapter [title={Simulation}]
 
 With the preperation of notation in the previous section, and a discussion on its theory, we shall now formulate our algorithm and focus on the practical aspect.
 
@@ -8,7 +9,7 @@ Actually they pointed out that complex DS may be cast into a second order cone p
 Since the proof is, for the present purpose, not entirely trivial, we include here for completeness of exposition.
 Thus our proposed algorithm is not a corollary of the DS program outlines in ``\(\ell_1\)-MAGIC''.
 
-\subsection{Transformation into Second Order Cone Problem}
+\startsection [title={Transformation into Second Order Cone Problem}]
 
 Since our setting is slightly different from ``\(\ell_1\)-MAGIC'', for completeness of exposition we write down derivation of the dual problem from the primal problem, as follows.
 Recapitulate that, as we explained in the above, DS involves the calculation of \(\ell_1\)-1 norm.
@@ -26,13 +27,13 @@ For convenience, define the following real representation function for complex v
 For \(x \in \MB{V}(M)\), we say \(\MC{R}(x)\) is the real representation of \(x\), defined by
 %
 \Disp{
-\MC{R}(x) \in &\MB{V}(2M) \NT \\
+\MC{R}(x) \in \NC \MB{V}(2M) \NR
 \MC{R}(x)(m) =
-&\begin{cases}
-\MF{Re}(\MC{R}(x)(m)), &m =2m' \\
-\MF{Im}(\MC{R}(x)(m)), &m =2m'+1
-\end{cases} \\
-m' =& 1, \dotsc, M \NT
+\NC \begin{cases}
+\MF{Re}(\MC{R}(x)(m)), \NC m =2m' \NR[+]
+\MF{Im}(\MC{R}(x)(m)), \NC m =2m'+1
+\end{cases} \NR[+]
+m' =\NC  1, \dots, M \NT
 }
 %
 }
@@ -45,16 +46,16 @@ A moment's reflection reveals the corresponding definition of real representatio
 For \(A \in \MB{M}_{\MB{C}} (M_1, M_2)\), we say \(\MC{R}(A)\) is the real representation of \(A\), defined by
 %
 \Disp{
-A \in &\MB{V}_{\MB{R}} (2M_1, 2M_2) \NT \\
+A \in \NC \MB{V}_{\MB{R}} (2M_1, 2M_2) \NR
 A (m_1,m_2) =
-&\begin{cases}
-\MF{Re}(A (m_1,m_2)), &m_1 =2m_1'-1,\; m_2 =2m_2'-1  \\
-\MF{Im}(A (m_1,m_2)), &m_1 =2m_1',\; m_2 =2m_2'-1  \\
--\MF{Im}(A (m_1,m_2)), &m_1 =2m_1'-1,\; m_2 =2m_2'  \\
-\MF{Re}(A (m_1,m_2)), &m_1 =2m_1',\; m_2 =2m_2'  \\
-\end{cases} \\
-m_1' = &1, \dotsc, m_1 \NT \\
-m_2' = &1, \dotsc, m_2 \NT
+\NC \begin{cases}
+\MF{Re}(A (m_1,m_2)), \NC m_1 =2m_1'-1,\; m_2 =2m_2'-1  \NR[+]
+\MF{Im}(A (m_1,m_2)), \NC m_1 =2m_1',\; m_2 =2m_2'-1  \NR[+]
+-\MF{Im}(A (m_1,m_2)), \NC m_1 =2m_1'-1,\; m_2 =2m_2'  \NR[+]
+\MF{Re}(A (m_1,m_2)), \NC m_1 =2m_1',\; m_2 =2m_2'  \NR[+]
+\end{cases} \NR[+]
+m_1' = \NC 1, \dots, m_1 \NR
+m_2' = \NC 1, \dots, m_2 \NT
 }
 %
 }
@@ -64,13 +65,13 @@ We continue the notation of program ().
 %
 \Disp{
 \V{\T{y}}
-=&\MC{R}(y)
-\in \MB{V}(N_h) \\
+=\NC \MC{R}(y)
+\in \MB{V}(N_h) \NR[+]
 \V{\T{g}}
-=&\MC{R}(g)
-\in \MB{V}(N_h) \\
+=\NC \MC{R}(g)
+\in \MB{V}(N_h) \NR[+]
 \M{\T{P}}
-=&\MC{R}(\M{P})
+=\NC \MC{R}(\M{P})
 \in \MB{M}_{\MB{C}} (2 N_y^2, 2 N_h^2)
 }
 %
@@ -92,22 +93,22 @@ Finally, introduce these indicator matrices to identify the place where we want 
 
 %
 \Disp{
-\M{I}_{n_y}^{(y)} \in &\MB{M}_{\MB{R}} (2N_y^2, 2N_y^2) \NT \\
+\M{I}_{n_y}^{(y)} \in \NC \MB{M}_{\MB{R}} (2N_y^2, 2N_y^2) \NR
 \M{I}_{n_y}^{(y)}(n_y')
-=&\begin{cases}
-1, &n_y' =2n_y \\
-1, &n_y' =2n_y +1 \\
-0, &\RM{otherwise}
-\end{cases} \\
-\M{I}_{n_h}^{(h)} \in &\MB{M}_{\MB{R}} (2N_h^2, 2N_h^2) \NT \\
+=\NC \begin{cases}
+1, \NC n_y' =2n_y \NR[+]
+1, \NC n_y' =2n_y +1 \NR[+]
+0, \NC \RM{otherwise}
+\end{cases} \NR[+]
+\M{I}_{n_h}^{(h)} \in \NC \MB{M}_{\MB{R}} (2N_h^2, 2N_h^2) \NR
 \M{I}_{n_h}^{(h)}(n_h')
-=&\begin{cases}
-1, &n_h' =2n_h \\
-1, &n_h' =2n_h +1 \\
-0, &\RM{otherwise}
-\end{cases} \\
-n_y =&1, \dotsc, N_y \NT \\
-n_h =&1, \dotsc, N_h \NT
+=\NC \begin{cases}
+1, \NC n_h' =2n_h \NR[+]
+1, \NC n_h' =2n_h +1 \NR[+]
+0, \NC \RM{otherwise}
+\end{cases} \NR[+]
+n_y =\NC 1, \dots, N_y \NR
+n_h =\NC 1, \dots, N_h \NT
 }
 %
 
@@ -121,13 +122,13 @@ Find \(\T{\V{g}}\) with
 %
 \Disp{
 \min_{\T{\V{g}}, \V{m}} \quad
-&\IP{ \V{1}, \V{m} } \NT \\
+\NC \IP{ \V{1}, \V{m} } \NR
 \RM{subject}\; \RM{to} \quad
-&\begin{cases}
+\NC \begin{cases}
 \| \M{I}_{n_h}^{(h)} \T{\V{g}} \|_2
-\leq \IP{ \V{y}_{n_h}, \V{m} } \\
+\leq \IP{ \V{y}_{n_h}, \V{m} } \NR[+]
 \| \M{I}_{n_y}^{(y)} \T{\M{P}}^\H ( \T{\M{P}} \T{\V{g}} -\T{\V{y}} ) \|_2
-\leq \gamma  \\
+\leq \gamma  \NR[+]
 \end{cases}
 }
 %
@@ -138,27 +139,27 @@ The program, we see, is an SOCP.
 
 We further rewrite Program () into a stricter, extended block matrix form to make the point clearer.
 
-{ \color{red} (To be done) }
+\color[red]{(To be done)}
 
-\subsection{Primal-Dual Interior Point Algorithm}
+\startsection [title={Primal-Dual Interior Point Algorithm}]
 
 It remains to convert primal-dual interior point algorithm to make the SOCP easier to calculate.
 Of course it is not the only way to do this.
-We mention, again, Boyd and Vandenberghe (2004), \textit{Convex Optimization} chap.11 as a standard reference, and ``\(\ell_1\)-MAGIC'' (Cand\`es and J Romberg 2005) for discussion of application to DS.
+We mention, again, Boyd and Vandenberghe (2004), {\it Convex Optimization} chap.11 as a standard reference, and ``\(\ell_1\)-MAGIC'' (Cand\`es and J Romberg 2005) for discussion of application to DS.
 
 To clarify notation and for complentess of exposition, we derive the dual problem here.
 Start with the Lagrangian \(\MC{L}\), where we note we have to introduce one auxiliary vector and one auxiliary scalar for each \(\ell_2\)-norm constraint.
 
 %
 \Disp{
-&\MC{L}(\V{m}, \T{\V{g}}, \V{\mu}^{(h)}, \V{\mu}^{(y)}, \lambda^{(h)}, \lambda^{(y)}) \NT \\
-=& \IP{ \V{1}, \V{m} } 
-+\sum_{n_h} \left[ \IP{ \V{\mu}^{(h)}, \M{I}_{n_h}^{(h)} \T{\M{g}} } -\lambda^{(h)} \IP{ \V{y}_{n_h}, \V{m} } \right] \NT \\
-\quad & +\sum_{n_y} \left[ \IP{ \V{\mu}^{(h)}, \M{I}_{n_y}^{(y)} \T{\M{P}}^\H ( \T{\M{P}} \T{\V{g}} -\T{\V{y}} ) } -\lambda^{(h)} \gamma \right]
+\NC \NC \MC{L}(\V{m}, \T{\V{g}}, \V{\mu}^{(h)}, \V{\mu}^{(y)}, \lambda^{(h)}, \lambda^{(y)}) \NR
+\NC =\NC \IP{\V{1}, \V{m}}
++\sum_{n_h} \SB {\IP {\V {\mu}^{(h)}, \M {I}_{n_h}^{(h)} \T {\M{g}}} -\lambda^{(h)} \IP {\V{y}_{n_h}, \V{m}}} \NR
+\NC \quad \NC  +\sum_{n_y} \SB{ \IP{ \V{\mu}^{(h)}, \M{I}_{n_y}^{(y)} \T{\M{P}}^\H ( \T{\M{P}} \T{\V{g}} -\T{\V{y}} ) } -\lambda^{(h)} \gamma} \NR[+]
 }
 %
 
-\subsection{Discussion}
+\startsection [title={Discussion}]
 
 
 On the other hand, DS goes not without criticism for large complexity of it (Friedlander and Saunders 2007).
@@ -168,3 +169,5 @@ And a meaningful comparison of bounds of OMP and DS is not easy, as their settin
 The author thus criticises the tendency of current literature to mix up results for DS and OMP without clear justification.
 Indeed, DS calls for a RIP matrix and guarantees such performance even in noisy observation (Cand\`es and Tao 2005, 2007), while RIP is not easily to justify rigorously, and its easy construction is even an open problem.
 On the other hand, as of OMP, besides the original justification of entrywise i.i.d.\ Gaussian sensing matrix (Tropp and Gilbert 2007a), and existent attempt to characterize MIP condition, there is much to be done OMP for Gaussian.
+
+\stopchapter
