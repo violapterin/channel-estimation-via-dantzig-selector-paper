@@ -1,14 +1,30 @@
+% TODO:
+% Don't start chapters at new pages
+% Larger font
+% Larger line spacing
+% Chinese font?
+% Font mixing mechanism
+% `\notag` equivalent
+% Paragraph indentation, wider spacing
+% Table of contents: wider vertical spacing
+% Move `\hat` up
 
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
-\define[1] {\Disp}
-{
-\placeformula
-\startformula
-\startalign
-#1 %
-\stopalign
-\stopformula
-}
+% XXX
+% Hold regex:
+% Replace math mode:
+%       %s/\\(\(.\{-}\)\\)/\\m{\1}/g
+% Reformatting:
+%       %s/\(\a\){/\1 {/g
+%       %s/}\([\\(\[]\)/} \1/g
+%       %s/\(\a\) }/\1}/g
+%       %s/{ \(\a\)/{\1/g
+%       %s/\([}\a]\)_/\1 _/g
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\define [1] {\Disp} {\placeformula \startformula \startalign #1 \stopalign \stopformula}
 
 \define {\H} {\dagger}
 \define {\Tr} {\intercal}
@@ -24,17 +40,18 @@
 \define [1] {\RB} {\left( #1 \right)}
 \define [1] {\SB} {\left[ #1 \right]}
 \define [1] {\CB} {\left{ #1 \right}}
-\define [1] {\DB} {\left[ \!\! \left[ #1 \right] \!\! \right]}
+\define [1] {\DB} {\left[ \! \left[ #1 \right] \! \right]}
 \define [1] {\Nm} {\left \vert #1 \right \vert}
 \define [1] {\VNm} {\left \Vert #1 \right \Vert}
 
 \define [1] {\R} {\sqrt {#1}}
 \define [1] {\F} {\frac {#1}}
 \define [1] {\T} {\tilde {#1}}
-\define [1] {\IP} {\langle #1 \rangle}
-\define [1] {\V} {\underline {#1\mkern-2mu} \mkern2mu}
-\define [1] {\M} {\V {\V {#1}}}
+\define [1] {\IP} {\left \langle #1 \right \rangle}
+\define [1] {\V} {\underline {#1 \mkern -1mu} \mkern 2mu}
+\define [1] {\M} {\underline {{\underline {#1 \mkern -1mu} \mkern2mu} \mkern-2mu} \mkern2mu}
 \define [1] {\Min} {\underset {#1} {{\rm min}}}
+\define [1] {\Hat} {\vphantom{\scalebox{1.1}{#1}} #1}
 
 \definecounter [NumResult] [start=0, way=text]
 \define [0] {\TheCount}
@@ -112,5 +129,16 @@
    via a Angular Domain Dantzig Selector \\
    and its Probabilitic Performance Bound
 }
+
+\setuphead[title] [incrementnumber=list, number=no]
+\setuphead[subject] [incrementnumber=list, number=no]
+\setuphead[subsubject] [incrementnumber=list, number=no]
+\setuplist[chapter] [width=2cm]
+\setuplist[section] [width=2cm]
+\setuplist[subject] [width=2cm]
+\setupcombinedlist [content]
+                   [list={chapter, title,
+                          section, subject, 
+                          subsection, subsubject}]
 
 
