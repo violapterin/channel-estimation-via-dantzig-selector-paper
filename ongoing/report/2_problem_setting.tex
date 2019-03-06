@@ -26,9 +26,9 @@ to denote the overall event space, where
 We restrict our consideration to the uniform linear array, which can be modeled as
 %
 \Disp {
-\NC \V {a} (\psi')
+\NC \V {a} \SB {\psi'}
 = \NC \F {1}{\R {N_H}} \sum_{n=1}^{N} \RM {e}^{n \psi' i} \V {u}_n
-\in \MB {V}_\MB {C} (N_H) \NR
+\in \MB {V}_\MB {C} \SB {N_H} \NR
 }
 %
 where \m {\RM {e}} is the base of natural logarithm, and \m {i} the imaginary unit.
@@ -37,7 +37,7 @@ And consider the virtual representation of the MIMO channel (see for example Akd
 %
 \Disp {
 \NC H
-=\sum_{l=1}^L \alpha_l \V {a} \left( \F {d} {\lambda} \sin \f_l' \right) \V {a} \left( \F {d_{\RM {arr}}} {\lambda} \sin \th_l' \right)^\H \NR
+=\sum_{l=1}^L \alpha_l \V {a} \SB { \F {d} {\lambda} \sin \f_l' } \V {a} \SB { \F {d_{\RM {arr}}} {\lambda} \sin \th_l' }^\H \NR
 }
 %
 The physical meaning of \m {\th_l} is the \m {l}-th angle of incidence (formed by the ray and the normal line) of departure electronic wave, and \m {\th_l}, the \m {l}-th that of arrival wave, while \m {d_{\RM {arr}}} is the distance between two adjacent antennae.
@@ -54,8 +54,8 @@ to get a simpler form
 %
 \Disp {
 \NC H
-=\sum_{l=0}^L \alpha_l \V {a} (\f_l) \V {a} (\th_l)^\H
-\in \MB {M}_\MB {C} (N_H) \NR
+=\sum_{l=0}^L \alpha_l \V {a} \SB {\f_l} \V {a} \SB {\th_l}^\H
+\in \MB {M}_\MB {C} \SB {N_H} \NR
 }
 %
 
@@ -77,17 +77,17 @@ Similarly, in the receiver end, there are, in order seeing from the end, digital
 To set up notation, we list them as below.
 %
 \Disp {
-\NC \M {F}_B \in  \NC \MB {M}_{\MB {C}} (N_R, N_Y) \NR[+]
-\NC \M {F}_R \in  \NC \MB {M}_{\MB {C}} (N_H, N_R) \NR[+]
-\NC \M {W}_R \in  \NC \MB {M}_{\MB {C}} (N_R, N_H) \NR[+]
-\NC \M {W}_B \in  \NC \MB {M}_{\MB {C}} (N_Y, N_R) \NR
+\NC \M {F}_B \in  \NC \MB {M}_{\MB {C}} \SB {N_R, N_Y} \NR[+]
+\NC \M {F}_R \in  \NC \MB {M}_{\MB {C}} \SB {N_H, N_R} \NR[+]
+\NC \M {W}_R \in  \NC \MB {M}_{\MB {C}} \SB {N_R, N_H} \NR[+]
+\NC \M {W}_B \in  \NC \MB {M}_{\MB {C}} \SB {N_Y, N_R} \NR[+]
 }
 %
 Recall that analog precoder is restricted to have value with magnitude being unity, i.e.,
 %
 \Disp {
-\NC \Nm {\M {F}_R (n_h, n_r)} = \NC 1, \NR[+]
-\NC \Nm {\M {W}_R (n_r, n_h)} = \NC 1, \NR[+]
+\NC \Nm {\M {F}_R \SB {n_h, n_r}} = \NC 1, \NR[+]
+\NC \Nm {\M {W}_R \SB {n_r, n_h}} = \NC 1, \NR[+]
 \NC n_h = \NC 1, \dots N_H, \NR
 \NC n_r = \NC 1, \dots N_R \NR
 }
@@ -106,21 +106,21 @@ Since we restrict our discussion to a specific slice of time, the signal \m {z} 
 We may introduce the effective channel
 %
 \Disp {
-\NC Y (\omega_h, \omega_e)
-:= \NC W_B (\omega_r) W_R (\omega_r) \Big[ H (\omega_h) F_R (\omega_t) F_B (\omega_t) +Z (\omega_z) \Big] \NR
+\NC Y \SB {\omega_h, \omega_e}
+:= \NC W_B \SB {\omega_r} W_R \SB {\omega_r} \SB {H \SB {\omega_h} F_R \SB {\omega_t} F_B \SB {\omega_t} +Z \SB {\omega_z} } \NR
 }
 %
 Supress the event space index for brevity, we restate the same equation as
 %
 \Disp {
 \NC Y
-:=W_B W_R ( H F_R F_B +Z ) \NR
+:=W_B W_R \RB {H F_R F_B +Z} \NR
 }
 \m {\M {Y}} has \m {N_Y} columns, but to estimate it, we may agree to send one pilot signal, which is one of the standard basis, at a time, namely \m {\V {u}_n}.
 This way, we may denote the acquired effective channel matrix \m {\M {Y}} under noisy observation as (borrowing Matlab's colon notation to denote columns)
 %
 \Disp {
-\NC \M {Y} (:,n_y)
+\NC \M {Y} \SB {:,n_y}
 := \NC \M {W}_B \M {W}_R \Big[ \M {H} \M {F}_R \M {F}_B \V {u}_{n_y} +\V {z} \Big], \NR[+]
 \NC \quad n_y = \NC 1, 2, \dots, N_Y \NR
 }
@@ -134,20 +134,20 @@ If we had followed the widely accepted approach of compressive channel sensing, 
 %
 \Disp {
 \NC \V {h}
-:= \NC \RM {vec} (\M {H})
-\in \MB {V}_{\MB {C}} (N_g) \NR[+]
+:= \NC \RM {vec} \SB {\M {H}}
+\in \MB {V}_{\MB {C}} \SB {N_g} \NR[+]
 \NC \V {y}
-:= \NC \RM {vec} (\M {Y})
-\in \MB {V}_{\MB {C}} (N_y) \NR[+]
+:= \NC \RM {vec} \SB {\M {Y}}
+\in \MB {V}_{\MB {C}} \SB {N_y} \NR[+]
 \NC \V {z}^\star
-:= \NC \RM {vec} (\M {Z})
-\in \MB {V}_{\MB {C}} (N_y) \NR[+]
+:= \NC \RM {vec} \SB {\M {Z}}
+\in \MB {V}_{\MB {C}} \SB {N_y} \NR[+]
 \NC \M {P}^\star
-:= \NC (\M {F}_R^\Tr \M {F}_B^\Tr) \otimes (\M {W}_B \M {W}_R)
-\in \MB {M}_{\MB {C}} (N_y, N_g) \NR
+:= \NC \RB {\M {F}_R^\Tr \M {F}_B^\Tr} \otimes \RB {\M {W}_B \M {W}_R}
+\in \MB {M}_{\MB {C}} \SB {N_y, N_g} \NR
 }
 %
-to formulate our goal as sparse recovery problem of \m {\RM {vec} (H)} to be
+to formulate our goal as sparse recovery problem of \m {\RM {vec} \SB {H}} to be
 %
 \Disp {
 \NC \V {y} =\M {P}^\star \V {h} +\V {z}^\star \NR
@@ -163,8 +163,8 @@ What shall we do?
 Introduce the discrete Fourier matrix \m {\M {K}} defined to be
 %
 \Disp {
-\NC \M {K} \in  \NC \MB {M}_{\MB {C}} (N_H, N_H) \NR
-\NC \M {K} (n_1, n_2) = \NC \F {1} {\R {N_H}} \RM {e}^{2\pi i n_1 n_2 /N_H}, \NR[+]
+\NC \M {K} \in  \NC \MB {M}_{\MB {C}} \SB {N_H, N_H} \NR
+\NC \M {K} \SB {n_1, n_2} = \NC \F {1} {\R {N_H}} \RM {e}^{2\pi i n_1 n_2 /N_H}, \NR[+]
 \NC \quad n_1, n_2 = \NC 0, 1, \dots, N_H-1 \NR
 }
 %
@@ -179,8 +179,8 @@ which has the interpretation as the beamspace (i.e., spatial frequency domain) r
 %
 \Disp {
 \NC \M {Y}
-:=\M {W}_B \M {W}_R \M {K} ( \M {G} \M {K}^\H \M {F}_R \M {F}_B +\M {K}^\H \M {Z} )
-\in \MB {M}_{\MB {C}} (N_Y, N_Y) \NR
+:=\M {W}_B \M {W}_R \M {K} \SB { \M {G} \M {K}^\H \M {F}_R \M {F}_B +\M {K}^\H \M {Z} }
+\in \MB {M}_{\MB {C}} \SB {N_Y, N_Y} \NR
 }
 %
 If at the end of day, \m {\M {G}} is sparse, then we recover \m {\M {G}} instead, and our use of DS is fully justified.
@@ -190,18 +190,18 @@ To simplify notation, set
 %
 \Disp {
 \NC \M {P}
-:=(\M {F}_B^\Tr \M {F}_R^\Tr K^\ast) \otimes (\M {W}_B \M {W}_R \M {K})
-\in \MB {M}_{\MB {C}} (N_y, N_g) \NR
+:=\RB {\M {F}_B^\Tr \M {F}_R^\Tr K^\ast} \otimes \RB {\M {W}_B \M {W}_R \M {K}}
+\in \MB {M}_{\MB {C}} \SB {N_y, N_g} \NR
 }
 %
 And accordingly
 \Disp {
 \NC \V {g}
-:= \NC \RM {vec} (\M {G})
-\in \MB {M}_{\MB {C}} (N_g) \NR[+]
+:= \NC \RM {vec} \SB {\M {G}}
+\in \MB {M}_{\MB {C}} \SB {N_g} \NR[+]
 \NC \V {z}
-:= \NC \RM {vec} (\M {K}^\H \M {Z})
-\in \MB {V}_{\MB {C}} (N_y) \NR
+:= \NC \RM {vec} \SB {\M {K}^\H \M {Z}}
+\in \MB {V}_{\MB {C}} \SB {N_y} \NR
 }
 where for short we set
 \Disp {
@@ -228,14 +228,14 @@ Then, with parameter \m {\gamma} specified, define the following program
 \NC \hat {\V {g}}
 =\NC \startcases
 \Min {\V {g}'}  \MC \VNm {\V {g}'} _1 \NR[+]
-\RM {subject} \; \RM {to} \quad  \MC \VNm {\M {P}^\H (\V {y} -\M {P} \V {g}')} _\infty \leq \gamma \NR
+\RM {subject} \; \RM {to} \quad  \MC \VNm {\M {P}^\H \RB {\V {y} -\M {P} \V {g}'}} _\infty \leq \gamma \NR
 \stopcases \NR
 }
 %
 And convert \m {\hat {\V {g}}} back to the space domain as
 %
 \Disp {
-\NC \hat {G} =\RM {vec}^{-1} (\hat {g}) \NR
+\NC \hat {G} =\RM {vec}^{-1} \SB {\hat {g}} \NR
 }
 %
 And finally recover the estimated \m {H} as

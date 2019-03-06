@@ -8,6 +8,7 @@
 % Paragraph indentation, wider spacing
 % Table of contents: wider vertical spacing
 % Move `\hat` up
+% Different font for `\mathcal` (`\definefallbackfamily`?)
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
@@ -21,6 +22,8 @@
 %       %s/\(\a\) }/\1}/g
 %       %s/{ \(\a\)/{\1/g
 %       %s/\([}\a]\)_/\1 _/g
+:       %s/(\(.\{-}\))/\\RB{\1}/gc
+:       %s/(\(.\{-}\))/\\SB{\1}/gc
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 

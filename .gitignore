@@ -8,5 +8,6 @@
 *.nav
 *.toc
 *.o
+*.pyc
 bin/
 lib/

@@ -10,8 +10,10 @@ Particularly, we will summerize present results on DS and OMP, and argue that DS
 
 Before we start, let us remind that, in this article, to avoid confusion all results other than the major theorems to be proved are called lemmata, so the classification may be different from its source.
 
+First of all, round brackets \m {\RB {\cdot}} are used purely for precedence of , and \m {\SB {\cdot}} exclusively for function arguments, for better clarity.
+
 \m {\Nm {a}} denotes the magnitude for real or complex numbers \m {a}.
-The real and imaginary part of \m {a} will be denoted respectively as \m {\MF {Re} (a)} and \m {\MF {Im} (a)}, respectively, thus \m {a =\MF {Re} (a) + i \MF {Im} (a)}
+The real and imaginary part of \m {a} will be denoted respectively as \m {\MF {Re} \SB {a}} and \m {\MF {Im} \SB {a}}, respectively, thus \m {a =\MF {Re} \SB {a} + i \MF {Im} \SB {a}}
 
 We restrict our discussion to \m {\MB {R}^N} or \m {\MB {C}^N} seen as the Hilbert space , equipped with standard inner product.
 Lower case Latin alphabets with single underline, like \m {\V {a}}, denote vectors, and upper case Latin alphabets with double underlines, like \m {\M {A}}, denote matrices.
@@ -21,18 +23,16 @@ Denote \m {\V {a} \DB {n}} to be the \m {n}-th component of \m {\V {a}}, and sim
 In our context, the complex numbers has natural interpretation as the phasor of electronic waves.
 Of course, scalar operation on \m {\MB {R}^N} is over field \m {\MB {R}}, and that on \m {\MB {C}^N} is over field \m {\MB {C}}.
 We use \m {\MB {K}} to refer to either \m {\MB {R}} or \m {\MB {C}}.
-Not to avoid confusion, we call the Hilbert space \m {\MB {K}^N} over \m {\MB {K}} to be \m {\MB {V}_{\MB {K}} (N)}.
-We also call the collection of \m {M} by \m {N} matrices to be \m {\MB {M}_{\MB {K}} (M,N)}, and its role as linear transformation is understood.
+Not to avoid confusion, we call the Hilbert space \m {\MB {K}^N} over \m {\MB {K}} to be \m {\MB {V}_{\MB {K}} \SB {N}}.
+We also call the collection of \m {M} by \m {N} matrices to be \m {\MB {M}_{\MB {K}} \SB {M,N}}, and its role as linear transformation is understood.
 Inner product of \m {\V {a}} and \m {\V {b}} is denoted as \m {\IP { \V {a}, \V {b} }}.
-Slightly abusing notation, we denote as \m {\V {a} (n)} the \m {n}-th component of \m {\V {a}}, and denote as \m {\V {A} (m,n)} the \m {(m,n)}-entry of \m {\V {A}}
+Slightly abusing notation, we denote as \m {\V {a} \DB {n}} the \m {n}-th component of \m {\V {a}}, and denote as \m {\V {A} \DB {m,n}} the \m {\DB {m,n}}-entry of \m {\V {A}}
 Particularly, \m {\V {u}_n} is the \m {n}-th unit vector in the Cartesian coordinates (not to be confused with the noise).
 \m {\VNm {\V {a}} _p} denotes the \m {\ell_p}-norm of vector \m {\V {a}}.
 Recall that \m {\ell_\infty}-norm is the maximum-magnitude norm.
 
-Denote as \m {\MB {P} (X)} the probability, and \m {\MB {E} (X)} the expectation.
+Denote as \m {\MB {P} \SB {X}} the probability, and \m {\MB {E} \SB {X}} the expectation.
 Since our discussion involving the entire communication system will get very complicated, we may spell out the dependence of event space index on random variables.
-
-Round brackets \m {\RB {\cdot}} are used purely for precedence of , and \m {\SB {\cdot}} exclusively for function arguments.
 
 \stopsection
 \startsection [title={Background}]
@@ -47,11 +47,11 @@ In addition, the smaller closer spaced antennae makes it possible to increase th
 Consequently, this article considers MIMO in the millimeter r\`egime.
 
 The figure of merit of a MIMO system is usually considered to be the channel capacity.
-In vague terms, the capacity \m {C} of a MIMO channel \m {\M {H}} at perfect channel state information is well-known to be roughly in the form \m {\log \det (I +\RM {SNR})}, but that knowledge is hardly always available.
+In vague terms, the capacity \m {C} of a MIMO channel \m {\M {H}} at perfect channel state information is well-known to be roughly in the form \m {\log \det \RB {I +\RM {SNR}}}, but that knowledge is hardly always available.
 What makes things more difficult is the case that \m {\M {H}} is determined from not only the noise itself, but also inherent parameter --- such as, in our case, as shall be seen, the angle of departure and arrival.
 It is pointed out that the capacity written in explicit dependence of such parameters is a difficult and long-standing problem (Goldsmith et.\ al.\ 2003).
 Nevertheless, the perfect-channel-state-information expression of channel capacity is often used regardless of these issues.
-Indeed, analysis of precoding algorithm, for example, usually makes use of the sum rate \m {\log \det (I +\RM {SNR})}.
+Indeed, analysis of precoding algorithm, for example, usually makes use of the sum rate \m {\log \det \RB {I +\RM {SNR}}}.
 
 Therefore the real-time estimation, \m {\hat {\M {H}}}, of \m {\M {H}} is of paramount importance.
 Needless to say, when the \m {\hat {\M {H}}} is imprecise, resulting analysis is also undermined.
@@ -90,12 +90,12 @@ In this article we focuss on DS, and we introduce several notions before we desc
 To facilitate reader's understanding, in this section we will consistently use \m {N_p} and \m {N_m} to denote matrix dimensions.
 Following Cand\`es and Tao, we borrow the term ``support'' from the context of analysis, where it denotes the set on which a function is nonzero.
 
-We will use \m {T \RB {N_m} =\{1, \dots, N_m\}} to denote the support of \m {\MB {V}_{\MB {K}} (N_m)}.
+We will use \m {T \RB {N_m} =\{1, \dots, N_m\}} to denote the support of \m {\MB {V}_{\MB {K}} \SB {N_m}}.
 
 \Result
 {Definition}
 {
-Suppose \m {\M {A} \in \MB {M}_{\MB {K}} (N_m, N_p)}.
+Suppose \m {\M {A} \in \MB {M}_{\MB {K}} \SB {N_m, N_p}}.
 Let \m {\MC {T} \subset T \RB {N_p}}.
 Denote as \m {\M {A}_{\MC {T}}} the columns of \m {\M {A}} having indices in \m {\MC {T}}.
 }
@@ -103,10 +103,10 @@ Denote as \m {\M {A}_{\MC {T}}} the columns of \m {\M {A}} having indices in \m 
 \Result
 {Definition}
 {
-\m {x \in \MB {V}_{\MB {K}} (N_m)} is called \m {s}-sparse with support \m {\MC {A}}, \m {s <N_m}, if there is \m {\MC {A} \subset T \RB {N_m}} such that
+\m {x \in \MB {V}_{\MB {K}} \SB {N_m}} is called \m {s}-sparse with support \m {\MC {A}}, \m {s <N_m}, if there is \m {\MC {A} \subset T \RB {N_m}} such that
 %
 \Disp { 
-\NC x_{T(N) -\MC {A}}
+\NC x_{T\SB {N} -\MC {A}}
 =\NC \V {0} \NR
 }
 with
@@ -119,8 +119,8 @@ That is, only at most \m {s} components of \m {x} is nonzero.
 \Result
 {Program}
 {
-Let \m {P \in \MB {M}_\MB {K} (N_m, N_p)} and \m {y \in \MB {V}_\MB {K} (N_p)} be given.
-Find \m {h \in \MB {V}_\MB {K} (N_p)} with
+Let \m {P \in \MB {M}_\MB {K} \SB {N_m, N_p}} and \m {y \in \MB {V}_\MB {K} \SB {N_p}} be given.
+Find \m {h \in \MB {V}_\MB {K} \SB {N_p}} with
 %
 \Disp {
 \NC
@@ -141,13 +141,13 @@ That is, a noiseless linear transformation of a sparse vector is completely reco
 \Result
 {Definition}
 {
-Consider \m {P \in \MB {M}_{\MB {K}} (N_m, N_p)}, with unity-\m {\ell_2}-norm columns.
-For \m {s =1, \dots N_p}, we say that \m {P} satisfies the restricted isometry property (RIP) of sparsity \m {s} with respect to \m {0 \leq \d_s \leq 1}, if, for all \m {s}-sparse \m {\V {x} \in \MB {V}_{\MB {K}} (N_p)}, for all \m {\MC {T} \subset T(N_m)} with \m {\#\{\MC {T} \} \leq s},
+Consider \m {P \in \MB {M}_{\MB {K}} \SB {N_m, N_p}}, with unity-\m {\ell_2}-norm columns.
+For \m {s =1, \dots N_p}, we say that \m {P} satisfies the restricted isometry property (RIP) of sparsity \m {s} with respect to \m {0 \leq \d_s \leq 1}, if, for all \m {s}-sparse \m {\V {x} \in \MB {V}_{\MB {K}} \SB {N_p}}, for all \m {\MC {T} \subset T\SB {N_m}} with \m {\#\{\MC {T} \} \leq s},
 %
 \Disp {
-\NC \NC (1-\d_s) \VNm {V {x}}^2 \NR
+\NC \NC \RB {1-\d_s} \VNm {V {x}}^2 \NR
 \NC \leq \NC \VNm {P_{\MC {T}} \V {x}} _2^2 \NR
-\NC \leq \NC (1+\d_s) \VNm {\V {x}} _2^2 \NR[+]
+\NC \leq \NC \RB {1+\d_s} \VNm {\V {x}} _2^2 \NR[+]
 }
 }
 
@@ -165,15 +165,15 @@ How can we hope to estimate \m {h} when, in addition to insufficient observation
 \Result
 {Program}
 {
-Let \m {\M {P} \in \MB {V}_\MB {R} (N_m, N_p)} and \m {\V {y} \in \MB {V}_\MB {R} (N_m)} be given.
-Find \m {\V {h} \in \MB {V}_\MB {R} (N_m)} by
+Let \m {\M {P} \in \MB {V}_\MB {R} \SB {N_m, N_p}} and \m {\V {y} \in \MB {V}_\MB {R} \SB {N_m}} be given.
+Find \m {\V {h} \in \MB {V}_\MB {R} \SB {N_m}} by
 %
 
 \Disp {
 \NC \V {h}
 = \NC \startcases
 \NC \Min {\V {h}'} \quad \MC \VNm {\V {h}'} _1 \NR
-\NC \RM {subject} \; \RM {to} \quad \MC \VNm {\M {P}^\H (\M {P} \V {h} -\V {y})} _\infty \leq \gamma \NR
+\NC \RM {subject} \; \RM {to} \quad \MC \VNm {\M {P}^\H \RB {\M {P} \V {h} -\V {y}}} _\infty \leq \gamma \NR
 \stopcases \NR
 }
 }
@@ -194,12 +194,12 @@ But later, Baraniuk (2008) have found there is a particularly convenient suffici
 \Result
 {Theorem}
 {
-Let each entry of random matrix \m {P \in \MB {M}_\MB {K} (N_m, N_p)} be defined as i.i.d.\ Bernoulli with value \m {\pm 1/\R {N_m}} (that is, Rademacher distribution).
+Let each entry of random matrix \m {P \in \MB {M}_\MB {K} \SB {N_m, N_p}} be defined as i.i.d.\ Bernoulli with value \m {\pm 1/\R {N_m}} (that is, Rademacher distribution).
 Then, with \m {0 <\epsilon <1},
 %
 \Disp {
-\NC \NC \MB {P} ( \Nm {\VNm {P h} _2^2 -\VNm {h}_2^2} \geq \epsilon \VNm {h} _2^2) \NR
-\NC \leq \NC 2 \exp (-n (\epsilon^2/4 -\epsilon^3/6) ) \NR
+\NC \NC \MB {P} \SB { \Nm {\VNm {P h} _2^2 -\VNm {h}_2^2} \geq \epsilon \VNm {h} _2^2} \NR
+\NC \leq \NC 2 \exp \SB {-n \RB {\epsilon^2/4 -\epsilon^3/6} } \NR
 }
 }
 
@@ -217,7 +217,7 @@ One of the first papers, Bajwa et.\ al.\ (2010) argues the \m {\ell_0}-norm of t
 What they explored was the estimation of single-antenna channel response with respect to time.
 Another paper by the same group of scholars (Bajwa et.\ al.\ 2008) shows that \m {X} is RIP for overwhelming probability, providing the ground for the former paper.
 
-To explain the idea, consider a linear time-invariant channel that \m {y(t) =(x \star h)(t) + z(t)}, where \m {h(t)} is the channel's impulse response, \m {y(t)} is the output, and, for each time index, \m {x(t)} is i.i.d.\ Rademacher, and \m {z(t)} is i.i.d.\ Gaussian.
+To explain the idea, consider a linear time-invariant channel that \m {y\SB {t} =\RB {x \star h} \SB {t} + z\SB {t}}, where \m {h\SB {t}} is the channel's impulse response, \m {y\SB {t}} is the output, and, for each time index, \m {x\SB {t}} is i.i.d.\ Rademacher, and \m {z\SB {t}} is i.i.d.\ Gaussian.
 Simply assuming \m {h} has sparse support, and let the convolution with \m {x} be expressed by a matrix \m {X}, \m {X} is a Toeplitz matrix, so that \m {y =X h +z}.
 Then Bajwa et.\ al.\ was able to show that, \m {X} is RIP of overwhelmingly probability, and DS is ready to be applied, with some nice bounds on its performance drawing from Cand\`es and Tao's theorems.
 
@@ -226,7 +226,7 @@ Then Bajwa et.\ al.\ was able to show that, \m {X} is RIP of overwhelmingly prob
 
 Around that time, Tropp and Gilbert (2007b) points out if we apply a greedy algorithm called Orthogonal Matching Pursuit (OMP), that an i.i.d.\ random matrix being generated the similar way as Baraniuk (2008) suggested, may perform sufficiently well, even recover the original signal in an overwhemingly probability too.
 
-Same as before, consider \m {\V {y} \in \MB {V}_\MB {K} (N_p)}, \m {\V {h} \in \MB {V}_\MB {K} (N_s)}, where \m {\V {h}} is \m {s}-sparse, with \m {N_p \gg N_s}.
+Same as before, consider \m {\V {y} \in \MB {V}_\MB {K} \SB {N_p}}, \m {\V {h} \in \MB {V}_\MB {K} \SB {N_s}}, where \m {\V {h}} is \m {s}-sparse, with \m {N_p \gg N_s}.
 If
 \Disp {
 \NC \V {y} =\M {P} \V {h}, \NR
@@ -250,7 +250,7 @@ From Tropp and Gilbert (2007a),
 Following the setting described above, suppose, for \m {0 <\d <1},
 %
 \Disp {
-\NC M \geq 16s \log (N/\d) \NR
+\NC M \geq 16s \log \RB {N/\d} \NR
 }
 %
 Then OMP (Algorithm \_\_) recovers \m {x} completely, with overwhelming probability \m {1-\d}.
@@ -269,21 +269,21 @@ Let signal \m {\V {x}} be sent, and \m {\V {y}} be receiverd, that is
 \Result
 {Definition}
 {
-Define \m {\RM {vec} (\M {A}) \in \MB {K}^{NM}} to be the vectorization of \m {\M {A} \in \MB {M}_{\MB {K}} (N,M)}.
+Define \m {\RM {vec} \SB {\M {A}} \in \MB {K}^{NM}} to be the vectorization of \m {\M {A} \in \MB {M}_{\MB {K}} \SB {N,M}}.
 }
 
 \Result
 {Definition.}
 {
-For \m {\RM {vec} (A) \in \MB {M}_{\MB {K}} (N,M)} and \m {\RM {vec} (A) \in \MB {M}_{\MB {K}} (N,M)}
-Define the Kronecker product \m {\RM {vec} (A) \in \MB {K}^{nm}} 
+For \m {\RM {vec} \SB {A} \in \MB {M}_{\MB {K}} \SB {N,M}} and \m {\RM {vec} \SB {A} \in \MB {M}_{\MB {K}} \SB {N,M}}
+Define the Kronecker product \m {\RM {vec} \SB {A} \in \MB {K}^{nm}} 
 }
 
 With (), scholars often exploit the relation
 %
 \Disp {
-\NC \RM {vec} (Y)
-=\big[ (F^\H) \otimes W \big] \RM {vec} (\M {H}) \NR
+\NC \RM {vec} \SB {Y}
+=\big[ \RB {F^\H} \otimes W \big] \RM {vec} \RB {\M {H}} \NR
 }
 %
 
