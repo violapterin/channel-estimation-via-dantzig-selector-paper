@@ -2,14 +2,16 @@
 
 With the preperation of notation in the previous section, and a discussion on its theory, we shall now formulate our algorithm and focus on the practical aspect.
 
-As of now, we have transformed the sparse-recovery problem of complex matrix \m {H} to complex vector \m {h}, and finally to real vector \m {\MC {R} \SB {h}}.
+As of now, we have transformed the sparse-recovery problem of complex matrix \m {H} to complex vector \m {h}, and finally to real vector \m {\Mc {R} \SB {h}}.
 But it is not the end.
 In fact, Cand\`es and Tao's analysis in ``\m {\ell_1}-MAGIC'' transforms DS into a linear program (LP), but that does not directly applies
 Actually they pointed out that complex DS may be cast into a second order cone program (SOCP), but (as they admit in the paper) they did not pursue the matter.
 Since the proof is, for the present purpose, not entirely trivial, we include here for completeness of exposition.
 Thus our proposed algorithm is not a corollary of the DS program outlines in ``\m {\ell_1}-MAGIC''.
 
-\startsection [title={Transformation into Second Order Cone Problem}]
+\startsection [title={Transformation of the Problem}]
+
+\startsubsection [title={Representation by Real Matrices}]
 
 Since our setting is slightly different from ``\m {\ell_1}-MAGIC'', for completeness of exposition we write down derivation of the dual problem from the primal problem, as follows.
 Recapitulate that, as we explained in the above, DS involves the calculation of \m {\ell_1}-1 norm.
@@ -24,16 +26,16 @@ For convenience, define the following real representation function for complex v
 \Result
 {Definition}
 {
-For \m {x \in \MB {V} \SB {M}}, we say \m {\MC {R} \SB {x}} is the real representation of \m {x}, defined by
+For \m {x \in \Mb {V} \SB {M}}, we say that \m {\Mc {R} \SB {x}} is the real representation of \m {x}, defined by
 %
 \Disp {
-\NC \MC {R} \SB {x} \in \NC \MB {V} \SB {2M} \NR[+]
-\NC \MC {R} \SB {x} \DB {m} =
+\NC \Mc {R} \SB {x} \in \NC \Mb {V} \SB {2M} \NR[+]
+\NC \Mc {R} \SB {x} \DB {m} =
 \NC \startcases
-\MF {Re} \SB {\MC {R} \SB {x} \DB {m}}, \quad \MC m =2m' \NR
-\MF {Im} \SB {\MC {R} \SB {x} \DB {m}}, \quad \MC m =2m'+1 \NR
+\NC \Mf {Re} \SB {\Mc {R} \SB {x} \DB {m'}}, \MC m =2m' \NR
+\NC \Mf {Im} \SB {\Mc {R} \SB {x} \DB {m'}}, \MC m =2m'+1 \NR
 \stopcases \NR[+]
-\NC m' \NC =  1, \dots, M \NR
+\NC m' = \NC  1, \dots, M \NR
 }
 %
 }
@@ -43,19 +45,19 @@ A moment's reflection reveals the corresponding definition of real representatio
 \Result
 {Definition}
 {
-For \m {A \in \MB {M}_{\MB {C}} \SB {M_1, M_2}}, we say \m {\MC {R} \SB {A}} is the real representation of \m {A}, defined by
+For \m {A \in \Mb {M}_{\Mb {C}} \SB {M_1, M_2}}, we say that \m {\Mc {R} \SB {A}} is the real representation of \m {A}, defined by
 %
 \Disp {
-\NC A \in \NC \MB {V}_{\MB {R}} \SB {2M_1, 2M_2} \NR[+]
-\NC A \SB {m_1,m_2} =
+\NC A \in \NC \Mb {V}_{\Mb {R}} \SB {2M_1, 2M_2} \NR[+]
+\NC A \DB {m_1,m_2} =
 \NC \startcases
-\MF {Re} \SB {A \SB {m_1,m_2}}, \quad \MC m_1 =2m_1'-1,\; m_2 =2m_2'-1  \NR
-\MF {Im} \SB {A \SB {m_1,m_2}}, \quad \MC m_1 =2m_1',\; m_2 =2m_2'-1  \NR
--\MF {Im} \SB {A \SB {m_1,m_2}}, \quad \MC m_1 =2m_1'-1,\; m_2 =2m_2'  \NR
-\MF {Re} \SB {A \SB {m_1,m_2}}, \quad \MC m_1 =2m_1',\; m_2 =2m_2'  \NR
+\NC \Mf {Re} \SB {A \SB {m_1',m_2'}}, \MC (m_1, m_2) = (2m_1'-1, 2m_2'-1) \NR
+\NC \Mf {Im} \SB {A \SB {m_1',m_2'}}, \MC (m_1, m_2) = (2m_1', 2m_2'-1) \NR
+\NC -\Mf {Im} \SB {A \SB {m_1',m_2'}}, \MC (m_1, m_2) = (2m_1'-1, 2m_2') \NR
+\NC \Mf {Re} \SB {A \SB {m_1',m_2'}}, \MC (m_1, m_2) = (2m_1', 2m_2') \NR
 \stopcases \NR[+]
-\NC m_1' \NC = 1, \dots, m_1 \NR[+]
-\NC m_2' \NC = 1, \dots, m_2 \NR
+\NC m_1' = \NC 1, \dots, m_1 \NR[+]
+\NC m_2' = \NC 1, \dots, m_2 \NR
 }
 %
 }
@@ -65,27 +67,22 @@ We continue the notation of program ().
 %
 \Disp {
 \NC \V {\T {y}}
-\NC = \MC {R} \SB {y}
-\in \MB {V} \SB {N_h} \NR[+]
+= \NC \Mc {R} \SB {y}
+\in \Mb {V} \SB {2N_y} \NR[+]
 \NC \V {\T {g}}
-\NC = \MC {R} \SB {g}
-\in \MB {V} \SB {N_h} \NR[+]
+= \NC \Mc {R} \SB {g}
+\in \Mb {V} \SB {2N_h} \NR[+]
 \NC \M {\T {P}}
-\NC = \MC {R} \SB {\M {P}}
-\in \MB {M}_{\MB {C}} \SB {2 N_y^2, 2 N_h^2} \NR
-}
-%
-such that
-%
-\Disp {
-\NC \V {\T {y}} \NC = \M {\T {P}} \V {\T {g}} +\V {\T {z}}
-}
-%
-where by construction
-%
-\Disp {
+= \NC \Mc {R} \SB {\M {P}}
+\in \Mb {M}_{\Mb {C}} \SB {2N_y, 2N_h} \NR[+]
 \NC \V {\T {z}}
-\NC = \MC {R} \SB {\V {z}} \in \MB {V} \SB {N_y} \NR
+= \NC \Mc {R} \SB {\V {z}} \in \Mb {V} \SB {2N_y} \NR[+]
+}
+%
+such that, by construction,
+%
+\Disp {
+\NC \V {\T {y}} = \NC \M {\T {P}} \V {\T {g}} +\V {\T {z}}
 }
 %
 
@@ -93,56 +90,60 @@ Finally, introduce the following matrices to identify the components where we wa
 
 %
 \Disp {
-\NC \M {I}_{n_y}^{(y)} \in \NC \MB {M}_{\MB {R}} \SB {2N_y^2, 2N_y^2} \NR[+]
-\NC \M {I}_{n_y}^{(y)} \SB {n_y'}
-\NC =
+\NC {\T {\M {u}}}_{n_y}^{(y)} \in \NC \Mb {M}_{\Mb {R}} \SB {2N_y, 2N_y} \NR
+\NC {\T {\M {u}}}_{n_y}^{(y)} \DB {m_y}
+= \NC
 \startcases
-1, \quad \MC n_y' =2n_y \NR[+]
-1, \quad \MC n_y' =2n_y +1 \NR[+]
-0, \quad \NC otherwise
+1, \quad \MC m_y =2n_y \NR
+1, \quad \MC m_y =2n_y +1 \NR
+0, \quad \NC {\rm otherwise}
 \stopcases \NR[+]
-\NC \M {I}_{n_h}^{(h)} \in \NC \MB {M}_{\MB {R}} \SB {2N_h^2, 2N_h^2} \NR[+]
-\NC \M {I}_{n_h}^{(h)} \SB {n_h'}
-\NC =
+\NC {\T {\M {U}}}_{n_h}^{(h)} \in \NC \Mb {M}_{\Mb {R}} \SB {2N_h, 2N_h} \NR
+\NC {\T {\M {U}}}_{n_h}^{(h)} \DB {m_h, m_h'}
+= \NC
 \startcases
-1, \quad \MC n_h' =2n_h \NR[+]
-1, \quad \MC n_h' =2n_h +1 \NR[+]
-0, \NC otherwise
+1, \quad \MC m_h =2n_h,\; m_h' =2n_h \NR
+1, \quad \MC m_h =2n_h +1,\; m_h' =2n_h \NR
+1, \quad \MC m_h =2n_h,\; m_h' =2n_h +1\NR
+1, \quad \MC m_h =2n_h +1,\; m_h' =2n_h +1 \NR
+0, \quad \NC {\rm otherwise}
 \stopcases \NR[+]
-\NC n_y \NC = 1, \dots, N_y \NR[+]
-\NC n_h \NC = 1, \dots, N_h \NR
+\NC n_y, m_y = \NC 1, \dots, N_y \NR
+\NC n_h, m_h, m_h' = \NC 1, \dots, N_h \NR
 }
 %
 
-If we introduce vector \m {\V {m}} to denote the entrywise complex modulus, we see that Program () now take the form
-
-\Result
-{Program}
-{
-Given are \m {\T {\M {P}}, \T {\V {y}}, \gamma}.
-Find \m {\T {\V {g}}} with
-%
+If we introduce vector \m {\V {m} \in \Mb {M}_{\Mb {V}} \SB {N_y}} to denote the entrywise complex modulus, we see that the convex optimization now take the form
 \Disp {
 \NC \T {\V {g}}
-\NC = \startcases
+= \NC \startcases
 \NC \Min {\T {\V {g}}, \V {m}} \quad
 \MC \IP { \V {1}, \V {m} } \NR
-\NC \RM {subject} \; \RM {to} \quad
-\MC \VNm { \M {I}_{n_h}^{(h)} \T {\V {g}} }_2
-\leq \IP { \V {y}_{n_h}, \V {m} } \NR
-\NC \MC \VNm { \M {I}_{n_y}^{(y)} \T {\M {P}}^\H \RB { \T {\M {P}} \T {\V {g}} -\T {\V {y}} } }_2
+\NC \Mr {subject} \; \Mr {to} \quad
+\MC \VNm { \M {U}_{n_h}^{(h)} \T {\V {g}} }_2
+\leq \IP { \V {u}_{n_h}, \V {m} } \NR
+\NC \MC \VNm { \M {U}_{n_y}^{(y)} \T {\M {P}}^\Adj \RB { \T {\M {P}} \T {\V {g}} -\T {\V {y}} } }_2
 \leq \gamma \NR
 \stopcases \NR
 }
-%
-where \m {\V {1}} is the all-1 vector.
+where \m {\V {1} \in \Mb {M}_{\Mb {V}} \SB {N_y}} is the all-1 vector.
+
+\stopsubsection
+
+\startsubsection [title={Second Order Cone Problem}]
+
+We shall see furthermore that the program can be cast into an SOCP.
+To make the point clearer, we rewrite Program () into a stricter, extended block matrix form
+\Result
+{Algorithm}
+{
+\startitemize[n]
+\item Input \m{\M {P} \in \Mb {M}_{\Mb {C}} \SB {N_y, N_h}}, \m{\V {y} \in \Mb {V}_{\Mb {C}} \SB {N_h}}, \m{\gamma \geq 0}.
+\item Input \m{\hat {\M {P}} \in \Mb {M}_{\Mb {C}} \SB {N_y, N_h}}, \m{\hat {\V {y}} \in \Mb {V}_{\Mb {C}} \SB {N_h}}.
+\item Calculate
+\item Output \m {\hat {\M {H}}}.
+\stopitemize
 }
-
-The program, we see, is an SOCP.
-
-We further rewrite Program () into a stricter, extended block matrix form to make the point clearer.
-
-\color[red]{(To be done)}
 
 \startsection [title={Primal-Dual Interior Point Algorithm}]
 
@@ -151,14 +152,14 @@ Of course it is not the only way to do this.
 We mention, again, Boyd and Vandenberghe (2004), {\it Convex Optimization} chap.11 as a standard reference, and ``\m {\ell_1}-MAGIC'' (Cand\`es and J Romberg 2005) for discussion of application to DS.
 
 To clarify notation and for complentess of exposition, we derive the dual problem here.
-Start with the Lagrangian \m {\MC {L}}, where we note we have to introduce one auxiliary vector and one auxiliary scalar for each \m {\ell_2}-norm constraint.
+Start with the Lagrangian \m {\Mc {L}}, where we note we have to introduce one auxiliary vector and one auxiliary scalar for each \m {\ell_2}-norm constraint.
 
 %
 \Disp {
-\NC \NC \MC {L} \SB {\V {m}, \T {\V {g}}, \V {\mu}^{(h)}, \V {\mu}^{(y)}, \lambda^{(h)}, \lambda^{(y)}} \NR[+]
-\NC \NC = \IP {\V {1}, \V {m}}
+\NC \NC \Mc {L} \SB {\V {m}, \T {\V {g}}, \V {\mu}^{(h)}, \V {\mu}^{(y)}, \lambda^{(h)}, \lambda^{(y)}} \NR[+]
+\NC = \NC \IP {\V {1}, \V {m}}
 +\sum_{n_h} \SB {\IP {\V {\mu}^{(h)}, \M {I}_{n_h}^{(h)} \T {\M {g}}} -\lambda^{(h)} \IP {\V {y}_{n_h}, \V {m}}} \NR[+]
-\NC \quad \NC  +\sum_{n_y} \SB { \IP { \V {\mu}^{(h)}, \M {I}_{n_y}^{(y)} \T {\M {P}}^\H \RB { \T {\M {P}} \T {\V {g}} -\T {\V {y}} } } -\lambda^{(h)} \gamma} \NR[+]
+\NC \quad \NC  +\sum_{n_y} \SB { \IP { \V {\mu}^{(h)}, \M {I}_{n_y}^{(y)} \T {\M {P}}^\Adj \RB { \T {\M {P}} \T {\V {g}} -\T {\V {y}} } } -\lambda^{(h)} \gamma} \NR[+]
 }
 %
 

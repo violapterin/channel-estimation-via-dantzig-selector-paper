@@ -1,17 +1,13 @@
-
 \input {./preamble.tex}
 
 \starttext
 
-%\placecontent [criterium=all, alternative=c]
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-
 \startfrontmatter
 
 \startmakeup [titlepage]
-   \TitleStyle {\TitleText}
-   \blank [big]
-   \AuthorStyle {\AuthorText}
+\TitleStyle {\TitleText}
+\blank [big]
+\AuthorStyle {\AuthorText}
 \stopmakeup
 
 \completecontent [criterium=all, alternative=c]
@@ -19,6 +15,19 @@
 \stopfrontmatter
 
 \startbodymatter
+
+%\Disp { \NC \Hat{a} \NR }
+%$\Hat{a}$
+%$\hat{\blackrule[width=0ex,height=1.2ex]\mkern-3mu a}$
+
+%\startformula
+%\startalign
+%\Hat{a}
+%\NC \hat{\blackrule[width=0ex,height=1.2ex]\mkern-3mu a} \NR
+%\hat{\rule{0ex}{1.2ex}\mkern-3mu a}
+%\stopalign
+%\stopformula
+
 \input {./abstract.tex}
 \input {./acknowledgement.tex}
 \input {./1_introduction.tex}
@@ -27,6 +36,8 @@
 \input {./4_simulation.tex}
 \input {./5_conclusion.tex}
 \input {./references.tex}
+
 \stopbodymatter
 
 \stoptext
+

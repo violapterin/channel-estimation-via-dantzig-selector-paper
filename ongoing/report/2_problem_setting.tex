@@ -3,61 +3,37 @@
 \startsection [title={Channel Model}]
 
 Since expression involving probability will get complicated, sometimes we explicitly mark the independence on event space index.
-Introduce the direct product
-%
 
-
-\Disp {
-\NC \Omega
-= \NC \Omega_t \times \Omega_h \times \Omega_n \times \Omega_r \NR
-}
-%
-to denote the overall event space, where
-
-
-\startitemize
-\item \m {\Omega_t} denotes the event space of the transmitter end,
-\item \m {\Omega_h} denotes the event space of the communication channel itself,
-\item \m {\Omega_z} denotes the event space of the noise arising in the communication channel,
-\item \m {\Omega_r} denotes the event space of the receiver end.
-\stopitemize
-%
+For clarity, we use \m {\O_t} to denote the event space of the transmitter end, \m {\O_h} to denote that of the communication channel itself, \m {\O_z} to denote that of the noise arising in the communication channel, and \m {\O_r} to denote that of the receiver end.
+It helps to think \m {\NC \O = \NC \O_t \times \O_h \times \O_n \times \O_r \NR} as the overall event space, though we will not really calculate Lebesgue integrals.
 
 We restrict our consideration to the uniform linear array, which can be modeled as
-%
 \Disp {
 \NC \V {a} \SB {\psi'}
-= \NC \F {1}{\R {N_H}} \sum_{n=1}^{N} \RM {e}^{n \psi' i} \V {u}_n
-\in \MB {V}_\MB {C} \SB {N_H} \NR
+= \NC \F {1}{\R {N_H}} \sum_{n=1}^{N} \Mr {e}^{n \psi' i} \V {u}_n
+\in \Mb {V}_\Mb {C} \SB {N_H} \NR
 }
-%
-where \m {\RM {e}} is the base of natural logarithm, and \m {i} the imaginary unit.
+where \m {\Mr {e}} is the base of natural logarithm, and \m {i} the imaginary unit.
 
 And consider the virtual representation of the MIMO channel (see for example Akdeniz et.\ al.\ 2014).
-%
 \Disp {
 \NC H
-=\sum_{l=1}^L \alpha_l \V {a} \SB { \F {d} {\lambda} \sin \f_l' } \V {a} \SB { \F {d_{\RM {arr}}} {\lambda} \sin \th_l' }^\H \NR
+=\sum_{l=1}^L \alpha_l \V {a} \SB { \F {d} {\lambda} \sin \f_l' } \V {a} \SB { \F {d_{\Mr {arr}}} {\lambda} \sin \th_l' }^\Adj \NR
 }
-%
-The physical meaning of \m {\th_l} is the \m {l}-th angle of incidence (formed by the ray and the normal line) of departure electronic wave, and \m {\th_l}, the \m {l}-th that of arrival wave, while \m {d_{\RM {arr}}} is the distance between two adjacent antennae.
+The physical meaning of \m {\th_l} is the \m {l}-th angle of incidence (formed by the ray and the normal line) of departure electronic wave, and \m {\th_l}, the \m {l}-th that of arrival wave, while \m {d_{\Mr {arr}}} is the distance between two adjacent antennae.
 For our purpose, we may absorb the argument of \m {\V {a}} as
-%
 \Disp {
 \NC \f_l
-=\NC \F {d_{\RM {arr}}} {\lambda} \sin \f_l' \NR[+]
+= \NC \F {d_{\Mr {arr}}} {\lambda} \sin \f_l' \NR[+]
 \NC \th_l
-=\NC \F {d_{\RM {arr}}} {\lambda} \sin \th_l' \NR[+]
+= \NC \F {d_{\Mr {arr}}} {\lambda} \sin \th_l' \NR[+]
 }
-%
 to get a simpler form
-%
 \Disp {
 \NC H
-=\sum_{l=0}^L \alpha_l \V {a} \SB {\f_l} \V {a} \SB {\th_l}^\H
-\in \MB {M}_\MB {C} \SB {N_H} \NR
+=\sum_{l=0}^L \alpha_l \V {a} \SB {\f_l} \V {a} \SB {\th_l}^\Adj
+\in \Mb {M}_\Mb {C} \SB {N_H} \NR
 }
-%
 
 \Result
 {Definition.}
@@ -75,27 +51,23 @@ That is to say, each end consists of both digital and analog percoders and combi
 In the transmitter end, there are, in order seeing from the end, digital precoder \m {F_B} and analog precoder \m {F_R}.
 Similarly, in the receiver end, there are, in order seeing from the end, digital combiner \m {W_B} and analog combiner \m {W_R}.
 To set up notation, we list them as below.
-%
 \Disp {
-\NC \M {F}_B \in  \NC \MB {M}_{\MB {C}} \SB {N_R, N_Y} \NR[+]
-\NC \M {F}_R \in  \NC \MB {M}_{\MB {C}} \SB {N_H, N_R} \NR[+]
-\NC \M {W}_R \in  \NC \MB {M}_{\MB {C}} \SB {N_R, N_H} \NR[+]
-\NC \M {W}_B \in  \NC \MB {M}_{\MB {C}} \SB {N_Y, N_R} \NR[+]
+\NC \M {F}_B \in  \NC \Mb {M}_{\Mb {C}} \SB {N_R, N_Y} \NR[+]
+\NC \M {F}_R \in  \NC \Mb {M}_{\Mb {C}} \SB {N_H, N_R} \NR[+]
+\NC \M {W}_R \in  \NC \Mb {M}_{\Mb {C}} \SB {N_R, N_H} \NR[+]
+\NC \M {W}_B \in  \NC \Mb {M}_{\Mb {C}} \SB {N_Y, N_R} \NR[+]
 }
-%
 Recall that analog precoder is restricted to have value with magnitude being unity, i.e.,
-%
 \Disp {
-\NC \Nm {\M {F}_R \SB {n_h, n_r}} = \NC 1, \NR[+]
-\NC \Nm {\M {W}_R \SB {n_r, n_h}} = \NC 1, \NR[+]
-\NC n_h = \NC 1, \dots N_H, \NR
-\NC n_r = \NC 1, \dots N_R \NR
+\NC \Nm {\M {F}_R \DB {n_H, n_R}} = \NC 1, \NR[+]
+\NC \Nm {\M {W}_R \DB {n_R, n_H}} = \NC 1, \NR[+]
+\NC n_H = \NC 1, \dots N_H, \NR
+\NC n_R = \NC 1, \dots N_R \NR
 }
-%
 And we assume
 \Disp {
 \NC N_H \gg  \NC N_R \NR[+]
-\NC N_R \gg  \NC N_s \NR[+]
+\NC N_R \gg  \NC N_Y \NR[+]
 }
 
 This is analogous to (), and we will exploit the fact when applying compressive sensing techinique.
@@ -104,150 +76,125 @@ We consider zero-mean, unity-variance additive white Gaussian noise \m {z}.
 Since we restrict our discussion to a specific slice of time, the signal \m {z} degrades as a entrywise i.i.d.\ standard normal distribution vector.
 
 We may introduce the effective channel
-%
 \Disp {
-\NC Y \SB {\omega_h, \omega_e}
-:= \NC W_B \SB {\omega_r} W_R \SB {\omega_r} \SB {H \SB {\omega_h} F_R \SB {\omega_t} F_B \SB {\omega_t} +Z \SB {\omega_z} } \NR
+\NC \NC \M{Y} \SB {\o_t, \o_h, \o_z, \o_r} \NR
+\NC := \NC \M{W}_B \SB {\o_r} \M{W}_R \SB {\o_r} \RB {\M{H} \SB {\o_h} \M{F}_R \SB {\o_t} \M{F}_B \SB {\o_t} +\M{Z} \SB {\o_z} } \NR
 }
-%
 Supress the event space index for brevity, we restate the same equation as
-%
 \Disp {
-\NC Y
-:=W_B W_R \RB {H F_R F_B +Z} \NR
+\NC \M{Y}
+:=\M{W}_B \M{W}_R \RB {\M{H} \M{F}_R \M{F}_B +\M{Z}} \NR
 }
-\m {\M {Y}} has \m {N_Y} columns, but to estimate it, we may agree to send one pilot signal, which is one of the standard basis, at a time, namely \m {\V {u}_n}.
-This way, we may denote the acquired effective channel matrix \m {\M {Y}} under noisy observation as (borrowing Matlab's colon notation to denote columns)
-%
-\Disp {
-\NC \M {Y} \SB {:,n_y}
-:= \NC \M {W}_B \M {W}_R \Big[ \M {H} \M {F}_R \M {F}_B \V {u}_{n_y} +\V {z} \Big], \NR[+]
-\NC \quad n_y = \NC 1, 2, \dots, N_Y \NR
-}
-%
 Still, the crux of the matter is the recovery of \m {\M {H}} with knowledge of \m {\M {Y}}, while \m {\M {W}_R}, \m {\M {W}_B}, \m {\M {F}_R}, and \m {\M {F}_B} are in our control.
 
 \stopsection
-\startsection [title={Vectorization}]
+\startsection [title={Proposed Method}]
+\startsubsection [title={Vectorization}]
 
+First, for short we set
+\Disp {
+\NC N_h = \NC N_H^2 \NR[+]
+\NC N_y = \NC N_Y^2 \NR[+]
+}
 If we had followed the widely accepted approach of compressive channel sensing, we would have written
-%
 \Disp {
 \NC \V {h}
-:= \NC \RM {vec} \SB {\M {H}}
-\in \MB {V}_{\MB {C}} \SB {N_g} \NR[+]
+:= \NC \Mr {vec} \SB {\M {H}}
+\in \Mb {V}_{\Mb {C}} \SB {N_h} \NR[+]
 \NC \V {y}
-:= \NC \RM {vec} \SB {\M {Y}}
-\in \MB {V}_{\MB {C}} \SB {N_y} \NR[+]
-\NC \V {z}^\star
-:= \NC \RM {vec} \SB {\M {Z}}
-\in \MB {V}_{\MB {C}} \SB {N_y} \NR[+]
+:= \NC \Mr {vec} \SB {\M {Y}}
+\in \Mb {V}_{\Mb {C}} \SB {N_y} \NR[+]
+\NC \V {z}
+:= \NC \Mr {vec} \SB {\M{W}_B \M{W}_R \M {Z}}
+\in \Mb {V}_{\Mb {C}} \SB {N_y} \NR[+]
 \NC \M {P}^\star
 := \NC \RB {\M {F}_R^\Tr \M {F}_B^\Tr} \otimes \RB {\M {W}_B \M {W}_R}
-\in \MB {M}_{\MB {C}} \SB {N_y, N_g} \NR
+\in \Mb {M}_{\Mb {C}} \SB {N_y, N_h} \NR[+]
 }
-%
-to formulate our goal as sparse recovery problem of \m {\RM {vec} \SB {H}} to be
-%
+to formulate our goal as sparse recovery problem of \m {\Mr {vec} \SB {H}} to be
 \Disp {
-\NC \V {y} =\M {P}^\star \V {h} +\V {z}^\star \NR
+\NC \V {y} =\M {P}^\star \V {h} +\V {z} \NR
 }
-%
-But, as we have motivated in previous sections, we want to use DS by considering sparse vector, and at the same time to get rid of the angle grid quantization problem.
-What shall we do?
+As we have motivated in previous sections, we want to use DS by considering sparse vector, and at the same time to get rid of the angle grid quantization problem.
+However, there is no guarantee, though, that \m {\V {h}} will be sparse.
 
-\stopsection
+\stopsubsection
 
-\startsection [title={Proposed Method}]
+\startsubsection [title={Expression for the Angular Space}]
 
 Introduce the discrete Fourier matrix \m {\M {K}} defined to be
-%
 \Disp {
-\NC \M {K} \in  \NC \MB {M}_{\MB {C}} \SB {N_H, N_H} \NR
-\NC \M {K} \SB {n_1, n_2} = \NC \F {1} {\R {N_H}} \RM {e}^{2\pi i n_1 n_2 /N_H}, \NR[+]
+\NC \M {K} \in  \NC \Mb {M}_{\Mb {C}} \SB {N_H, N_H} \NR
+\NC \M {K} \DB {n_1, n_2} = \NC \F {1} {\R {N_H}} \Mr {e}^{2\pi i n_1 n_2 /N_H}, \NR[+]
 \NC \quad n_1, n_2 = \NC 0, 1, \dots, N_H-1 \NR
 }
-%
+where recall that we have
+\Disp{
+\NC \M {K}^\Adj \M {K}
+= \NC \M {I} \NR
+}
 Observe that, if we write
-%
 \Disp {
 \NC \M {G}
-=\M {K}^\H \M {H} \M {K} \NR
+=\M {K}^\Adj \M {H} \M {K} \NR
 }
-%
-which has the interpretation as the beamspace (i.e., spatial frequency domain) representation of \m {\M {H}}, then
-%
+which has the interpretation as the angular space (i.e., spatial frequency domain) representation of \m {\M {H}}, then
 \Disp {
 \NC \M {Y}
-:=\M {W}_B \M {W}_R \M {K} \SB { \M {G} \M {K}^\H \M {F}_R \M {F}_B +\M {K}^\H \M {Z} }
-\in \MB {M}_{\MB {C}} \SB {N_Y, N_Y} \NR
+=\M {W}_B \M {W}_R \M {K} \cdot \M {G} \cdot \M {K}^\Adj \M {F}_R \M {F}_B
++\M {W}_B \M {W}_R \M {Z}
+\in \Mb {M}_{\Mb {C}} \SB {N_Y, N_Y} \NR
 }
-%
 If at the end of day, \m {\M {G}} is sparse, then we recover \m {\M {G}} instead, and our use of DS is fully justified.
 
-That is to say, \m {\M {K}^\H \V {z}} may be absorbed, and a similar Kronecker product may be used.
+That is to say, a similar Kronecker product may be used.
 To simplify notation, set
-%
 \Disp {
 \NC \M {P}
 :=\RB {\M {F}_B^\Tr \M {F}_R^\Tr K^\ast} \otimes \RB {\M {W}_B \M {W}_R \M {K}}
-\in \MB {M}_{\MB {C}} \SB {N_y, N_g} \NR
+\in \Mb {M}_{\Mb {C}} \SB {N_y, N_h} \NR
 }
-%
 And accordingly
 \Disp {
 \NC \V {g}
-:= \NC \RM {vec} \SB {\M {G}}
-\in \MB {M}_{\MB {C}} \SB {N_g} \NR[+]
-\NC \V {z}
-:= \NC \RM {vec} \SB {\M {K}^\H \M {Z}}
-\in \MB {V}_{\MB {C}} \SB {N_y} \NR
+:= \NC \Mr {vec} \SB {\M {G}}
+\in \Mb {M}_{\Mb {C}} \SB {N_h} \NR[+]
 }
-where for short we set
-\Disp {
-\NC N_g = \NC N_H^2 \NR[+]
-\NC N_y = \NC N_Y^2 \NR
-}
-%
 Then
-%
 \Disp {
 \NC \V {y}
 =\M {P} \V {g} +\V {z} \NR
 }
-%
 If so, our program reads
 
 \Result
-{Program}
+{Algorithm}
 {
-Let \m {\M {P}, \V {y}} be defined just above in ().
-Then, with parameter \m {\gamma} specified, define the following program
-%
+\startitemize[n]
+\item Input \m{\M {P} \in \Mb {M}_{\Mb {C}} \SB {N_y, N_h}}, \m{\V {y} \in \Mb {V}_{\Mb {C}} \SB {N_h}}, \m{\gamma \geq 0}.
+\item Calculate
 \Disp {
-\NC \hat {\V {g}}
-=\NC \startcases
-\Min {\V {g}'}  \MC \VNm {\V {g}'} _1 \NR[+]
-\RM {subject} \; \RM {to} \quad  \MC \VNm {\M {P}^\H \RB {\V {y} -\M {P} \V {g}'}} _\infty \leq \gamma \NR
+\NC \Hat {\V {g}}
+= \NC \startcases
+\NC \Min {\V {g}' \in \Mb {V}_{\Mb {C}} \SB {N_h}}  \MC \VNm {\V {g}'} _1 \NR[+]
+\NC \Mr {subject} \; \Mr {to} \quad  \MC \VNm {\M {P}^\Adj \RB {\V {y} -\M {P} \V {g}'}} _\infty \leq \gamma \NR
 \stopcases \NR
 }
-%
-And convert \m {\hat {\V {g}}} back to the space domain as
-%
+\item Convert \m {\Hat {\V {g}}} back to the space domain, namely
 \Disp {
-\NC \hat {G} =\RM {vec}^{-1} \SB {\hat {g}} \NR
+\NC \Hat {G} =\Mr {vec}^{-1} \SB {\Hat {g}} \NR
 }
-%
-And finally recover the estimated \m {H} as
-%
+\item Recover the estimated \m {\Hat {\M {H}}}, as
 \Disp {
-\NC \hat {\M {H}} =\M {K} \hat {\M {G}} \M {K}^\H \NR
+\NC \Hat {\M {H}} =\M {K} \Hat {\M {G}} \M {K}^\Adj \NR
 }
-%
+\item Output \m {\Hat {\M {H}}}.
+\stopitemize
 }
 
 It, then, will not be hard to establish Cand\`es and Tao's result to the setting of millimeter wave virtual channel, and resulting bound is immediate under straighforward work, as follows.
 
+\stopsubsection
 \stopsection
 
 \stopchapter

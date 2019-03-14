@@ -1,17 +1,17 @@
 \startchapter [title={Theorems and Proofs}]
 
 We follow the argument outlined in ``The Dantzig Selector'' and fill the content.
-The sparse vector to be recovered of our investigation is \m {g \in \MB {C}^{N_g}}, and we continue to use \m {\hat {g}} to denote the Dantzig Selector.
+The sparse vector to be recovered of our investigation is \m {g \in \Mb {C}^{N_h}}, and we continue to use \m {\hat {g}} to denote the Dantzig Selector.
 To simplify the exposition, we will continue to use the variables \m {\V {P}}, \m {\V {g}}, \m {\V {y}}, and \m {\V {z}} introduced in previous sections, without defining them over and over (by which one would make each statement completely self-containing but considerably more verbose).
 
-We first establish a technical lemma that shows \m {\RM {supp} \SB {\V {g}}} has roughly cardinal \m {L}, which guarantees, at the heart of the argument, that \m {\V {g}} is almost-sparse 
+We first establish a technical lemma that shows \m {\Mr {supp} \SB {\V {g}}} has roughly cardinal \m {L}, which guarantees, at the heart of the argument, that \m {\V {g}} is almost-sparse 
 
 
-\startsection [title={Almost-Sparsity of Beamspace Channel Matrix}]
+\startsection [title={Almost-Sparsity of Angular Channel}]
 
 We apply DS to find \m {\hat {\V {g}}}, setting
 \Disp {
-\NC \gamma = \NC \R {2 \log N_g} \NR[+]
+\NC \gamma = \NC \R {2 \log N_h} \NR[+]
 }
 
 Other values are of course possible, but this is enough to illustrate our purpose.
@@ -22,17 +22,17 @@ Also set for short
 }
 %
 And call
-\startitemize
-\item \m {\MC {A}} be the largest \m {s} position of \m {g}.
-\item \m {\MC {B}} be the largest \m {s} position of \m {d_{T\SB {N_g} -\MC {A}}}.
-\item \m {\MC {C} =T \RB {N_g} -\MC {A}}, i.e., the complementary index set of \m {\MC {A}}.
+\startitemize [1]
+\item \m {\Mc {A}} be the largest \m {s} position of \m {g}.
+\item \m {\Mc {B}} be the largest \m {s} position of \m {d_{T\SB {N_h} -\Mc {A}}}.
+\item \m {\Mc {C} =T \RB {N_h} -\Mc {A}}, i.e., the complementary index set of \m {\Mc {A}}.
 \stopitemize
 
 
-Suppose \m {\M {A} \in \MB {M}_{\MB {K}} \RB {N_1, N_2 }}.
-For brevity, let \m {\MC {T} \subset T \RB {N_2 }}.
-Denote as \m {\M {A}_{\MC {T}}} the columns of \m {\M {A}} having indices in \m {\MC {T}}.
-Let \m {S:\; \MB {V}_{\MB {K}} \SB {N} \mapsto \MB {V}_{\MB {K}} \SB {N}}, \m {N \in \MB {N}}, be the sorting function for \m {x \in \MB {V}_{\MB {K}} \SB {N})}, so that
+Suppose \m {\M {A} \in \Mb {M}_{\Mb {K}} \RB {N_1, N_2 }}.
+For brevity, let \m {\Mc {T} \subset T \RB {N_2 }}.
+Denote as \m {\M {A}_{\Mc {T}}} the columns of \m {\M {A}} having indices in \m {\Mc {T}}.
+Let \m {S:\; \Mb {V}_{\Mb {K}} \SB {N} \mapsto \Mb {V}_{\Mb {K}} \SB {N}}, \m {N \in \Mb {N}}, be the sorting function for \m {x \in \Mb {V}_{\Mb {K}} \SB {N})}, so that
 \Disp {
 \NC \Nm {S \RB {x} \DB {n_1}} \geq  \NC \Nm {S \RB {x} \DB {n_2}}, \NR[+]
 \NC n_1 > \NC n_2,
@@ -45,8 +45,8 @@ If still there is a tie for a certain component (for complex numbers), we compar
 \Result
 {Definition}
 {
-Let function \m {f:\; T\RB {N} \mapsto \MB {R}_+}, \m {N \in \MB {N}}, be given.
-For \m {x \in \MB {V}_{\MB {K}} \SB {N}}, we say \m {x} is confined in sorted magnitude according to \m {f}, if
+Let function \m {f:\; T\RB {N} \mapsto \Mb {R}_+}, \m {N \in \Mb {N}}, be given.
+For \m {x \in \Mb {V}_{\Mb {K}} \SB {N}}, we say \m {x} is confined in sorted magnitude according to \m {f}, if
 \Disp {
 \NC \Nm {S\SB {x} \DB {n} } < \NC f \SB {n},
 \quad n \in T\RB {N}. \NR
@@ -56,7 +56,7 @@ For \m {x \in \MB {V}_{\MB {K}} \SB {N}}, we say \m {x} is confined in sorted ma
 \Result
 {Definition}
 {
-For \m {\V {x} \in \MB {V}_{\MB {K}} \SB {N}}, we say \m {\V {x}} is almost-\m {s}-sparse with \m {\ell_1}-residue \m {R}, if
+For \m {\V {x} \in \Mb {V}_{\Mb {K}} \SB {N}}, we say \m {\V {x}} is almost-\m {s}-sparse with \m {\ell_1}-residue \m {R}, if
 \Disp {
 \NC \sum_{n=s+1}^N \Nm {S\SB {\V {x}} \SB {n}}
 \leq \NC R. \NR
@@ -81,7 +81,7 @@ Recall the identity for Dirichlet kernel
 %
 \Disp {
 \NC D \SB {\f'}
-:= \NC \Nm { \sum_{n=0}^{N_H-1} \RM {e}^{i n \f'} } \NR
+:= \NC \Nm { \sum_{n=0}^{N_H-1} \Mr {e}^{i n \f'} } \NR
 \NC = \NC \F {\Nm {\sin \SB {N_H \f'/2}}}{\Nm {\sin \SB {\f' /2}}}, \NR[+]
 \NC \quad 0 \leq \NC  \f' \leq \pi \NR
 }
@@ -89,7 +89,7 @@ Recall the identity for Dirichlet kernel
 And recall the Taylor expansion of sin for the first two terms with respect to zero
 %
 \Disp {
-\NC \sin x = \NC x -\F {x^3}{6} + \MC {O} \SB {x^5}, \quad x \ll 1 \NR
+\NC \sin x = \NC x -\F {x^3}{6} + \Mc {O} \SB {x^5}, \quad x \ll 1 \NR
 }
 %
 Actually it can be shown that we have a inequality
@@ -116,7 +116,7 @@ Particularly, for arbitrary \m {\f}, find \m {k} so that
 %
 Then observe
 \Disp {
-\NC \RB {\M {K}^\H \V {a} \SB {\f}} \DB {k}
+\NC \RB {\M {K}^\Adj \V {a} \SB {\f}} \DB {k}
 =\NC \F {1}{N_H} D \RB {\f -\F {2 \pi k} {N_H}} \NR
 }
 So we need only bound
@@ -165,10 +165,10 @@ Then \m {\V {g}} is almost-\m {L}-sparse with \m {\ell_1}-residue \m {R\SB {N_H,
 \Result
 {Definition}
 {
-For \m {\MC {T}, \MC {T}' \subset \{1, \dots, N_p\}}, define the \m {s, s'}-restricted orthogonality constant \m {\tau_{s,s'} >0} to be the smallest such that
+For \m {\Mc {T}, \Mc {T}' \subset \{1, \dots, N_p\}}, define the \m {s, s'}-restricted orthogonality constant \m {\tau_{s,s'} >0} to be the smallest such that
 %
 \Disp {
-\NC \Nm {\IP {P_{\MC {T}} h, P_{\MC {T}'} h'}}
+\NC \Nm {\IP {P_{\Mc {T}} h, P_{\Mc {T}'} h'}}
 \leq \NC \tau_{s, s'} \cdot \VNm {h} _2 \VNm {h'} _2 \NR
 }
 }
@@ -216,20 +216,20 @@ Let \m {\V {g}} and \m {\V {d}} be defined as above.
 Then
 %
 \Disp {
-\NC \VNm {\V {d}_{\MC {C}}} _1
-\leq \NC \VNm {\V {d}_{\MC {A}}} _1 +2\VNm {\V {g}_{\MC {C}}} _1 \NR
+\NC \VNm {\V {d}_{\Mc {C}}} _1
+\leq \NC \VNm {\V {d}_{\Mc {A}}} _1 +2\VNm {\V {g}_{\Mc {C}}} _1 \NR
 }
 }
 
-To show this, observe that with triangle inequality applied respectively on \m {\MC {A}} and \m {\MC {C}},
+To show this, observe that with triangle inequality applied respectively on \m {\Mc {A}} and \m {\Mc {C}},
 \Disp {
 \NC \VNm {\V {g}} _1
--\VNm {\V {d}_{\MC {A}}} _1
-+\VNm {\V {d}_{\MC {C}}} _1
--\VNm {\V {g}_{\MC {C}}} _1
+-\VNm {\V {d}_{\Mc {A}}} _1
++\VNm {\V {d}_{\Mc {C}}} _1
+-\VNm {\V {g}_{\Mc {C}}} _1
 \leq \NC \VNm {\V {g} +\V {d}} _1 \NR
 }
-In the first line, we recall \m {\V {g} =\V {g}_{\MC {A}}}.
+In the first line, we recall \m {\V {g} =\V {g}_{\Mc {A}}}.
 On the other hand, by construction that \m {\hat {g}} minimizes the \m {\ell_1}-norm,
 \Disp {
 \NC \VNm {\V {g} +\V {d}} _1
@@ -246,8 +246,8 @@ Then
 %
 \Disp {
 \NC \Nm {\IP { \V {z}, \M {P} \DB {:, n_g} }}
-\leq \NC  2 \R {\log N_g},
-\quad n_g =1, \dots, N_g. \NR
+\leq \NC  2 \R {\log N_h},
+\quad n_g =1, \dots, N_h. \NR
 }
 %
 with overwhelming probability.
@@ -258,12 +258,12 @@ This only depends on the fact that \m {\M {P} \DB {:, n_g}} has unity \m {\ell_2
 Recall the following bound for \m {Q} function
 \Disp {
 \NC Q\SB {x}
-\leq \NC \F {1}{2} \RM {e}^{-x^2/2} \NR
+\leq \NC \F {1}{2} \Mr {e}^{-x^2/2} \NR
 }
-Particularly, for \m {x =\R {2 \log N_g}}, according to CLT,
+Particularly, for \m {x =\R {2 \log N_h}}, according to CLT,
 \Disp {
-\NC Q\SB {\R {2 \log N_g}}
-=\NC \F {1}{N_g}. \NR
+\NC Q\SB {\R {2 \log N_h}}
+=\NC \F {1}{N_h}. \NR
 }
 
 \color[red]{(To be done)}
@@ -274,9 +274,9 @@ Particularly, for \m {x =\R {2 \log N_g}}, according to CLT,
 Let \m {\V {d}} and \m {\M {P}} be defined as above, and \m {\M {P}} satisfies RIP as in ().
 %
 \Disp {
-\NC \VNm {\M {P}^\H \M {P} \V {d}} _\infty
-\leq \NC  4 \R {\log N_g},
-\quad n_g =1, \dots, N_g. \NR
+\NC \VNm {\M {P}^\Adj \M {P} \V {d}} _\infty
+\leq \NC  4 \R {\log N_h},
+\quad n_g =1, \dots, N_h. \NR
 }
 }
 
@@ -290,20 +290,20 @@ To show this, by definition
 
 By construction
 \Disp {
-\NC \VNm { \M {P} \DB {:,n_y}^\H \RB {\V {y} -\M {P} \hat {\V {g}}} } 
-\leq \NC \VNm { \M {P}^\H \RB {\V {y} -\M {P} \hat {\V {g}}} } _\infty \NR
-\NC \leq \NC 2\R {\log N_g} \NR
+\NC \VNm { \M {P} \DB {:,n_y}^\Adj \RB {\V {y} -\M {P} \hat {\V {g}}} } 
+\leq \NC \VNm { \M {P}^\Adj \RB {\V {y} -\M {P} \hat {\V {g}}} } _\infty \NR
+\NC \leq \NC 2\R {\log N_h} \NR
 }
 By triangle inequality, together with Lemma (), we have
 \Disp {
-\NC \VNm {\M {P} \DB {:,n_y}^\H \M {P} \V {d}} 
+\NC \VNm {\M {P} \DB {:,n_y}^\Adj \M {P} \V {d}} 
 \leq \NC \VNm {\IP { \V {z}, \M {P} \DB {:,n_y} }}  +\IP { \V {y} -\M {P} \hat {\V {g}}, \M {P} \DB {:,n_y} } \NR
-\NC \leq \NC 2 \R {\log N_g} +2 \R {\log N_g} \NR
+\NC \leq \NC 2 \R {\log N_h} +2 \R {\log N_h} \NR
 }
 which implies
 \Disp {
-\NC \VNm {\M {P}^\H \M {P} \V {d}} _\infty
-\leq \NC 4 \R {\log N_g}. \NR
+\NC \VNm {\M {P}^\Adj \M {P} \V {d}} _\infty
+\leq \NC 4 \R {\log N_h}. \NR
 }
 
 From ``Dantzig Selector'' (Cand\`es and Tao 2007), Lemma 1, first equation, we have the result as below.
@@ -317,8 +317,8 @@ Of course the interpretation of modulus and the inner product changes accordingl
 Let \m {\V {d}} and \m {\M {P}} be defined as above, and \m {\M {P}} satisfies RIP as in () with respect to \m {\d_s}.
 %
 \Disp {
-\NC \VNm {\V {d}_{\MC {AB}}} _2
-\leq \NC \F {1}{1-\d_{2s}} \VNm {P_{\MC {A} \MC {B}}^\Tr P d} _2 +\F {\d_{3s}}{\RB {1-\d_{2s}} \R {s}} \VNm {d_{C}} _1 \NR
+\NC \VNm {\V {d}_{\Mc {AB}}} _2
+\leq \NC \F {1}{1-\d_{2s}} \VNm {P_{\Mc {A} \Mc {B}}^\Tr P d} _2 +\F {\d_{3s}}{\RB {1-\d_{2s}} \R {s}} \VNm {d_{C}} _1 \NR
 }
 %
 }
@@ -334,7 +334,7 @@ Then
 %
 \Disp {
 \NC \VNm {\V {d}} _2^2
-\leq \NC \VNm {\V {d}_{\MC {A} \MC {B}}} _2^2 +\F {1}{s} \VNm {\V {d}_{\MC {C}}} _1^2 \NR
+\leq \NC \VNm {\V {d}_{\Mc {A} \Mc {B}}} _2^2 +\F {1}{s} \VNm {\V {d}_{\Mc {C}}} _1^2 \NR
 }
 %
 }
@@ -359,49 +359,49 @@ with overwhelming probability.
 We are ready to combine previous lemmata.
 The first quantity we want to bound away is
 \Disp {
-\NC \VNm {\M {P}_{\MC {A} \MC {B}}^\Tr \M {P} \V {d}} _2
+\NC \VNm {\M {P}_{\Mc {A} \Mc {B}}^\Tr \M {P} \V {d}} _2
 \leq \NC \VNm {\M {P}^\Tr \M {P} \V {d}} _2 \NR
-\NC \leq \NC \R {N_g} \VNm {\M {P}^\Tr \M {P} \V {d}} _\infty \NR
-\NC \leq \NC 4 \R {N_g \log N_g} \NR
+\NC \leq \NC \R {N_h} \VNm {\M {P}^\Tr \M {P} \V {d}} _\infty \NR
+\NC \leq \NC 4 \R {N_h \log N_h} \NR
 }
 Thus, by virtue of Lemma (),
 \Disp {
 \NC \VNm { \V {d}_{A} } _1
 \leq \NC \R {L} \VNm { \V {d}_{A} } _2 \NR
-\NC \leq \NC \R {L} \VNm { \V {d}_{\MC {AB}} } _2 \NR
-\NC \leq \NC \F {\d_{3L}} {1-\d_{2L}} \VNm { \V {d}_{\MC {C}} } _1 +\F {4} {1-\d_{2L}} \R {L N_g \log N_g} \NR
+\NC \leq \NC \R {L} \VNm { \V {d}_{\Mc {AB}} } _2 \NR
+\NC \leq \NC \F {\d_{3L}} {1-\d_{2L}} \VNm { \V {d}_{\Mc {C}} } _1 +\F {4} {1-\d_{2L}} \R {L N_h \log N_h} \NR
 }
 
-As the next step, we must eliminate \m {\VNm {d_{\MC {A}}} _1} in rhs of Lemma ().
+As the next step, we must eliminate \m {\VNm {d_{\Mc {A}}} _1} in rhs of Lemma ().
 \Disp {
-\NC \VNm { \V {d}_{\MC {C}} } _1
-\leq \NC \VNm { \V {d}_{\MC {A}} } _1 +2 \VNm { \V {g}_{\MC {C}} } _1 \NR
-\NC \leq \NC \F {\d_{3L}} {1-\d_{2L}} \VNm { \V {d}_{\MC {C}} } _1
-+2 \VNm { \V {g}_{\MC {C}} } _1
-+\F {4} {1-\d_{2L}} \R {L N_g \log N_g} \NR
+\NC \VNm { \V {d}_{\Mc {C}} } _1
+\leq \NC \VNm { \V {d}_{\Mc {A}} } _1 +2 \VNm { \V {g}_{\Mc {C}} } _1 \NR
+\NC \leq \NC \F {\d_{3L}} {1-\d_{2L}} \VNm { \V {d}_{\Mc {C}} } _1
++2 \VNm { \V {g}_{\Mc {C}} } _1
++\F {4} {1-\d_{2L}} \R {L N_h \log N_h} \NR
 }
 Or,
 \Disp {
-\NC \VNm { \V {d}_{\MC {C}} } _1
-\leq \NC 2 \F {1-\d_{2L}} {1 -\d_{2L} -\d_{3L}} \VNm { \V {g}_{\MC {C}} } _1
-+\F {4} {1-\d_{2L} -\d_{3L}} \R {L N_g \log N_g} \NR
+\NC \VNm { \V {d}_{\Mc {C}} } _1
+\leq \NC 2 \F {1-\d_{2L}} {1 -\d_{2L} -\d_{3L}} \VNm { \V {g}_{\Mc {C}} } _1
++\F {4} {1-\d_{2L} -\d_{3L}} \R {L N_h \log N_h} \NR
 }
 
 We are ready to bound \m {\VNm {d} _2^2}.
 Using Lemma () again, we have
 \Disp {
 \NC \VNm { \V {d} } _2^2
-\leq \NC \VNm {\V {d}_{\MC {A} \MC {B}}} _2^2 +\F {1}{L} \VNm {\V {d}_{\MC {C}}} _1^2 \NR
-\NC \leq \NC  \RB { \F {\d_{3L}^2} {L^2 \RB {1-\d_{2L}}^2} +\F {1}{L} } \VNm {\V {d}_{\MC {C}}} _1^2
-+\F {8 \d_{3L}} {L \RB {1-\d_{2L}}^2} \R {N_g \log N_g} \VNm {\V {d}_{\MC {C}}} _1 \NR
-\NC \NC \quad +\F {16}{\RB {1-\d_{2L}}^2} N_g \log N_g \NR
+\leq \NC \VNm {\V {d}_{\Mc {A} \Mc {B}}} _2^2 +\F {1}{L} \VNm {\V {d}_{\Mc {C}}} _1^2 \NR
+\NC \leq \NC  \RB { \F {\d_{3L}^2} {L^2 \RB {1-\d_{2L}}^2} +\F {1}{L} } \VNm {\V {d}_{\Mc {C}}} _1^2
++\F {8 \d_{3L}} {L \RB {1-\d_{2L}}^2} \R {N_h \log N_h} \VNm {\V {d}_{\Mc {C}}} _1 \NR
+\NC \NC \quad +\F {16}{\RB {1-\d_{2L}}^2} N_h \log N_h \NR
 }
-Finally, plug in the bound for \m {\VNm {\V {d}_{\MC {C}}} _1}, the last unknown, and we make use of the almost-sparsity condition of \m {\VNm {\V {d}_{\MC {C}}} _1}.
+Finally, plug in the bound for \m {\VNm {\V {d}_{\Mc {C}}} _1}, the last unknown, and we make use of the almost-sparsity condition of \m {\VNm {\V {d}_{\Mc {C}}} _1}.
 There are several dozens of terms if we expand all.
 but for simplicity, we keep only the leading term under the approximation
 \Disp {
 \NC 1 \ll \NC L \NR
-\NC \ll \NC N_g \NR
+\NC \ll \NC N_h \NR
 }
 And expand to the first order expressions containing \m {\d_{2L}} or \m {\d_{3L}} in the denominator using
 \Disp {

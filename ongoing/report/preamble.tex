@@ -5,10 +5,10 @@
 % Chinese font?
 % Font mixing mechanism
 % `\notag` equivalent
-% Paragraph indentation, wider spacing
-% Table of contents: wider vertical spacing
+% Table of contents: wider vertical spacing? Font?
 % Move `\hat` up
 % Different font for `\mathcal` (`\definefallbackfamily`?)
+% Why is the first page blank?
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
@@ -29,16 +29,18 @@
 
 \define [1] {\Disp} {\placeformula \startformula \startalign #1 \stopalign \stopformula}
 
-\define {\H} {\dagger}
+\define {\Adj} {\dagger}
 \define {\Tr} {\intercal}
 \define {\d} {\delta}
 \define {\f} {\varphi}
 \define {\th} {\vartheta}
+\define {\O} {\Omega}
+\define {\o} {\omega}
 
-\define [1] {\MB} {{\mathbb {#1}}}
-\define [1] {\MC} {{\mathcal {#1}}}
-\define [1] {\MF} {{\mathfrak {#1}}}
-\define [1] {\RM} {{\mathrm {#1}}}
+\define [1] {\Mb} {{\mathbb {#1}}}
+\define [1] {\Mc} {{\mathcal {#1}}}
+\define [1] {\Mf} {{\mathfrak {#1}}}
+\define [1] {\Mr} {{\mathrm {#1}}}
 
 \define [1] {\RB} {\left( #1 \right)}
 \define [1] {\SB} {\left[ #1 \right]}
@@ -47,14 +49,14 @@
 \define [1] {\Nm} {\left \vert #1 \right \vert}
 \define [1] {\VNm} {\left \Vert #1 \right \Vert}
 
-\define [1] {\R} {\sqrt {#1}}
-\define [1] {\F} {\frac {#1}}
-\define [1] {\T} {\tilde {#1}}
+\define [1] {\R} {{\sqrt {#1}}}
+\define [1] {\T} {\tilde {\blackrule [width=0ex, height=1.7ex] #1}}
+\define [1] {\Hat} {\hat {\blackrule [width=0ex, height=1.7ex] #1}}
 \define [1] {\IP} {\left \langle #1 \right \rangle}
 \define [1] {\V} {\underline {#1 \mkern -1mu} \mkern 2mu}
 \define [1] {\M} {\underline {{\underline {#1 \mkern -1mu} \mkern2mu} \mkern-2mu} \mkern2mu}
 \define [1] {\Min} {\underset {#1} {{\rm min}}}
-\define [1] {\Hat} {\vphantom{\scalebox{1.1}{#1}} #1}
+\define [2] {\F} {{\frac {#1}{#2}}}
 
 \definecounter [NumResult] [start=0, way=text]
 \define [0] {\TheCount}
@@ -133,6 +135,8 @@
    and its Probabilitic Performance Bound
 }
 
+\setupindenting[big,always]
+\setupwhitespace[medium]
 \setuphead[title] [incrementnumber=list, number=no]
 \setuphead[subject] [incrementnumber=list, number=no]
 \setuphead[subsubject] [incrementnumber=list, number=no]

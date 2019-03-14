@@ -1,19 +1,6 @@
-#!/usr/bin/env python
-# the shebang line indicates this file be passed as a python3 script
-
 import matplotlib.pyplot as plt # plotting functions
 import os # getcwd
 
-# to set input & output paths
-top_dir = os.getcwd() # current working directory
-out_data_path =top_dir +"/dat/table.txt"
-out_fig_path =top_dir +"/plt/fig.png"
-#print(out_fig_path)
-
-# to retrieve line by line
-handle_text =open(out_data_path)
-content =handle_text.read()
-list_line =content.split('\n') # newline as delimiter
 
 # to set axis & title
 #plt.close("all")

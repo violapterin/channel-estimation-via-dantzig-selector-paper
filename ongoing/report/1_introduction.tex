@@ -13,25 +13,25 @@ Before we start, let us remind that, in this article, to avoid confusion all res
 First of all, round brackets \m {\RB {\cdot}} are used purely for precedence of , and \m {\SB {\cdot}} exclusively for function arguments, for better clarity.
 
 \m {\Nm {a}} denotes the magnitude for real or complex numbers \m {a}.
-The real and imaginary part of \m {a} will be denoted respectively as \m {\MF {Re} \SB {a}} and \m {\MF {Im} \SB {a}}, respectively, thus \m {a =\MF {Re} \SB {a} + i \MF {Im} \SB {a}}
+The real and imaginary part of \m {a} will be denoted respectively as \m {\Mf {Re} \SB {a}} and \m {\Mf {Im} \SB {a}}, respectively, thus \m {a =\Mf {Re} \SB {a} + i \Mf {Im} \SB {a}}
 
-We restrict our discussion to \m {\MB {R}^N} or \m {\MB {C}^N} seen as the Hilbert space , equipped with standard inner product.
+We restrict our discussion to \m {\Mb {R}^N} or \m {\Mb {C}^N} seen as the Hilbert space , equipped with standard inner product.
 Lower case Latin alphabets with single underline, like \m {\V {a}}, denote vectors, and upper case Latin alphabets with double underlines, like \m {\M {A}}, denote matrices.
 Particularly, define \m {\V {1} =\IP {1, \dots, 1}}.
 Denote \m {\V {a} \DB {n}} to be the \m {n}-th component of \m {\V {a}}, and similarly \m {\M {A} \DB {m,n}} to be the \m {(m,n)}-th entry of \m {\M {A}}.
 
 In our context, the complex numbers has natural interpretation as the phasor of electronic waves.
-Of course, scalar operation on \m {\MB {R}^N} is over field \m {\MB {R}}, and that on \m {\MB {C}^N} is over field \m {\MB {C}}.
-We use \m {\MB {K}} to refer to either \m {\MB {R}} or \m {\MB {C}}.
-Not to avoid confusion, we call the Hilbert space \m {\MB {K}^N} over \m {\MB {K}} to be \m {\MB {V}_{\MB {K}} \SB {N}}.
-We also call the collection of \m {M} by \m {N} matrices to be \m {\MB {M}_{\MB {K}} \SB {M,N}}, and its role as linear transformation is understood.
+Of course, scalar operation on \m {\Mb {R}^N} is over field \m {\Mb {R}}, and that on \m {\Mb {C}^N} is over field \m {\Mb {C}}.
+We use \m {\Mb {K}} to refer to either \m {\Mb {R}} or \m {\Mb {C}}.
+Not to avoid confusion, we call the Hilbert space \m {\Mb {K}^N} over \m {\Mb {K}} to be \m {\Mb {V}_{\Mb {K}} \SB {N}}.
+We also call the collection of \m {M} by \m {N} matrices to be \m {\Mb {M}_{\Mb {K}} \SB {M,N}}, and its role as linear transformation is understood.
 Inner product of \m {\V {a}} and \m {\V {b}} is denoted as \m {\IP { \V {a}, \V {b} }}.
 Slightly abusing notation, we denote as \m {\V {a} \DB {n}} the \m {n}-th component of \m {\V {a}}, and denote as \m {\V {A} \DB {m,n}} the \m {\DB {m,n}}-entry of \m {\V {A}}
 Particularly, \m {\V {u}_n} is the \m {n}-th unit vector in the Cartesian coordinates (not to be confused with the noise).
 \m {\VNm {\V {a}} _p} denotes the \m {\ell_p}-norm of vector \m {\V {a}}.
 Recall that \m {\ell_\infty}-norm is the maximum-magnitude norm.
 
-Denote as \m {\MB {P} \SB {X}} the probability, and \m {\MB {E} \SB {X}} the expectation.
+Denote as \m {\Mb {P} \SB {X}} the probability, and \m {\Mb {E} \SB {X}} the expectation.
 Since our discussion involving the entire communication system will get very complicated, we may spell out the dependence of event space index on random variables.
 
 \stopsection
@@ -47,11 +47,11 @@ In addition, the smaller closer spaced antennae makes it possible to increase th
 Consequently, this article considers MIMO in the millimeter r\`egime.
 
 The figure of merit of a MIMO system is usually considered to be the channel capacity.
-In vague terms, the capacity \m {C} of a MIMO channel \m {\M {H}} at perfect channel state information is well-known to be roughly in the form \m {\log \det \RB {I +\RM {SNR}}}, but that knowledge is hardly always available.
+In vague terms, the capacity \m {C} of a MIMO channel \m {\M {H}} at perfect channel state information is well-known to be roughly in the form \m {\log \det \RB {I +\Mr {SNR}}}, but that knowledge is hardly always available.
 What makes things more difficult is the case that \m {\M {H}} is determined from not only the noise itself, but also inherent parameter --- such as, in our case, as shall be seen, the angle of departure and arrival.
 It is pointed out that the capacity written in explicit dependence of such parameters is a difficult and long-standing problem (Goldsmith et.\ al.\ 2003).
 Nevertheless, the perfect-channel-state-information expression of channel capacity is often used regardless of these issues.
-Indeed, analysis of precoding algorithm, for example, usually makes use of the sum rate \m {\log \det \RB {I +\RM {SNR}}}.
+Indeed, analysis of precoding algorithm, for example, usually makes use of the sum rate \m {\log \det \RB {I +\Mr {SNR}}}.
 
 Therefore the real-time estimation, \m {\hat {\M {H}}}, of \m {\M {H}} is of paramount importance.
 Needless to say, when the \m {\hat {\M {H}}} is imprecise, resulting analysis is also undermined.
@@ -65,7 +65,7 @@ A design of new algorithms that addressed these issues is thus necessary.
 It is a recent developement that the estimation of channels is facilitated by advances of compressed sensing.
 A series of paper by Cand\`es and Tao (2006) marks its advent.
 
-To motivate their work, note that it is a common situation in statsitical applications that the number of model parameters \m {N_p \in \MB {N}} is much larger than the number of measurements \m {N_m \in \MB {N}}, namely,
+To motivate their work, note that it is a common situation in statsitical applications that the number of model parameters \m {N_p \in \Mb {N}} is much larger than the number of measurements \m {N_m \in \Mb {N}}, namely,
 %
 \Disp {
 \NC N_p \gg N_m \NR
@@ -90,63 +90,36 @@ In this article we focuss on DS, and we introduce several notions before we desc
 To facilitate reader's understanding, in this section we will consistently use \m {N_p} and \m {N_m} to denote matrix dimensions.
 Following Cand\`es and Tao, we borrow the term ``support'' from the context of analysis, where it denotes the set on which a function is nonzero.
 
-We will use \m {T \RB {N_m} =\{1, \dots, N_m\}} to denote the support of \m {\MB {V}_{\MB {K}} \SB {N_m}}.
+For brevity, we will use \m {T \RB {N_m} =\{1, \dots, N_m\}} to denote the support of \m {\Mb {V}_{\Mb {K}} \SB {N_m}}.
+Also, suppose \m {\M {A} \in \Mb {M}_{\Mb {K}} \SB {N_m, N_p}}.
+Let \m {\Mc {T} \subset T \RB {N_p}}.
+Denote as \m {\M {A}_{\Mc {T}}} the columns of \m {\M {A}} having indices in \m {\Mc {T}}.
 
 \Result
 {Definition}
 {
-Suppose \m {\M {A} \in \MB {M}_{\MB {K}} \SB {N_m, N_p}}.
-Let \m {\MC {T} \subset T \RB {N_p}}.
-Denote as \m {\M {A}_{\MC {T}}} the columns of \m {\M {A}} having indices in \m {\MC {T}}.
-}
-
-\Result
-{Definition}
-{
-\m {x \in \MB {V}_{\MB {K}} \SB {N_m}} is called \m {s}-sparse with support \m {\MC {A}}, \m {s <N_m}, if there is \m {\MC {A} \subset T \RB {N_m}} such that
+\m {x \in \Mb {V}_{\Mb {K}} \SB {N_m}} is called \m {s}-sparse with support \m {\Mc {A}}, \m {s <N_m}, if there is \m {\Mc {A} \subset T \RB {N_m}} such that
 %
 \Disp { 
-\NC x_{T\SB {N} -\MC {A}}
+\NC x_{T\SB {N} -\Mc {A}}
 =\NC \V {0} \NR
 }
 with
 \Disp { 
-\NC \# \MC {A} \leq s. \NR
+\NC \# \Mc {A} \leq s. \NR
 }
 That is, only at most \m {s} components of \m {x} is nonzero.
 }
 
 \Result
-{Program}
-{
-Let \m {P \in \MB {M}_\MB {K} \SB {N_m, N_p}} and \m {y \in \MB {V}_\MB {K} \SB {N_p}} be given.
-Find \m {h \in \MB {V}_\MB {K} \SB {N_p}} with
-%
-\Disp {
-\NC
-h
-= \NC \startcases
-\NC \Min {h'}
-\quad \MC \VNm {h'} _1 \NR[+]
-\NC \RM {subject} \; \RM {to}
-\quad \MC P h' =y \NR
-\stopcases \NR
-}
-}
-
-Now let \m {y =P h}.
-Suppose \m {h} is \m {s}-sparse, then the program () completely recovers \m {h}.
-That is, a noiseless linear transformation of a sparse vector is completely recovered by a \m {\ell_1}-minimization program with an overwhelming probability.
-
-\Result
 {Definition}
 {
-Consider \m {P \in \MB {M}_{\MB {K}} \SB {N_m, N_p}}, with unity-\m {\ell_2}-norm columns.
-For \m {s =1, \dots N_p}, we say that \m {P} satisfies the restricted isometry property (RIP) of sparsity \m {s} with respect to \m {0 \leq \d_s \leq 1}, if, for all \m {s}-sparse \m {\V {x} \in \MB {V}_{\MB {K}} \SB {N_p}}, for all \m {\MC {T} \subset T\SB {N_m}} with \m {\#\{\MC {T} \} \leq s},
+Consider \m {P \in \Mb {M}_{\Mb {K}} \SB {N_m, N_p}}, with unity-\m {\ell_2}-norm columns.
+For \m {s =1, \dots N_p}, we say that \m {P} satisfies the restricted isometry property (RIP) of sparsity \m {s} with respect to \m {0 \leq \d_s \leq 1}, if, for all \m {s}-sparse \m {\V {x} \in \Mb {V}_{\Mb {K}} \SB {N_p}}, for all \m {\Mc {T} \subset T\SB {N_m}} with \m {\#\{\Mc {T} \} \leq s},
 %
 \Disp {
 \NC \NC \RB {1-\d_s} \VNm {V {x}}^2 \NR
-\NC \leq \NC \VNm {P_{\MC {T}} \V {x}} _2^2 \NR
+\NC \leq \NC \VNm {P_{\Mc {T}} \V {x}} _2^2 \NR
 \NC \leq \NC \RB {1+\d_s} \VNm {\V {x}} _2^2 \NR[+]
 }
 }
@@ -163,22 +136,22 @@ where (w.l.o.g.) \m {z} is an i.i.d.\ normalized Gaussian vector.
 How can we hope to estimate \m {h} when, in addition to insufficient observations, there are too few observations?
 
 \Result
-{Program}
+{Algorithm}
 {
-Let \m {\M {P} \in \MB {V}_\MB {R} \SB {N_m, N_p}} and \m {\V {y} \in \MB {V}_\MB {R} \SB {N_m}} be given.
-Find \m {\V {h} \in \MB {V}_\MB {R} \SB {N_m}} by
-%
-
+\startitemize[n]
+\item Input \m {\M {P} \in \Mb {V}_\Mb {R} \SB {N_m, N_p}}, \m {\V {y} \in \Mb {V}_\Mb {R} \SB {N_m}}.
+\item Find \m {\V {h} \in \Mb {V}_\Mb {R} \SB {N_m}} by
 \Disp {
 \NC \V {h}
 = \NC \startcases
 \NC \Min {\V {h}'} \quad \MC \VNm {\V {h}'} _1 \NR
-\NC \RM {subject} \; \RM {to} \quad \MC \VNm {\M {P}^\H \RB {\M {P} \V {h} -\V {y}}} _\infty \leq \gamma \NR
+\NC \Mr {subject} \; \Mr {to} \quad \MC \VNm {\M {P}^\Adj \RB {\M {P} \V {h} -\V {y}}} _\infty \leq \gamma \NR
 \stopcases \NR
 }
+\item Output \m {\V {h}}.
 }
 
-They was able to show that, with Program (), the mean square error is bounded with overwhelming probability.
+They was able to show that, with Algorithm (), the mean square error is bounded with overwhelming probability.
 And it can be shown that this \m {\ell_1}-minimization problem with \m {\ell_\infty}-constraint may be recast as a linear program (LP), lending convex programming technique applicable.
 Note that they confined their discussion for real vectors.
 
@@ -194,11 +167,11 @@ But later, Baraniuk (2008) have found there is a particularly convenient suffici
 \Result
 {Theorem}
 {
-Let each entry of random matrix \m {P \in \MB {M}_\MB {K} \SB {N_m, N_p}} be defined as i.i.d.\ Bernoulli with value \m {\pm 1/\R {N_m}} (that is, Rademacher distribution).
+Let each entry of random matrix \m {P \in \Mb {M}_\Mb {K} \SB {N_m, N_p}} be defined as i.i.d.\ Bernoulli with value \m {\pm 1/\R {N_m}} (that is, Rademacher distribution).
 Then, with \m {0 <\epsilon <1},
 %
 \Disp {
-\NC \NC \MB {P} \SB { \Nm {\VNm {P h} _2^2 -\VNm {h}_2^2} \geq \epsilon \VNm {h} _2^2} \NR
+\NC \NC \Mb {P} \SB { \Nm {\VNm {P h} _2^2 -\VNm {h}_2^2} \geq \epsilon \VNm {h} _2^2} \NR
 \NC \leq \NC 2 \exp \SB {-n \RB {\epsilon^2/4 -\epsilon^3/6} } \NR
 }
 }
@@ -226,7 +199,7 @@ Then Bajwa et.\ al.\ was able to show that, \m {X} is RIP of overwhelmingly prob
 
 Around that time, Tropp and Gilbert (2007b) points out if we apply a greedy algorithm called Orthogonal Matching Pursuit (OMP), that an i.i.d.\ random matrix being generated the similar way as Baraniuk (2008) suggested, may perform sufficiently well, even recover the original signal in an overwhemingly probability too.
 
-Same as before, consider \m {\V {y} \in \MB {V}_\MB {K} \SB {N_p}}, \m {\V {h} \in \MB {V}_\MB {K} \SB {N_s}}, where \m {\V {h}} is \m {s}-sparse, with \m {N_p \gg N_s}.
+Same as before, consider \m {\V {y} \in \Mb {V}_\Mb {K} \SB {N_p}}, \m {\V {h} \in \Mb {V}_\Mb {K} \SB {N_s}}, where \m {\V {h}} is \m {s}-sparse, with \m {N_p \gg N_s}.
 If
 \Disp {
 \NC \V {y} =\M {P} \V {h}, \NR
@@ -269,21 +242,21 @@ Let signal \m {\V {x}} be sent, and \m {\V {y}} be receiverd, that is
 \Result
 {Definition}
 {
-Define \m {\RM {vec} \SB {\M {A}} \in \MB {K}^{NM}} to be the vectorization of \m {\M {A} \in \MB {M}_{\MB {K}} \SB {N,M}}.
+Define \m {\Mr {vec} \SB {\M {A}} \in \Mb {K}^{NM}} to be the vectorization of \m {\M {A} \in \Mb {M}_{\Mb {K}} \SB {N,M}}.
 }
 
 \Result
 {Definition.}
 {
-For \m {\RM {vec} \SB {A} \in \MB {M}_{\MB {K}} \SB {N,M}} and \m {\RM {vec} \SB {A} \in \MB {M}_{\MB {K}} \SB {N,M}}
-Define the Kronecker product \m {\RM {vec} \SB {A} \in \MB {K}^{nm}} 
+For \m {\Mr {vec} \SB {A} \in \Mb {M}_{\Mb {K}} \SB {N,M}} and \m {\Mr {vec} \SB {A} \in \Mb {M}_{\Mb {K}} \SB {N,M}}
+Define the Kronecker product \m {\Mr {vec} \SB {A} \in \Mb {K}^{nm}} 
 }
 
 With (), scholars often exploit the relation
 %
 \Disp {
-\NC \RM {vec} \SB {Y}
-=\big[ \RB {F^\H} \otimes W \big] \RM {vec} \RB {\M {H}} \NR
+\NC \Mr {vec} \SB {Y}
+=\SB {\RB {F^\Adj} \otimes W} \Mr {vec} \RB {\M {H}} \NR
 }
 %
 
