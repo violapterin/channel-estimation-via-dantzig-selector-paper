@@ -88,7 +88,7 @@ utilitydata.structures.counters.collected={
   { 0 },
  },
  ["formula"]={
-  { 0, 0, 0, 0, 11, 32, 42, 16, 0, 0 },
+  { 0, 0, 0, 0, 11, 32, 42, 30, 0, 0 },
  },
  ["graphic"]={
   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -98,7 +98,7 @@ utilitydata.structures.counters.collected={
  },
  ["itemgroup:itemize"]={
   { 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-  { 0, 1, 5, 4, 0, 0, 5, 0, 0, 3, 0, 0, 4, 0, 0, 0, 0, 24 },
+  { 0, 1, 5, 4, 0, 0, 5, 0, 0, 3, 0, 0, 8, 0, 0, 0, 0, 24 },
  },
  ["linenote"]={
   { 0 },
@@ -107,7 +107,7 @@ utilitydata.structures.counters.collected={
   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
  },
  ["realpage"]={
-  { 38 },
+  { 39 },
  },
  ["subpage"]={
   { 1 },
@@ -116,7 +116,7 @@ utilitydata.structures.counters.collected={
   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
  },
  ["userpage"]={
-  { 37 },
+  { 38 },
  },
 }
 
@@ -130,7 +130,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="frontpart",
    ["internal"]=1,
-   ["realpage"]=3,
+   ["realpage"]=2,
    ["reference"]="content",
    ["section"]=1,
   },
@@ -144,7 +144,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=2,
-   ["realpage"]=5,
+   ["realpage"]=4,
    ["section"]=2,
   },
   ["titledata"]={
@@ -158,7 +158,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=3,
-   ["realpage"]=6,
+   ["realpage"]=5,
    ["section"]=3,
   },
   ["titledata"]={
@@ -172,7 +172,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=4,
-   ["realpage"]=7,
+   ["realpage"]=6,
    ["section"]=4,
   },
   ["titledata"]={
@@ -186,7 +186,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=5,
-   ["realpage"]=7,
+   ["realpage"]=6,
    ["section"]=5,
   },
   ["titledata"]={
@@ -200,7 +200,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=6,
-   ["realpage"]=8,
+   ["realpage"]=7,
    ["section"]=6,
   },
   ["titledata"]={
@@ -214,7 +214,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=7,
-   ["realpage"]=9,
+   ["realpage"]=8,
    ["section"]=7,
   },
   ["titledata"]={
@@ -228,7 +228,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=8,
-   ["realpage"]=11,
+   ["realpage"]=10,
    ["section"]=8,
   },
   ["titledata"]={
@@ -242,7 +242,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=9,
-   ["realpage"]=12,
+   ["realpage"]=11,
    ["section"]=9,
   },
   ["titledata"]={
@@ -256,7 +256,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=10,
-   ["realpage"]=12,
+   ["realpage"]=11,
    ["section"]=10,
   },
   ["titledata"]={
@@ -270,7 +270,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=11,
-   ["realpage"]=14,
+   ["realpage"]=13,
    ["section"]=11,
   },
   ["titledata"]={
@@ -284,7 +284,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=12,
-   ["realpage"]=15,
+   ["realpage"]=14,
    ["section"]=12,
   },
   ["titledata"]={
@@ -298,7 +298,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=13,
-   ["realpage"]=17,
+   ["realpage"]=16,
    ["section"]=13,
   },
   ["titledata"]={
@@ -312,7 +312,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=14,
-   ["realpage"]=17,
+   ["realpage"]=16,
    ["section"]=14,
   },
   ["titledata"]={
@@ -326,7 +326,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=15,
-   ["realpage"]=18,
+   ["realpage"]=17,
    ["section"]=15,
   },
   ["titledata"]={
@@ -340,7 +340,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=16,
-   ["realpage"]=19,
+   ["realpage"]=18,
    ["section"]=16,
   },
   ["titledata"]={
@@ -354,7 +354,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=17,
-   ["realpage"]=19,
+   ["realpage"]=18,
    ["section"]=17,
   },
   ["titledata"]={
@@ -368,7 +368,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=18,
-   ["realpage"]=20,
+   ["realpage"]=19,
    ["section"]=18,
   },
   ["titledata"]={
@@ -382,7 +382,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=19,
-   ["realpage"]=22,
+   ["realpage"]=21,
    ["section"]=19,
   },
   ["titledata"]={
@@ -396,7 +396,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=20,
-   ["realpage"]=22,
+   ["realpage"]=21,
    ["section"]=20,
   },
   ["titledata"]={
@@ -410,7 +410,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=21,
-   ["realpage"]=25,
+   ["realpage"]=24,
    ["section"]=21,
   },
   ["titledata"]={
@@ -424,7 +424,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=22,
-   ["realpage"]=26,
+   ["realpage"]=25,
    ["section"]=22,
   },
   ["titledata"]={
@@ -438,7 +438,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=23,
-   ["realpage"]=29,
+   ["realpage"]=28,
    ["section"]=23,
   },
   ["titledata"]={
@@ -452,7 +452,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=24,
-   ["realpage"]=31,
+   ["realpage"]=30,
    ["section"]=24,
   },
   ["titledata"]={
@@ -466,40 +466,40 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=25,
-   ["realpage"]=31,
+   ["realpage"]=30,
    ["section"]=25,
   },
   ["titledata"]={
    ["label"]="section",
-   ["title"]="Transformation of the Problem",
-  },
- },
- {
-  ["metadata"]=33,
-  ["numberdata"]=53,
-  ["references"]={
-   ["block"]="bodypart",
-   ["internal"]=26,
-   ["realpage"]=31,
-   ["section"]=26,
-  },
-  ["titledata"]={
-   ["label"]="subsection",
    ["title"]="Representation by Real Matrices",
   },
  },
  {
-  ["metadata"]=33,
+  ["metadata"]=8,
+  ["numberdata"]=53,
+  ["references"]={
+   ["block"]="bodypart",
+   ["internal"]=26,
+   ["realpage"]=32,
+   ["section"]=26,
+  },
+  ["titledata"]={
+   ["label"]="section",
+   ["title"]="Second Order Cone Programming",
+  },
+ },
+ {
+  ["metadata"]=8,
   ["numberdata"]=55,
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=27,
-   ["realpage"]=33,
+   ["realpage"]=35,
    ["section"]=27,
   },
   ["titledata"]={
-   ["label"]="subsection",
-   ["title"]="Second Order Cone Problem",
+   ["label"]="section",
+   ["title"]="Simulation",
   },
  },
  {
@@ -508,22 +508,8 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=28,
-   ["realpage"]=34,
+   ["realpage"]=35,
    ["section"]=28,
-  },
-  ["titledata"]={
-   ["label"]="section",
-   ["title"]="Primal-Dual Interior Point Algorithm",
-  },
- },
- {
-  ["metadata"]=8,
-  ["numberdata"]=59,
-  ["references"]={
-   ["block"]="bodypart",
-   ["internal"]=29,
-   ["realpage"]=34,
-   ["section"]=29,
   },
   ["titledata"]={
    ["label"]="section",
@@ -532,12 +518,12 @@ utilitydata.structures.lists.collected={
  },
  {
   ["metadata"]=5,
-  ["numberdata"]=61,
+  ["numberdata"]=59,
   ["references"]={
    ["block"]="bodypart",
-   ["internal"]=30,
-   ["realpage"]=35,
-   ["section"]=30,
+   ["internal"]=29,
+   ["realpage"]=36,
+   ["section"]=29,
   },
   ["titledata"]={
    ["label"]="chapter",
@@ -546,12 +532,12 @@ utilitydata.structures.lists.collected={
  },
  {
   ["metadata"]=1,
-  ["numberdata"]=62,
+  ["numberdata"]=60,
   ["references"]={
    ["block"]="bodypart",
-   ["internal"]=31,
-   ["realpage"]=36,
-   ["section"]=31,
+   ["internal"]=30,
+   ["realpage"]=37,
+   ["section"]=30,
   },
   ["titledata"]={
    ["label"]="chapter",
@@ -567,267 +553,274 @@ utilitydata.structures.pages.collected={
  {
   ["block"]="frontpart",
   ["number"]=1,
-  ["numberdata"]=63,
-  ["prefixdata"]=64,
-  ["state"]="start",
- },
- {
-  ["block"]="frontpart",
-  ["number"]=2,
-  ["numberdata"]=63,
-  ["prefixdata"]=64,
+  ["numberdata"]=61,
+  ["prefixdata"]=62,
   ["state"]="stop",
  },
  {
   ["block"]="frontpart",
-  ["number"]=2,
-  ["numberdata"]=63,
-  ["prefixdata"]=64,
+  ["number"]=1,
+  ["numberdata"]=61,
+  ["prefixdata"]=62,
   ["state"]="start",
  },
  {
   ["block"]="frontpart",
+  ["number"]=2,
+  ["numberdata"]=61,
+  ["prefixdata"]=62,
+  ["state"]="start",
+ },
+ {
+  ["block"]="bodypart",
   ["number"]=3,
-  ["numberdata"]=63,
-  ["prefixdata"]=64,
+  ["numberdata"]=61,
+  ["prefixdata"]=62,
   ["state"]="start",
  },
  {
   ["block"]="bodypart",
   ["number"]=4,
-  ["numberdata"]=63,
-  ["prefixdata"]=64,
+  ["numberdata"]=61,
+  ["prefixdata"]=62,
   ["state"]="start",
  },
  {
   ["block"]="bodypart",
   ["number"]=5,
-  ["numberdata"]=63,
-  ["prefixdata"]=64,
+  ["numberdata"]=61,
+  ["prefixdata"]=62,
   ["state"]="start",
  },
  {
   ["block"]="bodypart",
   ["number"]=6,
-  ["numberdata"]=63,
-  ["prefixdata"]=64,
+  ["numberdata"]=61,
+  ["prefixdata"]=62,
   ["state"]="start",
  },
  {
   ["block"]="bodypart",
   ["number"]=7,
-  ["numberdata"]=63,
-  ["prefixdata"]=64,
+  ["numberdata"]=61,
+  ["prefixdata"]=62,
   ["state"]="start",
  },
  {
   ["block"]="bodypart",
   ["number"]=8,
-  ["numberdata"]=63,
-  ["prefixdata"]=64,
+  ["numberdata"]=61,
+  ["prefixdata"]=62,
   ["state"]="start",
  },
  {
   ["block"]="bodypart",
   ["number"]=9,
-  ["numberdata"]=63,
-  ["prefixdata"]=64,
+  ["numberdata"]=61,
+  ["prefixdata"]=62,
   ["state"]="start",
  },
  {
   ["block"]="bodypart",
   ["number"]=10,
-  ["numberdata"]=63,
-  ["prefixdata"]=64,
+  ["numberdata"]=61,
+  ["prefixdata"]=62,
   ["state"]="start",
  },
  {
   ["block"]="bodypart",
   ["number"]=11,
-  ["numberdata"]=63,
-  ["prefixdata"]=64,
+  ["numberdata"]=61,
+  ["prefixdata"]=62,
   ["state"]="start",
  },
  {
   ["block"]="bodypart",
   ["number"]=12,
-  ["numberdata"]=63,
-  ["prefixdata"]=64,
+  ["numberdata"]=61,
+  ["prefixdata"]=62,
   ["state"]="start",
  },
  {
   ["block"]="bodypart",
   ["number"]=13,
-  ["numberdata"]=63,
-  ["prefixdata"]=64,
+  ["numberdata"]=61,
+  ["prefixdata"]=62,
   ["state"]="start",
  },
  {
   ["block"]="bodypart",
   ["number"]=14,
-  ["numberdata"]=63,
-  ["prefixdata"]=64,
+  ["numberdata"]=61,
+  ["prefixdata"]=62,
   ["state"]="start",
  },
  {
   ["block"]="bodypart",
   ["number"]=15,
-  ["numberdata"]=63,
-  ["prefixdata"]=64,
+  ["numberdata"]=61,
+  ["prefixdata"]=62,
   ["state"]="start",
  },
  {
   ["block"]="bodypart",
   ["number"]=16,
-  ["numberdata"]=63,
-  ["prefixdata"]=64,
+  ["numberdata"]=61,
+  ["prefixdata"]=62,
   ["state"]="start",
  },
  {
   ["block"]="bodypart",
   ["number"]=17,
-  ["numberdata"]=63,
-  ["prefixdata"]=64,
+  ["numberdata"]=61,
+  ["prefixdata"]=62,
   ["state"]="start",
  },
  {
   ["block"]="bodypart",
   ["number"]=18,
-  ["numberdata"]=63,
-  ["prefixdata"]=64,
+  ["numberdata"]=61,
+  ["prefixdata"]=62,
   ["state"]="start",
  },
  {
   ["block"]="bodypart",
   ["number"]=19,
-  ["numberdata"]=63,
-  ["prefixdata"]=64,
+  ["numberdata"]=61,
+  ["prefixdata"]=62,
   ["state"]="start",
  },
  {
   ["block"]="bodypart",
   ["number"]=20,
-  ["numberdata"]=63,
-  ["prefixdata"]=64,
+  ["numberdata"]=61,
+  ["prefixdata"]=62,
   ["state"]="start",
  },
  {
   ["block"]="bodypart",
   ["number"]=21,
-  ["numberdata"]=63,
-  ["prefixdata"]=64,
+  ["numberdata"]=61,
+  ["prefixdata"]=62,
   ["state"]="start",
  },
  {
   ["block"]="bodypart",
   ["number"]=22,
-  ["numberdata"]=63,
-  ["prefixdata"]=64,
+  ["numberdata"]=61,
+  ["prefixdata"]=62,
   ["state"]="start",
  },
  {
   ["block"]="bodypart",
   ["number"]=23,
-  ["numberdata"]=63,
-  ["prefixdata"]=64,
+  ["numberdata"]=61,
+  ["prefixdata"]=62,
   ["state"]="start",
  },
  {
   ["block"]="bodypart",
   ["number"]=24,
-  ["numberdata"]=63,
-  ["prefixdata"]=64,
+  ["numberdata"]=61,
+  ["prefixdata"]=62,
   ["state"]="start",
  },
  {
   ["block"]="bodypart",
   ["number"]=25,
-  ["numberdata"]=63,
-  ["prefixdata"]=64,
+  ["numberdata"]=61,
+  ["prefixdata"]=62,
   ["state"]="start",
  },
  {
   ["block"]="bodypart",
   ["number"]=26,
-  ["numberdata"]=63,
-  ["prefixdata"]=64,
+  ["numberdata"]=61,
+  ["prefixdata"]=62,
   ["state"]="start",
  },
  {
   ["block"]="bodypart",
   ["number"]=27,
-  ["numberdata"]=63,
-  ["prefixdata"]=64,
+  ["numberdata"]=61,
+  ["prefixdata"]=62,
   ["state"]="start",
  },
  {
   ["block"]="bodypart",
   ["number"]=28,
-  ["numberdata"]=63,
-  ["prefixdata"]=64,
+  ["numberdata"]=61,
+  ["prefixdata"]=62,
   ["state"]="start",
  },
  {
   ["block"]="bodypart",
   ["number"]=29,
-  ["numberdata"]=63,
-  ["prefixdata"]=64,
+  ["numberdata"]=61,
+  ["prefixdata"]=62,
   ["state"]="start",
  },
  {
   ["block"]="bodypart",
   ["number"]=30,
-  ["numberdata"]=63,
-  ["prefixdata"]=64,
+  ["numberdata"]=61,
+  ["prefixdata"]=62,
   ["state"]="start",
  },
  {
   ["block"]="bodypart",
   ["number"]=31,
-  ["numberdata"]=63,
-  ["prefixdata"]=64,
+  ["numberdata"]=61,
+  ["prefixdata"]=62,
   ["state"]="start",
  },
  {
   ["block"]="bodypart",
   ["number"]=32,
-  ["numberdata"]=63,
-  ["prefixdata"]=64,
+  ["numberdata"]=61,
+  ["prefixdata"]=62,
   ["state"]="start",
  },
  {
   ["block"]="bodypart",
   ["number"]=33,
-  ["numberdata"]=63,
-  ["prefixdata"]=64,
+  ["numberdata"]=61,
+  ["prefixdata"]=62,
   ["state"]="start",
  },
  {
   ["block"]="bodypart",
   ["number"]=34,
-  ["numberdata"]=63,
-  ["prefixdata"]=64,
+  ["numberdata"]=61,
+  ["prefixdata"]=62,
   ["state"]="start",
  },
  {
   ["block"]="bodypart",
   ["number"]=35,
-  ["numberdata"]=63,
-  ["prefixdata"]=64,
+  ["numberdata"]=61,
+  ["prefixdata"]=62,
   ["state"]="start",
  },
  {
   ["block"]="bodypart",
   ["number"]=36,
-  ["numberdata"]=63,
-  ["prefixdata"]=64,
+  ["numberdata"]=61,
+  ["prefixdata"]=62,
   ["state"]="start",
  },
  {
   ["block"]="bodypart",
   ["number"]=37,
-  ["numberdata"]=63,
-  ["prefixdata"]=64,
+  ["numberdata"]=61,
+  ["prefixdata"]=62,
+  ["state"]="start",
+ },
+ {
+  ["block"]="bodypart",
+  ["number"]=38,
+  ["numberdata"]=61,
+  ["prefixdata"]=62,
   ["state"]="start",
  },
 }
@@ -1141,7 +1134,7 @@ utilitydata.job.packed={
    ["separatorset"]="default",
    ["set"]="all",
   },
-  { 0, 4, 1, 1 },
+  { 0, 4, 2 },
   {
    ["block"]="bodypart",
    ["conversionset"]="default",
@@ -1150,7 +1143,7 @@ utilitydata.job.packed={
    ["separatorset"]="default",
    ["set"]="all",
   },
-  { 0, 4, 1, 2 },
+  { 0, 4, 3 },
   {
    ["block"]="bodypart",
    ["conversionset"]="default",
@@ -1159,7 +1152,7 @@ utilitydata.job.packed={
    ["separatorset"]="default",
    ["set"]="all",
   },
-  { 0, 4, 2 },
+  { 0, 4, 4 },
   {
    ["block"]="bodypart",
    ["conversionset"]="default",
@@ -1168,7 +1161,7 @@ utilitydata.job.packed={
    ["separatorset"]="default",
    ["set"]="all",
   },
-  { 0, 4, 3 },
+  { 0, 5 },
   {
    ["block"]="bodypart",
    ["conversionset"]="default",
@@ -1177,21 +1170,12 @@ utilitydata.job.packed={
    ["separatorset"]="default",
    ["set"]="all",
   },
-  { 0, 5 },
-  {
-   ["block"]="bodypart",
-   ["conversionset"]="default",
-   ["language"]="en",
-   ["numbers"]=60,
-   ["separatorset"]="default",
-   ["set"]="all",
-  },
   {
    ["block"]="bodypart",
    ["conversionset"]="default",
    ["hidenumber"]=true,
    ["language"]="en",
-   ["numbers"]=60,
+   ["numbers"]=58,
    ["separatorset"]="default",
    ["set"]="all",
   },

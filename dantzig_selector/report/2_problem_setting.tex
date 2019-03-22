@@ -125,10 +125,11 @@ However, there is no guarantee, though, that \m {\V {h}} will be sparse.
 Introduce the discrete Fourier matrix \m {\M {K}} defined to be
 \Disp {
 \NC \M {K} \in  \NC \Mb {M}_{\Mb {C}} \SB {N_H, N_H} \NR
-\NC \M {K} \DB {n_1, n_2} = \NC \F {1} {\R {N_H}} \Mr {e}^{2\pi i n_1 n_2 /N_H}, \NR[+]
+\NC \M {K} \DB {n_1, n_2} = \NC \F {1} {\R {N_H}} \Mr {e}^{2\pi \Mr{i} n_1 n_2 /N_H}, \NR[+]
 \NC \quad n_1, n_2 = \NC 0, 1, \dots, N_H-1 \NR
 }
-where recall that we have
+Roman \m{\Mr{e}} and \m{\Mr{i}} denote the natural base and imaginary unit, respectively.
+Here recall that we have
 \Disp{
 \NC \M {K}^\Adj \M {K}
 = \NC \M {I} \NR
@@ -171,13 +172,13 @@ If so, our program reads
 {Algorithm}
 {
 \startitemize[n]
-\item Input \m{\M {P} \in \Mb {M}_{\Mb {C}} \SB {N_y, N_h}}, \m{\V {y} \in \Mb {V}_{\Mb {C}} \SB {N_h}}, \m{\gamma \geq 0}.
+\item Input \m{\M {P} \in \Mb {M}_{\Mb {C}} \SB {N_y, N_h}}, \m{\V {y} \in \Mb {V}_{\Mb {C}} \SB {N_h}}, \m{\g \geq 0}.
 \item Calculate
 \Disp {
 \NC \Hat {\V {g}}
 = \NC \startcases
 \NC \Min {\V {g}' \in \Mb {V}_{\Mb {C}} \SB {N_h}}  \MC \VNm {\V {g}'} _1 \NR[+]
-\NC \Mr {subject} \; \Mr {to} \quad  \MC \VNm {\M {P}^\Adj \RB {\V {y} -\M {P} \V {g}'}} _\infty \leq \gamma \NR
+\NC \Mr {subject} \; \Mr {to} \quad  \MC \VNm {\M {P}^\Adj \RB {\V {y} -\M {P} \V {g}'}} _\infty \leq \g \NR
 \stopcases \NR
 }
 \item Convert \m {\Hat {\V {g}}} back to the space domain, namely

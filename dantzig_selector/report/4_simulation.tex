@@ -1,0 +1,280 @@
+\startchapter [title={Simulation}]
+
+With the preperation of notation in the previous section, and a discussion on its theory, we shall now formulate our algorithm and focus on the practical aspect.
+
+As of now, we have transformed the sparse-recovery problem of complex matrix \m {H} to complex vector \m {h}, and finally to real vector \m {\Mc {R} \SB {h}}.
+But it is not the end.
+In fact, Cand\`es and Tao's analysis in ``\m {\ell_1}-MAGIC'' transforms DS into a linear program (LP), but that does not directly applies
+Actually they pointed out that complex DS may be cast into a second order cone program (SOCP), but (as they admit in the paper) they did not pursue the matter.
+Since the proof is, for the present purpose, not entirely trivial, we include here for completeness of exposition.
+Thus our proposed algorithm is not a corollary of the DS program outlines in ``\m {\ell_1}-MAGIC''.
+
+\startsection [title={Representation by Real Matrices}]
+
+Since our setting is slightly different from ``\m {\ell_1}-MAGIC'', for completeness of exposition we write down derivation of the dual problem from the primal problem, as follows.
+Recapitulate that, as we explained in the above, DS involves the calculation of \m {\ell_1}-1 norm.
+This, for real vectors, can be transformed into a linear program (LP).
+But in the complex case, that becomes a quadratic expression of the real and imaginary part of the vector, and is no longer equivalent to an LP.
+Still, the comparison arising from primal-dual problem is not easily done in complex numbers, and we cast it into a real \m {\ell_1}-1 norm problem.
+Afterwards we will further transform the SOCP to a primal-dual algorithm, which is a well-known technique for convex optimization problems.
+The bound in the previous section is valid, since in the course of transformation, nothing is lost or weakened.
+
+For convenience, define the following real representation function for complex vectors.
+
+\Result
+{Definition}
+{
+For \m {x \in \Mb {V} \SB {M}}, we say that \m {\Mc {R} \SB {x}} is the real representation of \m {x}, defined by
+%
+\Disp {
+\NC \Mc {R} \SB {x} \in \NC \Mb {V} \SB {2M} \NR[+]
+\NC \Mc {R} \SB {x} \DB {m} =
+\NC \startcases
+\NC \Mf {Re} \SB {x \DB {m'}}, \MC m =2m' \NR
+\NC \Mf {Im} \SB {x \DB {m'}}, \MC m =2m'+1 \NR
+\stopcases \NR[+]
+\NC m' \NC =  1, \dots, M \NR
+}
+%
+}
+
+A moment's reflection reveals the corresponding definition of real representation of matrices.
+
+\Result
+{Definition}
+{
+For \m {A \in \Mb {M}_{\Mb {C}} \SB {M_1, M_2}}, we say that \m {\Mc {R} \SB {A}} is the real representation of \m {A}, defined by
+%
+\Disp {
+\NC \Mc {R} \SB {A} \in \NC \Mb {M}_{\Mb {R}} \SB {2M_1, 2M_2} \NR[+]
+\NC \Mc {R} \SB {A} \DB {m_1,m_2} =
+\NC \startcases
+\NC \Mf {Re} \SB {A \DB {m_1',m_2'}}, \MC (m_1, m_2) = (2m_1'-1, 2m_2'-1) \NR
+\NC \Mf {Im} \SB {A \DB {m_1',m_2'}}, \MC (m_1, m_2) = (2m_1', 2m_2'-1) \NR
+\NC -\Mf {Im} \SB {A \DB {m_1',m_2'}}, \MC (m_1, m_2) = (2m_1'-1, 2m_2') \NR
+\NC \Mf {Re} \SB {A \DB {m_1',m_2'}}, \MC (m_1, m_2) = (2m_1', 2m_2') \NR
+\stopcases \NR[+]
+\NC m_1' \NC = 1, \dots, M_1 \NR
+\NC m_2' \NC = 1, \dots, M_2 \NR
+}
+%
+}
+
+We continue the notation of program ().
+
+%
+\Disp {
+\NC \T {\V {y}}
+\NC = \Mc {R} \SB {\V {y}}
+\in \Mb {V}_{\Mb {R}} \SB {2N_y} \NR[+]
+\NC \T {\V {g}}
+\NC = \Mc {R} \SB {\V {g}}
+\in \Mb {V}_{\Mb {R}} \SB {2N_h} \NR[+]
+\NC \T {\M {P}}
+\NC = \Mc {R} \SB {\M {P}}
+\in \Mb {M}_{\Mb {R}} \SB {2N_y, 2N_h} \NR[+]
+\NC \T {\V {z}}
+\NC = \Mc {R} \SB {\V {z}} \in \Mb {V}_{\Mb {R}} \SB {2N_y} \NR[+]
+}
+%
+such that, by construction,
+%
+\Disp {
+\NC \V {\T {y}} \NC = \M {\T {P}} \V {\T {g}} +\V {\T {z}}
+}
+%
+
+Finally, introduce the following matrices to identify the components where we want to take \m {\ell_2}-norm, in the manner similar to an indicator function.
+
+%
+\Disp {
+\NC {\V {u}}_{n_h}^{(h)} \in \NC \Mb {V}_{\Mb {R}} \SB {N_h} \NR[+]
+\NC {\V {u}}_{n_h}^{(h)} \DB {n_h'}
+\NC =
+\startcases
+1, \quad \MC n_h' =n_h \NR
+0, \quad \NC {\rm otherwise}
+\stopcases \NR[+]
+\NC {\T {\M {U}}}_{n_h}^{(h)} \in \NC \Mb {M}_{\Mb {R}} \SB {2N_h, 2N_h} \NR[+]
+\NC {\T {\M {U}}}_{n_h}^{(h)} \DB {n_h', n_h''}
+\NC =
+\startcases
+1, \quad \MC n_h' =2n_h -1,\; n_h'' =2n_h -1 \NR
+1, \quad \MC n_h' =2n_h,\; n_h'' =2n_h -1 \NR
+1, \quad \MC n_h' =2n_h -1,\; n_h'' =2n_h \NR
+1, \quad \MC n_h' =2n_h,\; n_h'' =2n_h \NR
+0, \quad \NC {\rm otherwise}
+\stopcases \NR[+]
+\NC n_h, n_h', n_h'' \NC = 1, \dots, N_h \NR
+}
+Moreover, denote \m {\V {1}} to be the all-\m{1} vector for short, and \m {\V {0}} the all-\m{0} vector, whose dimension will be specified from context.
+Now, if we introduce vector \m{\V{m}}
+
+\Disp{
+\NC \V {m} \NC \in \Mb {V}_{\Mb {R}} \SB {N_h} \NR[+]
+\NC \V{m} \DB{n_h}
+\NC =\Nm{\V{g} \DB{n_h}} \NR[+]
+\NC n_h, n_h', n_h'' \NC = 1, \dots, N_h \NR
+}
+
+to denote the entrywise complex modulus of \m{\V {g}}, we see that the convex optimization now take the form
+\Disp {
+\NC \Hat {\T {\V {g}}}
+\NC = \startcases
+\NC \Min {\T {\V {g}}', \V {m}} \quad
+\MC \IP { \V {1}, \V {m} } \NR
+\NC \Mr {subject} \; \Mr {to} \quad
+\MC \VNm { \T {\M {U}}_{n_h}^{(h)} \T {\V {g}}' }_2
+\leq \IP { \V {u}_{n_h}, \V {m} } \NR
+\NC \MC \VNm { \T {\M {U}}_{n_h}^{(h)} \T {\M {P}}^\Adj \RB { \T {\M {P}} \T {\V {g}}' -\T {\V {y}} } }_2
+\leq \g \NR
+\stopcases \NR[+]
+\NC n_h \NC = 1, \dots, N_h \NR
+}
+
+\stopsection
+
+\startsection [title={Second Order Cone Programming}]
+
+We shall see furthermore that the program can be cast into an SOCP.
+To make the point clearer, we rewrite Program () into a stricter, extended block matrix form, by defining auxiliary variables with dimension
+
+\Disp{
+\NC \V{t}_i
+\NC \in \Mb {V}_{\Mb {R}} \SB {2N_y +N_h} \NR[+]
+\NC \V{x}_i
+\NC \in \Mb {V}_{\Mb {R}} \SB {2N_y +N_h} \NR[+]
+\NC \M{A}_i
+\NC \in \Mb {M}_{\Mb {R}} \SB {2N_h, 2N_y +N_h} \NR[+]
+\NC \V{b}_i
+\NC \in \Mb {V}_{\Mb {R}} \SB {2N_y +N_h} \NR[+]
+\NC \V{c}_i
+\NC \in \Mb {V}_{\Mb {R}} \SB {2N_h} \NR[+]
+\NC d_i
+\NC \in \Mb {R} \NR[+]
+}
+
+defined below to be
+
+\Disp{
+\NC \V{t}
+\NC =\startthematrix
+\NC \V{0} \NR
+\NC \V{1} \NR
+\stopthematrix \NR[+]
+\NC \V{x}'
+\NC =\startthematrix
+\NC \T {\V {g}}' \NR
+\NC \V{m} \NR
+\stopthematrix \NR[+]
+}
+
+with
+
+\Disp{
+\NC \M{A}_i
+\NC =\startthematrix
+\NC \T {\M {U}}_{n_h}^{(h)}, \NC \M{0} \NR
+\stopthematrix \NR[+]
+\NC \V{b}_i
+\NC =\startthematrix
+\NC \V{0} \NR
+\NC \V{0} \NR
+\stopthematrix \NR[+]
+\NC \V{c}_i
+\NC =\startthematrix
+\NC \V{0} \NR
+\NC \V {u}_{n_h} \NR
+\stopthematrix \NR[+]
+\NC d_i
+\NC =0 \NR[+]
+\NC i \NC =1, 2, \dots, N_h \NR
+}
+
+And
+
+\Disp{
+\NC \M{A}_i
+\NC =\startthematrix
+\NC \T {\M {U}}_{n_h}^{(h)} \T {\M {P}}^\Adj \T {\M {P}}, \NC \M{0} \NR
+\stopthematrix \NR[+]
+\NC \V{b}_i
+\NC =\startthematrix
+\NC -\T {\M {U}}_{n_h}^{(h)} \T {\M {P}}^\Adj \T {\V {y}} \NR
+\NC \V{0} \NR
+\stopthematrix \NR[+]
+\NC \V{c}_i
+\NC =\startthematrix
+\NC \V{0} \NR
+\NC \V{0} \NR
+\stopthematrix \NR[+]
+\NC d_i
+\NC =\g \NR[+]
+\NC i \NC =N_h +1, N_h +2, \dots, N_h +N_y \NR
+}
+
+The step that we convert \m {\Hat {\V {g}}} back is same as Algorithm () is same as before, but this is listed for sake of completeness.
+
+\Result
+{Algorithm}
+{
+\startitemize[n]
+\item Input \m{\M {P} \in \Mb {M}_{\Mb {C}} \SB {N_y, N_h}}, \m{\V {y} \in \Mb {V}_{\Mb {C}} \SB {N_y}}, \m{\g \geq 0}.
+\item Define \m{\V{t}, \V{x}, \M{A}_i, \V{b}_i, \V{c}_i, d_i} according to ().
+\item Calculate
+\Disp{
+\NC \Hat {\V {x}}
+\NC = \startcases
+\NC \Min {\V {x}' \in \Mb {V}_{\Mb {C}} \SB {N_h}}
+\MC \IP {\V {t}, \V {x}'} \NR[+]
+\NC \Mr {subject} \; \Mr {to}
+\quad  \MC \VNm {\M {A} _{i} \V {x}' +\V{b} _{i}} _2
+\leq \IP {\V{c}_{i}, \V {x}'} +\V{d}_i \NR
+\NC \MC i =1, 2, \dots, N_y +N_h \NR
+\stopcases \NR[+]
+}
+\item Extract
+\Disp{
+\NC \Hat{\T{\V{g}}} =\NC \Hat{\V{x}} \DB {1 : 2N_h} \NR[+]
+}
+\item Convert 
+\Disp{
+\NC \Hat{\V{g}} =\NC \Mc{R} ^{-1} \SB {\Hat{\T{\V{g}}}} \NR[+]
+}
+\item Calculate
+\Disp {
+\NC \Hat {G} =\Mr {vec}^{-1} \SB {\Hat {g}} \NR[+]
+}
+\item Calculate
+\Disp {
+\NC \Hat {\M {H}} =\M {K} \Hat {\M {G}} \M {K}^\Adj \NR[+]
+}
+\item Output \m {\Hat {\M {H}}}.
+\stopitemize
+}
+
+\stopsection
+
+\startsection [title={Simulation}]
+
+One can convert primal-dual interior point algorithm to make the SOCP easier to calculate.
+We mention, again, Boyd and Vandenberghe (2004), {\it Convex Optimization} chap.\ 11 as a standard reference, and ``\m {\ell_1}-MAGIC'' (Cand\`es and J Romberg 2005) for discussion of SOCP applied to DS.
+
+However, for brevity we use Python Library CVXPY to solve the SOCP.
+
+\stopsection
+
+\startsection [title={Discussion}]
+
+
+On the other hand, DS goes not without criticism for its large complexity (Friedlander and Saunders 2007).
+Indeed it is clear, even from the primal-dual implementation above, that DS requires memory for large dimensional vector, but OMP does not.
+
+And a meaningful comparison of bounds of OMP and DS is not easy, as their settings are somewhat different.
+The author thus criticises the tendency of current literature to mix up results for DS and OMP without clear justification.
+Indeed, DS calls for a RIP matrix and guarantees such performance even in noisy observation (Cand\`es and Tao 2005, 2007), while RIP is not easily to justify rigorously, and its easy construction is even an open problem.
+On the other hand, as of OMP, besides the original justification of entrywise i.i.d.\ Gaussian sensing matrix (Tropp and Gilbert 2007a), and existent attempt to characterize MIP condition, there is much to be done OMP for Gaussian.
+
+\stopsection
+
+\stopchapter

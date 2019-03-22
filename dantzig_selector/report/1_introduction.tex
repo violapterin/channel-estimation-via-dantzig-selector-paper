@@ -145,7 +145,7 @@ How can we hope to estimate \m {h} when, in addition to insufficient observation
 \NC \V {h}
 = \NC \startcases
 \NC \Min {\V {h}'} \quad \MC \VNm {\V {h}'} _1 \NR
-\NC \Mr {subject} \; \Mr {to} \quad \MC \VNm {\M {P}^\Adj \RB {\M {P} \V {h} -\V {y}}} _\infty \leq \gamma \NR
+\NC \Mr {subject} \; \Mr {to} \quad \MC \VNm {\M {P}^\Adj \RB {\M {P} \V {h} -\V {y}}} _\infty \leq \g \NR
 \stopcases \NR
 }
 \item Output \m {\V {h}}.
@@ -168,11 +168,11 @@ But later, Baraniuk (2008) have found there is a particularly convenient suffici
 {Theorem}
 {
 Let each entry of random matrix \m {P \in \Mb {M}_\Mb {K} \SB {N_m, N_p}} be defined as i.i.d.\ Bernoulli with value \m {\pm 1/\R {N_m}} (that is, Rademacher distribution).
-Then, with \m {0 <\epsilon <1},
+Then, with \m {0 <\e <1},
 %
 \Disp {
-\NC \NC \Mb {P} \SB { \Nm {\VNm {P h} _2^2 -\VNm {h}_2^2} \geq \epsilon \VNm {h} _2^2} \NR
-\NC \leq \NC 2 \exp \SB {-n \RB {\epsilon^2/4 -\epsilon^3/6} } \NR
+\NC \NC \Mb {P} \SB { \Nm {\VNm {P h} _2^2 -\VNm {h}_2^2} \geq \e \VNm {h} _2^2} \NR
+\NC \leq \NC 2 \exp \SB {-n \RB {\F {\e ^2} {4} -\F {\e ^3} {6}} } \NR
 }
 }
 

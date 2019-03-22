@@ -1,14 +1,13 @@
 % TODO:
-% Don't start chapters at new pages
-% Larger font
-% Larger line spacing
-% Chinese font?
-% Font mixing mechanism
+% Larger font, Larger line spacing
+% Chinese font? Font mixing mechanism?
 % `\notag` equivalent
 % Table of contents: wider vertical spacing? Font?
-% Move `\hat` up
-% Different font for `\mathcal` (`\definefallbackfamily`?)
 % Why is the first page blank?
+% Urls can't wrap
+% Tilde & Hat scaling: still compilation error
+% Page break for multiple equations
+% Book title: wider line spacing?
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
@@ -22,25 +21,27 @@
 %       %s/\(\a\) }/\1}/g
 %       %s/{ \(\a\)/{\1/g
 %       %s/\([}\a]\)_/\1 _/g
-:       %s/(\(.\{-}\))/\\RB{\1}/gc
-:       %s/(\(.\{-}\))/\\SB{\1}/gc
+%       %s/(\(.\{-}\))/\\RB{\1}/gc
+%       %s/(\(.\{-}\))/\\SB{\1}/gc
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
 \define [1] {\Disp} {\placeformula \startformula \startalign #1 \stopalign \stopformula}
 
-\define {\Adj} {\dagger}
-\define {\Tr} {\intercal}
+\define {\g} {\gamma}
 \define {\d} {\delta}
+\define {\e} {\epsilon}
 \define {\f} {\varphi}
 \define {\th} {\vartheta}
 \define {\O} {\Omega}
 \define {\o} {\omega}
+\define {\Adj} {\dagger}
+\define {\Tr} {\intercal}
 
-\define [1] {\Mb} {{\mathbb {#1}}}
-\define [1] {\Mc} {{\mathcal {#1}}}
-\define [1] {\Mf} {{\mathfrak {#1}}}
-\define [1] {\Mr} {{\mathrm {#1}}}
+\define [1] {\Mb} {{\mathblackboard {#1}}}
+\define [1] {\Mc} {{\mathscript {#1}}}
+\define [1] {\Mf} {{\mathfraktur {#1}}}
+\define [1] {\Mr} {{\rm {#1}}}
 
 \define [1] {\RB} {\left( #1 \right)}
 \define [1] {\SB} {\left[ #1 \right]}
@@ -50,19 +51,21 @@
 \define [1] {\VNm} {\left \Vert #1 \right \Vert}
 
 \define [1] {\R} {{\sqrt {#1}}}
-\define [1] {\T} {\tilde {\blackrule [width=0ex, height=1.7ex] #1}}
-\define [1] {\Hat} {\hat {\blackrule [width=0ex, height=1.7ex] #1}}
+\define [2] {\F} {{\frac {#1}{#2}}}
+\define [1] {\Min} {\underset {#1} {{\rm min}}}
 \define [1] {\IP} {\left \langle #1 \right \rangle}
 \define [1] {\V} {\underline {#1 \mkern -1mu} \mkern 2mu}
-\define [1] {\M} {\underline {{\underline {#1 \mkern -1mu} \mkern2mu} \mkern-2mu} \mkern2mu}
-\define [1] {\Min} {\underset {#1} {{\rm min}}}
-\define [2] {\F} {{\frac {#1}{#2}}}
+\define [1] {\M} {\underline {{\underline {#1 \mkern -1mu} \mkern 2mu} \mkern -2mu} \mkern 2mu}
+\define [1] {\T} {\tilde {\vphantom {\overline{#1}} #1}}
+\define [1] {\Hat} {\hat {\vphantom {\overline{#1}} #1}}
+
+\definemathmatrix[thematrix][left={\left[}, right={\right]}]
 
 \definecounter [NumResult] [start=0, way=text]
 \define [0] {\TheCount}
-{%
-   \incrementcounter [NumResult]%
-   {\bf \rawcountervalue [NumResult]}%
+{
+   \incrementcounter [NumResult]
+   {\bf \rawcountervalue [NumResult]}
 }
 
 \define[2] {\Result}
@@ -84,8 +87,15 @@
 \definefontfamily [MainFace] [rm] [TeX Gyre Pagella]
 \definefontfamily [MainFace] [ss] [TeX Gyre Heros]
 \definefontfamily [MainFace] [tt] [TeX Gyre Cursor] [features=none]
-\definefontfamily [MainFace] [mm] [Tex Gyre Pagella Math]
+\definefallbackfamily [MainFace] [mm] [TeX Gyre DejaVu Math] [force=yes,range=uppercasescript]
+\definefallbackfamily [MainFace] [mm] [TeX Gyre DejaVu Math] [force=yes,range=lowercasescript]
+\definefontfamily [MainFace] [mm] [TeX Gyre Pagella Math]
+
 \setupbodyfont [MainFace, 12pt]
+
+%\m{\Mc{ABCDEFGHIJKLKMNOPQRSTUVWXYZ}}
+%\m{\Mc{abcdefghijklkmnopqrstuvwxyz}}
+
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
