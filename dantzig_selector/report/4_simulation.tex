@@ -27,7 +27,8 @@ For convenience, define the following real representation function for complex v
 For \m {x \in \Mb {V} \SB {M}}, we say that \m {\Mc {R} \SB {x}} is the real representation of \m {x}, defined by
 %
 \Disp {
-\NC \Mc {R} \SB {x} \in \NC \Mb {V} \SB {2M} \NR[+]
+\NC \Mc {R} \SB {x}
+\in \NC \Mb {V} \SB {2M} \NR
 \NC \Mc {R} \SB {x} \DB {m} =
 \NC \startcases
 \NC \Mf {Re} \SB {x \DB {m'}}, \MC m =2m' \NR
@@ -46,7 +47,8 @@ A moment's reflection reveals the corresponding definition of real representatio
 For \m {A \in \Mb {M}_{\Mb {C}} \SB {M_1, M_2}}, we say that \m {\Mc {R} \SB {A}} is the real representation of \m {A}, defined by
 %
 \Disp {
-\NC \Mc {R} \SB {A} \in \NC \Mb {M}_{\Mb {R}} \SB {2M_1, 2M_2} \NR[+]
+\NC \Mc {R} \SB {A}
+\in \NC \Mb {M}_{\Mb {R}} \SB {2M_1, 2M_2} \NR
 \NC \Mc {R} \SB {A} \DB {m_1,m_2} =
 \NC \startcases
 \NC \Mf {Re} \SB {A \DB {m_1',m_2'}}, \MC (m_1, m_2) = (2m_1'-1, 2m_2'-1) \NR
@@ -65,16 +67,21 @@ We continue the notation of program ().
 %
 \Disp {
 \NC \T {\V {y}}
-\NC = \Mc {R} \SB {\V {y}}
-\in \Mb {V}_{\Mb {R}} \SB {2N_y} \NR[+]
+\in \NC \Mb {V}_{\Mb {R}} \SB {2N_y} \NR
+\NC \T {\V {y}}
+\NC = \Mc {R} \SB {\V {y}} \NR[+]
 \NC \T {\V {g}}
-\NC = \Mc {R} \SB {\V {g}}
-\in \Mb {V}_{\Mb {R}} \SB {2N_h} \NR[+]
+\in \NC \Mb {V}_{\Mb {R}} \SB {2N_h} \NR
+\NC \T {\V {g}}
+\NC = \Mc {R} \SB {\V {g}} \NR[+]
 \NC \T {\M {P}}
-\NC = \Mc {R} \SB {\M {P}}
-\in \Mb {M}_{\Mb {R}} \SB {2N_y, 2N_h} \NR[+]
+\in \NC \Mb {M}_{\Mb {R}} \SB {2N_y, 2N_h} \NR
+\NC \T {\M {P}}
+\NC = \Mc {R} \SB {\M {P}} \NR[+]
 \NC \T {\V {z}}
-\NC = \Mc {R} \SB {\V {z}} \in \Mb {V}_{\Mb {R}} \SB {2N_y} \NR[+]
+\in \NC \Mb {V}_{\Mb {R}} \SB {2N_y} \NR
+\NC \T {\V {z}}
+\NC = \Mc {R} \SB {\V {z}} \NR[+]
 }
 %
 such that, by construction,
@@ -88,14 +95,14 @@ Finally, introduce the following matrices to identify the components where we wa
 
 %
 \Disp {
-\NC {\V {u}}_{n_h}^{(h)} \in \NC \Mb {V}_{\Mb {R}} \SB {N_h} \NR[+]
+\NC {\V {u}}_{n_h}^{(h)} \in \NC \Mb {V}_{\Mb {R}} \SB {N_h} \NR
 \NC {\V {u}}_{n_h}^{(h)} \DB {n_h'}
 \NC =
 \startcases
 1, \quad \MC n_h' =n_h \NR
 0, \quad \NC {\rm otherwise}
 \stopcases \NR[+]
-\NC {\T {\M {U}}}_{n_h}^{(h)} \in \NC \Mb {M}_{\Mb {R}} \SB {2N_h, 2N_h} \NR[+]
+\NC {\T {\M {U}}}_{n_h}^{(h)} \in \NC \Mb {M}_{\Mb {R}} \SB {2N_h, 2N_h} \NR
 \NC {\T {\M {U}}}_{n_h}^{(h)} \DB {n_h', n_h''}
 \NC =
 \startcases
@@ -111,7 +118,7 @@ Moreover, denote \m {\V {1}} to be the all-\m{1} vector for short, and \m {\V {0
 Now, if we introduce vector \m{\V{m}}
 
 \Disp{
-\NC \V {m} \NC \in \Mb {V}_{\Mb {R}} \SB {N_h} \NR[+]
+\NC \V {m} \NC \in \Mb {V}_{\Mb {R}} \SB {N_h} \NR
 \NC \V{m} \DB{n_h}
 \NC =\Nm{\V{g} \DB{n_h}} \NR[+]
 \NC n_h, n_h', n_h'' \NC = 1, \dots, N_h \NR
@@ -141,17 +148,17 @@ To make the point clearer, we rewrite Program () into a stricter, extended block
 
 \Disp{
 \NC \V{t}_i
-\NC \in \Mb {V}_{\Mb {R}} \SB {2N_y +N_h} \NR[+]
+\NC \in \Mb {V}_{\Mb {R}} \SB {2N_y +N_h} \NR
 \NC \V{x}_i
-\NC \in \Mb {V}_{\Mb {R}} \SB {2N_y +N_h} \NR[+]
+\NC \in \Mb {V}_{\Mb {R}} \SB {2N_y +N_h} \NR
 \NC \M{A}_i
-\NC \in \Mb {M}_{\Mb {R}} \SB {2N_h, 2N_y +N_h} \NR[+]
+\NC \in \Mb {M}_{\Mb {R}} \SB {2N_h, 2N_y +N_h} \NR
 \NC \V{b}_i
-\NC \in \Mb {V}_{\Mb {R}} \SB {2N_y +N_h} \NR[+]
+\NC \in \Mb {V}_{\Mb {R}} \SB {2N_y +N_h} \NR
 \NC \V{c}_i
-\NC \in \Mb {V}_{\Mb {R}} \SB {2N_h} \NR[+]
+\NC \in \Mb {V}_{\Mb {R}} \SB {2N_h} \NR
 \NC d_i
-\NC \in \Mb {R} \NR[+]
+\NC \in \Mb {R} \NR
 }
 
 defined below to be
@@ -243,11 +250,11 @@ The step that we convert \m {\Hat {\V {g}}} back is same as Algorithm () is same
 }
 \item Calculate
 \Disp {
-\NC \Hat {G} =\Mr {vec}^{-1} \SB {\Hat {g}} \NR[+]
+\NC \Hat {G} =\NC \Mr {vec}^{-1} \SB {\Hat {g}} \NR[+]
 }
 \item Calculate
 \Disp {
-\NC \Hat {\M {H}} =\M {K} \Hat {\M {G}} \M {K}^\Adj \NR[+]
+\NC \Hat {\M {H}} =\NC \M {K} \Hat {\M {G}} \M {K}^\Adj \NR[+]
 }
 \item Output \m {\Hat {\M {H}}}.
 \stopitemize

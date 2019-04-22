@@ -107,11 +107,10 @@ Applying the above inequality to the denominator and bounding the nominator by 1
 \quad 0 \leq \f' \leq \pi. \NR
 }
 
-Particularly, for arbitrary \m {\f}, find \m {k} so that
+Particularly, for arbitrary \m {\f}, find \m {k} by
 \Disp {
-\NC \eta := \NC \f -\F {2\pi k}{N_H}, \NR[+]
-\NC \Nm {\eta}
-\leq \NC \F {2\pi}{N_H}. \NR
+\NC \eta := \NC \f \quad \rm{mod}\; (2\pi) \NR[+]
+\NC k := \NC \F {N_H} {2\pi} (\f -\eta) \NR[+]
 }
 %
 Then observe

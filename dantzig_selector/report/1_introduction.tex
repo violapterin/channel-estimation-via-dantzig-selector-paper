@@ -1,6 +1,5 @@
 \startchapter [title={Introduction}]
 
-
 This section is organized as follows.
 Before we start, we introduce our notation in the very beginning, since the literature survery quickly goes into technical details.
 And we first provide the motivation, and then overview the existent literature on channel estimation.
@@ -27,7 +26,9 @@ Not to avoid confusion, we call the Hilbert space \m {\Mb {K}^N} over \m {\Mb {K
 We also call the collection of \m {M} by \m {N} matrices to be \m {\Mb {M}_{\Mb {K}} \SB {M,N}}, and its role as linear transformation is understood.
 Inner product of \m {\V {a}} and \m {\V {b}} is denoted as \m {\IP { \V {a}, \V {b} }}.
 Slightly abusing notation, we denote as \m {\V {a} \DB {n}} the \m {n}-th component of \m {\V {a}}, and denote as \m {\V {A} \DB {m,n}} the \m {\DB {m,n}}-entry of \m {\V {A}}
-Particularly, \m {\V {u}_n} is the \m {n}-th unit vector in the Cartesian coordinates (not to be confused with the noise).
+To better correspond to the pseudo code, the numbering of both vector and matrix entries are zero-based, that is, numbered from \m {0,1,2,\dots}.
+Especially when manipulating the indices, but also in the main proof of DS bound, we will encounter the modulo as operation, namely the remainder of \m {m} divided by \m {n}, with \m {m, n \geq 0}, and we use the capital \m {m\; \rm{Mod}\; n} to denote that number.
+And we denote \m {\V {u}_n} to be the \m {n}-th unit vector in the Cartesian coordinates, whose numbering is also zero-based.
 \m {\VNm {\V {a}} _p} denotes the \m {\ell_p}-norm of vector \m {\V {a}}.
 Recall that \m {\ell_\infty}-norm is the maximum-magnitude norm.
 
@@ -66,11 +67,11 @@ It is a recent developement that the estimation of channels is facilitated by ad
 A series of paper by Cand\`es and Tao (2006) marks its advent.
 
 To motivate their work, note that it is a common situation in statsitical applications that the number of model parameters \m {N_p \in \Mb {N}} is much larger than the number of measurements \m {N_m \in \Mb {N}}, namely,
-%
+
 \Disp {
 \NC N_p \gg N_m \NR
 }
-%
+
 In such case of insufficient measurements, possibly even with corruption of noise, do we have the knowledge of all \m {N_p} parameters?
 Of course, more assumption must be made to make the question meaningful.
 Any two vectors of parameters differing an element in the null space of the sensing matrix will produce the same measurement.
@@ -99,7 +100,7 @@ Denote as \m {\M {A}_{\Mc {T}}} the columns of \m {\M {A}} having indices in \m 
 {Definition}
 {
 \m {x \in \Mb {V}_{\Mb {K}} \SB {N_m}} is called \m {s}-sparse with support \m {\Mc {A}}, \m {s <N_m}, if there is \m {\Mc {A} \subset T \RB {N_m}} such that
-%
+
 \Disp { 
 \NC x_{T\SB {N} -\Mc {A}}
 =\NC \V {0} \NR
@@ -116,7 +117,7 @@ That is, only at most \m {s} components of \m {x} is nonzero.
 {
 Consider \m {P \in \Mb {M}_{\Mb {K}} \SB {N_m, N_p}}, with unity-\m {\ell_2}-norm columns.
 For \m {s =1, \dots N_p}, we say that \m {P} satisfies the restricted isometry property (RIP) of sparsity \m {s} with respect to \m {0 \leq \d_s \leq 1}, if, for all \m {s}-sparse \m {\V {x} \in \Mb {V}_{\Mb {K}} \SB {N_p}}, for all \m {\Mc {T} \subset T\SB {N_m}} with \m {\#\{\Mc {T} \} \leq s},
-%
+
 \Disp {
 \NC \NC \RB {1-\d_s} \VNm {V {x}}^2 \NR
 \NC \leq \NC \VNm {P_{\Mc {T}} \V {x}} _2^2 \NR
@@ -127,11 +128,11 @@ For \m {s =1, \dots N_p}, we say that \m {P} satisfies the restricted isometry p
 RIP is essentially saying that \m {P} is ``almost unitary'' up to ``relative error'' \m {\d_s}.
 
 Now, consider a linear transformation with noise corruption,
-%
+
 \Disp {
 \NC \V {y} =\M {P} \V {h} + \V {z} \NR
 }
-%
+
 where (w.l.o.g.) \m {z} is an i.i.d.\ normalized Gaussian vector.
 How can we hope to estimate \m {h} when, in addition to insufficient observations, there are too few observations?
 
@@ -169,7 +170,7 @@ But later, Baraniuk (2008) have found there is a particularly convenient suffici
 {
 Let each entry of random matrix \m {P \in \Mb {M}_\Mb {K} \SB {N_m, N_p}} be defined as i.i.d.\ Bernoulli with value \m {\pm 1/\R {N_m}} (that is, Rademacher distribution).
 Then, with \m {0 <\e <1},
-%
+
 \Disp {
 \NC \NC \Mb {P} \SB { \Nm {\VNm {P h} _2^2 -\VNm {h}_2^2} \geq \e \VNm {h} _2^2} \NR
 \NC \leq \NC 2 \exp \SB {-n \RB {\F {\e ^2} {4} -\F {\e ^3} {6}} } \NR
@@ -221,44 +222,140 @@ From Tropp and Gilbert (2007a),
 {Theorem}
 {
 Following the setting described above, suppose, for \m {0 <\d <1},
-%
+
 \Disp {
 \NC M \geq 16s \log \RB {N/\d} \NR
 }
-%
+
 Then OMP (Algorithm \_\_) recovers \m {x} completely, with overwhelming probability \m {1-\d}.
 }
 
 It is interesting to note that, ever since, scholars has applied OMP in favor of DS, due the simplicity of former's implementation, making OMP perhaps the most widely used channel estimation technique.
 
+\stopsection
+\startsection [title={OMP used in Channel Sensing}]
+
 For concreteness, let \m {\M {F}} be the precoder and \m {\M {W}} the combiner, and \m {\M {H}} the channel, and consider the noiseless case.
 Let signal \m {\V {x}} be sent, and \m {\V {y}} be receiverd, that is
-%
+
 \Disp {
 \NC \V {y} =\M {W} \M {H} \M {F} \V {x} \NR
 }
+
+% % % % % % % % % % % % % % % % % % % % 
+
+%I want to show the Kronecker Product identity listed on [Wikipedia](https://en.wikipedia.org/wiki/Kronecker_product):
+%$$\begin{align}
+%\mathrm{vec}(AXB)
+%=(B^T \otimes A) \mathrm{vec}(X) \\ \tag{1}
+%\end{align}$$
+%Wikipedia does not cite references for the proof for (1), and I want to verify.
+%Before the calculation, agree with some convention.
+%Let us denote $a\; \mathrm{mod}\; b$ for the remainder of $a$ modulo $b$ (so that $9\; \mathrm{mod}\; 4 =1$).
+%This is unlike the usual practice, but otherwise the expression gets too verbose.
+%Moreover let us denote the $(i,j)$-th entry of $A$ to be $A_{i,j}$, and $i$-th entry of $v$ to be $v_{i}$.
+%Also say that $A \in \mathbb{R}^{M \cdot N}$ if it is a $M$ by $N$ matrix, by slightly abusing the meaning of $\mathbb{R}$.
+%If we stick to only addition and multiplication, once the proof works, it works for any field.
 %
+%Firstly, restate the formal definition of Kronecker product and vectorization, for later use.
+%For $X' \in \mathbb{R}^{N_2 \cdot N_3}$
+%$$\begin{align}
+%(\mathrm{vec}(X'))_{m_1}
+%=X'_{m_1\; \mathrm{mod}\; N_1, \lceil m_1/N_1 \rceil} \\ \tag{2}
+%\end{align}$$
+%
+%For $A' \in \mathbb{R}^{N_1 \cdot N_2}, B' \in \mathbb{R}^{N_3 \cdot N_4}$,
+%$$\begin{align}
+%(A' \otimes B')_{m_1, m_2}
+%=A'_{\lceil m_1/N_3 \rceil, \lceil m_2/N_4 \rceil}
+%B'_{m_1\; \mathrm{mod}\; N_3, m_2\; \mathrm{mod}\; N_4} \\ \tag{3}
+%\end{align}$$ 
+%
+%Now, let $A \in \mathbb{R}^{N_1 \cdot N_2},\; X \in \mathbb{R}^{N_2 \cdot N_3},\; B \in \mathbb{R}^{N_3 \cdot N_4},$,
+%We try to evaluate lhs and rhs of (1).
+%
+%$$\begin{align}
+%&(\mathrm{vec}(AXB))_{m_1} \\
+%=&(AXB)_{m_1\; \mathrm{mod}\; N_1, \lceil m_1/N_1 \rceil} \\
+%=&\sum_{n_2=1}^{N_2} \sum_{n_3=1}^{N_3}
+%A_{m_1\; \mathrm{mod}\; N_1, n_2} X_{n_2, n_3} B_{n_3, \lceil m_1/N_1 \rceil} \\ \tag{4}
+%\end{align}$$
+%
+%$$\begin{align}
+%&((B^T \otimes A) \mathrm{vec}(X) )_{m_1} \\
+%=&\sum_{m_2=1}^{N_2 N_3} (B^T \otimes A)_{m_1, m_2} \mathrm{vec}(X)_{m_2} \\
+%=&\sum_{m_2=1}^{N_2 N_3} (B^T)_{\lceil m_1/N_1 \rceil, \lceil m_2/N_2 \rceil}
+%A_{m_1\; \mathrm{mod}\; N_1, m_2\; \mathrm{mod}\; N_2} \mathrm{vec}(X)_{m_2} \\ 
+%=&\sum_{m_2=1}^{N_2 N_3} B_{\lceil m_2/N_2 \rceil, \lceil m_1/N_1 \rceil}
+%A_{m_1\; \mathrm{mod}\; N_1, m_2\; \mathrm{mod}\; N_2} X_{m_2\; \mathrm{mod}\; N_2, \lceil m_2/N_2 \rceil} \\ \tag{5}
+%\end{align}$$ 
+%
+%It would seem that we are close, but it is not obvious that (4) and (5) are equal.
+%Although $A$'s row index $m_1\; \mathrm{mod}\; N_1$ and $B$'s column index $\lceil m_1/N_1 \rceil$ agree, the other do not.
+%It is suggestive that maybe if we "sum away" $n_2, n_3$, we might find them to agree, but $A,X,B$ are all free, and we have nothing to exploit to carry out that summation.
+
+% % % % % % % % % % % % % % % % % % % % 
 
 \Result
-{Definition}
+{Definition.}
 {
-Define \m {\Mr {vec} \SB {\M {A}} \in \Mb {K}^{NM}} to be the vectorization of \m {\M {A} \in \Mb {M}_{\Mb {K}} \SB {N,M}}.
+Define \m {\Mr {vec} \SB {\M {A}} \in \Mb {V}_{\Mb {K}} \SB {N_1, N_2}} to be the vectorization of \m {\M {A} \in \Mb {M}_{\Mb {K}} \SB {N_1, N_2}}.
+Formally,
+\Disp{
+\NC \RB {\Mr{vec} \SB {\M{A}}} \DB {m_1}
+=\NC \M{A} \DB {m_1\; \Mr{Mod}\; N_1, \Fl{ m_1/N_1 }} \NR[+]
+}
 }
 
 \Result
 {Definition.}
 {
-For \m {\Mr {vec} \SB {A} \in \Mb {M}_{\Mb {K}} \SB {N,M}} and \m {\Mr {vec} \SB {A} \in \Mb {M}_{\Mb {K}} \SB {N,M}}
-Define the Kronecker product \m {\Mr {vec} \SB {A} \in \Mb {K}^{nm}} 
+For \m {\M{A} \in \Mb {M}_{\Mb {K}} \SB {N_1, N_2}} and \m {\M{B} \in \Mb {M}_{\Mb {K}} \SB {N_3, N_4}}, define the Kronecker product \m {\M{A} \otimes \M{B} \in \Mb {M}_{\Mb {K}} \SB {N_1 N_3, N_2 N_4}} by
+\Disp{
+\NC \NC \RB {\M{A} \otimes \M{B}} \DB {m_1, m_2} \NR
+\NC =\NC \M{A} \DB {\Fl{ m_1/N_3 }, \Fl{ m_2/N_4 }}
+\M{B} \DB {m_1\; \Mr{Mod}\; N_3, m_2\; \Mr{Mod}\; N_4} \NR[+]
+}
 }
 
 With (), scholars often exploit the relation
-%
+
+\Result
+{Lemma.}
+{
+Suppose \m {\M{A} \in \Mb {M}_{\Mb {K}} \SB {N_1, N_2}, \M{X} \in \Mb {M}_{\Mb {K}} \SB {N_2, N_3}, \M{B} \in \Mb {M}_{\Mb {K}} \SB {N_3, N_4}},
+Then
 \Disp {
-\NC \Mr {vec} \SB {Y}
-=\SB {\RB {F^\Adj} \otimes W} \Mr {vec} \RB {\M {H}} \NR
+\NC \mathrm{vec} \RB {\M{A}\M{X}\M{B}}
+= \NC \RB {\M{B}^\Tr \otimes \M{A}} \mathrm{vec} \SB {X} \NR
 }
-%
+}
+
+The proof is not particularly easy to find, and we show it here.
+We thus verify that arbitrary components of lhs and rhs agree.
+On one hand,
+
+\Disp{
+\NC \NC \RB {\Mr{vec} \SB {\M{A}\M{X}\M{B}}} \DB {m_1} \NR
+\NC = \NC \RB {\M{A}\M{X}\M{B}} \DB {m_1\; \Mr{Mod}\; N_1, \Fl{ m_1/N_1 }} \NR
+\NC = \NC \sum _{n_2=1} ^{N_2} \sum _{n_3=1} ^{N_3}
+\M{A} \DB {m_1\; \Mr{Mod}\; N_1, n_2} \M{X} \DB {n_2, n_3} \M{B} \DB {n_3, \Fl{ m_1/N_1 }} \NR[+]
+}
+
+On the other hand,
+
+\Disp{
+\NC \NC \RB {\RB {\M{B}^\Tr \otimes \M{A}} \Mr{vec} \SB{\M{X}} } \DB {m_1} \NR
+\NC = \NC \sum _{m_2=1} ^{N_2 N_3} \RB {\M{B}^\Tr \otimes \M{A}} \DB {m_1, m_2} \Mr{vec} \SB {\M{X}} \DB {m_2} \NR
+\NC = \NC \sum _{m_2=1} ^{N_2 N_3} \RB {\M{B}^\Tr} \DB {\Fl{ m_1/N_1 }, \Fl{ m_2/N_2 }}
+\M{A} \DB {m_1\; \Mr{Mod}\; N_1, m_2\; \Mr{Mod}\; N_2} \Mr{vec} \SB {\M{X}} \DB {m_2} \NR 
+\NC = \NC \sum _{m_2=1} ^{N_2 N_3} \M{B} \DB {\Fl{ m_2/N_2 }, \Fl{ m_1/N_1 }}
+\M{A} \DB {m_1\; \Mr{Mod}\; N_1, m_2\; \Mr{Mod}\; N_2} \M{X} \DB {m_2\; \Mr{Mod}\; N_2, \Fl{ m_2/N_2 }} \NR[+]
+}
+
+In () and (), the row index of \m {\M{A}} and \m {\M{B}} already agree.
+The key observation is that when \m {n_2} runs through \m {0, \dots, N_2-1} and \m {n_3} runs through \m {0, \dots, N_3-1}, it follows \m {n_2 n_3} runs through \m {0, \dots, N_2 N_3-1}.
+We see two expressions are exactly the same, and we are done.
 
 The matrix consisting of the collection of possible response according to available paths --- called the dictionary --- plays the role of the sensing matrix of OMP.
 The combiner at the receiver end corresponds to the step where we map the data from high to low dimension.

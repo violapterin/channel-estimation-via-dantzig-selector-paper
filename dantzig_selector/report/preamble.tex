@@ -47,6 +47,7 @@
 \define [1] {\SB} {\left[ #1 \right]}
 \define [1] {\CB} {\left{ #1 \right}}
 \define [1] {\DB} {\left[ \! \left[ #1 \right] \! \right]}
+\define [1] {\Fl} {\left \lfloor #1 \right \rfloor}
 \define [1] {\Nm} {\left \vert #1 \right \vert}
 \define [1] {\VNm} {\left \Vert #1 \right \Vert}
 
@@ -71,17 +72,12 @@
 \define[2] {\Result}
 {
    \bigskip
+   \noindent \hskip 3em
    \TheCount \; {\bf #1} \par
    #2 \par
    \hfill
-   \m{\blacksquare}
+   \m{\blacksquare} \par
 }
-
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-
-\usemodule[amsl]
-
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
 \definefontfeature [default] [default] [onum=yes]
 \definefontfamily [MainFace] [rm] [TeX Gyre Pagella]
@@ -95,7 +91,6 @@
 
 %\m{\Mc{ABCDEFGHIJKLKMNOPQRSTUVWXYZ}}
 %\m{\Mc{abcdefghijklkmnopqrstuvwxyz}}
-
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
@@ -141,8 +136,8 @@
 {
    Compressive Channel Sensing \\
    of Multipath Millimeter Channel \\
-   via a Angular Domain Dantzig Selector \\
-   and its Probabilitic Performance Bound
+   via an Angular Domain Dantzig Selector \\
+   and its Probabilistic Performance Bound
 }
 
 \setupindenting[big,always]
