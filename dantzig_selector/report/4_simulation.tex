@@ -106,13 +106,13 @@ Finally, introduce the following matrices to identify the components where we wa
 \NC {\T {\M {U}}}_{n_h}^{(h)} \DB {n_h', n_h''}
 \NC =
 \startcases
-1, \quad \MC n_h' =2n_h -1,\; n_h'' =2n_h -1 \NR
-1, \quad \MC n_h' =2n_h,\; n_h'' =2n_h -1 \NR
-1, \quad \MC n_h' =2n_h -1,\; n_h'' =2n_h \NR
 1, \quad \MC n_h' =2n_h,\; n_h'' =2n_h \NR
+1, \quad \MC n_h' =2n_h +1,\; n_h'' =2n_h \NR
+1, \quad \MC n_h' =2n_h,\; n_h'' =2n_h +1 \NR
+1, \quad \MC n_h' =2n_h +1,\; n_h'' =2n_h +1 \NR
 0, \quad \NC {\rm otherwise}
 \stopcases \NR[+]
-\NC n_h, n_h', n_h'' \NC = 1, \dots, N_h \NR
+\NC n_h, n_h', n_h'' \NC = 0, \dots, N_h -1 \NR
 }
 Moreover, denote \m {\V {1}} to be the all-\m{1} vector for short, and \m {\V {0}} the all-\m{0} vector, whose dimension will be specified from context.
 Now, if we introduce vector \m{\V{m}}
@@ -121,7 +121,7 @@ Now, if we introduce vector \m{\V{m}}
 \NC \V {m} \NC \in \Mb {V}_{\Mb {R}} \SB {N_h} \NR
 \NC \V{m} \DB{n_h}
 \NC =\Nm{\V{g} \DB{n_h}} \NR[+]
-\NC n_h, n_h', n_h'' \NC = 1, \dots, N_h \NR
+\NC n_h, n_h', n_h'' \NC = 0, \dots, N_h -1 \NR
 }
 
 to denote the entrywise complex modulus of \m{\V {g}}, we see that the convex optimization now take the form

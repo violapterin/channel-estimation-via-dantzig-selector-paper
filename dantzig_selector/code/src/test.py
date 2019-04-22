@@ -4,14 +4,23 @@ import constants as cst
 #import os # getcwd
 #import cvxpy as cp
 
-a=[[1,2,3,4],[5,6,7,8]]
+#a=[[1,2,3,4],[5,6,7,8]]
 #b=[[1,-1],[0,1]]
 #print(np.reshape(np.kron(a,b), (1,-1)))
 
-c=[1,2,3,4,5,6]
-#print (np.reshape(c, (2,-1))[0] +1J *np.reshape(c, (2,-1))[1])
-c1=a[:,0]
-#print (((np.reshape(c, (-1,2))).T)[0] +1J *((np.reshape(c, (-1.2))).T)[1])
+a =[1.3*i for i in range (5)]
+print (type (a))
+
+c=np.array([1,2,3,4,5,6])
+#c=np.zeros(6)
+#c=[1.5*i for i in range(6)]
+#d=np.array([4,5,6,7,8,9])
+#print (np.add (c, 1J *d))
+#c_re =np.reshape(c, (2,-1))
+#print (c_re[1])
+#print (type(c_re[1]))
+#print (np.array (np.reshape(c, (2,-1))[1]))
+#print (c +1J *d)
 
 #y=[1+2j,2,3,4]
 #z1=[(y[2*i]) for i in range(2)]
