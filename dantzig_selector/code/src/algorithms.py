@@ -17,27 +17,35 @@ class Ddss(cst):
 
     def run(self):
 
-t =np.zeros ((2*cst.nn_y)) +np.zeros ((cst.nn_h))
+    t =np.concatenate ([np.zeros ((2*cst.nn_h)), np.ones ((cst.nn_h))])
 
-for i in range(nn_h):
-    A.append ()
-    b.append ()
-    c.append ()
-    d.append ()
+for i in range(cst.nn_h):
+    A.append (np.concatenate ([ind_mat_repr (i), +np.zeros ((cst.nn_h))]))
+    b.append (np.zeros ((2*cst.nn_h)))
+    c.append (np.concatenate ([np.zeros ((2*cst.nn_h)), ind_vec (i)]))
+    d.append (0)
 
-for i in range(nn_h):
-    A.append ()
-    b.append ()
-    c.append ()
-    d.append ()
+for i in range(cst.nn_h, 2*cst.nn_h):
+    A.append (np.concatenate ([ind_mat_repr (i -cst.nn_h)
+                                   @ mat_repr (self.pp) .H
+                                   @ mat_repr (self.pp),
+                               np.zeros ((cst.nn_h))]), axis=1)
+    A.append (ind_mat_repr (i -cst.nn_h)
+                  @ mat_repr (self.pp) .H
+                  @ mat_repr (self.y))
+    c.append (np.concatenate (np.zeros ((3*cst.nn_h))))
+    d.append (cst.gG)
 
-# Define and solve the CVXPY problem.
-x = cp.Variable(n)
-# We use cp.SOC(t, x) to create the SOC constraint ||x||_2 <= t.
-soc_constraints = [cp.SOC (c[i].T @ x + d[i], A[i] @ x + b[i]) for i in range (nn_h+nn_y)]
-prob = cp.Problem(cp.Minimize(f.T@x),
-                  soc_constraints + [F@x == g])
+x = cp.Variable (3*cst.nn_h)
+constr = [cp.SOC (c[i].T @ x + d[i], A[i] @ x + b[i]) for i in range (2*cst.nn_h)]
+prob = cp.Problem (cp.Minimize(f.T@x), constr)
 prob.solve()
+
+x_hat =x.value
+g_repr_hat =x_hat [0:2*cst.nn_h -1]
+g_hat =inv_vec_repr (g_repr_hat)
+gg_hat =inv_vec (g_hat)
+hh_hat =cst.kk @ gg_hat @ cst.kk.H
 
 
 # Print result.

@@ -24,70 +24,77 @@ For convenience, define the following real representation function for complex v
 \Result
 {Definition}
 {
-For \m {x \in \Mb {V} \SB {M}}, we say that \m {\Mc {R} \SB {x}} is the real representation of \m {x}, defined by
+For \m {\V{x} \in \Mb {V}_{\Mb {C}} \SB {M}}, we say that \m {\Mc {R} \SB {\V{x}}} is the real representation of \m {\V{x}}, defined by
 %
 \Disp {
-\NC \Mc {R} \SB {x}
-\in \NC \Mb {V} \SB {2M} \NR
-\NC \Mc {R} \SB {x} \DB {m} =
+\NC \Mc {R} \SB {\V{x}}
+\in \NC \Mb {V}_{\Mb {R}} \SB {2M} \NR
+\NC \Mc {R} \SB {\V{x}} \DB {m} =
 \NC \startcases
-\NC \Mf {Re} \SB {x \DB {m'}}, \MC m =2m' \NR
-\NC \Mf {Im} \SB {x \DB {m'}}, \MC m =2m'+1 \NR
+\NC \Mf {Re} \SB {\V{x} \DB {m'}}, \MC m =2m' \NR
+\NC \Mf {Im} \SB {\V{x} \DB {m'}}, \MC m =2m'+1 \NR
 \stopcases \NR[+]
-\NC m' \NC =  1, \dots, M \NR
+\NC m' 
+= \NC  0, 1, 2, \dots, M-1 \NR
 }
-%
+The bijectivity is obvious, and we define \m {\Mc {R} ^{-1}} so that
+\Disp {
+\NC \Mc {R} ^{-1} \SB {\Mc {R} \SB {\V{x}}}
+=\NC \V{x} \NR[+]
+}
 }
 
-A moment's reflection reveals the corresponding definition of real representation of matrices.
+By the same token, a moment's reflection reveals the corresponding definition of real representation of matrices.
 
 \Result
 {Definition}
 {
-For \m {A \in \Mb {M}_{\Mb {C}} \SB {M_1, M_2}}, we say that \m {\Mc {R} \SB {A}} is the real representation of \m {A}, defined by
+For \m {\M{A} \in \Mb {M}_{\Mb {C}} \SB {M_1, M_2}}, we say that \m {\Mc {R} \SB {\M{A}}} is the real representation of \m {\M{A}}, defined by
 %
 \Disp {
-\NC \Mc {R} \SB {A}
+\NC \Mc {R} \SB {\M{A}}
 \in \NC \Mb {M}_{\Mb {R}} \SB {2M_1, 2M_2} \NR
-\NC \Mc {R} \SB {A} \DB {m_1,m_2} =
+\NC \Mc {R} \SB {\M{A}} \DB {m_1,m_2} =
 \NC \startcases
-\NC \Mf {Re} \SB {A \DB {m_1',m_2'}}, \MC (m_1, m_2) = (2m_1'-1, 2m_2'-1) \NR
-\NC \Mf {Im} \SB {A \DB {m_1',m_2'}}, \MC (m_1, m_2) = (2m_1', 2m_2'-1) \NR
-\NC -\Mf {Im} \SB {A \DB {m_1',m_2'}}, \MC (m_1, m_2) = (2m_1'-1, 2m_2') \NR
-\NC \Mf {Re} \SB {A \DB {m_1',m_2'}}, \MC (m_1, m_2) = (2m_1', 2m_2') \NR
+\NC \Mf {Re} \SB {\M{A} \DB {m_1',m_2'}}, \MC (m_1, m_2) = (2m_1'-1, 2m_2'-1) \NR
+\NC \Mf {Im} \SB {\M{A} \DB {m_1',m_2'}}, \MC (m_1, m_2) = (2m_1', 2m_2'-1) \NR
+\NC -\Mf {Im} \SB {\M{A} \DB {m_1',m_2'}}, \MC (m_1, m_2) = (2m_1'-1, 2m_2') \NR
+\NC \Mf {Re} \SB {\M{A} \DB {m_1',m_2'}}, \MC (m_1, m_2) = (2m_1', 2m_2') \NR
 \stopcases \NR[+]
-\NC m_1' \NC = 1, \dots, M_1 \NR
-\NC m_2' \NC = 1, \dots, M_2 \NR
+\NC m_1 
+= \NC 0, 1, 2, \dots, M_1 -1 \NR
+\NC m_2 
+= \NC 0, 1, 2, \dots, M_2 -1 \NR
 }
-%
+Notice that Here not all matrices in \m {\Mb {M}_{\Mb {R}} \SB {2M_1, 2M_2}} are images, and we will not call the inverse function anyway.
 }
 
 We continue the notation of program ().
 
-%
 \Disp {
 \NC \T {\V {y}}
 \in \NC \Mb {V}_{\Mb {R}} \SB {2N_y} \NR
 \NC \T {\V {y}}
-\NC = \Mc {R} \SB {\V {y}} \NR[+]
+= \NC \Mc {R} \SB {\V {y}} \NR[+]
 \NC \T {\V {g}}
 \in \NC \Mb {V}_{\Mb {R}} \SB {2N_h} \NR
 \NC \T {\V {g}}
-\NC = \Mc {R} \SB {\V {g}} \NR[+]
+= \NC \Mc {R} \SB {\V {g}} \NR[+]
 \NC \T {\M {P}}
 \in \NC \Mb {M}_{\Mb {R}} \SB {2N_y, 2N_h} \NR
 \NC \T {\M {P}}
-\NC = \Mc {R} \SB {\M {P}} \NR[+]
+= \NC \Mc {R} \SB {\M {P}} \NR[+]
 \NC \T {\V {z}}
 \in \NC \Mb {V}_{\Mb {R}} \SB {2N_y} \NR
 \NC \T {\V {z}}
-\NC = \Mc {R} \SB {\V {z}} \NR[+]
+= \NC \Mc {R} \SB {\V {z}} \NR[+]
 }
 %
 such that, by construction,
 %
 \Disp {
-\NC \V {\T {y}} \NC = \M {\T {P}} \V {\T {g}} +\V {\T {z}}
+\NC \V {\T {y}}
+= \NC \M {\T {P}} \V {\T {g}} +\V {\T {z}}
 }
 %
 
@@ -95,16 +102,17 @@ Finally, introduce the following matrices to identify the components where we wa
 
 %
 \Disp {
-\NC {\V {u}}_{n_h}^{(h)} \in \NC \Mb {V}_{\Mb {R}} \SB {N_h} \NR
-\NC {\V {u}}_{n_h}^{(h)} \DB {n_h'}
-\NC =
+\NC {\V {u}}_{n_h}
+\in \NC \Mb {V}_{\Mb {R}} \SB {N_h} \NR
+\NC {\V {u}}_{n_h} \DB {n_h'}
+= \NC
 \startcases
 1, \quad \MC n_h' =n_h \NR
 0, \quad \NC {\rm otherwise}
 \stopcases \NR[+]
-\NC {\T {\M {U}}}_{n_h}^{(h)} \in \NC \Mb {M}_{\Mb {R}} \SB {2N_h, 2N_h} \NR
-\NC {\T {\M {U}}}_{n_h}^{(h)} \DB {n_h', n_h''}
-\NC =
+\NC {\T {\M {U}}}_{n_h} \in \NC \Mb {M}_{\Mb {R}} \SB {2N_h, 2N_h} \NR
+\NC {\T {\M {U}}}_{n_h} \DB {n_h', n_h''}
+= \NC
 \startcases
 1, \quad \MC n_h' =2n_h,\; n_h'' =2n_h \NR
 1, \quad \MC n_h' =2n_h +1,\; n_h'' =2n_h \NR
@@ -112,7 +120,8 @@ Finally, introduce the following matrices to identify the components where we wa
 1, \quad \MC n_h' =2n_h +1,\; n_h'' =2n_h +1 \NR
 0, \quad \NC {\rm otherwise}
 \stopcases \NR[+]
-\NC n_h, n_h', n_h'' \NC = 0, \dots, N_h -1 \NR
+\NC n_h, n_h', n_h'' 
+= \NC 0, 1, 2, \dots, N_h -1 \NR
 }
 Moreover, denote \m {\V {1}} to be the all-\m{1} vector for short, and \m {\V {0}} the all-\m{0} vector, whose dimension will be specified from context.
 Now, if we introduce vector \m{\V{m}}
@@ -120,23 +129,25 @@ Now, if we introduce vector \m{\V{m}}
 \Disp{
 \NC \V {m} \NC \in \Mb {V}_{\Mb {R}} \SB {N_h} \NR
 \NC \V{m} \DB{n_h}
-\NC =\Nm{\V{g} \DB{n_h}} \NR[+]
-\NC n_h, n_h', n_h'' \NC = 0, \dots, N_h -1 \NR
+= \NC \Nm{\V{g} \DB{n_h}} \NR[+]
+\NC n_h, n_h', n_h'' 
+= \NC 0, 1, 2, \dots, N_h -1 \NR
 }
 
 to denote the entrywise complex modulus of \m{\V {g}}, we see that the convex optimization now take the form
 \Disp {
 \NC \Hat {\T {\V {g}}}
-\NC = \startcases
+= \NC \startcases
 \NC \Min {\T {\V {g}}', \V {m}} \quad
 \MC \IP { \V {1}, \V {m} } \NR
 \NC \Mr {subject} \; \Mr {to} \quad
-\MC \VNm { \T {\M {U}}_{n_h}^{(h)} \T {\V {g}}' }_2
+\MC \VNm { \T {\M {U}}_{n_h} \T {\V {g}}' }_2
 \leq \IP { \V {u}_{n_h}, \V {m} } \NR
-\NC \MC \VNm { \T {\M {U}}_{n_h}^{(h)} \T {\M {P}}^\Adj \RB { \T {\M {P}} \T {\V {g}}' -\T {\V {y}} } }_2
+\NC \MC \VNm { \T {\M {U}}_{n_h} \T {\M {P}}^\Adj \RB { \T {\M {P}} \T {\V {g}}' -\T {\V {y}} } }_2
 \leq \g \NR
 \stopcases \NR[+]
-\NC n_h \NC = 1, \dots, N_h \NR
+\NC n_h 
+= \NC 0, 1, 2, \dots, N_h-1 \NR
 }
 
 \stopsection
@@ -148,13 +159,13 @@ To make the point clearer, we rewrite Program () into a stricter, extended block
 
 \Disp{
 \NC \V{t}_i
-\NC \in \Mb {V}_{\Mb {R}} \SB {2N_y +N_h} \NR
+\NC \in \Mb {V}_{\Mb {R}} \SB {3N_h} \NR
 \NC \V{x}_i
-\NC \in \Mb {V}_{\Mb {R}} \SB {2N_y +N_h} \NR
+\NC \in \Mb {V}_{\Mb {R}} \SB {3N_h} \NR
 \NC \M{A}_i
-\NC \in \Mb {M}_{\Mb {R}} \SB {2N_h, 2N_y +N_h} \NR
+\NC \in \Mb {M}_{\Mb {R}} \SB {2N_h, 3N_h} \NR
 \NC \V{b}_i
-\NC \in \Mb {V}_{\Mb {R}} \SB {2N_y +N_h} \NR
+\NC \in \Mb {V}_{\Mb {R}} \SB {3N_h} \NR
 \NC \V{c}_i
 \NC \in \Mb {V}_{\Mb {R}} \SB {2N_h} \NR
 \NC d_i
@@ -165,12 +176,12 @@ defined below to be
 
 \Disp{
 \NC \V{t}
-\NC =\startthematrix
+= \NC \startthematrix
 \NC \V{0} \NR
 \NC \V{1} \NR
 \stopthematrix \NR[+]
 \NC \V{x}'
-\NC =\startthematrix
+= \NC \startthematrix
 \NC \T {\V {g}}' \NR
 \NC \V{m} \NR
 \stopthematrix \NR[+]
@@ -180,44 +191,40 @@ with
 
 \Disp{
 \NC \M{A}_i
-\NC =\startthematrix
-\NC \T {\M {U}}_{n_h}^{(h)}, \NC \M{0} \NR
+= \NC \startthematrix
+\NC \T {\M {U}}_{i}, \NC \M{0} \NR
 \stopthematrix \NR[+]
 \NC \V{b}_i
-\NC =\startthematrix
-\NC \V{0} \NR
-\NC \V{0} \NR
-\stopthematrix \NR[+]
+= \NC \V{0} \NR[+]
 \NC \V{c}_i
-\NC =\startthematrix
+= \NC \startthematrix
 \NC \V{0} \NR
-\NC \V {u}_{n_h} \NR
+\NC \V {u}_{i} \NR
 \stopthematrix \NR[+]
 \NC d_i
-\NC =0 \NR[+]
-\NC i \NC =1, 2, \dots, N_h \NR
+= \NC 0 \NR[+]
+\NC i 
+= \NC 0, 1, 2, \dots, N_h -1 \NR
 }
 
 And
 
 \Disp{
 \NC \M{A}_i
-\NC =\startthematrix
-\NC \T {\M {U}}_{n_h}^{(h)} \T {\M {P}}^\Adj \T {\M {P}}, \NC \M{0} \NR
+= \NC \startthematrix
+\NC \T {\M {U}}_{i -N_h} \T {\M {P}}^\Adj \T {\M {P}}, \NC \M{0} \NR
 \stopthematrix \NR[+]
 \NC \V{b}_i
-\NC =\startthematrix
-\NC -\T {\M {U}}_{n_h}^{(h)} \T {\M {P}}^\Adj \T {\V {y}} \NR
-\NC \V{0} \NR
-\stopthematrix \NR[+]
+=\NC -\T {\M {U}}_{i -N_h} \T {\M {P}}^\Adj \T {\V {y}} \NR[+]
 \NC \V{c}_i
-\NC =\startthematrix
+= \NC \startthematrix
 \NC \V{0} \NR
 \NC \V{0} \NR
 \stopthematrix \NR[+]
 \NC d_i
-\NC =\g \NR[+]
-\NC i \NC =N_h +1, N_h +2, \dots, N_h +N_y \NR
+= \NC \g \NR[+]
+\NC i 
+= \NC N_h, N_h +1, N_h +2, \dots, 2N_h -1 \NR
 }
 
 The step that we convert \m {\Hat {\V {g}}} back is same as Algorithm () is same as before, but this is listed for sake of completeness.
@@ -231,18 +238,18 @@ The step that we convert \m {\Hat {\V {g}}} back is same as Algorithm () is same
 \item Calculate
 \Disp{
 \NC \Hat {\V {x}}
-\NC = \startcases
+= \NC \startcases
 \NC \Min {\V {x}' \in \Mb {V}_{\Mb {C}} \SB {N_h}}
 \MC \IP {\V {t}, \V {x}'} \NR[+]
 \NC \Mr {subject} \; \Mr {to}
 \quad  \MC \VNm {\M {A} _{i} \V {x}' +\V{b} _{i}} _2
 \leq \IP {\V{c}_{i}, \V {x}'} +\V{d}_i \NR
-\NC \MC i =1, 2, \dots, N_y +N_h \NR
+\NC \MC i =0, 1, 2, \dots, 2N_h -1 \NR
 \stopcases \NR[+]
 }
 \item Extract
 \Disp{
-\NC \Hat{\T{\V{g}}} =\NC \Hat{\V{x}} \DB {1 : 2N_h} \NR[+]
+\NC \Hat{\T{\V{g}}} =\NC \Hat{\V{x}} \DB {0 : 2N_h-1} \NR[+]
 }
 \item Convert 
 \Disp{

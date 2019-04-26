@@ -242,60 +242,6 @@ Let signal \m {\V {x}} be sent, and \m {\V {y}} be receiverd, that is
 \NC \V {y} =\M {W} \M {H} \M {F} \V {x} \NR
 }
 
-% % % % % % % % % % % % % % % % % % % % 
-
-%I want to show the Kronecker Product identity listed on [Wikipedia](https://en.wikipedia.org/wiki/Kronecker_product):
-%$$\begin{align}
-%\mathrm{vec}(AXB)
-%=(B^T \otimes A) \mathrm{vec}(X) \\ \tag{1}
-%\end{align}$$
-%Wikipedia does not cite references for the proof for (1), and I want to verify.
-%Before the calculation, agree with some convention.
-%Let us denote $a\; \mathrm{mod}\; b$ for the remainder of $a$ modulo $b$ (so that $9\; \mathrm{mod}\; 4 =1$).
-%This is unlike the usual practice, but otherwise the expression gets too verbose.
-%Moreover let us denote the $(i,j)$-th entry of $A$ to be $A_{i,j}$, and $i$-th entry of $v$ to be $v_{i}$.
-%Also say that $A \in \mathbb{R}^{M \cdot N}$ if it is a $M$ by $N$ matrix, by slightly abusing the meaning of $\mathbb{R}$.
-%If we stick to only addition and multiplication, once the proof works, it works for any field.
-%
-%Firstly, restate the formal definition of Kronecker product and vectorization, for later use.
-%For $X' \in \mathbb{R}^{N_2 \cdot N_3}$
-%$$\begin{align}
-%(\mathrm{vec}(X'))_{m_1}
-%=X'_{m_1\; \mathrm{mod}\; N_1, \lceil m_1/N_1 \rceil} \\ \tag{2}
-%\end{align}$$
-%
-%For $A' \in \mathbb{R}^{N_1 \cdot N_2}, B' \in \mathbb{R}^{N_3 \cdot N_4}$,
-%$$\begin{align}
-%(A' \otimes B')_{m_1, m_2}
-%=A'_{\lceil m_1/N_3 \rceil, \lceil m_2/N_4 \rceil}
-%B'_{m_1\; \mathrm{mod}\; N_3, m_2\; \mathrm{mod}\; N_4} \\ \tag{3}
-%\end{align}$$ 
-%
-%Now, let $A \in \mathbb{R}^{N_1 \cdot N_2},\; X \in \mathbb{R}^{N_2 \cdot N_3},\; B \in \mathbb{R}^{N_3 \cdot N_4},$,
-%We try to evaluate lhs and rhs of (1).
-%
-%$$\begin{align}
-%&(\mathrm{vec}(AXB))_{m_1} \\
-%=&(AXB)_{m_1\; \mathrm{mod}\; N_1, \lceil m_1/N_1 \rceil} \\
-%=&\sum_{n_2=1}^{N_2} \sum_{n_3=1}^{N_3}
-%A_{m_1\; \mathrm{mod}\; N_1, n_2} X_{n_2, n_3} B_{n_3, \lceil m_1/N_1 \rceil} \\ \tag{4}
-%\end{align}$$
-%
-%$$\begin{align}
-%&((B^T \otimes A) \mathrm{vec}(X) )_{m_1} \\
-%=&\sum_{m_2=1}^{N_2 N_3} (B^T \otimes A)_{m_1, m_2} \mathrm{vec}(X)_{m_2} \\
-%=&\sum_{m_2=1}^{N_2 N_3} (B^T)_{\lceil m_1/N_1 \rceil, \lceil m_2/N_2 \rceil}
-%A_{m_1\; \mathrm{mod}\; N_1, m_2\; \mathrm{mod}\; N_2} \mathrm{vec}(X)_{m_2} \\ 
-%=&\sum_{m_2=1}^{N_2 N_3} B_{\lceil m_2/N_2 \rceil, \lceil m_1/N_1 \rceil}
-%A_{m_1\; \mathrm{mod}\; N_1, m_2\; \mathrm{mod}\; N_2} X_{m_2\; \mathrm{mod}\; N_2, \lceil m_2/N_2 \rceil} \\ \tag{5}
-%\end{align}$$ 
-%
-%It would seem that we are close, but it is not obvious that (4) and (5) are equal.
-%Although $A$'s row index $m_1\; \mathrm{mod}\; N_1$ and $B$'s column index $\lceil m_1/N_1 \rceil$ agree, the other do not.
-%It is suggestive that maybe if we "sum away" $n_2, n_3$, we might find them to agree, but $A,X,B$ are all free, and we have nothing to exploit to carry out that summation.
-
-% % % % % % % % % % % % % % % % % % % % 
-
 \Result
 {Definition.}
 {
@@ -304,6 +250,11 @@ Formally,
 \Disp{
 \NC \RB {\Mr{vec} \SB {\M{A}}} \DB {m_1}
 =\NC \M{A} \DB {m_1\; \Mr{Mod}\; N_1, \Fl{ m_1/N_1 }} \NR[+]
+}
+The bijectivity is obvious, and we define \m {\Mr {vec} ^{-1}} so that
+\Disp {
+\NC \Mr {vec} ^{-1} \SB {\Mr {vec} \SB {x}}
+=\NC x \NR[+]
 }
 }
 

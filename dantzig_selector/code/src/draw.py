@@ -40,7 +40,6 @@ for i in range (len_line):
 
 out_fig_path =os.path.abspath(os.path.join(os.getcwd(), os.path.pardir))
               +"/plt/" +str_title +".png"
-#print (out_fig_path)
 plt.savefig (out_fig_path, bbox_inches ="tight")
 
 

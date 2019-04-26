@@ -8,10 +8,18 @@ import constants as cst
 #b=[[1,-1],[0,1]]
 #print(np.reshape(np.kron(a,b), (1,-1)))
 
-a =[1.3*i for i in range (5)]
-print (type (a))
+#aa=np.array ([[1,2,3], [4,5,6]])
+#v=np.array ([1,2,3])
+#print (np.shape(aa)[0])
+#print (np.shape(v)[0])
 
-c=np.array([1,2,3,4,5,6])
+a =np.array ([[1,2],[4,5]])
+b =np.array ([[8,8]])
+print (a . b)
+def fun(v):
+    return 2*v
+
+#c=np.array([1,2,3,4,5,6])
 #c=np.zeros(6)
 #c=[1.5*i for i in range(6)]
 #d=np.array([4,5,6,7,8,9])
