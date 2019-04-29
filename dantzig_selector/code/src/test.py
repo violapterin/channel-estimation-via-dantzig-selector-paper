@@ -4,8 +4,18 @@ import constants as cst
 #import os # getcwd
 #import cvxpy as cp
 
-#a=[[1,2,3,4],[5,6,7,8]]
-#b=[[1,-1],[0,1]]
+import helpers
+
+#print (np.random.randint(7, size=10))
+#print (np.sin (1J *np.pi)/ np.pi)
+
+a=[[1,2,3,4],[5,6,7,8]]
+b=[[1,-1],[0,1]]
+c=[1,2,3,4,5,6]
+#print (helpers.kk())
+print (-np.ones ((cst.nn_hh)))
+#print(np.kron(a,b))
+#print (type (np.reshape (a, (1,-1))[0]))
 #print(np.reshape(np.kron(a,b), (1,-1)))
 
 #aa=np.array ([[1,2,3], [4,5,6]])
@@ -13,11 +23,14 @@ import constants as cst
 #print (np.shape(aa)[0])
 #print (np.shape(v)[0])
 
-a =np.array ([[1,2],[4,5]])
-b =np.array ([[8,8]])
-print (a . b)
-def fun(v):
-    return 2*v
+#a =np.array ([[1,2],[4,5]])
+#b =np.array ([1,-1])
+#a[1][1]=3
+#print (a @ b)
+#def fun(v):
+#    return 2*v
+#v =np.array([1,2,3])
+#print (fun(v))
 
 #c=np.array([1,2,3,4,5,6])
 #c=np.zeros(6)
@@ -29,23 +42,6 @@ def fun(v):
 #print (type(c_re[1]))
 #print (np.array (np.reshape(c, (2,-1))[1]))
 #print (c +1J *d)
-
-#y=[1+2j,2,3,4]
-#z1=[(y[2*i]) for i in range(2)]
-#z2=[(y[2*i+1]) for i in range(2)]
-#print(z1)
-#print(z2)
-
-#A=np.array ([[1,2],[3,4],[5,6]])
-#B=np.array ([[1,2],[4,5]])
-#b=np.array ([1,2])
-#c=np.array ([[1],[2]])
-#d=b.T
-#
-#print(A@b)
-#print(A@c)
-#print(A@d)
-#print(A@b.T)
 
 #
 # # # # # # # # # # # # # # # # # # # #
