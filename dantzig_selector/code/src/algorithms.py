@@ -17,17 +17,17 @@ class Ddss(cst):
     def run(self):
         t = np.concatenate ([np.zeros ((2 * cst.nn_h)), np.ones ((cst.nn_h))])
         for i in range(cst.nn_h):
-            A.append (np.concatenate ([ind_repr_mat (i), + np.zeros ((cst.nn_h, cst.nn_h))], axis= 1))
+            A.append (np.concatenate ([indic_repr_mat (i), + np.zeros ((cst.nn_h, cst.nn_h))], axis= 1))
             b.append (np.zeros ((cst.nn_h)))
-            c.append (np.concatenate ([np.zeros ((2 * cst.nn_h)), ind_vec (i)]))
+            c.append (np.concatenate ([np.zeros ((2 * cst.nn_h)), indic_vec (i)]))
             d.append (0)
         for i in range(cst.nn_h, 2 * cst.nn_h):
             A.append (-np.concatenate ([ind_repr_mat (i -cst.nn_h)
-                                           @ find_repr_mat (self.pp).H
+                                           @ find_repr_mat (self.pp.H)
                                            @ find_repr_mat (self.pp),
                                        np.zeros ((cst.nn_h))]), axis= 1)
             A.append (ind_repr_mat (i -cst.nn_h)
-                          @ find_repr_mat (self.pp).H
+                          @ find_repr_mat (self.pp.H)
                           @ find_repr_mat (self.y))
             c.append (np.zeros ((3 * cst.nn_h)))
             d.append (self.gG)

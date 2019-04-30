@@ -6,7 +6,6 @@ To simplify the exposition, we will continue to use the variables \m {\V {P}}, \
 
 We first establish a technical lemma that shows \m {\Mr {supp} \SB {\V {g}}} has roughly cardinal \m {L}, which guarantees, at the heart of the argument, that \m {\V {g}} is almost-sparse 
 
-
 \startsection [title={Almost-Sparsity of Angular Channel}]
 
 We apply DS to find \m {\hat {\V {g}}}, setting
@@ -16,18 +15,15 @@ We apply DS to find \m {\hat {\V {g}}}, setting
 
 Other values are of course possible, but this is enough to illustrate our purpose.
 Also set for short
-%
 \Disp {
 \NC \V {d} = \NC \hat {\V {g}} -\V {g} \NR[+]
 }
-%
 And call
 \startitemize [1]
 \item \m {\Mc {A}} be the largest \m {s} position of \m {g}.
 \item \m {\Mc {B}} be the largest \m {s} position of \m {d_{T\SB {N_h} -\Mc {A}}}.
 \item \m {\Mc {C} =T \RB {N_h} -\Mc {A}}, i.e., the complementary index set of \m {\Mc {A}}.
 \stopitemize
-
 
 Suppose \m {\M {A} \in \Mb {M}_{\Mb {K}} \RB {N_1, N_2 }}.
 For brevity, let \m {\Mc {T} \subset T \RB {N_2 }}.
@@ -69,7 +65,6 @@ For \m {\V {x} \in \Mb {V}_{\Mb {K}} \SB {N}}, we say \m {\V {x}} is almost-\m {
 Suppose \m {0 \leq \f \leq 2\pi k /N_H}, \m {k =0, \dots, N_H-1}.
 Let \m {\f} be given, and array response \m {\V {a} \SB {\f}} defined as in ().
 Then \m {\V {a} \SB {\f}} is almost-\m {L}-sparse with \m {\ell_1}-residue \m {R\SB {N_H, L}} to be
-%
 \Disp {
 \NC R
 \leq \NC \F {1}{\pi} \log \F {N_H}{L}. \NR
@@ -78,29 +73,22 @@ Then \m {\V {a} \SB {\f}} is almost-\m {L}-sparse with \m {\ell_1}-residue \m {R
 
 We show the lemma, which is the key to bounding the sparsity of \m {h}.
 Recall the identity for Dirichlet kernel
-%
 \Disp {
 \NC D \SB {\f'}
 := \NC \Nm { \sum_{n=0}^{N_H-1} \Mr {e}^{i n \f'} } \NR
 \NC = \NC \F {\Nm {\sin \SB {N_H \f'/2}}}{\Nm {\sin \SB {\f' /2}}}, \NR[+]
 \NC \quad 0 \leq \NC  \f' \leq \pi \NR
 }
-%
 And recall the Taylor expansion of sin for the first two terms with respect to zero
-%
 \Disp {
 \NC \sin x = \NC x -\F {x^3}{6} + \Mc {O} \SB {x^5}, \quad x \ll 1 \NR
 }
-%
 Actually it can be shown that we have a inequality
-%
 \Disp {
 \NC \Nm {x - \F {x^3}{6}} \leq \NC \Nm {\sin x}, \NR[+]
 \NC -\pi \leq \NC x \leq \pi \NR
 }
-%
 Applying the above inequality to the denominator and bounding the nominator by 1, we have
-%
 \Disp {
 \NC \Nm {D \SB {\f'} }
 = \NC \F {48}{\Nm {\f'^2 -24} \Nm {\f'}}
@@ -112,7 +100,6 @@ Particularly, for arbitrary \m {\f}, find \m {k} by
 \NC \eta := \NC \f \quad \rm{mod}\; (2\pi) \NR[+]
 \NC k := \NC \F {N_H} {2\pi} (\f -\eta) \NR[+]
 }
-%
 Then observe
 \Disp {
 \NC \RB {\M {K}^\Adj \V {a} \SB {\f}} \DB {k}
@@ -145,14 +132,12 @@ Furthermore the \m {2\pi} factor in log can be dropped too.
 \leq \NC \F {1}{\pi} \log \F {N_H}{L}. \NR
 }
 
-
 \Result
 {Lemma (Tentative)}
 {
 Let \m {\f} and \m {\th} be uniformly, independently distributed in \m {[0,2\pi)}, and linear array response \m {\V {a}} defined as in ().
 Let \m {\V {g}} be defined as above.
 Then \m {\V {g}} is almost-\m {L}-sparse with \m {\ell_1}-residue \m {R\SB {N_H, L}} to be
-%
 \Disp {
 \NC R
 \leq \NC \F {L}{\pi^2} \RB { \log \F {N_H}{L} }^2 \NR
@@ -165,7 +150,6 @@ Then \m {\V {g}} is almost-\m {L}-sparse with \m {\ell_1}-residue \m {R\SB {N_H,
 {Definition}
 {
 For \m {\Mc {T}, \Mc {T}' \subset \{1, \dots, N_p\}}, define the \m {s, s'}-restricted orthogonality constant \m {\tau_{s,s'} >0} to be the smallest such that
-%
 \Disp {
 \NC \Nm {\IP {P_{\Mc {T}} h, P_{\Mc {T}'} h'}}
 \leq \NC \tau_{s, s'} \cdot \VNm {h} _2 \VNm {h'} _2 \NR
@@ -199,7 +183,6 @@ Then \m {P} is RIP according to \m {\d} for at least probability
 }
 }
 
-
 \color[red]{(To be done)}
 
 \startsection [title={DS for Complex Vectors}]
@@ -213,7 +196,6 @@ We spell out the proof when such generalization is nontrivial.
 {
 Let \m {\V {g}} and \m {\V {d}} be defined as above.
 Then
-%
 \Disp {
 \NC \VNm {\V {d}_{\Mc {C}}} _1
 \leq \NC \VNm {\V {d}_{\Mc {A}}} _1 +2\VNm {\V {g}_{\Mc {C}}} _1 \NR
@@ -242,13 +224,11 @@ The result follows by combining.
 {
 Let \m {\V {z}} and \m {\M {P}} be defined as above.
 Then
-%
 \Disp {
 \NC \Nm {\IP { \V {z}, \M {P} \DB {:, n_g} }}
 \leq \NC  2 \R {\log N_h},
 \quad n_g =1, \dots, N_h. \NR
 }
-%
 with overwhelming probability.
 }
 
@@ -271,7 +251,6 @@ Particularly, for \m {x =\R {2 \log N_h}}, according to CLT,
 {Lemma}
 {
 Let \m {\V {d}} and \m {\M {P}} be defined as above, and \m {\M {P}} satisfies RIP as in ().
-%
 \Disp {
 \NC \VNm {\M {P}^\Adj \M {P} \V {d}} _\infty
 \leq \NC  4 \R {\log N_h},
@@ -280,7 +259,6 @@ Let \m {\V {d}} and \m {\M {P}} be defined as above, and \m {\M {P}} satisfies R
 }
 
 To show this, by definition
-%
 \Disp {
 \NC \IP { \V {z} -\RB {\V {y} -\M {P} \hat {\V {g}}}, \M {P} \DB {:,n_y} }
 = \NC \IP { \M {P} \hat {\V {g}} -\M {P} \V {g}, \M {P} \DB {:,n_y} } \NR
@@ -309,17 +287,14 @@ From ``Dantzig Selector'' (Cand\`es and Tao 2007), Lemma 1, first equation, we h
 The original result is for real vector spaces, but we have checked that the proof is completely valid in complex vector spaces.
 Of course the interpretation of modulus and the inner product changes accordingly.
 
-
 \Result
 {Lemma}
 {
 Let \m {\V {d}} and \m {\M {P}} be defined as above, and \m {\M {P}} satisfies RIP as in () with respect to \m {\d_s}.
-%
 \Disp {
 \NC \VNm {\V {d}_{\Mc {AB}}} _2
 \leq \NC \F {1}{1-\d_{2s}} \VNm {P_{\Mc {A} \Mc {B}}^\Tr P d} _2 +\F {\d_{3s}}{\RB {1-\d_{2s}} \R {s}} \VNm {d_{C}} _1 \NR
 }
-%
 }
 
 From ``Dantzig Selector'' (Cand\`es and Tao 2007), Lemma 1, second equation, we have the result as below.
@@ -330,12 +305,10 @@ Again, their proof works with complex vector spaces in place of real ones too.
 {
 Let \m {\V {d}} be defined as above.
 Then
-%
 \Disp {
 \NC \VNm {\V {d}} _2^2
 \leq \NC \VNm {\V {d}_{\Mc {A} \Mc {B}}} _2^2 +\F {1}{s} \VNm {\V {d}_{\Mc {C}}} _1^2 \NR
 }
-%
 }
 
 \startsection [title={The Main Bound}]
@@ -411,7 +384,6 @@ Then
 \NC \VNm {\V {d}} _2^2
 \leq \NC \F {4}{\pi^4} \d_{3L}^4 \RB {1-2\d_{2L}} L^4 \RB { \log N_H}^4 \NR
 }
-
 
 \color[red]{(To be done)}
 

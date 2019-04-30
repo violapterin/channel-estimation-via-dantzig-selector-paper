@@ -25,7 +25,6 @@ For convenience, define the following real representation function for complex v
 {Definition}
 {
 For \m {\V{x} \in \Mb {V}_{\Mb {C}} \SB {M}}, we say that \m {\Mc {R} \SB {\V{x}}} is the real representation of \m {\V{x}}, defined by
-%
 \Disp {
 \NC \Mc {R} \SB {\V{x}}
 \in \NC \Mb {V}_{\Mb {R}} \SB {2M} \NR
@@ -50,7 +49,6 @@ By the same token, a moment's reflection reveals the corresponding definition of
 {Definition}
 {
 For \m {\M{A} \in \Mb {M}_{\Mb {C}} \SB {M_1, M_2}}, we say that \m {\Mc {R} \SB {\M{A}}} is the real representation of \m {\M{A}}, defined by
-%
 \Disp {
 \NC \Mc {R} \SB {\M{A}}
 \in \NC \Mb {M}_{\Mb {R}} \SB {2M_1, 2M_2} \NR
@@ -84,23 +82,23 @@ We continue the notation of program ().
 \in \NC \Mb {M}_{\Mb {R}} \SB {2N_y, 2N_h} \NR
 \NC \T {\M {P}}
 = \NC \Mc {R} \SB {\M {P}} \NR[+]
+\NC \T {\M {P}} ^\Adj
+\in \NC \Mb {M}_{\Mb {R}} \SB {2N_y, 2N_h} \NR
+\NC \T {\M {P}} ^\Adj
+= \NC \Mc {R} \SB {\M {P} ^\Adj} \NR[+]
 \NC \T {\V {z}}
 \in \NC \Mb {V}_{\Mb {R}} \SB {2N_y} \NR
 \NC \T {\V {z}}
 = \NC \Mc {R} \SB {\V {z}} \NR[+]
 }
-%
 such that, by construction,
-%
 \Disp {
 \NC \V {\T {y}}
 = \NC \M {\T {P}} \V {\T {g}} +\V {\T {z}}
 }
-%
 
 Finally, introduce the following matrices to identify the components where we want to take \m {\ell_2}-norm, in the manner similar to an indicator function.
 
-%
 \Disp {
 \NC {\V {u}}_{n_h}
 \in \NC \Mb {V}_{\Mb {R}} \SB {N_h} \NR
@@ -115,8 +113,6 @@ Finally, introduce the following matrices to identify the components where we wa
 = \NC
 \startcases
 1, \quad \MC n_h' =2n_h,\; n_h'' =2n_h \NR
-1, \quad \MC n_h' =2n_h +1,\; n_h'' =2n_h \NR
-1, \quad \MC n_h' =2n_h,\; n_h'' =2n_h +1 \NR
 1, \quad \MC n_h' =2n_h +1,\; n_h'' =2n_h +1 \NR
 0, \quad \NC {\rm otherwise}
 \stopcases \NR[+]
@@ -169,7 +165,7 @@ To make the point clearer, we rewrite Program () into a stricter, extended block
 \NC \V{c}_i
 \NC \in \Mb {V}_{\Mb {R}} \SB {2N_h} \NR
 \NC d_i
-\NC \in \Mb {R} \NR
+\NC \in \Mb {R} ^+ \NR
 }
 
 defined below to be
@@ -279,7 +275,6 @@ However, for brevity we use Python Library CVXPY to solve the SOCP.
 \stopsection
 
 \startsection [title={Discussion}]
-
 
 On the other hand, DS goes not without criticism for its large complexity (Friedlander and Saunders 2007).
 Indeed it is clear, even from the primal-dual implementation above, that DS requires memory for large dimensional vector, but OMP does not.

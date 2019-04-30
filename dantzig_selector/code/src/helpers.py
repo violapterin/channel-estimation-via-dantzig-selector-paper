@@ -42,16 +42,14 @@ def inv_vectorize (v, nn_1, nn_2):
     assert (len(v) ==nn_1 *nn_2)
     return np.reshape(v, (nn_2, -1)).T
 
-def ind_vec (n_h):
+def indic_vec (n_h):
     ret =np.zeros (cst.nn_h)
     ret[n_h] =1
     return ret
 
-def ind_repr_mat (n_h):
+def indic_repr_mat (n_h):
     ret =np.zeros (2*cst.nn_h, 2*cst.nn_h)
     ret [2*n_h] [2*n_h] =1
-    ret [2*n_h +1] [2*n_h] =1
-    ret [2*n_h] [2*n_h +1] =1
     ret [2*n_h +1] [2*n_h +1] =1
     return ret
 
