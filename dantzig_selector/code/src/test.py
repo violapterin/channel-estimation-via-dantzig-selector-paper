@@ -9,11 +9,12 @@ import helpers
 #print (np.random.randint(7, size=10))
 #print (np.sin (1J *np.pi)/ np.pi)
 
-a=[[1,2,3,4],[5,6,7,8]]
-b=[[1,-1],[0,1]]
-c=[1,2,3,4,5,6]
+a =np.array ([[1,2,3,4],[5,6,7,8]])
+b =np.array ([[1,-1],[0,1]])
+c =np.array ([1,2,3,4,5,6])
 #print (helpers.kk())
-print (-np.ones ((cst.nn_hh)))
+a +=1
+print (a)
 #print(np.kron(a,b))
 #print (type (np.reshape (a, (1,-1))[0]))
 #print(np.reshape(np.kron(a,b), (1,-1)))

@@ -136,7 +136,7 @@ to denote the entrywise complex modulus of \m{\V {g}}, we see that the convex op
 = \NC \startcases
 \NC \Min {\T {\V {g}}', \V {m}} \quad
 \MC \IP { \V {1}, \V {m} } \NR
-\NC \Mr {subject} \; \Mr {to} \quad
+\NC \Rm {subject} \; \Rm {to} \quad
 \MC \VNm { \T {\M {U}}_{n_h} \T {\V {g}}' }_2
 \leq \IP { \V {u}_{n_h}, \V {m} } \NR
 \NC \MC \VNm { \T {\M {U}}_{n_h} \T {\M {P}}^\Adj \RB { \T {\M {P}} \T {\V {g}}' -\T {\V {y}} } }_2
@@ -172,31 +172,31 @@ defined below to be
 
 \Disp{
 \NC \V{t}
-= \NC \startthematrix
+= \NC \startTheMatrix
 \NC \V{0} \NR
 \NC \V{1} \NR
-\stopthematrix \NR[+]
+\stopTheMatrix \NR[+]
 \NC \V{x}'
-= \NC \startthematrix
+= \NC \startTheMatrix
 \NC \T {\V {g}}' \NR
 \NC \V{m} \NR
-\stopthematrix \NR[+]
+\stopTheMatrix \NR[+]
 }
 
 with
 
 \Disp{
 \NC \M{A}_i
-= \NC \startthematrix
+= \NC \startTheMatrix
 \NC \T {\M {U}}_{i}, \NC \M{0} \NR
-\stopthematrix \NR[+]
+\stopTheMatrix \NR[+]
 \NC \V{b}_i
 = \NC \V{0} \NR[+]
 \NC \V{c}_i
-= \NC \startthematrix
+= \NC \startTheMatrix
 \NC \V{0} \NR
 \NC \V {u}_{i} \NR
-\stopthematrix \NR[+]
+\stopTheMatrix \NR[+]
 \NC d_i
 = \NC 0 \NR[+]
 \NC i 
@@ -207,16 +207,13 @@ And
 
 \Disp{
 \NC \M{A}_i
-= \NC \startthematrix
-\NC \T {\M {U}}_{i -N_h} \T {\M {P}}^\Adj \T {\M {P}}, \NC \M{0} \NR
-\stopthematrix \NR[+]
+= \NC \startTheMatrix
+\NC -\T {\M {U}}_{i -N_h} \T {\M {P}}^\Adj \T {\M {P}}, \NC \M{0} \NR
+\stopTheMatrix \NR[+]
 \NC \V{b}_i
-=\NC -\T {\M {U}}_{i -N_h} \T {\M {P}}^\Adj \T {\V {y}} \NR[+]
+=\NC \T {\M {U}}_{i -N_h} \T {\M {P}}^\Adj \T {\V {y}} \NR[+]
 \NC \V{c}_i
-= \NC \startthematrix
-\NC \V{0} \NR
-\NC \V{0} \NR
-\stopthematrix \NR[+]
+= \NC \V{0} \NR[+]
 \NC d_i
 = \NC \g \NR[+]
 \NC i 
@@ -229,7 +226,7 @@ The step that we convert \m {\Hat {\V {g}}} back is same as Algorithm () is same
 {Algorithm}
 {
 \startitemize[n]
-\item Input \m{\M {P} \in \Mb {M}_{\Mb {C}} \SB {N_y, N_h}}, \m{\V {y} \in \Mb {V}_{\Mb {C}} \SB {N_y}}, \m{\g \geq 0}.
+\item Input \m{\M {P} \in \Mb {M}_{\Mb {C}} \SB {N_y, N_h}}, \m{\V {y} \in \Mb {V}_{\Mb {C}} \SB {N_y}}, \m{\g > 0}.
 \item Define \m{\V{t}, \V{x}, \M{A}_i, \V{b}_i, \V{c}_i, d_i} according to ().
 \item Calculate
 \Disp{
@@ -237,7 +234,7 @@ The step that we convert \m {\Hat {\V {g}}} back is same as Algorithm () is same
 = \NC \startcases
 \NC \Min {\V {x}' \in \Mb {V}_{\Mb {C}} \SB {N_h}}
 \MC \IP {\V {t}, \V {x}'} \NR[+]
-\NC \Mr {subject} \; \Mr {to}
+\NC \Rm {subject} \; \Rm {to}
 \quad  \MC \VNm {\M {A} _{i} \V {x}' +\V{b} _{i}} _2
 \leq \IP {\V{c}_{i}, \V {x}'} +\V{d}_i \NR
 \NC \MC i =0, 1, 2, \dots, 2N_h -1 \NR
@@ -253,7 +250,7 @@ The step that we convert \m {\Hat {\V {g}}} back is same as Algorithm () is same
 }
 \item Calculate
 \Disp {
-\NC \Hat {G} =\NC \Mr {vec}^{-1} \SB {\Hat {g}} \NR[+]
+\NC \Hat {G} =\NC \Rm {vec}^{-1} \SB {\Hat {g}} \NR[+]
 }
 \item Calculate
 \Disp {

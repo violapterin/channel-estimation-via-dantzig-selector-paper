@@ -48,11 +48,11 @@ In addition, the smaller closer spaced antennae makes it possible to increase th
 Consequently, this article considers MIMO in the millimeter r\`egime.
 
 The figure of merit of a MIMO system is usually considered to be the channel capacity.
-In vague terms, the capacity \m {C} of a MIMO channel \m {\M {H}} at perfect channel state information is well-known to be roughly in the form \m {\log \det \RB {I +\Mr {SNR}}}, but that knowledge is hardly always available.
+In vague terms, the capacity \m {C} of a MIMO channel \m {\M {H}} at perfect channel state information is well-known to be roughly in the form \m {\log \det \RB {I +\Rm {SNR}}}, but that knowledge is hardly always available.
 What makes things more difficult is the case that \m {\M {H}} is determined from not only the noise itself, but also inherent parameter --- such as, in our case, as shall be seen, the angle of departure and arrival.
 It is pointed out that the capacity written in explicit dependence of such parameters is a difficult and long-standing problem (Goldsmith et.\ al.\ 2003).
 Nevertheless, the perfect-channel-state-information expression of channel capacity is often used regardless of these issues.
-Indeed, analysis of precoding algorithm, for example, usually makes use of the sum rate \m {\log \det \RB {I +\Mr {SNR}}}.
+Indeed, analysis of precoding algorithm, for example, usually makes use of the sum rate \m {\log \det \RB {I +\Rm {SNR}}}.
 
 Therefore the real-time estimation, \m {\hat {\M {H}}}, of \m {\M {H}} is of paramount importance.
 Needless to say, when the \m {\hat {\M {H}}} is imprecise, resulting analysis is also undermined.
@@ -146,7 +146,7 @@ How can we hope to estimate \m {h} when, in addition to insufficient observation
 \NC \V {h}
 = \NC \startcases
 \NC \Min {\V {h}'} \quad \MC \VNm {\V {h}'} _1 \NR
-\NC \Mr {subject} \; \Mr {to} \quad \MC \VNm {\M {P}^\Adj \RB {\M {P} \V {h} -\V {y}}} _\infty \leq \g \NR
+\NC \Rm {subject} \; \Rm {to} \quad \MC \VNm {\M {P}^\Adj \RB {\M {P} \V {h} -\V {y}}} _\infty \leq \g \NR
 \stopcases \NR
 }
 \item Output \m {\V {h}}.
@@ -245,15 +245,15 @@ Let signal \m {\V {x}} be sent, and \m {\V {y}} be receiverd, that is
 \Result
 {Definition.}
 {
-Define \m {\Mr {vec} \SB {\M {A}} \in \Mb {V}_{\Mb {K}} \SB {N_1, N_2}} to be the vectorization of \m {\M {A} \in \Mb {M}_{\Mb {K}} \SB {N_1, N_2}}.
+Define \m {\Rm {vec} \SB {\M {A}} \in \Mb {V}_{\Mb {K}} \SB {N_1, N_2}} to be the vectorization of \m {\M {A} \in \Mb {M}_{\Mb {K}} \SB {N_1, N_2}}.
 Formally,
 \Disp{
-\NC \RB {\Mr{vec} \SB {\M{A}}} \DB {m_1}
-=\NC \M{A} \DB {m_1\; \Mr{Mod}\; N_1, \Fl{ m_1/N_1 }} \NR[+]
+\NC \RB {\Rm{vec} \SB {\M{A}}} \DB {m_1}
+=\NC \M{A} \DB {m_1\; \Rm{Mod}\; N_1, \Fl{ m_1/N_1 }} \NR[+]
 }
-The bijectivity is obvious, and we define \m {\Mr {vec} ^{-1}} so that
+The bijectivity is obvious, and we define \m {\Rm {vec} ^{-1}} so that
 \Disp {
-\NC \Mr {vec} ^{-1} \SB {\Mr {vec} \SB {x}}
+\NC \Rm {vec} ^{-1} \SB {\Rm {vec} \SB {x}}
 =\NC x \NR[+]
 }
 }
@@ -265,7 +265,7 @@ For \m {\M{A} \in \Mb {M}_{\Mb {K}} \SB {N_1, N_2}} and \m {\M{B} \in \Mb {M}_{\
 \Disp{
 \NC \NC \RB {\M{A} \otimes \M{B}} \DB {m_1, m_2} \NR
 \NC =\NC \M{A} \DB {\Fl{ m_1/N_3 }, \Fl{ m_2/N_4 }}
-\M{B} \DB {m_1\; \Mr{Mod}\; N_3, m_2\; \Mr{Mod}\; N_4} \NR[+]
+\M{B} \DB {m_1\; \Rm{Mod}\; N_3, m_2\; \Rm{Mod}\; N_4} \NR[+]
 }
 }
 
@@ -287,21 +287,21 @@ We thus verify that arbitrary components of lhs and rhs agree.
 On one hand,
 
 \Disp{
-\NC \NC \RB {\Mr{vec} \SB {\M{A}\M{X}\M{B}}} \DB {m_1} \NR
-\NC = \NC \RB {\M{A}\M{X}\M{B}} \DB {m_1\; \Mr{Mod}\; N_1, \Fl{ m_1/N_1 }} \NR
+\NC \NC \RB {\Rm{vec} \SB {\M{A}\M{X}\M{B}}} \DB {m_1} \NR
+\NC = \NC \RB {\M{A}\M{X}\M{B}} \DB {m_1\; \Rm{Mod}\; N_1, \Fl{ m_1/N_1 }} \NR
 \NC = \NC \sum _{n_2=1} ^{N_2} \sum _{n_3=1} ^{N_3}
-\M{A} \DB {m_1\; \Mr{Mod}\; N_1, n_2} \M{X} \DB {n_2, n_3} \M{B} \DB {n_3, \Fl{ m_1/N_1 }} \NR[+]
+\M{A} \DB {m_1\; \Rm{Mod}\; N_1, n_2} \M{X} \DB {n_2, n_3} \M{B} \DB {n_3, \Fl{ m_1/N_1 }} \NR[+]
 }
 
 On the other hand,
 
 \Disp{
-\NC \NC \RB {\RB {\M{B}^\Tr \otimes \M{A}} \Mr{vec} \SB{\M{X}} } \DB {m_1} \NR
-\NC = \NC \sum _{m_2=1} ^{N_2 N_3} \RB {\M{B}^\Tr \otimes \M{A}} \DB {m_1, m_2} \Mr{vec} \SB {\M{X}} \DB {m_2} \NR
+\NC \NC \RB {\RB {\M{B}^\Tr \otimes \M{A}} \Rm{vec} \SB{\M{X}} } \DB {m_1} \NR
+\NC = \NC \sum _{m_2=1} ^{N_2 N_3} \RB {\M{B}^\Tr \otimes \M{A}} \DB {m_1, m_2} \Rm{vec} \SB {\M{X}} \DB {m_2} \NR
 \NC = \NC \sum _{m_2=1} ^{N_2 N_3} \RB {\M{B}^\Tr} \DB {\Fl{ m_1/N_1 }, \Fl{ m_2/N_2 }}
-\M{A} \DB {m_1\; \Mr{Mod}\; N_1, m_2\; \Mr{Mod}\; N_2} \Mr{vec} \SB {\M{X}} \DB {m_2} \NR 
+\M{A} \DB {m_1\; \Rm{Mod}\; N_1, m_2\; \Rm{Mod}\; N_2} \Rm{vec} \SB {\M{X}} \DB {m_2} \NR 
 \NC = \NC \sum _{m_2=1} ^{N_2 N_3} \M{B} \DB {\Fl{ m_2/N_2 }, \Fl{ m_1/N_1 }}
-\M{A} \DB {m_1\; \Mr{Mod}\; N_1, m_2\; \Mr{Mod}\; N_2} \M{X} \DB {m_2\; \Mr{Mod}\; N_2, \Fl{ m_2/N_2 }} \NR[+]
+\M{A} \DB {m_1\; \Rm{Mod}\; N_1, m_2\; \Rm{Mod}\; N_2} \M{X} \DB {m_2\; \Rm{Mod}\; N_2, \Fl{ m_2/N_2 }} \NR[+]
 }
 
 In () and (), the row index of \m {\M{A}} and \m {\M{B}} already agree.

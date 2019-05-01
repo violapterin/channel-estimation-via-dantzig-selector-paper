@@ -4,7 +4,7 @@ We follow the argument outlined in ``The Dantzig Selector'' and fill the content
 The sparse vector to be recovered of our investigation is \m {g \in \Mb {C}^{N_h}}, and we continue to use \m {\hat {g}} to denote the Dantzig Selector.
 To simplify the exposition, we will continue to use the variables \m {\V {P}}, \m {\V {g}}, \m {\V {y}}, and \m {\V {z}} introduced in previous sections, without defining them over and over (by which one would make each statement completely self-containing but considerably more verbose).
 
-We first establish a technical lemma that shows \m {\Mr {supp} \SB {\V {g}}} has roughly cardinal \m {L}, which guarantees, at the heart of the argument, that \m {\V {g}} is almost-sparse 
+We first establish a technical lemma that shows \m {\Rm {supp} \SB {\V {g}}} has roughly cardinal \m {L}, which guarantees, at the heart of the argument, that \m {\V {g}} is almost-sparse 
 
 \startsection [title={Almost-Sparsity of Angular Channel}]
 
@@ -75,7 +75,7 @@ We show the lemma, which is the key to bounding the sparsity of \m {h}.
 Recall the identity for Dirichlet kernel
 \Disp {
 \NC D \SB {\f'}
-:= \NC \Nm { \sum_{n=0}^{N_H-1} \Mr {e}^{i n \f'} } \NR
+:= \NC \Nm { \sum_{n=0}^{N_H-1} \Rm {e}^{i n \f'} } \NR
 \NC = \NC \F {\Nm {\sin \SB {N_H \f'/2}}}{\Nm {\sin \SB {\f' /2}}}, \NR[+]
 \NC \quad 0 \leq \NC  \f' \leq \pi \NR
 }
@@ -237,7 +237,7 @@ This only depends on the fact that \m {\M {P} \DB {:, n_g}} has unity \m {\ell_2
 Recall the following bound for \m {Q} function
 \Disp {
 \NC Q\SB {x}
-\leq \NC \F {1}{2} \Mr {e}^{-x^2/2} \NR
+\leq \NC \F {1}{2} \Rm {e}^{-x^2/2} \NR
 }
 Particularly, for \m {x =\R {2 \log N_h}}, according to CLT,
 \Disp {
