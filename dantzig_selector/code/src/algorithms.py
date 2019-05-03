@@ -2,17 +2,12 @@ import numpy as np
 import cvxpy as cp
 import constants as cst
 
-class Ddss (cst):
-    def __init__(self):
-        self.pp = np.ones ((cst.nn_y, cst.nn_h))
-        self.y = np.zeros ((cst.nn_y))
-        self.gG = float ('inf')
-        self.hh_hat = np.zeros ((cst.nn_hh, cst.nn_hh))
-
-    def set (self, pp, y, gG):
+class Dd_ss:
+    def __init__(self, pp, y, gG):
         self.pp = pp
         self.y = y
         self.gG = gG
+        self.g_hat = np.zeros ((cst.nn_hh))
 
     def run (self):
         for i in range (cst.nn_h):
@@ -42,13 +37,17 @@ class Ddss (cst):
 
         x_hat = x.value
         g_repr_hat = x_hat [0 : 2 * cst.nn_h -1]
-        g_hat = inv_find_repr_vec (g_repr_hat)
-        gg_hat = inv_vectorize (g_hat)
-        self.hh_hat = cst.kk @ gg_hat @ cst.kk.H
+        self.g_hat = inv_find_repr_vec (g_repr_hat)
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
-class Oommpp:
+class Oo_mm_pp:
     def __init__(self):
-        pass
+        
+
+class Ll_ss:
+    def __init__(self, pp, y):
+
+
+
 
