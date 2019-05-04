@@ -130,7 +130,8 @@ RIP is essentially saying that \m {P} is ``almost unitary'' up to ``relative err
 Now, consider a linear transformation with noise corruption,
 
 \Disp {
-\NC \V {y} =\M {P} \V {h} + \V {z} \NR
+\NC \V {y}
+=\NC \M {P} \V {h} + \V {z} \NR
 }
 
 where (w.l.o.g.) \m {z} is an i.i.d.\ normalized Gaussian vector.
@@ -141,10 +142,10 @@ How can we hope to estimate \m {h} when, in addition to insufficient observation
 {
 \startitemize[n]
 \item Input \m {\M {P} \in \Mb {V}_\Mb {R} \SB {N_m, N_p}}, \m {\V {y} \in \Mb {V}_\Mb {R} \SB {N_m}}.
-\item Find \m {\V {h} \in \Mb {V}_\Mb {R} \SB {N_m}} by
+\item Calculate
 \Disp {
 \NC \V {h}
-= \NC \startcases
+\LA \NC \startcases
 \NC \Min {\V {h}'} \quad \MC \VNm {\V {h}'} _1 \NR
 \NC \Rm {subject} \; \Rm {to} \quad \MC \VNm {\M {P}^\Adj \RB {\M {P} \V {h} -\V {y}}} _\infty \leq \g \NR
 \stopcases \NR
@@ -203,7 +204,8 @@ Around that time, Tropp and Gilbert (2007b) points out if we apply a greedy algo
 Same as before, consider \m {\V {y} \in \Mb {V}_\Mb {K} \SB {N_p}}, \m {\V {h} \in \Mb {V}_\Mb {K} \SB {N_s}}, where \m {\V {h}} is \m {s}-sparse, with \m {N_p \gg N_s}.
 If
 \Disp {
-\NC \V {y} =\M {P} \V {h}, \NR
+\NC \V {y}
+=\NC \M {P} \V {h}, \NR
 }
 that is, the noiseless, real-number case.
 We pick up the columns of \m {\M {P}} greedily, hoping to correspond to the support of \m {\V {h}}, thus recovering the original signal.
@@ -239,7 +241,8 @@ For concreteness, let \m {\M {F}} be the precoder and \m {\M {W}} the combiner, 
 Let signal \m {\V {x}} be sent, and \m {\V {y}} be receiverd, that is
 
 \Disp {
-\NC \V {y} =\M {W} \M {H} \M {F} \V {x} \NR
+\NC \V {y}
+=\NC \M {W} \M {H} \M {F} \V {x} \NR
 }
 
 \Result

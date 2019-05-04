@@ -28,8 +28,8 @@ For \m {\V{x} \in \Mb {V}_{\Mb {C}} \SB {M}}, we say that \m {\Mc {R} \SB {\V{x}
 \Disp {
 \NC \Mc {R} \SB {\V{x}}
 \in \NC \Mb {V}_{\Mb {R}} \SB {2M} \NR
-\NC \Mc {R} \SB {\V{x}} \DB {m} =
-\NC \startcases
+\NC \Mc {R} \SB {\V{x}} \DB {m}
+= \NC \startcases
 \NC \Mf {Re} \SB {\V{x} \DB {m'}}, \MC m =2m' \NR
 \NC \Mf {Im} \SB {\V{x} \DB {m'}}, \MC m =2m'+1 \NR
 \stopcases \NR[+]
@@ -231,30 +231,35 @@ The step that we convert \m {\Hat {\V {g}}} back is same as Algorithm () is same
 \item Calculate
 \Disp{
 \NC \Hat {\V {x}}
-= \NC \startcases
+\LA \NC \startcases
 \NC \Min {\V {x}' \in \Mb {V}_{\Mb {C}} \SB {N_h}}
 \MC \IP {\V {t}, \V {x}'} \NR[+]
 \NC \Rm {subject} \; \Rm {to}
 \quad  \MC \VNm {\M {A} _{i} \V {x}' +\V{b} _{i}} _2
 \leq \IP {\V{c}_{i}, \V {x}'} +\V{d}_i \NR
-\NC \MC i =0, 1, 2, \dots, 2N_h -1 \NR
+\NC \MC i 
+=0, 1, 2, \dots, 2N_h -1 \NR
 \stopcases \NR[+]
 }
 \item Extract
 \Disp{
-\NC \Hat{\T{\V{g}}} =\NC \Hat{\V{x}} \DB {0 : 2N_h-1} \NR[+]
+\NC \Hat{\T{\V{g}}}
+\LA \NC \Hat{\V{x}} \DB {0 : 2N_h-1} \NR[+]
 }
 \item Convert 
 \Disp{
-\NC \Hat{\V{g}} =\NC \Mc{R} ^{-1} \SB {\Hat{\T{\V{g}}}} \NR[+]
+\NC \Hat{\V{g}}
+\LA \NC \Mc{R} ^{-1} \SB {\Hat{\T{\V{g}}}} \NR[+]
 }
 \item Calculate
 \Disp {
-\NC \Hat {G} =\NC \Rm {vec}^{-1} \SB {\Hat {g}} \NR[+]
+\NC \Hat {G}
+\LA \NC \Rm {vec}^{-1} \SB {\Hat {g}} \NR[+]
 }
 \item Calculate
 \Disp {
-\NC \Hat {\M {H}} =\NC \M {K} \Hat {\M {G}} \M {K}^\Adj \NR[+]
+\NC \Hat {\M {H}}
+\LA \NC \M {K} \Hat {\M {G}} \M {K}^\Adj \NR[+]
 }
 \item Output \m {\Hat {\M {H}}}.
 \stopitemize

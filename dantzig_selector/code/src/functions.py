@@ -1,8 +1,9 @@
 import numpy as np
-import matplotlib.pyplot as plt # plotting functions
-import os # getcwd
+import matplotlib.pyplot as plt
+import os
 
 import constants as cst
+import classes as cls
 
 def array_response (pG):
     return np.array ([np.exp (1J *i *pG) for i in range (cst.nn_hh)])
@@ -58,10 +59,6 @@ def indication_repr_mat (n_h):
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
-class Data:
-    def __init__ (self, arr, legend):
-        self.arr =arr
-        self.legend =legend
 
 def draw (arr_x, list_dat, label_x, label_y, title):
     plt.close ("all")

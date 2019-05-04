@@ -4,22 +4,34 @@ import constants as cst
 #import os # getcwd
 #import cvxpy as cp
 
-import helpers as hp
+import functions as fct
 import matrices as mt
 
 #print (np.random.randint(7, size=10))
 #print (np.sin (1J *np.pi)/ np.pi)
 
-a =np.array ([1,2,4,5,7,8])
-b1 =np.array ([1,-1,0,1,3,6])
-b2 =np.array ([2,3,4,4.5,1,1])
-b3 =np.array ([1,3,5,7,5,3])
-#d_b1 =hp.Data(b1,"1st")
-#d_b2 =hp.Data(b1,"2nd")
-#d_b3 =hp.Data(b1,"3rd")
-list_dat =[hp.Data(b1,"1st"), hp.Data(b2,"2nd"), hp.Data(b3,"3rd")]
+#zz =mt.Zz()
+#zz.generate()
+#hh =mt.Hh()
+#hh.generate()
 
-hp.draw (a, list_dat, "Number", "Value", "Test")
+#a =np.array ([[1+2J, 3+4.4J], [-1J, -2.3+3J]])
+#print (a.conj().T)
+
+#a = np.array ([ [(i+j^2) for i in range(5)] for j in range(5)])
+#a = [ [(i+j^2) for i in range(5)] for j in range(5)]
+#print (a)
+#s =set([0,2,4])
+#b =a [:, list(s)]
+#print (b)
+
+
+#a =np.array ([1,2,4,5,7,8])
+#b1 =np.array ([1,-1,0,1,3,6])
+#b2 =np.array ([2,3,4,4.5,1,1])
+#b3 =np.array ([1,3,5,7,5,3])
+#list_dat =[hp.Data(b1,"1st"), hp.Data(b2,"2nd"), hp.Data(b3,"3rd")]
+#hp.draw (a, list_dat, "Number", "Value", "Test")
 
 #print (np.linalg.norm (b, ord='fro'))
 #print(np.kron(a,b))
