@@ -4,7 +4,7 @@
 % `\notag` equivalent
 % Table of contents: wider vertical spacing? Font?
 % Why is the first page blank?
-% Urls can't wrap
+% Wrap verbatim text `\type`
 % Tilde & Hat scaling: still compilation error
 % Page break for multiple equations
 % Book title: wider line spacing?
@@ -26,107 +26,17 @@
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
-\define [1] {\Disp} {\placeformula \startformula \startalign #1 \stopalign \stopformula}
-
-\define {\g} {\gamma}
-\define {\d} {\delta}
-\define {\e} {\epsilon}
-\define {\f} {\varphi}
-\define {\th} {\vartheta}
-\define {\O} {\Omega}
-\define {\o} {\omega}
-\define {\Adj} {\dagger}
-\define {\Tr} {\intercal}
-\define {\LA} {\leftarrow}
-
-\define [1] {\Mb} {{\mathblackboard {#1}}}
-\define [1] {\Mc} {{\mathscript {#1}}}
-\define [1] {\Mf} {{\mathfraktur {#1}}}
-\define [1] {\Rm} {{\rm {#1}}}
-\define [1] {\Ss} {{\ss {#1}}}
-
-\define [1] {\RB} {\left( #1 \right)}
-\define [1] {\SB} {\left[ #1 \right]}
-\define [1] {\CB} {\left{ #1 \right}}
-\define [1] {\DB} {\left[ \! \left[ #1 \right] \! \right]}
-\define [1] {\Fl} {\left \lfloor #1 \right \rfloor}
-\define [1] {\Nm} {\left \vert #1 \right \vert}
-\define [1] {\VNm} {\left \Vert #1 \right \Vert}
-
-\define [1] {\R} {{\sqrt {#1}}}
-\define [2] {\F} {{\frac {#1}{#2}}}
-\define [1] {\Min} {\underset {#1} {{\rm min}}}
-\define [1] {\IP} {\left \langle #1 \right \rangle}
-\define [1] {\V} {\underline {#1 \mkern -1mu} \mkern 2mu}
-\define [1] {\M} {\underline {{\underline {#1 \mkern -1mu} \mkern 2mu} \mkern -2mu} \mkern 2mu}
-\define [1] {\T} {\tilde {\vphantom {\overline{#1}} #1}}
-\define [1] {\Hat} {\hat {\vphantom {\overline{#1}} #1}}
-
-\definemathmatrix[TheMatrix][left={\left[}, right={\right]}]
-
-\definecounter [NumResult] [start=0, way=text]
-\define [0] {\TheCount}
-{
-   \incrementcounter [NumResult]
-   {\bf \rawcountervalue [NumResult]}
-}
-
-\define[2] {\Result}
-{
-   \bigskip
-   \noindent \hskip 3em
-   \TheCount \; {\bf #1} \par
-   #2 \par
-   \hfill
-   \m{\blacksquare} \par
-}
-
-\definefontfeature [default] [default] [onum=yes]
-\definefontfamily [MainFace] [rm] [TeX Gyre Pagella]
-\definefontfamily [MainFace] [ss] [TeX Gyre Heros]
-\definefontfamily [MainFace] [tt] [TeX Gyre Cursor] [features=none]
-\definefallbackfamily [MainFace] [mm] [TeX Gyre DejaVu Math] [force=yes,range=uppercasescript]
-\definefallbackfamily [MainFace] [mm] [TeX Gyre DejaVu Math] [force=yes,range=lowercasescript]
-\definefontfamily [MainFace] [mm] [TeX Gyre Pagella Math]
-
-\setupbodyfont [MainFace, 12pt]
-
-%\m{\Mc{ABCDEFGHIJKLKMNOPQRSTUVWXYZ}}
-%\m{\Mc{abcdefghijklkmnopqrstuvwxyz}}
-
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-
-\setupparagraphs [n=3, before={\blank}, after={\blank}]
-
-\definemeasure
-  [pointoneline]
-  [1.5\baselineskip]
-
-\setupcolors [state=start]
-\definecolor [headingcolor] [r=0.2, g=0.25, b=0.5]
-
-\setuppapersize [A4] [A4]
-\setuplayout
-[
-   width=middle,
-   margin=0pt
-]
-
-\setuppagenumbering [location={footer,middle}, style=slanted]
-\setupbodyfont [12pt]
-
-\setuphead [chapter, section, subsection] [color=headingcolor]
-\setuphead [chapter] [style={\ss\bfd}]
-\setuphead [section] [style={\ss\tfc}]
-\setuphead [subsection] [style={\ss\itb}]
-
-\setupitemize [inbetween={}, style=bold]
-\definemakeup [titlepage] [align=middle]
-
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-
-\definealternativestyle [TitleStyle] [\ss\bfd] []
-\definealternativestyle [AuthorStyle] [\ss\tfb] []
+\define [0] {\g} {\gamma}
+\define [0] {\d} {\delta}
+\define [0] {\e} {\epsilon}
+\define [0] {\f} {\varphi}
+\define [0] {\th} {\vartheta}
+\define [0] {\O} {\Omega}
+\define [0] {\o} {\omega}
+\define [0] {\e} {\epsilon}
+\define [0] {\Adj} {\dagger}
+\define [0] {\Tr} {\intercal}
+\define [0] {\LA} {\leftarrow}
 
 \define [0] {\AuthorText}
 {
@@ -141,18 +51,100 @@
    via an Angular Domain Dantzig Selector \\
    and its Probabilistic Performance Bound
 }
+\define [0] {\TheCount}
+{
+   \incrementcounter [NumResult]
+   {\bf \rawcountervalue [NumResult]}
+}
 
-\setupindenting[big,always]
-\setupwhitespace[medium]
+\define [1] {\MB} {{\mathblackboard {#1}}}
+\define [1] {\MC} {{\mathscript {#1}}}
+\define [1] {\MF} {{\mathfraktur {#1}}}
+\define [1] {\Rm} {{\rm {#1}}}
+\define [1] {\It} {{\it {#1}}}
+\define [1] {\Ss} {{\ss {#1}}}
+\define [1] {\RB} {\left( #1 \right)}
+\define [1] {\SB} {\left[ #1 \right]}
+\define [1] {\CB} {\left{ #1 \right}}
+\define [1] {\DB} {\left[ \! \left[ #1 \right] \! \right]}
+\define [1] {\Fl} {\left \lfloor #1 \right \rfloor}
+\define [1] {\Nm} {\left \vert #1 \right \vert}
+\define [1] {\VNm} {\left \Vert #1 \right \Vert}
+\define [1] {\R} {\sqrt {#1}}
+\define [1] {\Min} {\underset {#1} {\Rm {min}}}
+\define [1] {\IP} {\left \langle #1 \right \rangle}
+\define [1] {\V} {\underline {#1 \mkern -1mu} \mkern 2mu}
+\define [1] {\T} {\tilde {\vphantom {\overline{#1}} #1}}
+\define [1] {\Hat} {\hat {\vphantom {\overline{#1}} #1}}
+
+\define [1] {\Disp}
+{
+   \placeformula
+   \startformula
+   \startalign
+      #1
+   \stopalign
+   \stopformula
+}
+\define [1] {\M}
+{
+   \underline {{\underline {#1 \mkern -1mu} \mkern 2mu} \mkern -2mu}
+   \mkern 2mu
+}
+\define[1] {\Uurrll} {\goto {\mono {\hyphenatedurl {#1}}} [url (#1)]}
+
+\define [2] {\F} {\frac {#1}{#2}}
+
+\define[2] {\Result}
+{
+   \bigskip
+   \noindent \hskip 3em
+   \TheCount \; {\bf #1} \par
+   #2 \par
+   \hfill
+   \m{\blacksquare} \par
+}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\definemathmatrix[TheMatrix][left={\left[}, right={\right]}]
+\definecounter [NumResult] [start=0, way=text]
+\definefontfeature [default] [default] [onum=yes]
+\definefontfamily [MainFace] [rm] [TeX Gyre Pagella]
+\definefontfamily [MainFace] [ss] [TeX Gyre Heros]
+\definefontfamily [MainFace] [tt] [TeX Gyre Cursor] [features=none]
+\definefallbackfamily [MainFace] [mm] [TeX Gyre DejaVu Math] [force=yes,range=uppercasescript]
+\definefallbackfamily [MainFace] [mm] [TeX Gyre DejaVu Math] [force=yes,range=lowercasescript]
+\definefontfamily [MainFace] [mm] [TeX Gyre Pagella Math]
+\definemeasure [pointoneline] [1.5\baselineskip]
+\definecolor [headingcolor] [r=0.2, g=0.25, b=0.5]
+\definealternativestyle [TitleStyle] [\ss\bfd] []
+\definealternativestyle [AuthorStyle] [\ss\tfb] []
+\definemakeup [titlepage] [align=middle]
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\setupparagraphs [n=3, before={\blank}, after={\blank}]
+\setupbodyfont [MainFace, 12pt]
+\setupinteraction [state=start]
+\setupcolors [state=start]
+\setuppapersize [A4] [A4]
+\setuplayout [width=middle, margin=0pt]
+\setuppagenumbering [location={footer,middle}, style=slanted]
+\setuphead [chapter, section, subsection] [color=headingcolor]
+\setuphead [chapter] [style={\ss\bfd}]
+\setuphead [section] [style={\ss\tfc}]
+\setuphead [subsection] [style={\ss\itb}]
 \setuphead[title] [incrementnumber=list, number=no]
 \setuphead[subject] [incrementnumber=list, number=no]
 \setuphead[subsubject] [incrementnumber=list, number=no]
 \setuplist[chapter] [width=2cm]
 \setuplist[section] [width=2cm]
 \setuplist[subject] [width=2cm]
-\setupcombinedlist [content]
-                   [list={chapter, title,
-                          section, subject, 
-                          subsection, subsubject}]
+\setupitemize [inbetween={}, style=bold]
+\setuptype [lines=hyphenated]
+\setupindenting[big,always]
+\setupwhitespace[medium]
+\setupcombinedlist [content] [list={chapter, title, section, subject, subsection, subsubject}]
 
 

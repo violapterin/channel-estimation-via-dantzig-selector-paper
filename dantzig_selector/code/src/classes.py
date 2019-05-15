@@ -115,8 +115,6 @@ class Dd_ss:
         g_repr_hat = x_hat [0 : 2 * cst.nn_h -1]
         self.g_hat = inv_find_repr_vec (g_repr_hat)
 
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-
 class Oo_mm_pp:
     def __init__(self):
         self.pp = pp
@@ -124,7 +122,6 @@ class Oo_mm_pp:
         self.g_hat = np.zeros ((cst.nn_hh))
     def run (self):
         
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 class Ll_ss:
     def __init__(self, pp, y):
@@ -133,8 +130,6 @@ class Ll_ss:
         self.g_hat = np.zeros ((cst.nn_hh))
     def run (self):
         g_hat =pp.conj().T @ numpy.linalg.inv (self.pp @ self.pp.conj().T).inv @ self.y
-
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 class Data:
     def __init__ (self, arr, legend):
