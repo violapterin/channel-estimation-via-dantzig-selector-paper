@@ -149,7 +149,7 @@ Then \m {\V {g}} is almost-\m {L}-sparse with \m {\ell_1}-residue \m {R\SB {N_H,
 }
 }
 
-\startsection [title={Design of RIP Precoders and Combiners}]
+\startsection [title={Design of \m {\M{F}_B}}]
 
 \Result
 {Definition}
@@ -181,16 +181,16 @@ We may well keep track of \m {\d_s \SB {\M{P}}} only.
 When \m {\SB {\M{P}}} is clear, we may suppress it.
 
 We seek to find \m {\d_s \SB {\M{F}_B} \SB {\o_t}}, along similar lines with Achlioptas (2001) and Baraniuk et.\ al.\ (2008).
-Start with the density of each entry of \m {\M{F}_B}, namely i.i.d.\ Gaussian r.v.\ with mean 0, standard deviation \m {1/2}.
+Try to set each entry of \m {\M{F}_B} to be i.i.d.\ Gaussian r.v.\ with mean 0, standard deviation \m {1/2}, multiplied by a normalizing constant \m {\a >0}.
 They are (with a slight of abuse of meaning of \m {\o_t} and so on)
 \Disp{
 \NC d \o_t
-=\NC \F {1} {\R {\pi}} \exp
-  \RB {-\MF{Re} \SB {\M{F}_B \DB {n_R, n_Y} \SB {\o_t}} ^2}
+=\NC \F {1} {\R {\pi} \a} \exp
+  \RB {-\F{1}{\a^2} \MF{Re} \SB {\M{F}_B \DB {n_R, n_Y} \SB {\o_t}} ^2}
 d \MF{Re} \SB {\M{F}_B \DB {n_R, n_Y}} \NR[+]
 \NC d \o_t
-=\NC \F {1} {\R {\pi}} \exp
-  \RB {-\MF{Im} \SB {\M{F}_B \DB {n_R, n_Y} \SB {\o_t}} ^2}
+=\NC \F {1} {\R {\pi} \a} \exp
+  \RB {-\F{1}{\a^2} \MF{Im} \SB {\M{F}_B \DB {n_R, n_Y} \SB {\o_t}} ^2}
 d \MF{Im} \SB {\M{F}_B \DB {n_R, n_Y}} \NR[+]
 \NC n_R
 = \NC 0, 1, 2, \dots, N_R -1 \NR
@@ -199,69 +199,181 @@ d \MF{Im} \SB {\M{F}_B \DB {n_R, n_Y}} \NR[+]
 }
 We know that the magnitude \m {\M{F}_B \DB {n_R, n_Y}} follows Rayleigh distribution, having
 \Disp{
-\NC \MB{E} _{\o_t} \SB {\M{F}_B \DB {n_R, n_Y} \SB {\o_t}}
-=\NC 0 \NR
-\NC \MB{E} _{\o_t} \SB {\Nm {\M{F}_B \DB {n_R, n_Y} \SB {\o_t}}^2}
-=\NC 1 -\F {\pi}{4} \NR
+\NC \NC \MB{E} _{\o_t} \SB {\Nm {\M{F}_B \DB {n_R, n_Y} \SB {\o_t}}} \NR
+\NC =\NC \F{\R{\pi}}{2} \a \NR[+]
+\NC M_2
+:=\NC \MB{E} _{\o_t} \SB {\Nm {\M{F}_B \DB {n_R, n_Y} \SB {\o_t}}^2} \NR
+\NC =\NC \a^2 \NR[+]
+\NC M_4
+:=\NC \MB{E} _{\o_t} \SB {\Nm {\M{F}_B \DB {n_R, n_Y} \SB {\o_t}}^4} \NR
+\NC =\NC 2 \a^4 \NR[+]
 }
-Fix test vector \m {\V{u} \in \MB{M}_\MB{C} \SB{N_Y}}, we have to study \m {\VNm {\M{F}_B \V{u}}_2}.
+Fix test vector \m {\V{u} \in \MB{V}_\MB{C} \SB{N_Y}}, we have to study the concentration of \m {\VNm {\M{F}_B \V{u}}_2} in probability mass.
+We shall exploit Chebyshev bound, which required the first and second moment to be found.
 \Disp{
-\NC \NC \MB{E} _{\o_t} \SB {\VNm {\M{F}_B \V{u}} _2 ^2} \NR
+\NC \NC \MB{E} _{\o_t} \SB {\VNm {\M{F}_B \SB {\o_t} \V{u}} _2 ^2} \NR
 \NC = \NC \MB{E}
 \SB {
   \sum_{n_R=0}^{N_R-1}
-  \Nm {\sum_{n_Y=0}^{N_Y-1} \M{F}_B \DB {n_R, n_Y} ^* \V{u} \DB{n_Y}}^2
+  \Nm {\sum_{n_Y=0}^{N_Y-1} \M{F}_B \DB {n_R, n_Y} ^* \V{u} \DB{n_Y}} ^2
 } \NR
 \NC = \NC \sum_{n_R=0}^{N_R-1}
-  \MB{E} _{\o_t} \SB {\Nm {\sum_{n_Y=0}^{N_Y-1} \M{F}_B \DB {n_R, n_Y} ^* \V{u} \DB{n_Y}}^2}
+  \MB{E} \SB {\Nm {\sum_{n_Y=0}^{N_Y-1} \M{F}_B \DB {n_R, n_Y} ^* \V{u} \DB{n_Y}} ^2}
 \NR
 \NC = \NC
 \sum_{n_R=0}^{N_R-1}
-  \MB{E} _{\o_t} \SB {
-      2 \sum_{n_Y, n_Y'=0}^{N_Y-1}
-         \MF {Re} \SB{
-            \M{F}_B \DB {n_R, n_Y} \M{F}_B \DB {n_R, n_Y'}
-            \V{u} \DB{n_Y} ^* \V{u} \DB{n_Y'} ^*
-         }
+  \MB{E} \SB {
+     2 \sum_{\startsubstack n_Y, n_Y'=0 \NR n_Y <n_Y' \stopsubstack}^{N_Y-1}
+       \MF {Re} \SB{
+         \M{F}_B \DB {n_R, n_Y} ^* \M{F}_B \DB {n_R, n_Y'}
+         \V{u} \DB{n_Y} \V{u} \DB{n_Y'} ^*
+       }
    } \NR
 \NC \NC \quad \quad +\sum_{n_R=0}^{N_R-1}
-  \MB{E} _{\o_t}
+  \MB{E}
      \SB {\sum_{n_Y=0}^{N_Y-1} \Nm {\M{F}_B \DB {n_R, n_Y}}^2 \Nm {\V{u} \DB{n_Y}}^2}
 \NR
 \NC = \NC
-\sum_{n_R=0}^{N_R-1}
-2 \sum_{n_Y, n_Y'=0}^{N_Y-1}
+2 \sum_{n_R=0}^{N_R-1}
+\sum_{\startsubstack n_Y, n_Y'=0 \NR n_Y <n_Y' \stopsubstack}^{N_Y-1}
 \MF {Re} \SB{
-   \MB{E} _{\o_t} \SB {\M{F}_B \DB {n_R, n_Y}}
-   \MB{E} _{\o_t} \SB {\M{F}_B \DB {n_R, n_Y'}}
+   \MB{E} \SB {\M{F}_B \DB {n_R, n_Y}^*}
+   \MB{E} \SB {\M{F}_B \DB {n_R, n_Y'}}
 }
-\V{u} \DB{n_Y} ^* \V{u} \DB{n_Y'} ^*
+\V{u} \DB{n_Y} \V{u} \DB{n_Y'} ^*
 \NR
 \NC \NC \quad \quad +\sum_{n_R=0}^{N_R-1}
-   \sum_{n_Y=0}^{N_Y-1} \MB{E} _{\o_t} \SB {\Nm {\M{F}_B \DB {n_R, n_Y}}^2} \Nm {\V{u} \DB{n_Y}}^2
+   \sum_{n_Y=0}^{N_Y-1} \MB{E} \SB {\Nm {\M{F}_B \DB {n_R, n_Y}}^2} \Nm {\V{u} \DB{n_Y}}^2
 \NR
-\NC = \NC \RB {1 -\F{\pi}{4}} N_Y N_R \VNm {\V{u}} _2 ^2 \NR[+]
+\NC = \NC \a^2 N_R \VNm {\V{u}} _2 ^2 \NR[+]
 }
-
-Thus, by Chebyshev bound,
+Thus, we may set
 \Disp{
-\NC \MB{P} _{\o_t} \SB {
-   \Nm {\VNm {\M{F}_B \V{u}} _2 -\VNm {\V{u}} _2}
-   \geq \e \VNm {\V{u}}
+\NC \a
+=\NC \F {1} {\R{N_R}} \NR[+]
 }
-\leq \NC \RB {1 -\F{\pi}{4}} \F {N_Y N_R} {\e} \NR
+To make
+\Disp{
+\NC \MB{E} _{\o_t} \SB {\VNm {\M{F}_B \SB {\o_t} \V{u}} _2 ^2}
+=\NC \VNm {\V{u}} _2 ^2
 }
 
-
-
+Similarly, we have to find, in advance, the second moment.
+\Disp{
+\NC \MB{E} \SB {\VNm {\M{F}_B \V{u}} _2 ^4}
+=\NC \SB {
+  \RB {
+    \sum_{n_R=0}^{N_R-1}
+    \Nm {\sum_{n_Y=0}^{N_Y-1} \M{F}_B \DB {n_R, n_Y} ^* \V{u} \DB{n_Y}} ^2
+  } ^2
+}
+\NR[+]
+}
+Without spelling out everything, we notice that as long as a term has a single \m {\M{F}_B \DB {n_R, n_Y}} factor, it's expectation is zero.
+Also notice that
+\Disp{
+\NC \NC \MB{E} \SB {\M{F}_B \DB {n_R, n_Y}^2} \NR
+\NC = \NC \MB{E} \SB {\MF {Re} \SB {\M{F}_B \DB {n_R, n_Y}}^2}
+   -\MB{E} \SB {\MF {Im} \SB {\M{F}_B \DB {n_R, n_Y}}^2} \NR
+\NC \NC \quad \quad +2 \Ss {i} \MB{E} \SB {\MF {Re} \SB {\M{F}_B \DB {n_R, n_Y}}}
+      \MB{E} \SB {\MF {Im} \SB {\M{F}_B \DB {n_R, n_Y}}} \NR
+\NC = \NC 0 \NR[+]
+}
+Having said that, with straightforward calculation, we see that the remaining terms are
+\Disp{
+\NC \NC \MB{E} \SB {\VNm {\M{F}_B \V{u}} _2 ^4} \NR
+\NC = \NC
+\sum_{n_R=0}^{N_R-1} \sum_{n_Y=0}^{N_Y-1}
+\Nm {\M{F}_B \DB {n_R, n_Y}} ^4
+\Nm {\V{u} \DB{n_Y}} ^4 \NR
+\NC \NC \quad \quad
++\sum _{\startsubstack n_R, n_R' =0 \NR n_R <n_R' \stopsubstack}^{N_R-1}
+\sum _{n_Y =0}^{N_Y-1}
+\Nm {\M{F}_B \DB {n_R, n_Y}} ^2
+\Nm {\M{F}_B \DB {n_R', n_Y'}} ^2
+\Nm {\V{u} \DB{n_Y}} ^2
+\Nm {\V{u} \DB{n_Y'}} ^2 \NR
+\NC \NC \quad \quad
++\sum _{n_R, n_R' =0}^{N_R-1}
+\sum _{\startsubstack n_Y, n_Y' =0 \NR n_Y <n_Y' \stopsubstack}^{N_Y-1}
+\Nm {\M{F}_B \DB {n_R, n_Y}} ^2
+\Nm {\M{F}_B \DB {n_R', n_Y'}} ^2
+\Nm {\V{u} \DB{n_Y}} ^2
+\Nm {\V{u} \DB{n_Y'}} ^2 \NR
+\NC \NC \quad \quad
++\sum _{n_R =0}^{N_R-1}
+\sum _{\startsubstack n_Y, n_Y' =0 \NR n_Y <n_Y' \stopsubstack}^{N_Y-1}
+\Nm {\M{F}_B \DB {n_R, n_Y}} ^2
+\Nm {\M{F}_B \DB {n_R, n_Y'}} ^2
+\Nm {\V{u} \DB{n_Y}} ^2
+\Nm {\V{u} \DB{n_Y'}} ^2 \NR
+\NC =\NC N_R \D M_4 \D \VNm {\V{u}} _4 ^4
+   +\F {1} {2} N_R \RB {N_R-1} \D M_2^2 \D \RB {\VNm {\V{u}} _2 ^4 -\VNm {\V{u}} _4 ^4} \NR
+\NC \NC \quad \quad + N_R^2 \D M_2^2 \D \RB {\VNm {\V{u}} _2 ^4 -\VNm {\V{u}} _4 ^4}
+   + N_R \D M_2^2 \D \RB {\VNm {\V{u}} _2 ^4 -\VNm {\V{u}} _4 ^4} \NR
+\NC =\NC \RB {N_R M_4 -\F{1}{2} \RB {3N_R^2 +N_R} M_2^2} \VNm {\V{u}} _4 ^4
++\F{1}{2} \RB {3N_R^2 +N_R} M_2^2 \VNm {\V{u}} _2 ^4 \NR[+]
+}
+Plugging in the moments, we have
+\Disp{
+\NC =\NC \RB {N_R M_4 -\F{1}{2} \RB {3N_R^2 +N_R} M_2^2} \VNm {\V{u}} _4 ^4
++\F{1}{2} \RB {3N_R^2 +N_R} M_2^2 \VNm {\V{u}} _2 ^4 \NR[+]
+}
+Use \m {\VNm {\V{u}} _2 \leq N_y \VNm {\V{u}} _4} and drop the rest of \m {\VNm {\V{u}} _4 ^4} term, and we have simply
+\Disp{
+\NC \NC \leq \F{3}{2} \VNm {\V{u}} _2 ^4 \NR[+]
+}
+In conclusion,
+\Disp{
+\NC \Ss{Var} _{\o_t} \SB {\VNm {\M{F}_B \SB {\o_t} \V{u}} _2 ^2}
+\leq \NC \F{1}{2} \VNm {\V{u}} _2 ^4 \NR[+]
+}
+Thus, by Chebyshev bound,
 \Result
 {Lemma}
 {
+Let \m {\M{F}_B \in \MB {M}_{\MB {C}} \SB {N_R, N_Y}} be generated randomly according to ().
+Then, for any fixed \m {\V{u} \in \MB {V}_{\MB {C}} \SB {N_Y}}, and for any \m {\e >0},
+\Disp{
+\NC \MB{P} _{\o_t}
+\SB {
+  \Nm {\VNm {\M{F}_B \V{u}} _2 ^2 -\VNm {\V{u}} _2 ^2}
+  \geq \e \VNm {\V{u}} _2 ^2
+}
+\leq \NC \F {1} {2\e^2} \NR[+]
+}
 }
 
-\stoptext
+\stopsection
 
-\startsection [title={DS for Complex Vectors}]
+\startsection [title={Design of \m {\M{F}_R}}]
+
+Let \m {\M{F}_B \DB {n_R, n_Y}} be uniformly distributed on the unit circle on the complex plane, which gives probability density
+
+\Disp{
+\NC d \o_t
+= \NC \F {1} {\pi} \RB {1 -\RB {\MF{Re} \SB {\M{F}_R \DB {n_R, n_Y} \SB {\o_t}}} ^2}^{-1/2}
+d \MF{Re} \SB {\M{F}_B \DB {n_R, n_Y}} \NR[+]
+\NC d \o_t
+= \NC \F {1} {\pi} \RB {1 -\RB {\MF{Im} \SB {\M{F}_R \DB {n_R, n_Y} \SB {\o_t}}} ^2}^{-1/2}
+d \MF{Im} \SB {\M{F}_B \DB {n_R, n_Y}} \NR[+]
+}
+
+\Disp{
+\NC \NC \MB{E} _{\o_t} \SB {\M{F}_B \DB {n_R, n_Y} \SB {\o_t}} \NR
+\NC =\NC \a \NR[+]
+\NC M_2
+:=\NC \MB{E} _{\o_t} \SB {\Nm {\M{F}_B \DB {n_R, n_Y} \SB {\o_t}}^2} \NR
+\NC =\NC \a^2 \NR[+]
+\NC M_4
+:=\NC \MB{E} _{\o_t} \SB {\Nm {\M{F}_B \DB {n_R, n_Y} \SB {\o_t}}^4} \NR
+\NC =\NC \a^4 \NR[+]
+}
+
+
+\stopsection
+
+\startsection [title={Mean Square Error Analysis for Complex DS}]
 
 The rest follows ``The Dantzig Selector'' very closely.
 The generalization to complex vector is necessary in our setting.
