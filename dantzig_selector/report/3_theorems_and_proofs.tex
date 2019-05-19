@@ -208,7 +208,7 @@ We know that the magnitude \m {\M{F}_B \DB {n_R, n_Y}} follows Rayleigh distribu
 :=\NC \MB{E} _{\o_t} \SB {\Nm {\M{F}_B \DB {n_R, n_Y} \SB {\o_t}}^4} \NR
 \NC =\NC 2 \a^4 \NR[+]
 }
-Fix test vector \m {\V{u} \in \MB{V}_\MB{C} \SB{N_Y}}, we have to study the concentration of \m {\VNm {\M{F}_B \V{u}}_2} in probability mass.
+Fix any test vector \m {\V{u} \in \MB{V}_\MB{C} \SB{N_Y}}, we have to study the concentration of \m {\VNm {\M{F}_B \V{u}}_2} in probability mass.
 We shall exploit Chebyshev bound, which required the first and second moment to be found.
 \Disp{
 \NC \NC \MB{E} _{\o_t} \SB {\VNm {\M{F}_B \SB {\o_t} \V{u}} _2 ^2} \NR
@@ -316,13 +316,14 @@ Having said that, with straightforward calculation, we see that the remaining te
 }
 Plugging in the moments, we have
 \Disp{
-\NC =\NC \RB {N_R M_4 -\F{1}{2} \RB {3N_R^2 +N_R} M_2^2} \VNm {\V{u}} _4 ^4
-+\F{1}{2} \RB {3N_R^2 +N_R} M_2^2 \VNm {\V{u}} _2 ^4 \NR[+]
+\NC =\NC -\F{3}{2} \RB {1 -\F{1}{N_R}} \VNm {\V{u}} _4 ^4
++\F{1}{2} \RB {3 +\F{1}{N_R}} \VNm {\V{u}} _2 ^4 \NR[+]
 }
 Use \m {\VNm {\V{u}} _2 \leq N_y \VNm {\V{u}} _4} and drop the rest of \m {\VNm {\V{u}} _4 ^4} term, and we have simply
 \Disp{
 \NC \NC \leq \F{3}{2} \VNm {\V{u}} _2 ^4 \NR[+]
 }
+
 In conclusion,
 \Disp{
 \NC \Ss{Var} _{\o_t} \SB {\VNm {\M{F}_B \SB {\o_t} \V{u}} _2 ^2}
@@ -348,27 +349,70 @@ Then, for any fixed \m {\V{u} \in \MB {V}_{\MB {C}} \SB {N_Y}}, and for any \m {
 
 \startsection [title={Design of \m {\M{F}_R}}]
 
-Let \m {\M{F}_B \DB {n_R, n_Y}} be uniformly distributed on the unit circle on the complex plane, which gives probability density
-
+Let \m {\M{F}_R \DB {n_H, n_R}} be uniformly distributed on the unit circle on the complex plane, which gives probability density
 \Disp{
 \NC d \o_t
-= \NC \F {1} {\pi} \RB {1 -\RB {\MF{Re} \SB {\M{F}_R \DB {n_R, n_Y} \SB {\o_t}}} ^2}^{-1/2}
-d \MF{Re} \SB {\M{F}_B \DB {n_R, n_Y}} \NR[+]
+= \NC \F {1} {\pi} \RB {1 -\RB {\MF{Re} \SB {\M{F}_R \DB {n_H, n_R} \SB {\o_t}}} ^2}^{-1/2}
+d \MF{Re} \SB {\M{F}_R \DB {n_H, n_R}} \NR[+]
 \NC d \o_t
-= \NC \F {1} {\pi} \RB {1 -\RB {\MF{Im} \SB {\M{F}_R \DB {n_R, n_Y} \SB {\o_t}}} ^2}^{-1/2}
-d \MF{Im} \SB {\M{F}_B \DB {n_R, n_Y}} \NR[+]
+= \NC \F {1} {\pi} \RB {1 -\RB {\MF{Im} \SB {\M{F}_R \DB {n_H, n_R} \SB {\o_t}}} ^2}^{-1/2}
+d \MF{Im} \SB {\M{F}_R \DB {n_H, n_R}} \NR[+]
 }
-
+As a result,
 \Disp{
-\NC \NC \MB{E} _{\o_t} \SB {\M{F}_B \DB {n_R, n_Y} \SB {\o_t}} \NR
+\NC \NC \MB{E} _{\o_t} \SB {\M{F}_R \DB {n_H, n_R} \SB {\o_t}} \NR
 \NC =\NC \a \NR[+]
 \NC M_2
-:=\NC \MB{E} _{\o_t} \SB {\Nm {\M{F}_B \DB {n_R, n_Y} \SB {\o_t}}^2} \NR
+:=\NC \MB{E} _{\o_t} \SB {\Nm {\M{F}_R \DB {n_H, n_R} \SB {\o_t}}^2} \NR
 \NC =\NC \a^2 \NR[+]
 \NC M_4
-:=\NC \MB{E} _{\o_t} \SB {\Nm {\M{F}_B \DB {n_R, n_Y} \SB {\o_t}}^4} \NR
+:=\NC \MB{E} _{\o_t} \SB {\Nm {\M{F}_R \DB {n_H, n_R} \SB {\o_t}}^4} \NR
 \NC =\NC \a^4 \NR[+]
 }
+
+Fix any test vector \m {\V{u} \in \MB{V}_\MB{C} \SB{N_H}}, 
+By a similar argument, we may set
+\Disp{
+\NC \a
+=\NC \F {1} {\R{N_H}} \NR[+]
+}
+to make
+\Disp{
+\NC \NC \MB{E} _{\o_t} \SB {\VNm {\M{F}_R \SB {\o_t} \V{u}} _2 ^2} \NR
+\NC = \NC \VNm {\V{u}} _2 ^2 \NR[+]
+}
+Furthermore, if we plug in the moments and use \m {\VNm {\V{u}} _2 \leq N_y \VNm {\V{u}} _4} and drop the rest of \m {\VNm {\V{u}} _4 ^4} term, we have simply
+\Disp{
+\NC \NC \MB{E} \SB {\VNm {\M{F}_R \V{u}} _2 ^4} \NR
+\NC =\NC \RB {N_H M_4 -\F{1}{2} \RB {3N_H^2 +N_H} M_2^2} \VNm {\V{u}} _4 ^4
++\F{1}{2} \RB {3N_H^2 +N_H} M_2^2 \VNm {\V{u}} _2 ^4 \NR
+\NC =\NC -\F{1}{2} \RB {3 -\F{1}{N_H}} \VNm {\V{u}} _4 ^4
++\F{1}{2} \RB {3 +\F{1}{N_H}} \VNm {\V{u}} _2 ^4 \NR
+\NC \leq \NC \F{3}{2} \VNm {\V{u}} _2 ^4 \NR[+]
+}
+
+In conclusion,
+\Disp{
+\NC \Ss{Var} _{\o_t} \SB {\VNm {\M{F}_R \SB {\o_t} \V{u}} _2 ^2}
+\leq \NC \F{1}{2} \VNm {\V{u}} _2 ^4 \NR[+]
+}
+Thus, by Chebyshev bound, we obtain an identical expression,
+\Result
+{Lemma}
+{
+Let \m {\M{F}_R \in \MB {M}_{\MB {C}} \SB {N_H, N_R}} be generated randomly according to ().
+Then, for any fixed \m {\V{u} \in \MB {V}_{\MB {C}} \SB {N_R}}, and for any \m {\e >0},
+\Disp{
+\NC \MB{P} _{\o_t}
+\SB {
+  \Nm {\VNm {\M{F}_R \V{u}} _2 ^2 -\VNm {\V{u}} _2 ^2}
+  \geq \e \VNm {\V{u}} _2 ^2
+}
+\leq \NC \F {1} {2\e^2} \NR[+]
+}
+}
+
+
 
 
 \stopsection
