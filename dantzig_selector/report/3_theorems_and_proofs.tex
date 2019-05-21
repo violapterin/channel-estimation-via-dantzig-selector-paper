@@ -1,14 +1,12 @@
 \startchapter [title={Theorems and Proofs}]
 
-We follow the argument outlined in ``The Dantzig Selector'' and fill the content.
-The sparse vector to be recovered of our investigation is \m {g \in \MB {C}^{N_h}}, and we continue to use \m {\hat {g}} to denote the Dantzig Selector.
-To simplify the exposition, we will continue to use the variables \m {\V {P}}, \m {\V {g}}, \m {\V {y}}, and \m {\V {z}} introduced in previous sections, without defining them over and over (by which one would make each statement completely self-containing but considerably more verbose).
-
-We first establish a technical lemma that shows \m {\Rm {supp} \SB {\V {g}}} has roughly cardinal \m {L}, which guarantees, at the heart of the argument, that \m {\V {g}} is almost-sparse 
+Our plan is first to show that \m {\SB {\V {g}}} is almost sparse, and substitute the bound into the expected square error of DS, thus generalizing the original argument.
+We will continue to use the variables \m {\V {P}}, \m {\V {g}}, \m {\V {y}}, and \m {\V {z}} introduced in previous sections.
 
 \startsection [title={Almost-Sparsity of Angular Channel}]
 
-We apply DS to find \m {\hat {\V {g}}}, setting
+Let \m {\hat {\V {g}}} be the Dantzig Selector.
+For concreteness, we set
 \Disp {
 \NC \g 
 = \NC \R {2 \log N_h} \NR[+]
@@ -30,66 +28,65 @@ And call
 Suppose \m {\M {A} \in \MB {M}_{\MB {K}} \RB {N_1, N_2 }}.
 For brevity, let \m {\MC {T} \subset T \RB {N_2 }}.
 Denote as \m {\M {A}_{\MC {T}}} the columns of \m {\M {A}} having indices in \m {\MC {T}}.
-Let \m {S:\; \MB {V}_{\MB {K}} \SB {N} \mapsto \MB {V}_{\MB {K}} \SB {N}}, \m {N \in \MB {N}}, be the sorting function for \m {x \in \MB {V}_{\MB {K}} \SB {N})}, so that
+
+And Denote the sorting function to be \m {\MC {S}:\; \MB {V}_{\MB {K}} \SB {N} \mapsto \MB {V}_{\MB {K}} \SB {N}}, \m {N \in \MB {N}}, be the sorting function for \m {x \in \MB {V}_{\MB {K}} \SB {N})}, so that
 \Disp {
-\NC \Nm {S \RB {x} \DB {n_1}} \geq  \NC \Nm {S \RB {x} \DB {n_2}}, \NR[+]
-\NC n_1 > \NC n_2,
+\NC \Nm {\MC {S} \SB {\V{x}} \DB {n_1}} \geq \NC \Nm {\MC {S} \SB {\V{x}} \DB {n_2}}, \NR[+]
+\NC n_1 \leq \NC n_2,
 \quad n_1, n_2 \in T\RB {N} \NR
 }
-
-Denote the sorting function to be \m {f:\; T\RB {N} \mapsto \MB {R}_+}, \m {N \in \MB {N}}.
-That is, for \m {x \in \MB {V}_{\MB {K}} \SB {N}}, \m {x} is confined in sorted magnitude according to \m {f}.
+That is, \m {\V{x}} is sorted in magnitude.
 For definiteness, we may compare the first component first, and the second, and so on.
 If still there is a tie for a certain component (for complex numbers), the order is irrelevent.
-Formally,
-\Disp {
-\NC \Nm {\MC{S} \SB {x} \DB {n} }
-\leq \NC f \SB {n},
-\quad n \in T \RB {N}. \NR
-}
 
 \Result
 {Definition}
 {
 For \m {\V {x} \in \MB {V}_{\MB {K}} \SB {N}}, we say \m {\V {x}} is almost-\m {s}-sparse according to the \m {\ell_p}-norm with remainder \m {R}, if
 \Disp {
-\NC \sum_{n=s}^N \Nm {\MC{S} \SB {\V {x}} \SB {n}}
-\leq \NC R. \NR
+\NC \Nm {\RB {\MC{S} \SB {\V {x}} \SB {n}} \DB {s:N}}_p
+\leq \NC R. \NR[+]
 }
 }
 
-\Result
-{Lemma}
-{
-Suppose \m {0 \leq \f \leq 2\pi k /N_H}, \m {k =0, \dots, N_H-1}.
-Let \m {\f} be given, and array response \m {\V {a} \SB {\f}} defined as in ().
-Then \m {\V {a} \SB {\f}} is almost-\m {L}-sparse according to the \m {\ell_2}-norm with remainder \m {R} to be
-\Disp {
-\NC R
-= \NC \F {1}{\pi} \log \F {N_H}{L-1}. \NR
-}
-}
-
-We now show the lemma, which is the key to bounding the sparsity of \m {h}.
-Let \m {\f'} be fixed.
+Let \m {\f} be fixed.
 What we have to bound is
 \Disp {
-\NC R \SB {\f'}
+\NC R^2
 =\NC \sum_{n_H =s}^{N_H -1}
-   \RB {\MC{S} \SB {\M {K}^\Adj \V {a} \SB {\f}}} \DB {n_H} \NR[+]
+   \RB {\MC{S} \SB {\M {K}^\Adj \V {a} \SB {\f}}} \DB {n_H} ^2 \NR[+]
 }
-Observe
+
+Introduce
+\Disp {
+\NC \psi \SB {\f, n_H}
+:=\NC \RB {
+   \RB {
+      \RB {\f \; \Rm{mod}\; \F{2\pi}{N_H}}
+      +\F {2 \pi n_H} {N_H}
+      +\pi
+   } \;
+   \Rm{mod}\; \RB {2\pi}
+}
+-\pi
+}
+so that
+\Disp{
+\NC \Nm {\psi \SB {\f, n_H}}
+\leq \NC \pi
+}
+And define \m {D} to be the Dirichlet kernel
+\Disp {
+\NC D \SB {\psi'}
+:= \NC \sum_{n_H=0}^{N_H-1} \Ss {e}^{i n_H \psi'} \NR
+\NC \quad 0 \leq \NC  \psi' \leq \pi \NR
+}
+Then observe
 \Disp {
 \NC \RB {\M {K}^\Adj \V {a} \SB {\f}} \DB {n_H}
-=\NC \F {1}{N_H} D \SB {\RB {\f \; \Rm{mod}\; \F{2\pi}{N_H}} +\F {2 \pi n_H} {N_H}} \NR
+=\NC \F {1}{N_H} D \SB {\psi \SB {\f, n_H}} \NR
 }
-where \m {D} is the Dirichlet kernel
-\Disp {
-\NC D \SB {\f'}
-:= \NC \Nm { \sum_{n_H=0}^{N_H-1} \Rm {e}^{i n_H \f'} } \NR
-\NC = \NC \F {\Nm {\sin \SB {N_H \f'/2}}}{\Nm {\sin \SB {\f' /2}}}, \NR[+]
-\NC \quad 0 \leq \NC  \f' \leq \pi \NR
-}
+
 Now, it can be verified that
 \Result
 {Lemma}
@@ -101,65 +98,58 @@ For \m {-\pi \leq x < \pi}, we have
 }
 Applying Lemma () to the denominator of () and bounding the nominator by 1, we have
 \Disp {
-\NC \Nm {D \SB {\f'} }
-\leq \NC B \SB {\f'} \NR
-\NC := \NC \F {48}{\Nm {\f'^2 -24} \Nm {\f'}} \NR[+]
-\NC -\pi \leq \NC \f' < \pi. \NR
+\NC \Nm {D \SB {\psi'} }
+= \NC \F {\Nm {\sin \SB {N_H \psi'/2}}}{\Nm {\sin \SB {\psi' /2}}} \NR
+\NC \leq \NC B \SB {\psi'} \NR
+\NC := \NC \F {48}{\Nm {\psi'^2 -24} \Nm {\psi'}} \NR[+]
+\NC -\pi \leq \NC \psi' < \pi. \NR
 }
 Thus,
 \Disp {
-\NC R \SB {\f'}
-=\NC \sum_{n_H =s}^{N_H -1}
-   \F {1}{N_H}
-   \MC{S}
-   \SB {
-      \sum_{n_H' =s}^{N_H -1}
-      B \SB {\RB {\f \; \Rm{mod}\; \F{2\pi}{N_H}} +\F {2 \pi n_H'} {N_H}}
-      \V {u}_{n_H'}
-   }
-   \DB {n_H}
-\NR[+]
-}
-Notice that \m {\Nm {B \SB {\phi'}}} is monotone, and then
-\Disp{
-\NC \NC \MC{S}
-\SB {
-   \sum_{n_H' =s}^{N_H' -1}
-   B \SB {\RB {\f \; \Rm{mod}\; \F{2\pi}{N_H}} +\F {2 \pi n_H'} {N_H}}
+\NC R^2
+=\NC \F {1}{N_H^2}
+\sum_{n_H =s}^{N_H -1}
+\MC{S} \SB {
+   \sum_{n_H' =0}^{N_H -1}
+   B \SB {\psi \SB {\f, n_H'}}
    \V {u}_{n_H'}
 }
-\DB {n_H} \NR
-\NC =\NC B \SB {\RB {\f \; \Rm{mod}\; \F{2\pi}{N_H}} +\F {2 \pi n_H} {N_H}} \NR
-\NC \leq \NC B \SB {\F {2 \pi n_H} {N_H}} \NR[+]
+\DB {n_H} ^2 \NR[+]
 }
-What we saw gives
-\Disp{
-\NC R \SB {\f'}
-=\NC \F {1}{N_H} \sum_{n_H =s}^{N_H -1}
-   B \SB {\F {2 \pi n_H} {N_H}} \NR
+Note that \m {\Nm {B \SB {\psi'}}} is strictly decreasing in \m {\SB {0,\pi}}.
+We seek to bound the ``rectangulars'' with an integral, and we have to split the cases that \m {N_H} is odd and even.
+Anyway, a moment's reflection shows
+\Disp {
+\NC R^2
+\leq \NC \F {1}{N_H^2} \D \F {N_H}{2\pi} \D 2 \int_{\pi s/N_H}^{\pi} B \SB {\psi'} ^2 d \psi' \NR
+\NC = \NC \F {2304} {N_H \pi^6}
+\int _{s /N_H} ^1 \F{1} {(24/\pi^2 -x'^2)^2 x'^2} dx' \NR
+\NC =\NC \F{1} {2\pi^2}
+\RB {
+  -\F {8} {u}
++\F {4\pi^2 u} {24 -\pi^2 u^2}
++\R{6} \pi \tanh^{-1} \SB {\F {\pi u} {2\R{6}}}
+}
+\Bigg \| _{s/N_H} ^1 \NR
+\NC \leq \NC \F {4} {\pi^2} \D \F {1} {s} +0.032670 \NR[+]
+}
+In the last step we bound the lower limit of the second and third term with \m {x' =0}, and leave the dominating \m {1/x'}.
+
+In summary,
+
+\Result
+{Lemma}
+{
+Let \m {\f} be given, and array response \m {\V {a} \SB {\f}} defined as in ().
+Then \m {\V {a} \SB {\f}} is almost-\m {s}-sparse according to the \m {\ell_2}-norm with remainder \m {R} to be
+\Disp {
+\NC R
+= \NC \F {2} {\pi} \D \F {1} {\R{s}} +\F {1} {62}. \NR[+]
+}
 }
 
-By the approximation of rectangle to integral,
-\Disp {
-\NC R\SB {\eta} -\F {2\pi} {N_H}
-\leq \NC \F {1}{N_H} N_H \int_{\f'=2\pi L/N_H}^{2\pi} \Nm {D\SB {\f'}} d \f' \NR
-}
-Bound \m {D} by above technique, meanwhile we notice \m {\f' <24}.
-\Disp {
-\NC R\SB {\f}
-\leq \NC \F {1}{2\pi} \int_{\f'=2\pi L/N_H}^{2\pi} \F {48}{\RB {24 -\f'^2} \f'} d \f'
-+\F {2\pi} {N_H} \NR
-\NC = \NC \F {1}{\pi} \log \F {2\pi N_H}{L}
--\F {1}{N_H} \log \F {4\pi^2 -24} {L^2/N_H^2 -24}
-+\F {2\pi} {N_H}
-}
-Notice the argument of log in the second term \m {<1}, and we drop that.
-Also drop \m {2\pi /N_H} since it is small.
-Furthermore the \m {2\pi} factor in log can be dropped too.
-\Disp {
-\NC R\SB {\f}
-\leq \NC \F {1}{\pi} \log \F {N_H}{L}. \NR
-}
+
+\stoptext
 
 \Result
 {Lemma (Tentative)}
@@ -236,8 +226,7 @@ Fix any test vector \m {\V{u} \in \MB{V}_\MB{C} \SB{N_Y}}, we have to study the 
 We shall exploit Chebyshev bound, which required the first and second moment to be found.
 \Disp{
 \NC \NC \MB{E} _{\o_t} \SB {\VNm {\M{F}_B \SB {\o_t} \V{u}} _2 ^2} \NR
-\NC = \NC \MB{E}
-\SB {
+\NC = \NC \MB{E} \SB {
   \sum_{n_R=0}^{N_R-1}
   \Nm {\sum_{n_Y=0}^{N_Y-1} \M{F}_B \DB {n_R, n_Y} ^* \V{u} \DB{n_Y}} ^2
 } \NR
@@ -285,7 +274,7 @@ To make
 Similarly, we have to find, in advance, the second moment.
 \Disp{
 \NC \MB{E} \SB {\VNm {\M{F}_B \V{u}} _2 ^4}
-=\NC \SB {
+=\NC \MB{E} \SB {
   \RB {
     \sum_{n_R=0}^{N_R-1}
     \Nm {\sum_{n_Y=0}^{N_Y-1} \M{F}_B \DB {n_R, n_Y} ^* \V{u} \DB{n_Y}} ^2
@@ -472,7 +461,7 @@ A moment of reflection shows that
 
 \stopsection
 
-\startsection [title={Mean Square Error Analysis for Complex DS}]
+\startsection [title={Expected Square Error for Complex-Case DS}]
 
 The rest follows ``The Dantzig Selector'' very closely.
 The generalization to complex vector is necessary in our setting.
