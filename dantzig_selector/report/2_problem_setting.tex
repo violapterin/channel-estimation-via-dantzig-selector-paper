@@ -19,32 +19,34 @@ where \m {\Ss {e}} is the base of natural logarithm, and \m {\Ss {i}} the imagin
 And consider the virtual representation of the MIMO channel (see for example Akdeniz et.\ al.\ 2014).
 \Disp {
 \NC \M{H}
-=\sum_{l=1}^L \alpha_l \V {a} \SB { \F {d_{\Rm {arr}}} {\lambda} \sin \f_l' } \V {a} \SB { \F {d_{\Rm {arr}}} {\lambda} \sin \th_l' }^\Adj \NR
+=\NC \sum_{l=0} ^{L-1}
+\a_l
+\V {a} \SB { \F {d_{\Rm {arr}}} {\l _{\Rm {arr}} \sin \f_l' }}
+\V {a} \SB { \F {d_{\Rm {arr}}} {\l _{\Rm {arr}} \sin \th_l' }}^\Adj \NR[+]
 }
 The physical meaning of \m {\th_l} is the \m {l}-th angle of incidence (formed by the ray and the normal line) of departure electronic wave, and \m {\th_l}, the \m {l}-th that of arrival wave, while \m {d_{\Rm {arr}}} is the distance between two adjacent antennae.
 For our purpose, we may absorb the argument of \m {\V {a}} as
 \Disp {
 \NC \f_l
-= \NC \F {d_{\Rm {arr}}} {\lambda} \sin \f_l' \quad \Rm{Mod}\; (2\pi) \NR[+]
+= \NC \RB {
+\F {d_{\Rm {arr}}} {\l_{\Rm {arr}}} \sin \f_l'
+\; \Rm{Mod}\; \RB {2\pi}
+} \NR[+]
 \NC \th_l
-= \NC \F {d_{\Rm {arr}}} {\lambda} \sin \th_l' \quad \Rm{Mod}\; (2\pi) \NR[+]
+= \NC \RB {
+\F {d_{\Rm {arr}}} {\l_{\Rm {arr}}} \sin \th_l'
+\; \Rm{Mod}\; \RB {2\pi}
+} \NR[+]
 }
 to get a simpler form
 \Disp {
 \NC \M{H}
 \in \NC \MB {M}_\MB {C} \SB {N_H} \NR
 \NC \M{H}
-=\NC \sum_{l=1}^L \alpha_l \V {a} \SB {\f_l} \V {a} \SB {\th_l}^\Adj \NR
-}
-
-\Result
-{Definition.}
-{
+=\NC \sum_{l=0} ^{L-1} \a_l \V {a} \SB {\f_l} \V {a} \SB {\th_l}^\Adj \NR
 }
 
 \stopsection
-
-
 
 \startsection [title={System Model}]
 
