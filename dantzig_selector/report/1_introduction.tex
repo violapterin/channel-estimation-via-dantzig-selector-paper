@@ -6,7 +6,7 @@ Particularly, we will summerize present results on DS and OMP, and argue that DS
 
 \stopsection
 
-\startsection [title={Background}]
+\startsection [title={Motivation of Compressed Channel Sensing}]
 
 Multiple-input multiple-output (MIMO) communication system has been proposed to be the next-generation specification.
 With a large number of antennae of both transmitter and receiver sides (hereafter massive MIMO) is therefore expected to improve spectral efficiency.
@@ -56,67 +56,68 @@ In addition, they derived a probability bound of mean suqare error, showing the 
 
 From the realistic perspective, the formulation as an \m {\ell_1} minimization problem, which is convex, made techniques from convex optimization usable.
 Indeed, relevent code has been put on the web for the reader to access and verify (Cand\`es \& Romberg 2005).
-
 In this article we focus on DS, and we introduce several notions before we describe their work.
-For simpliciy, in this section we will consistently use \m {N_p} and \m {N_m} to denote matrix dimensions.
-And, following their presentation, with slight abuse of notation we borrow the term ``support'' to denote the index set on which a vector's components are nonzero.
 
-For brevity, we will use \m {T \RB {N_m} =\{1, \dots, N_m\}} to denote the support of \m {\MB {V}_{\MB {K}} \SB {N_m}}.
-Also, suppose \m {\M {A} \in \MB {M}_{\MB {K}} \SB {N_m, N_p}}.
-Let \m {\MC {T} \subset T \RB {N_p}}.
-Denote as \m {\M {A}_{\MC {T}}} the columns of \m {\M {A}} having indices in \m {\MC {T}}.
+In this section, consider \m {\V{x} \in \MB {V}_{\MB {K}} \SB {N_p}} and \m {\V{\Phi} \in \MB {M}_{\MB {K}} \SB {N_m, N_p}}.
+Set \m {\MC {T} \RB {N_p} =\CB {0, \dots, N_p-1}} for short.
+For \m {\MC {A} \subseteq \MC {T} \SB {N_p}}, denote
+\Disp{
+\NC \V {x} _{\MC {A}}
+=\NC \sum _{i \in \MC {A}} \V {v} \V {u} _{i} \NR[+]
+\NC \M {\Phi} _{\MC {A}}
+=\NC \sum _{i \in \MC {A}} \M {\Phi} \DB {:,i} \NR[+]
+}
+That is, respectfully, the components of \m {\V {x}}, and the columns of \m {\M {A}}, that have indices in \m {\MC {A}}.
 
+We say \m {\V {x}} is \m {s}-sparse, if only at most \m {s} components of \m {x} is nonzero.
+Formally,
 \Result
-{Definition}
+{Definition: Sparsity}
 {
-\m {x \in \MB {V}_{\MB {K}} \SB {N_m}} is called \m {s}-sparse with support \m {\MC {A}}, \m {s <N_m}, if there is \m {\MC {A} \subset T \RB {N_m}} such that
-
+\m {\V {x}} is called \m {s}-sparse, if there is \m {\MC {A} \subseteq \MC {T} \SB {N_p}} such that
 \Disp { 
-\NC x_{T\SB {N} -\MC {A}}
-=\NC \V {0} \NR
+\NC \V{x}_{\MC {A}}
+=\NC \V{x} \NR
 }
 with
 \Disp { 
 \NC \# \MC {A} \leq s. \NR
 }
-That is, only at most \m {s} components of \m {x} is nonzero.
 }
 
 \Result
-{Definition}
+{Definition: Restricted Isometry Property}
 {
-Consider \m {\Phi \in \MB {M}_{\MB {K}} \SB {N_m, N_p}}.
-For \m {s =1, \dots N_p}, we say that \m {P} satisfies the restricted isometry property (RIP) of sparsity \m {s} with respect to \m {0 \leq \d_s \leq 1}, if, for all \m {s}-sparse \m {\V {x} \in \MB {V}_{\MB {K}} \SB {N_p}}, for all \m {\MC {T} \subset T\SB {N_m}} with \m {\#\{\MC {T} \} \leq s},
+For fixed \m {s =0, \dots N_p -1}, we say that \m {\M{\Phi}} satisfies the restricted isometry property (RIP) of sparsity \m {s} with respect to \m {0 \leq \d_s \leq 1}, if, for all \m {\V {x}}, and for all \m {\MC {A} \subset \MC {T} \SB {N_m}} with \m {\# \MC {A} \leq s},
 \Disp {
-\NC \NC \RB {1-\d_s} \VNm {\V {x}}^2 \NR
-\NC \leq \NC \VNm {\Phi_{\MC {T}} \V {x}} _2^2 \NR
-\NC \leq \NC \RB {1+\d_s} \VNm {\V {x}} _2^2 \NR[+]
+\NC \NC \RB {1-\d_s} \VNm {\V {x}_{\MC {A}}}^2 \NR
+\NC \leq \NC \VNm {\M{\Phi} \V {x}_{\MC {A}}} _2^2 \NR
+\NC \leq \NC \RB {1+\d_s} \VNm {\V {x}_{\MC {A}}} _2^2 \NR[+]
 }
 }
-
-RIP is essentially saying that \m {P} is ``almost unitary'' up to ``relative error'' \m {\d_s}.
+That is, \m {\Phi} is ``almost unitary'' up to ``relative error'' \m {\d_s}.
 
 Now, consider a linear transformation with noise corruption,
 
 \Disp {
 \NC \V {y}
-=\NC \M {P} \V {h} + \V {z} \NR
+=\NC \M {\Phi} \V {x} + \V {z} \NR
 }
 
-where (w.l.o.g.) \m {z} is an i.i.d.\ normalized Gaussian vector.
-How can we hope to estimate \m {h} when, in addition to insufficient observations, there are too few observations?
+where (w.l.o.g.) \m {\V{z}} is an i.i.d.\ normalized Gaussian vector.
+How can we hope to estimate \m {\V{x}} when, in addition to insufficient observations, there are too few observations?
 
 \Result
-{Algorithm}
+{Algorithm: Dantzig Selector}
 {
 \startitemize[n]
-\item Input \m {\M {P} \in \MB {V}_\MB {R} \SB {N_m, N_p}}, \m {\V {y} \in \MB {V}_\MB {R} \SB {N_m}}.
+\item Input \m {\M {\Phi} \in \MB {V}_\MB {R} \SB {N_m, N_p}}, \m {\V {y} \in \MB {V}_\MB {R} \SB {N_m}}.
 \item Calculate
 \Disp {
 \NC \V {h}
 \LA \NC \startcases
 \NC \Min {\V {h}'} \quad \MC \VNm {\V {h}'} _1 \NR
-\NC \Rm {subject} \; \Rm {to} \quad \MC \VNm {\M {P}^\Adj \RB {\M {P} \V {h} -\V {y}}} _\infty \leq \g \NR
+\NC \Rm {subject} \; \Rm {to} \quad \MC \VNm {\M {\Phi}^\Adj \RB {\M {\Phi} \V {h}' -\V {y}}} _\infty \leq \g \NR
 \stopcases \NR
 }
 \item Output \m {\V {h}}.
@@ -126,31 +127,11 @@ They was able to show that, with Algorithm (), the mean square error is bounded 
 And it can be shown that this \m {\ell_1}-minimization problem with \m {\ell_\infty}-constraint may be recast as a linear program (LP), lending convex programming technique applicable.
 Note that they confined their discussion for real vectors.
 
-\stopsection
-\startsection [title={Sufficient Conditions of RIP}]
-
 The constant \m {\d} in the proof of DS is significant.
-Indeed, we may observe that in theorem (), the bound is not tightest when \m {\d=0}, i.e., that \m {P} is fully unitary, rendering the RIP an important role.
+Indeed, we may observe that in theorem (), the bound is not tightest when \m {\d=0}, i.e., that \m {\Phi} is fully unitary, rendering the RIP an important role.
 Here, it is not clear at first what matrices serves as the RIP condition.
 
 But later, Baraniuk (2008) have found there is a particularly convenient sufficient condition to verify RIP.
-
-\Result
-{Theorem}
-{
-Let each entry of random matrix \m {P \in \MB {M}_\MB {K} \SB {N_m, N_p}} be defined as i.i.d.\ Bernoulli with value \m {\pm 1/\R {N_m}} (that is, Rademacher distribution).
-Then, with \m {0 <\e <1},
-
-\Disp {
-\NC \NC \MB {P} \SB { \Nm {\VNm {P h} _2^2 -\VNm {h}_2^2} \geq \e \VNm {h} _2^2} \NR
-\NC \leq \NC 2 \exp \SB {-n \RB {\F {\e ^2} {4} -\F {\e ^3} {6}} } \NR
-}
-}
-
-\color[red] {(To be done)}
-
-\stopsection
-\startsection [title={Compressed Channel Sensing}]
 
 We have summarised results in compressed sensing, and we now relate the matter to the communication scenario.
 Recall that the overhead of channel estimation has been a concern in the millimeter wave MIMO setting.
@@ -162,7 +143,7 @@ What they explored was the estimation of single-antenna channel response with re
 Another paper by the same group of scholars (Bajwa et.\ al.\ 2008) shows that \m {X} is RIP for overwhelming probability, providing the ground for the former paper.
 
 To explain the idea, consider a linear time-invariant channel that \m {y\SB {t} =\RB {x \star h} \SB {t} + z\SB {t}}, where \m {h\SB {t}} is the channel's impulse response, \m {y\SB {t}} is the output, and, for each time index, \m {x\SB {t}} is i.i.d.\ Rademacher, and \m {z\SB {t}} is i.i.d.\ Gaussian.
-Simply assuming \m {h} has sparse support, and let the convolution with \m {x} be expressed by a matrix \m {X}, \m {X} is a Toeplitz matrix, so that \m {y =X h +z}.
+Simply assuming \m {h} is sparse, and let the convolution with \m {x} be expressed by a matrix \m {X}, \m {X} is a Toeplitz matrix, so that \m {y =X h +z}.
 Then Bajwa et.\ al.\ was able to show that, \m {X} is RIP of overwhelmingly probability, and DS is ready to be applied, with some nice bounds on its performance drawing from Cand\`es and Tao's theorems.
 
 \stopsection
@@ -170,43 +151,26 @@ Then Bajwa et.\ al.\ was able to show that, \m {X} is RIP of overwhelmingly prob
 
 Around that time, Tropp and Gilbert (2007b) points out if we apply a greedy algorithm called Orthogonal Matching Pursuit (OMP), that an i.i.d.\ random matrix being generated the similar way as Baraniuk (2008) suggested, may perform sufficiently well, even recover the original signal in an overwhemingly probability too.
 
-Same as before, consider \m {\V {y} \in \MB {V}_\MB {K} \SB {N_p}}, \m {\V {h} \in \MB {V}_\MB {K} \SB {N_s}}, where \m {\V {h}} is \m {s}-sparse, with \m {N_p \gg N_s}.
-If
+Same as before, consider an \m {s}-sparse \m {\V {x}}, with \m {N_p \gg N_s}.
+For the noiseless, real-number case,
 \Disp {
 \NC \V {y}
-=\NC \M {P} \V {h}, \NR
+=\NC \M {\Phi} \V {x}, \NR
 }
-that is, the noiseless, real-number case.
-We pick up the columns of \m {\M {P}} greedily, hoping to correspond to the support of \m {\V {h}}, thus recovering the original signal.
+We pick up the columns of \m {\M {\Phi}} greedily, hoping to correspond to the nonzero components of \m {\V {x}}, and thus recovering the original signal.
 
 \Result
 {Algorithm}
 {
 \startitemize[n]
-\item To be done.
+\item \color[red]{(To be done)}
 \stopitemize
 }
-
-From Tropp and Gilbert (2007a),
-
-\Result
-{Theorem}
-{
-Following the setting described above, suppose, for \m {0 <\d <1},
-
-\Disp {
-\NC M \geq 16s \log \RB {N/\d} \NR
-}
-
-Then OMP (Algorithm \_\_) recovers \m {x} completely, with overwhelming probability \m {1-\d}.
-}
+From Tropp and Gilbert (2007a), OMP recovers \m {x} completely, with overwhelming probability.
 
 It is interesting to note that, ever since, scholars has applied OMP in favor of DS, due the simplicity of former's implementation, making OMP perhaps the most widely used channel estimation technique.
 
-\stopsection
-\startsection [title={OMP used in Channel Sensing}]
-
-For concreteness, let \m {\M {F}} be the precoder and \m {\M {W}} the combiner, and \m {\M {H}} the channel, and consider the noiseless case.
+For our purposes, let \m {\M {F}} be the precoder and \m {\M {W}} the combiner, and \m {\M {H}} the channel, and consider the noiseless case.
 Let signal \m {\V {x}} be sent, and \m {\V {y}} be receiverd, that is
 
 \Disp {
@@ -261,7 +225,7 @@ On one hand,
 \Disp{
 \NC \NC \RB {\Rm{vec} \SB {\M{A}\M{X}\M{B}}} \DB {m_1} \NR
 \NC = \NC \RB {\M{A}\M{X}\M{B}} \DB {m_1\; \Rm{Mod}\; N_1, \Fl{ m_1/N_1 }} \NR
-\NC = \NC \sum _{n_2=1} ^{N_2} \sum _{n_3=1} ^{N_3}
+\NC = \NC \sum _{n_2 =0} ^{N_2 -1} \sum _{n_3 =0} ^{N_3 -1}
 \M{A} \DB {m_1\; \Rm{Mod}\; N_1, n_2} \M{X} \DB {n_2, n_3} \M{B} \DB {n_3, \Fl{ m_1/N_1 }} \NR[+]
 }
 
@@ -269,14 +233,19 @@ On the other hand,
 
 \Disp{
 \NC \NC \RB {\RB {\M{B}^\Tr \otimes \M{A}} \Rm{vec} \SB{\M{X}} } \DB {m_1} \NR
-\NC = \NC \sum _{m_2=1} ^{N_2 N_3} \RB {\M{B}^\Tr \otimes \M{A}} \DB {m_1, m_2} \Rm{vec} \SB {\M{X}} \DB {m_2} \NR
-\NC = \NC \sum _{m_2=1} ^{N_2 N_3} \RB {\M{B}^\Tr} \DB {\Fl{ m_1/N_1 }, \Fl{ m_2/N_2 }}
+\NC = \NC \sum _{m_2 =0} ^{N_2 N_3 -1} \RB {\M{B}^\Tr \otimes \M{A}} \DB {m_1, m_2} \Rm{vec} \SB {\M{X}} \DB {m_2} \NR
+\NC = \NC \sum _{m_2 =0} ^{N_2 N_3 -1} \RB {\M{B}^\Tr} \DB {\Fl{ m_1/N_1 }, \Fl{ m_2/N_2 }}
 \M{A} \DB {m_1\; \Rm{Mod}\; N_1, m_2\; \Rm{Mod}\; N_2} \Rm{vec} \SB {\M{X}} \DB {m_2} \NR 
-\NC = \NC \sum _{m_2=1} ^{N_2 N_3} \M{B} \DB {\Fl{ m_2/N_2 }, \Fl{ m_1/N_1 }}
-\M{A} \DB {m_1\; \Rm{Mod}\; N_1, m_2\; \Rm{Mod}\; N_2} \M{X} \DB {m_2\; \Rm{Mod}\; N_2, \Fl{ m_2/N_2 }} \NR[+]
+\NC = \NC
+\sum _{m_2 =0} ^{N_2 N_3 -1}
+\M{B} \DB {\Fl{ m_2/N_2 }, \Fl{ m_1/N_1 }}
+\M{A} \DB {m_1\; \Rm{Mod}\; N_1, m_2\; \Rm{Mod}\; N_2} \NR
+\NC \NC \quad \quad \quad \quad \quad \quad
+\M{X} \DB {m_2\; \Rm{Mod}\; N_2, \Fl{ m_2/N_2 }}
+\NR[+]
 }
 
-In () and (), the row index of \m {\M{A}} and \m {\M{B}} already agree.
+In () and (), the row indices of \m {\M{A}} and \m {\M{B}} already agree.
 The key observation is that when \m {n_2} runs through \m {0, \dots, N_2-1} and \m {n_3} runs through \m {0, \dots, N_3-1}, it follows \m {n_2 n_3} runs through \m {0, \dots, N_2 N_3-1}.
 We see two expressions are exactly the same, and we are done.
 
@@ -284,12 +253,13 @@ The matrix consisting of the collection of possible response according to availa
 The combiner at the receiver end corresponds to the step where we map the data from high to low dimension.
 
 \stopsection
-\startsection [title={Further Development on Compressive Channel Sensing}]
+
+\startsection [title={Further Development}]
 
 The literature on Compressive Channel Sensing has since been vast, and we need not and cannot go through all of them here.
 Rather, we analyze the respective contribution and weakness on some of the recent seminal papers.
 
-Rao and Lau (2014) considers a distributed algorithm for a MU-MIMO and proposes a modified joint OMP algorithm, with the assumption on the sparsity of the channel and that channels seen by various users shall share the same support.
+Rao and Lau (2014) considers a distributed algorithm for a MU-MIMO and proposes a modified joint OMP algorithm, with the assumption on the sparsity of the channel and that channels seen by various users shall share the same positions of nonzero components.
 
 Alkhateeb et.\ al.\ (2014) suggests an adaptive OMP algorithm, using a (beam) code book with quantized AoA and AoD.
 
@@ -312,7 +282,7 @@ Still, since the setting of OMP and DS is rather different, it remains unclear w
 
 Alkhateeb, Leus, and Heath (2015), being a recent paper, cites Ben-Haim et.\ al.\ (2010) as the main foundation for OMP perfomance bound.
 
-Gao et.\ al.\ (2015) discusses the jointly reconstruction of several high-dimensional sparse signals having the same support, using different measurement matrices in a modified basis pursuit problem.
+Gao et.\ al.\ (2015) discusses the jointly reconstruction of several high-dimensional sparse signals having the same positions of nonzero components, using different measurement matrices in a modified basis pursuit problem.
 
 We remark several observation on past literature, that has been, to the best of our knowledge, lacking or less than ideal.
 
@@ -324,7 +294,7 @@ We remark several observation on past literature, that has been, to the best of 
 \item No bounds is derived that explicitly depends on the sparsity of the channel parameters as, say, number of channel paths and array response.
 \stopitemize
 
-\startsection [title={Contribution}]
+\startsection [title={Our Contribution}]
 
 We consider a system model where both digital and analog beamformer are i.i.d.\ random matrix combiner that serve readily as the sensing matrix satisfying the RIP property.
 We apply a convex program analogous of DS in order to directly estimate the channel under hypothesis of uniform linear array response.

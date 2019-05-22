@@ -5,6 +5,37 @@ We will continue to use the variables \m {\V {P}}, \m {\V {g}}, \m {\V {y}}, and
 
 \startsection [title={Almost-Sparsity of Angular Channel}]
 
+Split \m {\V{g}} into two parts: \m {\V {g} _\MC {A}} is the largest \m {s} positions of \m {\V{g}}, \m {\V {g} _\MC {A}} the next \m {s} largest positions of \m {\V{g}}, and \m {\V {g} _\MC {C}} are the positions complement to \m {\V {g} _\MC {A}}.
+For example, if \m {\V {g} =\IP {-1,3,-4,2,8}}, and \m {s=2}, then \m {\V {g} _\MC {A} =\IP {0,3,0,0,8}}, \m {\V {g} _\MC {B} =\IP {-1,0,0,2,0}}, and \m {\V {g} _\MC {A} =\IP {-1,0,-4,2,0}}.
+We rephrase it formally.
+
+\Result
+{Definition}
+{
+Consider \m {\V{x} \in \MB {V}_{\MB {K}} \SB {N_p}}.
+Let bijection \m {\sigma: \MC {T} \SB {N_p} \mapsto \MC {T} \SB {N_p}} be defined to sort \m {\V{x}} in decreasing magnitude, meaning
+\Disp{
+\NC \V{v} \DB {\sigma \SB {n}}
+\leq \NC \V{v} \DB {\sigma \SB {n-1}} \NR[+]
+\NC n =\NC 1, \dots, N_p-1 \NR
+}
+Its existence is evident.
+Then define
+\Disp{
+\NC \MC {S} \SB {\V{x}, s}
+=\NC \CB {\sigma \SB{i}:\; i =0, \dots, s-1} \NR[+]
+}
+}
+Now set
+\Disp{
+\NC \MC {A}
+=\NC \MC {S} {\V{g}, s} \NR
+\NC \MC {C}
+=\NC \MC {T} \SB {N_p} -\MC{A} \NR
+\NC \MC {B}
+=\NC \MC {S} {\V{g} _\MC{C}, s} \NR
+}
+
 Let \m {\hat {\V {g}}} be the Dantzig Selector.
 For concreteness, we set
 \Disp {
@@ -18,26 +49,7 @@ Also set for short
 \NC \V {d} 
 = \NC \hat {\V {g}} -\V {g} \NR[+]
 }
-And call
-\startitemize [1]
-\item \m {\MC {A}} be the largest \m {s} position of \m {g}.
-\item \m {\MC {B}} be the largest \m {s} position of \m {d_{T\SB {N_h} -\MC {A}}}.
-\item \m {\MC {C} =T \RB {N_h} -\MC {A}}, i.e., the complementary index set of \m {\MC {A}}.
-\stopitemize
 
-Suppose \m {\M {A} \in \MB {M}_{\MB {K}} \RB {N_1, N_2 }}.
-For brevity, let \m {\MC {T} \subset T \RB {N_2 }}.
-Denote as \m {\M {A}_{\MC {T}}} the columns of \m {\M {A}} having indices in \m {\MC {T}}.
-
-And Denote the sorting function to be \m {\MC {S}:\; \MB {V}_{\MB {K}} \SB {N} \mapsto \MB {V}_{\MB {K}} \SB {N}}, \m {N \in \MB {N}}, be the sorting function for \m {x \in \MB {V}_{\MB {K}} \SB {N})}, so that
-\Disp {
-\NC \Nm {\MC {S} \SB {\V{x}} \DB {n_1}} \geq \NC \Nm {\MC {S} \SB {\V{x}} \DB {n_2}}, \NR[+]
-\NC n_1 \leq \NC n_2,
-\quad n_1, n_2 \in T\RB {N} \NR
-}
-That is, \m {\V{x}} is sorted in magnitude.
-For definiteness, we may compare the first component first, and the second, and so on.
-If still there is a tie for a certain component (for complex numbers), the order is irrelevent.
 
 \Result
 {Definition}
@@ -45,6 +57,7 @@ If still there is a tie for a certain component (for complex numbers), the order
 For \m {\V {x} \in \MB {V}_{\MB {K}} \SB {N}}, we say \m {\V {x}} is almost-\m {s}-sparse according to the \m {\ell_p}-norm with remainder \m {R}, if
 \Disp {
 \NC \Nm {\RB {\MC{S} \SB {\V {x}} \SB {n}} \DB {s:N}}_p
+\V {x} _{\MC {T} \SB {N_p} -\MC {S} \SB{\V {x}, s}}
 \leq \NC R. \NR[+]
 }
 }
@@ -195,7 +208,7 @@ If \m {N_h \geq 4^2 =16}, then \m {\V {g}} is almost-\m {s^2 L}-sparse with \m {
 {Definition}
 {
 Let \m {P} be fixed.
-For \m {\MC {T}, \MC {T}' \subset T \RB {N_p}}, define the \m {s, s'}-restricted orthogonality constant \m {\tau_{s,s'} \SB {P} >0} to be the smallest number such that
+For \m {\MC {T}, \MC {T}' \subset \MC {T} \RB {N_p}}, define the \m {s, s'}-restricted orthogonality constant \m {\tau_{s,s'} \SB {P} >0} to be the smallest number such that
 \Disp {
 \NC \Nm {\IP {P_{\MC {T}} h, P_{\MC {T}'} h'}}
 \leq \NC \tau_{s, s'} \SB {P} \cdot \VNm {h} _2 \VNm {h'} _2 \NR
@@ -618,7 +631,6 @@ Then
 \startsection [title={The Main Bound}]
 
 We can now formulate and prove the main bound of ours.
-Here, we use \m {s=L} as the sparsity threshold.
 
 \Result
 {Theorem}
