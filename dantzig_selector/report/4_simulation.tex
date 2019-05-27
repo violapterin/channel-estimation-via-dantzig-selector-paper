@@ -105,16 +105,16 @@ Finally, introduce the following matrices to identify the components where we wa
 \NC {\V {u}}_{n_h} \DB {n_h'}
 = \NC
 \startcases
-1, \quad \MC n_h' =n_h \NR
-0, \quad \NC {\rm otherwise}
+1, \Q \MC n_h' =n_h \NR
+0, \Q \NC \Rm {otherwise} \NR
 \stopcases \NR[+]
 \NC {\T {\M {U}}}_{n_h} \in \NC \MB {M}_{\MB {R}} \SB {2N_h, 2N_h} \NR
 \NC {\T {\M {U}}}_{n_h} \DB {n_h', n_h''}
 = \NC
 \startcases
-1, \quad \MC n_h' =2n_h,\; n_h'' =2n_h \NR
-1, \quad \MC n_h' =2n_h +1,\; n_h'' =2n_h +1 \NR
-0, \quad \NC {\rm otherwise}
+1, \Q \MC n_h' =2n_h,\; n_h'' =2n_h \NR
+1, \Q \MC n_h' =2n_h +1,\; n_h'' =2n_h +1 \NR
+0, \Q \NC \Rm {otherwise} \NR
 \stopcases \NR[+]
 \NC n_h, n_h', n_h'' 
 = \NC 0, 1, 2, \dots, N_h -1 \NR
@@ -123,20 +123,19 @@ Moreover, denote \m {\V {1}} to be the all-\m{1} vector for short, and \m {\V {0
 Now, if we introduce vector \m{\V{m}}
 
 \Disp{
-\NC \V {m} \NC \in \MB {V}_{\MB {R}} \SB {N_h} \NR
+\NC \V {m} \in \NC \MB {V}_{\MB {R}} \SB {N_h} \NR
 \NC \V{m} \DB{n_h}
 = \NC \Nm{\V{g} \DB{n_h}} \NR[+]
 \NC n_h, n_h', n_h'' 
 = \NC 0, 1, 2, \dots, N_h -1 \NR
 }
-
-to denote the entrywise complex modulus of \m{\V {g}}, we see that the convex optimization now take the form
+to denote the entrywise complex modulus of \m{\V {g}}, we see that the convex optimization now takes the form
 \Disp {
 \NC \Hat {\T {\V {g}}}
 = \NC \startcases
-\NC \Min {\T {\V {g}}', \V {m}} \quad
+\NC \Min {\T {\V {g}}', \V {m}} \Q
 \MC \IP { \V {1}, \V {m} } \NR
-\NC \Rm {subject} \; \Rm {to} \quad
+\NC \Rm {subject} \; \Rm {to} \Q
 \MC \VNm { \T {\M {U}}_{n_h} \T {\V {g}}' }_2
 \leq \IP { \V {u}_{n_h}, \V {m} } \NR
 \NC \MC \VNm { \T {\M {U}}_{n_h} \T {\M {P}}^\Adj \RB { \T {\M {P}} \T {\V {g}}' -\T {\V {y}} } }_2
@@ -235,7 +234,7 @@ The step that we convert \m {\Hat {\V {g}}} back is same as Algorithm () is same
 \NC \Min {\V {x}' \in \MB {V}_{\MB {C}} \SB {N_h}}
 \MC \IP {\V {t}, \V {x}'} \NR[+]
 \NC \Rm {subject} \; \Rm {to}
-\quad  \MC \VNm {\M {A} _{i} \V {x}' +\V{b} _{i}} _2
+\Q  \MC \VNm {\M {A} _{i} \V {x}' +\V{b} _{i}} _2
 \leq \IP {\V{c}_{i}, \V {x}'} +\V{d}_i \NR
 \NC \MC i 
 =0, 1, 2, \dots, 2N_h -1 \NR

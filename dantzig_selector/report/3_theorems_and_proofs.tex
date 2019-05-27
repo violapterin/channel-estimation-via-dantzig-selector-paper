@@ -3,96 +3,50 @@
 Our plan is first to show that \m {\SB {\V {g}}} is almost sparse, and substitute the bound into the expected square error of DS, thus generalizing the original argument.
 We will continue to use the variables \m {\V {P}}, \m {\V {g}}, \m {\V {y}}, and \m {\V {z}} introduced in previous sections.
 
-\startsection [title={Almost-Sparsity of Angular Channel}]
-
-Split \m {\V{g}} into two parts: \m {\V {g} _\MC {A}} is the largest \m {s} positions of \m {\V{g}}, \m {\V {g} _\MC {A}} the next \m {s} largest positions of \m {\V{g}}, and \m {\V {g} _\MC {C}} are the positions complement to \m {\V {g} _\MC {A}}.
-For example, if \m {\V {g} =\IP {-1,3,-4,2,8}}, and \m {s=2}, then \m {\V {g} _\MC {A} =\IP {0,3,0,0,8}}, \m {\V {g} _\MC {B} =\IP {-1,0,0,2,0}}, and \m {\V {g} _\MC {A} =\IP {-1,0,-4,2,0}}.
-We rephrase it formally.
-
-\Result
-{Definition}
-{
-Consider \m {\V{x} \in \MB {V}_{\MB {K}} \SB {N_p}}.
-Let bijection \m {\sigma: \MC {T} \SB {N_p} \mapsto \MC {T} \SB {N_p}} be defined to sort \m {\V{x}} in decreasing magnitude, meaning
-\Disp{
-\NC \V{v} \DB {\sigma \SB {n}}
-\leq \NC \V{v} \DB {\sigma \SB {n-1}} \NR[+]
-\NC n =\NC 1, \dots, N_p-1 \NR
-}
-Its existence is evident.
-Then define
-\Disp{
-\NC \MC {S} \SB {\V{x}, s}
-=\NC \CB {\sigma \SB{i}:\; i =0, \dots, s-1} \NR[+]
-}
-}
-Now set
-\Disp{
-\NC \MC {A}
-=\NC \MC {S} {\V{g}, s} \NR
-\NC \MC {C}
-=\NC \MC {T} \SB {N_p} -\MC{A} \NR
-\NC \MC {B}
-=\NC \MC {S} {\V{g} _\MC{C}, s} \NR
-}
-
-Let \m {\hat {\V {g}}} be the Dantzig Selector.
-For concreteness, we set
-\Disp {
-\NC \g 
-= \NC \R {2 \log N_h} \NR[+]
-}
-
-Other values are of course possible, but this is enough to illustrate our purpose.
-Also set for short
-\Disp {
-\NC \V {d} 
-= \NC \hat {\V {g}} -\V {g} \NR[+]
-}
-
+\startsection [title={Almost-Sparsity of Array Response \m {\V{a}}}]
 
 \Result
 {Definition}
 {
 For \m {\V {x} \in \MB {V}_{\MB {K}} \SB {N}}, we say \m {\V {x}} is almost-\m {s}-sparse according to the \m {\ell_p}-norm with remainder \m {R}, if
 \Disp {
-\NC \Nm {\RB {\MC{S} \SB {\V {x}} \SB {n}} \DB {s:N}}_p
-\V {x} _{\MC {T} \SB {N_p} -\MC {S} \SB{\V {x}, s}}
+\NC \VNm {\MC {C} \SB{\V {x}, s}} _p
 \leq \NC R. \NR[+]
 }
 }
 
 Let \m {\f} be fixed.
-What we have to bound is
+It suffices to bound
 \Disp {
-\NC R^2
-=\NC \sum_{n_H =s}^{N_H -1}
-   \RB {\MC{S} \SB {\M {K}^\Adj \V {a} \SB {\f}}} \DB {n_H} ^2 \NR[+]
+\NC \NC
+\VNm {
+\MC {C} \SB {\M {K}^\Adj \V {a} \SB {\f}, s}
+} _2 ^2 \NR[+]
 }
 
-Introduce
+Towards that end, introduce
 \Disp {
 \NC \psi \SB {\f, n_H}
 :=\NC \RB {
    \RB {
-      \RB {\f \; \Rm{mod}\; \F{2\pi}{N_H}}
+      \RB {\f \; \Rm{Mod}\; \F{2\pi}{N_H}}
       +\F {2 \pi n_H} {N_H}
       +\pi
    } \;
-   \Rm{mod}\; \RB {2\pi}
+   \Rm{Mod}\; \RB {2\pi}
 }
--\pi
+-\pi \NR
 }
-so that
+Note that by construction
 \Disp{
 \NC \Nm {\psi \SB {\f, n_H}}
-\leq \NC \pi
+\leq \NC \pi \NR
 }
-And define \m {D} to be the Dirichlet kernel
+And define the so-called Dirichlet kernel
 \Disp {
 \NC D \SB {\psi'}
 := \NC \sum_{n_H=0}^{N_H-1} \Ss {e}^{i n_H \psi'} \NR
-\NC \quad 0 \leq \NC  \psi' \leq \pi \NR
+\NC 0 \leq \NC  \psi' \leq \pi \NR
 }
 Then observe
 \Disp {
@@ -121,13 +75,16 @@ Thus,
 \Disp {
 \NC R^2
 =\NC \F {1}{N_H^2}
-\sum_{n_H =s}^{N_H -1}
-\MC{S} \SB {
+\VNm {
+\MC {C}
+\SB{
    \sum_{n_H' =0}^{N_H -1}
    B \SB {\psi \SB {\f, n_H'}}
-   \V {u}_{n_H'}
+   \V {u}_{n_H'},
+   s
 }
-\DB {n_H} ^2 \NR[+]
+} _2^2
+\NR[+]
 }
 Note that \m {\Nm {B \SB {\psi'}}} is strictly decreasing in \m {\SB {0,\pi}}.
 We seek to bound the ``rectangulars'' with an integral, and we have to split the cases that \m {N_H} is odd and even.
@@ -153,9 +110,10 @@ Expanding \m {R} gives
 \NC R
 \leq \NC \F {2} {\pi} \D \F {1} {\R{s}} +\F {\R {s}} {38 N_H}. \NR[+]
 }
-Futhermore, finding the \m {s} that minimizes the function gives us a upper bound.
-And it is easy to see the function to be strictly decreasing in \m {N_H}.
-To keep it simple, let us plug in \m {N_H =4} for the upper bound.
+
+Fixing \m {N_H}, it shall be easy to see that rhs is strictly decreasing in \m {N_H}, and the value of \m {s} that minimizes it is about \m {s =5N_H}.
+In the range that we care, rhs is thus strictly decreasing in \m {s}.
+\m {N_H}.
 
 \Result
 {Lemma}
@@ -163,21 +121,29 @@ To keep it simple, let us plug in \m {N_H =4} for the upper bound.
 Let \m {\f \SB {\o_h}} be given, and linear array response \m {\V {a} \SB {\f}} defined as in ().
 Suppose \m {N_H \geq 4}.
 Then, for all instances of \m {\f}, \m {\V {a} \SB {\f}} is almost-\m {s}-sparse according to the \m {\ell_2}-norm with remainder \m {R} to be
-
-with
 \Disp{
-\NC s
-\leq 5
+\NC R
+\leq \NC \m {\F{1}{3 \R{N_H}}} \NR[+]
 }
 }
 
-It remains to bound \m {\VNm {\M {G}}}.
+Since the bound is also decreasing in \m {N_H}, for concreteness, let us plug in \m {N_H =4} for the upper bound, giving
+\Disp{
+\NC R
+\leq \NC \F {1} {6} \NR[+]
+}
+
+\stopsection
+
+\startsection [title={Almost-Sparsity of Channel Response \m {\M{H}}}]
+
+It remains to bound \m {\VNm {\M {G}} _F}.
 Note that
 \Disp{
 \NC \VNm {\M {G}}_F
 =\NC \VNm {\M {H}}_F \NR[+]
 }
-So it suffices to consider \m {\VNm {\M {H}}}.
+So it suffices to consider \m {\VNm {\M {H}} _F}.
 
 \Disp{
 \NC \VNm {\sum _{l=0} ^{L-1} \a_l \V {a} \SB {\f_l} \V {a} \SB {\th_l} ^\Adj } _F
@@ -202,7 +168,80 @@ If \m {N_h \geq 4^2 =16}, then \m {\V {g}} is almost-\m {s^2 L}-sparse with \m {
 }
 }
 
-\startsection [title={Concentration Inequality of \m {\M{F}_B, \M{W}_B}}]
+\stopsection
+
+\startsection [title={Moments of Precoders' and Combiners' entries}]
+
+Our plan is setting the four precoder matrices to be i.i.d.\ random matrix, hoping that the resulting \m {P} has RIP.
+Indeed, \m {\d_s \SB {\M{F}_B} \SB {\o_t}} may be found, along similar lines with Achlioptas (2001) and Baraniuk et.\ al.\ (2008).
+We prove a concentration inequality, as explained below, and invoke Chebyshev inequality.
+But before that, we have to investigate the moments of each entry of \m {\M{F}_B \SB {\o_t}} (resp.\ \m {\M{W}_B \SB {\o_t}}) and that of \m {\M{F}_R \SB {\o_t}} (resp.\ \m {\M{W}_R \SB {\o_t}}).
+
+Let us call it a day and set each entry of \m {\M{F}_B} to be i.i.d.\ Gaussian r.v.\ with mean 0, standard deviation \m {1/2}, multiplied by a normalizing constant \m {\l >0}.
+They are (with a slight of abuse of meaning of \m {\o_t} and so on)
+\Disp{
+\NC d \o_t
+=\NC \F {1} {\R {\pi} \l} \exp
+  \RB {-\F{1}{\l^2} \MF{Re} \SB {\M{F}_B \DB {n_R, n_Y}} ^2}
+d \MF{Re} \SB {\M{F}_B \DB {n_R, n_Y}} \NR[+]
+\NC d \o_t
+=\NC \F {1} {\R {\pi} \l} \exp
+  \RB {-\F{1}{\l^2} \MF{Im} \SB {\M{F}_B \DB {n_R, n_Y}} ^2}
+d \MF{Im} \SB {\M{F}_B \DB {n_R, n_Y}} \NR[+]
+\NC n_R
+= \NC 0, 1, 2, \dots, N_R -1 \NR
+\NC n_Y
+= \NC 0, 1, 2, \dots, N_Y -1 \NR
+}
+
+We know that the magnitude \m {\M{F}_B \DB {n_R, n_Y}} follows Rayleigh distribution, having
+\Disp{
+\NC \NC \MB{E} \SB {\Nm {\M{F}_B \DB {n_R, n_Y} \SB {\o_t}}} \NR
+\NC =\NC \F{\R{\pi}}{2} \l_B \NR[+]
+\NC M_{B,2}
+:=\NC \MB{E} \SB {\Nm {\M{F}_B \DB {n_R, n_Y} \SB {\o_t}}^2} \NR
+\NC =\NC \l_R^2 \NR[+]
+\NC M_{B,4}
+:=\NC \MB{E} \SB {\Nm {\M{F}_B \DB {n_R, n_Y} \SB {\o_t}}^4} \NR
+\NC =\NC 2 \l_R^4 \NR[+]
+}
+Also notice that
+\Disp{
+\NC \NC \MB{E} \SB {\M{F}_B \DB {n_R, n_Y}^2} \NR
+\NC = \NC \MB{E} \SB {\MF {Re} \SB {\M{F}_B \DB {n_R, n_Y}}^2}
+   -\MB{E} \SB {\MF {Im} \SB {\M{F}_B \DB {n_R, n_Y}}^2} \NR
+\NC \NC \Q \Q +2 \Ss {i} \MB{E} \SB {\MF {Re} \SB {\M{F}_B \DB {n_R, n_Y}}}
+      \MB{E} \SB {\MF {Im} \SB {\M{F}_B \DB {n_R, n_Y}}} \NR
+\NC = \NC 0 \NR[+]
+}
+
+Let \m {\M{F}_R \DB {n_H, n_R}} be uniformly distributed on the unit circle on the complex plane, which gives probability density
+\Disp{
+\NC d \o_t
+= \NC \F {1} {\pi} \RB {1 -\RB {\MF{Re} \SB {\M{F}_R \DB {n_H, n_R}}} ^2}^{-1/2}
+d \MF{Re} \SB {\M{F}_R \DB {n_H, n_R}} \NR[+]
+\NC d \o_t
+= \NC \F {1} {\pi} \RB {1 -\RB {\MF{Im} \SB {\M{F}_R \DB {n_H, n_R}}} ^2}^{-1/2}
+d \MF{Im} \SB {\M{F}_R \DB {n_H, n_R}} \NR[+]
+}
+As a result,
+\Disp{
+\NC \NC \MB{E} \SB {\Nm {\M{F}_R \DB {n_H, n_R} \SB {\o_t}}} \NR
+\NC =\NC \l_R \NR[+]
+\NC M_{R,2}
+:=\NC \MB{E} \SB {\Nm {\M{F}_R \DB {n_H, n_R} \SB {\o_t}}^2} \NR
+\NC =\NC \l_R^2 \NR[+]
+\NC M_{R,4}
+:=\NC \MB{E} \SB {\Nm {\M{F}_R \DB {n_H, n_R} \SB {\o_t}}^4} \NR
+\NC =\NC \l_R^4 \NR[+]
+}
+And again
+\Disp{
+\NC \MB{E} \SB {\M{F}_R \DB {n_R, n_Y}^2}
+= \NC 0 \NR[+]
+}
+
+\startsection [title={Restricted Isometry of \m {P}}]
 
 \Result
 {Definition}
@@ -210,7 +249,7 @@ If \m {N_h \geq 4^2 =16}, then \m {\V {g}} is almost-\m {s^2 L}-sparse with \m {
 Let \m {P} be fixed.
 For \m {\MC {T}, \MC {T}' \subset \MC {T} \RB {N_p}}, define the \m {s, s'}-restricted orthogonality constant \m {\tau_{s,s'} \SB {P} >0} to be the smallest number such that
 \Disp {
-\NC \Nm {\IP {P_{\MC {T}} h, P_{\MC {T}'} h'}}
+\NC \Nm {\IP {P _{\MC {T}} h, P _{\MC {T}'} h'}}
 \leq \NC \tau_{s, s'} \SB {P} \cdot \VNm {h} _2 \VNm {h'} _2 \NR
 }
 }
@@ -231,171 +270,292 @@ Then \m {\tau_{s, s'} \SB {\M{P}}} is bounded in both direction as follows,
 
 Thus \m {\d_s \SB {\M{P}}}, which defines how much the deformation of norm is, also tells us how much the inner product is deformed.
 We may well keep track of \m {\d_s \SB {\M{P}}} only.
-When \m {\SB {\M{P}}} is clear, we may suppress it.
+When \m {\M{P}} is clear, we may suppress it.
 
-We seek to find \m {\d_s \SB {\M{F}_B} \SB {\o_t}}, along similar lines with Achlioptas (2001) and Baraniuk et.\ al.\ (2008).
-Try to set each entry of \m {\M{F}_B} to be i.i.d.\ Gaussian r.v.\ with mean 0, standard deviation \m {1/2}, multiplied by a normalizing constant \m {\a >0}.
-They are (with a slight of abuse of meaning of \m {\o_t} and so on)
-\Disp{
-\NC d \o_t
-=\NC \F {1} {\R {\pi} \a} \exp
-  \RB {-\F{1}{\a^2} \MF{Re} \SB {\M{F}_B \DB {n_R, n_Y} \SB {\o_t}} ^2}
-d \MF{Re} \SB {\M{F}_B \DB {n_R, n_Y}} \NR[+]
-\NC d \o_t
-=\NC \F {1} {\R {\pi} \a} \exp
-  \RB {-\F{1}{\a^2} \MF{Im} \SB {\M{F}_B \DB {n_R, n_Y} \SB {\o_t}} ^2}
-d \MF{Im} \SB {\M{F}_B \DB {n_R, n_Y}} \NR[+]
-\NC n_R
-= \NC 0, 1, 2, \dots, N_R -1 \NR
-\NC n_Y
-= \NC 0, 1, 2, \dots, N_Y -1 \NR
+Similar is true of \m {\d_s \SB {\M{F}_B} \SB {\o_t}}.
+But each entry of \m {P} is a linear combination of products, and such reasoning does not work.
+If only \m {P} were also an i.i.d.\ random matrix, the resulting proof would be easier.
+Is the approach all but lost?
+
+
+Start with the observtion
+\Result
+{Lemma}
+{
+\Disp {
+\NC \NC \MB{E} \SB {\M{P} \DB {n_y, n_h} \M{P} \DB {n_y', n_h'}} \NR
+\NC = \NC \startcases
+\l_R^4 \l_B^4, \Q \MC n_y =n_y', n_h =n_h' \NR
+0, \Q \NC \Rm {otherwise} \NR
+\stopcases \NR
 }
-We know that the magnitude \m {\M{F}_B \DB {n_R, n_Y}} follows Rayleigh distribution, having
-\Disp{
-\NC \NC \MB{E} _{\o_t} \SB {\Nm {\M{F}_B \DB {n_R, n_Y} \SB {\o_t}}} \NR
-\NC =\NC \F{\R{\pi}}{2} \a \NR[+]
-\NC M_2
-:=\NC \MB{E} _{\o_t} \SB {\Nm {\M{F}_B \DB {n_R, n_Y} \SB {\o_t}}^2} \NR
-\NC =\NC \a^2 \NR[+]
-\NC M_4
-:=\NC \MB{E} _{\o_t} \SB {\Nm {\M{F}_B \DB {n_R, n_Y} \SB {\o_t}}^4} \NR
-\NC =\NC 2 \a^4 \NR[+]
 }
-Fix any test vector \m {\V{u} \in \MB{V}_\MB{C} \SB{N_Y}}, we have to study the concentration of \m {\VNm {\M{F}_B \V{u}}_2} in probability mass.
-We shall exploit Chebyshev bound, which required the first and second moment to be found.
-\Disp{
-\NC \NC \MB{E} _{\o_t} \SB {\VNm {\M{F}_B \SB {\o_t} \V{u}} _2 ^2} \NR
-\NC = \NC \MB{E} \SB {
-  \sum_{n_R=0}^{N_R-1}
-  \Nm {\sum_{n_Y=0}^{N_Y-1} \M{F}_B \DB {n_R, n_Y} ^* \V{u} \DB{n_Y}} ^2
+
+Notice
+\Disp {
+\NC \M{P} ^\Adj \M{P}
+=\NC
+\RB {
+   \RB {\M{K} ^\Tr \M {F}_R^\ast \M {F}_B^\ast}
+   \otimes \RB {\M {K} \M {W}_R \M {W}_B}
+}
+\RB {
+   \RB {\M {F}_B^\Tr \M {F}_R^\Tr \M{K}^\ast}
+   \otimes \RB {\M {W}_B \M {W}_R \M {K}}
 } \NR
-\NC = \NC \sum_{n_R=0}^{N_R-1}
-  \MB{E} \SB {\Nm {\sum_{n_Y=0}^{N_Y-1} \M{F}_B \DB {n_R, n_Y} ^* \V{u} \DB{n_Y}} ^2}
+\NC =\NC
+\RB {\M {F}_B^\Tr \M {F}_R^\Tr \M{K}^\ast \M{K}^\Tr \M {F}_R^\ast \M {F}_B^\ast}
+\otimes \RB {\M {W}_B \M {W}_R \M{K} \M{K}^\Adj \M {W}_R^\Adj \M {W}_B^\Adj} \NR
+\NC =\NC
+\RB {\M {F}_B^\Tr \M {F}_R^\Tr \M {F}_R^\ast \M {F}_B^\ast}
+\otimes \RB {\M {W}_B \M {W}_R \M {W}_R^\Adj \M {W}_B^\Adj} \NR[+]
+}
+where, restating (), \m {\M {Q} :=\RB {\M {F}_R^\Tr \M {F}_B^\Tr} \otimes \RB {\M {W}_B \M {W}_R}}.
+
+This implies
+\Disp {
+\NC \V{u} ^\Adj \M{P} ^\Adj \M{P} \V{u}
+= \NC \V{u} ^\Adj \M{Q} ^\Adj \M{Q} \V{u} \NR[+]
+}
+or
+\Result
+{Lemma}
+{
+For any instance of \m {\M{P} \SB {\o_t, \o_r}} and \m {\M{Q} \SB {\o_t, \o_r}},
+\Disp{
+\NC \VNm {\M{P} \V{u}} _2
+= \NC \VNm {\M{Q} \V{u}} _2 \NR[+]
+}
+}
+
+And it will turn out that any two distinct entries of \m {\M{Q}} are not correlated.
+
+To make expressions more compact, introduce
+\Disp {
+\NC \i_2 \SB {x_0, x_1}
+=\NC \startcases
+\NC 1, \MC \Q x_0 =x_1 \NR
+\NC 0, \NC \Q \Rm {otherwise} \NR
+\stopcases \NR
+\NC \i_4 \SB {x_0, x_1, x_2, x_3}
+=\NC \startcases
+\NC 1, \MC \Q x_0 =x_1 =x_2 =x_3 \NR
+\NC 0, \NC \Q \Rm {otherwise} \NR
+\stopcases \NR
+}
+And, for any permutation \m {\s} on \m {\CB {1, 2, 3, 4}},
+\Disp {
+\NC \i_{2,2} \SB {x_0, x_1, x_2, x_3}
+=\NC \startcases
+\NC 1, \MC \Q x_{\s \RB{0}} =x_{\s \RB{1}} \neq x_{\s \RB{2}} =x_{\s \RB{3}} \NR
+\NC 0, \NC \Q \Rm {otherwise} \NR
+\stopcases \NR
+}
+
+\Result
+{Lemma}
+{
+\Disp {
+\NC \NC \MB{E} \SB {\RB {\M{F}_R \M{F}_B} \DB {n_H, n_Y} \RB {\M{F}_R \M{F}_B} \DB {n_H', n_Y'}} \NR
+\NC = \NC \MB{E} \SB {\RB {\M{W}_R \M{W}_B} \DB {n_Y, n_H} \RB {\M{W}_R \M{W}_B} \DB {n_Y', n_H'}} \NR
+\NC = \NC N_R \D \i_2 \SB {n_H, n_H'} \D \i_2 \SB {n_Y, n_Y'} \D \RB {\l_R^2 +\l_B^2} \NR
+}
+}
+
+To see this, expanding the definition
+\Disp {
+\NC \NC \RB {\M{W}_B ^\Adj \M{W}_R ^\Adj} \DB {n_Y, n_H} \RB {\M{F}_R \M{F}_B} \DB {n_Y', n_H'} \NR
+\NC =\NC
+\RB {\sum_{n_R=0}^{N_R-1} \M{F}_R \DB {n_H, n_R} \M{F}_B \DB {n_R, n_Y}}
+\RB {\sum_{n_R=0}^{N_R-1} \M{F}_R \DB {n_H', n_R} \M{F}_B \DB {n_R, n_Y'}} \NR
+}
+When either \m {n_y \neq n_y'} or \m {n_h \neq n_h'}, no term is an all-square product.
+After taking expectation, the expectation sign is distributed, and every term vanishes.
+But when \m {n_y =n_y'} or \m {n_h =n_h'}, the only terms that remains are
+\Disp {
+\NC \NC \sum_{n_R=0}^{N_R-1}
+\MB{E} \SB {\M{F}_R \DB {n_H, n_R}^2}
+\MB{E} \SB {\M{F}_B \DB {n_R, n_Y}^2} \NR
+\NC = \NC N_R \D \RB {M_{R,2} +M_{B,2}} \NR
+}
+
+Having this in mind, a moment's reflection shows
+\Result
+{Lemma}
+{
+\Disp {
+\NC \NC \MB{E} \SB {\M{Q} \DB {n_Y, n_H} \M{Q} \DB {n_Y', n_H'}} \NR
+\NC = \NC \startcases
+N_R \l_R^2 \l_B^2, \Q \MC n_Y =n_Y', n_H =n_H' \NR
+0, \Q \NC \Rm {otherwise} \NR
+\stopcases \NR
+}
+}
+
+Fix any test vector \m {\V{u} \in \MB{V}_\MB{C} \SB{N_Y}}, we shall study the probability concentration of \m {\VNm {\M{F}_B \V{u}}_2^2} and \m {\VNm {\M{F}_B \V{u}}_2^4}.
+The two moments are present in Chebyshev bound.
+\Disp{
+\NC \NC \MB{E} \SB {\VNm {\M{Q} \SB {\o_t, \o_r} \V{u}} _2 ^2} \NR
+\NC = \NC \MB{E} \SB {
+  \sum_{n_y=0}^{N_y-1}
+  \Nm {\sum_{n_h=0}^{N_h-1} \M{Q} \DB {n_y, n_h} ^\ast \V{u} \DB{n_h}} ^2
+} \NR
+\NC = \NC \sum_{n_y=0}^{N_y-1}
+  \MB{E} \SB {\Nm {\sum_{n_h=0}^{N_h-1} \M{Q} \DB {n_y, n_h} ^\ast \V{u} \DB{n_h}} ^2}
 \NR
 \NC = \NC
-\sum_{n_R=0}^{N_R-1}
+\sum_{n_y=0}^{N_y-1}
   \MB{E} \SB {
-     2 \sum_{\startsubstack n_Y, n_Y'=0 \NR n_Y <n_Y' \stopsubstack}^{N_Y-1}
+     2 \sum_{\Stack { n_h, n_h'=0 \NR n_h <n_h' }}^{N_h-1}
        \MF {Re} \SB{
-         \M{F}_B \DB {n_R, n_Y} ^* \M{F}_B \DB {n_R, n_Y'}
-         \V{u} \DB{n_Y} \V{u} \DB{n_Y'} ^*
+         \M{Q} \DB {n_y, n_h} ^\ast \M{Q} \DB {n_y, n_h'}
+         \V{u} \DB{n_h} \V{u} \DB{n_h'} ^\ast
        }
    } \NR
-\NC \NC \quad \quad +\sum_{n_R=0}^{N_R-1}
+\NC \NC \Q \Q +\sum_{n_y=0}^{N_y-1}
   \MB{E}
-     \SB {\sum_{n_Y=0}^{N_Y-1} \Nm {\M{F}_B \DB {n_R, n_Y}}^2 \Nm {\V{u} \DB{n_Y}}^2}
+     \SB {\sum_{n_h=0}^{N_h-1} \Nm {\M{Q} \DB {n_y, n_h}}^2 \Nm {\V{u} \DB{n_h}}^2}
 \NR
 \NC = \NC
-2 \sum_{n_R=0}^{N_R-1}
-\sum_{\startsubstack n_Y, n_Y'=0 \NR n_Y <n_Y' \stopsubstack}^{N_Y-1}
+2 \sum_{n_y=0}^{N_y-1}
+\sum_{\Stack { n_h, n_h'=0 \NR n_h <n_h' }}^{N_h-1}
 \MF {Re} \SB{
-   \MB{E} \SB {\M{F}_B \DB {n_R, n_Y}^*}
-   \MB{E} \SB {\M{F}_B \DB {n_R, n_Y'}}
+   \MB{E} \SB {\M{Q} \DB {n_y, n_h}^\ast}
+   \MB{E} \SB {\M{Q} \DB {n_y, n_h'}}
 }
-\V{u} \DB{n_Y} \V{u} \DB{n_Y'} ^*
+\V{u} \DB{n_h} \V{u} \DB{n_h'} ^\ast
 \NR
-\NC \NC \quad \quad +\sum_{n_R=0}^{N_R-1}
-   \sum_{n_Y=0}^{N_Y-1} \MB{E} \SB {\Nm {\M{F}_B \DB {n_R, n_Y}}^2} \Nm {\V{u} \DB{n_Y}}^2
+\NC \NC \Q \Q +\sum_{n_y=0}^{N_y-1}
+   \sum_{n_h=0}^{N_h-1} \MB{E} \SB {\Nm {\M{Q} \DB {n_y, n_h}}^2} \Nm {\V{u} \DB{n_h}}^2
 \NR
-\NC = \NC \a^2 N_R \VNm {\V{u}} _2 ^2 \NR[+]
+\NC = \NC N_y \D N_R^2 \l_B^4 \l_R^4  \D \VNm {\V{u}} _2 ^2 \NR[+]
 }
 Thus, we may set
 \Disp{
-\NC \a
-=\NC \F {1} {\R{N_R}} \NR[+]
+\NC \l_B
+=\NC \l_R \NR
+\NC =\NC \F {1} {\R {N_Y N_R}} \NR[+]
 }
 To make
 \Disp{
-\NC \MB{E} _{\o_t} \SB {\VNm {\M{F}_B \SB {\o_t} \V{u}} _2 ^2}
+\NC \MB{E} \SB {\VNm {\M{Q} \SB {\o_t, \o_r} \V{u}} _2 ^2}
 =\NC \VNm {\V{u}} _2 ^2
 }
 
 Similarly, we have to find, in advance, the second moment.
 \Disp{
-\NC \MB{E} \SB {\VNm {\M{F}_B \V{u}} _2 ^4}
+\NC \MB{E} \SB {\VNm {\M{Q} \SB {\o_t, \o_r} \V{u}} _2 ^4}
 =\NC \MB{E} \SB {
   \RB {
     \sum_{n_R=0}^{N_R-1}
-    \Nm {\sum_{n_Y=0}^{N_Y-1} \M{F}_B \DB {n_R, n_Y} ^* \V{u} \DB{n_Y}} ^2
+    \Nm {\sum_{n_Y=0}^{N_Y-1} \M{Q} \DB {n_R, n_Y} ^\ast \V{u} \DB{n_Y}} ^2
   } ^2
+} \NR
+\NC = \NC E_1 +E_2 +E_3 +E_4 +E_5 \NR[+]
 }
-\NR[+]
+These terms are discussed as immediately follows.
+Without spelling out everything, we notice that as long as a term has a single \m {\M{Q} \DB {n_R, n_Y}} factor, it's expectation is zero.
+The terms that does not vanish is a product of three numbers: How many terms, the moment involving \m {\M{Q} \DB {n_y, n_h}}, the norm of \m {\V{u}}.
+We will repeatedly bound \m {N_R \D (N_R-1) /2} by \m {N_R^2 /2}, and bound \m {\Nm {\V{u}} _2} by \m {\Nm {\V{u}} _2}, and so on.
+\Disp {
+\NC E_1
+=\NC \sum_{n_y=0}^{N_y-1} \sum_{n_h=0}^{N_h-1}
+\Nm {\M{Q} \DB {n_y, n_h}} ^4
+\Nm {\V{u} \DB{n_h}} ^4 \NR
+\NC =\NC N_Y^2 \D 4 N_R ^2 N_Y ^{-4} N_R ^{-4} \D \Nm {\V{u}} _4 ^4 \NR
+\NC \leq \NC 4 N_Y ^{-2} N_R ^{-2} \Nm {\V{u}} _2 ^4 \NR[+]
 }
-Without spelling out everything, we notice that as long as a term has a single \m {\M{F}_B \DB {n_R, n_Y}} factor, it's expectation is zero.
-Also notice that
-\Disp{
-\NC \NC \MB{E} \SB {\M{F}_B \DB {n_R, n_Y}^2} \NR
-\NC = \NC \MB{E} \SB {\MF {Re} \SB {\M{F}_B \DB {n_R, n_Y}}^2}
-   -\MB{E} \SB {\MF {Im} \SB {\M{F}_B \DB {n_R, n_Y}}^2} \NR
-\NC \NC \quad \quad +2 \Ss {i} \MB{E} \SB {\MF {Re} \SB {\M{F}_B \DB {n_R, n_Y}}}
-      \MB{E} \SB {\MF {Im} \SB {\M{F}_B \DB {n_R, n_Y}}} \NR
-\NC = \NC 0 \NR[+]
+\Disp {
+\NC E_2
+= \NC \sum _{\Stack { n_y, n_y' =0 \NR n_y <n_y' }}^{N_y-1}
+\sum _{n_h =0}^{N_h-1}
+\Nm {\M{Q} \DB {n_y, n_h}} ^2
+\Nm {\M{Q} \DB {n_y', n_h}} ^2
+\Nm {\V{u} \DB{n_h}} ^4 \NR
+\NC = \NC N_Y \D \F{1}{2} N_Y \RB{N_Y-1} \D 8 N_R ^{-2} N_Y ^{-4} \VNm {\V{u}} _2 ^4 \NR
+\NC \NC \Q \Q + \F{1}{2} N_Y \RB{N_Y-1} \D N_Y^2 \D 4 N_R ^2 N_Y ^{-4} N_R ^{-4} \VNm {\V{u}} _2 ^4 \NR
+\NC \leq \NC 4 N_R ^{-2} \VNm {\V{u}} _2 ^4 \NR[+]
 }
-Having said that, with straightforward calculation, we see that the remaining terms are
-\Disp{
-\NC \NC \MB{E} \SB {\VNm {\M{F}_B \V{u}} _2 ^4} \NR
-\NC = \NC
-\sum_{n_R=0}^{N_R-1} \sum_{n_Y=0}^{N_Y-1}
-\Nm {\M{F}_B \DB {n_R, n_Y}} ^4
-\Nm {\V{u} \DB{n_Y}} ^4 \NR
-\NC \NC \quad \quad
-+\sum _{\startsubstack n_R, n_R' =0 \NR n_R <n_R' \stopsubstack}^{N_R-1}
-\sum _{n_Y =0}^{N_Y-1}
-\Nm {\M{F}_B \DB {n_R, n_Y}} ^2
-\Nm {\M{F}_B \DB {n_R', n_Y'}} ^2
-\Nm {\V{u} \DB{n_Y}} ^2
-\Nm {\V{u} \DB{n_Y'}} ^2 \NR
-\NC \NC \quad \quad
-+\sum _{n_R, n_R' =0}^{N_R-1}
-\sum _{\startsubstack n_Y, n_Y' =0 \NR n_Y <n_Y' \stopsubstack}^{N_Y-1}
-\Nm {\M{F}_B \DB {n_R, n_Y}} ^2
-\Nm {\M{F}_B \DB {n_R', n_Y'}} ^2
-\Nm {\V{u} \DB{n_Y}} ^2
-\Nm {\V{u} \DB{n_Y'}} ^2 \NR
-\NC \NC \quad \quad
-+\sum _{n_R =0}^{N_R-1}
-\sum _{\startsubstack n_Y, n_Y' =0 \NR n_Y <n_Y' \stopsubstack}^{N_Y-1}
-\Nm {\M{F}_B \DB {n_R, n_Y}} ^2
-\Nm {\M{F}_B \DB {n_R, n_Y'}} ^2
-\Nm {\V{u} \DB{n_Y}} ^2
-\Nm {\V{u} \DB{n_Y'}} ^2 \NR
-\NC =\NC N_R \D M_4 \D \VNm {\V{u}} _4 ^4
-   +\F {1} {2} N_R \RB {N_R-1} \D M_2^2 \D \RB {\VNm {\V{u}} _2 ^4 -\VNm {\V{u}} _4 ^4} \NR
-\NC \NC \quad \quad + N_R^2 \D M_2^2 \D \RB {\VNm {\V{u}} _2 ^4 -\VNm {\V{u}} _4 ^4}
-   + N_R \D M_2^2 \D \RB {\VNm {\V{u}} _2 ^4 -\VNm {\V{u}} _4 ^4} \NR
-\NC =\NC \RB {N_R M_4 -\F{1}{2} \RB {3N_R^2 +N_R} M_2^2} \VNm {\V{u}} _4 ^4
-+\F{1}{2} \RB {3N_R^2 +N_R} M_2^2 \VNm {\V{u}} _2 ^4 \NR[+]
+\Disp {
+\NC E_3
+=\NC \sum _{n_y, n_y' =0}^{N_y-1}
+\sum _{\Stack { n_h, n_h' =0 \NR n_h <n_h' }}^{N_h-1}
+\Nm {\M{Q} \DB {n_y, n_h}} ^2
+\Nm {\M{Q} \DB {n_y', n_h'}} ^2
+\Nm {\V{u} \DB{n_h}} ^2
+\Nm {\V{u} \DB{n_h'}} ^2 \NR
+\NC \leq \NC N_Y^2 \D \F{1}{2} N_H \RB{N_H-1} \D 8 N_R ^{-2} N_Y ^{-4} \RB {\VNm {\V{u}} _2 ^4 -\VNm {\V{u}} _4 ^4} \NR
+\NC \leq \NC 4 N_R ^{-2} N_Y ^{-1} \VNm {\V{u}} _2 ^4 \NR[+]
 }
-Plugging in the moments, we have
-\Disp{
-\NC =\NC -\F{3}{2} \RB {1 -\F{1}{N_R}} \VNm {\V{u}} _4 ^4
-+\F{1}{2} \RB {3 +\F{1}{N_R}} \VNm {\V{u}} _2 ^4 \NR[+]
+\Disp {
+\NC E_4
+=\NC \sum _{n_y =0}^{N_y-1}
+\sum _{\Stack { n_h, n_h' =0 \NR n_h <n_h' }}^{N_h-1}
+\Nm {\M{Q} \DB {n_y, n_h}} ^2
+\Nm {\M{Q} \DB {n_y, n_h'}} ^2
+\Nm {\V{u} \DB{n_h}} ^2
+\Nm {\V{u} \DB{n_h'}} ^2 \NR
+\NC \leq \NC N_Y \D \F{1}{2} N_H \RB{N_H-1} \D 8 N_R ^{-2} N_Y ^{-4} \RB {\VNm {\V{u}} _2 ^4 -\VNm {\V{u}} _4 ^4} \NR
+\NC \leq \NC 4 N_H ^2 N_R ^{-2} N_Y ^{-3} \VNm {\V{u}} _2 ^4 \NR[+]
 }
-Use \m {\VNm {\V{u}} _2 \leq N_y \VNm {\V{u}} _4} and drop the rest of \m {\VNm {\V{u}} _4 ^4} term, and we have simply
-\Disp{
-\NC \NC \leq \F{3}{2} \VNm {\V{u}} _2 ^4 \NR[+]
+The last one is more difficult.
+In the end we used Muirhead inequality to get \m {\i_{1,1,1,1} \SB {n_h, n_h', m_h, m_h'} \V{u} \DB{n_h} \V{u} \DB{n_h'} \V{u} \DB{m_h} \V{u} \DB{m_h'} \leq \RB {1/6} \RB {\VNm {\V{u}} _2 ^4 -\VNm {\V{u}} _4 ^4}}.
+\Disp {
+\NC E_5
+\NC = \sum _{
+    \Stack {
+      0 =n_h <n_h' \NR
+      0 =m_h <m_h' \NR
+      n_h +m_h' =n_h' +m_h \NR
+      \Fl {n_h/N_H} =\Fl {n_h'/N_H} \NR
+      \Fl {m_h/N_H} =\Fl {m_h'/N_H}
+    }
+  } ^{N_H-1}
+  \sum _{\Stack { 0 =n_y <n_y' \NR \Fl {n_y/N_Y} =\Fl {n_y'/N_Y} }} ^{N_y-1} \NR
+  \NC \NC \Q \Q \Q \Q
+  \Nm {\M{Q} \DB {n_y, n_h}}
+  \Nm {\M{Q} \DB {n_y, n_h'}}
+  \Nm {\M{Q} \DB {n_y, m_h}}
+  \Nm {\M{Q} \DB {n_y, m_h'}} \NR
+  \NC \NC \Q \Q \Q \Q
+  \VNm {\V{u} \DB{n_h}} ^2
+  \VNm {\V{u} \DB{n_h'}} ^2
+  \VNm {\V{u} \DB{m_h}} ^2
+  \VNm {\V{u} \DB{m_h'}} ^2 \NR
+\NC =\NC N_Y \D \F{1}{2} N_H \RB{N_H-1} \D \F{1}{2} N_Y \RB{N_Y-1} \D N_H^2 \NR
+\NC \NC \Q \Q \Q \Q
+\D 8 N_R ^{-2} N_Y ^{-4} \NR
+\NC \NC \Q \Q \Q \Q
+\D \sum_{\Stack {n_h, n_h' =0}} ^{N_H-1}
+\sum_{\Stack {m_h, m_h' =0}} ^{N_H-1}
+\i_{1,1,1,1} \SB {n_h, n_h', m_h, m_h'} \NR
+\NC \NC \Q \Q \Q \Q
+\VNm {\V{u} \DB{n_h}} \VNm {\V{u} \DB{n_h'}}
+\VNm {\V{u} \DB{m_h}} \VNm {\V{u} \DB{m_h'}} \NR
+\NC \leq \NC \F{1}{3} N_Y ^{-1} N_H ^4 N_R ^{-2} \VNm {\V{u}} _2 ^4. \NR[+]
 }
 
 In conclusion,
 \Disp{
-\NC \Ss{Var} _{\o_t} \SB {\VNm {\M{F}_B \SB {\o_t} \V{u}} _2 ^2}
+\NC \Ss{Var} \SB {\VNm {\M{P} \SB {\o_t, \o_r} \V{u}} _2 ^2}
 \leq \NC \F{1}{2} \VNm {\V{u}} _2 ^4 \NR[+]
 }
 Thus, by Chebyshev bound,
 \Result
 {Lemma}
 {
-Let \m {\M{F}_B \in \MB {M}_{\MB {C}} \SB {N_R, N_Y}} be generated randomly according to ().
+Let \m {\M{P} \in \MB {M}_{\MB {C}} \SB {N_R, N_Y}} be generated randomly according to ().
 Then, for any fixed \m {\V{u} \in \MB {V}_{\MB {C}} \SB {N_Y}}, and for any \m {\e >0},
 \Disp{
-\NC \MB{P} _{\o_t}
+\NC \MB{P}
 \SB {
-  \Nm {\VNm {\M{F}_B \V{u}} _2 ^2 -\VNm {\V{u}} _2 ^2}
+  \Nm {\VNm {\M{P} \V{u}} _2 ^2 -\VNm {\V{u}} _2 ^2}
   \geq \e \VNm {\V{u}} _2 ^2
 }
 \leq \NC \F {1} {2\e^2} \NR[+]
 }
 }
+
 According to Lemma 5.1 in Baraniuk et.\ al.\ (2008), substitution of relevent quantities yields
 \Result
 {Lemma}
@@ -406,64 +566,11 @@ Suppose the probability that RIP holds for \m {\M{F}_B} w.r.t.\ \m {\d_s} is \m 
 \NC 1 -P
 \leq \NC 4 \D 12^s \D \d_s^{-\RB {s+2}} \NR[+]
 }
-Same can be said of \m {\M{W}_B}.
 }
 
 \stopsection
 
-\startsection [title={Concentration Inequality of Precoders and Combiners}]
-
-Let \m {\M{F}_R \DB {n_H, n_R}} be uniformly distributed on the unit circle on the complex plane, which gives probability density
-\Disp{
-\NC d \o_t
-= \NC \F {1} {\pi} \RB {1 -\RB {\MF{Re} \SB {\M{F}_R \DB {n_H, n_R} \SB {\o_t}}} ^2}^{-1/2}
-d \MF{Re} \SB {\M{F}_R \DB {n_H, n_R}} \NR[+]
-\NC d \o_t
-= \NC \F {1} {\pi} \RB {1 -\RB {\MF{Im} \SB {\M{F}_R \DB {n_H, n_R} \SB {\o_t}}} ^2}^{-1/2}
-d \MF{Im} \SB {\M{F}_R \DB {n_H, n_R}} \NR[+]
-}
-As a result,
-\Disp{
-\NC \NC \MB{E} _{\o_t} \SB {\M{F}_R \DB {n_H, n_R} \SB {\o_t}} \NR
-\NC =\NC \a \NR[+]
-\NC M_2
-:=\NC \MB{E} _{\o_t} \SB {\Nm {\M{F}_R \DB {n_H, n_R} \SB {\o_t}}^2} \NR
-\NC =\NC \a^2 \NR[+]
-\NC M_4
-:=\NC \MB{E} _{\o_t} \SB {\Nm {\M{F}_R \DB {n_H, n_R} \SB {\o_t}}^4} \NR
-\NC =\NC \a^4 \NR[+]
-}
-
-Fix any test vector \m {\V{u} \in \MB{V}_\MB{C} \SB{N_H}}, 
-By a similar argument, we may set
-\Disp{
-\NC \a
-=\NC \F {1} {\R{N_H}} \NR[+]
-}
-to make
-\Disp{
-\NC \NC \MB{E} _{\o_t} \SB {\VNm {\M{F}_R \SB {\o_t} \V{u}} _2 ^2} \NR
-\NC = \NC \VNm {\V{u}} _2 ^2 \NR[+]
-}
-Furthermore, if we plug in the moments and use \m {\VNm {\V{u}} _2 \leq N_y \VNm {\V{u}} _4} and drop the rest of \m {\VNm {\V{u}} _4 ^4} term, we have simply
-\Disp{
-\NC \NC \MB{E} \SB {\VNm {\M{F}_R \V{u}} _2 ^4} \NR
-\NC =\NC \RB {N_H M_4 -\F{1}{2} \RB {3N_H^2 +N_H} M_2^2} \VNm {\V{u}} _4 ^4
-+\F{1}{2} \RB {3N_H^2 +N_H} M_2^2 \VNm {\V{u}} _2 ^4 \NR
-\NC =\NC -\F{1}{2} \RB {3 -\F{1}{N_H}} \VNm {\V{u}} _4 ^4
-+\F{1}{2} \RB {3 +\F{1}{N_H}} \VNm {\V{u}} _2 ^4 \NR
-\NC \leq \NC \F{3}{2} \VNm {\V{u}} _2 ^4 \NR[+]
-}
-
-In conclusion,
-\Disp{
-\NC \Ss{Var} _{\o_t} \SB {\VNm {\M{F}_R \SB {\o_t} \V{u}} _2 ^2}
-\leq \NC \F{1}{2} \VNm {\V{u}} _2 ^4 \NR[+]
-}
-
-\stopsection
-
-\startsection [title={RIP of Precoders and Combiners}]
+\startsection [title={Restricted Isometry of \m {P}}]
 
 The relevent expressions for \m {\M{F}_B ^\Tr} and \m {\M{F}_R ^\Tr} are identical, and same can be said of \m {\M{W}_B} and \m {\M{W}_R}.
 Let \m {\Phi} be either of \m {\M{R}_B ^\Tr}, \m {\M{R}_R ^\Tr}, \m {\M{W}_B}, or \m {\M{W}_B}.
@@ -474,7 +581,7 @@ By Chebyshev bound, we obtain an identical expression,
 Let \m {\Phi} be generated randomly as above.
 Then, for any fixed complex \m {\V{u}} (with corresponding dimension), and for any \m {\e >0},
 \Disp{
-\NC \MB{P} _{\o_t}
+\NC \MB{P}
 \SB {
   \Nm {\VNm {\Phi \V{u}} _2 ^2 -\VNm {\V{u}} _2 ^2}
   \geq \e \VNm {\V{u}} _2 ^2
@@ -482,50 +589,97 @@ Then, for any fixed complex \m {\V{u}} (with corresponding dimension), and for a
 \leq \NC \F {1} {2\e^2} \NR[+]
 }
 }
+
 According to Lemma 5.1 in Baraniuk et.\ al.\ (2008), substitution of relevent quantities yields
 \Result
 {Lemma}
 {
-Suppose the probability that RIP holds for \m {\Phi} w.r.t.\ \m {\d_s} is \m {P}, then
+Suppose the probability that RIP holds for \m {\V{P}} w.r.t.\ \m {\d_s} is \m {p}, then
 \Disp{
-\NC 1 -P
+\NC 1 -p
 \leq \NC 4 \D 12^s \D \d_s^{-\RB {s+2}} \NR[+]
 }
-Same can be said of \m {\M{W}_B}.
 }
-
-We may bound \m {\RB {1 +\d_s}^2} by \m {1 +3\d_s}.
-A moment of reflection shows that 
-
 
 \stopsection
 
-\startsection [title={Expected Square Error for Complex-Case DS}]
+\startsection [title={Expected Error for Complex-Case Dantzig Selector}]
+
+Split \m {\V{g}} into two parts: \m {\V {g} _\MC {A}} is the largest \m {s} positions of \m {\V{g}}, \m {\V {g} _\MC {A}} the next \m {s} largest positions of \m {\V{g}}, and \m {\V {g} _\MC {K}} are the positions complement to \m {\V {g} _\MC {A}}.
+For example, if \m {\V {g} =\IP {-1,3,-4,2,8}}, and \m {s=2}, then \m {\V {g} _\MC {A} =\IP {0,3,0,0,8}}, \m {\V {g} _\MC {B} =\IP {-1,0,0,2,0}}, and \m {\V {g} _\MC {A} =\IP {-1,0,-4,2,0}}.
+We rephrase it formally.
+
+\Result
+{Definition}
+{
+Consider \m {\V{x} \in \MB {V}_{\MB {K}} \SB {N_p}}.
+Let bijection \m {\s: \MC {T} \SB {N_p} \mapsto \MC {T} \SB {N_p}} be defined to sort \m {\V{x}} in decreasing magnitude, meaning
+\Disp{
+\NC \V{v} \DB {\s \SB {n}}
+\leq \NC \V{v} \DB {\s \SB {n-1}} \NR[+]
+\NC n =\NC 1, \dots, N_p-1 \NR
+}
+Its existence is evident.
+
+Let \m {s \leq N_p/2} be fixed.
+Define
+\Disp{
+\NC \MC {S} \SB {\V{x}, s}
+=\NC \sum_{i=0} ^{s-1} \V {x} \DB {\s \SB{i}} \V {u} _{\s \SB{i}} \NR[+]
+\NC \MC {C} \SB {\V{x}, s}
+=\NC \sum_{i=s} ^{N_p} \V {x} \DB {\s \SB{i}} \V {u} _{\s \SB{i}} \NR[+]
+}
+}
+
+Now set
+\Disp{
+\NC \V{g} _\MC {A}
+=\NC \MC {S} \SB {\V{g}, s} \NR[+]
+\NC \V{g} _\MC {K}
+=\NC \MC {C} \SB {\V{g}, s} \NR[+]
+\NC \V{g} _\MC {B}
+=\NC \MC {S} \SB {\V{g} _\MC {K}, s} \NR[+]
+}
+
+Let \m {\hat {\V {g}}} be the Dantzig Selector.
+For concreteness, we set
+\Disp {
+\NC \g 
+= \NC \R {2 \log N_h} \NR[+]
+}
+
+Other values are of course possible, but this is enough to illustrate our purpose.
+Also set for short
+\Disp {
+\NC \V {d} 
+= \NC \Hat {\V {g}} -\V {g} \NR[+]
+}
+
 
 The rest follows ``The Dantzig Selector'' very closely.
 The generalization to complex vector is necessary in our setting.
 We spell out the proof when such generalization is nontrivial.
 
 \Result
-{Proposition}
+{Lemma}
 {
 Let \m {\V {g}} and \m {\V {d}} be defined as above.
 Then
 \Disp {
-\NC \VNm {\V {d}_{\MC {C}}} _1
-\leq \NC \VNm {\V {d}_{\MC {A}}} _1 +2\VNm {\V {g}_{\MC {C}}} _1 \NR
+\NC \VNm {\V {d} _{\MC {K}}} _1
+\leq \NC \VNm {\V {d} _{\MC {A}}} _1 +2\VNm {\V {g} _{\MC {K}}} _1 \NR
 }
 }
 
-To show this, observe that with triangle inequality applied respectively on \m {\MC {A}} and \m {\MC {C}},
+To show this, observe that with triangle inequality applied respectively on \m {\MC {A}} and \m {\MC {K}},
 \Disp {
 \NC \VNm {\V {g}} _1
--\VNm {\V {d}_{\MC {A}}} _1
-+\VNm {\V {d}_{\MC {C}}} _1
--\VNm {\V {g}_{\MC {C}}} _1
+-\VNm {\V {d} _{\MC {A}}} _1
++\VNm {\V {d} _{\MC {K}}} _1
+-\VNm {\V {g} _{\MC {K}}} _1
 \leq \NC \VNm {\V {g} +\V {d}} _1 \NR
 }
-In the first line, we recall \m {\V {g} =\V {g}_{\MC {A}}}.
+In the first line, we recall \m {\V {g} =\V {g} _{\MC {A}}}.
 On the other hand, by construction that \m {\hat {g}} minimizes the \m {\ell_1}-norm,
 \Disp {
 \NC \VNm {\V {g} +\V {d}} _1
@@ -537,15 +691,13 @@ The result follows by combining.
 \Result
 {Lemma}
 {
-Let \m {\V {z}} and \m {\M {P}} be defined as above.
-Then
 \Disp {
-\NC \Nm {\IP { \V {z}, \M {P} \DB {:, n_g} }}
-\leq \NC  2 \R {\log N_h},
-\quad n_g 
-=1, \dots, N_h. \NR
+\NC \Nm {\IP { \V {z} \SB {\o_z}, \M {P} \DB {:, n_g} }}
+\leq \NC  2 \R {\log N_h} \NR
+\NC n_g 
+=\NC 1, \dots, N_h. \NR
 }
-with overwhelming probability.
+with probability \m {\geq 1 -N_h}.
 }
 
 This only depends on the fact that \m {\M {P} \DB {:, n_g}} has unity \m {\ell_2}-norm, and on the randomness of \m {\V {z}}.
@@ -555,24 +707,23 @@ Recall the following bound for \m {Q} function
 \NC Q\SB {x}
 \leq \NC \F {1}{2} \Ss {e}^{-x^2/2} \NR
 }
-Particularly, for \m {x =\R {2 \log N_h}}, according to CLT,
+Particularly, for \m {x =\R {2 \log N_h}},
 \Disp {
 \NC Q\SB {\R {2 \log N_h}}
 =\NC \F {1}{N_h}. \NR
 }
 
-\color[red]{(To be done)}
-
 \Result
 {Lemma}
 {
-Let \m {\V {d}} and \m {\M {P}} be defined as above, and \m {\M {P}} satisfies RIP as in ().
+With the condition that \m {\M {P}} satisfies RIP for \m {\d_s \SB {\M{P}}},
 \Disp {
 \NC \VNm {\M {P}^\Adj \M {P} \V {d}} _\infty
-\leq \NC  4 \R {\log N_h},
-\quad n_g 
-=1, \dots, N_h. \NR
+\leq \NC  4 \R {\log N_h} \NR
+\NC n_g 
+=\NC 1, \dots, N_h. \NR
 }
+with probability \m {\geq 1 -N_h}.
 }
 
 To show this, by definition
@@ -581,17 +732,17 @@ To show this, by definition
 = \NC \IP { \M {P} \hat {\V {g}} -\M {P} \V {g}, \M {P} \DB {:,n_y} } \NR
 \NC = \NC \IP { \M {P} \V {d}, \M {P} \DB {:,n_y} } \NR
 }
-
 By construction
 \Disp {
-\NC \VNm { \M {P} \DB {:,n_y}^\Adj \RB {\V {y} -\M {P} \hat {\V {g}}} } 
+\NC \VNm { \M {P} \DB {:,n_y}^\Adj \RB {\V {y} -\M {P} \hat {\V {g}}} } _\infty
 \leq \NC \VNm { \M {P}^\Adj \RB {\V {y} -\M {P} \hat {\V {g}}} } _\infty \NR
 \NC \leq \NC 2\R {\log N_h} \NR
 }
 By triangle inequality, together with Lemma (), we have
 \Disp {
-\NC \VNm {\M {P} \DB {:,n_y}^\Adj \M {P} \V {d}} 
-\leq \NC \VNm {\IP { \V {z}, \M {P} \DB {:,n_y} }}  +\IP { \V {y} -\M {P} \hat {\V {g}}, \M {P} \DB {:,n_y} } \NR
+\NC \VNm {\M {P} \DB {:,n_y}^\Adj \M {P} \V {d}} _\infty
+\leq \NC \VNm {\IP { \V {z}, \M {P} \DB {:,n_y} }} _\infty
++\IP { \V {y} -\M {P} \hat {\V {g}}, \M {P} \DB {:,n_y} } \NR
 \NC \leq \NC 2 \R {\log N_h} +2 \R {\log N_h} \NR
 }
 which implies
@@ -600,33 +751,33 @@ which implies
 \leq \NC 4 \R {\log N_h}. \NR
 }
 
-From ``Dantzig Selector'' (Cand\`es and Tao 2007), Lemma 1, first equation, we have the result as below.
+From ``Dantzig Selector'' Lemma 1, first equation, we have the result as below.
 The original result is for real vector spaces, but we have checked that the proof is completely valid in complex vector spaces.
-Of course the interpretation of modulus and the inner product changes accordingly.
+The only thing that has to change accordingly is the interpretation of magnitude and the inner product, which are evident.
 
 \Result
 {Lemma}
 {
-Let \m {\V {d}} and \m {\M {P}} be defined as above, and \m {\M {P}} satisfies RIP as in () with respect to \m {\d_s}.
+With the condition that \m {\M {P}} satisfies RIP for \m {\d_s \SB {\M{P}}},
 \Disp {
-\NC \VNm {\V {d}_{\MC {AB}}} _2
-\leq \NC \F {1}{1-\d_{2s}} \VNm {P_{\MC {A} \MC {B}}^\Tr P d} _2 +\F {\d_{3s}}{\RB {1-\d_{2s}} \R {s}} \VNm {d_{C}} _1 \NR
+\NC \VNm {\V {d} _{\MC {AB}}} _2
+\leq \NC \F {1}{1-\d_{2s}} \VNm {P _{\MC {A} \MC {B}}^\Tr P d} _2 +\F {\d_{3s}}{\RB {1-\d_{2s}} \R {s}} \VNm {d_{\MC {K}}} _1 \NR
 }
 }
 
-From ``Dantzig Selector'' (Cand\`es and Tao 2007), Lemma 1, second equation, we have the result as below.
+From ``Dantzig Selector'', Lemma 1, second equation, we have the result as below.
 Again, their proof works with complex vector spaces in place of real ones too.
 
 \Result
 {Lemma}
 {
-Let \m {\V {d}} be defined as above.
-Then
 \Disp {
 \NC \VNm {\V {d}} _2^2
-\leq \NC \VNm {\V {d}_{\MC {A} \MC {B}}} _2^2 +\F {1}{s} \VNm {\V {d}_{\MC {C}}} _1^2 \NR
+\leq \NC \VNm {\V {d} _{\MC {A} \MC {B}}} _2^2 +\F {1}{s} \VNm {\V {d} _{\MC {K}}} _1^2 \NR
 }
 }
+
+\stopsection
 
 \startsection [title={The Main Bound}]
 
@@ -641,13 +792,13 @@ Then
 \NC \VNm {\V {d}} _2
 \leq \NC \F {4}{\pi^4} \d_{3L}^4 \RB {1-2\d_{2L}} L^4 \RB { \log N_H}^4 \NR
 }
-with overwhelming probability.
+with probability \m {\geq 1 -N_h}.
 }
 
 We are ready to combine previous lemmata.
 The first quantity we want to bound away is
 \Disp {
-\NC \VNm {\M {P}_{\MC {A} \MC {B}}^\Tr \M {P} \V {d}} _2
+\NC \VNm {\M {P} _{\MC {A} \MC {B}}^\Tr \M {P} \V {d}} _2
 \leq \NC \VNm {\M {P}^\Tr \M {P} \V {d}} _2 \NR
 \NC \leq \NC \R {N_h} \VNm {\M {P}^\Tr \M {P} \V {d}} _\infty \NR
 \NC \leq \NC 4 \R {N_h \log N_h} \NR
@@ -656,22 +807,22 @@ Thus, by virtue of Lemma (),
 \Disp {
 \NC \VNm { \V {d}_{A} } _1
 \leq \NC \R {L} \VNm { \V {d}_{A} } _2 \NR
-\NC \leq \NC \R {L} \VNm { \V {d}_{\MC {AB}} } _2 \NR
-\NC \leq \NC \F {\d_{3L}} {1-\d_{2L}} \VNm { \V {d}_{\MC {C}} } _1 +\F {4} {1-\d_{2L}} \R {L N_h \log N_h} \NR
+\NC \leq \NC \R {L} \VNm { \V {d} _{\MC {AB}} } _2 \NR
+\NC \leq \NC \F {\d_{3L}} {1-\d_{2L}} \VNm { \V {d} _{\MC {K}} } _1 +\F {4} {1-\d_{2L}} \R {L N_h \log N_h} \NR
 }
 
-As the next step, we must eliminate \m {\VNm {d_{\MC {A}}} _1} in rhs of Lemma ().
+As the next step, we must eliminate \m {\VNm {d _{\MC {A}}} _1} in rhs of Lemma ().
 \Disp {
-\NC \VNm { \V {d}_{\MC {C}} } _1
-\leq \NC \VNm { \V {d}_{\MC {A}} } _1 +2 \VNm { \V {g}_{\MC {C}} } _1 \NR
-\NC \leq \NC \F {\d_{3L}} {1-\d_{2L}} \VNm { \V {d}_{\MC {C}} } _1
-+2 \VNm { \V {g}_{\MC {C}} } _1
+\NC \VNm { \V {d} _{\MC {K}} } _1
+\leq \NC \VNm { \V {d} _{\MC {A}} } _1 +2 \VNm { \V {g} _{\MC {K}} } _1 \NR
+\NC \leq \NC \F {\d_{3L}} {1-\d_{2L}} \VNm { \V {d} _{\MC {K}} } _1
++2 \VNm { \V {g} _{\MC {K}} } _1
 +\F {4} {1-\d_{2L}} \R {L N_h \log N_h} \NR
 }
 Or,
 \Disp {
-\NC \VNm { \V {d}_{\MC {C}} } _1
-\leq \NC 2 \F {1-\d_{2L}} {1 -\d_{2L} -\d_{3L}} \VNm { \V {g}_{\MC {C}} } _1
+\NC \VNm { \V {d} _{\MC {K}} } _1
+\leq \NC 2 \F {1-\d_{2L}} {1 -\d_{2L} -\d_{3L}} \VNm { \V {g} _{\MC {K}} } _1
 +\F {4} {1-\d_{2L} -\d_{3L}} \R {L N_h \log N_h} \NR
 }
 
@@ -679,12 +830,12 @@ We are ready to bound \m {\VNm {d} _2^2}.
 Using Lemma () again, we have
 \Disp {
 \NC \VNm { \V {d} } _2^2
-\leq \NC \VNm {\V {d}_{\MC {A} \MC {B}}} _2^2 +\F {1}{L} \VNm {\V {d}_{\MC {C}}} _1^2 \NR
-\NC \leq \NC  \RB { \F {\d_{3L}^2} {L^2 \RB {1-\d_{2L}}^2} +\F {1}{L} } \VNm {\V {d}_{\MC {C}}} _1^2
-+\F {8 \d_{3L}} {L \RB {1-\d_{2L}}^2} \R {N_h \log N_h} \VNm {\V {d}_{\MC {C}}} _1 \NR
-\NC \NC \quad +\F {16}{\RB {1-\d_{2L}}^2} N_h \log N_h \NR
+\leq \NC \VNm {\V {d} _{\MC {A} \MC {B}}} _2^2 +\F {1}{L} \VNm {\V {d} _{\MC {K}}} _1^2 \NR
+\NC \leq \NC  \RB { \F {\d_{3L}^2} {L^2 \RB {1-\d_{2L}}^2} +\F {1}{L} } \VNm {\V {d} _{\MC {K}}} _1^2
++\F {8 \d_{3L}} {L \RB {1-\d_{2L}}^2} \R {N_h \log N_h} \VNm {\V {d} _{\MC {K}}} _1 \NR
+\NC \NC \Q +\F {16}{\RB {1-\d_{2L}}^2} N_h \log N_h \NR
 }
-Finally, plug in the bound for \m {\VNm {\V {d}_{\MC {C}}} _1}, the last unknown, and we make use of the almost-sparsity condition of \m {\VNm {\V {d}_{\MC {C}}} _1}.
+Finally, plug in the bound for \m {\VNm {\V {d} _{\MC {K}}} _1}, the last unknown, and we make use of the almost-sparsity condition of \m {\VNm {\V {d} _{\MC {K}}} _1}.
 There are several dozens of terms if we expand all.
 but for simplicity, we keep only the leading term under the approximation
 \Disp {

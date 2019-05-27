@@ -30,6 +30,8 @@
 \define [0] {\e} {\epsilon}
 \define [0] {\f} {\varphi}
 \define [0] {\l} {\lambda}
+\define [0] {\s} {\sigma}
+\define [0] {\i} {\iota}
 \define [0] {\th} {\vartheta}
 \define [0] {\O} {\Omega}
 \define [0] {\o} {\omega}
@@ -37,6 +39,7 @@
 \define [0] {\Adj} {\dagger}
 \define [0] {\Tr} {\intercal}
 \define [0] {\LA} {\leftarrow}
+\define [0] {\Q} {\quad}
 
 \define [0] {\AuthorText}
 {
@@ -78,15 +81,16 @@
 \define [1] {\V} {\underline {#1 \mkern -1mu} \mkern 2mu}
 \define [1] {\T} {\tilde {\vphantom {\overline{#1}} #1}}
 \define [1] {\Hat} {\hat {\vphantom {\overline{#1}} #1}}
+\define [1] {\Stack} {\startsubstack #1 \stopsubstack}
 
 \define [1] {\Disp}
 {
    \placeformula
-   \startformula
+   \startsplitformula
    \startalign
       #1
    \stopalign
-   \stopformula
+   \stopsplitformula
 }
 \define [1] {\M}
 {
@@ -104,7 +108,7 @@
    \TheCount \; {\bf #1} \par
    #2 \par
    \hfill
-   \m{\blacksquare} \par
+   \m{\blacksquare}
 }
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %

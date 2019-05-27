@@ -62,9 +62,9 @@ In this section, consider \m {\V{x} \in \MB {V}_{\MB {K}} \SB {N_p}} and \m {\V{
 Set \m {\MC {T} \RB {N_p} =\CB {0, \dots, N_p-1}} for short.
 For \m {\MC {A} \subseteq \MC {T} \SB {N_p}}, denote
 \Disp{
-\NC \V {x} _{\MC {A}}
+\NC \V {x}  \DB {\MC {A}}
 =\NC \sum _{i \in \MC {A}} \V {v} \V {u} _{i} \NR[+]
-\NC \M {\Phi} _{\MC {A}}
+\NC \M {\Phi}  \DB {\MC {A}}
 =\NC \sum _{i \in \MC {A}} \M {\Phi} \DB {:,i} \NR[+]
 }
 That is, respectfully, the components of \m {\V {x}}, and the columns of \m {\M {A}}, that have indices in \m {\MC {A}}.
@@ -76,7 +76,7 @@ Formally,
 {
 \m {\V {x}} is called \m {s}-sparse, if there is \m {\MC {A} \subseteq \MC {T} \SB {N_p}} such that
 \Disp { 
-\NC \V{x}_{\MC {A}}
+\NC \V{x} \DB {\MC {A}}
 =\NC \V{x} \NR
 }
 with
@@ -90,9 +90,9 @@ with
 {
 For fixed \m {s =0, \dots N_p -1}, we say that \m {\M{\Phi}} satisfies the restricted isometry property (RIP) of sparsity \m {s} with respect to \m {0 \leq \d_s \leq 1}, if, for all \m {\V {x}}, and for all \m {\MC {A} \subset \MC {T} \SB {N_m}} with \m {\# \MC {A} \leq s},
 \Disp {
-\NC \NC \RB {1-\d_s} \VNm {\V {x}_{\MC {A}}}^2 \NR
-\NC \leq \NC \VNm {\M{\Phi} \V {x}_{\MC {A}}} _2^2 \NR
-\NC \leq \NC \RB {1+\d_s} \VNm {\V {x}_{\MC {A}}} _2^2 \NR[+]
+\NC \NC \RB {1-\d_s} \VNm {\V {x} \DB {\MC {A}}}^2 \NR
+\NC \leq \NC \VNm {\M{\Phi} \V {x} \DB {\MC {A}}} _2^2 \NR
+\NC \leq \NC \RB {1+\d_s} \VNm {\V {x} \DB {\MC {A}}} _2^2 \NR[+]
 }
 }
 That is, \m {\Phi} is ``almost unitary'' up to ``relative error'' \m {\d_s}.
@@ -116,8 +116,8 @@ How can we hope to estimate \m {\V{x}} when, in addition to insufficient observa
 \Disp {
 \NC \V {h}
 \LA \NC \startcases
-\NC \Min {\V {h}'} \quad \MC \VNm {\V {h}'} _1 \NR
-\NC \Rm {subject} \; \Rm {to} \quad \MC \VNm {\M {\Phi}^\Adj \RB {\M {\Phi} \V {h}' -\V {y}}} _\infty \leq \g \NR
+\NC \Min {\V {h}'} \Q \MC \VNm {\V {h}'} _1 \NR
+\NC \Rm {subject} \; \Rm {to} \Q \MC \VNm {\M {\Phi}^\Adj \RB {\M {\Phi} \V {h}' -\V {y}}} _\infty \leq \g \NR
 \stopcases \NR
 }
 \item Output \m {\V {h}}.
@@ -240,7 +240,7 @@ On the other hand,
 \sum _{m_2 =0} ^{N_2 N_3 -1}
 \M{B} \DB {\Fl{ m_2/N_2 }, \Fl{ m_1/N_1 }}
 \M{A} \DB {m_1\; \Rm{Mod}\; N_1, m_2\; \Rm{Mod}\; N_2} \NR
-\NC \NC \quad \quad \quad \quad \quad \quad
+\NC \NC \Q \Q \Q \Q \Q \Q
 \M{X} \DB {m_2\; \Rm{Mod}\; N_2, \Fl{ m_2/N_2 }}
 \NR[+]
 }

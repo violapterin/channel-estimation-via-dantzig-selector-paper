@@ -1,4 +1,4 @@
-\startchapter [title={Problem Setting}]
+quad\startchapter [title={Problem Setting}]
 
 \startsection [title={Channel Model}]
 
@@ -59,7 +59,7 @@ To set up notation, we list them as below.
 \NC \M {F}_B \in \NC \MB {M}_{\MB {C}} \SB {N_R, N_Y} \NR
 \NC \M {F}_R \in \NC \MB {M}_{\MB {C}} \SB {N_H, N_R} \NR
 \NC \M {W}_R \in \NC \MB {M}_{\MB {C}} \SB {N_R, N_H} \NR
-\NC \M {W}_B \in \NC \MB {M}_{\MB {C}} \SB {N_Y, N_R} \NR[+]
+\NC \M {W}_B \in \NC \MB {M}_{\MB {C}} \SB {N_Y, N_R} \NR
 }
 Recall that analog precoder is restricted to have value with magnitude being unity, i.e.,
 \Disp {
@@ -121,28 +121,28 @@ If we had followed the widely accepted approach of compressive channel sensing, 
 \in \NC \MB {V}_{\MB {C}} \SB {N_y} \NR
 \NC \V {z}
 := \NC \Rm {vec} \SB {\M{W}_B \M{W}_R \M {Z}} \NR[+]
-\NC \M {P}^\star
+\NC \M {Q}
 \in \NC \MB {M}_{\MB {C}} \SB {N_y, N_h} \NR
-\NC \M {P}^\star
+\NC \M {Q}
 := \NC \RB {\M {F}_R^\Tr \M {F}_B^\Tr} \otimes \RB {\M {W}_B \M {W}_R} \NR[+]
 }
-to formulate our goal as sparse recovery problem of \m {\Rm {vec} \SB {H}} to be
+to formulate our goal as sparse recovery problem of \m {\Rm {vec} \SB {\M{H}}} to be
 \Disp {
 \NC \V {y}
-=\M {P}^\star \V {h} +\V {z} \NR
+=\M {Q} \V {h} +\V {z} \NR
 }
 As we have motivated in previous sections, we want to use DS by considering sparse vector, and at the same time to get rid of the angle grid quantization problem.
 However, there is no guarantee, though, that \m {\V {h}} will be sparse.
 
 \stopsection
-\startsection [title={Expression for the Angular Space}]
+\startsection [title={Working in the Angular Space}]
 
 Introduce the discrete Fourier matrix \m {\M {K}} defined to be
 \Disp {
 \NC \M {K} \in  \NC \MB {M}_{\MB {C}} \SB {N_H, N_H} \NR
 \NC \M {K} \DB {n_1, n_2}
 = \NC \F {1} {\R {N_H}} \Ss {e}^{2\pi \Ss{i} n_1 n_2 /N_H}, \NR[+]
-\NC \quad n_1, n_2
+\NC \Q n_1, n_2
 = \NC 0, 1, \dots, N_H-1 \NR
 }
 Roman \m{\Ss{e}} and \m{\Ss{i}} denote the natural base and imaginary unit, respectively.
@@ -172,7 +172,7 @@ To simplify notation, set
 \NC \M {P}
 \in \NC \MB {M}_{\MB {C}} \SB {N_y, N_h} \NR
 \NC \M {P}
-:=\NC \RB {\M {F}_B^\Tr \M {F}_R^\Tr K^\ast} \otimes \RB {\M {W}_B \M {W}_R \M {K}} \NR[+]
+:=\NC \RB {\M {F}_B^\Tr \M {F}_R^\Tr \M{K}^\ast} \otimes \RB {\M {W}_B \M {W}_R \M {K}} \NR[+]
 }
 And accordingly
 \Disp {
@@ -202,7 +202,7 @@ If so, our program reads
 \NC \Hat {\V {g}}
 \LA \NC \startcases
 \NC \Min {\V {g}' \in \MB {V}_{\MB {C}} \SB {N_h}}  \MC \VNm {\V {g}'} _1 \NR[+]
-\NC \Rm {subject} \; \Rm {to} \quad \MC \VNm {\M {P}^\Adj \RB {\V {y} -\M {P} \V {g}'}} _\infty \leq \g \NR
+\NC \Rm {subject} \; \Rm {to} \Q \MC \VNm {\M {P}^\Adj \RB {\V {y} -\M {P} \V {g}'}} _\infty \leq \g \NR
 \stopcases \NR
 }
 \item Convert \m {\Hat {\V {g}}} back to the space domain, namely
