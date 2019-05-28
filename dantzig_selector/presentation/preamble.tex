@@ -42,19 +42,6 @@
 \define [0] {\Q} {\quad}
 \define [0] {\SixQ} {\Q \Q \Q \Q \Q \Q}
 
-\define [0] {\AuthorText}
-{
-   Author: Tzu-Yu Jeng \\
-   Advisor: Prof.\ H.\ J.\ Su \\
-   Nov.\ 2018 to (Mar.\ 2019) \_\_\_\_
-}
-\define [0] {\TitleText}
-{
-   Compressive Channel Sensing \\
-   of Multipath Millimeter Channel \\
-   via an Angular Domain Dantzig Selector \\
-   and its Probabilistic Performance Bound
-}
 \define [0] {\TheCount}
 {
    \incrementcounter [NumResult]
@@ -104,9 +91,11 @@
 
 \define[2] {\Result}
 {
+   \color
    \bigskip
    \noindent \hskip 3em
-   \TheCount \; {\bf #1} \par
+
+\TheCount \; {\bf #1} \par
    #2 \par
    \hfill
    \m{\blacksquare}
@@ -125,7 +114,7 @@
 \definefontfamily [MainFace] [mm] [TeX Gyre Pagella Math]
 \definemeasure [pointoneline] [1.5\baselineskip]
 \definecolor [headingcolor] [r=0.2, g=0.25, b=0.5]
-\definealternativestyle [TitleStyle] [\ss\bfd] []
+\definealternativestyle [FrameTitleStyle] [\ss\bfc] []
 \definealternativestyle [AuthorStyle] [\ss\tfb] []
 \definemakeup [titlepage] [align=middle]
 

@@ -189,9 +189,9 @@ d \MF{Re} \SB {\M{F}_B \DB {n_R, n_Y}} \NR[+]
   \RB {-\F{1}{\l^2} \MF{Im} \SB {\M{F}_B \DB {n_R, n_Y}} ^2}
 d \MF{Im} \SB {\M{F}_B \DB {n_R, n_Y}} \NR[+]
 \NC n_R
-= \NC 0, 1, 2, \dots, N_R -1 \NR
+= \NC 0, 1, 2, \ldots, N_R -1 \NR
 \NC n_Y
-= \NC 0, 1, 2, \dots, N_Y -1 \NR
+= \NC 0, 1, 2, \ldots, N_Y -1 \NR
 }
 
 We know that the magnitude \m {\M{F}_B \DB {n_R, n_Y}} follows Rayleigh distribution, having
@@ -277,21 +277,7 @@ But each entry of \m {P} is a linear combination of products, and such reasoning
 If only \m {P} were also an i.i.d.\ random matrix, the resulting proof would be easier.
 Is the approach all but lost?
 
-
-Start with the observtion
-\Result
-{Lemma}
-{
-\Disp {
-\NC \NC \MB{E} \SB {\M{P} \DB {n_y, n_h} \M{P} \DB {n_y', n_h'}} \NR
-\NC = \NC \startcases
-\l_R^4 \l_B^4, \Q \MC n_y =n_y', n_h =n_h' \NR
-0, \Q \NC \Rm {otherwise} \NR
-\stopcases \NR
-}
-}
-
-Notice
+Observe
 \Disp {
 \NC \M{P} ^\Adj \M{P}
 =\NC
@@ -308,9 +294,10 @@ Notice
 \otimes \RB {\M {W}_B \M {W}_R \M{K} \M{K}^\Adj \M {W}_R^\Adj \M {W}_B^\Adj} \NR
 \NC =\NC
 \RB {\M {F}_B^\Tr \M {F}_R^\Tr \M {F}_R^\ast \M {F}_B^\ast}
-\otimes \RB {\M {W}_B \M {W}_R \M {W}_R^\Adj \M {W}_B^\Adj} \NR[+]
+\otimes \RB {\M {W}_B \M {W}_R \M {W}_R^\Adj \M {W}_B^\Adj}
+\RB {\M {F}_R^\Tr \M {F}_B^\Tr} \otimes \RB {\M {W}_B \M {W}_R} \NR
+\NC := \NC \M{Q} \NR[+]
 }
-where, restating (), \m {\M {Q} :=\RB {\M {F}_R^\Tr \M {F}_B^\Tr} \otimes \RB {\M {W}_B \M {W}_R}}.
 
 This implies
 \Disp {
@@ -330,53 +317,61 @@ For any instance of \m {\M{P} \SB {\o_t, \o_r}} and \m {\M{Q} \SB {\o_t, \o_r}},
 
 And it will turn out that any two distinct entries of \m {\M{Q}} are not correlated.
 
-To make expressions more compact, introduce
+\Result
+{Definition}
+{
+To make expressions more compact, introduce the indication function \m {\i}, so that, for some injective \m {\s:\; \CB {0, \ldots, M-1} \CB {0, \ldots, N-1}},
 \Disp {
-\NC \i_2 \SB {x_0, x_1}
+\NC \i_{a_0, \ldots, a_{M-1}} \SB {x_0, \ldots, x_{N-1}}
 =\NC \startcases
-\NC 1, \MC \Q x_0 =x_1 \NR
-\NC 0, \NC \Q \Rm {otherwise} \NR
-\stopcases \NR
-\NC \i_4 \SB {x_0, x_1, x_2, x_3}
-=\NC \startcases
-\NC 1, \MC \Q x_0 =x_1 =x_2 =x_3 \NR
+\NC 1, \MC \Q \exists \s:\; x_0 \cdots x_{N-1}
+=x_{\s \SB {0}} ^{a_0} \cdots x_{\s \SB {M-1}} ^{a_{M-1}} \NR
 \NC 0, \NC \Q \Rm {otherwise} \NR
 \stopcases \NR
 }
-And, for any permutation \m {\s} on \m {\CB {1, 2, 3, 4}},
-\Disp {
-\NC \i_{2,2} \SB {x_0, x_1, x_2, x_3}
-=\NC \startcases
-\NC 1, \MC \Q x_{\s \RB{0}} =x_{\s \RB{1}} \neq x_{\s \RB{2}} =x_{\s \RB{3}} \NR
-\NC 0, \NC \Q \Rm {otherwise} \NR
-\stopcases \NR
 }
 
+For short, denote
+\Disp {
+\NC F :=\NC \M {F}_B \M {F}_R \NR
+\NC W :=\NC \M {W}_R \M {W}_B \NR
+}
 \Result
 {Lemma}
 {
 \Disp {
-\NC \NC \MB{E} \SB {\RB {\M{F}_R \M{F}_B} \DB {n_H, n_Y} \RB {\M{F}_R \M{F}_B} \DB {n_H', n_Y'}} \NR
-\NC = \NC \MB{E} \SB {\RB {\M{W}_R \M{W}_B} \DB {n_Y, n_H} \RB {\M{W}_R \M{W}_B} \DB {n_Y', n_H'}} \NR
-\NC = \NC N_R \D \i_2 \SB {n_H, n_H'} \D \i_2 \SB {n_Y, n_Y'} \D \RB {\l_R^2 +\l_B^2} \NR
+\NC \NC \MB{E} \SB {\M{F} \DB {n_H, n_Y} \M{F} \DB {n_H', n_Y'}} \NR
+\NC = \NC \MB{E} \SB {\M{W}^\Adj \DB {n_Y, n_H} \M{W}^\Adj \DB {n_Y', n_H'}} \NR
+\NC = \NC \i_2 \SB {n_H, n_H'} \D \i_2 \SB {n_Y, n_Y'} \D N_R \l_R^2 \l_B^2 \NR
 }
 }
 
 To see this, expanding the definition
 \Disp {
-\NC \NC \RB {\M{W}_B ^\Adj \M{W}_R ^\Adj} \DB {n_Y, n_H} \RB {\M{F}_R \M{F}_B} \DB {n_Y', n_H'} \NR
+\NC \NC \M{F} \DB {n_H, n_Y} \M{F} \DB {n_H', n_Y'} \NR
 \NC =\NC
 \RB {\sum_{n_R=0}^{N_R-1} \M{F}_R \DB {n_H, n_R} \M{F}_B \DB {n_R, n_Y}}
 \RB {\sum_{n_R=0}^{N_R-1} \M{F}_R \DB {n_H', n_R} \M{F}_B \DB {n_R, n_Y'}} \NR
 }
-When either \m {n_y \neq n_y'} or \m {n_h \neq n_h'}, no term is an all-square product.
+Examine the \m {\i_{1,1} \SB {n_H, n_H'}} factor and \m {\i_{1,1} \SB {n_Y, n_Y'}} factors.
 After taking expectation, the expectation sign is distributed, and every term vanishes.
-But when \m {n_y =n_y'} or \m {n_h =n_h'}, the only terms that remains are
+Other terms that remains are \m {\i_{2} \SB {n_H, n_H'}} and \m {\i_{2} \SB {n_Y, n_Y'}}, namely
 \Disp {
 \NC \NC \sum_{n_R=0}^{N_R-1}
 \MB{E} \SB {\M{F}_R \DB {n_H, n_R}^2}
 \MB{E} \SB {\M{F}_B \DB {n_R, n_Y}^2} \NR
-\NC = \NC N_R \D \RB {M_{R,2} +M_{B,2}} \NR
+\NC = \NC N_R \D M_{R,2} M_{B,2} \NR
+}
+
+By the same token,
+\Result
+{Lemma}
+{
+\Disp {
+\NC \NC \MB{E} \SB {\M{F} \DB {n_H, n_Y} \M{F} \DB {n_H', n_Y'} \M{F} \DB {n_H, n_Y} \M{F} \DB {n_H, n_Y}} \NR
+\NC = \NC \MB{E} \SB {\RB {\M{W}_B ^\Adj \M{W}_R ^\Adj} \DB {n_Y, n_H} \RB {\M{W}_B ^\Adj \M{W}_R ^\Adj} \DB {n_Y', n_H'}} \NR
+\NC = \NC \i_2 \SB {n_H, n_H'} \D \i_2 \SB {n_Y, n_Y'} \D N_R \l_R^2 \l_B^2 \NR
+}
 }
 
 Having this in mind, a moment's reflection shows
@@ -392,7 +387,19 @@ N_R \l_R^2 \l_B^2, \Q \MC n_Y =n_Y', n_H =n_H' \NR
 }
 }
 
-Fix any test vector \m {\V{u} \in \MB{V}_\MB{C} \SB{N_Y}}, we shall study the probability concentration of \m {\VNm {\M{F}_B \V{u}}_2^2} and \m {\VNm {\M{F}_B \V{u}}_2^4}.
+\Result
+{Lemma}
+{
+\Disp {
+\NC \NC \MB{E} \SB {\M{Q} \DB {n_Y, n_H} \M{Q} \DB {n_Y', n_H'}} \NR
+\NC = \NC \startcases
+N_R^2 \l_R^4 \l_B^4, \Q \MC n_Y =n_Y', n_H =n_H' \NR
+0, \Q \NC \Rm {otherwise} \NR
+\stopcases \NR
+}
+}
+
+Now, fix any test vector \m {\V{u} \in \MB{V}_\MB{C} \SB{N_Y}}, we shall study the probability concentration of \m {\VNm {\M{F}_B \V{u}}_2^2} and \m {\VNm {\M{F}_B \V{u}}_2^4}.
 The two moments are present in Chebyshev bound.
 \Disp{
 \NC \NC \MB{E} \SB {\VNm {\M{Q} \SB {\o_t, \o_r} \V{u}} _2 ^2} \NR
@@ -462,9 +469,10 @@ We will repeatedly bound \m {N_R \D (N_R-1) /2} by \m {N_R^2 /2}, and bound \m {
 =\NC \sum_{n_y=0}^{N_y-1} \sum_{n_h=0}^{N_h-1}
 \Nm {\M{Q} \DB {n_y, n_h}} ^4
 \Nm {\V{u} \DB{n_h}} ^4 \NR
-\NC =\NC N_Y^2 \D 4 N_R ^2 N_Y ^{-4} N_R ^{-4} \D \Nm {\V{u}} _4 ^4 \NR
-\NC \leq \NC 4 N_Y ^{-2} N_R ^{-2} \Nm {\V{u}} _2 ^4 \NR[+]
+\NC =\NC N_Y^2 \D 4 N_Y ^{-4} \D \VNm {\V{u}} _4 ^4 \NR
+\NC \leq \NC 4 N_Y ^{-2} \VNm {\V{u}} _2 ^4 \NR[+]
 }
+Now we have to bound \m {\i_{1,1} \SB {\Fl {n_y/N_Y}, \Fl {n_y'/N_Y}} M_{B,2}^2} and \m {\i_{2} \SB {\Fl {n_y/N_Y}, \Fl {n_y'/N_Y}} M_{B,4}} by \m {M_{B,4}} to simplifying matters, and similar for \m {E_3} and \m {E_4}.
 \Disp {
 \NC E_2
 = \NC \sum _{\Stack { n_y, n_y' =0 \NR n_y <n_y' }}^{N_y-1}
@@ -472,9 +480,9 @@ We will repeatedly bound \m {N_R \D (N_R-1) /2} by \m {N_R^2 /2}, and bound \m {
 \Nm {\M{Q} \DB {n_y, n_h}} ^2
 \Nm {\M{Q} \DB {n_y', n_h}} ^2
 \Nm {\V{u} \DB{n_h}} ^4 \NR
-\NC = \NC N_Y \D \F{1}{2} N_Y \RB{N_Y-1} \D 8 N_R ^{-2} N_Y ^{-4} \VNm {\V{u}} _2 ^4 \NR
+\NC = \NC N_Y \D \F{1}{2} N_Y \RB{N_Y-1} \D 4 N_Y ^{-4} \VNm {\V{u}} _2 ^4 \NR
 \NC \NC \Q \Q + \F{1}{2} N_Y \RB{N_Y-1} \D N_Y^2 \D 4 N_R ^2 N_Y ^{-4} N_R ^{-4} \VNm {\V{u}} _2 ^4 \NR
-\NC \leq \NC 4 N_R ^{-2} \VNm {\V{u}} _2 ^4 \NR[+]
+\NC \leq \NC 4 \VNm {\V{u}} _2 ^4 \NR[+]
 }
 \Disp {
 \NC E_3
@@ -484,8 +492,8 @@ We will repeatedly bound \m {N_R \D (N_R-1) /2} by \m {N_R^2 /2}, and bound \m {
 \Nm {\M{Q} \DB {n_y', n_h'}} ^2
 \Nm {\V{u} \DB{n_h}} ^2
 \Nm {\V{u} \DB{n_h'}} ^2 \NR
-\NC \leq \NC N_Y^2 \D \F{1}{2} N_H \RB{N_H-1} \D 8 N_R ^{-2} N_Y ^{-4} \RB {\VNm {\V{u}} _2 ^4 -\VNm {\V{u}} _4 ^4} \NR
-\NC \leq \NC 4 N_R ^{-2} N_Y ^{-1} \VNm {\V{u}} _2 ^4 \NR[+]
+\NC \leq \NC N_Y^2 \D \F{1}{2} N_H \RB{N_H-1} \D 4 N_Y ^{-4} \D \RB {\VNm {\V{u}} _2 ^4 -\VNm {\V{u}} _4 ^4} \NR
+\NC \leq \NC 4 N_Y ^{-1} \VNm {\V{u}} _2 ^4 \NR[+]
 }
 \Disp {
 \NC E_4
@@ -495,11 +503,24 @@ We will repeatedly bound \m {N_R \D (N_R-1) /2} by \m {N_R^2 /2}, and bound \m {
 \Nm {\M{Q} \DB {n_y, n_h'}} ^2
 \Nm {\V{u} \DB{n_h}} ^2
 \Nm {\V{u} \DB{n_h'}} ^2 \NR
-\NC \leq \NC N_Y \D \F{1}{2} N_H \RB{N_H-1} \D 8 N_R ^{-2} N_Y ^{-4} \RB {\VNm {\V{u}} _2 ^4 -\VNm {\V{u}} _4 ^4} \NR
-\NC \leq \NC 4 N_H ^2 N_R ^{-2} N_Y ^{-3} \VNm {\V{u}} _2 ^4 \NR[+]
+\NC \leq \NC N_Y \D \F{1}{2} N_H \RB{N_H-1} \D 4 N_Y ^{-4} \D \RB {\VNm {\V{u}} _2 ^4 -\VNm {\V{u}} _4 ^4} \NR
+\NC \leq \NC 4 N_H ^2 N_Y ^{-3} \VNm {\V{u}} _2 ^4 \NR[+]
 }
-The last one is more difficult.
-In the end we used Muirhead inequality to get \m {\i_{1,1,1,1} \SB {n_h, n_h', m_h, m_h'} \V{u} \DB{n_h} \V{u} \DB{n_h'} \V{u} \DB{m_h} \V{u} \DB{m_h'} \leq \RB {1/6} \RB {\VNm {\V{u}} _2 ^4 -\VNm {\V{u}} _4 ^4}}.
+
+The last one is more complicated.
+We need a corollary that follows from ``Muirhead inequality''.
+\Result
+{Lemma}
+{
+If every component of \m {\V{u} \in \MB {M}_{\MB {C}} \SB {N_h}} is considered as a free variable taking complex values, then
+\Disp {
+\NC \NC \sum \i_{1,1,1,1} \SB {n_h, n_h', m_h, m_h'}
+\V{u} \DB{n_h} \V{u} \DB{n_h'} \V{u} \DB{m_h} \V{u} \DB{m_h'} \NR
+\NC \leq \NC \RB {1/6} \RB {\VNm {\V{u}} _2 ^4 -\VNm {\V{u}} _4 ^4} \NR[+]
+}
+}
+
+Now,
 \Disp {
 \NC E_5
 \NC = \sum _{
@@ -512,27 +533,27 @@ In the end we used Muirhead inequality to get \m {\i_{1,1,1,1} \SB {n_h, n_h', m
     }
   } ^{N_H-1}
   \sum _{\Stack { 0 =n_y <n_y' \NR \Fl {n_y/N_Y} =\Fl {n_y'/N_Y} }} ^{N_y-1} \NR
-  \NC \NC \Q \Q \Q \Q
-  \Nm {\M{Q} \DB {n_y, n_h}}
-  \Nm {\M{Q} \DB {n_y, n_h'}}
-  \Nm {\M{Q} \DB {n_y, m_h}}
-  \Nm {\M{Q} \DB {n_y, m_h'}} \NR
-  \NC \NC \Q \Q \Q \Q
-  \VNm {\V{u} \DB{n_h}} ^2
-  \VNm {\V{u} \DB{n_h'}} ^2
-  \VNm {\V{u} \DB{m_h}} ^2
-  \VNm {\V{u} \DB{m_h'}} ^2 \NR
-\NC =\NC N_Y \D \F{1}{2} N_H \RB{N_H-1} \D \F{1}{2} N_Y \RB{N_Y-1} \D N_H^2 \NR
-\NC \NC \Q \Q \Q \Q
-\D 8 N_R ^{-2} N_Y ^{-4} \NR
-\NC \NC \Q \Q \Q \Q
-\D \sum_{\Stack {n_h, n_h' =0}} ^{N_H-1}
-\sum_{\Stack {m_h, m_h' =0}} ^{N_H-1}
+  \NC \NC \SixQ
+  \M{Q} \DB {n_y, n_h}
+  \M{Q} \DB {n_y, n_h'}
+  \M{Q} \DB {n_y', m_h}
+  \M{Q} \DB {n_y', m_h'} \NR
+  \NC \NC \SixQ
+  \V{u} \DB{n_h}
+  \V{u} \DB{n_h'}
+  \V{u} \DB{m_h}
+  \V{u} \DB{m_h'} \NR
+\NC =\NC N_Y \D \F{1}{2} N_H \RB{N_H-1} \D \F{1}{2} N_Y \RB{N_Y-1} \D N_H^2 \D 4 N_Y ^{-4} \NR
+\NC \NC \SixQ
+\D \sum_{n_h, n_h' =0} ^{N_H-1}
+\sum_{m_h, m_h' =0} ^{N_H-1}
 \i_{1,1,1,1} \SB {n_h, n_h', m_h, m_h'} \NR
-\NC \NC \Q \Q \Q \Q
-\VNm {\V{u} \DB{n_h}} \VNm {\V{u} \DB{n_h'}}
-\VNm {\V{u} \DB{m_h}} \VNm {\V{u} \DB{m_h'}} \NR
-\NC \leq \NC \F{1}{3} N_Y ^{-1} N_H ^4 N_R ^{-2} \VNm {\V{u}} _2 ^4. \NR[+]
+\NC \NC \SixQ
+\Nm {\V{u} \DB{n_h}}
+\Nm {\V{u} \DB{n_h'}}
+\Nm {\V{u} \DB{m_h}}
+\Nm {\V{u} \DB{m_h'}} \NR
+\NC \leq \NC \F{1}{3} N_Y ^{-1} N_H ^4 \VNm {\V{u}} _2 ^4. \NR[+]
 }
 
 In conclusion,
@@ -617,7 +638,7 @@ Let bijection \m {\s: \MC {T} \SB {N_p} \mapsto \MC {T} \SB {N_p}} be defined to
 \Disp{
 \NC \V{v} \DB {\s \SB {n}}
 \leq \NC \V{v} \DB {\s \SB {n-1}} \NR[+]
-\NC n =\NC 1, \dots, N_p-1 \NR
+\NC n =\NC 1, \ldots, N_p-1 \NR
 }
 Its existence is evident.
 
@@ -695,7 +716,7 @@ The result follows by combining.
 \NC \Nm {\IP { \V {z} \SB {\o_z}, \M {P} \DB {:, n_g} }}
 \leq \NC  2 \R {\log N_h} \NR
 \NC n_g 
-=\NC 1, \dots, N_h. \NR
+=\NC 1, \ldots, N_h. \NR
 }
 with probability \m {\geq 1 -N_h}.
 }
@@ -721,7 +742,7 @@ With the condition that \m {\M {P}} satisfies RIP for \m {\d_s \SB {\M{P}}},
 \NC \VNm {\M {P}^\Adj \M {P} \V {d}} _\infty
 \leq \NC  4 \R {\log N_h} \NR
 \NC n_g 
-=\NC 1, \dots, N_h. \NR
+=\NC 1, \ldots, N_h. \NR
 }
 with probability \m {\geq 1 -N_h}.
 }
