@@ -1,28 +1,3 @@
-% TODO:
-% Larger font (e.g. 14pt), Larger line spacing
-% Chinese font? Font mixing mechanism?
-% `\notag` equivalent: A wrapper class?
-% Table of contents: wider vertical spacing? Font?
-% Page break for multiple equations
-% Book title: wider line spacing?
-% Chapter 0
-
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-
-% XXX
-% Hold regex:
-% Replace math mode:
-%       %s/\\(\(.\{-}\)\\)/\\m{\1}/g
-% Reformatting:
-%       %s/\(\a\){/\1 {/g
-%       %s/}\([\\(\[]\)/} \1/g
-%       %s/\(\a\) }/\1}/g
-%       %s/{ \(\a\)/{\1/g
-%       %s/\([}\a]\)_/\1 _/g
-%       %s/(\(.\{-}\))/\\RB{\1}/gc
-%       %s/(\(.\{-}\))/\\SB{\1}/gc
-
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
 \define [0] {\a} {\alpha}
 \define [0] {\g} {\gamma}
@@ -41,6 +16,7 @@
 \define [0] {\LA} {\leftarrow}
 \define [0] {\Q} {\quad}
 \define [0] {\SixQ} {\Q \Q \Q \Q \Q \Q}
+\define [0] {\I} {\item}
 
 \define [0] {\TheCount}
 {
@@ -89,17 +65,10 @@
 
 \define [2] {\F} {\frac {#1}{#2}}
 
-\define[2] {\Result}
-{
-   \color
-   \bigskip
-   \noindent \hskip 3em
-
-\TheCount \; {\bf #1} \par
-   #2 \par
-   \hfill
-   \m{\blacksquare}
-}
+\define [1] {\Title} {\startalignment [middle] {\ss\bfc #1} \stopalignment}
+\define [1] {\Subtitle} {\startalignment [middle] {\ss\tfb #1} \stopalignment}
+\define [1] {\Subsubtitle} {\startalignment [middle] {\ss\itx #1} \stopalignment}
+\define [1] {\Frametitle} {{\ss\bfb \color [gold]{#1}}}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
@@ -113,46 +82,36 @@
 \definefallbackfamily [MainFace] [mm] [TeX Gyre DejaVu Math] [force=yes,range=lowercasescript]
 \definefontfamily [MainFace] [mm] [TeX Gyre Pagella Math]
 \definemeasure [pointoneline] [1.5\baselineskip]
-\definecolor [headingcolor] [r=0.2, g=0.25, b=0.5]
-\definealternativestyle [FrameTitleStyle] [\ss\bfc] []
-\definealternativestyle [AuthorStyle] [\ss\tfb] []
-\definemakeup [titlepage] [align=middle]
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
-\setupparagraphs [n=3, before={\blank}, after={\blank}]
+\setuppapersize[S4][S4]
 \setupbodyfont [MainFace, 12pt]
 \setupinteraction [state=start]
 \setupcolors [state=start]
-\setuppapersize [A4] [A4]
+\setupbackgrounds [page] [background=color, backgroundcolor=darkcyan]
 \setuppagenumbering [location={footer,middle}, style=slanted]
-\setuphead [chapter, section, subsection] [color=headingcolor]
-\setuphead [chapter] [style={\ss\bfd}]
-\setuphead [section] [style={\ss\tfc}]
-\setuphead [subsection] [style={\ss\itb}]
-\setuphead[title] [incrementnumber=list, number=no]
-\setuphead[subject] [incrementnumber=list, number=no]
-\setuphead[subsubject] [incrementnumber=list, number=no]
-\setuplist[chapter] [width=2cm]
-\setuplist[section] [width=2cm]
-\setuplist[subject] [width=2cm]
 \setupitemize [inbetween={}, style=bold]
 \setuptype [lines=hyphenated]
 \setupindenting[big,always]
 \setupwhitespace[medium]
-\setupcombinedlist [content] [list={chapter, title, section, subject, subsection, subsubject}]
+
+\startcolor[white]
 
 \setuplayout [
-   backspace=25mm,
-   margin=20mm,
+   backspace=10mm,
+   margin=0mm,
    margindistance=0mm,
-   width=160mm,
-   topspace=20mm,
-   height=260mm,
-   header=10mm,
-   footer=15mm,
+   width=120mm,
+   topspace=10mm,
+   height=80mm,
+   header=0mm,
+   footer=0mm,
    bottomdistance=0mm,
    bottom=10mm
 ]
 
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\usecolors[xwi]
 

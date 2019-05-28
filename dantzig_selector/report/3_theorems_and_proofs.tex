@@ -87,7 +87,7 @@ Thus,
 \NR[+]
 }
 Note that \m {\Nm {B \SB {\psi'}}} is strictly decreasing in \m {\SB {0,\pi}}.
-We seek to bound the ``rectangulars'' with an integral, and we have to split the cases that \m {N_H} is odd and even.
+We seek to bound the \quotation {rectangulars} with an integral, and we have to split the cases that \m {N_H} is odd and even.
 Anyway, a moment's reflection shows
 \Disp {
 \NC R^2
@@ -151,20 +151,24 @@ So it suffices to consider \m {\VNm {\M {H}} _F}.
 \NC \leq \NC
 \sum _{l=0} ^{L-1}
 \Nm {\a_l} \VNm {\V {a} \SB {\f_l}} _2
-\D \VNm {\V {a} \SB {\th_l}} _2 \NR[+]
+\VNm {\V {a} \SB {\th_l}} _2 \NR[+]
 }
-
 Lastly, we know \m {\ell_1}-norm is larger than \m {\ell_2}-norm.
 Since \m {\ell_1}-norm will be used in later proof, we display the statement about \m {\ell_1}-norm.
+\Disp{
+\NC \NC \MB {E} \SB {\VNm {\MC {C} \SB {\sum _{l=0} ^{L-1} \a_l \V {a} \SB {\f_l} \V {a} \SB {\th_l} ^\Adj}} _F} \NR
+\NC \leq \NC \F {1} {9 \R{N_H}} \MB {E} \SB {\sum _{l=0} ^{L-1} \Nm {\a_l}} \NR
+\NC \leq \NC \F {\R{\pi} L} {3 \R{N_H}} \NR[+]
+}
 
 \Result
-{Lemma (Tentative)}
+{Lemma}
 {
 Let \m {\f \SB {\o_h}} and \m {\th \SB {\o_h}} be uniformly, independently distributed in \m {[0,2\pi)}, and let \m {\V {g} \in \MB{V}_\MB{C} \SB{N_h}} be defined as in ().
 If \m {N_h \geq 4^2 =16}, then \m {\V {g}} is almost-\m {s^2 L}-sparse with \m {\ell_1}-residue \m {R} to be
 \Disp {
 \NC R
-\leq \NC 2L \NR
+\leq \NC \F {\R{\pi} L} {3 \R{N_H}} \NR
 }
 }
 
@@ -210,7 +214,7 @@ Also notice that
 \NC \NC \MB{E} \SB {\M{F}_B \DB {n_R, n_Y}^2} \NR
 \NC = \NC \MB{E} \SB {\MF {Re} \SB {\M{F}_B \DB {n_R, n_Y}}^2}
    -\MB{E} \SB {\MF {Im} \SB {\M{F}_B \DB {n_R, n_Y}}^2} \NR
-\NC \NC \Q \Q +2 \Ss {i} \MB{E} \SB {\MF {Re} \SB {\M{F}_B \DB {n_R, n_Y}}}
+\NC \NC \FourQ +2 \Ss {i} \MB{E} \SB {\MF {Re} \SB {\M{F}_B \DB {n_R, n_Y}}}
       \MB{E} \SB {\MF {Im} \SB {\M{F}_B \DB {n_R, n_Y}}} \NR
 \NC = \NC 0 \NR[+]
 }
@@ -254,7 +258,7 @@ For \m {\MC {T}, \MC {T}' \subset \MC {T} \RB {N_p}}, define the \m {s, s'}-rest
 }
 }
 
-From ``Decoding from Linear Programming'' (Cand\`es and Tao 2005), Lemma 1.1:
+From \quotation {Decoding from Linear Programming} (Cand\`es and Tao 2005), Lemma 1.1:
 
 \Result
 {Lemma}
@@ -342,7 +346,7 @@ For short, denote
 \Disp {
 \NC \NC \MB{E} \SB {\M{F} \DB {n_H, n_Y} \M{F} \DB {n_H', n_Y'}} \NR
 \NC = \NC \MB{E} \SB {\M{W}^\Adj \DB {n_Y, n_H} \M{W}^\Adj \DB {n_Y', n_H'}} \NR
-\NC = \NC \i_2 \SB {n_H, n_H'} \D \i_2 \SB {n_Y, n_Y'} \D N_R \l_R^2 \l_B^2 \NR
+\NC = \NC \i_2 \SB {n_H, n_H'} \D \i_2 \SB {n_Y, n_Y'} \D N_R \l_R^2 \l_B^2 \NR[+]
 }
 }
 
@@ -351,7 +355,7 @@ To see this, expanding the definition
 \NC \NC \M{F} \DB {n_H, n_Y} \M{F} \DB {n_H', n_Y'} \NR
 \NC =\NC
 \RB {\sum_{n_R=0}^{N_R-1} \M{F}_R \DB {n_H, n_R} \M{F}_B \DB {n_R, n_Y}}
-\RB {\sum_{n_R=0}^{N_R-1} \M{F}_R \DB {n_H', n_R} \M{F}_B \DB {n_R, n_Y'}} \NR
+\RB {\sum_{n_R=0}^{N_R-1} \M{F}_R \DB {n_H', n_R} \M{F}_B \DB {n_R, n_Y'}} \NR[+]
 }
 Examine the \m {\i_{1,1} \SB {n_H, n_H'}} factor and \m {\i_{1,1} \SB {n_Y, n_Y'}} factors.
 After taking expectation, the expectation sign is distributed, and every term vanishes.
@@ -368,34 +372,56 @@ By the same token,
 {Lemma}
 {
 \Disp {
-\NC \NC \MB{E} \SB {\M{F} \DB {n_H, n_Y} \M{F} \DB {n_H', n_Y'} \M{F} \DB {n_H, n_Y} \M{F} \DB {n_H, n_Y}} \NR
-\NC = \NC \MB{E} \SB {\RB {\M{W}_B ^\Adj \M{W}_R ^\Adj} \DB {n_Y, n_H} \RB {\M{W}_B ^\Adj \M{W}_R ^\Adj} \DB {n_Y', n_H'}} \NR
-\NC = \NC \i_2 \SB {n_H, n_H'} \D \i_2 \SB {n_Y, n_Y'} \D N_R \l_R^2 \l_B^2 \NR
+\NC \NC \MB{E}
+\SB {
+\M{F} \DB {n_H, n_Y}
+\M{F} \DB {n_H', n_Y'}
+\M{F} \DB {n_H'', n_Y''}
+\M{F} \DB {n_H''', n_Y'''}
+} \NR
+\NC \NC =\MB{E}
+\SB {
+\M{W} \DB {n_Y, n_H}
+\M{W} \DB {n_Y', n_H'}
+\M{W} \DB {n_Y'', n_H''}
+\M{W} \DB {n_Y''', n_H'''}
+} \NR
+\NC = \NC
+\i_4 \SB {n_H, n_H', n_H'', n_H'''}
+\D \i_4 \SB {n_Y, n_Y', n_Y'', n_Y'''}
+\D 2 N_R^2 \l_R^4 \l_B^4 \NR
+\NC \NC \FourQ +\i_{2,2} \SB {n_H, n_H', n_H'', n_H'''}
+\D \i_{2,2} \SB {n_Y, n_Y', n_Y'', n_Y'''}
+\D N_R^2 \l_R^4 \l_B^4 \NR[+]
 }
 }
 
-Having this in mind, a moment's reflection shows
+A moment's reflection shows
 \Result
 {Lemma}
 {
 \Disp {
-\NC \NC \MB{E} \SB {\M{Q} \DB {n_Y, n_H} \M{Q} \DB {n_Y', n_H'}} \NR
-\NC = \NC \startcases
-N_R \l_R^2 \l_B^2, \Q \MC n_Y =n_Y', n_H =n_H' \NR
-0, \Q \NC \Rm {otherwise} \NR
-\stopcases \NR
+\NC \NC \MB{E} \SB {\M{P} \DB {n_h, n_y} \M{P} \DB {n_h', n_y'}} \NR
+\NC = \NC \i_2 \SB {n_H, n_H'} \D \i_2 \SB {n_Y, n_Y'} \D N_R \l_R^2 \l_B^2 \NR[+]
 }
 }
 
+More trickily, but by the same idea,
 \Result
 {Lemma}
 {
 \Disp {
-\NC \NC \MB{E} \SB {\M{Q} \DB {n_Y, n_H} \M{Q} \DB {n_Y', n_H'}} \NR
-\NC = \NC \startcases
-N_R^2 \l_R^4 \l_B^4, \Q \MC n_Y =n_Y', n_H =n_H' \NR
-0, \Q \NC \Rm {otherwise} \NR
-\stopcases \NR
+\NC \NC \M{F} \DB {n_h, n_y}
+\M{F} \DB {n_h', n_y'}
+\M{F} \DB {n_h'', n_y''}
+\M{F} \DB {n_h''', n_y'''} \NR
+\NC = \NC
+\i_4 \SB {n_H, n_H', n_H'', n_H'''}
+\D \i_4 \SB {n_Y, n_Y', n_Y'', n_Y'''}
+\D 4 N_R^4 \l_R^8 \l_B^8 \NR
+\NC \NC \FourQ +\i_{2,2} \SB {n_H, n_H', n_H'', n_H'''}
+\D \i_{2,2} \SB {n_Y, n_Y', n_Y'', n_Y'''}
+\D N_R^4 \l_R^8 \l_B^8 \NR[+]
 }
 }
 
@@ -419,7 +445,7 @@ The two moments are present in Chebyshev bound.
          \V{u} \DB{n_h} \V{u} \DB{n_h'} ^\ast
        }
    } \NR
-\NC \NC \Q \Q +\sum_{n_y=0}^{N_y-1}
+\NC \NC \FourQ +\sum_{n_y=0}^{N_y-1}
   \MB{E}
      \SB {\sum_{n_h=0}^{N_h-1} \Nm {\M{Q} \DB {n_y, n_h}}^2 \Nm {\V{u} \DB{n_h}}^2}
 \NR
@@ -432,7 +458,7 @@ The two moments are present in Chebyshev bound.
 }
 \V{u} \DB{n_h} \V{u} \DB{n_h'} ^\ast
 \NR
-\NC \NC \Q \Q +\sum_{n_y=0}^{N_y-1}
+\NC \NC \FourQ +\sum_{n_y=0}^{N_y-1}
    \sum_{n_h=0}^{N_h-1} \MB{E} \SB {\Nm {\M{Q} \DB {n_y, n_h}}^2} \Nm {\V{u} \DB{n_h}}^2
 \NR
 \NC = \NC N_y \D N_R^2 \l_B^4 \l_R^4  \D \VNm {\V{u}} _2 ^2 \NR[+]
@@ -480,8 +506,8 @@ Now we have to bound \m {\i_{1,1} \SB {\Fl {n_y/N_Y}, \Fl {n_y'/N_Y}} M_{B,2}^2}
 \Nm {\M{Q} \DB {n_y, n_h}} ^2
 \Nm {\M{Q} \DB {n_y', n_h}} ^2
 \Nm {\V{u} \DB{n_h}} ^4 \NR
-\NC = \NC N_Y \D \F{1}{2} N_Y \RB{N_Y-1} \D 4 N_Y ^{-4} \VNm {\V{u}} _2 ^4 \NR
-\NC \NC \Q \Q + \F{1}{2} N_Y \RB{N_Y-1} \D N_Y^2 \D 4 N_R ^2 N_Y ^{-4} N_R ^{-4} \VNm {\V{u}} _2 ^4 \NR
+\NC = \NC N_Y \D \F{1}{2} N_Y \RB{N_Y-1} \D N_Y ^{-4} \VNm {\V{u}} _2 ^4 \NR
+\NC \NC \FourQ + \F{1}{2} N_Y \RB{N_Y-1} \D N_Y^2 \D 4 N_R ^2 N_Y ^{-4} N_R ^{-4} \VNm {\V{u}} _2 ^4 \NR
 \NC \leq \NC 4 \VNm {\V{u}} _2 ^4 \NR[+]
 }
 \Disp {
@@ -492,7 +518,7 @@ Now we have to bound \m {\i_{1,1} \SB {\Fl {n_y/N_Y}, \Fl {n_y'/N_Y}} M_{B,2}^2}
 \Nm {\M{Q} \DB {n_y', n_h'}} ^2
 \Nm {\V{u} \DB{n_h}} ^2
 \Nm {\V{u} \DB{n_h'}} ^2 \NR
-\NC \leq \NC N_Y^2 \D \F{1}{2} N_H \RB{N_H-1} \D 4 N_Y ^{-4} \D \RB {\VNm {\V{u}} _2 ^4 -\VNm {\V{u}} _4 ^4} \NR
+\NC \leq \NC N_Y^2 \D \F{1}{2} N_H \RB{N_H-1} \D N_Y ^{-4} \D \RB {\VNm {\V{u}} _2 ^4 -\VNm {\V{u}} _4 ^4} \NR
 \NC \leq \NC 4 N_Y ^{-1} \VNm {\V{u}} _2 ^4 \NR[+]
 }
 \Disp {
@@ -503,12 +529,12 @@ Now we have to bound \m {\i_{1,1} \SB {\Fl {n_y/N_Y}, \Fl {n_y'/N_Y}} M_{B,2}^2}
 \Nm {\M{Q} \DB {n_y, n_h'}} ^2
 \Nm {\V{u} \DB{n_h}} ^2
 \Nm {\V{u} \DB{n_h'}} ^2 \NR
-\NC \leq \NC N_Y \D \F{1}{2} N_H \RB{N_H-1} \D 4 N_Y ^{-4} \D \RB {\VNm {\V{u}} _2 ^4 -\VNm {\V{u}} _4 ^4} \NR
+\NC \leq \NC N_Y \D \F{1}{2} N_H \RB{N_H-1} \D N_Y ^{-4} \D \RB {\VNm {\V{u}} _2 ^4 -\VNm {\V{u}} _4 ^4} \NR
 \NC \leq \NC 4 N_H ^2 N_Y ^{-3} \VNm {\V{u}} _2 ^4 \NR[+]
 }
 
 The last one is more complicated.
-We need a corollary that follows from ``Muirhead inequality''.
+We need a corollary that follows from \quotation {Muirhead inequality}.
 \Result
 {Lemma}
 {
@@ -516,7 +542,7 @@ If every component of \m {\V{u} \in \MB {M}_{\MB {C}} \SB {N_h}} is considered a
 \Disp {
 \NC \NC \sum \i_{1,1,1,1} \SB {n_h, n_h', m_h, m_h'}
 \V{u} \DB{n_h} \V{u} \DB{n_h'} \V{u} \DB{m_h} \V{u} \DB{m_h'} \NR
-\NC \leq \NC \RB {1/6} \RB {\VNm {\V{u}} _2 ^4 -\VNm {\V{u}} _4 ^4} \NR[+]
+\NC \leq \NC \F{1}{6} \RB {\VNm {\V{u}} _2 ^4 -\VNm {\V{u}} _4 ^4} \NR[+]
 }
 }
 
@@ -543,7 +569,7 @@ Now,
   \V{u} \DB{n_h'}
   \V{u} \DB{m_h}
   \V{u} \DB{m_h'} \NR
-\NC =\NC N_Y \D \F{1}{2} N_H \RB{N_H-1} \D \F{1}{2} N_Y \RB{N_Y-1} \D N_H^2 \D 4 N_Y ^{-4} \NR
+\NC =\NC N_Y \D \F{1}{2} N_H \RB{N_H-1} \D \F{1}{2} N_Y \RB{N_Y-1} \D N_H^2 \D N_Y ^{-4} \NR
 \NC \NC \SixQ
 \D \sum_{n_h, n_h' =0} ^{N_H-1}
 \sum_{m_h, m_h' =0} ^{N_H-1}
@@ -553,7 +579,7 @@ Now,
 \Nm {\V{u} \DB{n_h'}}
 \Nm {\V{u} \DB{m_h}}
 \Nm {\V{u} \DB{m_h'}} \NR
-\NC \leq \NC \F{1}{3} N_Y ^{-1} N_H ^4 \VNm {\V{u}} _2 ^4. \NR[+]
+\NC \leq \NC \F{1}{6} N_Y ^{-1} N_H ^4 \VNm {\V{u}} _2 ^4. \NR[+]
 }
 
 In conclusion,
@@ -677,7 +703,7 @@ Also set for short
 }
 
 
-The rest follows ``The Dantzig Selector'' very closely.
+The rest follows \quotation {The Dantzig Selector} very closely.
 The generalization to complex vector is necessary in our setting.
 We spell out the proof when such generalization is nontrivial.
 
@@ -772,7 +798,7 @@ which implies
 \leq \NC 4 \R {\log N_h}. \NR
 }
 
-From ``Dantzig Selector'' Lemma 1, first equation, we have the result as below.
+From \quotation {Dantzig Selector} Lemma 1, first equation, we have the result as below.
 The original result is for real vector spaces, but we have checked that the proof is completely valid in complex vector spaces.
 The only thing that has to change accordingly is the interpretation of magnitude and the inner product, which are evident.
 
@@ -786,7 +812,7 @@ With the condition that \m {\M {P}} satisfies RIP for \m {\d_s \SB {\M{P}}},
 }
 }
 
-From ``Dantzig Selector'', Lemma 1, second equation, we have the result as below.
+From \quotation {Dantzig Selector}, Lemma 1, second equation, we have the result as below.
 Again, their proof works with complex vector spaces in place of real ones too.
 
 \Result
