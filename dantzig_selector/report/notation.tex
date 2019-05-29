@@ -1,29 +1,32 @@
 \starttitle [title={Notation}]
 
-To avoid confusion, round brackets \m {\RB {\cdot}} are used purely for precedence of , and \m {\SB {\cdot}} exclusively for function arguments, for better clarity.
-
-\m {\Nm {a}} denotes the magnitude for real or complex numbers \m {a}.
-The real and imaginary part of \m {a} will be denoted respectively as \m {\MF {Re} \SB {a}} and \m {\MF {Im} \SB {a}}, respectively, thus \m {a =\MF {Re} \SB {a} + \Ss{i} \MF {Im} \SB {a}}
-
-We restrict our discussion to \m {\MB {R}^N} or \m {\MB {C}^N} seen as the Hilbert space , equipped with standard inner product.
-Lower case Latin alphabets with single underline, like \m {\V {a}}, denote vectors, and upper case Latin alphabets with double underlines, like \m {\M {A}}, denote matrices.
-Particularly, define \m {\V {1} =\IP {1, \dots, 1}}.
-Denote \m {\V {a} \DB {n}} to be the \m {n}-th component of \m {\V {a}}, and similarly \m {\M {A} \DB {m,n}} to be the \m {m,n}-th entry of \m {\M {A}}.
-
-In our context, the complex numbers has natural interpretation as the phasor of electronic waves.
-Of course, scalar operation on \m {\MB {R}^N} is over field \m {\MB {R}}, and that on \m {\MB {C}^N} is over field \m {\MB {C}}.
-We use \m {\MB {K}} to refer to either \m {\MB {R}} or \m {\MB {C}}.
-Not to avoid confusion, we call the Hilbert space \m {\MB {K}^N} over \m {\MB {K}} to be \m {\MB {V}_{\MB {K}} \SB {N}}.
-We also call the collection of \m {M} by \m {N} matrices to be \m {\MB {M}_{\MB {K}} \SB {M,N}}, and its role as linear transformation is understood.
-Inner product of \m {\V {a}} and \m {\V {b}} is denoted as \m {\IP { \V {a}, \V {b} }}.
-Slightly abusing notation, we denote as \m {\V {a} \DB {n}} the \m {n}-th component of \m {\V {a}}, and denote as \m {\V {A} \DB {m,n}} the \m {m,n}-entry of \m {\V {A}}
-To better correspond to the pseudo code, the numbering of both vector and matrix entries are zero-based, that is, numbered from \m {0,1,2,\dots}.
-Especially when manipulating the indices, but also in the main proof of DS bound, we will encounter the modulo as operation, namely the remainder of \m {m} divided by \m {n}, with \m {m, n \geq 0}, and we use the capital \m {m\; \Rm{Mod}\; n} to denote that number.
-And we denote \m {\V {u}_n} to be the \m {n}-th unit vector in the Cartesian coordinates, whose numbering is also zero-based.
-\m {\VNm {\V {a}} _p} denotes the \m {\ell_p}-norm of vector \m {\V {a}}.
-Recall that \m {\ell_\infty}-norm is the maximum-magnitude norm.
-
-Denote as \m {\MB {P} \SB {X}} the probability, \m {\MB {E} \SB {X}} the expectation, and \m {\Ss {Var} \SB {X}} the variance.
-We may spell out the random variables' dependence of event space index when confusion might arise, as in \m {X \SB {\o}}.
+\starttable[|l|l|l|] \HL
+\NC Expression \VL Meaning or Definition \VL More Explanation \SR \HL
+\NC \m {\RB {x+1} \RB {x+2}} \VL round parentheses \VL used only for precedence \AR \HL
+\NC \m {f \SB {x}} \VL square brackets \VL used only for arguments or parameter \AR \HL
+\NC \m {\CB {2, 3, 5, 7}} \VL curly braces \VL used only for sets \AR \HL
+\NC \m {\V {v} \DB {3}} \VL double square brackets \VL used only for entry indices \AR \HL
+\NC \m {\Nm {a}} \VL magnitude \VL for real or complex numbers \AR \HL
+\NC \m {\MF {Re} \SB {a}} \VL real part \VL for complex numbers \AR \HL
+\NC \m {\MF {Im} \SB {a}} \VL imaginary part \VL for complex numbers \AR \HL
+\NC \m {\V {a}} \VL vector \VL  \AR \HL
+\NC \m {\M {A}} \VL matrix \VL  \AR \HL
+\NC \m {\V {1}} \VL all-1 vector \VL dimension will be clear from context \AR \HL
+\NC \m {\V {0}} \VL all-0 vector \VL dimension will be clear from context \AR \HL
+\NC \m {\V {a} \DB {n}} \VL \m {n}-th component of \m {\V {a}} \VL  \AR \HL
+\NC \m {\M {A} \DB {m,n}} \VL \m {m,n}-th entry of \m {\M {A}} \VL  \AR \HL
+\NC \m {\MB {K}} \VL either \m {\MB {R}} or \m {\MB {C}} \VL  \AR \HL
+\NC \m {\MB {V}_{\MB {K}} \SB {N}} \VL Hilbert space \m {\MB {K}^N} over \m {\MB {K}} \VL  \AR \HL
+\NC \m {\MB {M}_{\MB {K}} \SB {M,N}} \VL collection of \m {M} by \m {N} matrices \VL  \AR \HL
+\NC \m {\V {a} \DB {0}} \VL the first component of \m {\V {a}} \VL  \AR \HL
+\NC \m {\M {A} \DB {0,0}} \VL the upper-left entry of \m {\V {A}} \VL  \AR \HL
+\NC \m {m\; \Rm{Mod}\; n} \VL remainder of \m {m} divided by \m {n} \VL with \m {m, n \geq 0} and \m {0 \leq m\; \Rm{Mod}\; n <n} \AR \HL
+\NC \m {\VNm {\V {a}} _p} \VL \m {\ell_p}-norm of \m {\V {a}} \VL \m {p >0} \AR \HL
+\NC \m {\VNm {\V {a}} _\infty} \VL the maximum-magnitude \VL  \AR
+\NC  \VL component of \m {\V {a}} \VL  \AR \HL
+\NC \m {\MB {P} \SB {A}} \VL probability of \m {A} \VL  \AR \HL
+\NC \m {\MB {E} \SB {X}} \VL expectation of \m {X} \VL  \AR \HL
+\NC \m {\Ss {Var} \SB {X}} \VL variance of \m {X} \VL  \AR \HL
+\stoptable
 
 \stopchapter

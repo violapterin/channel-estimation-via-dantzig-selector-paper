@@ -87,15 +87,16 @@ Since we restrict our discussion to a specific slice of time, this random proces
 }
 We may introduce the effective channel
 \Disp {
-\NC \NC \M{Y} \SB {\o_t, \o_h, \o_z, \o_r} \NR
-\NC := \NC \M{W}_B \SB {\o_r} \M{W}_R \SB {\o_r} \RB {\M{H} \SB {\o_h} \M{F}_R \SB {\o_t} \M{F}_B \SB {\o_t} +\M{Z} \SB {\o_z} } \NR
-}
-Supress the event space index for brevity, we restate the same equation as
-\Disp {
 \NC \M{Y}
 :=\M{W}_B \M{W}_R \RB {\M{H} \M{F}_R \M{F}_B +\M{Z}} \NR
 }
-Still, the crux of the matter is the recovery of \m {\M {H}} with knowledge of \m {\M {Y}}, while \m {\M {W}_R}, \m {\M {W}_B}, \m {\M {F}_R}, and \m {\M {F}_B} are in our control.
+We restate the equation with event space index for greater clarity,
+\Disp {
+\NC \NC \M{Y} \SB {\o_t, \o_h, \o_z, \o_r} \NR
+\NC := \NC \M{W}_B \SB {\o_r} \M{W}_R \SB {\o_r} \RB {\M{H} \SB {\o_h} \M{F}_R \SB {\o_t} \M{F}_B \SB {\o_t} +\M{Z} \SB {\o_z} } \NR
+}
+
+Our task, then, is the recovery of \m {\M {H}}, and the design of \m {\M {W}_R}, \m {\M {W}_B}, \m {\M {F}_R}, and \m {\M {F}_B}.
 
 \stopsection
 \startsubsection [title={Vectorization}]
@@ -137,7 +138,7 @@ However, there is no guarantee, though, that \m {\V {h}} will be sparse.
 \stopsection
 \startsection [title={Working in the Angular Space}]
 
-Introduce the discrete Fourier matrix \m {\M {K}} defined to be
+Introduce the discrete Fourier transform matrix \m {\M {K}} defined to be
 \Disp {
 \NC \M {K} \in  \NC \MB {M}_{\MB {C}} \SB {N_H, N_H} \NR
 \NC \M {K} \DB {n_1, n_2}

@@ -45,7 +45,13 @@
 \define [1] {\V} {\underline {#1 \mkern -1mu} \mkern 2mu}
 \define [1] {\T} {\tilde {\vphantom {\overline{#1}} #1}}
 \define [1] {\Hat} {\hat {\vphantom {\overline{#1}} #1}}
+
 \define [1] {\Stack} {\startsubstack #1 \stopsubstack}
+\define[1] {\Uurrll} {\goto {\mono {\hyphenatedurl {#1}}} [url (#1)]}
+\define [1] {\Title} {\startalignment [middle] {\ss\bfc #1} \stopalignment}
+\define [1] {\Subtitle} {\startalignment [middle] {\ss\tfb #1} \stopalignment}
+\define [1] {\Subsubtitle} {\startalignment [middle] {\ss\itx #1} \stopalignment}
+\define [1] {\Frametitle} {{\ss\bfb \color [lightskyblue]{#1}}}
 
 \define [1] {\Disp}
 {
@@ -61,14 +67,14 @@
    \underline {{\underline {#1 \mkern -1mu} \mkern 2mu} \mkern -2mu}
    \mkern 2mu
 }
-\define[1] {\Uurrll} {\goto {\mono {\hyphenatedurl {#1}}} [url (#1)]}
 
 \define [2] {\F} {\frac {#1}{#2}}
 
-\define [1] {\Title} {\startalignment [middle] {\ss\bfc #1} \stopalignment}
-\define [1] {\Subtitle} {\startalignment [middle] {\ss\tfb #1} \stopalignment}
-\define [1] {\Subsubtitle} {\startalignment [middle] {\ss\itx #1} \stopalignment}
-\define [1] {\Frametitle} {{\ss\bfb \color [gold]{#1}}}
+\define [2] {\Frame}
+{
+   \Frametitle {#1}
+   \startitemize #2 \stopitemize
+}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
@@ -89,27 +95,27 @@
 \setupbodyfont [MainFace, 12pt]
 \setupinteraction [state=start]
 \setupcolors [state=start]
-\setupbackgrounds [page] [background=color, backgroundcolor=darkcyan]
+\setupbackgrounds [page] [background=color, backgroundcolor=midnightblue]
 \setuppagenumbering [location={footer,middle}, style=slanted]
 \setupitemize [inbetween={}, style=bold]
 \setuptype [lines=hyphenated]
 \setupindenting[big,always]
 \setupwhitespace[medium]
 
-\startcolor[white]
-
 \setuplayout [
-   backspace=10mm,
+   backspace=9mm,
    margin=0mm,
    margindistance=0mm,
-   width=120mm,
-   topspace=10mm,
-   height=80mm,
+   width=122mm,
+   topspace=9mm,
+   height=90mm,
    header=0mm,
-   footer=0mm,
+   footer=4mm,
    bottomdistance=0mm,
-   bottom=10mm
+   bottom=4mm
 ]
+
+\startcolor[white]
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 

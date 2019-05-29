@@ -70,7 +70,7 @@ if not utilitydata.structures.counters then utilitydata.structures.counters = { 
 
 utilitydata.structures.counters.collected={
  ["NumResult"]={
-  { 34 },
+  { 33 },
  },
  ["chemical"]={
   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },

@@ -5,6 +5,42 @@ We will continue to use the variables \m {\V {P}}, \m {\V {g}}, \m {\V {y}}, and
 
 \startsection [title={Almost-Sparsity of Array Response \m {\V{a}}}]
 
+Split \m {\V{g}} into two parts: \m {\V {g} _\MC {A}} is the largest \m {S} positions of \m {\V{g}}, \m {\V {g} _\MC {A}} the next \m {S} largest positions of \m {\V{g}}, and \m {\V {g} _\MC {K}} are the positions complement to \m {\V {g} _\MC {A}}.
+For example, if \m {\V {g} =\IP {-1,3,-4,2,8}}, and \m {S=2}, then \m {\V {g} _\MC {A} =\IP {0,3,0,0,8}}, \m {\V {g} _\MC {B} =\IP {-1,0,0,2,0}}, and \m {\V {g} _\MC {A} =\IP {-1,0,-4,2,0}}.
+We rephrase it formally.
+
+\Result
+{Definition}
+{
+Consider \m {\V{x} \in \MB {V}_{\MB {K}} \SB {N_p}}.
+Let bijection \m {\s: \MC {T} \SB {N_p} \mapsto \MC {T} \SB {N_p}} be defined to sort \m {\V{x}} in decreasing magnitude, meaning
+\Disp{
+\NC \V{v} \DB {\s \SB {n}}
+\leq \NC \V{v} \DB {\s \SB {n-1}} \NR[+]
+\NC n =\NC 1, \ldots, N_p-1 \NR
+}
+Its existence is evident.
+
+For fixed \m {S}, define
+\Disp{
+\NC \MC {S} \SB {\V{x}, S}
+=\NC \sum_{i=0} ^{S-1} \V {x} \DB {\s \SB{i}} \V {u} _{\s \SB{i}} \NR[+]
+\NC \MC {C} \SB {\V{x}, S}
+=\NC \sum_{i=S} ^{N_p} \V {x} \DB {\s \SB{i}} \V {u} _{\s \SB{i}} \NR[+]
+}
+}
+
+Now set
+\Disp{
+\NC \V{g} _{\MC {A}}
+=\NC \MC {S} \SB {\V{g}, S} \NR[+]
+\NC \V{g} _{\MC {K}}
+=\NC \MC {C} \SB {\V{g}, S} \NR[+]
+\NC \V{g} _{\MC {B}}
+=\NC \MC {S} \SB {\V{g} _\MC {K}, S} \NR[+]
+}
+We hope that \m {\VNm {\V{g} _\MC {K}}_1} is small.
+
 \Result
 {Definition}
 {
@@ -18,9 +54,8 @@ For \m {\V {x} \in \MB {V}_{\MB {K}} \SB {N}}, we say \m {\V {x}} is almost-\m {
 Let \m {\f} be fixed.
 It suffices to bound
 \Disp {
-\NC \NC
-\VNm {
-\MC {C} \SB {\M {K}^\Adj \V {a} \SB {\f}, s}
+\NC \NC \VNm {
+   \MC {C} \SB {\M {K}^\Adj \V {a} \SB {\f}, s}
 } _2 ^2 \NR[+]
 }
 
@@ -46,7 +81,6 @@ And define the so-called Dirichlet kernel
 \Disp {
 \NC D \SB {\psi'}
 := \NC \sum_{n_H=0}^{N_H-1} \Ss {e}^{i n_H \psi'} \NR
-\NC 0 \leq \NC  \psi' \leq \pi \NR
 }
 Then observe
 \Disp {
@@ -136,7 +170,7 @@ Since the bound is also decreasing in \m {N_H}, for concreteness, let us plug in
 
 \stopsection
 
-\startsection [title={Almost-Sparsity of Channel Response \m {\M{H}}}]
+\startsection [title={Almost-Sparsity of \m {\M{G}}}]
 
 It remains to bound \m {\VNm {\M {G}} _F}.
 Note that
@@ -182,7 +216,7 @@ Indeed, \m {\d_s \SB {\M{F}_B} \SB {\o_t}} may be found, along similar lines wit
 We prove a concentration inequality, as explained below, and invoke Chebyshev inequality.
 But before that, we have to investigate the moments of each entry of \m {\M{F}_B \SB {\o_t}} (resp.\ \m {\M{W}_B \SB {\o_t}}) and that of \m {\M{F}_R \SB {\o_t}} (resp.\ \m {\M{W}_R \SB {\o_t}}).
 
-Let us call it a day and set each entry of \m {\M{F}_B} to be i.i.d.\ Gaussian r.v.\ with mean 0, standard deviation \m {1/2}, multiplied by a normalizing constant \m {\l >0}.
+Let us call it a day and set each entry of \m {\M{F}_B} to be i.i.d.\ Gaussian r.v.\ with mean 0, standard deviation \m {1/2}, multiplied by a normalizing constant \m {\l_B >0}.
 They are (with a slight of abuse of meaning of \m {\o_t} and so on)
 \Disp{
 \NC d \o_t
@@ -242,7 +276,7 @@ As a result,
 }
 And again
 \Disp{
-\NC \MB{E} \SB {\M{F}_R \DB {n_R, n_Y}^2}
+\NC \MB{E} \SB {\M{F}_R \DB {n_H, n_R}^2}
 = \NC 0 \NR[+]
 }
 
@@ -603,7 +637,7 @@ Now,
 In conclusion, \m {E_4} dominates.
 \Disp{
 \NC \Ss{Var} \SB {\VNm {\M{P} \SB {\o_t, \o_r} \V{u}} _2 ^2}
-\leq \NC 4 N_H^2 N_Y^{-3} \VNm {\V{u}} _2 ^4 \NR[+]
+\leq \NC \RB {4 N_H^2 N_Y^{-3} -1} \VNm {\V{u}} _2 ^4 \NR[+]
 }
 Thus, by Chebyshev bound,
 \Result
@@ -617,7 +651,7 @@ Then, for any fixed \m {\V{u} \in \MB {V}_{\MB {C}} \SB {N_Y}}, and for any \m {
   \Nm {\VNm {\M{P} \V{u}} _2 ^2 -\VNm {\V{u}} _2 ^2}
   \geq \e \VNm {\V{u}} _2 ^2
 }
-\leq \NC \F {1} {\e^2} N_H^2 N_Y^{-3} \NR[+]
+\leq \NC \F {1} {\e^2} \RB {4 N_H^2 N_Y^{-3} -1} \NR[+]
 }
 }
 
@@ -636,41 +670,6 @@ Suppose the probability, according to event space \m {\o_t, \o_r}, that RIP hold
 
 \startsection [title={Expected Error Analysis for Complex-Case Dantzig Selector}]
 
-Split \m {\V{g}} into two parts: \m {\V {g} _\MC {A}} is the largest \m {S} positions of \m {\V{g}}, \m {\V {g} _\MC {A}} the next \m {S} largest positions of \m {\V{g}}, and \m {\V {g} _\MC {K}} are the positions complement to \m {\V {g} _\MC {A}}.
-For example, if \m {\V {g} =\IP {-1,3,-4,2,8}}, and \m {S=2}, then \m {\V {g} _\MC {A} =\IP {0,3,0,0,8}}, \m {\V {g} _\MC {B} =\IP {-1,0,0,2,0}}, and \m {\V {g} _\MC {A} =\IP {-1,0,-4,2,0}}.
-We rephrase it formally.
-
-\Result
-{Definition}
-{
-Consider \m {\V{x} \in \MB {V}_{\MB {K}} \SB {N_p}}.
-Let bijection \m {\s: \MC {T} \SB {N_p} \mapsto \MC {T} \SB {N_p}} be defined to sort \m {\V{x}} in decreasing magnitude, meaning
-\Disp{
-\NC \V{v} \DB {\s \SB {n}}
-\leq \NC \V{v} \DB {\s \SB {n-1}} \NR[+]
-\NC n =\NC 1, \ldots, N_p-1 \NR
-}
-Its existence is evident.
-
-Let \m {S \leq N_p/2} be fixed.
-Define
-\Disp{
-\NC \MC {S} \SB {\V{x}, S}
-=\NC \sum_{i=0} ^{S-1} \V {x} \DB {\s \SB{i}} \V {u} _{\s \SB{i}} \NR[+]
-\NC \MC {C} \SB {\V{x}, S}
-=\NC \sum_{i=S} ^{N_p} \V {x} \DB {\s \SB{i}} \V {u} _{\s \SB{i}} \NR[+]
-}
-}
-
-Now set
-\Disp{
-\NC \V{g} _\MC {A}
-=\NC \MC {S} \SB {\V{g}, S} \NR[+]
-\NC \V{g} _\MC {K}
-=\NC \MC {C} \SB {\V{g}, S} \NR[+]
-\NC \V{g} _\MC {B}
-=\NC \MC {S} \SB {\V{g} _\MC {K}, S} \NR[+]
-}
 
 Let \m {\hat {\V {g}}} be the Dantzig Selector.
 For concreteness, we set
@@ -685,7 +684,6 @@ Also set for short
 \NC \V {d} 
 = \NC \Hat {\V {g}} -\V {g} \NR[+]
 }
-
 
 The rest follows \quotation {The Dantzig Selector} very closely.
 The generalization to complex vector is necessary in our setting.
@@ -812,7 +810,7 @@ Again, their proof works with complex vector spaces in place of real ones too.
 
 \startsection [title={The Main Result}]
 
-We are going to put things together and show the main result.
+We are going to combine previous lemmata and show the main result.
 In accordance with (), set
 \Disp{
 \NC S
@@ -826,11 +824,20 @@ Let \m {\V {y}}, \m {\M {P}}, \m {\V {g}}, \m {\hat {\V {g}}}, \m {\V {d}} be de
 Then, with \m {S =s^2 L}, as \m {N_H \to \infty},
 \Disp {
 \NC \VNm {\V {d}} _2
-\leq \NC \F {4}{\pi^4} \d_{3S}^4 \RB {1-2\d_{2S}} S^4 \RB {\log N_H}^4 \NR
+\leq \NC 32 s^2 L \log N_H \NR[+]
+}
+Under the design condition
+\Disp {
+\NC \RB {2 N_H}^2
+\approx \NC N_Y^3 \NR[+]
+}
+the bound is true for probability \m {p}, with
+\Disp {
+\NC 1 -p
+\leq \NC 16 \D {12}^S \d_{S}^{-S-2} N_H^2 N_Y^{-3} \NR[+]
 }
 }
 
-We are ready to combine previous lemmata.
 The first quantity we want to bound away is
 \Disp {
 \NC \VNm {\M {P} _{\MC {A} \MC {B}}^\Tr \M {P} \V {d}} _2
@@ -889,28 +896,7 @@ In particular for asymptotic \m {N_H \gg 1}, keep only the dominating term.
 \leq \NC 32 s^2 L \log N_H \NR
 }
 
-The probability that it is true may be bounded by the number in Lemma () and Lemma ().
-Bounding generously with \m {\d_s \leq 1} yields
-\Disp {
-\NC 1 -p
-\leq \NC 4 \D 12^S N_H^2 N_Y^{-3} +N_H^{-2} \NR[+]
-}
-If \m {N_Y \leq N_H}, there is a condition imposed on the size of \m {N_H}.
-Arranging gives
-\Disp {
-\NC \log N_H
-\geq \NC s^2 L \log 12 + \log 4 \NR[+]
-}
-
-\Result
-{Theorem}
-{
-Theorem is meaningful only when
-\Disp {
-\NC N_H
-\geq \NC 4 \D {12}^{s^2 L} \NR[+]
-}
-}
+The probability that it is true may be bounded by plugging the probability in Lemma () and Lemma ().
 
 \stopsection
 
