@@ -63,9 +63,10 @@ For \m {-\pi \leq x < \pi}, we have
 \NC \Nm {x - \F {x^3}{6}} \leq \NC \Nm {\sin x}. \NR[+]
 }
 }
+
 Applying Lemma () to the denominator of () and bounding the nominator by 1, we have
 \Disp {
-\NC \Nm {D \SB {\psi'} }
+\NC \Nm {D \SB {\psi'}}
 = \NC \F {\Nm {\sin \SB {N_H \psi'/2}}}{\Nm {\sin \SB {\psi' /2}}} \NR
 \NC \leq \NC B \SB {\psi'} \NR
 \NC := \NC \F {48}{\Nm {\psi'^2 -24} \Nm {\psi'}} \NR[+]
@@ -245,7 +246,7 @@ And again
 = \NC 0 \NR[+]
 }
 
-\startsection [title={Restricted Isometry of \m {P}}]
+\startsection [title={Confirming the Restricted Isometry of \m {P}}]
 
 \Result
 {Definition}
@@ -266,7 +267,7 @@ From \quotation {Decoding from Linear Programming} (Cand\`es and Tao 2005), Lemm
 Let \m {\M{P}} be fixed.
 Then \m {\tau_{s, s'} \SB {\M{P}}} is bounded in both direction as follows,
 \Disp {
-\NC \d_{s+s'} \SB {\M{P}} -\max \SB {\CB {\d_s \SB {\M{P}}, \d_{s'} \SB {\M{P}} }}
+\NC \d_{s+s'} \SB {\M{P}} -\max \SB {\CB {\d_s \SB {\M{P}}, \d_{s'} \SB {\M{P}}}}
 \leq \NC \tau_{s, s'} \SB {\M{P}} \NR
 \NC \leq \NC \d_{s+s'} \SB {\M{P}} \NR[+]
 }
@@ -534,14 +535,47 @@ Now we have to bound \m {\i_{1,1} \SB {\Fl {n_y/N_Y}, \Fl {n_y'/N_Y}} M_{B,2}^2}
 }
 
 The last one is more complicated.
-We need a corollary that follows from \quotation {Muirhead inequality}.
+Use the shorthand
+\Disp {
+\NC \sum _{n_h, n_h', m_h, m_h'} ^\star
+:= \NC \sum _{
+   \Stack {
+     0 =n_h <n_h' \NR
+     0 =m_h <m_h' \NR
+     n_h +m_h' =n_h' +m_h \NR
+     \Fl {n_h/N_H} =\Fl {n_h'/N_H} \NR
+     \Fl {m_h/N_H} =\Fl {m_h'/N_H}
+   }
+} ^{N_H-1}
+\sum _{
+  \Stack {
+     0 =n_y <n_y' \NR
+     \Fl {n_y/N_Y} =\Fl {n_y'/N_Y}
+  }
+} ^{N_y-1} \NR
+\NC \V {u} ^{(1,1,1,1)} \SB {n_h, n_h', m_h, m_h'}
+:=\NC \i_{1,1,1,1} \SB {n_h, n_h', m_h, m_h'}
+\V{u} \DB{n_h} \V{u} \DB{n_h'} \V{u} \DB{m_h} \V{u} \DB{m_h'} \NR
+}
+Then observe
+\Disp {
+\NC \NC \sum _{n_h, n_h', m_h, m_h'} ^\star
+\V {u} ^{(1,1,1,1)} \SB {n_h, n_h', m_h, m_h'} \NR
+\NC \leq \NC N_h^{-2}
+\sum_{n_h, n_h' =0} ^{N_h-1}
+\sum_{m_h, m_h' =0} ^{N_h-1}
+\V {u} ^{(1,1,1,1)} \SB {n_h, n_h', m_h, m_h'} \NR
+}
+This is because one of \m {n_h, n_h'} and one of \m {m_h, m_h'} may both choose to lie in other \m {\RB {N_H-1} \RB {N_H-2}} blocks (of length \m {N_H}).
+Then we need a corollary that follows from \quotation {Muirhead inequality}.
 \Result
 {Lemma}
 {
 If every component of \m {\V{u} \in \MB {M}_{\MB {C}} \SB {N_h}} is considered as a free variable taking complex values, then
 \Disp {
-\NC \NC \sum \i_{1,1,1,1} \SB {n_h, n_h', m_h, m_h'}
-\V{u} \DB{n_h} \V{u} \DB{n_h'} \V{u} \DB{m_h} \V{u} \DB{m_h'} \NR
+\NC \NC \sum_{n_h, n_h' =0} ^{N_h-1}
+\sum_{m_h, m_h' =0} ^{N_h-1}
+\Nm {\V {u} ^{(1,1,1,1)} \SB {n_h, n_h', m_h, m_h'}} \NR
 \NC \leq \NC \F{1}{6} \RB {\VNm {\V{u}} _2 ^4 -\VNm {\V{u}} _4 ^4} \NR[+]
 }
 }
@@ -549,17 +583,7 @@ If every component of \m {\V{u} \in \MB {M}_{\MB {C}} \SB {N_h}} is considered a
 Now,
 \Disp {
 \NC E_5
-\NC = \sum _{
-    \Stack {
-      0 =n_h <n_h' \NR
-      0 =m_h <m_h' \NR
-      n_h +m_h' =n_h' +m_h \NR
-      \Fl {n_h/N_H} =\Fl {n_h'/N_H} \NR
-      \Fl {m_h/N_H} =\Fl {m_h'/N_H}
-    }
-  } ^{N_H-1}
-  \sum _{\Stack { 0 =n_y <n_y' \NR \Fl {n_y/N_Y} =\Fl {n_y'/N_Y} }} ^{N_y-1} \NR
-  \NC \NC \SixQ
+= \NC \sum _{n_h, n_h', m_h, m_h'} ^\star
   \M{Q} \DB {n_y, n_h}
   \M{Q} \DB {n_y, n_h'}
   \M{Q} \DB {n_y', m_h}
@@ -570,26 +594,20 @@ Now,
   \V{u} \DB{m_h}
   \V{u} \DB{m_h'} \NR
 \NC =\NC N_Y \D \F{1}{2} N_H \RB{N_H-1} \D \F{1}{2} N_Y \RB{N_Y-1} \D N_H^2 \D N_Y ^{-4} \NR
-\NC \NC \SixQ
-\D \sum_{n_h, n_h' =0} ^{N_H-1}
-\sum_{m_h, m_h' =0} ^{N_H-1}
-\i_{1,1,1,1} \SB {n_h, n_h', m_h, m_h'} \NR
-\NC \NC \SixQ
-\Nm {\V{u} \DB{n_h}}
-\Nm {\V{u} \DB{n_h'}}
-\Nm {\V{u} \DB{m_h}}
-\Nm {\V{u} \DB{m_h'}} \NR
-\NC \leq \NC \F{1}{6} N_Y ^{-1} N_H ^4 \VNm {\V{u}} _2 ^4. \NR[+]
+\NC \NC \FourQ
+\D N_H^{-2} \sum_{n_h, n_h' =0} ^{N_h-1} \sum_{m_h, m_h' =0} ^{N_h-1}
+\V {u} ^{(1,1,1,1)} \SB {n_h, n_h', m_h, m_h'} \NR
+\NC \leq \NC \F{1}{6} N_Y ^{-1} \VNm {\V{u}} _2 ^4. \NR[+]
 }
 
-In conclusion,
+In conclusion, \m {E_4} dominates.
 \Disp{
 \NC \Ss{Var} \SB {\VNm {\M{P} \SB {\o_t, \o_r} \V{u}} _2 ^2}
-\leq \NC \F{1}{2} \VNm {\V{u}} _2 ^4 \NR[+]
+\leq \NC 4 N_H^2 N_Y^{-3} \VNm {\V{u}} _2 ^4 \NR[+]
 }
 Thus, by Chebyshev bound,
 \Result
-{Lemma}
+{Theorem}
 {
 Let \m {\M{P} \in \MB {M}_{\MB {C}} \SB {N_R, N_Y}} be generated randomly according to ().
 Then, for any fixed \m {\V{u} \in \MB {V}_{\MB {C}} \SB {N_Y}}, and for any \m {\e >0},
@@ -599,7 +617,7 @@ Then, for any fixed \m {\V{u} \in \MB {V}_{\MB {C}} \SB {N_Y}}, and for any \m {
   \Nm {\VNm {\M{P} \V{u}} _2 ^2 -\VNm {\V{u}} _2 ^2}
   \geq \e \VNm {\V{u}} _2 ^2
 }
-\leq \NC \F {1} {2\e^2} \NR[+]
+\leq \NC \F {1} {\e^2} N_H^2 N_Y^{-3} \NR[+]
 }
 }
 
@@ -607,53 +625,19 @@ According to Lemma 5.1 in Baraniuk et.\ al.\ (2008), substitution of relevent qu
 \Result
 {Lemma}
 {
-Let \m {\M{F}_B ^\Tr} be found as above.
-Suppose the probability that RIP holds for \m {\M{F}_B} w.r.t.\ \m {\d_s} is \m {P}, then
-\Disp{
-\NC 1 -P
-\leq \NC 4 \D 12^s \D \d_s^{-\RB {s+2}} \NR[+]
-}
-}
-
-\stopsection
-
-\startsection [title={Restricted Isometry of \m {P}}]
-
-The relevent expressions for \m {\M{F}_B ^\Tr} and \m {\M{F}_R ^\Tr} are identical, and same can be said of \m {\M{W}_B} and \m {\M{W}_R}.
-Let \m {\Phi} be either of \m {\M{R}_B ^\Tr}, \m {\M{R}_R ^\Tr}, \m {\M{W}_B}, or \m {\M{W}_B}.
-By Chebyshev bound, we obtain an identical expression,
-\Result
-{Lemma}
-{
-Let \m {\Phi} be generated randomly as above.
-Then, for any fixed complex \m {\V{u}} (with corresponding dimension), and for any \m {\e >0},
-\Disp{
-\NC \MB{P}
-\SB {
-  \Nm {\VNm {\Phi \V{u}} _2 ^2 -\VNm {\V{u}} _2 ^2}
-  \geq \e \VNm {\V{u}} _2 ^2
-}
-\leq \NC \F {1} {2\e^2} \NR[+]
-}
-}
-
-According to Lemma 5.1 in Baraniuk et.\ al.\ (2008), substitution of relevent quantities yields
-\Result
-{Lemma}
-{
-Suppose the probability that RIP holds for \m {\V{P}} w.r.t.\ \m {\d_s} is \m {p}, then
+Suppose the probability, according to event space \m {\o_t, \o_r}, that RIP holds for \m {\M{P}} w.r.t.\ \m {\d_s} is \m {p}, then
 \Disp{
 \NC 1 -p
-\leq \NC 4 \D 12^s \D \d_s^{-\RB {s+2}} \NR[+]
+\leq \NC 4 \D 12^s \D \d_s^{-\RB {s+2}} N_H^2 N_Y^{-3} \NR[+]
 }
 }
 
 \stopsection
 
-\startsection [title={Expected Error for Complex-Case Dantzig Selector}]
+\startsection [title={Expected Error Analysis for Complex-Case Dantzig Selector}]
 
-Split \m {\V{g}} into two parts: \m {\V {g} _\MC {A}} is the largest \m {s} positions of \m {\V{g}}, \m {\V {g} _\MC {A}} the next \m {s} largest positions of \m {\V{g}}, and \m {\V {g} _\MC {K}} are the positions complement to \m {\V {g} _\MC {A}}.
-For example, if \m {\V {g} =\IP {-1,3,-4,2,8}}, and \m {s=2}, then \m {\V {g} _\MC {A} =\IP {0,3,0,0,8}}, \m {\V {g} _\MC {B} =\IP {-1,0,0,2,0}}, and \m {\V {g} _\MC {A} =\IP {-1,0,-4,2,0}}.
+Split \m {\V{g}} into two parts: \m {\V {g} _\MC {A}} is the largest \m {S} positions of \m {\V{g}}, \m {\V {g} _\MC {A}} the next \m {S} largest positions of \m {\V{g}}, and \m {\V {g} _\MC {K}} are the positions complement to \m {\V {g} _\MC {A}}.
+For example, if \m {\V {g} =\IP {-1,3,-4,2,8}}, and \m {S=2}, then \m {\V {g} _\MC {A} =\IP {0,3,0,0,8}}, \m {\V {g} _\MC {B} =\IP {-1,0,0,2,0}}, and \m {\V {g} _\MC {A} =\IP {-1,0,-4,2,0}}.
 We rephrase it formally.
 
 \Result
@@ -668,24 +652,24 @@ Let bijection \m {\s: \MC {T} \SB {N_p} \mapsto \MC {T} \SB {N_p}} be defined to
 }
 Its existence is evident.
 
-Let \m {s \leq N_p/2} be fixed.
+Let \m {S \leq N_p/2} be fixed.
 Define
 \Disp{
-\NC \MC {S} \SB {\V{x}, s}
-=\NC \sum_{i=0} ^{s-1} \V {x} \DB {\s \SB{i}} \V {u} _{\s \SB{i}} \NR[+]
-\NC \MC {C} \SB {\V{x}, s}
-=\NC \sum_{i=s} ^{N_p} \V {x} \DB {\s \SB{i}} \V {u} _{\s \SB{i}} \NR[+]
+\NC \MC {S} \SB {\V{x}, S}
+=\NC \sum_{i=0} ^{S-1} \V {x} \DB {\s \SB{i}} \V {u} _{\s \SB{i}} \NR[+]
+\NC \MC {C} \SB {\V{x}, S}
+=\NC \sum_{i=S} ^{N_p} \V {x} \DB {\s \SB{i}} \V {u} _{\s \SB{i}} \NR[+]
 }
 }
 
 Now set
 \Disp{
 \NC \V{g} _\MC {A}
-=\NC \MC {S} \SB {\V{g}, s} \NR[+]
+=\NC \MC {S} \SB {\V{g}, S} \NR[+]
 \NC \V{g} _\MC {K}
-=\NC \MC {C} \SB {\V{g}, s} \NR[+]
+=\NC \MC {C} \SB {\V{g}, S} \NR[+]
 \NC \V{g} _\MC {B}
-=\NC \MC {S} \SB {\V{g} _\MC {K}, s} \NR[+]
+=\NC \MC {S} \SB {\V{g} _\MC {K}, S} \NR[+]
 }
 
 Let \m {\hat {\V {g}}} be the Dantzig Selector.
@@ -739,15 +723,15 @@ The result follows by combining.
 {Lemma}
 {
 \Disp {
-\NC \Nm {\IP { \V {z} \SB {\o_z}, \M {P} \DB {:, n_g} }}
+\NC \MB {E} \SB {\Nm {\IP {\V {z} \SB {\o_z}, \M {P} \DB {:, n_h}}}}
 \leq \NC  2 \R {\log N_h} \NR
-\NC n_g 
+\NC n_h 
 =\NC 1, \ldots, N_h. \NR
 }
-with probability \m {\geq 1 -N_h}.
+with probability \m {\geq 1 -N_h^{-1}}.
 }
 
-This only depends on the fact that \m {\M {P} \DB {:, n_g}} has unity \m {\ell_2}-norm, and on the randomness of \m {\V {z}}.
+Indeed, recall the fact that \m {\M {P} \DB {:, n_g}} has unity \m {\ell_2}-norm, and on the randomness of \m {\V {z}}.
 
 Recall the following bound for \m {Q} function
 \Disp {
@@ -763,33 +747,33 @@ Particularly, for \m {x =\R {2 \log N_h}},
 \Result
 {Lemma}
 {
-With the condition that \m {\M {P}} satisfies RIP for \m {\d_s \SB {\M{P}}},
+With the condition that \m {\M {P}} satisfies RIP for \m {\d_S \SB {\M{P}}},
 \Disp {
 \NC \VNm {\M {P}^\Adj \M {P} \V {d}} _\infty
 \leq \NC  4 \R {\log N_h} \NR
 \NC n_g 
 =\NC 1, \ldots, N_h. \NR
 }
-with probability \m {\geq 1 -N_h}.
+with probability \m {\geq 1 -N_h^{-1}}.
 }
 
 To show this, by definition
 \Disp {
-\NC \IP { \V {z} -\RB {\V {y} -\M {P} \hat {\V {g}}}, \M {P} \DB {:,n_y} }
-= \NC \IP { \M {P} \hat {\V {g}} -\M {P} \V {g}, \M {P} \DB {:,n_y} } \NR
-\NC = \NC \IP { \M {P} \V {d}, \M {P} \DB {:,n_y} } \NR
+\NC \IP {\V {z} -\RB {\V {y} -\M {P} \hat {\V {g}}}, \M {P} \DB {:,n_y}}
+= \NC \IP {\M {P} \hat {\V {g}} -\M {P} \V {g}, \M {P} \DB {:,n_y}} \NR
+\NC = \NC \IP {\M {P} \V {d}, \M {P} \DB {:,n_y}} \NR
 }
 By construction
 \Disp {
-\NC \VNm { \M {P} \DB {:,n_y}^\Adj \RB {\V {y} -\M {P} \hat {\V {g}}} } _\infty
-\leq \NC \VNm { \M {P}^\Adj \RB {\V {y} -\M {P} \hat {\V {g}}} } _\infty \NR
+\NC \VNm {\M {P} \DB {:,n_y}^\Adj \RB {\V {y} -\M {P} \hat {\V {g}}}} _\infty
+\leq \NC \VNm {\M {P}^\Adj \RB {\V {y} -\M {P} \hat {\V {g}}}} _\infty \NR
 \NC \leq \NC 2\R {\log N_h} \NR
 }
 By triangle inequality, together with Lemma (), we have
 \Disp {
 \NC \VNm {\M {P} \DB {:,n_y}^\Adj \M {P} \V {d}} _\infty
-\leq \NC \VNm {\IP { \V {z}, \M {P} \DB {:,n_y} }} _\infty
-+\IP { \V {y} -\M {P} \hat {\V {g}}, \M {P} \DB {:,n_y} } \NR
+\leq \NC \VNm {\IP {\V {z}, \M {P} \DB {:,n_y}}} _\infty
++\IP {\V {y} -\M {P} \hat {\V {g}}, \M {P} \DB {:,n_y}} \NR
 \NC \leq \NC 2 \R {\log N_h} +2 \R {\log N_h} \NR
 }
 which implies
@@ -805,10 +789,10 @@ The only thing that has to change accordingly is the interpretation of magnitude
 \Result
 {Lemma}
 {
-With the condition that \m {\M {P}} satisfies RIP for \m {\d_s \SB {\M{P}}},
+With the condition that \m {\M {P}} satisfies RIP for \m {\d_S \SB {\M{P}}},
 \Disp {
 \NC \VNm {\V {d} _{\MC {AB}}} _2
-\leq \NC \F {1}{1-\d_{2s}} \VNm {P _{\MC {A} \MC {B}}^\Tr P d} _2 +\F {\d_{3s}}{\RB {1-\d_{2s}} \R {s}} \VNm {d_{\MC {K}}} _1 \NR
+\leq \NC \F {1}{1-\d_{2S}} \VNm {P _{\MC {A} \MC {B}}^\Tr P d} _2 +\F {\d_{3S}}{\RB {1-\d_{2S}} \R {S}} \VNm {d_{\MC {K}}} _1 \NR
 }
 }
 
@@ -820,26 +804,30 @@ Again, their proof works with complex vector spaces in place of real ones too.
 {
 \Disp {
 \NC \VNm {\V {d}} _2^2
-\leq \NC \VNm {\V {d} _{\MC {A} \MC {B}}} _2^2 +\F {1}{s} \VNm {\V {d} _{\MC {K}}} _1^2 \NR
+\leq \NC \VNm {\V {d} _{\MC {A} \MC {B}}} _2^2 +\F {1}{S} \VNm {\V {d} _{\MC {K}}} _1^2 \NR
 }
 }
 
 \stopsection
 
-\startsection [title={The Main Bound}]
+\startsection [title={The Main Result}]
 
-We can now formulate and prove the main bound of ours.
+We are going to put things together and show the main result.
+In accordance with (), set
+\Disp{
+\NC S
+=\NC s^2 L \NR
+}
 
 \Result
 {Theorem}
 {
 Let \m {\V {y}}, \m {\M {P}}, \m {\V {g}}, \m {\hat {\V {g}}}, \m {\V {d}} be defined as above.
-Then
+Then, with \m {S =s^2 L}, as \m {N_H \to \infty},
 \Disp {
 \NC \VNm {\V {d}} _2
-\leq \NC \F {4}{\pi^4} \d_{3L}^4 \RB {1-2\d_{2L}} L^4 \RB { \log N_H}^4 \NR
+\leq \NC \F {4}{\pi^4} \d_{3S}^4 \RB {1-2\d_{2S}} S^4 \RB {\log N_H}^4 \NR
 }
-with probability \m {\geq 1 -N_h}.
 }
 
 We are ready to combine previous lemmata.
@@ -847,58 +835,83 @@ The first quantity we want to bound away is
 \Disp {
 \NC \VNm {\M {P} _{\MC {A} \MC {B}}^\Tr \M {P} \V {d}} _2
 \leq \NC \VNm {\M {P}^\Tr \M {P} \V {d}} _2 \NR
-\NC \leq \NC \R {N_h} \VNm {\M {P}^\Tr \M {P} \V {d}} _\infty \NR
-\NC \leq \NC 4 \R {N_h \log N_h} \NR
+\NC \leq \NC \R {S} \VNm {\M {P}^\Tr \M {P} \V {d}} _\infty \NR
+\NC \leq \NC 4 \R {S \log N_h} \NR
 }
-Thus, by virtue of Lemma (),
+Thus, by virtue of Lemma (), and approximating \m {1 /(1 -\d_{2S}) =1 +\d_{2S}} and so on,
 \Disp {
-\NC \VNm { \V {d}_{A} } _1
-\leq \NC \R {L} \VNm { \V {d}_{A} } _2 \NR
-\NC \leq \NC \R {L} \VNm { \V {d} _{\MC {AB}} } _2 \NR
-\NC \leq \NC \F {\d_{3L}} {1-\d_{2L}} \VNm { \V {d} _{\MC {K}} } _1 +\F {4} {1-\d_{2L}} \R {L N_h \log N_h} \NR
-}
-
-As the next step, we must eliminate \m {\VNm {d _{\MC {A}}} _1} in rhs of Lemma ().
-\Disp {
-\NC \VNm { \V {d} _{\MC {K}} } _1
-\leq \NC \VNm { \V {d} _{\MC {A}} } _1 +2 \VNm { \V {g} _{\MC {K}} } _1 \NR
-\NC \leq \NC \F {\d_{3L}} {1-\d_{2L}} \VNm { \V {d} _{\MC {K}} } _1
-+2 \VNm { \V {g} _{\MC {K}} } _1
-+\F {4} {1-\d_{2L}} \R {L N_h \log N_h} \NR
-}
-Or,
-\Disp {
-\NC \VNm { \V {d} _{\MC {K}} } _1
-\leq \NC 2 \F {1-\d_{2L}} {1 -\d_{2L} -\d_{3L}} \VNm { \V {g} _{\MC {K}} } _1
-+\F {4} {1-\d_{2L} -\d_{3L}} \R {L N_h \log N_h} \NR
+\NC \VNm {\V {d}_{\MC {A}}} _1
+\leq \NC \R {S} \VNm {\V {d}_{\MC {A}}} _2 \NR
+\NC \leq \NC \R {S} \VNm {\V {d} _{\MC {AB}}} _2 \NR
+\NC \leq \NC \d_{3S} \RB {1+\d_{2S}} \VNm {\V {d} _{\MC {K}}} _1
++4 \RB {1+\d_{2S}} S \R {\log N_h} \NR
 }
 
-We are ready to bound \m {\VNm {d} _2^2}.
-Using Lemma () again, we have
+Next, we must eliminate \m {\VNm {d _{\MC {A}}} _1} in rhs of Lemma ().
 \Disp {
-\NC \VNm { \V {d} } _2^2
-\leq \NC \VNm {\V {d} _{\MC {A} \MC {B}}} _2^2 +\F {1}{L} \VNm {\V {d} _{\MC {K}}} _1^2 \NR
-\NC \leq \NC  \RB { \F {\d_{3L}^2} {L^2 \RB {1-\d_{2L}}^2} +\F {1}{L} } \VNm {\V {d} _{\MC {K}}} _1^2
-+\F {8 \d_{3L}} {L \RB {1-\d_{2L}}^2} \R {N_h \log N_h} \VNm {\V {d} _{\MC {K}}} _1 \NR
-\NC \NC \Q +\F {16}{\RB {1-\d_{2L}}^2} N_h \log N_h \NR
+\NC \VNm {\V {d} _{\MC {K}}} _1
+\NC \leq \d_{3S} \RB {1+\d_{2S}} \VNm {\V {d} _{\MC {K}}} _1
++4 \RB {1+\d_{2S}} S \R {\log N_h}
++2 \VNm {\V {g} _{\MC {K}}} _1 \NR
 }
-Finally, plug in the bound for \m {\VNm {\V {d} _{\MC {K}}} _1}, the last unknown, and we make use of the almost-sparsity condition of \m {\VNm {\V {d} _{\MC {K}}} _1}.
-There are several dozens of terms if we expand all.
-but for simplicity, we keep only the leading term under the approximation
+Arranging and drop second order small terms like \m {\d_{2S} \d_{3S}}, that is,
 \Disp {
-\NC 1 \ll \NC L \NR
+\NC 1 \ll \NC S \NR
 \NC \ll \NC N_h \NR
 }
-And expand to the first order expressions containing \m {\d_{2L}} or \m {\d_{3L}} in the denominator using
+doing this we have
 \Disp {
-\NC \d_{2L} <\NC \d_{3L} \ll 1. \NR
-}
-Then
-\Disp {
-\NC \VNm {\V {d}} _2^2
-\leq \NC \F {4}{\pi^4} \d_{3L}^4 \RB {1-2\d_{2L}} L^4 \RB { \log N_H}^4 \NR
+\NC \VNm {\V {d} _{\MC {K}}} _1
+\leq \NC 2 \RB {1+\d_{3S}} \VNm {\V {g} _{\MC {K}}} _1
++4 \RB {1+2\d_{3S}} S \R {\log N_h} \NR
 }
 
-\color[red]{(To be done)}
+We are now in a position to bound \m {\VNm {d} _2^2}.
+Using Lemma () again, and only keeping to first order, we have
+\Disp {
+\NC \VNm {\V {d}} _2^2
+\leq \NC 16 S \log N_h
++8 \d_{3S} \R {\log N_h} 
++\F {\d_{3S}^2} {S} \VNm {\V {d} _{\MC {K}}} _1 \NR
+}
+Finally, plug in the bound for \m {\VNm {\V {d} _{\MC {K}}} _1}, the last unknown, and we make use of the almost-sparsity condition of \m {\VNm {\V {d} _{\MC {K}}} _1}.
+Again for simplicity, we keep only the first order small terms.
+Plug in \m {S =s^2 L} and \m {N_h =N_H^2} we get, finally,
+\Disp {
+\NC \VNm {\V {d}} _2^2
+\leq \NC 32 s^2 L \log N_H
++\F {8 \R {2\pi}} {3} \d_{3S} L \R {\F {\log N_H} {N_H}}
++\F {\pi} {9} \F {L} {s^2 N_H} \NR
+}
+In particular for asymptotic \m {N_H \gg 1}, keep only the dominating term.
+\Disp {
+\NC \VNm {\V {d}} _2^2
+\leq \NC 32 s^2 L \log N_H \NR
+}
+
+The probability that it is true may be bounded by the number in Lemma () and Lemma ().
+Bounding generously with \m {\d_s \leq 1} yields
+\Disp {
+\NC 1 -p
+\leq \NC 4 \D 12^S N_H^2 N_Y^{-3} +N_H^{-2} \NR[+]
+}
+If \m {N_Y \leq N_H}, there is a condition imposed on the size of \m {N_H}.
+Arranging gives
+\Disp {
+\NC \log N_H
+\geq \NC s^2 L \log 12 + \log 4 \NR[+]
+}
+
+\Result
+{Theorem}
+{
+Theorem is meaningful only when
+\Disp {
+\NC N_H
+\geq \NC 4 \D {12}^{s^2 L} \NR[+]
+}
+}
+
+\stopsection
 
 \stopchapter
