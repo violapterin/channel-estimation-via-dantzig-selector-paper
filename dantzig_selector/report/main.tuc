@@ -88,7 +88,7 @@ utilitydata.structures.counters.collected={
   { 0 },
  },
  ["formula"]={
-  { 0, 0, 0, 0, 0, 8, 22, 56, 28, 0, 0 },
+  { 0, 0, 0, 0, 0, 8, 22, 55, 28, 0, 0 },
  },
  ["graphic"]={
   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -401,13 +401,13 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=19,
-   ["realpage"]=21,
+   ["realpage"]=22,
    ["section"]=19,
    ["used"]="fit",
   },
   ["titledata"]={
    ["label"]="section",
-   ["title"]="Almost-Sparsity of Channel Response \\m {\\M {H}}",
+   ["title"]="Almost-Sparsity of \\m {\\M {G}}",
   },
  },
  {
@@ -416,7 +416,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=20,
-   ["realpage"]=22,
+   ["realpage"]=23,
    ["section"]=20,
    ["used"]="fit",
   },
@@ -431,7 +431,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=21,
-   ["realpage"]=23,
+   ["realpage"]=24,
    ["section"]=21,
    ["used"]="fit",
   },

@@ -1,4 +1,3 @@
-
 \Frame {Channel Model}
 {
 \I Consider uniform linear array
@@ -18,9 +17,7 @@
 \V {a} \SB { \F {d_{\Rm {arr}}} {\l _{\Rm {arr}} \sin \th_l' }}^\Adj \NR
 }
 }
-
-\page[yes] % % % % % % % % % % % % % % % % % % % % % % % % % %
-
+% % % % % % % % % % % % % % % % % % % % % % % % % %
 \Frame {Precoders and Combiners}
 {
 \I Tx: Digital precoder \m {\M {F}_B \in \NC \MB {M}_{\MB {C}} \SB {N_R, N_Y}}
@@ -29,7 +26,7 @@
 
 \I Rx: Digital combiner \m {\M {W}_R \in \NC \MB {M}_{\MB {C}} \SB {N_R, N_H}}
 
-\I Rx: Analog combiner \m {\M {W}_B \in \NC \MB {M}_{\MB {C}} \SB {N_Y, N_R}}.
+\I Rx: Analog combiner \m {\M {W}_B \in \NC \MB {M}_{\MB {C}} \SB {N_Y, N_R}}
 
 \I With the unity magnitude constraint
 \Disp {
@@ -40,10 +37,8 @@
 }
 
 \I With the assumption \m {N_H \gg N_R \gg N_Y}
-
-
-\page[yes] % % % % % % % % % % % % % % % % % % % % % % % % % %
-
+}
+% % % % % % % % % % % % % % % % % % % % % % % % % %
 \Frame {Effective Channel}
 {
 \I Consider zero-mean, unity-variance additive white Gaussian noise (AWGN) \m {\M{Z}}
@@ -54,12 +49,11 @@
 :=\M{W}_B \M{W}_R \RB {\M{H} \M{F}_R \M{F}_B +\M{Z}} \NR
 }
 
-\I Problem: Recover \m {\M {H}}, design \m {\M {W}_R}, \m {\M {W}_B}, \m {\M {F}_R}, and \m {\M {F}_B}
-}
-}
+\I Problem: (a) Recovering \m {\M {H}}?
 
-\page[yes] % % % % % % % % % % % % % % % % % % % % % % % % % %
-
+\I Problem: (b) Designing \m {\M {W}_R}, \m {\M {W}_B}, \m {\M {F}_R}, and \m {\M {F}_B}?
+}
+% % % % % % % % % % % % % % % % % % % % % % % % % %
 \Frame {Working in the Angular Domain}
 {
 \I Set \m {N_h =N_H^2,\; N_y =N_Y^2}
@@ -73,9 +67,7 @@
 
 \I Write \m {\M {G} =\NC \M {K}^\Adj \M {H} \M {K}}
 }
-
-\page[yes] % % % % % % % % % % % % % % % % % % % % % % % % % %
-
+% % % % % % % % % % % % % % % % % % % % % % % % % %
 \Frame {Vectorization}
 {
 \I Set \m {N_h =N_H^2,\; N_y =N_Y^2}
@@ -94,9 +86,7 @@
 =\NC \M {P} \V {g} +\V {z} \NR
 }
 }
-
-\page[yes] % % % % % % % % % % % % % % % % % % % % % % % % % %
-
+% % % % % % % % % % % % % % % % % % % % % % % % % %
 \Frame {Proposed Method}
 {
 \I Input \m{\M {P} \in \MB {M}_{\MB {C}} \SB {N_y, N_h}}, \m{\V {y} \in \MB {V}_{\MB {C}} \SB {N_h}}, \m{\g \geq 0}.
@@ -116,6 +106,5 @@
 
 \I Output \m {\Hat {\M {H}}}
 }
-
-\page[yes] % % % % % % % % % % % % % % % % % % % % % % % % % %
+% % % % % % % % % % % % % % % % % % % % % % % % % %
 

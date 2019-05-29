@@ -280,6 +280,7 @@ And again
 = \NC 0 \NR[+]
 }
 
+
 \startsection [title={Confirming the Restricted Isometry of \m {P}}]
 
 \Result
@@ -316,6 +317,7 @@ But each entry of \m {P} is a linear combination of products, and such reasoning
 If only \m {P} were also an i.i.d.\ random matrix, the resulting proof would be easier.
 Is the approach all but lost?
 
+
 Observe
 \Disp {
 \NC \M{P} ^\Adj \M{P}
@@ -333,10 +335,10 @@ Observe
 \otimes \RB {\M {W}_B \M {W}_R \M{K} \M{K}^\Adj \M {W}_R^\Adj \M {W}_B^\Adj} \NR
 \NC =\NC
 \RB {\M {F}_B^\Tr \M {F}_R^\Tr \M {F}_R^\ast \M {F}_B^\ast}
-\otimes \RB {\M {W}_B \M {W}_R \M {W}_R^\Adj \M {W}_B^\Adj}
-\RB {\M {F}_R^\Tr \M {F}_B^\Tr} \otimes \RB {\M {W}_B \M {W}_R} \NR
-\NC := \NC \M{Q} \NR[+]
+\otimes \RB {\M {W}_B \M {W}_R \M {W}_R^\Adj \M {W}_B^\Adj} \NR
+\NC =\NC \M{Q} ^\Adj \M{Q} \NR
 }
+where as we defined before \m {\M{Q} :=\RB {\M {F}_R^\Tr \M {F}_B^\Tr} \otimes \RB {\M {W}_B \M {W}_R}}.
 
 This implies
 \Disp {
@@ -414,12 +416,12 @@ By the same token,
 \M{F} \DB {n_H'', n_Y''}
 \M{F} \DB {n_H''', n_Y'''}
 } \NR
-\NC \NC =\MB{E}
+\NC =\NC \MB{E}
 \SB {
-\M{W} \DB {n_Y, n_H}
-\M{W} \DB {n_Y', n_H'}
-\M{W} \DB {n_Y'', n_H''}
-\M{W} \DB {n_Y''', n_H'''}
+\M{W} ^\Adj \DB {n_Y, n_H}
+\M{W} ^\Adj \DB {n_Y', n_H'}
+\M{W} ^\Adj \DB {n_Y'', n_H''}
+\M{W} ^\Adj \DB {n_Y''', n_H'''}
 } \NR
 \NC = \NC
 \i_4 \SB {n_H, n_H', n_H'', n_H'''}
@@ -670,7 +672,6 @@ Suppose the probability, according to event space \m {\o_t, \o_r}, that RIP hold
 
 \startsection [title={Expected Error Analysis for Complex-Case Dantzig Selector}]
 
-
 Let \m {\hat {\V {g}}} be the Dantzig Selector.
 For concreteness, we set
 \Disp {
@@ -749,8 +750,6 @@ With the condition that \m {\M {P}} satisfies RIP for \m {\d_S \SB {\M{P}}},
 \Disp {
 \NC \VNm {\M {P}^\Adj \M {P} \V {d}} _\infty
 \leq \NC  4 \R {\log N_h} \NR
-\NC n_g 
-=\NC 1, \ldots, N_h. \NR
 }
 with probability \m {\geq 1 -N_h^{-1}}.
 }
