@@ -88,11 +88,11 @@ with
 \Result
 {Definition: Restricted Isometry Property}
 {
-For fixed \m {s =0, \dots N_p -1}, we say that \m {\M{\Phi}} satisfies the restricted isometry property (RIP) of sparsity \m {s} with respect to \m {0 \leq \d_s \leq 1}, if, for all \m {\V {x}}, and for all \m {\MC {A} \subset \MC {T} \SB {N_m}} with \m {\# \MC {A} \leq s},
+For fixed \m {s =0, \dots N_p -1}, we say that \m {\M{\Phi}} satisfies the restricted isometry property (RIP) of sparsity \m {s} with respect to \m {0 \leq \d_s \leq 1}, if, for all \m {s}-sparse \m {\V {x}},
 \Disp {
-\NC \NC \RB {1-\d_s} \VNm {\V {x} \DB {\MC {A}}}^2 \NR
-\NC \leq \NC \VNm {\M{\Phi} \V {x} \DB {\MC {A}}} _2^2 \NR
-\NC \leq \NC \RB {1+\d_s} \VNm {\V {x} \DB {\MC {A}}} _2^2 \NR[+]
+\NC \RB {1-\d_s} \VNm {\V {x}}^2
+\leq \NC \VNm {\M{\Phi} \V {x}} _2^2 \NR
+\NC \leq \NC \RB {1+\d_s} \VNm {\V {x}} _2^2 \NR[+]
 }
 }
 That is, \m {\Phi} is ``almost unitary'' up to ``relative error'' \m {\d_s}.

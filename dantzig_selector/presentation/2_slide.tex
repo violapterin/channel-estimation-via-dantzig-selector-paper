@@ -3,18 +3,18 @@
 \I Consider uniform linear array
 \Disp {
 \NC \V {a} \SB {\psi'}
-\in \NC \MB {V}_\MB {C} \SB {N_H} \NR
-\NC \V {a} \SB {\psi'}
-= \NC \F {1}{\R {N_H}} \sum_{n=0}^{N-1} \Ss {e}^{n \psi' \Ss {i}} \V {u}_n \NR
+= \NC \F {1}{\R {N_H}} \sum_{n=0}^{N-1} \Ss {e}^{n \psi' \Ss {i}} \V {u}_n
+\in \MB {V}_\MB {C} \SB {N_H} \NR
 }
 
-\I Consider the virtual representation of the MIMO channel
+\I Consider the virtual representation of the MIMO channel, where \m {L} is the number of paths, \m {\f_l} the angle of arrival, \m {\th_l} the angle of arrival:
 \Disp {
 \NC \M{H}
 =\NC \sum_{l=0} ^{L-1}
 \a_l
-\V {a} \SB { \F {d_{\Rm {arr}}} {\l _{\Rm {arr}} \sin \f_l' }}
-\V {a} \SB { \F {d_{\Rm {arr}}} {\l _{\Rm {arr}} \sin \th_l' }}^\Adj \NR
+\V {a} \SB { \F {d_{\Rm {arr}}} {\l _{\Rm {arr}} \sin \f_l }}
+\V {a} \SB { \F {d_{\Rm {arr}}} {\l _{\Rm {arr}} \sin \th_l }}^\Adj
+\in \MB {M}_\MB {C} \SB {N_H, N_H} \NR
 }
 }
 % % % % % % % % % % % % % % % % % % % % % % % % % %
@@ -49,14 +49,14 @@
 :=\M{W}_B \M{W}_R \RB {\M{H} \M{F}_R \M{F}_B +\M{Z}} \NR
 }
 
-\I Problem: (a) Recovering \m {\M {H}}?
+\I Problem: (a) Recovering \m {\M {H}} with knowledge of \m {\M {H}}?
 
 \I Problem: (b) Designing \m {\M {W}_R}, \m {\M {W}_B}, \m {\M {F}_R}, and \m {\M {F}_B}?
 }
 % % % % % % % % % % % % % % % % % % % % % % % % % %
 \Frame {Working in the Angular Domain}
 {
-\I Set \m {N_h =N_H^2,\; N_y =N_Y^2}
+\I Set \m {N_h :=N_H^2,\; N_y :=N_Y^2}
 
 \I Introduce the DFT matrix \m {\M {K}}
 \Disp {
@@ -95,7 +95,7 @@
 \Disp {
 \NC \Hat {\V {g}}
 \LA \NC \startcases
-\NC \Min {\V {g}' \in \MB {V}_{\MB {C}} \SB {N_h}}  \MC \VNm {\V {g}'} _1 \NR[+]
+\NC \Min {\V {g}' \in \MB {V}_{\MB {C}} \SB {N_h}}  \MC \VNm {\V {g}'} _1 \NR
 \NC \Rm {subject} \; \Rm {to} \Q \MC \VNm {\M {P}^\Adj \RB {\V {y} -\M {P} \V {g}'}} _\infty \leq \g \NR
 \stopcases \NR
 }

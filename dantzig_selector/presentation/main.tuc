@@ -46,46 +46,46 @@ utilitydata.job.passes.collected={
   { 7, 0 },
  },
  ["itemgroup:itemize:10"]={
-  { 1, 0 },
+  { 3, 0 },
  },
  ["itemgroup:itemize:11"]={
-  { 2, 0 },
- },
- ["itemgroup:itemize:12"]={
   { 5, 0 },
  },
- ["itemgroup:itemize:13"]={
+ ["itemgroup:itemize:12"]={
   { 4, 0 },
+ },
+ ["itemgroup:itemize:13"]={
+  { 0, 0 },
  },
  ["itemgroup:itemize:14"]={
   { 0, 0 },
  },
  ["itemgroup:itemize:15"]={
-  { 0, 0 },
+  { 2, 0 },
  },
  ["itemgroup:itemize:16"]={
-  { 2, 0 },
- },
- ["itemgroup:itemize:17"]={
   { 0, 0 },
  },
- ["itemgroup:itemize:18"]={
+ ["itemgroup:itemize:17"]={
   { 3, 0 },
  },
- ["itemgroup:itemize:19"]={
+ ["itemgroup:itemize:18"]={
   { 2, 0 },
+ },
+ ["itemgroup:itemize:19"]={
+  { 3, 0 },
  },
  ["itemgroup:itemize:2"]={
   { 5, 0 },
  },
  ["itemgroup:itemize:20"]={
-  { 2, 0 },
- },
- ["itemgroup:itemize:21"]={
   { 3, 0 },
  },
- ["itemgroup:itemize:22"]={
+ ["itemgroup:itemize:21"]={
   { 2, 0 },
+ },
+ ["itemgroup:itemize:22"]={
+  { 0, 0 },
  },
  ["itemgroup:itemize:23"]={
   { 0, 0 },
@@ -112,30 +112,27 @@ utilitydata.job.passes.collected={
   { 5, 0 },
  },
  ["itemgroup:itemize:30"]={
-  { 0, 0 },
- },
- ["itemgroup:itemize:31"]={
   { 2, 0 },
  },
+ ["itemgroup:itemize:31"]={
+  { 5, 0 },
+ },
  ["itemgroup:itemize:32"]={
-  { 4, 0 },
+  { 0, 0 },
  },
  ["itemgroup:itemize:33"]={
-  { 0, 0 },
- },
- ["itemgroup:itemize:34"]={
   { 3, 0 },
  },
- ["itemgroup:itemize:35"]={
+ ["itemgroup:itemize:34"]={
   { 0, 0 },
+ },
+ ["itemgroup:itemize:35"]={
+  { 4, 0 },
  },
  ["itemgroup:itemize:36"]={
   { 4, 0 },
  },
  ["itemgroup:itemize:37"]={
-  { 4, 0 },
- },
- ["itemgroup:itemize:38"]={
   { 0, 0 },
  },
  ["itemgroup:itemize:4"]={
@@ -199,7 +196,7 @@ utilitydata.structures.counters.collected={
   { 0 },
  },
  ["formula"]={
-  { 3 },
+  { 0 },
  },
  ["graphic"]={
   { 0 },
@@ -208,7 +205,7 @@ utilitydata.structures.counters.collected={
   { 0 },
  },
  ["itemgroup:itemize"]={
-  { 0, 7, 5, 5, 2, 6, 4, 3, 3, 5, 1, 2, 5, 4, 0, 0, 2, 0, 3, 2, 2, 3, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 4, 6, 3, 0, 4, 4, 5 },
+  { 0, 7, 5, 5, 2, 6, 4, 3, 3, 5, 3, 5, 4, 0, 0, 2, 0, 3, 2, 3, 3, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 5, 6, 3, 0, 4, 4, 5 },
  },
  ["linenote"]={
   { 0 },
@@ -217,7 +214,7 @@ utilitydata.structures.counters.collected={
   { 0 },
  },
  ["realpage"]={
-  { 40 },
+  { 39 },
  },
  ["subpage"]={
   { 1 },
@@ -226,7 +223,7 @@ utilitydata.structures.counters.collected={
   { 0 },
  },
  ["userpage"]={
-  { 40 },
+  { 39 },
  },
 }
 
@@ -509,13 +506,6 @@ utilitydata.structures.pages.collected={
  {
   ["block"]="bodypart",
   ["number"]=39,
-  ["numberdata"]=1,
-  ["prefixdata"]=2,
-  ["state"]="start",
- },
- {
-  ["block"]="bodypart",
-  ["number"]=40,
   ["numberdata"]=1,
   ["prefixdata"]=2,
   ["state"]="start",

@@ -1,0 +1,473 @@
+\startsection [title={Confirming Restricted Isometry of Beamformer}]
+\startsubsection [title={Design of Beamformer entries}]
+
+Our plan is setting the four precoder matrices to be i.i.d.\ random matrix, hoping that the resulting \m {P} has RIP.
+Indeed, \m {\d_s \SB {\M{F}_B} \SB {\o_t}} may be found, along similar lines with Achlioptas (2001) and Baraniuk et.\ al.\ (2008).
+We prove a concentration inequality, as explained below, and invoke Chebyshev inequality.
+But before that, we have to investigate the moments of each entry of \m {\M{F}_B \SB {\o_t}} (resp.\ \m {\M{W}_B \SB {\o_t}}) and that of \m {\M{F}_R \SB {\o_t}} (resp.\ \m {\M{W}_R \SB {\o_t}}).
+
+Let us call it a day and set each entry of \m {\M{F}_B} to be i.i.d.\ Gaussian r.v.\ with mean 0, standard deviation \m {1/2}, multiplied by a normalizing constant \m {\l_B >0}.
+They are (with a slight of abuse of meaning of \m {\o_t} and so on)
+\Disp{
+\NC d \o_t
+=\NC \F {1} {\R {\pi} \l} \exp
+  \RB {-\F{1}{\l^2} \MF{Re} \SB {\M{F}_B \DB {n_R, n_Y}} ^2}
+d \MF{Re} \SB {\M{F}_B \DB {n_R, n_Y}} \NR[+]
+\NC d \o_t
+=\NC \F {1} {\R {\pi} \l} \exp
+  \RB {-\F{1}{\l^2} \MF{Im} \SB {\M{F}_B \DB {n_R, n_Y}} ^2}
+d \MF{Im} \SB {\M{F}_B \DB {n_R, n_Y}} \NR[+]
+\NC n_R
+= \NC 0, 1, 2, \ldots, N_R -1 \NR
+\NC n_Y
+= \NC 0, 1, 2, \ldots, N_Y -1 \NR
+}
+
+We know that the magnitude \m {\M{F}_B \DB {n_R, n_Y}} follows Rayleigh distribution, having
+\Disp{
+\NC \NC \MB{E} \SB {\Nm {\M{F}_B \DB {n_R, n_Y} \SB {\o_t}}} \NR
+\NC =\NC \F{\R{\pi}}{2} \l_B \NR[+]
+\NC M_{B,2}
+:=\NC \MB{E} \SB {\Nm {\M{F}_B \DB {n_R, n_Y} \SB {\o_t}}^2} \NR
+\NC =\NC \l_R^2 \NR[+]
+\NC M_{B,4}
+:=\NC \MB{E} \SB {\Nm {\M{F}_B \DB {n_R, n_Y} \SB {\o_t}}^4} \NR
+\NC =\NC 2 \l_R^4 \NR[+]
+}
+Also notice that
+\Disp{
+\NC \NC \MB{E} \SB {\M{F}_B \DB {n_R, n_Y}^2} \NR
+\NC = \NC \MB{E} \SB {\MF {Re} \SB {\M{F}_B \DB {n_R, n_Y}}^2}
+   -\MB{E} \SB {\MF {Im} \SB {\M{F}_B \DB {n_R, n_Y}}^2} \NR
+\NC \NC \FourQ +2 \Ss {i} \MB{E} \SB {\MF {Re} \SB {\M{F}_B \DB {n_R, n_Y}}}
+      \MB{E} \SB {\MF {Im} \SB {\M{F}_B \DB {n_R, n_Y}}} \NR
+\NC = \NC 0 \NR[+]
+}
+
+Let \m {\M{F}_R \DB {n_H, n_R}} be uniformly distributed on the unit circle on the complex plane, which gives probability density
+\Disp{
+\NC d \o_t
+= \NC \F {1} {\pi} \RB {1 -\RB {\MF{Re} \SB {\M{F}_R \DB {n_H, n_R}}} ^2}^{-1/2}
+d \MF{Re} \SB {\M{F}_R \DB {n_H, n_R}} \NR[+]
+\NC d \o_t
+= \NC \F {1} {\pi} \RB {1 -\RB {\MF{Im} \SB {\M{F}_R \DB {n_H, n_R}}} ^2}^{-1/2}
+d \MF{Im} \SB {\M{F}_R \DB {n_H, n_R}} \NR[+]
+}
+As a result,
+\Disp{
+\NC \NC \MB{E} \SB {\Nm {\M{F}_R \DB {n_H, n_R} \SB {\o_t}}} \NR
+\NC =\NC \l_R \NR[+]
+\NC M_{R,2}
+:=\NC \MB{E} \SB {\Nm {\M{F}_R \DB {n_H, n_R} \SB {\o_t}}^2} \NR
+\NC =\NC \l_R^2 \NR[+]
+\NC M_{R,4}
+:=\NC \MB{E} \SB {\Nm {\M{F}_R \DB {n_H, n_R} \SB {\o_t}}^4} \NR
+\NC =\NC \l_R^4 \NR[+]
+}
+And again
+\Disp{
+\NC \MB{E} \SB {\M{F}_R \DB {n_H, n_R}^2}
+= \NC 0 \NR[+]
+}
+
+\stopsubsection
+
+\startsubsection [title={Expectation of Products of Matrix Entry}]
+
+\Result
+{Definition}
+{
+Let \m {P} be fixed.
+For \m {\MC {T}, \MC {T}' \subset \MC {T} \RB {N_p}}, define the \m {s, s'}-restricted orthogonality constant \m {\tau_{s,s'} \SB {P} >0} to be the smallest number such that
+\Disp {
+\NC \Nm {\IP {P _{\MC {T}} h, P _{\MC {T}'} h'}}
+\leq \NC \tau_{s, s'} \SB {P} \cdot \VNm {h} _2 \VNm {h'} _2 \NR
+}
+}
+
+From \quotation {Decoding from Linear Programming} (Cand\`es and Tao 2005), Lemma 1.1:
+
+\Result
+{Lemma}
+{
+Let \m {\M{P}} be fixed.
+Then \m {\tau_{s, s'} \SB {\M{P}}} is bounded in both direction as follows,
+\Disp {
+\NC \d_{s+s'} \SB {\M{P}} -\max \SB {\CB {\d_s \SB {\M{P}}, \d_{s'} \SB {\M{P}}}}
+\leq \NC \tau_{s, s'} \SB {\M{P}} \NR
+\NC \leq \NC \d_{s+s'} \SB {\M{P}} \NR[+]
+}
+}
+
+Thus \m {\d_s \SB {\M{P}}}, which defines how much the deformation of norm is, also tells us how much the inner product is deformed.
+We may well keep track of \m {\d_s \SB {\M{P}}} only.
+When \m {\M{P}} is clear, we may suppress it.
+
+Similar is true of \m {\d_s \SB {\M{F}_B} \SB {\o_t}}.
+But each entry of \m {P} is a linear combination of products, and such reasoning does not work.
+If only \m {P} were also an i.i.d.\ random matrix, the resulting proof would be easier.
+Is the approach all but lost?
+
+
+Observe
+\Disp {
+\NC \M{P} ^\Adj \M{P}
+=\NC
+\RB {
+   \RB {\M{K} ^\Tr \M {F}_R^\ast \M {F}_B^\ast}
+   \otimes \RB {\M {K} \M {W}_R \M {W}_B}
+}
+\RB {
+   \RB {\M {F}_B^\Tr \M {F}_R^\Tr \M{K}^\ast}
+   \otimes \RB {\M {W}_B \M {W}_R \M {K}}
+} \NR
+\NC =\NC
+\RB {\M {F}_B^\Tr \M {F}_R^\Tr \M{K}^\ast \M{K}^\Tr \M {F}_R^\ast \M {F}_B^\ast}
+\otimes \RB {\M {W}_B \M {W}_R \M{K} \M{K}^\Adj \M {W}_R^\Adj \M {W}_B^\Adj} \NR
+\NC =\NC
+\RB {\M {F}_B^\Tr \M {F}_R^\Tr \M {F}_R^\ast \M {F}_B^\ast}
+\otimes \RB {\M {W}_B \M {W}_R \M {W}_R^\Adj \M {W}_B^\Adj} \NR
+\NC =\NC \M{Q} ^\Adj \M{Q} \NR
+}
+where as we defined before \m {\M{Q} :=\RB {\M {F}_R^\Tr \M {F}_B^\Tr} \otimes \RB {\M {W}_B \M {W}_R}}.
+
+This implies
+\Disp {
+\NC \V{u} ^\Adj \M{P} ^\Adj \M{P} \V{u}
+= \NC \V{u} ^\Adj \M{Q} ^\Adj \M{Q} \V{u} \NR[+]
+}
+or
+\Result
+{Lemma}
+{
+For any instance of \m {\M{P} \SB {\o_t, \o_r}} and \m {\M{Q} \SB {\o_t, \o_r}},
+\Disp{
+\NC \VNm {\M{P} \V{u}} _2
+= \NC \VNm {\M{Q} \V{u}} _2 \NR[+]
+}
+}
+
+And it will turn out that any two distinct entries of \m {\M{Q}} are not correlated.
+
+\Result
+{Definition}
+{
+To make expressions more compact, introduce the indication function \m {\i_{a_0, \ldots, a_{M-1}}:\; \MB {N}^{\MB {N}} \mapsto \CB {0, 1}}, so that, for some injective \m {\s:\; \CB {0, \ldots, N-1} \mapsto \CB {0, \ldots, M-1}},
+\Disp {
+\NC \i_{a_0, \ldots, a_{M-1}} \SB {x_0, \ldots, x_{N-1}}
+=\NC \startcases
+\NC 1, \MC \Q \exists \s:\; x_0 \cdots x_{N-1}
+=x_{\s \SB {0}} ^{a_0} \cdots x_{\s \SB {M-1}} ^{a_{M-1}} \NR
+\NC 0, \NC \Q \Rm {otherwise} \NR
+\stopcases \NR
+}
+}
+
+For example, \m {\i_{2} \SB {7,7} =1}, and \m {\i_{2,1,1} \SB {0,3,5,3} =1}, but \m {\i_{2} \SB {5, 6} =0}.
+
+Also denote for short
+\Disp {
+\NC F :=\NC \M {F}_B \M {F}_R \NR
+\NC W :=\NC \M {W}_R \M {W}_B \NR
+}
+\Result
+{Lemma}
+{
+\Disp {
+\NC \NC \MB{E} \SB {\M{F} \DB {n_H, n_Y} \M{F} \DB {n_H', n_Y'}} \NR
+\NC = \NC \MB{E} \SB {\M{W}^\Adj \DB {n_Y, n_H} \M{W}^\Adj \DB {n_Y', n_H'}} \NR
+\NC = \NC \i_2 \SB {n_H, n_H'} \D \i_2 \SB {n_Y, n_Y'} \D N_R \l_R^2 \l_B^2 \NR[+]
+}
+}
+
+To see this, expanding the definition
+\Disp {
+\NC \NC \M{F} \DB {n_H, n_Y} \M{F} \DB {n_H', n_Y'} \NR
+\NC =\NC
+\RB {\sum_{n_R=0}^{N_R-1} \M{F}_R \DB {n_H, n_R} \M{F}_B \DB {n_R, n_Y}}
+\RB {\sum_{n_R=0}^{N_R-1} \M{F}_R \DB {n_H', n_R} \M{F}_B \DB {n_R, n_Y'}} \NR[+]
+}
+Examine the \m {\i_{1,1} \SB {n_H, n_H'}} factor and \m {\i_{1,1} \SB {n_Y, n_Y'}} factors.
+After taking expectation, the expectation sign is distributed, and every term vanishes.
+Other terms that remains are \m {\i_{2} \SB {n_H, n_H'}} and \m {\i_{2} \SB {n_Y, n_Y'}}, namely
+\Disp {
+\NC \NC \sum_{n_R=0}^{N_R-1}
+\MB{E} \SB {\M{F}_R \DB {n_H, n_R}^2}
+\MB{E} \SB {\M{F}_B \DB {n_R, n_Y}^2} \NR
+\NC = \NC N_R \D M_{R,2} M_{B,2} \NR
+}
+
+By the same token,
+\Result
+{Lemma}
+{
+\Disp {
+\NC \NC \MB{E}
+\SB {
+\M{F} \DB {n_H, n_Y}
+\M{F} \DB {n_H', n_Y'}
+\M{F} \DB {n_H'', n_Y''}
+\M{F} \DB {n_H''', n_Y'''}
+} \NR
+\NC =\NC \MB{E}
+\SB {
+\M{W} ^\Adj \DB {n_Y, n_H}
+\M{W} ^\Adj \DB {n_Y', n_H'}
+\M{W} ^\Adj \DB {n_Y'', n_H''}
+\M{W} ^\Adj \DB {n_Y''', n_H'''}
+} \NR
+\NC = \NC
+\i_4 \SB {n_H, n_H', n_H'', n_H'''}
+\D \i_4 \SB {n_Y, n_Y', n_Y'', n_Y'''}
+\D 2 N_R^2 \l_R^4 \l_B^4 \NR
+\NC \NC \FourQ +\i_{2,2} \SB {n_H, n_H', n_H'', n_H'''}
+\D \i_{2,2} \SB {n_Y, n_Y', n_Y'', n_Y'''}
+\D N_R^2 \l_R^4 \l_B^4 \NR[+]
+}
+}
+
+A moment's reflection shows
+\Result
+{Lemma}
+{
+\Disp {
+\NC \NC \MB{E} \SB {\M{P} \DB {n_h, n_y} \M{P} \DB {n_h', n_y'}} \NR
+\NC = \NC \i_2 \SB {n_H, n_H'} \D \i_2 \SB {n_Y, n_Y'} \D N_R \l_R^2 \l_B^2 \NR[+]
+}
+}
+
+More trickily, but by the same idea,
+\Result
+{Lemma}
+{
+\Disp {
+\NC \NC \M{F} \DB {n_h, n_y}
+\M{F} \DB {n_h', n_y'}
+\M{F} \DB {n_h'', n_y''}
+\M{F} \DB {n_h''', n_y'''} \NR
+\NC = \NC
+\i_4 \SB {n_H, n_H', n_H'', n_H'''}
+\D \i_4 \SB {n_Y, n_Y', n_Y'', n_Y'''}
+\D 4 N_R^4 \l_R^8 \l_B^8 \NR
+\NC \NC \FourQ +\i_{2,2} \SB {n_H, n_H', n_H'', n_H'''}
+\D \i_{2,2} \SB {n_Y, n_Y', n_Y'', n_Y'''}
+\D N_R^4 \l_R^8 \l_B^8 \NR[+]
+}
+}
+
+Now, fix any test vector \m {\V{u} \in \MB{V}_\MB{C} \SB{N_Y}}, we shall study the probability concentration of \m {\VNm {\M{F}_B \V{u}}_2^2} and \m {\VNm {\M{F}_B \V{u}}_2^4}.
+The two moments are present in Chebyshev bound.
+\Disp{
+\NC \NC \MB{E} \SB {\VNm {\M{Q} \SB {\o_t, \o_r} \V{u}} _2 ^2} \NR
+\NC = \NC \MB{E} \SB {
+  \sum_{n_y=0}^{N_y-1}
+  \Nm {\sum_{n_h=0}^{N_h-1} \M{Q} \DB {n_y, n_h} ^\ast \V{u} \DB{n_h}} ^2
+} \NR
+\NC = \NC \sum_{n_y=0}^{N_y-1}
+  \MB{E} \SB {\Nm {\sum_{n_h=0}^{N_h-1} \M{Q} \DB {n_y, n_h} ^\ast \V{u} \DB{n_h}} ^2}
+\NR
+\NC = \NC
+\sum_{n_y=0}^{N_y-1}
+  \MB{E} \SB {
+     2 \sum_{\Stack { n_h, n_h'=0 \NR n_h <n_h' }}^{N_h-1}
+       \MF {Re} \SB{
+         \M{Q} \DB {n_y, n_h} ^\ast \M{Q} \DB {n_y, n_h'}
+         \V{u} \DB{n_h} \V{u} \DB{n_h'} ^\ast
+       }
+   } \NR
+\NC \NC \FourQ +\sum_{n_y=0}^{N_y-1}
+  \MB{E}
+     \SB {\sum_{n_h=0}^{N_h-1} \Nm {\M{Q} \DB {n_y, n_h}}^2 \Nm {\V{u} \DB{n_h}}^2}
+\NR
+\NC = \NC
+2 \sum_{n_y=0}^{N_y-1}
+\sum_{\Stack { n_h, n_h'=0 \NR n_h <n_h' }}^{N_h-1}
+\MF {Re} \SB{
+   \MB{E} \SB {\M{Q} \DB {n_y, n_h}^\ast}
+   \MB{E} \SB {\M{Q} \DB {n_y, n_h'}}
+}
+\V{u} \DB{n_h} \V{u} \DB{n_h'} ^\ast
+\NR
+\NC \NC \FourQ +\sum_{n_y=0}^{N_y-1}
+   \sum_{n_h=0}^{N_h-1} \MB{E} \SB {\Nm {\M{Q} \DB {n_y, n_h}}^2} \Nm {\V{u} \DB{n_h}}^2
+\NR
+\NC = \NC N_y \D N_R^2 \l_B^4 \l_R^4  \D \VNm {\V{u}} _2 ^2 \NR[+]
+}
+Thus, we may set
+\Disp{
+\NC \l_B
+=\NC \l_R \NR
+\NC =\NC \F {1} {\R {N_Y N_R}} \NR[+]
+}
+To make
+\Disp{
+\NC \MB{E} \SB {\VNm {\M{Q} \SB {\o_t, \o_r} \V{u}} _2 ^2}
+=\NC \VNm {\V{u}} _2 ^2
+}
+
+Similarly, we have to find, in advance, the second moment.
+\Disp{
+\NC \MB{E} \SB {\VNm {\M{Q} \SB {\o_t, \o_r} \V{u}} _2 ^4}
+=\NC \MB{E} \SB {
+  \RB {
+    \sum_{n_R=0}^{N_R-1}
+    \Nm {\sum_{n_Y=0}^{N_Y-1} \M{Q} \DB {n_R, n_Y} ^\ast \V{u} \DB{n_Y}} ^2
+  } ^2
+} \NR
+\NC = \NC E_1 +E_2 +E_3 +E_4 +E_5 \NR[+]
+}
+These terms are discussed as immediately follows.
+Without spelling out everything, we notice that as long as a term has a single \m {\M{Q} \DB {n_R, n_Y}} factor, it's expectation is zero.
+The terms that does not vanish is a product of three numbers: How many terms, the moment involving \m {\M{Q} \DB {n_y, n_h}}, the norm of \m {\V{u}}.
+We will repeatedly bound \m {N_R \D (N_R-1) /2} by \m {N_R^2 /2}, and bound \m {\Nm {\V{u}} _2} by \m {\Nm {\V{u}} _2}, and so on.
+\Disp {
+\NC E_1
+=\NC \sum_{n_y=0}^{N_y-1} \sum_{n_h=0}^{N_h-1}
+\Nm {\M{Q} \DB {n_y, n_h}} ^4
+\Nm {\V{u} \DB{n_h}} ^4 \NR
+\NC =\NC N_Y^2 \D 4 N_Y ^{-4} \D \VNm {\V{u}} _4 ^4 \NR
+\NC \leq \NC 4 N_Y ^{-2} \VNm {\V{u}} _2 ^4 \NR[+]
+}
+Now we have to bound \m {\i_{1,1} \SB {\Fl {n_y/N_Y}, \Fl {n_y'/N_Y}} M_{B,2}^2} and \m {\i_{2} \SB {\Fl {n_y/N_Y}, \Fl {n_y'/N_Y}} M_{B,4}} by \m {M_{B,4}} to simplifying matters, and similar for \m {E_3} and \m {E_4}.
+\Disp {
+\NC E_2
+= \NC \sum _{\Stack { n_y, n_y' =0 \NR n_y <n_y' }}^{N_y-1}
+\sum _{n_h =0}^{N_h-1}
+\Nm {\M{Q} \DB {n_y, n_h}} ^2
+\Nm {\M{Q} \DB {n_y', n_h}} ^2
+\Nm {\V{u} \DB{n_h}} ^4 \NR
+\NC = \NC N_Y \D \F{1}{2} N_Y \RB{N_Y-1} \D N_Y ^{-4} \VNm {\V{u}} _2 ^4 \NR
+\NC \NC \FourQ + \F{1}{2} N_Y \RB{N_Y-1} \D N_Y^2 \D 4 N_R ^2 N_Y ^{-4} N_R ^{-4} \VNm {\V{u}} _2 ^4 \NR
+\NC \leq \NC 4 \VNm {\V{u}} _2 ^4 \NR[+]
+}
+\Disp {
+\NC E_3
+=\NC \sum _{n_y, n_y' =0}^{N_y-1}
+\sum _{\Stack { n_h, n_h' =0 \NR n_h <n_h' }}^{N_h-1}
+\Nm {\M{Q} \DB {n_y, n_h}} ^2
+\Nm {\M{Q} \DB {n_y', n_h'}} ^2
+\Nm {\V{u} \DB{n_h}} ^2
+\Nm {\V{u} \DB{n_h'}} ^2 \NR
+\NC \leq \NC N_Y^2 \D \F{1}{2} N_H \RB{N_H-1} \D N_Y ^{-4} \D \RB {\VNm {\V{u}} _2 ^4 -\VNm {\V{u}} _4 ^4} \NR
+\NC \leq \NC 4 N_Y ^{-1} \VNm {\V{u}} _2 ^4 \NR[+]
+}
+\Disp {
+\NC E_4
+=\NC \sum _{n_y =0}^{N_y-1}
+\sum _{\Stack { n_h, n_h' =0 \NR n_h <n_h' }}^{N_h-1}
+\Nm {\M{Q} \DB {n_y, n_h}} ^2
+\Nm {\M{Q} \DB {n_y, n_h'}} ^2
+\Nm {\V{u} \DB{n_h}} ^2
+\Nm {\V{u} \DB{n_h'}} ^2 \NR
+\NC \leq \NC N_Y \D \F{1}{2} N_H \RB{N_H-1} \D N_Y ^{-4} \D \RB {\VNm {\V{u}} _2 ^4 -\VNm {\V{u}} _4 ^4} \NR
+\NC \leq \NC 4 N_H ^2 N_Y ^{-3} \VNm {\V{u}} _2 ^4 \NR[+]
+}
+
+The last one is more complicated.
+Use the shorthand
+\Disp {
+\NC \sum _{n_h, n_h', m_h, m_h'} ^\star
+:= \NC \sum _{
+   \Stack {
+     0 =n_h <n_h' \NR
+     0 =m_h <m_h' \NR
+     n_h +m_h' =n_h' +m_h \NR
+     \Fl {n_h/N_H} =\Fl {n_h'/N_H} \NR
+     \Fl {m_h/N_H} =\Fl {m_h'/N_H}
+   }
+} ^{N_H-1}
+\sum _{
+  \Stack {
+     0 =n_y <n_y' \NR
+     \Fl {n_y/N_Y} =\Fl {n_y'/N_Y}
+  }
+} ^{N_y-1} \NR
+\NC \V {u} ^{(1,1,1,1)} \SB {n_h, n_h', m_h, m_h'}
+:=\NC \i_{1,1,1,1} \SB {n_h, n_h', m_h, m_h'}
+\V{u} \DB{n_h} \V{u} \DB{n_h'} \V{u} \DB{m_h} \V{u} \DB{m_h'} \NR
+}
+Then observe
+\Disp {
+\NC \NC \sum _{n_h, n_h', m_h, m_h'} ^\star
+\V {u} ^{(1,1,1,1)} \SB {n_h, n_h', m_h, m_h'} \NR
+\NC \leq \NC N_h^{-2}
+\sum_{n_h, n_h' =0} ^{N_h-1}
+\sum_{m_h, m_h' =0} ^{N_h-1}
+\V {u} ^{(1,1,1,1)} \SB {n_h, n_h', m_h, m_h'} \NR
+}
+This is because one of \m {n_h, n_h'} and one of \m {m_h, m_h'} may both choose to lie in other \m {\RB {N_H-1} \RB {N_H-2}} blocks (of length \m {N_H}).
+Then we need a corollary that follows from \quotation {Muirhead inequality}.
+\Result
+{Lemma}
+{
+If every component of \m {\V{u} \in \MB {M}_{\MB {C}} \SB {N_h}} is considered as a free variable taking complex values, then
+\Disp {
+\NC \NC \sum_{n_h, n_h' =0} ^{N_h-1}
+\sum_{m_h, m_h' =0} ^{N_h-1}
+\Nm {\V {u} ^{(1,1,1,1)} \SB {n_h, n_h', m_h, m_h'}} \NR
+\NC \leq \NC \F{1}{6} \RB {\VNm {\V{u}} _2 ^4 -\VNm {\V{u}} _4 ^4} \NR[+]
+}
+}
+
+Now,
+\Disp {
+\NC E_5
+= \NC \sum _{n_h, n_h', m_h, m_h'} ^\star
+  \M{Q} \DB {n_y, n_h}
+  \M{Q} \DB {n_y, n_h'}
+  \M{Q} \DB {n_y', m_h}
+  \M{Q} \DB {n_y', m_h'} \NR
+  \NC \NC \SixQ
+  \V{u} \DB{n_h}
+  \V{u} \DB{n_h'}
+  \V{u} \DB{m_h}
+  \V{u} \DB{m_h'} \NR
+\NC =\NC N_Y \D \F{1}{2} N_H \RB{N_H-1} \D \F{1}{2} N_Y \RB{N_Y-1} \D N_H^2 \D N_Y ^{-4} \NR
+\NC \NC \FourQ
+\D N_H^{-2} \sum_{n_h, n_h' =0} ^{N_h-1} \sum_{m_h, m_h' =0} ^{N_h-1}
+\V {u} ^{(1,1,1,1)} \SB {n_h, n_h', m_h, m_h'} \NR
+\NC \leq \NC \F{1}{6} N_Y ^{-1} \VNm {\V{u}} _2 ^4. \NR[+]
+}
+
+In conclusion, \m {E_4} dominates.
+\Disp{
+\NC \Ss{Var} \SB {\VNm {\M{P} \SB {\o_t, \o_r} \V{u}} _2 ^2}
+\leq \NC \RB {4 N_H^2 N_Y^{-3} -1} \VNm {\V{u}} _2 ^4 \NR[+]
+}
+
+\stopsubsection
+
+\startsubsection [title={Using Chebyshev Bound}]
+
+Thus, by Chebyshev bound,
+\Result
+{Theorem}
+{
+Let \m {\M{P} \in \MB {M}_{\MB {C}} \SB {N_R, N_Y}} be generated randomly according to ().
+Then, for any fixed \m {\V{u} \in \MB {V}_{\MB {C}} \SB {N_Y}}, and for any \m {\e >0},
+\Disp{
+\NC \MB{P}
+\SB {
+  \Nm {\VNm {\M{P} \V{u}} _2 ^2 -\VNm {\V{u}} _2 ^2}
+  \geq \e \VNm {\V{u}} _2 ^2
+}
+\leq \NC \F {1} {\e^2} \RB {4 N_H^2 N_Y^{-3} -1} \NR[+]
+}
+}
+
+According to Lemma 5.1 in Baraniuk et.\ al.\ (2008), substitution of relevent quantities yields
+\Result
+{Lemma}
+{
+Suppose the probability, according to event space \m {\o_t, \o_r}, that RIP holds for \m {\M{P}} w.r.t.\ \m {\d_s} is \m {p}, then
+\Disp{
+\NC 1 -p
+\leq \NC 4 \D 12^s \D \d_s^{-\RB {s+2}} N_H^2 N_Y^{-3} \NR[+]
+}
+}
+
+\stopsubsection
+\stopsection
+
+
+
