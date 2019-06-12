@@ -6,7 +6,7 @@ Indeed, \m {\d_s \SB {\M{F}_B} \SB {\o_t}} may be found, along similar lines wit
 We prove a concentration inequality, as explained below, and invoke Chebyshev inequality.
 But before that, we have to investigate the moments of each entry of \m {\M{F}_B \SB {\o_t}} (resp.\ \m {\M{W}_B \SB {\o_t}}) and that of \m {\M{F}_R \SB {\o_t}} (resp.\ \m {\M{W}_R \SB {\o_t}}).
 
-Let us call it a day and set each entry of \m {\M{F}_B} to be i.i.d.\ Gaussian r.v.\ with mean 0, standard deviation \m {1/2}, multiplied by a normalizing constant \m {\l_B >0}.
+Let us make it simple and set each entry of \m {\M{F}_B} to be i.i.d.\ Gaussian r.v.\ with mean 0, standard deviation \m {1/2}, multiplied by a normalizing constant \m {\l_B >0}.
 They are (with a slight of abuse of meaning of \m {\o_t} and so on)
 \Disp{
 \NC d \o_t
@@ -29,10 +29,10 @@ We know that the magnitude \m {\M{F}_B \DB {n_R, n_Y}} follows Rayleigh distribu
 \NC =\NC \F{\R{\pi}}{2} \l_B \NR[+]
 \NC M_{B,2}
 :=\NC \MB{E} \SB {\Nm {\M{F}_B \DB {n_R, n_Y} \SB {\o_t}}^2} \NR
-\NC =\NC \l_R^2 \NR[+]
+\NC =\NC \l_B^2 \NR[+]
 \NC M_{B,4}
 :=\NC \MB{E} \SB {\Nm {\M{F}_B \DB {n_R, n_Y} \SB {\o_t}}^4} \NR
-\NC =\NC 2 \l_R^4 \NR[+]
+\NC =\NC 2 \l_B^4 \NR[+]
 }
 Also notice that
 \Disp{
@@ -110,8 +110,7 @@ Is the approach all but lost?
 Observe
 \Disp {
 \NC \M{P} ^\Adj \M{P}
-=\NC
-\RB {
+=\NC \RB {
    \RB {\M{K} ^\Tr \M {F}_R^\ast \M {F}_B^\ast}
    \otimes \RB {\M {K} \M {W}_R \M {W}_B}
 }
@@ -125,9 +124,17 @@ Observe
 \NC =\NC
 \RB {\M {F}_B^\Tr \M {F}_R^\Tr \M {F}_R^\ast \M {F}_B^\ast}
 \otimes \RB {\M {W}_B \M {W}_R \M {W}_R^\Adj \M {W}_B^\Adj} \NR
+\NC =\NC \RB {
+   \RB {\M {F}_R^\ast \M {F}_B^\ast}
+   \otimes \RB {\M {W}_R \M {W}_B}
+}
+\RB {
+   \RB {\M {F}_B^\Tr \M {F}_R^\Tr}
+   \otimes \RB {\M {W}_B \M {W}_R}
+} \NR
 \NC =\NC \M{Q} ^\Adj \M{Q} \NR
 }
-where as we defined before \m {\M{Q} :=\RB {\M {F}_R^\Tr \M {F}_B^\Tr} \otimes \RB {\M {W}_B \M {W}_R}}.
+where as we defined before \m {\M{Q} :=\RB {\M {F}_B^\Tr \M {F}_R^\Tr} \otimes \RB {\M {W}_B \M {W}_R}}.
 
 This implies
 \Disp {
@@ -180,19 +187,23 @@ Clearly, by construction,
 %
 \NC \NC \MB{E} \SB {\M{F}_B ^\ast \DB {n_R, n_Y}  \M{F}_B ^\ast \DB {n_R', n_Y'}  \M{F}_B \DB {n_R'', n_Y''} \M{F}_B \DB {n_R''', n_Y'''}} \NR
 \NC = \NC \MB{E} \SB {\M{W}_B ^\Tr \DB {n_R, n_Y}  \M{W}_B ^\Tr \DB {n_R', n_Y'}  \M{W}_B ^\Adj \DB {n_R'', n_Y''} \M{W}_B ^\Adj \DB {n_R''', n_Y'''}}, \NR
-\NC = \NC \i_4 \SB {n_R, n_R', n_R'', n_R''} \D \i_4 \SB {n_Y, n_Y', n_Y'', n_Y'''} \D M_{B,4} \NR
-\NC \NC \FourQ + \i_2 \SB {n_R, n_R''} \i_2 \SB {n_R', n_R'''}
+\NC = \NC \i_4 \SB {n_R, n_R', n_R'', n_R'''} \D \i_4 \SB {n_Y, n_Y', n_Y'', n_Y'''} \D M_{B,4} \NR
+\NC \NC \FourQ
++ \i_2 \SB {n_R, n_R''} \i_2 \SB {n_R', n_R'''}
 \i_2 \SB {n_Y, n_Y''} \i_2 \SB {n_Y', n_Y'''} \D M_{B,2}^2 \NR
-\NC \NC \FourQ + \i_2 \SB {n_R, n_R'''} \i_2 \SB {n_R', n_R''}
-\i_2 \SB {n_Y, n_Y'''} \i_2 \SB {n_Y, n_Y''} \D M_{B,2}^2 \NR
+\NC \NC \FourQ
++ \i_2 \SB {n_R, n_R'''} \i_2 \SB {n_R', n_R''}
+\i_2 \SB {n_Y, n_Y'''} \i_2 \SB {n_Y, n_Y''} \D M_{B,2}^2 \NR[+]
 %
 \NC \NC \MB{E} \SB {\M{F}_R ^\ast \DB {n_H, n_R}  \M{F}_R ^\ast \DB {n_H', n_R'}  \M{F}_R \DB {n_H'', n_R''} \M{F}_R \DB {n_H''', n_R'''}} \NR
 \NC = \NC \MB{E} \SB {\M{W}_R ^\Tr \DB {n_H, n_R}  \M{W}_R ^\Tr \DB {n_H', n_R'}  \M{W}_R ^\Adj \DB {n_H'', n_R''} \M{W}_R ^\Adj \DB {n_H''', n_R'''}}, \NR
-\NC = \NC \i_4 \SB {n_H, n_H', n_H'', n_H''} \D \i_4 \SB {n_R, n_R', n_R'', n_R'''} \D M_{R,4} \NR
-\NC \NC \FourQ + \i_2 \SB {n_H, n_H''} \i_2 \SB {n_H', n_H'''}
+\NC = \NC \i_4 \SB {n_H, n_H', n_H'', n_H'''} \D \i_4 \SB {n_R, n_R', n_R'', n_R'''} \D M_{R,4} \NR
+\NC \NC \FourQ
++ \i_2 \SB {n_H, n_H''} \i_2 \SB {n_H', n_H'''}
 \i_2 \SB {n_R, n_R''} \i_2 \SB {n_R', n_R'''} \D M_{R,2}^2 \NR
-\NC \NC \FourQ + \i_2 \SB {n_H, n_H'''} \i_2 \SB {n_H', n_H''}
-\i_2 \SB {n_R, n_R'''} \i_2 \SB {n_R, n_R''} \D M_{R,2}^2 \NR
+\NC \NC \FourQ
++ \i_2 \SB {n_H, n_H'''} \i_2 \SB {n_H', n_H''}
+\i_2 \SB {n_R, n_R'''} \i_2 \SB {n_R, n_R''} \D M_{R,2}^2 \NR[+]
 %
 \NC n_Y, n_Y'
 = \NC 0, 1, 2, \ldots, N_Y -1 \NR
@@ -205,8 +216,8 @@ It will be similarly understood below that \m {n_Y, n_R, n_H} (and primed variab
 
 Now, denote for short
 \Disp {
-\NC \M{F} :=\NC \M {F}_B \M {F}_R \NR[+]
-\NC \M{W} :=\NC \M {W}_R \M {W}_B \NR[+]
+\NC \M{F} :=\NC \M {F}_R \M {F}_B \NR[+]
+\NC \M{W} :=\NC \M {W}_B \M {W}_R \NR[+]
 }
 Then, according to definition
 \Disp {
@@ -219,14 +230,10 @@ Then, according to definition
 \M{F}_B \DB {n_R', n_Y'} \NR[+]
 }
 By above,
-\Result
-{Lemma}
-{
 \Disp {
 \NC \NC \MB{E} \SB {\M{F} ^\ast \DB {n_H, n_Y}  \M{F} \DB {n_H', n_Y'}} \NR
 \NC = \NC \MB{E} \SB {\M{W}^\Tr \DB {n_Y, n_H}  \M{W}^\Adj \DB {n_Y', n_H'}} \NR
 \NC = \NC \i_2 \SB {n_H, n_H'} \D \i_2 \SB {n_Y, n_Y'} \D N_R M_{B,2} M_{R,2} \NR[+]
-}
 }
 
 By the same token,
@@ -246,65 +253,61 @@ By the same token,
 \M{F}_B \DB {n_R''', n_Y'''} \NR[+]
 }
 And it can be seen that
-\Result
-{Lemma}
-{
 \Disp {
-\NC \NC \MB{E}
-\SB {
-\M{F} ^\ast \DB {n_H, n_Y} 
-\M{F} ^\ast \DB {n_H', n_Y'} 
-\M{F} \DB {n_H'', n_Y''}
-\M{F} \DB {n_H''', n_Y'''}
+\NC \NC \MB{E} \SB {
+   \M{F} ^\ast \DB {n_H, n_Y} \M{F} ^\ast \DB {n_H', n_Y'} 
+   \M{F} \DB {n_H'', n_Y''} \M{F} \DB {n_H''', n_Y'''}
 } \NR
-\NC =\NC \MB{E}
-\SB {
-\M{W} ^\Tr \DB {n_Y, n_H} 
-\M{W} ^\Tr \DB {n_Y', n_H'} 
-\M{W} ^\Adj \DB {n_Y'', n_H''}
-\M{W} ^\Adj \DB {n_Y''', n_H'''}
+\NC =\NC \MB{E} \SB {
+   \M{W} ^\Tr \DB {n_H, n_Y} \M{W} ^\Tr \DB {n_H', n_Y'} 
+   \M{W} ^\Adj \DB {n_H'', n_Y''} \M{W} ^\Adj \DB {n_H''', n_Y'''}
 } \NR
-\NC = \NC
-\i_4 \SB {n_H, n_H', n_H'', n_H'''}
-\D \i_4 \SB {n_Y, n_Y', n_Y'', n_Y'''}
-\D 2 N_R^2 \l_R^4 \l_B^4 \NR
-\NC \NC \FourQ +\i_2 \SB {n_H, n_H''} \i_2 \SB {n_H', n_H'''}
+\NC = \NC \i_4 \SB {n_H, n_H', n_H'', n_H'''} \D \i_4 \SB {n_Y, n_Y', n_Y'', n_Y'''} \D N_R M_{R,4} M_{B,4} \NR
+\NC \NC \FourQ
++ \i_2 \SB {n_H, n_H''} \i_2 \SB {n_H', n_H'''}
 \i_2 \SB {n_Y, n_Y''} \i_2 \SB {n_Y', n_Y'''}
-\D N_R^2 \l_R^4 \l_B^4 \NR[+]
-}
+\D N_R^2 M_{R,2}^2 M_{B,2}^2 \NR
+\NC \NC \FourQ
++ \i_2 \SB {n_H, n_H'''} \i_2 \SB {n_H', n_H''}
+\i_2 \SB {n_Y, n_Y'''} \i_2 \SB {n_Y, n_Y''}
+\D N_R^2 M_{R,2}^2 M_{B,2}^2 \NR[+]
 }
 
-A moment's reflection shows
+Furthermore, by the nature of Kronecker product, and the symmetry between \m {\M{F} ^\Tr} and \m {\M{W}}, we realize that the expectation of such product of entries of \m {\M{Q}} is just square of the product in such manner of entries of \m {\M{F} ^\Tr} (or \m {\M{W}}).
 \Result
 {Lemma}
 {
 \Disp {
-\NC \NC \MB{E} \SB {\M{P} \DB {n_h, n_y} \M{P} \DB {n_h', n_y'}} \NR
-\NC = \NC \i_2 \SB {n_H, n_H'} \D \i_2 \SB {n_Y, n_Y'} \D N_R \l_R^2 \l_B^2 \NR[+]
+\NC \NC \MB{E} \SB {\M{Q} ^\ast \DB {n_y, n_h}  \M{Q} \DB {n_y', n_h'}} \NR
+\NC = \NC \i_2 \SB {n_y, n_y'} \D \i_2 \SB {n_h, n_h'} \D N_R^2 M_{B,2}^2 M_{R,2}^2 \NR[+]
 }
 }
-
-More trickily, but by the same idea,
+And
 \Result
 {Lemma}
 {
 \Disp {
-\NC \NC \M{F} \DB {n_h, n_y}
-\M{F} \DB {n_h', n_y'}
-\M{F} \DB {n_h'', n_y''}
-\M{F} \DB {n_h''', n_y'''} \NR
+\NC \NC \MB{E} \SB {
+   \M{Q} ^\ast \DB {n_y, n_h} \M{Q} ^\ast \DB {n_y', n_h'} 
+   \M{Q} \DB {n_y'', n_h''} \M{Q} \DB {n_y''', n_h'''}
+} \NR
 \NC = \NC
-\i_4 \SB {n_H, n_H', n_H'', n_H'''}
-\D \i_4 \SB {n_Y, n_Y', n_Y'', n_Y'''}
-\D 4 N_R^4 \l_R^8 \l_B^8 \NR
-\NC \NC \FourQ +\i_{2,2} \SB {n_H, n_H', n_H'', n_H'''}
-\D \i_{2,2} \SB {n_Y, n_Y', n_Y'', n_Y'''}
-\D N_R^4 \l_R^8 \l_B^8 \NR[+]
+\i_4 \SB {n_y, n_y', n_y'', n_y'''} \D \i_4 \SB {n_h, n_h', n_h'', n_h'''} \D N_R^2 M_{R,4}^2 M_{B,4}^2 \NR
+\NC \NC \FourQ
++ \i_2 \SB {n_y, n_y''} \i_2 \SB {n_y', n_y'''}
+\i_2 \SB {n_h, n_h''} \i_2 \SB {n_h', n_h'''} \D N_R^4 M_{R,2}^4 M_{B,2}^4 \NR
+\NC \NC \FourQ
++ \i_2 \SB {n_y, n_y'''} \i_2 \SB {n_y', n_y''}
+\i_2 \SB {n_h, n_h'''} \i_2 \SB {n_h, n_h''} \D N_R^4 M_{R,2}^4 M_{B,2}^4 \NR[+]
 }
 }
 
-Now, fix any test vector \m {\V{u} \in \MB{V}_\MB{C} \SB{N_Y}}, we shall study the probability concentration of \m {\VNm {\M{F}_B \V{u}}_2^2} and \m {\VNm {\M{F}_B \V{u}}_2^4}, which are present in Chebyshev bound.
-The calculation can be messy, but may look more simple if we expand the square of norm and pass through the expectation sign.
+\stopsubsection
+
+\startsubsection [title={Concentration Inequalities}]
+
+Now, fix any test vector \m {\V{u} \in \MB{V}_\MB{C} \SB{N_Y}}, we shall study the probability concentration of \m {\VNm {\M{F}_B \V{u}}_2^2} by exploiting Chebyshev bound.
+The calculation can be simplified if we expand the square of norm and pass through the expectation sign.
 \Disp{
 \NC \NC \MB{E} \SB {\VNm {\M{Q} \SB {\o_t, \o_r} \V{u}} _2 ^2} \NR
 \NC = \NC \MB{E} \SB {
@@ -312,49 +315,32 @@ The calculation can be messy, but may look more simple if we expand the square o
   \Nm {\sum_{n_h =0}^{N_h-1}
   \M{Q} ^\ast \DB {n_y, n_h}  \V{u} \DB{n_h}} ^2
 } \NR
-\NC = \NC \MB{E} \SB {
+\NC = \NC
+\MB{E} \SB {
   \sum_{n_y =0}^{N_y-1}
   \sum_{n_h, n_h' =0}^{N_h-1}
-  \M{Q} ^\ast \DB {n_y, n_h} \V{u} \DB{n_h} 
-  \M{Q} ^\ast \DB {n_y, n_h'}  \V{u} \DB{n_h'}
+  \M{Q} ^\ast \DB {n_y, n_h} \V{u} \DB{n_h}
+  \M{Q} \DB {n_y, n_h'}  \V{u} ^\ast \DB{n_h'}
 } \NR
 \NC = \NC
 \sum_{n_y =0}^{N_y-1}
 \sum_{n_h, n_h' =0}^{N_h-1}
 \MB{E} \SB {\M{Q} ^\ast \DB {n_y, n_h} \M{Q} \DB {n_y, n_h'} }
-\V{u} ^\ast \DB{n_h}  \V{u} \DB{n_h'} \NR
+\V{u} \DB{n_h} \V{u} ^\ast \DB{n_h'} \NR
 \NC = \NC
+N_R^2 M_{B,2}^2 M_{R,2}^2
 \sum_{n_y =0}^{N_y-1}
-  \MB{E} \SB {
-     2 \sum_{\Stack { n_h, n_h'=0 \NR n_h <n_h' }}^{N_h-1}
-       \MF {Re} \SB{
-         \M{Q} ^\ast \DB {n_y, n_h}  \M{Q} \DB {n_y, n_h'}
-         \V{u} ^\ast \DB{n_h} \V{u} \DB{n_h'} 
-       }
-   } \NR
-\NC \NC \FourQ +\sum_{n_y =0}^{N_y-1}
-  \MB{E}
-     \SB {\sum_{n_h =0}^{N_h-1} \Nm {\M{Q} \DB {n_y, n_h}}^2 \Nm {\V{u} \DB{n_h}}^2}
-\NR
+\sum_{n_h, n_h' =0}^{N_h-1}
+\i_2 \SB {n_h, n_h'} \D \V{u} \DB{n_h} \V{u} ^\ast \DB{n_h'} \NR
 \NC = \NC
-2 \sum_{n_y =0}^{N_y-1}
-\sum_{\Stack { n_h, n_h'=0 \NR n_h <n_h' }}^{N_h-1}
-\MF {Re} \SB{
-   \MB{E} \SB {\M{Q} ^\ast \DB {n_y, n_h}}
-   \MB{E} \SB {\M{Q} \DB {n_y, n_h'}}
-}
-\V{u} ^\ast \DB{n_h} \V{u} \DB{n_h'} 
-\NR
-\NC \NC \FourQ +\sum_{n_y =0}^{N_y-1}
-   \sum_{n_h =0}^{N_h-1} \MB{E} \SB {\Nm {\M{Q} \DB {n_y, n_h}}^2} \Nm {\V{u} \DB{n_h}}^2
-\NR
-\NC = \NC N_y \D N_R^2 \l_B^4 \l_R^4  \D \VNm {\V{u}} _2 ^2 \NR[+]
+N_R^2 M_{B,2}^2 M_{R,2}^2 N_y \D \VNm {\V{u}} _2 ^2 \NR[+]
 }
 Thus, we may set
 \Disp{
 \NC \l_B
-=\NC \l_R \NR
-\NC =\NC \F {1} {\R {N_Y N_R}} \NR[+]
+=\NC \F {1} {\R {N_Y}} \NR[+]
+\NC \l_R
+=\NC \F {1} {\R {N_R}} \NR[+]
 }
 To make
 \Disp{
@@ -364,15 +350,53 @@ To make
 
 Similarly, we have to find, in advance, the second moment.
 \Disp{
-\NC \MB{E} \SB {\VNm {\M{Q} \SB {\o_t, \o_r} \V{u}} _2 ^4}
-=\NC \MB{E} \SB {
+\NC \NC \MB{E} \SB {\VNm {\M{Q} \SB {\o_t, \o_r} \V{u}} _2 ^4} \NR
+\NC =\NC \MB{E} \SB {
   \RB {
     \sum_{n_R =0}^{N_R-1}
     \Nm {\sum_{n_Y =0}^{N_Y-1} \M{Q} ^\ast \DB {n_R, n_Y}  \V{u} \DB{n_Y}} ^2
   } ^2
 } \NR
-\NC = \NC E_1 +E_2 +E_3 +E_4 +E_5 \NR[+]
+\NC = \NC
+\MB{E} \Bigg[
+  \sum_{n_y, n_y =0}^{N_y-1}
+  \sum_{n_h, n_h', n_h'', n_h''' =0}^{N_h-1}
+  \M{Q} ^\ast \DB {n_y, n_h} \M{Q} \DB {n_y, n_h'}
+  \V{u} \DB{n_h} \V{u} \DB{n_h'} ^\ast \NR
+\NC \NC \SixQ
+  \M{Q} ^\ast \DB {n_y', n_h''} \M{Q} \DB {n_y', n_h'''}
+  \V{u} \DB{n_h''} \V{u} \DB{n_h'''} ^\ast
+\Bigg] \NR
+\NC = \NC
+  \sum_{n_y, n_y' =0}^{N_y-1}
+  \sum_{n_h, n_h', n_h'', n_h''' =0}^{N_h-1}
+  \MB{E} \SB{
+    \M{Q} ^\ast \DB {n_y, n_h} \M{Q} \DB {n_y, n_h'}
+    \M{Q} ^\ast \DB {n_y', n_h''} \M{Q} \DB {n_y', n_h'''}
+  } \NR
+\NC \NC \SixQ
+  \V{u} \DB{n_h} \V{u} \DB{n_h'} ^\ast
+  \V{u} \DB{n_h''} \V{u} \DB{n_h'''} ^\ast \NR
+\NC = \NC
+  \sum_{n_y, n_y' =0}^{N_y-1}
+  \sum_{n_h, n_h', n_h'', n_h''' =0}^{N_h-1}
+\Bigg(
+\i_4 \SB {n_y, n_y'} \D \i_4 \SB {n_h, n_h', n_h'', n_h'''} \D N_R^2 M_{R,4}^2 M_{B,4}^2 \NR
+\NC \NC \FourQ
++ \i_2 \SB {n_h, n_h''} \i_2 \SB {n_h', n_h'''} \D N_R^4 M_{R,2}^4 M_{B,2}^4 \NR
+\NC \NC \FourQ
++ \i_2 \SB {n_y, n_y'}
+\i_2 \SB {n_h, n_h'''} \i_2 \SB {n_h, n_h''} \D N_R^4 M_{R,2}^4 M_{B,2}^4
+\Bigg) \NR
+\NC \NC \SixQ
+  \V{u} \DB{n_h} \V{u} \DB{n_h'} ^\ast
+  \V{u} \DB{n_h''} \V{u} \DB{n_h'''} ^\ast \NR
 }
+
+
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
 These terms are discussed as immediately follows.
 Without spelling out everything, we notice that as long as a term has a single \m {\M{Q} \DB {n_R, n_Y}} factor, it's expectation is zero.
 The terms that does not vanish is a product of three numbers: How many terms, the moment involving \m {\M{Q} \DB {n_y, n_h}}, the norm of \m {\V{u}}.
