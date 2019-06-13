@@ -158,52 +158,58 @@ And it will turn out that any two distinct entries of \m {\M{Q}} are not correla
 
 \startsubsection [title={Expectation of Products of Matrix Entry}]
 
-To make expressions more compact, introduce the indication function \m {\i} so that it equals 1 only if, we collect repeated indices that is passed as argument, the subscripts agrees the respective multiplicity of repetition.
-For example, \m {\i_{2} \SB {7,7} =1}, and \m {\i_{2,1,1} \SB {0,3,5,3} =1}, but \m {\i_{2} \SB {5, 6} =0}.
-For definiteness, we state it formally.
-\Result
-{Definition}
-{
-The function \m {\i_{a_0, \ldots, a_{M-1}}:\; \MB {N}^{\MB {N}} \mapsto \CB {0, 1}} is defined so that, for some injective \m {\s:\; \CB {0, \ldots, N-1} \mapsto \CB {0, \ldots, M-1}},
+To make expressions more compact, introduce the indication function \m {\i} so that it equals 1 only if all (positive integer) argument it receives are unequal when they are seperated by semicolons between them, and equal when they are not.
+For example, \m {\i \SB {7, 7, 7, 7} =1}, and \m {\i \SB {0, 0; 3, 3, 3} =1}, but \m {\i \SB {5, 5; 4, 6} =0}.
+
+Formally,
 \Disp {
-\NC \i_{a_0, \ldots, a_{M-1}} \SB {x_0, \ldots, x_{N-1}}
-=\NC \startcases
-\NC 1, \MC \Q \exists \s:\; x_0 \cdots x_{N-1}
-=x_{\s \SB {0}} ^{a_0} \cdots x_{\s \SB {M-1}} ^{a_{M-1}} \NR
+\NC \NC \i \SB {
+x_{1,1}, x_{1,2}, \ldots, x_{1,M\SB{1}} \mid
+\ldots \mid
+x_{N,1}, x_{N,2}, \ldots, x_{N,M\SB{N}}
+} \NR
+\NC =\NC \startcases
+\NC 1, \MC x_{1,1} =\ldots =x_{1,M\SB{1}}
+   \neq \dots
+   \neq x_{N,1} =\ldots =x_{N,M\SB{N}} \NR
 \NC 0, \NC \Q \Rm {otherwise} \NR
-\stopcases \NR
+\stopcases \NR[+]
 }
+
+If we introduce
+\Disp{
+\NC \NC I_2 \SB {x_1, y_1, x_2, y_2} \NR
+\NC =\NC \i \SB {x_1, x_2} \D \i \SB {y_1, y_2} \NR[+]
+\NC \NC I_4 \SB {x_1, y_1, x_2, y_2, x_3, y_3, x_4, y_4} \NR
+\NC =\NC \i \SB {x_1, x_2, x_3, x_4} \D \i \SB {y_1, y_2, y_3, y_4} \NR[+]
+\NC \NC I_{2,2} \SB {x_1, y_1, x_2, y_2, x_3, y_3, x_4, y_4} \NR
+\NC =\NC \RB {\i \SB {x_1, x_2 \mid x_3, x_4} +\i \SB {x_1, x_3 \mid x_2, x_4}} \i \SB {y_1, y_2, y_3, y_4} \NR
+\NC \NC \FourQ + \i \SB {x_1, x_2, x_3, x_4} \RB {\i \SB {y_1, y_2 \mid y_3, y_4} +\i \SB {y_1, y_3 \mid y_2, y_4}} \NR
+\NC \NC \FourQ + \i \SB {x_1, x_2 \mid x_3, x_4} \i \SB {y_1, y_2 \mid y_3, y_4} \NR
+\NC \NC \FourQ + \i \SB {x_1, x_4 \mid x_2, x_3} \i \SB {y_1, y_4 \mid y_2, y_3} \NR[+]
 }
 
 Clearly, by construction,
 \Disp {
 \NC \NC \MB{E} \SB {\M{F}_B ^\ast \DB {n_R, n_Y}  \M{F}_B \DB {n_R', n_Y'}} \NR
 \NC = \NC \MB{E} \SB {\M{W}_B ^\Tr \DB {n_R, n_Y}  \M{W}_B ^\Adj \DB {n_R', n_Y'}} \NR
-\NC = \NC \i_2 \SB {n_R, n_R'} \D \i_2 \SB {n_Y, n_Y'} \D M_{B,2}, \NR[+]
+\NC = \NC I_2 \SB {n_R, n_Y, n_R', n_Y'} \D M_{B,2}, \NR[+]
 %
 \NC \NC \MB{E} \SB {\M{F}_R ^\ast \DB {n_H, n_R}  \M{F}_R \DB {n_H', n_R'}} \NR
 \NC = \NC \MB{E} \SB {\M{W}_R ^\Tr \DB {n_H, n_R}  \M{W}_R ^\Adj \DB {n_H', n_R'}} \NR
-\NC = \NC \i_2 \SB {n_H, n_H'} \D \i_2 \SB {n_R, n_R'} \D M_{R,2}, \NR[+]
+\NC = \NC I_2 \SB {n_H, n_R, n_H', n_R'} \D M_{R,2}, \NR[+]
 %
 \NC \NC \MB{E} \SB {\M{F}_B ^\ast \DB {n_R, n_Y}  \M{F}_B ^\ast \DB {n_R', n_Y'}  \M{F}_B \DB {n_R'', n_Y''} \M{F}_B \DB {n_R''', n_Y'''}} \NR
 \NC = \NC \MB{E} \SB {\M{W}_B ^\Tr \DB {n_R, n_Y}  \M{W}_B ^\Tr \DB {n_R', n_Y'}  \M{W}_B ^\Adj \DB {n_R'', n_Y''} \M{W}_B ^\Adj \DB {n_R''', n_Y'''}}, \NR
-\NC = \NC \i_4 \SB {n_R, n_R', n_R'', n_R'''} \D \i_4 \SB {n_Y, n_Y', n_Y'', n_Y'''} \D M_{B,4} \NR
+\NC = \NC I_4 \SB {n_R, n_Y, n_R', n_Y', n_R'', n_Y'', n_R''', n_Y'''} \D M_{B,4} \NR
 \NC \NC \FourQ
-+ \i_2 \SB {n_R, n_R''} \i_2 \SB {n_R', n_R'''}
-\i_2 \SB {n_Y, n_Y''} \i_2 \SB {n_Y', n_Y'''} \D M_{B,2}^2 \NR
-\NC \NC \FourQ
-+ \i_2 \SB {n_R, n_R'''} \i_2 \SB {n_R', n_R''}
-\i_2 \SB {n_Y, n_Y'''} \i_2 \SB {n_Y, n_Y''} \D M_{B,2}^2 \NR[+]
+I_{2,2} \SB {n_R, n_Y, n_R', n_Y', n_R'', n_Y'', n_R''', n_Y'''} \D M_{B,2}^2 \NR[+]
 %
 \NC \NC \MB{E} \SB {\M{F}_R ^\ast \DB {n_H, n_R}  \M{F}_R ^\ast \DB {n_H', n_R'}  \M{F}_R \DB {n_H'', n_R''} \M{F}_R \DB {n_H''', n_R'''}} \NR
 \NC = \NC \MB{E} \SB {\M{W}_R ^\Tr \DB {n_H, n_R}  \M{W}_R ^\Tr \DB {n_H', n_R'}  \M{W}_R ^\Adj \DB {n_H'', n_R''} \M{W}_R ^\Adj \DB {n_H''', n_R'''}}, \NR
-\NC = \NC \i_4 \SB {n_H, n_H', n_H'', n_H'''} \D \i_4 \SB {n_R, n_R', n_R'', n_R'''} \D M_{R,4} \NR
+\NC = \NC I_4 \SB {n_H, n_R, n_H', n_R', n_H'', n_R'', n_H''', n_R'''} \D M_{R,4} \NR
 \NC \NC \FourQ
-+ \i_2 \SB {n_H, n_H''} \i_2 \SB {n_H', n_H'''}
-\i_2 \SB {n_R, n_R''} \i_2 \SB {n_R', n_R'''} \D M_{R,2}^2 \NR
-\NC \NC \FourQ
-+ \i_2 \SB {n_H, n_H'''} \i_2 \SB {n_H', n_H''}
-\i_2 \SB {n_R, n_R'''} \i_2 \SB {n_R, n_R''} \D M_{R,2}^2 \NR[+]
+I_{2,2} \SB {n_H, n_R, n_H', n_R', n_H'', n_R'', n_H''', n_R'''} \D M_{R,2}^2 \NR[+]
 %
 \NC n_Y, n_Y'
 = \NC 0, 1, 2, \ldots, N_Y -1 \NR
@@ -233,7 +239,7 @@ By above,
 \Disp {
 \NC \NC \MB{E} \SB {\M{F} ^\ast \DB {n_H, n_Y}  \M{F} \DB {n_H', n_Y'}} \NR
 \NC = \NC \MB{E} \SB {\M{W}^\Tr \DB {n_Y, n_H}  \M{W}^\Adj \DB {n_Y', n_H'}} \NR
-\NC = \NC \i_2 \SB {n_H, n_H'} \D \i_2 \SB {n_Y, n_Y'} \D N_R M_{B,2} M_{R,2} \NR[+]
+\NC = \NC I_2 \SB {n_H, n_Y, n_H', n_Y'} \D N_R M_{B,2} M_{R,2} \NR[+]
 }
 
 By the same token,
@@ -262,15 +268,9 @@ And it can be seen that
    \M{W} ^\Tr \DB {n_H, n_Y} \M{W} ^\Tr \DB {n_H', n_Y'} 
    \M{W} ^\Adj \DB {n_H'', n_Y''} \M{W} ^\Adj \DB {n_H''', n_Y'''}
 } \NR
-\NC = \NC \i_4 \SB {n_H, n_H', n_H'', n_H'''} \D \i_4 \SB {n_Y, n_Y', n_Y'', n_Y'''} \D N_R M_{R,4} M_{B,4} \NR
+\NC = \NC I_4 \SB {n_H, n_Y, n_H', n_Y', n_H'', n_Y'', n_H''', n_Y'''} \D N_R M_{R,4} M_{B,4} \NR
 \NC \NC \FourQ
-+ \i_2 \SB {n_H, n_H''} \i_2 \SB {n_H', n_H'''}
-\i_2 \SB {n_Y, n_Y''} \i_2 \SB {n_Y', n_Y'''}
-\D N_R^2 M_{R,2}^2 M_{B,2}^2 \NR
-\NC \NC \FourQ
-+ \i_2 \SB {n_H, n_H'''} \i_2 \SB {n_H', n_H''}
-\i_2 \SB {n_Y, n_Y'''} \i_2 \SB {n_Y, n_Y''}
-\D N_R^2 M_{R,2}^2 M_{B,2}^2 \NR[+]
+I_{2,2} \SB {n_H, n_Y, n_H', n_Y', n_H'', n_Y'', n_H''', n_Y'''} \D N_R^2 M_{R,2}^2 M_{B,2}^2 \NR[+]
 }
 
 Furthermore, by the nature of Kronecker product, and the symmetry between \m {\M{F} ^\Tr} and \m {\M{W}}, we realize that the expectation of such product of entries of \m {\M{Q}} is just square of the product in such manner of entries of \m {\M{F} ^\Tr} (or \m {\M{W}}).
@@ -279,7 +279,7 @@ Furthermore, by the nature of Kronecker product, and the symmetry between \m {\M
 {
 \Disp {
 \NC \NC \MB{E} \SB {\M{Q} ^\ast \DB {n_y, n_h}  \M{Q} \DB {n_y', n_h'}} \NR
-\NC = \NC \i_2 \SB {n_y, n_y'} \D \i_2 \SB {n_h, n_h'} \D N_R^2 M_{B,2}^2 M_{R,2}^2 \NR[+]
+\NC = \NC I_2 \SB {n_y, n_h, n_y', n_h'} \D N_R^2 M_{B,2}^2 M_{R,2}^2 \NR[+]
 }
 }
 And
@@ -291,14 +291,9 @@ And
    \M{Q} ^\ast \DB {n_y, n_h} \M{Q} ^\ast \DB {n_y', n_h'} 
    \M{Q} \DB {n_y'', n_h''} \M{Q} \DB {n_y''', n_h'''}
 } \NR
-\NC = \NC
-\i_4 \SB {n_y, n_y', n_y'', n_y'''} \D \i_4 \SB {n_h, n_h', n_h'', n_h'''} \D N_R^2 M_{R,4}^2 M_{B,4}^2 \NR
+\NC = \NC I_4 \SB {n_y, n_h, n_y', n_h', n_y'', n_h'', n_y''', n_h'''} \D N_R^2 M_{R,4}^2 M_{B,4}^2 \NR
 \NC \NC \FourQ
-+ \i_2 \SB {n_y, n_y''} \i_2 \SB {n_y', n_y'''}
-\i_2 \SB {n_h, n_h''} \i_2 \SB {n_h', n_h'''} \D N_R^4 M_{R,2}^4 M_{B,2}^4 \NR
-\NC \NC \FourQ
-+ \i_2 \SB {n_y, n_y'''} \i_2 \SB {n_y', n_y''}
-\i_2 \SB {n_h, n_h'''} \i_2 \SB {n_h, n_h''} \D N_R^4 M_{R,2}^4 M_{B,2}^4 \NR[+]
+I_{2,2} \SB {n_y, n_h, n_y', n_h', n_y'', n_h'', n_y''', n_h'''} \D N_R^4 M_{R,2}^4 M_{B,2}^4 \NR[+]
 }
 }
 
