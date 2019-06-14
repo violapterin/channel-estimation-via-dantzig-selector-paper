@@ -322,13 +322,10 @@ The calculation can be simplified if we expand the square of norm and pass throu
 \sum_{n_h, n_h' =0}^{N_h-1}
 \MB{E} \SB {\M{Q} ^\ast \DB {n_y, n_h} \M{Q} \DB {n_y, n_h'} }
 \V{u} \DB{n_h} \V{u} ^\ast \DB{n_h'} \NR
-\NC = \NC
-N_R^2 M_{B,2}^2 M_{R,2}^2
-\sum_{n_y =0}^{N_y-1}
+\NC = \NC N_R^2 M_{B,2}^2 M_{R,2}^2 N_y
 \sum_{n_h, n_h' =0}^{N_h-1}
-\i_2 \SB {n_h, n_h'} \D \V{u} \DB{n_h} \V{u} ^\ast \DB{n_h'} \NR
-\NC = \NC
-N_R^2 M_{B,2}^2 M_{R,2}^2 N_y \D \VNm {\V{u}} _2 ^2 \NR[+]
+\i \SB {n_h, n_h'} \D \V{u} \DB{n_h} \V{u} ^\ast \DB{n_h'} \NR
+\NC = \NC N_R^2 M_{B,2}^2 M_{R,2}^2 N_y \D \VNm {\V{u}} _2 ^2 \NR[+]
 }
 Thus, we may set
 \Disp{
@@ -344,182 +341,124 @@ To make
 }
 
 Similarly, we have to find, in advance, the second moment.
+Pay attention to the order of indices in the product of entries of \m {\V{u}} and that of \m {\M{Q}}.
 \Disp{
 \NC \NC \MB{E} \SB {\VNm {\M{Q} \SB {\o_t, \o_r} \V{u}} _2 ^4} \NR
+%
 \NC =\NC \MB{E} \SB {
   \RB {
     \sum_{n_R =0}^{N_R-1}
     \Nm {\sum_{n_Y =0}^{N_Y-1} \M{Q} ^\ast \DB {n_R, n_Y}  \V{u} \DB{n_Y}} ^2
   } ^2
 } \NR
+%
 \NC = \NC
 \MB{E} \Bigg[
   \sum_{n_y, n_y =0}^{N_y-1}
   \sum_{n_h, n_h', n_h'', n_h''' =0}^{N_h-1}
   \M{Q} ^\ast \DB {n_y, n_h} \M{Q} \DB {n_y, n_h'}
-  \V{u} \DB{n_h} \V{u} \DB{n_h'} ^\ast \NR
+  \V{u} \DB{n_h} \V{u} ^\ast \DB{n_h'} \NR
 \NC \NC \SixQ
   \M{Q} ^\ast \DB {n_y', n_h''} \M{Q} \DB {n_y', n_h'''}
-  \V{u} \DB{n_h''} \V{u} \DB{n_h'''} ^\ast
+  \V{u} \DB{n_h''} \V{u} ^\ast \DB{n_h'''}
 \Bigg] \NR
+%
 \NC = \NC
   \sum_{n_y, n_y' =0}^{N_y-1}
   \sum_{n_h, n_h', n_h'', n_h''' =0}^{N_h-1}
   \MB{E} \SB{
-    \M{Q} ^\ast \DB {n_y, n_h} \M{Q} \DB {n_y, n_h'}
-    \M{Q} ^\ast \DB {n_y', n_h''} \M{Q} \DB {n_y', n_h'''}
+    \M{Q} ^\ast \DB {n_y, n_h} \M{Q} ^\ast \DB {n_y', n_h''}
+    \M{Q} \DB {n_y, n_h'} \M{Q} \DB {n_y', n_h'''}
   } \NR
 \NC \NC \SixQ
-  \V{u} \DB{n_h} \V{u} \DB{n_h'} ^\ast
-  \V{u} \DB{n_h''} \V{u} \DB{n_h'''} ^\ast \NR
+\V{u} ^\ast \DB{n_h'} \V{u} ^\ast \DB{n_h'''}
+\V{u} \DB{n_h} \V{u} \DB{n_h''} \NR
+%
 \NC = \NC
-  \sum_{n_y, n_y' =0}^{N_y-1}
-  \sum_{n_h, n_h', n_h'', n_h''' =0}^{N_h-1}
-\Bigg(
-\i_4 \SB {n_y, n_y'} \D \i_4 \SB {n_h, n_h', n_h'', n_h'''} \D N_R^2 M_{R,4}^2 M_{B,4}^2 \NR
-\NC \NC \FourQ
-+ \i_2 \SB {n_h, n_h''} \i_2 \SB {n_h', n_h'''} \D N_R^4 M_{R,2}^4 M_{B,2}^4 \NR
-\NC \NC \FourQ
-+ \i_2 \SB {n_y, n_y'}
-\i_2 \SB {n_h, n_h'''} \i_2 \SB {n_h, n_h''} \D N_R^4 M_{R,2}^4 M_{B,2}^4
-\Bigg) \NR
+\sum_{n_y, n_y' =0}^{N_y-1}
+\sum_{n_h, n_h', n_h'', n_h''' =0}^{N_h-1}
+  \Big(
+    I_4 \SB {n_y, n_h, n_y', n_h'', n_y, n_h', n_y', n_h'''} \D N_R^2 M_{R,4}^2 M_{B,4}^2 \NR
 \NC \NC \SixQ
-  \V{u} \DB{n_h} \V{u} \DB{n_h'} ^\ast
-  \V{u} \DB{n_h''} \V{u} \DB{n_h'''} ^\ast \NR
-}
-
-
-
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-
-These terms are discussed as immediately follows.
-Without spelling out everything, we notice that as long as a term has a single \m {\M{Q} \DB {n_R, n_Y}} factor, it's expectation is zero.
-The terms that does not vanish is a product of three numbers: How many terms, the moment involving \m {\M{Q} \DB {n_y, n_h}}, the norm of \m {\V{u}}.
-We will repeatedly bound \m {N_R \D (N_R-1) /2} by \m {N_R^2 /2}, and bound \m {\Nm {\V{u}} _2} by \m {\Nm {\V{u}} _2}, and so on.
-\Disp {
-\NC E_1
-=\NC \sum_{n_y =0}^{N_y-1} \sum_{n_h =0}^{N_h-1}
-\Nm {\M{Q} \DB {n_y, n_h}} ^4
-\Nm {\V{u} \DB{n_h}} ^4 \NR
-\NC =\NC N_Y^2 \D 4 N_Y ^{-4} \D \VNm {\V{u}} _4 ^4 \NR
-\NC \leq \NC 4 N_Y ^{-2} \VNm {\V{u}} _2 ^4 \NR[+]
-}
-Now we have to bound \m {\i_{1,1} \SB {\Fl {n_y/N_Y}, \Fl {n_y'/N_Y}} M_{B,2}^2} and \m {\i_{2} \SB {\Fl {n_y/N_Y}, \Fl {n_y'/N_Y}} M_{B,4}} by \m {M_{B,4}} to simplifying matters, and similar for \m {E_3} and \m {E_4}.
-\Disp {
-\NC E_2
-= \NC \sum _{\Stack { n_y, n_y' =0 \NR n_y <n_y' }}^{N_y-1}
-\sum _{n_h =0}^{N_h-1}
-\Nm {\M{Q} \DB {n_y, n_h}} ^2
-\Nm {\M{Q} \DB {n_y', n_h}} ^2
-\Nm {\V{u} \DB{n_h}} ^4 \NR
-\NC = \NC N_Y \D \F{1}{2} N_Y \RB{N_Y-1} \D N_Y ^{-4} \VNm {\V{u}} _2 ^4 \NR
-\NC \NC \FourQ + \F{1}{2} N_Y \RB{N_Y-1} \D N_Y^2 \D 4 N_R ^2 N_Y ^{-4} N_R ^{-4} \VNm {\V{u}} _2 ^4 \NR
-\NC \leq \NC 4 \VNm {\V{u}} _2 ^4 \NR[+]
-}
-\Disp {
-\NC E_3
-=\NC \sum _{n_y, n_y' =0}^{N_y-1}
-\sum _{\Stack { n_h, n_h' =0 \NR n_h <n_h' }}^{N_h-1}
-\Nm {\M{Q} \DB {n_y, n_h}} ^2
-\Nm {\M{Q} \DB {n_y', n_h'}} ^2
-\Nm {\V{u} \DB{n_h}} ^2
-\Nm {\V{u} \DB{n_h'}} ^2 \NR
-\NC \leq \NC N_Y^2 \D \F{1}{2} N_H \RB{N_H-1} \D N_Y ^{-4} \D \RB {\VNm {\V{u}} _2 ^4 -\VNm {\V{u}} _4 ^4} \NR
-\NC \leq \NC 4 N_Y ^{-1} \VNm {\V{u}} _2 ^4 \NR[+]
-}
-\Disp {
-\NC E_4
-=\NC \sum _{n_y =0}^{N_y-1}
-\sum _{\Stack { n_h, n_h' =0 \NR n_h <n_h' }}^{N_h-1}
-\Nm {\M{Q} \DB {n_y, n_h}} ^2
-\Nm {\M{Q} \DB {n_y, n_h'}} ^2
-\Nm {\V{u} \DB{n_h}} ^2
-\Nm {\V{u} \DB{n_h'}} ^2 \NR
-\NC \leq \NC N_Y \D \F{1}{2} N_H \RB{N_H-1} \D N_Y ^{-4} \D \RB {\VNm {\V{u}} _2 ^4 -\VNm {\V{u}} _4 ^4} \NR
-\NC \leq \NC 4 N_H ^2 N_Y ^{-3} \VNm {\V{u}} _2 ^4 \NR[+]
-}
-
-The last one is more complicated.
-Use the shorthand
-\Disp {
-\NC \sum _{n_h, n_h', m_h, m_h'} ^\star
-:= \NC \sum _{
-   \Stack {
-     0 =n_h <n_h' \NR
-     0 =m_h <m_h' \NR
-     n_h +m_h' =n_h' +m_h \NR
-     \Fl {n_h/N_H} =\Fl {n_h'/N_H} \NR
-     \Fl {m_h/N_H} =\Fl {m_h'/N_H}
-   }
-} ^{N_H-1}
-\sum _{
-  \Stack {
-     0 =n_y <n_y' \NR
-     \Fl {n_y/N_Y} =\Fl {n_y'/N_Y}
-  }
-} ^{N_y-1} \NR
-\NC \V {u} ^{(1,1,1,1)} \SB {n_h, n_h', m_h, m_h'}
-:=\NC \i_{1,1,1,1} \SB {n_h, n_h', m_h, m_h'}
-\V{u} \DB{n_h} \V{u} \DB{n_h'} \V{u} \DB{m_h} \V{u} \DB{m_h'} \NR
-}
-Then observe
-\Disp {
-\NC \NC \sum _{n_h, n_h', m_h, m_h'} ^\star
-\V {u} ^{(1,1,1,1)} \SB {n_h, n_h', m_h, m_h'} \NR
-\NC \leq \NC N_h^{-2}
-\sum_{n_h, n_h' =0} ^{N_h-1}
-\sum_{m_h, m_h' =0} ^{N_h-1}
-\V {u} ^{(1,1,1,1)} \SB {n_h, n_h', m_h, m_h'} \NR
-}
-This is because one of \m {n_h, n_h'} and one of \m {m_h, m_h'} may both choose to lie in other \m {\RB {N_H-1} \RB {N_H-2}} blocks (of length \m {N_H}).
-Then we need a corollary that follows from \quotation {Muirhead inequality}.
-\Result
-{Lemma}
-{
-If every component of \m {\V{u} \in \MB {M}_{\MB {C}} \SB {N_h}} is considered as a free variable taking complex values, then
-\Disp {
-\NC \NC \sum_{n_h, n_h' =0} ^{N_h-1}
-\sum_{m_h, m_h' =0} ^{N_h-1}
-\Nm {\V {u} ^{(1,1,1,1)} \SB {n_h, n_h', m_h, m_h'}} \NR
-\NC \leq \NC \F{1}{6} \RB {\VNm {\V{u}} _2 ^4 -\VNm {\V{u}} _4 ^4} \NR[+]
-}
-}
-
-Now,
-\Disp {
-\NC E_5
-= \NC \sum _{n_h, n_h', m_h, m_h'} ^\star
-  \M{Q} \DB {n_y, n_h}
-  \M{Q} \DB {n_y, n_h'}
-  \M{Q} \DB {n_y', m_h}
-  \M{Q} \DB {n_y', m_h'} \NR
-  \NC \NC \SixQ
-  \V{u} \DB{n_h}
-  \V{u} \DB{n_h'}
-  \V{u} \DB{m_h}
-  \V{u} \DB{m_h'} \NR
-\NC =\NC N_Y \D \F{1}{2} N_H \RB{N_H-1} \D \F{1}{2} N_Y \RB{N_Y-1} \D N_H^2 \D N_Y ^{-4} \NR
+    +I_{2,2} \SB {n_y, n_h, n_y', n_h'', n_y, n_h', n_y', n_h'''} \D N_R^4 M_{R,2}^4 M_{B,2}^4
+  \Big) \NR
+\NC \NC \SixQ
+  \V{u} ^\ast \DB{n_h'} \V{u} ^\ast \DB{n_h'''}
+  \V{u} \DB{n_h} \V{u} \DB{n_h''} \NR
+%
+\NC = \NC N_R^2 M_{R,4}^2 M_{B,4}^2
+\sum_{n_y, n_y' =0}^{N_y-1}
+\sum_{n_h, n_h', n_h'', n_h''' =0}^{N_h-1}
+   \i \SB {n_y, n_y'} \i \SB {n_h, n_h'', n_h', n_h'''} \NR
+  \NC \NC \SixQ \V{u} ^\ast \DB{n_h'} \V{u} ^\ast \DB{n_h'''}
+  \V{u} \DB{n_h} \V{u} \DB{n_h''} \NR
+\NC \NC \Q \Q + N_R^4 M_{R,2}^4 M_{B,2}^4
+\sum_{n_y, n_y' =0}^{N_y-1}
+\sum_{n_h, n_h', n_h'', n_h''' =0}^{N_h-1} \NR
+\NC \NC \SixQ \Bigg(
+  \i \SB {n_y, n_y'} \i \SB {n_h, n_h'' \mid n_h', n_h'''}
+  +\i \SB {n_y, n_y'} \i \SB {n_h, n_h' \mid n_h'', n_h'''} \NR
+  \NC \NC \SixQ +\i \SB {n_y \mid n_y'} \i \SB {n_h, n_h', n_h'', n_h'''}
+  +\i \SB {n_y \mid n_y'} \i \SB {n_h, n_h' \mid n_h'', n_h'''}
+\Bigg) \NR
+  \NC \NC \SixQ \V{u} ^\ast \DB{n_h'} \V{u} ^\ast \DB{n_h'''}
+  \V{u} \DB{n_h} \V{u} \DB{n_h''} \NR
+%
+\NC = \NC N_R^2 M_{R,4}^2 M_{B,4}^2 N_y
+\sum_{n_h =0}^{N_h-1} \Nm {\V{u} \DB{n_h}} ^4 \NR
 \NC \NC \FourQ
-\D N_H^{-2} \sum_{n_h, n_h' =0} ^{N_h-1} \sum_{m_h, m_h' =0} ^{N_h-1}
-\V {u} ^{(1,1,1,1)} \SB {n_h, n_h', m_h, m_h'} \NR
-\NC \leq \NC \F{1}{6} N_Y ^{-1} \VNm {\V{u}} _2 ^4. \NR[+]
++ N_R^4 M_{R,2}^4 M_{B,2}^4 \Bigg(
+  N_y \sum_{n_h, n_h' =0}^{N_h-1} \i \SB {n_h \mid n_h'} \V{u} ^\ast \DB{n_h} ^2 \V{u} \DB{n_h'} ^2 \NR
+  \NC \NC \FourQ \FourQ +N_y \sum_{n_h, n_h' =0}^{N_h-1} \i \SB {n_h \mid n_h'} \Nm {\V{u} \DB{n_h}} ^2 \Nm {\V{u} \DB{n_h'}} ^2 \NR
+  \NC \NC \FourQ \FourQ +\RB {N_y^2 -N_y} \sum_{n_h =0}^{N_h-1} \Nm {\V{u} \DB{n_h}} ^4 \NR
+  \NC \NC \FourQ \FourQ +\RB {N_y^2 -N_y} \sum_{n_h, n_h' =0}^{N_h-1} \i \SB {n_h \mid n_h'} \Nm {\V{u} \DB{n_h}} ^2 \Nm {\V{u} \DB{n_h'}} ^2
+\Bigg) \NR[+]
 }
 
-In conclusion, \m {E_4} dominates.
-\Disp{
-\NC \Ss{Var} \SB {\VNm {\M{P} \SB {\o_t, \o_r} \V{u}} _2 ^2}
-\leq \NC \RB {4 N_H^2 N_Y^{-3} -1} \VNm {\V{u}} _2 ^4 \NR[+]
+The third term is \m {\VNm {\V{u}} _4 ^4}.
+The second and fourth terms are exactly \m {\VNm {\V{u}} _2 ^4 -\VNm {\V{u}} _4 ^4}.
+The first term in the big parentheses can also be bounded by triangle inequality to be \m {\VNm {\V{u}} _2 ^4 -\VNm {\V{u}} _4 ^4}.
+\Disp {
+\NC \sum_{n_h, n_h' =0}^{N_h-1}
+\i \SB {n_h \mid n_h'} \V{u} ^\ast \DB{n_h} ^2 \V{u} \DB{n_h'} ^2
+\leq \NC \Nm {\sum_{n_h =0}^{N_h-1} \V{u} ^\ast \DB{n_h} ^2} ^2
+-\sum_{n_h =0}^{N_h-1} \V{u} ^\ast \DB{n_h} ^4 \NR
+\NC \leq \NC \VNm {\V{u}} _2 ^4 -\VNm {\V{u}} _4 ^4 \NR[+]
 }
+
+Thus,
+\Disp {
+\NC \NC \MB{E} \SB {\VNm {\M{Q} \V{u}} _2 ^4} \NR
+\NC = \NC N_R^2 M_{R,4}^2 M_{B,4}^2 N_y \VNm {\V{u}} _4 ^4 \NR
+\NC \NC \FourQ + N_R^4 M_{R,2}^4 M_{B,2}^4
+\Bigg(
+  N_y \RB {\VNm {\V{u}} _2 ^4 -\VNm {\V{u}} _4 ^4}
+  +N_y \RB {\VNm {\V{u}} _2 ^4 -\VNm {\V{u}} _4 ^4} \NR
+  \NC \NC \FourQ \FourQ +\RB {N_y^2 -N_y} \VNm {\V{u}} _4 ^4
+  +\RB {N_y^2 -N_y} \RB {\VNm {\V{u}} _2 ^4 -\VNm {\V{u}} _4 ^4}
+\Bigg) \NR
+%
+\NC = \NC \RB {1 +N_Y^{-2}} \VNm {\V{u}} _2 ^4
+-2 N_Y^{-2} \RB {1 -N_R^{-2}} \VNm {\V{u}} _4 ^4 \NR
+\NC \leq \NC \RB {1 +N_Y^{-2}} \VNm {\V{u}} _2 ^4 \NR[+]
+}
+The decision to drop \m {\VNm {\V{u}} _4} term is justified by the fact \m {\VNm {\V{u}} _4 \geq N_H^{-1/2} \VNm {\V{u}} _2}, which is small.
 
 \stopsubsection
 
 \startsubsection [title={Using Chebyshev Bound}]
 
+It follows that
+\Disp{
+\NC \Ss{Var} \SB {\VNm {\M{P} \V{u}} _2 ^2}
+= \NC \Ss{Var} \SB {\VNm {\M{Q} \V{u}} _2 ^2} \NR
+\NC \leq \NC N_Y^{-2} \VNm {\V{u}} _2 ^4 \NR[+]
+}
 Thus, by Chebyshev bound,
 \Result
 {Theorem}
 {
-Let \m {\M{P} \in \MB {M}_{\MB {C}} \SB {N_R, N_Y}} be generated randomly according to ().
+Let \m {\M{P}} be generated randomly according to ().
 Then, for any fixed \m {\V{u} \in \MB {V}_{\MB {C}} \SB {N_Y}}, and for any \m {\e >0},
 \Disp{
 \NC \MB{P}
@@ -527,7 +466,7 @@ Then, for any fixed \m {\V{u} \in \MB {V}_{\MB {C}} \SB {N_Y}}, and for any \m {
   \Nm {\VNm {\M{P} \V{u}} _2 ^2 -\VNm {\V{u}} _2 ^2}
   \geq \e \VNm {\V{u}} _2 ^2
 }
-\leq \NC \F {1} {\e^2} \RB {4 N_H^2 N_Y^{-3} -1} \NR[+]
+\leq \NC \F {1} {\e^2} N_Y^{-2} \NR[+]
 }
 }
 
@@ -538,7 +477,7 @@ According to Lemma 5.1 in Baraniuk et.\ al.\ (2008), substitution of relevent qu
 Suppose the probability, according to event space \m {\o_t, \o_r}, that RIP holds for \m {\M{P}} w.r.t.\ \m {\d_s} is \m {p}, then
 \Disp{
 \NC 1 -p
-\leq \NC 4 \D 12^s \D \d_s^{-\RB {s+2}} N_H^2 N_Y^{-3} \NR[+]
+\leq \NC \D {12}^s \D \d_s^{-\RB {s+2}} N_Y^{-2} \NR[+]
 }
 }
 
