@@ -371,7 +371,7 @@ Pay attention to the order of indices in the product of entries of \m {\V{u}} an
     \M{Q} \DB {n_y, n_h'} \M{Q} \DB {n_y', n_h'''}
   } \NR
 \NC \NC \SixQ
-\V{u} ^\ast \DB{n_h'} \V{u} ^\ast \DB{n_h'''}
+\D \V{u} ^\ast \DB{n_h'} \V{u} ^\ast \DB{n_h'''}
 \V{u} \DB{n_h} \V{u} \DB{n_h''} \NR
 %
 \NC = \NC
@@ -383,14 +383,14 @@ Pay attention to the order of indices in the product of entries of \m {\V{u}} an
     +I_{2,2} \SB {n_y, n_h, n_y', n_h'', n_y, n_h', n_y', n_h'''} \D N_R^4 M_{R,2}^4 M_{B,2}^4
   \Big) \NR
 \NC \NC \SixQ
-  \V{u} ^\ast \DB{n_h'} \V{u} ^\ast \DB{n_h'''}
+  \D \V{u} ^\ast \DB{n_h'} \V{u} ^\ast \DB{n_h'''}
   \V{u} \DB{n_h} \V{u} \DB{n_h''} \NR
 %
 \NC = \NC N_R^2 M_{R,4}^2 M_{B,4}^2
 \sum_{n_y, n_y' =0}^{N_y-1}
 \sum_{n_h, n_h', n_h'', n_h''' =0}^{N_h-1}
    \i \SB {n_y, n_y'} \i \SB {n_h, n_h'', n_h', n_h'''} \NR
-  \NC \NC \SixQ \V{u} ^\ast \DB{n_h'} \V{u} ^\ast \DB{n_h'''}
+  \NC \NC \SixQ \D \V{u} ^\ast \DB{n_h'} \V{u} ^\ast \DB{n_h'''}
   \V{u} \DB{n_h} \V{u} \DB{n_h''} \NR
 \NC \NC \Q \Q + N_R^4 M_{R,2}^4 M_{B,2}^4
 \sum_{n_y, n_y' =0}^{N_y-1}
@@ -401,7 +401,7 @@ Pay attention to the order of indices in the product of entries of \m {\V{u}} an
   \NC \NC \SixQ +\i \SB {n_y \mid n_y'} \i \SB {n_h, n_h', n_h'', n_h'''}
   +\i \SB {n_y \mid n_y'} \i \SB {n_h, n_h' \mid n_h'', n_h'''}
 \Bigg) \NR
-  \NC \NC \SixQ \V{u} ^\ast \DB{n_h'} \V{u} ^\ast \DB{n_h'''}
+  \NC \NC \SixQ \D \V{u} ^\ast \DB{n_h'} \V{u} ^\ast \DB{n_h'''}
   \V{u} \DB{n_h} \V{u} \DB{n_h''} \NR
 %
 \NC = \NC N_R^2 M_{R,4}^2 M_{B,4}^2 N_y
@@ -477,7 +477,7 @@ According to Lemma 5.1 in Baraniuk et.\ al.\ (2008), substitution of relevent qu
 Suppose the probability, according to event space \m {\o_t, \o_r}, that RIP holds for \m {\M{P}} w.r.t.\ \m {\d_s} is \m {p}, then
 \Disp{
 \NC 1 -p
-\leq \NC \D {12}^s \D \d_s^{-\RB {s+2}} N_Y^{-2} \NR[+]
+\leq \NC 12^s \D \d_s^{-\RB {s+2}} N_Y^{-2} \NR[+]
 }
 }
 

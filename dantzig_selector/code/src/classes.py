@@ -121,7 +121,18 @@ class Oo_mm_pp:
         self.y = y
         self.g_hat = np.zeros ((cst.nn_hh))
     def run (self):
-        
+        r =y # remained vector
+        tt =np.array (range (cst.nn_h)) # list of column indices
+        ss =set ([]) # extracted column indices
+        while True:
+            y -pp @ g_hat
+            t =np.argmin (abs (pp [:, tt].conj().T @ r))
+            ss.add(t)
+            pp_ss =pp [:, list(ss)]
+            pp_ss_ps_inv =np.linalg.inv (pp_ss.conj().T) @ pp_ss.conj().T
+            r =y -pp_ss () @ pp_ss_ps_inv @ y
+            if np.linalg.norm (pp_ss_ps_inv) <1:
+                break
 
 class Ll_ss:
     def __init__(self, pp, y):

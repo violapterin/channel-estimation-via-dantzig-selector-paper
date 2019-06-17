@@ -114,13 +114,13 @@ How can we hope to estimate \m {\V{x}} when, in addition to insufficient observa
 \item Input \m {\M {\Phi} \in \MB {V}_\MB {R} \SB {N_m, N_p}}, \m {\V {y} \in \MB {V}_\MB {R} \SB {N_m}}.
 \item Calculate
 \Disp {
-\NC \V {h}
+\NC \Hat {\V {h}}
 \LA \NC \startcases
 \NC \Min {\V {h}'} \Q \MC \VNm {\V {h}'} _1 \NR
 \NC \Rm {subject} \; \Rm {to} \Q \MC \VNm {\M {\Phi}^\Adj \RB {\M {\Phi} \V {h}' -\V {y}}} _\infty \leq \g \NR
 \stopcases \NR
 }
-\item Output \m {\V {h}}.
+\item Output \m {\Hat {\V {h}}}.
 }
 
 They was able to show that, with Algorithm (), the mean square error is bounded with overwhelming probability.
@@ -160,15 +160,50 @@ For the noiseless, real-number case,
 We pick up the columns of \m {\M {\Phi}} greedily, hoping to correspond to the nonzero components of \m {\V {x}}, and thus recovering the original signal.
 
 \Result
-{Algorithm}
+{Algorithm: Orthogonal Matching Pursuit}
 {
 \startitemize[n]
-\item \color[red]{(To be done)}
+\item Input \m {\M {\Phi} \in \MB {V}_\MB {R} \SB {N_m, N_p}}, \m {\V {y} \in \MB {V}_\MB {R} \SB {N_m}}.
+\item Initialize
+\Disp{
+\NC \V{r}
+\LA \NC \V{y} \NR[+]
+\NC S
+\LA \NC \varnothing \NR[+]
+}
+\item Start the loop with counter \m {i \LA 1}.
+\item Find
+\Disp{
+\NC c
+\LA \NC \underset {i =0, \dots, N_p-1} {\Rm{argmax}}
+\Nm {\M{\Phi} \DB {:,i} \V{r}} \NR[+]
+}
+and insert \m {S \LA S \cup {i}}.
+\item Compute
+\Disp{
+\NC \M{\Phi} ^\ddagger
+\LA \NC \RB {\M{\Phi} \DB {S} ^\Adj \M{\Phi} \DB {S}} ^{-1} \NR[+]
+\NC \V{r}
+\LA \NC \V{y} -\M{\Phi} ^\ddagger \V{y} \NR[+]
+}
+\item Break if
+\Disp{
+\NC \VNm {\M{\Phi} ^\ddagger} _1
+<\NC 1 \NR[+]
+}
+where \m {\VNm {\M{\Phi} ^\ddagger} _1} denotes the operator norm.
+\item Output 
+\Disp {
+\NC \Hat {\V {g}}
+\LA \NC \M{\Phi} ^\ddagger \V{y} \NR[+]
+}
 \stopitemize
 }
-From Tropp and Gilbert (2007a), OMP recovers \m {x} completely, with overwhelming probability.
+Here \m {\V{r}} can be thought of as the estimated noise, and \m {S} the estimated position where \m {h} is nonzero (where we have slightly abused the usage of double brackets).
 
-It is interesting to note that, ever since, scholars has applied OMP in favor of DS, due the simplicity of former's implementation, making OMP perhaps the most widely used channel estimation technique.
+From Tropp and Gilbert (2007a), the probability OMP recovers \m {h} completely is overwhelming.
+
+It is interesting to note that, ever since, the channel sensing scholars have applied OMP in favor of DS, due the simplicity of former's implementation, making OMP perhaps the most widely used channel estimation technique.
 
 For our purposes, let \m {\M {F}} be the precoder and \m {\M {W}} the combiner, and \m {\M {H}} the channel, and consider the noiseless case.
 Let signal \m {\V {x}} be sent, and \m {\V {y}} be receiverd, that is
@@ -212,8 +247,8 @@ With (), scholars often exploit the relation
 Suppose \m {\M{A} \in \MB {M}_{\MB {K}} \SB {N_1, N_2}, \M{X} \in \MB {M}_{\MB {K}} \SB {N_2, N_3}, \M{B} \in \MB {M}_{\MB {K}} \SB {N_3, N_4}},
 Then
 \Disp {
-\NC \mathrm{vec} \RB {\M{A}\M{X}\M{B}}
-= \NC \RB {\M{B}^\Tr \otimes \M{A}} \mathrm{vec} \SB {\M{X}} \NR
+\NC \Rm{vec} \SB {\M{A}\M{X}\M{B}}
+= \NC \RB {\M{B}^\Tr \otimes \M{A}} \Rm{vec} \SB {\M{X}} \NR
 }
 }
 

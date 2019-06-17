@@ -8,7 +8,7 @@ import classes as cls
 def array_response (pG):
     return np.array ([np.exp (1J *i *pG) for i in range (cst.nn_hh)])
 
-def kk ():
+def kk (): # DFT matrix
     ret =np.zeros ((cst.nn_hh, cst.nn_hh))
     for i in range (cst.nn_hh):
         for j in range (cst.nn_hh):
@@ -59,6 +59,8 @@ def indication_repr_mat (n_h):
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 def draw (arr_x, list_dat, label_x, label_y, title):
     plt.close ("all")
