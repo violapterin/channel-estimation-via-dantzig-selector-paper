@@ -1,5 +1,5 @@
 \startsection [title={Confirming Restricted Isometry of Beamformer}]
-\startsubsection [title={Design of Beamformer entries}]
+\startsubsection [title={Design of Digital Beamformer Entries}]
 
 Our plan is setting the four precoder matrices to be i.i.d.\ random matrix, hoping that the resulting \m {P} has RIP.
 Indeed, \m {\d_s \SB {\M{F}_B} \SB {\o_t}} may be found, along similar lines with Achlioptas (2001) and Baraniuk et.\ al.\ (2008).
@@ -23,26 +23,28 @@ d \MF{Im} \SB {\M{F}_B \DB {n_R, n_Y}} \NR[+]
 = \NC 0, 1, 2, \ldots, N_Y -1 \NR
 }
 
-We know that the magnitude \m {\M{F}_B \DB {n_R, n_Y}} follows Rayleigh distribution, having
-\Disp{
-\NC \NC \MB{E} \SB {\Nm {\M{F}_B \DB {n_R, n_Y} \SB {\o_t}}} \NR
-\NC =\NC \F{\R{\pi}}{2} \l_B \NR[+]
+We know that the magnitude \m {\M{F}_B \DB {n_R, n_Y}} follows Rayleigh distribution.
+Set for shorthand
+\Disp {
+\NC M_{B,k}
+:=\NC \MB{E} \SB {\Nm {\M{F}_B \DB {n_R, n_Y} \SB {\o_t}}^k} \NR
+\NC k =\NC 1, 2, 3, \dots \NR
+}
+Then it is known that
+\Disp {
 \NC M_{B,2}
-:=\NC \MB{E} \SB {\Nm {\M{F}_B \DB {n_R, n_Y} \SB {\o_t}}^2} \NR
-\NC =\NC \l_B^2 \NR[+]
+=\NC \l_B^2 \NR[+]
 \NC M_{B,4}
-:=\NC \MB{E} \SB {\Nm {\M{F}_B \DB {n_R, n_Y} \SB {\o_t}}^4} \NR
-\NC =\NC 2 \l_B^4 \NR[+]
+=\NC 2 \l_B^4 \NR[+]
 }
-Also notice that
-\Disp{
-\NC \NC \MB{E} \SB {\M{F}_B \DB {n_R, n_Y}^2} \NR
-\NC = \NC \MB{E} \SB {\MF {Re} \SB {\M{F}_B \DB {n_R, n_Y}}^2}
-   -\MB{E} \SB {\MF {Im} \SB {\M{F}_B \DB {n_R, n_Y}}^2} \NR
-\NC \NC \FourQ +2 \Ss {i} \MB{E} \SB {\MF {Re} \SB {\M{F}_B \DB {n_R, n_Y}}}
-      \MB{E} \SB {\MF {Im} \SB {\M{F}_B \DB {n_R, n_Y}}} \NR
-\NC = \NC 0 \NR[+]
-}
+
+Moreover, we may bound the higher moments as follows.
+
+\m {\M{W}_B \DB {n_Y, n_R}} is set in an entirely analolous manner.
+
+\stopsubsection
+
+\startsubsection [title={Design of Analog Beamformer Entries}]
 
 Let \m {\M{F}_R \DB {n_H, n_R}} be uniformly distributed on the unit circle on the complex plane, which gives probability density
 \Disp{
@@ -53,22 +55,21 @@ d \MF{Re} \SB {\M{F}_R \DB {n_H, n_R}} \NR[+]
 = \NC \F {1} {\pi} \RB {1 -\RB {\MF{Im} \SB {\M{F}_R \DB {n_H, n_R}}} ^2}^{-1/2}
 d \MF{Im} \SB {\M{F}_R \DB {n_H, n_R}} \NR[+]
 }
-As a result,
-\Disp{
-\NC \NC \MB{E} \SB {\Nm {\M{F}_R \DB {n_H, n_R} \SB {\o_t}}} \NR
-\NC =\NC \l_R \NR[+]
+Set
+\Disp {
+\NC M_{R,k}
+:=\NC \MB{E} \SB {\Nm {\M{F}_R \DB {n_H, n_R} \SB {\o_t}}^k} \NR
+\NC k =\NC 1, 2, 3, \dots \NR
+}
+Then it is easy to see
+\Disp {
 \NC M_{R,2}
-:=\NC \MB{E} \SB {\Nm {\M{F}_R \DB {n_H, n_R} \SB {\o_t}}^2} \NR
-\NC =\NC \l_R^2 \NR[+]
+=\NC \l_R^2 \NR[+]
 \NC M_{R,4}
-:=\NC \MB{E} \SB {\Nm {\M{F}_R \DB {n_H, n_R} \SB {\o_t}}^4} \NR
-\NC =\NC \l_R^4 \NR[+]
+=\NC \l_R^4 \NR[+]
 }
-And again
-\Disp{
-\NC \MB{E} \SB {\M{F}_R \DB {n_H, n_R}^2}
-= \NC 0 \NR[+]
-}
+
+\m {\M{W}_B \DB {n_Y, n_R}} is set in an entirely analolous manner.
 
 \stopsubsection
 
@@ -297,14 +298,22 @@ I_{2,2} \SB {n_y, n_h, n_y', n_h', n_y'', n_h'', n_y''', n_h'''} \D N_R^4 M_{R,2
 }
 }
 
+Now, fix any test vector \m {\V{u} \in \MB{V}_\MB{C} \SB{N_Y}}, we shall study the probability concentration of
+\Disp {
+\NC \rho \SB {\o_t, \o_r}
+:=\NC \VNm {\M{Q} \SB {\o_t, \o_r} \V{u}}_2^2 \NR[+]
+}
+by exploiting Chernoff bound.
+
 \stopsubsection
 
-\startsubsection [title={Concentration Inequalities}]
+\startsubsection [title={The First Moment}]
 
-Now, fix any test vector \m {\V{u} \in \MB{V}_\MB{C} \SB{N_Y}}, we shall study the probability concentration of \m {\VNm {\M{F}_B \V{u}}_2^2} by exploiting Chebyshev bound.
+The Chernoff bound is most effective if all higher moments are known.
+To begin with, study \m {\MB{E} \SB {\rho \SB {\o_t, \o_r}}}.
 The calculation can be simplified if we expand the square of norm and pass through the expectation sign.
 \Disp{
-\NC \NC \MB{E} \SB {\VNm {\M{Q} \SB {\o_t, \o_r} \V{u}} _2 ^2} \NR
+\NC \NC \MB{E} \SB {\rho \SB {\o_t, \o_r}} \NR
 \NC = \NC \MB{E} \SB {
   \sum_{n_y =0}^{N_y-1}
   \Nm {\sum_{n_h =0}^{N_h-1}
@@ -336,14 +345,18 @@ Thus, we may set
 }
 To make
 \Disp{
-\NC \MB{E} \SB {\VNm {\M{Q} \SB {\o_t, \o_r} \V{u}} _2 ^2}
+\NC \MB{E} \SB {\rho}
 =\NC \VNm {\V{u}} _2 ^2
 }
+
+\stopsubsection
+
+\startsubsection [title={The Second Moment}]
 
 Similarly, we have to find, in advance, the second moment.
 Pay attention to the order of indices in the product of entries of \m {\V{u}} and that of \m {\M{Q}}.
 \Disp{
-\NC \NC \MB{E} \SB {\VNm {\M{Q} \SB {\o_t, \o_r} \V{u}} _2 ^4} \NR
+\NC \NC \MB{E} \SB {\rho \SB {\o_t, \o_r} ^2} \NR
 %
 \NC =\NC \MB{E} \SB {
   \RB {
@@ -428,7 +441,7 @@ The first term in the big parentheses can also be bounded by triangle inequality
 
 Thus,
 \Disp {
-\NC \NC \MB{E} \SB {\VNm {\M{Q} \V{u}} _2 ^4} \NR
+\NC \NC \MB{E} \SB {\rho ^2} \NR
 \NC = \NC N_R^2 M_{R,4}^2 M_{B,4}^2 N_y \VNm {\V{u}} _4 ^4 \NR
 \NC \NC \FourQ + N_R^4 M_{R,2}^4 M_{B,2}^4
 \Bigg(
@@ -446,7 +459,44 @@ The decision to drop \m {\VNm {\V{u}} _4} term is justified by the fact \m {\VNm
 
 \stopsubsection
 
-\startsubsection [title={Using Chebyshev Bound}]
+\startsubsection [title={The Higher Moments}]
+
+In bounding the higher moments of \m {\rho}, we may be more generous.
+For \m {k =3, 4, 5, \dots},
+
+\Disp{
+\NC \NC \MB{E} \SB {\rho \SB {\o_t, \o_r} ^k} \NR
+}
+
+\stopsubsection
+
+\startsubsection [title={Using Chernoff Bound}]
+
+Imitating the Markov inequality argument in classical probability, we have, by various result in previous subsections,
+\Disp {
+\NC \NC \MB{P} \SB {\rho \geq \RB {1 +\e} \MB{E} \SB {\rho}} \NR
+\NC =\NC \MB{P} \SB {\Ss {e} ^{s_{+} \rho} \geq \Ss {e} ^{s_{+} \RB {1 +\e} \MB{E} \SB {\rho}}} \NR
+\NC =\NC \Ss {e} ^{-s_{+} \RB {1 +\e} \MB{E} \SB {\rho}} \MB{E} \SB {\Ss {e} ^{s_{+} \rho}} \NR
+\NC =\NC \Ss {e} ^{-s_{+} \RB {1 +\e} \MB{E} \SB {\rho}}
+\RB {1 +\MB{E} \SB {\rho} +\F{1} {2} \MB{E} \SB {\rho^2} +\sum_{k=3}^\infty \F{1} {k!} \MB{E} \SB {\rho^k}} \NR
+\NC =\NC \Ss {e} ^{-s_{+} \RB {1 +\e} \VNm {\V{u}} _2 ^2}
+\RB {1 +\VNm {\V{u}} _2 ^2 +\F{1} {2} \RB {1 +N_Y^{-2}} \VNm {\V{u}} _2 ^4 +\sum_{k=3}^\infty \F{1} {k!} \MB{E} \SB {\rho^k}} \NR
+}
+for some \m {s_{+} >0}.
+Of course, we have yet to justify the convergence of the formal power series.
+
+Similarly, assuming convergence for a moment, for some \m {s_{-} >0}.
+\Disp {
+\NC \NC \MB{P} \SB {\rho \leq \RB {1 -\e} \MB{E} \SB {\rho}} \NR
+\NC =\NC \Ss {e} ^{s_{-} \RB {1 -\e} \VNm {\V{u}} _2 ^2}
+\RB {1 -\VNm {\V{u}} _2 ^2 +\F{1} {2} \RB {1 +N_Y^{-2}} \VNm {\V{u}} _2 ^4 +\sum_{k=3}^\infty \F{\RB {-1}^{k}} {k!} \MB{E} \SB {\rho^k}} \NR
+}
+
+Since the quantity \m {\Nm {\rho -\MB{E} \SB {\rho}}} is linear in \m {\VNm {\V{u}} _2}, by a scaling argument we may set
+\Disp {
+\NC \VNm {\V{u}} _2
+=\NC 1 \NR
+}
 
 It follows that
 \Disp{

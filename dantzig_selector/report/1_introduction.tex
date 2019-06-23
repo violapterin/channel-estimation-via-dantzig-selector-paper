@@ -163,7 +163,7 @@ We pick up the columns of \m {\M {\Phi}} greedily, hoping to correspond to the n
 {Algorithm: Orthogonal Matching Pursuit}
 {
 \startitemize[n]
-\item Input \m {\M {\Phi} \in \MB {V}_\MB {R} \SB {N_m, N_p}}, \m {\V {y} \in \MB {V}_\MB {R} \SB {N_m}}.
+\item Input \m {\M {\Phi} \in \MB {V}_\MB {R} \SB {N_m, N_p}}, \m {\V {y} \in \MB {V}_\MB {R} \SB {N_m}}, \m {\eta >0}.
 \item Initialize
 \Disp{
 \NC \V{r}
@@ -182,14 +182,14 @@ and insert \m {S \LA S \cup {i}}.
 \item Compute
 \Disp{
 \NC \M{\Phi} ^\ddagger
-\LA \NC \RB {\M{\Phi} \DB {S} ^\Adj \M{\Phi} \DB {S}} ^{-1} \NR[+]
+\LA \NC \RB {\M{\Phi} \DB {S} ^\Adj \M{\Phi} \DB {S}} ^{-1} \M{\Phi} \DB {S} ^\Adj \NR[+]
 \NC \V{r}
-\LA \NC \V{y} -\M{\Phi} ^\ddagger \V{y} \NR[+]
+\LA \NC \V{y} -\M{\Phi} \DB {S} ^\Adj \M{\Phi} ^\ddagger \V{y} \NR[+]
 }
 \item Break if
 \Disp{
-\NC \VNm {\M{\Phi} ^\ddagger} _1
-<\NC 1 \NR[+]
+\NC \VNm {\V{r}} _2
+<\NC \eta \NR[+]
 }
 where \m {\VNm {\M{\Phi} ^\ddagger} _1} denotes the operator norm.
 \item Output 
