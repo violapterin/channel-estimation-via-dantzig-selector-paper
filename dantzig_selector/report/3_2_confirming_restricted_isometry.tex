@@ -61,13 +61,16 @@ Set
 :=\NC \MB{E} \SB {\Nm {\M{F}_R \DB {n_H, n_R} \SB {\o_t}}^k} \NR
 \NC k =\NC 1, 2, 3, \dots \NR
 }
-Then it is easy to see
+Then it is trivial that
 \Disp {
 \NC M_{R,2}
 =\NC \l_R^2 \NR[+]
 \NC M_{R,4}
 =\NC \l_R^4 \NR[+]
 }
+In fact, it seems to be possible, from later analysis, to require that \m {\M{F}_R \DB {n_H, n_R}} be uniformly distributed only on the discrete set of \m {p}-th roots of unity if \m {p} is big enough.
+The point may be exploited in practical application when it is decided to avoid the overhead of generation of random phase.
+But we choose such continuous distribution to keep the analysis simple.
 
 \m {\M{W}_B \DB {n_Y, n_R}} is set in an entirely analolous manner.
 
@@ -269,9 +272,11 @@ And it can be seen that
    \M{W} ^\Tr \DB {n_H, n_Y} \M{W} ^\Tr \DB {n_H', n_Y'} 
    \M{W} ^\Adj \DB {n_H'', n_Y''} \M{W} ^\Adj \DB {n_H''', n_Y'''}
 } \NR
-\NC = \NC I_4 \SB {n_H, n_Y, n_H', n_Y', n_H'', n_Y'', n_H''', n_Y'''} \D N_R M_{R,4} M_{B,4} \NR
+\NC = \NC I_4 \SB {n_H, n_Y, n_H', n_Y', n_H'', n_Y'', n_H''', n_Y'''}
+\D \RB {N_R M_{R,4} M_{B,4} +N_R \RB {N_R-1} M_{R,2}^2 M_{B,2}^2} \NR
 \NC \NC \FourQ
-I_{2,2} \SB {n_H, n_Y, n_H', n_Y', n_H'', n_Y'', n_H''', n_Y'''} \D N_R^2 M_{R,2}^2 M_{B,2}^2 \NR[+]
+I_{2,2} \SB {n_H, n_Y, n_H', n_Y', n_H'', n_Y'', n_H''', n_Y'''}
+\D \F{1}{2} N_R \RB {N_R+1} M_{R,2}^2 M_{B,2}^2 \NR[+]
 }
 
 Furthermore, by the nature of Kronecker product, and the symmetry between \m {\M{F} ^\Tr} and \m {\M{W}}, we realize that the expectation of such product of entries of \m {\M{Q}} is just square of the product in such manner of entries of \m {\M{F} ^\Tr} (or \m {\M{W}}).
@@ -399,13 +404,13 @@ Pay attention to the order of indices in the product of entries of \m {\V{u}} an
   \D \V{u} ^\ast \DB{n_h'} \V{u} ^\ast \DB{n_h'''}
   \V{u} \DB{n_h} \V{u} \DB{n_h''} \NR
 %
-\NC = \NC N_R^2 M_{R,4}^2 M_{B,4}^2
-\sum_{n_y, n_y' =0}^{N_y-1}
+\NC = \NC \RB {N_R M_{R,4} M_{B,4} +N_R \RB {N_R-1} M_{R,2}^2 M_{B,2}^2} ^2 \NR
+\NC \NC \SixQ \D \sum_{n_y, n_y' =0}^{N_y-1}
 \sum_{n_h, n_h', n_h'', n_h''' =0}^{N_h-1}
    \i \SB {n_y, n_y'} \i \SB {n_h, n_h'', n_h', n_h'''} \NR
   \NC \NC \SixQ \D \V{u} ^\ast \DB{n_h'} \V{u} ^\ast \DB{n_h'''}
   \V{u} \DB{n_h} \V{u} \DB{n_h''} \NR
-\NC \NC \Q \Q + N_R^4 M_{R,2}^4 M_{B,2}^4
+\NC \NC \FourQ + \RB {N_R^2 M_{R,2}^2 M_{B,2}^2} ^2
 \sum_{n_y, n_y' =0}^{N_y-1}
 \sum_{n_h, n_h', n_h'', n_h''' =0}^{N_h-1} \NR
 \NC \NC \SixQ \Bigg(
@@ -417,14 +422,15 @@ Pay attention to the order of indices in the product of entries of \m {\V{u}} an
   \NC \NC \SixQ \D \V{u} ^\ast \DB{n_h'} \V{u} ^\ast \DB{n_h'''}
   \V{u} \DB{n_h} \V{u} \DB{n_h''} \NR
 %
-\NC = \NC N_R^2 M_{R,4}^2 M_{B,4}^2 N_y
-\sum_{n_h =0}^{N_h-1} \Nm {\V{u} \DB{n_h}} ^4 \NR
+\NC = \NC \RB {N_R M_{R,4} M_{B,4} +N_R \RB {N_R-1} M_{R,2}^2 M_{B,2}^2} ^2
+\D N_y \sum_{n_h =0}^{N_h-1} \Nm {\V{u} \DB{n_h}} ^4 \NR
 \NC \NC \FourQ
-+ N_R^4 M_{R,2}^4 M_{B,2}^4 \Bigg(
++ \RB {N_R^2 M_{R,2}^2 M_{B,2}^2} ^2 \NR
+\NC \NC \SixQ \D \Bigg(
   N_y \sum_{n_h, n_h' =0}^{N_h-1} \i \SB {n_h \mid n_h'} \V{u} ^\ast \DB{n_h} ^2 \V{u} \DB{n_h'} ^2 \NR
-  \NC \NC \FourQ \FourQ +N_y \sum_{n_h, n_h' =0}^{N_h-1} \i \SB {n_h \mid n_h'} \Nm {\V{u} \DB{n_h}} ^2 \Nm {\V{u} \DB{n_h'}} ^2 \NR
-  \NC \NC \FourQ \FourQ +\RB {N_y^2 -N_y} \sum_{n_h =0}^{N_h-1} \Nm {\V{u} \DB{n_h}} ^4 \NR
-  \NC \NC \FourQ \FourQ +\RB {N_y^2 -N_y} \sum_{n_h, n_h' =0}^{N_h-1} \i \SB {n_h \mid n_h'} \Nm {\V{u} \DB{n_h}} ^2 \Nm {\V{u} \DB{n_h'}} ^2
+  \NC \NC \SixQ +N_y \sum_{n_h, n_h' =0}^{N_h-1} \i \SB {n_h \mid n_h'} \Nm {\V{u} \DB{n_h}} ^2 \Nm {\V{u} \DB{n_h'}} ^2 \NR
+  \NC \NC \SixQ +\RB {N_y^2 -N_y} \sum_{n_h =0}^{N_h-1} \Nm {\V{u} \DB{n_h}} ^4 \NR
+  \NC \NC \SixQ +\RB {N_y^2 -N_y} \sum_{n_h, n_h' =0}^{N_h-1} \i \SB {n_h \mid n_h'} \Nm {\V{u} \DB{n_h}} ^2 \Nm {\V{u} \DB{n_h'}} ^2
 \Bigg) \NR[+]
 }
 
@@ -432,9 +438,9 @@ The third term is \m {\VNm {\V{u}} _4 ^4}.
 The second and fourth terms are exactly \m {\VNm {\V{u}} _2 ^4 -\VNm {\V{u}} _4 ^4}.
 The first term in the big parentheses can also be bounded by triangle inequality to be \m {\VNm {\V{u}} _2 ^4 -\VNm {\V{u}} _4 ^4}.
 \Disp {
-\NC \sum_{n_h, n_h' =0}^{N_h-1}
-\i \SB {n_h \mid n_h'} \V{u} ^\ast \DB{n_h} ^2 \V{u} \DB{n_h'} ^2
-\leq \NC \Nm {\sum_{n_h =0}^{N_h-1} \V{u} ^\ast \DB{n_h} ^2} ^2
+\NC \NC \sum_{n_h, n_h' =0}^{N_h-1}
+\i \SB {n_h \mid n_h'} \V{u} ^\ast \DB{n_h} ^2 \V{u} \DB{n_h'} ^2 \NR
+\NC \leq \NC \Nm {\sum_{n_h =0}^{N_h-1} \V{u} ^\ast \DB{n_h} ^2} ^2
 -\sum_{n_h =0}^{N_h-1} \V{u} ^\ast \DB{n_h} ^4 \NR
 \NC \leq \NC \VNm {\V{u}} _2 ^4 -\VNm {\V{u}} _4 ^4 \NR[+]
 }
@@ -442,20 +448,22 @@ The first term in the big parentheses can also be bounded by triangle inequality
 Thus,
 \Disp {
 \NC \NC \MB{E} \SB {\rho ^2} \NR
-\NC = \NC N_R^2 M_{R,4}^2 M_{B,4}^2 N_y \VNm {\V{u}} _4 ^4 \NR
-\NC \NC \FourQ + N_R^4 M_{R,2}^4 M_{B,2}^4
-\Bigg(
+\NC = \NC \RB {N_R M_{R,4} M_{B,4} +N_R \RB {N_R-1} M_{R,2}^2 M_{B,2}^2} ^2
+\D N_y \VNm {\V{u}} _4 ^4 \NR
+\NC \NC \FourQ + \RB {N_R^2 M_{R,2}^2 M_{B,2}^2} ^2 \NR
+\NC \NC \SixQ \Bigg(
   N_y \RB {\VNm {\V{u}} _2 ^4 -\VNm {\V{u}} _4 ^4}
   +N_y \RB {\VNm {\V{u}} _2 ^4 -\VNm {\V{u}} _4 ^4} \NR
-  \NC \NC \FourQ \FourQ +\RB {N_y^2 -N_y} \VNm {\V{u}} _4 ^4
+  \NC \NC \SixQ +\RB {N_y^2 -N_y} \VNm {\V{u}} _4 ^4
   +\RB {N_y^2 -N_y} \RB {\VNm {\V{u}} _2 ^4 -\VNm {\V{u}} _4 ^4}
 \Bigg) \NR
 %
 \NC = \NC \RB {1 +N_Y^{-2}} \VNm {\V{u}} _2 ^4
--2 N_Y^{-2} \RB {1 -N_R^{-2}} \VNm {\V{u}} _4 ^4 \NR
-\NC \leq \NC \RB {1 +N_Y^{-2}} \VNm {\V{u}} _2 ^4 \NR[+]
++\RB {-2 N_Y^2 +\RB {1 +2N_R^{-1} +N_R^{-2}} N_Y^{-2}} \VNm {\V{u}} _4 ^4 \NR
+\NC \leq \NC \RB {1 +N_Y^{-1}} \VNm {\V{u}} _2 ^4 \NR[+]
 }
-The decision to drop \m {\VNm {\V{u}} _4} term is justified by the fact \m {\VNm {\V{u}} _4 \geq N_H^{-1/2} \VNm {\V{u}} _2}, which is small.
+In simplifying we used \m {N_R \gg 1} and \m {N_Y^2 \gg 1}.
+The decision to drop \m {\VNm {\V{u}} _4} term is justified by the fact \m {\VNm {\V{u}} _4 \geq N_H^{-1/2} \VNm {\V{u}} _2} and yet \m {N_H \gg N_Y}.
 
 \stopsubsection
 
