@@ -116,7 +116,7 @@ class Dd_ss:
         self.g_hat = inv_find_repr_vec (g_repr_hat)
 
 class Oo_mm_pp:
-    def __init__(self):
+    def __init__(self, pp, y, eG):
         self.pp = pp
         self.y = y
         self.g_hat = np.zeros ((cst.nn_hh))
@@ -126,12 +126,12 @@ class Oo_mm_pp:
         ss =set ([]) # extracted column indices
         while True:
             y -pp @ g_hat
-            t =np.argmin (abs (pp [:, tt].conj().T @ r))
-            ss.add(t)
+            s =np.argmin (abs (pp [:, tt].conj().T @ r))
+            ss.add(s)
             pp_ss =pp [:, list(ss)]
-            pp_ss_ps_inv =np.linalg.inv (pp_ss.conj().T) @ pp_ss.conj().T
-            r =y -pp_ss () @ pp_ss_ps_inv @ y
-            if np.linalg.norm (pp_ss_ps_inv) <1:
+            pp_ss_ps_inv =np.linalg.inv (pp_ss.conj().T @ pp_ss) @ pp_ss.conj().T
+            r =y -pp_ss.conj().T @ pp_ss_ps_inv @ y
+            if np.linalg.norm(r, 2) <self.eG:
                 break
 
 class Ll_ss:
@@ -140,10 +140,5 @@ class Ll_ss:
         self.y = y
         self.g_hat = np.zeros ((cst.nn_hh))
     def run (self):
-        g_hat =pp.conj().T @ numpy.linalg.inv (self.pp @ self.pp.conj().T).inv @ self.y
-
-class Data:
-    def __init__ (self, arr, legend):
-        self.arr =arr
-        self.legend =legend
+        g_hat =numpy.linalg.inv (self.pp @ self.pp.conj().T).inv @ pp.conj().T @ self.y
 

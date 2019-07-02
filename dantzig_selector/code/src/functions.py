@@ -62,7 +62,7 @@ def indication_repr_mat (n_h):
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
-def draw (arr_x, list_dat, label_x, label_y, title):
+def draw (dat_x, list_dat, label_x, label_y, title):
     plt.close ("all")
     fig =plt.figure ()
     plt.title (title, fontsize = 15)
@@ -81,11 +81,11 @@ def draw (arr_x, list_dat, label_x, label_y, title):
     size_marker = 7 # fixed marker size
     width_line = 3 # fixed line width
 
-    size_line =len (arr_x)
+    size_line =len (dat_x)
     for i in range (len (list_dat)):
         dat =list_dat[i]
         assert (size_line == len (dat.arr))
-        plt.plot (arr_x,
+        plt.plot (dat_x,
                   dat.arr,
                   markersize =size_marker,
                   linewidth =width_line,

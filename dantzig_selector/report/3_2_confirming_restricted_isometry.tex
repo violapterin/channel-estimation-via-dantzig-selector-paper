@@ -30,15 +30,24 @@ Set for shorthand
 :=\NC \MB{E} \SB {\Nm {\M{F}_B \DB {n_R, n_Y} \SB {\o_t}}^k} \NR
 \NC k =\NC 1, 2, 3, \dots \NR
 }
-Then it is known that
+
+It is known that
+\Result
+{Lemma}
+{
+\Disp {
+\NC M_{B,k}
+=\NC \Gamma \SB {\F{k}{2} +1} \NR[+]
+}
+}
+
+In particular,
 \Disp {
 \NC M_{B,2}
 =\NC \l_B^2 \NR[+]
 \NC M_{B,4}
 =\NC 2 \l_B^4 \NR[+]
 }
-
-Moreover, we may bound the higher moments as follows.
 
 \m {\M{W}_B \DB {n_Y, n_R}} is set in an entirely analolous manner.
 
@@ -63,12 +72,10 @@ Set
 }
 Then it is trivial that
 \Disp {
-\NC M_{R,2}
-=\NC \l_R^2 \NR[+]
-\NC M_{R,4}
-=\NC \l_R^4 \NR[+]
+\NC M_{R,k}
+=\NC \l_R^k \NR[+]
 }
-In fact, it seems to be possible, from later analysis, to require that \m {\M{F}_R \DB {n_H, n_R}} be uniformly distributed only on the discrete set of \m {p}-th roots of unity if \m {p} is big enough.
+In fact, it seems to be possible, from analysis as follows, to require that \m {\M{F}_R \DB {n_H, n_R}} be uniformly distributed only on the discrete set of \m {p}-th roots of unity if \m {p} is big enough.
 The point may be exploited in practical application when it is decided to avoid the overhead of generation of random phase.
 But we choose such continuous distribution to keep the analysis simple.
 
@@ -155,9 +162,6 @@ For any instance of \m {\M{P} \SB {\o_t, \o_r}} and \m {\M{Q} \SB {\o_t, \o_r}},
 = \NC \VNm {\M{Q} \V{u}} _2 \NR[+]
 }
 }
-
-And it will turn out that any two distinct entries of \m {\M{Q}} are not correlated.
-
 \stopsubsection
 
 \startsubsection [title={Expectation of Products of Matrix Entry}]
@@ -458,46 +462,178 @@ Thus,
   +\RB {N_y^2 -N_y} \RB {\VNm {\V{u}} _2 ^4 -\VNm {\V{u}} _4 ^4}
 \Bigg) \NR
 %
-\NC = \NC \RB {1 +N_Y^{-2}} \VNm {\V{u}} _2 ^4
+\NC =\NC \RB {1 +N_Y^{-2}} \VNm {\V{u}} _2 ^4
 +\RB {-2 N_Y^2 +\RB {1 +2N_R^{-1} +N_R^{-2}} N_Y^{-2}} \VNm {\V{u}} _4 ^4 \NR
-\NC \leq \NC \RB {1 +N_Y^{-1}} \VNm {\V{u}} _2 ^4 \NR[+]
+\NC \leq \NC \RB {1 +N_Y^{-2}} \VNm {\V{u}} _2 ^4 \NR[+]
 }
-In simplifying we used \m {N_R \gg 1} and \m {N_Y^2 \gg 1}.
-The decision to drop \m {\VNm {\V{u}} _4} term is justified by the fact \m {\VNm {\V{u}} _4 \geq N_H^{-1/2} \VNm {\V{u}} _2} and yet \m {N_H \gg N_Y}.
+In simplifying we used \m {N_H \gg N_R \gg N_Y \gg 1}. and the fact \m {\VNm {\V{u}} _4 \geq N_H^{-1/2} \VNm {\V{u}} _2}.
 
 \stopsubsection
 
 \startsubsection [title={The Higher Moments}]
 
-In bounding the higher moments of \m {\rho}, we may be more generous.
-For \m {k =3, 4, 5, \dots},
+In bounding the higher moments of \m {\rho}, let us be more generous.
+Fix \m {k =3, 4, 5, \dots}.
+If we introduce the change of variables
+\Disp {
+\NC l_Y :=\NC \Fl {n_Y /N_Y} \NR
+\NC m_Y :=\NC n_Y \; \Rm{Mod}\; N_Y \NR
+\NC l_H :=\NC \Fl {n_H /N_H} \NR
+\NC l_H' :=\NC \Fl {n_H' /N_H} \NR
+\NC m_H :=\NC n_H \; \Rm{Mod}\; N_H \NR
+\NC m_H' :=\NC n_H' \; \Rm{Mod}\; N_H \NR
+}
+we may split the expression of \m {\rho} as follows.
+Now, respectively: by Minkowski inequality; by the fact that \m {\M{F}_R} and \m {\M{F}_R} entries both have unity magnitude, by the identical distribution and by the definition of \m {M_{B,k}}; by Cauchy inequality: we have
 
 \Disp{
 \NC \NC \MB{E} \SB {\rho \SB {\o_t, \o_r} ^k} \NR
+\NC =\NC \MB{E} \Bigg[ \Big(
+  \sum_{l_Y, m_Y =0}^{N_Y-1}
+  \sum_{n_R, n_R =0}^{N_R-1}
+  \sum_{l_H, l_H', m_H', l_H'' =0}^{N_H-1} \NR
+    \NC \NC \SixQ
+    \M{F}_R ^{\Adj} \DB {l_H, n_R}
+    \M{F}_R ^{\Tr} \DB {l_H', n_R'}
+    \M{F}_B ^{\Adj} \DB {n_R, l_Y}
+    \M{F}_B ^{\Tr} \DB {n_R', l_Y} \NR
+    \NC \NC \SixQ
+    \M{W}_R ^{\ast} \DB {m_H, n_R}
+    \M{W}_R \DB {m_H', n_R'}
+    \M{W}_B ^{\ast} \DB {n_R, m_Y}
+    \M{W}_B \DB {n_R', m_Y} \NR
+  \NC \NC \SixQ \V{u} \DB{l_H N_H +m_H}
+  \V{u} ^\ast \DB{l_H' N_H +m_H'}
+\Big) ^k \Bigg] \NR
+%
+\NC \leq \NC \Bigg(
+  \sum_{l_Y, m_Y =0}^{N_Y-1}
+  \sum_{n_R, n_R =0}^{N_R-1}
+  \sum_{l_H, l_H', m_H', l_H'' =0}^{N_H-1} \NR
+    \NC \NC \SixQ
+    \Big(
+      \MB{E} \SB {\Nm {\M{F}_B ^{\Adj} \DB {n_R, l_Y}} ^k}
+      \MB{E} \SB {\Nm {\M{F}_B ^{\Tr} \DB {n_R', l_Y}} ^k} \NR
+      \NC \NC \SixQ
+      \MB{E} \SB {\Nm {\M{W}_B ^{\ast} \DB {n_R, m_Y}} ^k}
+      \MB{E} \SB {\Nm {\M{W}_B \DB {n_R', m_Y}} ^k}
+    \Big) ^{1/k} \NR
+  \NC \NC \SixQ
+  \Nm {\V{u} \DB{l_H N_H +m_H}}
+  \Nm {\V{u} ^\ast \DB{l_H' N_H +m_H'}}
+\Bigg) ^k \NR
+%
+\NC =\NC
+  \Big(
+    \sum_{l_Y, m_Y =0}^{N_Y-1}
+    \sum_{n_R, n_R =0}^{N_R-1}
+    \sum_{l_H, l_H', m_H', l_H'' =0}^{N_H-1}
+      M_{B,k} ^{4/k}
+    \V{u} \DB{l_H N_H +m_H}
+    \V{u} ^\ast \DB{l_H' N_H +m_H'}
+  \Big) ^k \NR
+%
+\NC = \NC
+  M_{B,k} ^4
+  \Nm {
+    N_Y^2 N_R^2
+    \sum_{n_h, n_h' =0}^{N_h-1}
+    \V{u} \DB{n_h} \V{u} ^\ast \DB{n_h'}
+  } ^k \NR
+\NC \leq \NC \Gamma \SB {\F{k}{2} +1} ^4 N_Y^{2k} N_R^{2k} \VNm {\V{u}} _2 ^{2k} \NR
 }
 
 \stopsubsection
 
 \startsubsection [title={Using Chernoff Bound}]
 
-Imitating the Markov inequality argument in classical probability, we have, by various result in previous subsections,
+Without loss of generality, let us assume
+\Disp {
+\NC \VNm {\V{u}}
+=\NC 1 \NR[+]
+}
+Imitating the Markov inequality argument in classical probability, we have, 
+for any \m {s_{+} >0} so that, supposedly, both sides \m {< \infty},
 \Disp {
 \NC \NC \MB{P} \SB {\rho \geq \RB {1 +\e} \MB{E} \SB {\rho}} \NR
-\NC =\NC \MB{P} \SB {\Ss {e} ^{s_{+} \rho} \geq \Ss {e} ^{s_{+} \RB {1 +\e} \MB{E} \SB {\rho}}} \NR
-\NC =\NC \Ss {e} ^{-s_{+} \RB {1 +\e} \MB{E} \SB {\rho}} \MB{E} \SB {\Ss {e} ^{s_{+} \rho}} \NR
-\NC =\NC \Ss {e} ^{-s_{+} \RB {1 +\e} \MB{E} \SB {\rho}}
-\RB {1 +\MB{E} \SB {\rho} +\F{1} {2} \MB{E} \SB {\rho^2} +\sum_{k=3}^\infty \F{1} {k!} \MB{E} \SB {\rho^k}} \NR
-\NC =\NC \Ss {e} ^{-s_{+} \RB {1 +\e} \VNm {\V{u}} _2 ^2}
-\RB {1 +\VNm {\V{u}} _2 ^2 +\F{1} {2} \RB {1 +N_Y^{-2}} \VNm {\V{u}} _2 ^4 +\sum_{k=3}^\infty \F{1} {k!} \MB{E} \SB {\rho^k}} \NR
+\NC =\NC \MB{P} \SB {\rho \geq \RB {1 +\e}} \NR
+\NC =\NC \MB{P} \SB {\Ss {e} ^{\R {s_{+} \rho}} \geq \Ss {e} ^{\R {s_{+} \RB {1 +\e}}}} \NR
+\NC =\NC \Ss {e} ^{-s_{+} \RB {1 +\e}} \MB{E} \SB {\Ss {e} ^{\R {s_{+} \rho}}} \NR[+]
 }
-for some \m {s_{+} >0}.
-Of course, we have yet to justify the convergence of the formal power series.
+Assuming the convergence of power series of \m {\Ss {e} ^{\R {s_{+} \rho}}} for a moment, by various result in previous subsections, we get
+\Disp {
+\NC \NC \MB{E} \SB {\Ss {e} ^{\R {s_{+} \rho}}} \NR
+\NC \leq \NC 1
++s_+ ^{1/2} \MB{E} \SB {\rho ^{1/2}}
++\F{s_+ ^{1/2}} {2} \MB{E} \SB {\rho}
++\F{s_+ ^{3/2}} {6} \MB{E} \SB {\rho ^{3/2}}
++\F{s_+ ^2} {24} \MB{E} \SB {\rho ^2}
++\sum_{k=5}^\infty \F{1} {k!} \MB{E} \SB {s_+ ^{k/2} \rho ^{k/2}} \NR[+]
+}
+By power mean inequality,
+\Disp {
+\NC \leq \NC 1
++\VNm {\V{u}} _2 s_{+} ^{1/2}
++\F{1} {2} \VNm {\V{u}} _2 ^2 s_{+}
++\F{1} {6} \RB {1 +N_Y^{-2}} ^{3/4} \VNm {\V{u}} _2 ^3 s_{+} ^{3/2} \NR
+\NC \NC \SixQ +\F{1} {24} \RB {1 +N_Y^{-2}} \VNm {\V{u}} _2 ^4 s_{+} ^2
++\sum_{k=5}^\infty \F{s_{+} ^{k/2}} {k!}
+  \Gamma \SB {\F{k}{2} +1} ^4 N_Y^{2k} N_R^{2k}
+  \VNm {\V{u}} _2 ^k \NR
+\NC \leq \NC 1
++s_{+} ^{1/2}
++\F{1} {2} s_{+}
++\F{1} {6} \RB {1 +N_Y^{-2}} ^{3/4} s_{+} ^{3/2} \NR
+\NC \NC \SixQ +\F{1} {24} \RB {1 +N_Y^{-2}} s_{+} ^2
++\sum_{k=5}^\infty \F{s_{+} ^{k/2}} {k!}
+  \Gamma \SB {\F{k}{2} +1} ^4 N_Y^{2k} N_R^{2k} \NR[+]
+}
 
-Similarly, assuming convergence for a moment, for some \m {s_{-} >0}.
+Meanwhile, we recall the Stirling's Approximation
+\Result
+{Lemma}
+{
+For \m {n>1},
+\Disp {
+\NC \R {2 \pi} n ^{n+1/2} \Ss {e} ^{-n+1/(12n+1)}
+<\NC \Gamma \SB {n+1} \NR
+\NC <\NC \R {2 \pi} n ^{n+1/2} \Ss {e} ^{-n+1/12n} \NR
+}
+}
+
+Thus,
+\Disp {
+\NC \F {\RB {\Gamma \SB {k/2+1}}^4} {\Gamma \SB {k+1}}
+\leq \NC \F {\RB {\R {2\pi} \RB {k/2} ^{k/2+1/2} \Ss {e} ^{-k/2 +1/6k}} ^4}
+  {\R {2\pi} \; k ^{k+1/2} \; \Ss {e} ^{-k +1/(12k+1)}} \NR
+\NC =\NC \RB {2\pi} ^{3/2} \; k ^{3/2} \; 2 ^{-2k-4} \; \Ss {e} ^{5/4k} \NR
+}
+
+Setting
+\Disp {
+\NC C\SB{s}
+=\NC \F{1}{4} N_Y N_R \R{s} \NR
+\NC c_0
+=\NC \F{1}{16} \RB {2\pi} ^{3/2} \Ss {e} ^{1/4} \NR
+}
+we may bound the last series summation by the integration
+\Disp {
+\NC \NC \F{1}{c_0} \sum_{k=5}^\infty \F{s_{+} ^{k/2}} {k!}
+  \Gamma \SB {\F{k}{2} +1} ^4 N_Y^{2k} N_R^{2k} -1
+  \VNm {\V{u}} _2 ^k \NR
+\NC \leq \NC \int _{5} ^{\infty} C ^x x ^{3/2} \Ss {d} x \NR
+\NC = \NC \F{5^{3/2} C^5} {-\log C}
++\F{3 \D C^5 \R{5}} {2 \RB {-\log C}^2}
++\F{3 \D C^5} {4 \R{5} \RB {-\log C}^3} \NR
+}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+Similarly, for some \m {s_{-} >0}.
 \Disp {
 \NC \NC \MB{P} \SB {\rho \leq \RB {1 -\e} \MB{E} \SB {\rho}} \NR
 \NC =\NC \Ss {e} ^{s_{-} \RB {1 -\e} \VNm {\V{u}} _2 ^2}
-\RB {1 -\VNm {\V{u}} _2 ^2 +\F{1} {2} \RB {1 +N_Y^{-2}} \VNm {\V{u}} _2 ^4 +\sum_{k=3}^\infty \F{\RB {-1}^{k}} {k!} \MB{E} \SB {\rho^k}} \NR
+\RB {1 -\VNm {\V{u}} _2 ^2 +\F{1} {2} \VNm {\V{u}} _2 ^4 +\sum_{k=3}^\infty \F{\RB {-1}^{k}} {k!} \MB{E} \SB {\rho^k}} \NR
 }
 
 Since the quantity \m {\Nm {\rho -\MB{E} \SB {\rho}}} is linear in \m {\VNm {\V{u}} _2}, by a scaling argument we may set

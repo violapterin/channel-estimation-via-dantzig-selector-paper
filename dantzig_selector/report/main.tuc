@@ -393,7 +393,7 @@ if not utilitydata.structures.counters then utilitydata.structures.counters = { 
 
 utilitydata.structures.counters.collected={
  ["NumResult"]={
-  { 29 },
+  { 31 },
  },
  ["chemical"]={
   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -411,7 +411,7 @@ utilitydata.structures.counters.collected={
   { 0 },
  },
  ["formula"]={
-  { 0, 0, 0, 0, 0, 15, 22, 59, 28, 0, 0 },
+  { 0, 0, 0, 0, 0, 15, 22, 63, 28, 0, 0 },
  },
  ["graphic"]={
   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -430,16 +430,16 @@ utilitydata.structures.counters.collected={
   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
  },
  ["realpage"]={
-  { 45 },
+  { 47 },
  },
  ["subpage"]={
-  { 45 },
+  { 47 },
  },
  ["table"]={
   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
  },
  ["userpage"]={
-  { 44 },
+  { 46 },
  },
 }
 
@@ -784,7 +784,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=23,
-   ["realpage"]=24,
+   ["realpage"]=25,
    ["section"]=23,
    ["used"]="fit",
   },
@@ -874,7 +874,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=29,
-   ["realpage"]=32,
+   ["realpage"]=33,
    ["section"]=29,
    ["used"]="fit",
   },
@@ -889,7 +889,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=30,
-   ["realpage"]=33,
+   ["realpage"]=35,
    ["section"]=30,
    ["used"]="fit",
   },
@@ -904,7 +904,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=31,
-   ["realpage"]=33,
+   ["realpage"]=35,
    ["section"]=31,
    ["used"]="fit",
   },
@@ -919,7 +919,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=32,
-   ["realpage"]=35,
+   ["realpage"]=37,
    ["section"]=32,
    ["used"]="fit",
   },
@@ -934,7 +934,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=33,
-   ["realpage"]=38,
+   ["realpage"]=40,
    ["section"]=33,
    ["used"]="fit",
   },
@@ -949,7 +949,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=34,
-   ["realpage"]=38,
+   ["realpage"]=40,
    ["section"]=34,
    ["used"]="fit",
   },
@@ -964,7 +964,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=35,
-   ["realpage"]=40,
+   ["realpage"]=42,
    ["section"]=35,
    ["used"]="fit",
   },
@@ -979,7 +979,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=36,
-   ["realpage"]=42,
+   ["realpage"]=44,
    ["section"]=36,
    ["used"]="fit",
   },
@@ -994,7 +994,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=37,
-   ["realpage"]=42,
+   ["realpage"]=44,
    ["section"]=37,
    ["used"]="fit",
   },
@@ -1009,7 +1009,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=38,
-   ["realpage"]=43,
+   ["realpage"]=45,
    ["section"]=38,
    ["used"]="fit",
   },
@@ -1024,7 +1024,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=39,
-   ["realpage"]=44,
+   ["realpage"]=46,
    ["section"]=39,
    ["used"]="fit",
   },
@@ -1354,6 +1354,20 @@ utilitydata.structures.pages.collected={
   ["prefixdata"]=78,
   ["state"]="start",
  },
+ {
+  ["block"]="bodypart",
+  ["number"]=45,
+  ["numberdata"]=77,
+  ["prefixdata"]=78,
+  ["state"]="start",
+ },
+ {
+  ["block"]="bodypart",
+  ["number"]=46,
+  ["numberdata"]=77,
+  ["prefixdata"]=78,
+  ["state"]="start",
+ },
 }
 
 if not utilitydata.structures then utilitydata.structures = { } end
@@ -1368,8 +1382,8 @@ if not utilitydata.structures.references then utilitydata.structures.references 
 utilitydata.structures.references.referred={
  { 2, 1 },
  { 3, 29 },
- { 44, 40 },
- { 45, 41 },
+ { 46, 40 },
+ { 47, 41 },
 }
 
 if not utilitydata.job then utilitydata.job = { } end

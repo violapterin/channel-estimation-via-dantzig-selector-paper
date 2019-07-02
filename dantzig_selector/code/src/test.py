@@ -7,17 +7,16 @@ import os # getcwd
 import functions as fct
 
 
-tt =np.array (range(3))
+#tt =np.array (range(3))
+#pp =np. array ([[4,5,6,3], [0,-2,7,4]])
+#g =np. array ([4,4,5,5])
+#y =pp @ g
+#ss =set ([0,3])
+#r =y
+#t =np.argmin (abs (pp [:, tt].conj().T @ r))
 
-pp =np. array ([[4,5,6,3], [0,-2,7,4]])
-g =np. array ([4,4,5,5])
-y =pp @ g
-ss =set ([0,3])
-r =y
-
-t =np.argmin (abs (pp [:, tt].conj().T @ r))
-ss.add(t)
-print (np. array (list(ss))*2)
+a =[3,4]
+print (np.linalg.norm(a, 2))
 
 #i =[1,2,4,5]
 #aa =np.array ([[5,8,-2,-3,0,9], [3,6,7,9,10,11]])
