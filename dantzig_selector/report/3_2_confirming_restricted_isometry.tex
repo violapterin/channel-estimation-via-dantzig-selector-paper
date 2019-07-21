@@ -7,15 +7,15 @@ We prove a concentration inequality, as explained below, and invoke Chebyshev in
 But before that, we have to investigate the moments of each entry of \m {\M{F}_B \SB {\o_t}} (resp.\ \m {\M{W}_B \SB {\o_t}}) and that of \m {\M{F}_R \SB {\o_t}} (resp.\ \m {\M{W}_R \SB {\o_t}}).
 
 Let us make it simple and set each entry of \m {\M{F}_B} to be i.i.d.\ Gaussian r.v.\ with mean 0, standard deviation \m {1/2}, multiplied by a normalizing constant \m {\l_B >0}.
-They are (with a slight of abuse of meaning of \m {\o_t} and so on)
+They are (with a slight abuse of \m {\o_t})
 \Disp{
 \NC d \o_t
-=\NC \F {1} {\R {\pi} \l} \exp
-  \RB {-\F{1}{\l^2} \MF{Re} \SB {\M{F}_B \DB {n_R, n_Y}} ^2}
+=\NC \F {1} {\R {\pi} \l_B} \exp
+  \RB {-\l_B^{-2} \MF{Re} \SB {\M{F}_B \DB {n_R, n_Y}} ^2}
 d \MF{Re} \SB {\M{F}_B \DB {n_R, n_Y}} \NR[+]
 \NC d \o_t
-=\NC \F {1} {\R {\pi} \l} \exp
-  \RB {-\F{1}{\l^2} \MF{Im} \SB {\M{F}_B \DB {n_R, n_Y}} ^2}
+=\NC \F {1} {\R {\pi} \l_B} \exp
+  \RB {-\l_B^{-2} \MF{Im} \SB {\M{F}_B \DB {n_R, n_Y}} ^2}
 d \MF{Im} \SB {\M{F}_B \DB {n_R, n_Y}} \NR[+]
 \NC n_R
 = \NC 0, 1, 2, \ldots, N_R -1 \NR
@@ -37,7 +37,7 @@ It is known that
 {
 \Disp {
 \NC M_{B,k}
-=\NC \Gamma \SB {\F{k}{2} +1} \NR[+]
+=\NC \l_B^k \Gamma \SB {\F{k}{2} +1} \NR[+]
 }
 }
 
@@ -58,10 +58,10 @@ In particular,
 Let \m {\M{F}_R \DB {n_H, n_R}} be uniformly distributed on the unit circle on the complex plane, which gives probability density
 \Disp{
 \NC d \o_t
-= \NC \F {1} {\pi} \RB {1 -\RB {\MF{Re} \SB {\M{F}_R \DB {n_H, n_R}}} ^2}^{-1/2}
+= \NC \F {1} {\pi \l_R} \RB {1 -\l_R^{-2} \MF{Re} \SB {\M{F}_R \DB {n_H, n_R}} ^2}^{-1/2}
 d \MF{Re} \SB {\M{F}_R \DB {n_H, n_R}} \NR[+]
 \NC d \o_t
-= \NC \F {1} {\pi} \RB {1 -\RB {\MF{Im} \SB {\M{F}_R \DB {n_H, n_R}}} ^2}^{-1/2}
+= \NC \F {1} {\pi \l_R} \RB {1 -\l_R^{-2} \MF{Im} \SB {\M{F}_R \DB {n_H, n_R}} ^2}^{-1/2}
 d \MF{Im} \SB {\M{F}_R \DB {n_H, n_R}} \NR[+]
 }
 Set
