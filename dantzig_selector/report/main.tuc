@@ -411,7 +411,7 @@ utilitydata.structures.counters.collected={
   { 0 },
  },
  ["formula"]={
-  { 0, 0, 0, 0, 0, 15, 22, 68, 28, 0, 0 },
+  { 0, 0, 0, 0, 0, 15, 22, 72, 28, 0, 0 },
  },
  ["graphic"]={
   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -889,7 +889,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=30,
-   ["realpage"]=35,
+   ["realpage"]=36,
    ["section"]=30,
    ["used"]="fit",
   },
@@ -904,7 +904,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=31,
-   ["realpage"]=35,
+   ["realpage"]=36,
    ["section"]=31,
    ["used"]="fit",
   },

@@ -484,24 +484,24 @@ If we introduce the change of variables
 \NC m_H' :=\NC n_H' \; \Rm{Mod}\; N_H \NR
 }
 we may split the expression of \m {\rho} as follows.
-Now, respectively: by Minkowski inequality; by the fact that \m {\M{F}_R} and \m {\M{F}_R} entries both have unity magnitude, by the identical distribution and by the definition of \m {M_{B,k}}; by Cauchy inequality: we have
+Now, respectively: by Minkowski inequality; by H\"older's inequality; by the fact that \m {\M{F}_R} and \m {\M{F}_R} entries both have unity magnitude, by the identical distribution and by the definition of \m {M_{B,k}}; by Cauchy inequality: we have
 
 \Disp{
 \NC \NC \MB{E} \SB {\rho \SB {\o_t, \o_r} ^k} \NR
 \NC =\NC \MB{E} \Bigg[ \Big(
   \sum_{l_Y, m_Y =0}^{N_Y-1}
-  \sum_{n_R, n_R =0}^{N_R-1}
-  \sum_{l_H, l_H', m_H', l_H'' =0}^{N_H-1} \NR
+  \sum_{n_R, n_R', n_R'', n_R''' =0}^{N_R-1}
+  \sum_{l_H, l_H', m_H, m_H' =0}^{N_H-1} \NR
     \NC \NC \SixQ
-    \M{F}_R ^{\Adj} \DB {l_H, n_R}
-    \M{F}_R ^{\Tr} \DB {l_H', n_R'}
-    \M{F}_B ^{\Adj} \DB {n_R, l_Y}
-    \M{F}_B ^{\Tr} \DB {n_R', l_Y} \NR
+    \M{F}_B ^{\Adj} \DB {l_Y, n_R}
+    \M{F}_R ^{\Adj} \DB {n_R, l_H}
+    \M{W}_B ^{\ast} \DB {m_Y, n_R'}
+    \M{W}_R ^{\ast} \DB {n_R', m_H} \NR
     \NC \NC \SixQ
-    \M{W}_R ^{\ast} \DB {m_H, n_R}
-    \M{W}_R \DB {m_H', n_R'}
-    \M{W}_B ^{\ast} \DB {n_R, m_Y}
-    \M{W}_B \DB {n_R', m_Y} \NR
+    \M{F}_B ^{\Tr} \DB {l_Y, n_R''}
+    \M{F}_R ^{\Tr} \DB {n_R'', l_H'}
+    \M{W}_B \DB {m_Y, n_R'''}
+    \M{W}_R \DB {n_R''', m_H'} \NR
   \NC \NC \SixQ \V{u} \DB{l_H N_H +m_H}
   \V{u} ^\ast \DB{l_H' N_H +m_H'}
 \Big) ^k \Bigg] \NR
@@ -512,11 +512,11 @@ Now, respectively: by Minkowski inequality; by the fact that \m {\M{F}_R} and \m
   \sum_{l_H, l_H', m_H', l_H'' =0}^{N_H-1} \NR
     \NC \NC \SixQ
     \Big(
-      \MB{E} \SB {\Nm {\M{F}_B ^{\Adj} \DB {n_R, l_Y}} ^k}
-      \MB{E} \SB {\Nm {\M{F}_B ^{\Tr} \DB {n_R', l_Y}} ^k} \NR
+      \MB{E} \SB {\Nm {\M{F}_B ^{\Adj} \DB {n_R, l_Y}} ^{4k}} ^{1/4}
+      \MB{E} \SB {\Nm {\M{F}_B ^{\Tr} \DB {n_R', l_Y}} ^{4k}} ^{1/4} \NR
       \NC \NC \SixQ
-      \MB{E} \SB {\Nm {\M{W}_B ^{\ast} \DB {n_R, m_Y}} ^k}
-      \MB{E} \SB {\Nm {\M{W}_B \DB {n_R', m_Y}} ^k}
+      \MB{E} \SB {\Nm {\M{W}_B ^{\ast} \DB {n_R, m_Y}} ^{4k}} ^{1/4}
+      \MB{E} \SB {\Nm {\M{W}_B \DB {n_R', m_Y}} ^{4k}} ^{1/4}
     \Big) ^{1/k} \NR
   \NC \NC \SixQ
   \Nm {\V{u} \DB{l_H N_H +m_H}}
@@ -528,19 +528,18 @@ Now, respectively: by Minkowski inequality; by the fact that \m {\M{F}_R} and \m
     \sum_{l_Y, m_Y =0}^{N_Y-1}
     \sum_{n_R, n_R =0}^{N_R-1}
     \sum_{l_H, l_H', m_H', l_H'' =0}^{N_H-1}
-      M_{B,k} ^{4/k}
+      M_{B,4k} ^{1/k}
     \V{u} \DB{l_H N_H +m_H}
     \V{u} ^\ast \DB{l_H' N_H +m_H'}
   \Big) ^k \NR
 %
 \NC = \NC
-  M_{B,k} ^4
+  M_{B,4k}
   \Nm {
-    N_Y^2 N_R^2
     \sum_{n_h, n_h' =0}^{N_h-1}
     \V{u} \DB{n_h} \V{u} ^\ast \DB{n_h'}
   } ^k \NR
-\NC \leq \NC \Gamma \SB {\F{k}{2} +1} ^4 N_Y^{2k} N_R^{2k} \VNm {\V{u}} _2 ^{2k} \NR
+\NC \leq \NC \Gamma \SB {\F{k}{2} +1} ^4 \VNm {\V{u}} _2 ^{2k} \NR
 }
 
 \stopsubsection
@@ -558,7 +557,7 @@ Imitating the Chernoff Bound argument in classical probability, we have, for any
 \NC \NC \MB{P} \SB {\rho \geq \RB {1 +\e} \MB{E} \SB {\rho}} \NR
 \NC =\NC \MB{P} \SB {\rho \geq \RB {1 +\e}} \NR
 \NC =\NC \MB{P} \SB {\Ss {e} ^{\R {s_{+} \rho}} \geq \Ss {e} ^{\R {s_{+} \RB {1 +\e}}}} \NR
-\NC =\NC \Ss {e} ^{-s_{+} \RB {1 +\e}} \MB{E} \SB {\Ss {e} ^{\R {s_{+} \rho}}} \NR[+]
+\NC \leq \NC \Ss {e} ^{-\R {s_{+} \RB {1 +\e}}} \MB{E} \SB {\Ss {e} ^{\R {s_{+} \rho}}} \NR[+]
 }
 Assuming the convergence of power series of \m {\Ss {e} ^{\R {s_{+} \rho}}} for a moment, by various result in previous subsections, we get
 \Disp {
@@ -578,15 +577,15 @@ By power mean inequality,
 +\F{1} {6} \RB {1 +N_Y^{-2}} ^{3/4} \VNm {\V{u}} _2 ^3 s_{+} ^{3/2} \NR
 \NC \NC \SixQ +\F{1} {24} \RB {1 +N_Y^{-2}} \VNm {\V{u}} _2 ^4 s_{+} ^2
 +\sum_{k=5}^\infty \F{s_{+} ^{k/2}} {k!}
-  \Gamma \SB {\F{k}{4} +1} ^4 N_Y^{k} N_R^{k}
+  \Gamma \SB {\F{k}{4} +1} ^ 4
   \VNm {\V{u}} _2 ^k \NR
 \NC \leq \NC 1
 +s_{+} ^{1/2}
 +\F{1} {2} s_{+}
 +\F{1} {6} \RB {1 +N_Y^{-2}} ^{3/4} s_{+} ^{3/2} \NR
 \NC \NC \SixQ +\F{1} {24} \RB {1 +N_Y^{-2}} s_{+} ^2
-+\sum_{k=5}^\infty \F{s_{+} ^{k/2}} {k!}
-  \Gamma \SB {\F{k}{4} +1} ^4 N_Y^{k} N_R^{k} \NR[+]
++\sum_{k=5}^\infty \F{1} {k!}
+  \Gamma \SB {\F{k}{4} +1} ^4 s_{+} ^{k/2} \NR[+]
 }
 
 Meanwhile, we recall the Stirling's Approximation
@@ -603,7 +602,7 @@ For \m {n>1},
 
 Thus,
 \Disp {
-\NC \F {\RB {\Gamma \SB {k/2+1}}^4} {\Gamma \SB {k+1}}
+\NC \F {\RB {\Gamma \SB {k/4+1}}^4} {\Gamma \SB {k+1}}
 \leq \NC \F {\RB {\R {2\pi} \RB {k/4} ^{k/4+1/2} \Ss {e} ^{-k/4 +1/3k}} ^4}
   {\R {2\pi} \; k ^{k+1/2} \; \Ss {e} ^{-k +1/(12k+1)}} \NR
 \NC =\NC \RB {2\pi} ^{3/2} \; k ^{3/2} \; 2 ^{-2k-4} \; \Ss {e} ^{5/4k} \NR
@@ -613,46 +612,89 @@ Setting
 \Disp {
 \NC c_0
 =\NC 2 ^{-5/2} \pi ^{3/2} \Ss {e} ^{1/3} \NR[+]
-\NC C\SB{s}
-=\NC \F{1}{4} N_Y N_R \R{s} \NR[+]
+\NC \T{s}_+
+=\NC \F{1}{4} \R{s} \NR[+]
 }
-We would see that we must require \m {C \SB{s} < 1} for the series to converge.
+We would see that we must require \m {\T{s}_+ \SB{s} < 1} for the series to converge.
 Indeed, we may bound the last series summation by the integration
 \Disp {
 \NC \NC \F{1}{c_0} \sum_{k=5}^\infty \F{s_{+} ^{k/2}} {k!}
   \Gamma \SB {\F{k}{4} +1} ^4 N_Y^{k} N_R^{k}
   \VNm {\V{u}} _2 ^k \NR
 %
-\NC \leq \NC \int _{4} ^{\infty} C \SB {s} ^x x ^{3/2} \Ss {d} x \NR
+\NC \leq \NC \int _{4} ^{\infty} \T{s}_+ ^x x ^{3/2} \Ss {d} x \NR
 %
-\NC \leq \NC \F{1} {\log C}
+\NC \leq \NC \F{1} {\log \T{s}_+}
 \RB {
-  \lim_{x \to \infty} C ^x x ^{3/2} -8 C ^4
-  -\F{3}{2} \int _{4} ^{\infty} C ^x x ^{1/2} \Ss {d} x
+  \lim_{x \to \infty} \T{s}_+ ^x x ^{3/2} -8 \T{s}_+ ^4
+  -\F{3}{2} \int _{4} ^{\infty} \T{s}_+ ^x x ^{1/2} \Ss {d} x
 } \NR
 %
-\NC = \NC \F{8} {-\log C} C^4
--\F{3} {2 \RB {-\log C}^2}
+\NC = \NC \F{8} {-\log \T{s}_+} \T{s}_+^4
+-\F{3} {2 \RB {-\log \T{s}_+}^2}
 \RB {
-  \lim_{x \to \infty} C ^x x ^{1/2} -2 C ^4
-  -\F{1}{2} \int _{4} ^{\infty} C ^x x ^{-1/2} \Ss {d} x
+  \lim_{x \to \infty} \T{s}_+ ^x x ^{1/2} -2 \T{s}_+ ^4
+  -\F{1}{2} \int _{4} ^{\infty} \T{s}_+ ^x x ^{-1/2} \Ss {d} x
 } \NR
 %
-\NC = \NC \RB { \F{8} {-\log C} +\F{3} {\RB {-\log C}^2} } C^4
-+\F{3} {4 \RB {-\log C}^2} \int _{4} ^{\infty} C ^x x ^{-1/2} \Ss {d} x \NR[+]
+\NC = \NC \RB { \F{8} {-\log \T{s}_+} +\F{3} {\RB {-\log \T{s}_+}^2} } \T{s}_+^4
++\F{3} {4 \RB {-\log \T{s}_+}^2} \int _{4} ^{\infty} \T{s}_+ ^x x ^{-1/2} \Ss {d} x \NR[+]
 %
-\NC \leq \NC \RB { \F{8} {-\log C} +\F{3} {\RB {-\log C}^2} } C^4
-+\F{3} {8 \RB {-\log C}^2} \int _{4} ^{\infty} C ^x \Ss {d} x \NR[+]
+\NC \leq \NC \RB { \F{8} {-\log \T{s}_+} +\F{3} {\RB {-\log \T{s}_+}^2} } \T{s}_+^4
++\F{3} {8 \RB {-\log \T{s}_+}^2} \int _{4} ^{\infty} \T{s}_+ ^x \Ss {d} x \NR[+]
 %
-\NC = \NC \RB { \F{8} {-\log C} +\F{3} {\RB {-\log C}^2} } C^4
--\F{3} {8 \RB {-\log C}^3} \RB {\lim_{x \to \infty} C ^x -C ^4} \NR
+\NC = \NC \RB { \F{8} {-\log \T{s}_+} +\F{3} {\RB {-\log \T{s}_+}^2} } \T{s}_+^4
+-\F{3} {8 \RB {-\log \T{s}_+}^3} \RB {\lim_{x \to \infty} \T{s}_+ ^x -\T{s}_+ ^4} \NR
 %
 \NC = \NC \RB {
-  \F{8} {-\log C}
-  +\F{3} {\RB {-\log C}^2}
-  +\F{3} {8 \RB {-\log C}^3}
+  \F{8} {-\log \T{s}_+}
+  +\F{3} {\RB {-\log \T{s}_+}^2}
+  +\F{3} {8 \RB {-\log \T{s}_+}^3}
 }
-C^4 \NR[+]
+\T{s}_+^4 \NR[+]
+}
+
+Back to the Chernoff Bound, an application of \m {\log \RB {1 +x} \leq x} gives
+\Disp {
+\NC \NC \log \MB{P} \SB {\rho \geq \RB {1 +\e} \MB{E} \SB {\rho}} \NR
+\NC \leq \NC \Min {s_+ >0}
+\RB {
+  -\R {s_{+} \RB {1 +\e}} +\log \MB{E} \SB {\Ss {e} ^{\R {s_{+} \rho}}}
+}
+\NR[+]
+\NC \leq \NC \Min {s_+ >0}
+\Bigg (
+  1
+  +s_{+} ^{1/2}
+  +\F{1} {2} s_{+}
+  +\F{1} {6} \RB {1 +N_Y^{-2}} ^{3/4} s_{+} ^{3/2}
+  +\F{1} {24} \RB {1 +N_Y^{-2}} s_{+} ^2 \NR
+  \NC \NC \SixQ
+  +\RB {
+    \F{8} {-\log \T{s}_+}
+    +\F{3} {\RB {-\log \T{s}_+}^2}
+    +\F{3} {8 \RB {-\log \T{s}_+}^3}
+  }
+  \T{s}_+^4
+\Bigg ) \NR[+]
+}
+Rather than devoting too much time in minimizing the quantity, in particular, set \m {\T{s}_+ =\e^2 /4}.
+Also, bound \m {N_Y \geq 2} should be enough.
+The decision is motivated by examine the minimal value of the first two or three terms.
+\Disp {
+\NC \leq \NC -\F {1} {8} \e^2
++\F {67} {768} \e^3
++\F {5} {1536} \e^4 \NR
+\NC \NC \SixQ +\RB {
+  \F{8} {-\log \RB {\e /8}}
+  +\F{3} {\RB {-\log \RB {\e /8}}^2}
+  +\F{3} {8 \RB {-\log \RB {\e /8}}^3}
+}
+\F {\e^4} {4096} \NR[+]
+}
+Some calculation show that, for \m {\e <2/5},
+\Disp {
+\NC \leq \NC -\F {1} {12} \e^2 \NR[+]
 }
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
