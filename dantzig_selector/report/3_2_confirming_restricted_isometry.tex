@@ -6,7 +6,7 @@ Indeed, \m {\d_s \SB {\M{F}_B} \SB {\o_t}} may be found, along similar lines wit
 We prove a concentration inequality, as explained below, and invoke Chebyshev inequality.
 But before that, we have to investigate the moments of each entry of \m {\M{F}_B \SB {\o_t}} (resp.\ \m {\M{W}_B \SB {\o_t}}) and that of \m {\M{F}_R \SB {\o_t}} (resp.\ \m {\M{W}_R \SB {\o_t}}).
 
-Let us make it simple and set each entry of \m {\M{F}_B} to be i.i.d.\ Gaussian r.v.\ with mean 0, standard deviation \m {1/2}, multiplied by a normalizing constant \m {\l_B >0}.
+Let us make it simple and set each entry of \m {\M{F}_B} to be i.i.d.\ Normal r.v.\ with mean 0, standard deviation \m {1/2}, multiplied by a normalizing constant \m {\l_B >0}.
 They are (with a slight abuse of \m {\o_t})
 \Disp{
 \NC d \o_t
@@ -356,7 +356,7 @@ Thus, we may set
 \NC \l_B
 =\NC \F {1} {\R {N_Y}} \NR[+]
 \NC \l_R
-=\NC \F {1} {\R {N_R}} \NR[+]
+=\NC \F {1} {\R {N_R}} \NR[+] \NR
 }
 To make
 \Disp{
@@ -489,75 +489,81 @@ If we introduce the change of variables
 \NC m_H :=\NC n_H \; \Rm{Mod}\; N_H \NR
 \NC m_H' :=\NC n_H' \; \Rm{Mod}\; N_H \NR
 }
-%We may split the expression of \m {\rho} as follows.
-%Now, respectively: by Minkowski inequality; by H\"older's inequality; by the fact that \m {\M{F}_R} and \m {\M{F}_R} entries both have unity magnitude, by the identical distribution and by the definition of \m {M_{B,k}}; by Power Mean inequality: we have
-
 By rearranging,
-
 \Disp{
-\NC \NC \MB{E} \SB {\rho \SB {\o_t, \o_r} ^k} \NR
+  \NC \NC \MB{E} \SB {\rho \SB {\o_t, \o_r} ^k} \NR
 %
-\NC =\NC \MB{E} \bigg[
-\bigg|
-  \sum_{l_Y, m_Y =0}^{N_Y-1}
-  \sum_{n_R, n_R', n_R'', n_R''' =0}^{N_R-1}
-  \sum_{l_H, l_H', m_H, m_H' =0}^{N_H-1} \NR
-    \NC \NC \FourQ
-    \M{F}_B ^{\Adj} \DB {l_Y, n_R}
-    \M{F}_R ^{\Adj} \DB {n_R, l_H}
-    \M{W}_B ^{\ast} \DB {m_Y, n_R'}
-    \M{W}_R ^{\ast} \DB {n_R', m_H} \NR
-    \NC \NC \FourQ
-    \M{F}_B ^{\Tr} \DB {l_Y, n_R''}
-    \M{F}_R ^{\Tr} \DB {n_R'', l_H'}
-    \M{W}_B \DB {m_Y, n_R'''}
-    \M{W}_R \DB {n_R''', m_H'} \NR
-  \NC \NC \FourQ \V{u} \DB{l_H N_H +m_H}
-  \V{u} ^\ast \DB{l_H' N_H +m_H'}
-\bigg| ^k
-\bigg] \NR
+  \NC =\NC \MB{E} \bigg[
+    \bigg|
+      \sum_{l_Y, m_Y =0}^{N_Y-1}
+        \sum_{n_R, n_R', n_R'', n_R''' =0}^{N_R-1}
+          \sum_{l_H, l_H', m_H, m_H' =0}^{N_H-1} \NR
+            \NC \NC \FourQ
+            \M{F}_B ^{\Adj} \DB {l_Y, n_R}
+            \M{F}_R ^{\Adj} \DB {n_R, l_H}
+            \M{W}_B ^{\ast} \DB {m_Y, n_R'}
+            \M{W}_R ^{\ast} \DB {n_R', m_H} \NR
+            \NC \NC \FourQ
+            \M{F}_B ^{\Tr} \DB {l_Y, n_R''}
+            \M{F}_R ^{\Tr} \DB {n_R'', l_H'}
+            \M{W}_B \DB {m_Y, n_R'''}
+            \M{W}_R \DB {n_R''', m_H'} \NR
+            \NC \NC \FourQ
+            \V{u} \DB{l_H N_H +m_H}
+            \V{u} ^\ast \DB{l_H' N_H +m_H'}
+    \bigg| ^k
+  \bigg] \NR
 %
-\NC =\NC \MB{E} \Bigg[
-  \Bigg|
-    \sum_{l_H, l_H', m_H, m_H' =0}^{N_H-1}
-      \V{u} \DB{l_H N_H +m_H}
-      \V{u} ^\ast \DB{l_H' N_H +m_H'} \NR
-      \NC \NC \FourQ \sum_{l_Y =0}^{N_Y-1} \RB{
-        \sum_{n_R =0}^{N_R-1} \RB{
-          \M{F}_B ^{\Adj} \DB {l_Y, n_R}
-          \M{F}_R ^{\Adj} \DB {n_R, l_H}
+  \NC =\NC \MB{E} \Bigg[
+    \Bigg|
+      \sum_{l_H, l_H', m_H, m_H' =0}^{N_H-1}
+        \V{u} \DB{l_H N_H +m_H}
+        \V{u} ^\ast \DB{l_H' N_H +m_H'} \NR
+        \NC \NC \FourQ \D \sum_{l_Y =0}^{N_Y-1}
+          \RB{
+            \sum_{n_R =0}^{N_R-1}
+              \M{F}_B ^{\Adj} \DB {l_Y, n_R}
+              \M{F}_R ^{\Adj} \DB {n_R, l_H}
+          }
+          \RB{
+            \sum_{n_R =0}^{N_R-1}
+              \M{F}_B ^{\Tr} \DB {l_Y, n_R}
+              \M{F}_R ^{\Tr} \DB {n_R, l_H'}
+          }
+        \NR
+      \NC \NC \FourQ \D \sum_{m_Y =0}^{N_Y-1}
+        \RB{
+          \sum_{n_R =0}^{N_R-1}
+            \M{W}_B ^{\ast} \DB {m_Y, n_R}
+            \M{W}_R ^{\ast} \DB {n_R, m_H}
         }
-        \sum_{n_R =0}^{N_R-1} \RB{
-          \M{F}_B ^{\Tr} \DB {l_Y, n_R}
-          \M{F}_R ^{\Tr} \DB {n_R, l_H'}
+        \RB{
+          \sum_{n_R =0}^{N_R-1}
+            \M{W}_B \DB {m_Y, n_R}
+            \M{W}_R \DB {n_R, m_H'}
         }
-      } \NR
-      \NC \NC \FourQ \sum_{m_Y =0}^{N_Y-1} \RB{
-        \sum_{n_R =0}^{N_R-1} \RB{
-          \M{W}_B ^{\ast} \DB {m_Y, n_R}
-          \M{W}_R ^{\ast} \DB {n_R, m_H}
-        }
-        \sum_{n_R =0}^{N_R-1} \RB{
-          \M{W}_B \DB {m_Y, n_R}
-          \M{W}_R \DB {n_R, m_H'}
-        }
-      }
-  \Bigg| ^k
-\Bigg| \NR
+    \Bigg| ^k
+  \Bigg] \NR
 }
 %
-By Jensen's Inequality; by Power Mean Inequality to replace \m {l_H} and \m {l_H'} by the same number (resp.\ \m {m_H} and \m {m_H'}); by i.i.d.\ of \m {\M{F}_B} and \m {\M{W}_B} (resp.\ \m {\M{F}_R} and \m {\M{W}_R})
+We see that, by absorbing the phase into entry of \m {\M{F}_R} (resp.\ \m {\M{W}_R}), without loss of generality we may assume each entry of \m {\M{F}_B} (resp.\ \m {\M{W}_B}) to be positive, and also assume each copmonent of \m {\V {u}} to be positive.
+
+By Jensen's Inequality;
+by probability independence;
+by Power Mean Inequality to replace \m {l_H} and \m {l_H'} by the same number (resp.\ \m {m_H} and \m {m_H'});
+by arranging;
+by probability independence,
 \Disp{
-\NC \leq \NC \MB{E} \Bigg[
-  \Nm{
+  \NC \leq \NC \Nm{
     \sum_{l_H, l_H', m_H, m_H' =0}^{N_H-1}
       \V{u} \DB{l_H N_H +m_H}
       \V{u} ^\ast \DB{l_H' N_H +m_H'}
   } ^{k-1} \NR
-  \NC \NC \Q \Q \sum_{l_H, l_H', m_H, m_H' =0}^{N_H-1}
+  \NC \NC \Q \Q \D \sum_{l_H, l_H', m_H, m_H' =0}^{N_H-1}
     \V{u} \DB{l_H N_H +m_H}
     \V{u} ^\ast \DB{l_H' N_H +m_H'} \NR
-    \NC \NC \FourQ \Bigg|
+  \NC \NC \FourQ \D \MB{E} \Bigg[
+    \Bigg|
       \sum_{l_Y =0}^{N_Y-1}
       \RB{
         \sum_{n_R =0}^{N_R-1}
@@ -585,16 +591,54 @@ By Jensen's Inequality; by Power Mean Inequality to replace \m {l_H} and \m {l_H
     \Bigg| ^k
   \Bigg] \NR
 %
-  \NC \leq \NC \MB{E} \Bigg[
-    \Nm{
-      \sum_{l_H, l_H', m_H, m_H' =0}^{N_H-1}
-        \V{u} \DB{l_H N_H +m_H}
-        \V{u} ^\ast \DB{l_H' N_H +m_H'}
-    } ^{k-1} \NR
-    \NC \NC \Q \Q \sum_{l_H, l_H', m_H, m_H' =0}^{N_H-1}
+  \NC =\NC \Nm{
+    \sum_{l_H, l_H', m_H, m_H' =0}^{N_H-1}
       \V{u} \DB{l_H N_H +m_H}
-      \V{u} ^\ast \DB{l_H' N_H +m_H'} \NR
-    \NC \NC \FourQ \Bigg|
+      \V{u} ^\ast \DB{l_H' N_H +m_H'}
+  } ^{k-1} \NR
+  \NC \NC \Q \Q \D \sum_{l_H, l_H', m_H, m_H' =0}^{N_H-1}
+    \V{u} \DB{l_H N_H +m_H}
+    \V{u} ^\ast \DB{l_H' N_H +m_H'} \NR
+  \NC \NC \FourQ \D \MB{E} \Bigg[
+    \Bigg|
+      \sum_{l_Y =0}^{N_Y-1}
+      \RB{
+        \sum_{n_R =0}^{N_R-1}
+          \M{F}_B ^{\Adj} \DB {l_Y, n_R}
+          \M{F}_R ^{\Adj} \DB {n_R, l_H}
+      }
+      \RB{
+        \sum_{n_R =0}^{N_R-1}
+          \M{F}_B ^{\Tr} \DB {l_Y, n_R}
+          \M{F}_R ^{\Tr} \DB {n_R, l_H'}
+      }
+    \Bigg| ^k \NR
+  \NC \NC \FourQ \D \MB{E} \Bigg[
+    \Bigg|
+      \sum_{m_Y =0}^{N_Y-1}
+      \RB{
+        \sum_{n_R =0}^{N_R-1}
+          \M{W}_B ^{\ast} \DB {m_Y, n_R}
+          \M{W}_R ^{\ast} \DB {n_R, m_H}
+      }
+      \RB{
+        \sum_{n_R =0}^{N_R-1}
+          \M{W}_B \DB {m_Y, n_R}
+          \M{W}_R \DB {n_R, m_H'}
+      }
+    \Bigg| ^k
+  \Bigg] \NR
+%
+  \NC \leq \NC \Nm{
+    \sum_{l_H, l_H', m_H, m_H' =0}^{N_H-1}
+      \V{u} \DB{l_H N_H +m_H}
+      \V{u} ^\ast \DB{l_H' N_H +m_H'}
+  } ^{k-1} \NR
+  \NC \NC \Q \Q \D \sum_{l_H, l_H', m_H, m_H' =0}^{N_H-1}
+    \V{u} \DB{l_H N_H +m_H}
+    \V{u} ^\ast \DB{l_H' N_H +m_H'} \NR
+  \NC \NC \FourQ \D \MB{E} \Bigg[
+    \Bigg|
       \sum_{l_Y =0}^{N_Y-1}
       \RB{
         \sum_{n_R =0}^{N_R-1}
@@ -606,8 +650,10 @@ By Jensen's Inequality; by Power Mean Inequality to replace \m {l_H} and \m {l_H
           \M{F}_B ^{\Tr} \DB {l_Y, n_R}
           \M{F}_R ^{\Tr} \DB {n_R, 0}
       }
-    \Bigg| ^k \NR
-    \NC \NC \FourQ \Bigg|
+    \Bigg| ^k
+  \Bigg] \NR
+  \NC \NC \FourQ \D \MB{E} \Bigg[
+    \Bigg|
       \sum_{m_Y =0}^{N_Y-1}
       \RB{
         \sum_{n_R =0}^{N_R-1}
@@ -627,128 +673,172 @@ By Jensen's Inequality; by Power Mean Inequality to replace \m {l_H} and \m {l_H
       \V{u} \DB{l_H N_H +m_H}
       \V{u} ^\ast \DB{l_H' N_H +m_H'}
   } ^{k} \NR
-  \NC \NC \FourQ \MB{E} \Bigg[
+  \NC \NC \FourQ \D \MB{E} \Bigg[
     \Bigg|
       \sum_{l_Y =0}^{N_Y-1}
-      \RB{
-        \sum_{n_R =0}^{N_R-1}
-          \M{F}_B ^{\Adj} \DB {l_Y, n_R}
-          \M{F}_R ^{\Adj} \DB {n_R, 0}
-      }
-      \RB{
+      \bigg|
         \sum_{n_R =0}^{N_R-1}
           \M{F}_B ^{\Tr} \DB {l_Y, n_R}
           \M{F}_R ^{\Tr} \DB {n_R, 0}
-      }
-      \Bigg| ^k
+      \bigg| ^2
+    \Bigg| ^k
   \Bigg] \NR
-  \NC \NC \FourQ \MB{E} \SB{
-    \Nm{
+  \NC \NC \FourQ \D \MB{E} \Bigg[
+    \Bigg|
       \sum_{m_Y =0}^{N_Y-1}
-      \RB{
-        \sum_{n_R =0}^{N_R-1}
-          \M{W}_B ^{\ast} \DB {m_Y, n_R}
-          \M{W}_R ^{\ast} \DB {n_R, 0}
-      }
-      \RB{
+      \bigg|
         \sum_{n_R =0}^{N_R-1}
           \M{W}_B \DB {m_Y, n_R}
           \M{W}_R \DB {n_R, 0}
-      }
-    } ^k
-  } \NR
-}
-By Cauchy Inequality and by and by assumption that \m {\V {u}} is unit norm; by i.i.d.\ of each quantity with \m {n_Y}; by spliting real and imaginary parts; by Jensen Inequality (or Power Mean Inequality),
-\Disp{
-  \NC \leq \NC \VNm {\V {u}} _2 ^{2k}
-  \D \MB{E} \Bigg[
-    \Bigg|
-      N_Y
-      \RB{
-        \sum_{n_R =0}^{N_R-1}
-          \M{F}_B ^{\Adj} \DB {l_Y, n_R}
-          \M{F}_R ^{\Adj} \DB {n_R, 0}
-      }
-      \RB{
+      \bigg| ^2
+    \Bigg| ^k
+  \Bigg] \NR
+%
+  \NC =\NC \Nm{
+    \sum_{l_H, l_H', m_H, m_H' =0}^{N_H-1}
+      \V{u} \DB{l_H N_H +m_H}
+      \V{u} ^\ast \DB{l_H' N_H +m_H'}
+  } ^{k} \NR
+  \NC \NC \SixQ \D \MB{E} \Bigg[
+    \RB{
+      \sum_{l_Y =0}^{N_Y-1}
+      \bigg|
         \sum_{n_R =0}^{N_R-1}
           \M{F}_B ^{\Tr} \DB {l_Y, n_R}
           \M{F}_R ^{\Tr} \DB {n_R, 0}
-      }
-      \Bigg| ^{k}
+      \bigg| ^2
+    } ^k
   \Bigg]^2 \NR
-%
-  \NC =\NC 1 \D \MB{E} \bigg[
-    \bigg|
+}
+By Cauchy Inequality and by assumption that \m {\V {u}} has unity norm;
+by Jensen Inequality;
+by i.i.d.\ of each quantity that contains \m {n_Y};
+by spliting real and imaginary parts;
+by Jensen Inequality (or Power Mean Inequality);
+by arranging;
+\Disp{
+  \NC \leq \NC \VNm {\V {u}} _2 ^{2k}
+  \D \MB{E} \Bigg[
+    \RB{
       \sum_{l_Y =0}^{N_Y-1}
-      \Big|
+      \bigg|
         \sum_{n_R =0}^{N_R-1}
           \M{F}_B \DB {l_Y, n_R}
           \M{F}_R \DB {n_R, 0}
-      \Big| ^{2}
+      \bigg| ^2
+    } ^k
+  \Bigg]^2 \NR
+%
+  \NC \leq \NC 1 \D N_Y ^{2k}
+  \MB{E} \Bigg[
+    N_Y ^{-1}
+    \sum_{l_Y =0}^{N_Y-1}
+    \bigg|
+      \sum_{n_R =0}^{N_R-1}
+        \M{F}_B \DB {0, n_R}
+        \M{F}_R \DB {n_R, 0}
+    \bigg| ^{2k}
+  \Bigg]^2 \NR
+%
+  \NC =\NC N_Y ^{2k}
+  \MB{E} \Bigg[
+    \bigg|
+      \sum_{n_R =0}^{N_R-1}
+        \M{F}_B \DB {0, n_R}
+        \M{F}_R \DB {n_R, 0}
+    \bigg| ^{2k}
+  \Bigg]^2 \NR
+%
+  \NC =\NC N_Y ^{2k}
+  \MB{E} \bigg[
+    \bigg|
+      \RB{
+        \sum_{n_R =0}^{N_R-1}
+          \M{F}_B ^{\Tr} \DB {0, n_R}
+          \MF{Re} \M{F}_R ^{\Tr} \DB {n_R, 0}
+      }^2 \NR
+      \NC \NC \SixQ +\RB{
+        \sum_{n_R =0}^{N_R-1}
+          \M{F}_B ^{\Tr} \DB {0, n_R}
+          \MF{Im} \M{F}_R ^{\Tr} \DB {n_R, 0}
+      }^2
     \bigg| ^{k}
-  \bigg] \NR
+  \bigg]^2 \NR
+%
+  \NC \leq \NC 2^{2k} N_Y ^{2k}
+  \MB{E} \bigg[
+    \bigg|
+      \sum_{n_R =0}^{N_R-1}
+        \M{F}_B ^{\Tr} \DB {0, n_R}
+        \MF{Re} \M{F}_R ^{\Tr} \DB {n_R, 0}
+    \bigg| ^{2k}
+  \bigg]^2 \NR
 %
   \NC =\NC \MB{E} \bigg[
     \bigg|
-      \RB{
-        \sum_{l_Y =0}^{N_Y-1}
-          \sum_{n_R =0}^{N_R-1}
-            \M{F}_B ^{\Tr} \DB {l_Y, n_R}
-            \MF{Re} \M{F}_R ^{\Tr} \DB {n_R, 0}
-      }^2 \NR
-      \NC \NC \SixQ +\RB{
-        \sum_{l_Y =0}^{N_Y-1}
-          \sum_{n_R =0}^{N_R-1}
-            \M{F}_B ^{\Tr} \DB {l_Y, n_R}
-            \MF{Im} \M{F}_R ^{\Tr} \DB {n_R, 0}
-      }^2
-    \bigg| ^{k}
-  \bigg] \NR
-%
-  \NC =\NC 2^k \D \MB{E} \bigg[
-    \bigg|
-      \sum_{l_Y =0}^{N_Y-1}
-        \sum_{n_R =0}^{N_R-1}
-          \M{F}_B ^{\Tr} \DB {l_Y, n_R}
-          \MF{Re} \M{F}_R ^{\Tr} \DB {n_R, 0}
+      \R{N_R} ^{-1/2} \sum_{n_R =0}^{N_R-1}
+        \R{2N_Y} \M{F}_B ^{\Tr} \DB {0, n_R}
+        \R{N_R} \MF{Re} \M{F}_R ^{\Tr} \DB {n_R, 0}
     \bigg| ^{2k}
-  \bigg] \NR
+  \bigg]^2 \NR
 }
 
-%\NC \leq \NC \Bigg(
-%  \sum_{l_Y, m_Y =0}^{N_Y-1}
-%  \sum_{n_R, n_R', n_R'', n_R''' =0}^{N_R-1}
-%  \sum_{l_H, l_H', m_H, m_H' =0}^{N_H-1} \NR
-%    \NC \NC \SixQ
-%    \Big(
-%      \MB{E} \SB {\Nm {\M{F}_B ^{\Adj} \DB {l_Y, n_R}} ^{4k}} ^{1/4}
-%      \MB{E} \SB {\Nm {\M{F}_B ^{\Tr} \DB {l_Y, n_R''}} ^{4k}} ^{1/4} \NR
-%      \NC \NC \SixQ
-%      \MB{E} \SB {\Nm {\M{W}_B ^{\ast} \DB {m_Y, n_R'}} ^{4k}} ^{1/4}
-%      \MB{E} \SB {\Nm {\M{W}_B \DB {m_Y, n_R'''}} ^{4k}} ^{1/4}
-%    \Big) ^{1/k} \NR
-%  \NC \NC \SixQ
-%  \Nm {\V{u} \DB{l_H N_H +m_H}}
-%  \Nm {\V{u} ^\ast \DB{l_H' N_H +m_H'}}
-%\Bigg) ^k \NR
-%%
-%\NC =\NC
-%  \Big(
-%  \sum_{l_Y, m_Y =0}^{N_Y-1}
-%  \sum_{n_R, n_R', n_R'', n_R''' =0}^{N_R-1}
-%  \sum_{l_H, l_H', m_H, m_H' =0}^{N_H-1}
-%      M_{B,4k} ^{1/k}
-%    \V{u} \DB{l_H N_H +m_H}
-%    \V{u} ^\ast \DB{l_H' N_H +m_H'}
-%  \Big) ^k \NR
-%%
-%\NC = \NC
-%  M_{B,4k} N_Y^2 N_R^4
-%  \Nm {
-%    \sum_{n_h, n_h' =0}^{N_h-1}
-%    \V{u} \DB{n_h} \V{u} ^\ast \DB{n_h'}
-%  } ^k \NR
-%\NC \leq \NC \Gamma \SB {2k +1} \VNm {\V{u}} _2 ^{2k} \NR
+Suppose (now use \m {n} in place of \m {n_R} for short)
+\Disp{
+  \NC \a_{n}
+  :=\NC \Nm {
+    \R{2N_Y} \M{F}_B ^{\Tr} \DB {0, n}
+    \R{N_R} \MF{Re} \M{F}_R ^{\Tr} \DB {n, 0}
+  } \NR[+]
+  \NC \b_{n}
+  :=\NC \Ss{sgn} \SB{
+    \R{N_R} \MF{Re} \M{F}_R ^{\Tr} \DB {n, 0}
+  } \NR[+]
+}
+Then \m {\b_{n}} takes value \m {\pm 1}, and is Bernoulli with probability \m {1/2} of each.
+And
+\Disp{
+\NC \MB{E} \SB {\Nm {\a_{n}} ^k}
+=\NC \G \SB {\F{k}{2} +1}
+\D \F{1} {\R{\pi}} \F{\G \SB {\F{k}{2} +\F{1}{2}}} {\G \SB {\F{k}{2} +1}} \NR
+\NC =\NC \G \SB {\F{k}{2} +\F{1}{2}} \NR[+]
+}
+Introduce \m {\g_{n}}, i.i.d.\ Standard Normal r.vs.
+Observe, for \m {k =1,2,3,\dots},
+\Disp{
+\NC \MB{E} \SB {\Nm {\a_{n}} ^k}
+\leq \NC \MB{E} \SB {\Nm {\g_{n}} ^k}
+}
+
+\Result
+{Lemma}
+{
+Let \m {\tilde{\a}_{n} \geq 0} and \m {\tilde{\g}_{n}' \geq 0} be i.i.d.\ random variables,
+and \m {\b_{n}} be Bernoulli r.vs.\ that take value \m {\pm 1} with probability \m {1/2} of each.
+Any of them are independent.
+If, for \m {k =1,2,3,\dots},
+\Disp{
+\NC \MB{E} \SB {\Nm {\tilde{\a}_{n}} ^k}
+\leq \NC \MB{E} \SB {\Nm {\b_{n}} ^k} \NR[+]
+}
+Then, for \m {k =1,2,3,\dots},
+\Disp{
+\NC \MB{E} \SB {\Nm {\sum_{n=0}^{N-1} \a_{n}} ^k}
+\leq \NC \MB{E} \SB {\Nm {\sum_{n=0}^{N-1} \g_{n}} ^k} \NR[+]
+}
+}
+
+Then, since the linear combination of Normal r.vs.\ is also a Normal r.v.,
+\Disp{
+  \NC \NC \MB{E} \SB {\rho ^k} \NR
+  \NC \leq \NC \MB{E} \bigg[
+    \bigg|
+      \R{N_R} ^{-1/2} \sum_{n =0}^{N_R-1}
+      \g_{n}
+    \bigg| ^{2k}
+  \bigg]^2 \NR
+  \NC \leq \NC \G \SB {k +1}^2 \NR[+]
+}
 
 \stopsubsection
 
@@ -758,19 +848,29 @@ Imitating the Chernoff Bound argument in classical probability, we have, for any
 \Disp {
 \NC \NC \MB{P} \SB {\rho \geq \RB {1 +\e} \MB{E} \SB {\rho}} \NR
 \NC =\NC \MB{P} \SB {\rho \geq \RB {1 +\e}} \NR
-\NC =\NC \MB{P} \SB {\Ss {e} ^{\R {s_{+} \rho}} \geq \Ss {e} ^{\R {s_{+} \RB {1 +\e}}}} \NR
-\NC \leq \NC \Ss {e} ^{-\R {s_{+} \RB {1 +\e}}} \MB{E} \SB {\Ss {e} ^{\R {s_{+} \rho}}} \NR[+]
+\NC =\NC \MB{P} \SB {\Ss {e} ^{s_{+} \rho} \geq \Ss {e} ^{s_{+} \RB {1 +\e}}} \NR
+\NC \leq \NC \Ss {e} ^{-s_{+} \RB {1 +\e}} \MB{E} \SB {\Ss {e} ^{s_{+} \rho}} \NR[+]
 }
-Assuming the convergence of power series of \m {\Ss {e} ^{\R {s_{+} \rho}}} for a moment, by various result in previous subsections, we get
+Assuming the convergence of power series of \m {\Ss {e} ^{s_{+} \rho}} for a moment, which will be justified below.
+Take log on both sides, by various result in previous subsections, we get
 \Disp {
-\NC \NC \MB{E} \SB {\Ss {e} ^{\R {s_{+} \rho}}} \NR
-\NC \leq \NC 1
-+s_+ ^{1/2} \MB{E} \SB {\rho ^{1/2}}
-+\F{s_+ ^{1/2}} {2} \MB{E} \SB {\rho}
-+\F{s_+ ^{3/2}} {6} \MB{E} \SB {\rho ^{3/2}}
-+\F{s_+ ^2} {24} \MB{E} \SB {\rho ^2}
-+\sum_{k=5}^\infty \F{1} {k!} \MB{E} \SB {s_+ ^{k/2} \rho ^{k/2}} \NR[+]
+\NC \NC \log \MB{P} \SB {\rho \geq \RB {1 +\e} \MB{E} \SB {\rho}} \NR
+\NC \leq \NC
+-s_{+} \RB {1 +\e}
++\log \RB {\sum_{k=0}^\infty \F{1} {k!} \MB{E} \SB {\rho ^{k}} s_+ ^{k}} \NR
+\NC \leq \NC
+-s_{+} \RB {1 +\e}
++\log \RB{
+  1 +s_+ +\F{1} {2} \RB {1 +N_Y^{-2}} s_+^2
+  +\sum_{k=3}^\infty \F{1} {k!} \MB{E} \SB {\rho ^{k}} s_+ ^{k}
+} \NR[+]
 }
+
+
+
+
+\stoptext
+
 By Power Mean inequality,
 \Disp {
 \NC \leq \NC 1
