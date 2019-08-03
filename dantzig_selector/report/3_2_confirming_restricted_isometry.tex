@@ -314,6 +314,12 @@ Now, fix any test vector \m {\V{u} \in \MB{V}_\MB{C} \SB{N_Y}}, we shall study t
 }
 by exploiting Chernoff bound.
 
+In this section, since the quantity \m {\Nm {\rho -\MB{E} \SB {\rho}}} is linear in \m {\VNm {\V{u}} _2}, by a scaling argument we may set, without loss of generality,
+\Disp {
+\NC \VNm {\V{u}} _2
+=\NC 1 \NR[+]
+}
+
 \stopsubsection
 
 \startsubsection [title={The First Moment}]
@@ -408,13 +414,13 @@ Pay attention to the order of indices in the product of entries of \m {\V{u}} an
   \D \V{u} ^\ast \DB{n_h'} \V{u} ^\ast \DB{n_h'''}
   \V{u} \DB{n_h} \V{u} \DB{n_h''} \NR
 %
-\NC = \NC \RB {N_R M_{R,4} M_{B,4} +N_R \RB {N_R-1} M_{R,2}^2 M_{B,2}^2} ^2 \NR
+\NC = \NC N_R^2 M_{R,4}^2 M_{B,4}^2 \NR
 \NC \NC \SixQ \D \sum_{n_y, n_y' =0}^{N_y-1}
 \sum_{n_h, n_h', n_h'', n_h''' =0}^{N_h-1}
    \i \SB {n_y, n_y'} \i \SB {n_h, n_h'', n_h', n_h'''} \NR
   \NC \NC \SixQ \D \V{u} ^\ast \DB{n_h'} \V{u} ^\ast \DB{n_h'''}
   \V{u} \DB{n_h} \V{u} \DB{n_h''} \NR
-\NC \NC \FourQ + \RB {N_R^2 M_{R,2}^2 M_{B,2}^2} ^2
+\NC \NC \FourQ + N_R^4 M_{R,2}^4 M_{B,2}^4
 \sum_{n_y, n_y' =0}^{N_y-1}
 \sum_{n_h, n_h', n_h'', n_h''' =0}^{N_h-1} \NR
 \NC \NC \SixQ \Bigg(
@@ -426,10 +432,10 @@ Pay attention to the order of indices in the product of entries of \m {\V{u}} an
   \NC \NC \SixQ \D \V{u} ^\ast \DB{n_h'} \V{u} ^\ast \DB{n_h'''}
   \V{u} \DB{n_h} \V{u} \DB{n_h''} \NR
 %
-\NC = \NC \RB {N_R M_{R,4} M_{B,4} +N_R \RB {N_R-1} M_{R,2}^2 M_{B,2}^2} ^2
+\NC = \NC N_R^2 M_{R,4}^2 M_{B,4}^2
 \D N_y \sum_{n_h =0}^{N_h-1} \Nm {\V{u} \DB{n_h}} ^4 \NR
 \NC \NC \FourQ
-+ \RB {N_R^2 M_{R,2}^2 M_{B,2}^2} ^2 \NR
++ N_R^4 M_{R,2}^4 M_{B,2}^4 \NR
 \NC \NC \SixQ \D \Bigg(
   N_y \sum_{n_h, n_h' =0}^{N_h-1} \i \SB {n_h \mid n_h'} \V{u} ^\ast \DB{n_h} ^2 \V{u} \DB{n_h'} ^2 \NR
   \NC \NC \SixQ +N_y \sum_{n_h, n_h' =0}^{N_h-1} \i \SB {n_h \mid n_h'} \Nm {\V{u} \DB{n_h}} ^2 \Nm {\V{u} \DB{n_h'}} ^2 \NR
@@ -452,7 +458,7 @@ The first term in the big parentheses can also be bounded by triangle inequality
 Thus,
 \Disp {
 \NC \NC \MB{E} \SB {\rho ^2} \NR
-\NC = \NC \RB {N_R M_{R,4} M_{B,4} +N_R \RB {N_R-1} M_{R,2}^2 M_{B,2}^2} ^2
+\NC = \NC N_R^2 M_{R,4}^2 M_{B,4}^2
 \D N_y \VNm {\V{u}} _4 ^4 \NR
 \NC \NC \FourQ + \RB {N_R^2 M_{R,2}^2 M_{B,2}^2} ^2 \NR
 \NC \NC \SixQ \Bigg(
@@ -463,10 +469,10 @@ Thus,
 \Bigg) \NR
 %
 \NC =\NC \RB {1 +N_Y^{-2}} \VNm {\V{u}} _2 ^4
-+\RB {-2 N_Y^2 +\RB {1 +2N_R^{-1} +N_R^{-2}} N_Y^{-2}} \VNm {\V{u}} _4 ^4 \NR
++\RB {-2 N_Y^2 -2 \RB {1 -2N_R^{-2}} N_Y^{-2}} \VNm {\V{u}} _4 ^4 \NR
 \NC \leq \NC \RB {1 +N_Y^{-2}} \VNm {\V{u}} _2 ^4 \NR[+]
 }
-In simplifying we used \m {N_H \gg N_R \gg N_Y \gg 1}. and the fact \m {\VNm {\V{u}} _4 \geq N_H^{-1/2} \VNm {\V{u}} _2}.
+Noting that \m {N_H \gg N_R \gg N_Y \gg 1}, and the fact \m {\VNm {\V{u}} _4 \geq N_H^{-1/2} \VNm {\V{u}} _2}, we see that it is not a big deal to drop the \m {\VNm {\V{u}} _4} term .
 
 \stopsubsection
 
@@ -483,74 +489,270 @@ If we introduce the change of variables
 \NC m_H :=\NC n_H \; \Rm{Mod}\; N_H \NR
 \NC m_H' :=\NC n_H' \; \Rm{Mod}\; N_H \NR
 }
-we may split the expression of \m {\rho} as follows.
-Now, respectively: by Minkowski inequality; by H\"older's inequality; by the fact that \m {\M{F}_R} and \m {\M{F}_R} entries both have unity magnitude, by the identical distribution and by the definition of \m {M_{B,k}}; by Cauchy inequality: we have
+%We may split the expression of \m {\rho} as follows.
+%Now, respectively: by Minkowski inequality; by H\"older's inequality; by the fact that \m {\M{F}_R} and \m {\M{F}_R} entries both have unity magnitude, by the identical distribution and by the definition of \m {M_{B,k}}; by Power Mean inequality: we have
+
+By rearranging,
 
 \Disp{
 \NC \NC \MB{E} \SB {\rho \SB {\o_t, \o_r} ^k} \NR
-\NC =\NC \MB{E} \Bigg[ \Big(
+%
+\NC =\NC \MB{E} \bigg[
+\bigg|
   \sum_{l_Y, m_Y =0}^{N_Y-1}
   \sum_{n_R, n_R', n_R'', n_R''' =0}^{N_R-1}
   \sum_{l_H, l_H', m_H, m_H' =0}^{N_H-1} \NR
-    \NC \NC \SixQ
+    \NC \NC \FourQ
     \M{F}_B ^{\Adj} \DB {l_Y, n_R}
     \M{F}_R ^{\Adj} \DB {n_R, l_H}
     \M{W}_B ^{\ast} \DB {m_Y, n_R'}
     \M{W}_R ^{\ast} \DB {n_R', m_H} \NR
-    \NC \NC \SixQ
+    \NC \NC \FourQ
     \M{F}_B ^{\Tr} \DB {l_Y, n_R''}
     \M{F}_R ^{\Tr} \DB {n_R'', l_H'}
     \M{W}_B \DB {m_Y, n_R'''}
     \M{W}_R \DB {n_R''', m_H'} \NR
-  \NC \NC \SixQ \V{u} \DB{l_H N_H +m_H}
+  \NC \NC \FourQ \V{u} \DB{l_H N_H +m_H}
   \V{u} ^\ast \DB{l_H' N_H +m_H'}
-\Big) ^k \Bigg] \NR
+\bigg| ^k
+\bigg] \NR
 %
-\NC \leq \NC \Bigg(
-  \sum_{l_Y, m_Y =0}^{N_Y-1}
-  \sum_{n_R, n_R =0}^{N_R-1}
-  \sum_{l_H, l_H', m_H', l_H'' =0}^{N_H-1} \NR
-    \NC \NC \SixQ
-    \Big(
-      \MB{E} \SB {\Nm {\M{F}_B ^{\Adj} \DB {n_R, l_Y}} ^{4k}} ^{1/4}
-      \MB{E} \SB {\Nm {\M{F}_B ^{\Tr} \DB {n_R', l_Y}} ^{4k}} ^{1/4} \NR
-      \NC \NC \SixQ
-      \MB{E} \SB {\Nm {\M{W}_B ^{\ast} \DB {n_R, m_Y}} ^{4k}} ^{1/4}
-      \MB{E} \SB {\Nm {\M{W}_B \DB {n_R', m_Y}} ^{4k}} ^{1/4}
-    \Big) ^{1/k} \NR
-  \NC \NC \SixQ
-  \Nm {\V{u} \DB{l_H N_H +m_H}}
-  \Nm {\V{u} ^\ast \DB{l_H' N_H +m_H'}}
-\Bigg) ^k \NR
-%
-\NC =\NC
-  \Big(
-    \sum_{l_Y, m_Y =0}^{N_Y-1}
-    \sum_{n_R, n_R =0}^{N_R-1}
-    \sum_{l_H, l_H', m_H', l_H'' =0}^{N_H-1}
-      M_{B,4k} ^{1/k}
-    \V{u} \DB{l_H N_H +m_H}
-    \V{u} ^\ast \DB{l_H' N_H +m_H'}
-  \Big) ^k \NR
-%
-\NC = \NC
-  M_{B,4k}
-  \Nm {
-    \sum_{n_h, n_h' =0}^{N_h-1}
-    \V{u} \DB{n_h} \V{u} ^\ast \DB{n_h'}
-  } ^k \NR
-\NC \leq \NC \Gamma \SB {\F{k}{2} +1} ^4 \VNm {\V{u}} _2 ^{2k} \NR
+\NC =\NC \MB{E} \Bigg[
+  \Bigg|
+    \sum_{l_H, l_H', m_H, m_H' =0}^{N_H-1}
+      \V{u} \DB{l_H N_H +m_H}
+      \V{u} ^\ast \DB{l_H' N_H +m_H'} \NR
+      \NC \NC \FourQ \sum_{l_Y =0}^{N_Y-1} \RB{
+        \sum_{n_R =0}^{N_R-1} \RB{
+          \M{F}_B ^{\Adj} \DB {l_Y, n_R}
+          \M{F}_R ^{\Adj} \DB {n_R, l_H}
+        }
+        \sum_{n_R =0}^{N_R-1} \RB{
+          \M{F}_B ^{\Tr} \DB {l_Y, n_R}
+          \M{F}_R ^{\Tr} \DB {n_R, l_H'}
+        }
+      } \NR
+      \NC \NC \FourQ \sum_{m_Y =0}^{N_Y-1} \RB{
+        \sum_{n_R =0}^{N_R-1} \RB{
+          \M{W}_B ^{\ast} \DB {m_Y, n_R}
+          \M{W}_R ^{\ast} \DB {n_R, m_H}
+        }
+        \sum_{n_R =0}^{N_R-1} \RB{
+          \M{W}_B \DB {m_Y, n_R}
+          \M{W}_R \DB {n_R, m_H'}
+        }
+      }
+  \Bigg| ^k
+\Bigg| \NR
 }
+%
+By Jensen's Inequality; by Power Mean Inequality to replace \m {l_H} and \m {l_H'} by the same number (resp.\ \m {m_H} and \m {m_H'}); by i.i.d.\ of \m {\M{F}_B} and \m {\M{W}_B} (resp.\ \m {\M{F}_R} and \m {\M{W}_R})
+\Disp{
+\NC \leq \NC \MB{E} \Bigg[
+  \Nm{
+    \sum_{l_H, l_H', m_H, m_H' =0}^{N_H-1}
+      \V{u} \DB{l_H N_H +m_H}
+      \V{u} ^\ast \DB{l_H' N_H +m_H'}
+  } ^{k-1} \NR
+  \NC \NC \Q \Q \sum_{l_H, l_H', m_H, m_H' =0}^{N_H-1}
+    \V{u} \DB{l_H N_H +m_H}
+    \V{u} ^\ast \DB{l_H' N_H +m_H'} \NR
+    \NC \NC \FourQ \Bigg|
+      \sum_{l_Y =0}^{N_Y-1}
+      \RB{
+        \sum_{n_R =0}^{N_R-1}
+          \M{F}_B ^{\Adj} \DB {l_Y, n_R}
+          \M{F}_R ^{\Adj} \DB {n_R, l_H}
+      }
+      \RB{
+        \sum_{n_R =0}^{N_R-1}
+          \M{F}_B ^{\Tr} \DB {l_Y, n_R}
+          \M{F}_R ^{\Tr} \DB {n_R, l_H'}
+      }
+      \Bigg| ^k \NR
+    \NC \NC \FourQ \Bigg|
+      \sum_{m_Y =0}^{N_Y-1}
+      \RB{
+        \sum_{n_R =0}^{N_R-1}
+          \M{W}_B ^{\ast} \DB {m_Y, n_R}
+          \M{W}_R ^{\ast} \DB {n_R, m_H}
+      }
+      \RB{
+        \sum_{n_R =0}^{N_R-1}
+          \M{W}_B \DB {m_Y, n_R}
+          \M{W}_R \DB {n_R, m_H'}
+      }
+    \Bigg| ^k
+  \Bigg] \NR
+%
+  \NC \leq \NC \MB{E} \Bigg[
+    \Nm{
+      \sum_{l_H, l_H', m_H, m_H' =0}^{N_H-1}
+        \V{u} \DB{l_H N_H +m_H}
+        \V{u} ^\ast \DB{l_H' N_H +m_H'}
+    } ^{k-1} \NR
+    \NC \NC \Q \Q \sum_{l_H, l_H', m_H, m_H' =0}^{N_H-1}
+      \V{u} \DB{l_H N_H +m_H}
+      \V{u} ^\ast \DB{l_H' N_H +m_H'} \NR
+    \NC \NC \FourQ \Bigg|
+      \sum_{l_Y =0}^{N_Y-1}
+      \RB{
+        \sum_{n_R =0}^{N_R-1}
+          \M{F}_B ^{\Adj} \DB {l_Y, n_R}
+          \M{F}_R ^{\Adj} \DB {n_R, 0}
+      }
+      \RB{
+        \sum_{n_R =0}^{N_R-1}
+          \M{F}_B ^{\Tr} \DB {l_Y, n_R}
+          \M{F}_R ^{\Tr} \DB {n_R, 0}
+      }
+    \Bigg| ^k \NR
+    \NC \NC \FourQ \Bigg|
+      \sum_{m_Y =0}^{N_Y-1}
+      \RB{
+        \sum_{n_R =0}^{N_R-1}
+          \M{W}_B ^{\ast} \DB {m_Y, n_R}
+          \M{W}_R ^{\ast} \DB {n_R, 0}
+      }
+      \RB{
+        \sum_{n_R =0}^{N_R-1}
+          \M{W}_B \DB {m_Y, n_R}
+          \M{W}_R \DB {n_R, 0}
+      }
+    \Bigg| ^k
+  \Bigg] \NR
+%
+  \NC =\NC \Nm{
+    \sum_{l_H, l_H', m_H, m_H' =0}^{N_H-1}
+      \V{u} \DB{l_H N_H +m_H}
+      \V{u} ^\ast \DB{l_H' N_H +m_H'}
+  } ^{k} \NR
+  \NC \NC \FourQ \MB{E} \Bigg[
+    \Bigg|
+      \sum_{l_Y =0}^{N_Y-1}
+      \RB{
+        \sum_{n_R =0}^{N_R-1}
+          \M{F}_B ^{\Adj} \DB {l_Y, n_R}
+          \M{F}_R ^{\Adj} \DB {n_R, 0}
+      }
+      \RB{
+        \sum_{n_R =0}^{N_R-1}
+          \M{F}_B ^{\Tr} \DB {l_Y, n_R}
+          \M{F}_R ^{\Tr} \DB {n_R, 0}
+      }
+      \Bigg| ^k
+  \Bigg] \NR
+  \NC \NC \FourQ \MB{E} \SB{
+    \Nm{
+      \sum_{m_Y =0}^{N_Y-1}
+      \RB{
+        \sum_{n_R =0}^{N_R-1}
+          \M{W}_B ^{\ast} \DB {m_Y, n_R}
+          \M{W}_R ^{\ast} \DB {n_R, 0}
+      }
+      \RB{
+        \sum_{n_R =0}^{N_R-1}
+          \M{W}_B \DB {m_Y, n_R}
+          \M{W}_R \DB {n_R, 0}
+      }
+    } ^k
+  } \NR
+}
+By Cauchy Inequality and by and by assumption that \m {\V {u}} is unit norm; by i.i.d.\ of each quantity with \m {n_Y}; by spliting real and imaginary parts; by Jensen Inequality (or Power Mean Inequality),
+\Disp{
+  \NC \leq \NC \VNm {\V {u}} _2 ^{2k}
+  \D \MB{E} \Bigg[
+    \Bigg|
+      N_Y
+      \RB{
+        \sum_{n_R =0}^{N_R-1}
+          \M{F}_B ^{\Adj} \DB {l_Y, n_R}
+          \M{F}_R ^{\Adj} \DB {n_R, 0}
+      }
+      \RB{
+        \sum_{n_R =0}^{N_R-1}
+          \M{F}_B ^{\Tr} \DB {l_Y, n_R}
+          \M{F}_R ^{\Tr} \DB {n_R, 0}
+      }
+      \Bigg| ^{k}
+  \Bigg]^2 \NR
+%
+  \NC =\NC 1 \D \MB{E} \bigg[
+    \bigg|
+      \sum_{l_Y =0}^{N_Y-1}
+      \Big|
+        \sum_{n_R =0}^{N_R-1}
+          \M{F}_B \DB {l_Y, n_R}
+          \M{F}_R \DB {n_R, 0}
+      \Big| ^{2}
+    \bigg| ^{k}
+  \bigg] \NR
+%
+  \NC =\NC \MB{E} \bigg[
+    \bigg|
+      \RB{
+        \sum_{l_Y =0}^{N_Y-1}
+          \sum_{n_R =0}^{N_R-1}
+            \M{F}_B ^{\Tr} \DB {l_Y, n_R}
+            \MF{Re} \M{F}_R ^{\Tr} \DB {n_R, 0}
+      }^2 \NR
+      \NC \NC \SixQ +\RB{
+        \sum_{l_Y =0}^{N_Y-1}
+          \sum_{n_R =0}^{N_R-1}
+            \M{F}_B ^{\Tr} \DB {l_Y, n_R}
+            \MF{Im} \M{F}_R ^{\Tr} \DB {n_R, 0}
+      }^2
+    \bigg| ^{k}
+  \bigg] \NR
+%
+  \NC =\NC 2^k \D \MB{E} \bigg[
+    \bigg|
+      \sum_{l_Y =0}^{N_Y-1}
+        \sum_{n_R =0}^{N_R-1}
+          \M{F}_B ^{\Tr} \DB {l_Y, n_R}
+          \MF{Re} \M{F}_R ^{\Tr} \DB {n_R, 0}
+    \bigg| ^{2k}
+  \bigg] \NR
+}
+
+%\NC \leq \NC \Bigg(
+%  \sum_{l_Y, m_Y =0}^{N_Y-1}
+%  \sum_{n_R, n_R', n_R'', n_R''' =0}^{N_R-1}
+%  \sum_{l_H, l_H', m_H, m_H' =0}^{N_H-1} \NR
+%    \NC \NC \SixQ
+%    \Big(
+%      \MB{E} \SB {\Nm {\M{F}_B ^{\Adj} \DB {l_Y, n_R}} ^{4k}} ^{1/4}
+%      \MB{E} \SB {\Nm {\M{F}_B ^{\Tr} \DB {l_Y, n_R''}} ^{4k}} ^{1/4} \NR
+%      \NC \NC \SixQ
+%      \MB{E} \SB {\Nm {\M{W}_B ^{\ast} \DB {m_Y, n_R'}} ^{4k}} ^{1/4}
+%      \MB{E} \SB {\Nm {\M{W}_B \DB {m_Y, n_R'''}} ^{4k}} ^{1/4}
+%    \Big) ^{1/k} \NR
+%  \NC \NC \SixQ
+%  \Nm {\V{u} \DB{l_H N_H +m_H}}
+%  \Nm {\V{u} ^\ast \DB{l_H' N_H +m_H'}}
+%\Bigg) ^k \NR
+%%
+%\NC =\NC
+%  \Big(
+%  \sum_{l_Y, m_Y =0}^{N_Y-1}
+%  \sum_{n_R, n_R', n_R'', n_R''' =0}^{N_R-1}
+%  \sum_{l_H, l_H', m_H, m_H' =0}^{N_H-1}
+%      M_{B,4k} ^{1/k}
+%    \V{u} \DB{l_H N_H +m_H}
+%    \V{u} ^\ast \DB{l_H' N_H +m_H'}
+%  \Big) ^k \NR
+%%
+%\NC = \NC
+%  M_{B,4k} N_Y^2 N_R^4
+%  \Nm {
+%    \sum_{n_h, n_h' =0}^{N_h-1}
+%    \V{u} \DB{n_h} \V{u} ^\ast \DB{n_h'}
+%  } ^k \NR
+%\NC \leq \NC \Gamma \SB {2k +1} \VNm {\V{u}} _2 ^{2k} \NR
 
 \stopsubsection
 
 \startsubsection [title={Using Chernoff Bound}]
-
-Since the quantity \m {\Nm {\rho -\MB{E} \SB {\rho}}} is linear in \m {\VNm {\V{u}} _2}, by a scaling argument we may set, without loss of generality,
-\Disp {
-\NC \VNm {\V{u}} _2
-=\NC 1 \NR[+]
-}
 
 Imitating the Chernoff Bound argument in classical probability, we have, for any \m {s_{+} >0} so that, supposedly, both sides \m {< \infty},
 \Disp {
@@ -569,7 +771,7 @@ Assuming the convergence of power series of \m {\Ss {e} ^{\R {s_{+} \rho}}} for 
 +\F{s_+ ^2} {24} \MB{E} \SB {\rho ^2}
 +\sum_{k=5}^\infty \F{1} {k!} \MB{E} \SB {s_+ ^{k/2} \rho ^{k/2}} \NR[+]
 }
-By power mean inequality,
+By Power Mean inequality,
 \Disp {
 \NC \leq \NC 1
 +\VNm {\V{u}} _2 s_{+} ^{1/2}
