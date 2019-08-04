@@ -330,7 +330,7 @@ utilitydata.structures.counters.collected={
   { 0 },
  },
  ["formula"]={
-  { 0, 0, 0, 0, 0, 15, 22, 61 },
+  { 0, 0, 0, 0, 0, 15, 22, 62 },
  },
  ["graphic"]={
   { 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -349,16 +349,16 @@ utilitydata.structures.counters.collected={
   { 0, 0, 0, 0, 0, 0, 0, 0 },
  },
  ["realpage"]={
-  { 34 },
+  { 35 },
  },
  ["subpage"]={
-  { 34 },
+  { 35 },
  },
  ["table"]={
   { 0, 0, 0, 0, 0, 0, 0, 0 },
  },
  ["userpage"]={
-  { 33 },
+  { 34 },
  },
 }
 
@@ -1042,6 +1042,13 @@ utilitydata.structures.pages.collected={
  {
   ["block"]="bodypart",
   ["number"]=33,
+  ["numberdata"]=58,
+  ["prefixdata"]=59,
+  ["state"]="start",
+ },
+ {
+  ["block"]="bodypart",
+  ["number"]=34,
   ["numberdata"]=58,
   ["prefixdata"]=59,
   ["state"]="start",
