@@ -825,20 +825,24 @@ Now, for \m {k =1,2,3,\dots}, we have the neat relation
 \Result
 {Lemma}
 {
-Let \m {\tilde{\a}_{n} \geq 0} and \m {\tilde{\g}_{n}' \geq 0} be i.i.d.\ random variables,
+Let \m {\a_{n}' \geq 0} and \m {\g_{n}' \geq 0} be i.i.d.\ random variables,
 and \m {\b_{n}} be Bernoulli r.vs.\ that take value \m {\pm 1} with probability \m {1/2} of each.
 Any of them are independent.
 If, for \m {k =1,2,3,\dots},
 \Disp{
-\NC \MB{E} \SB {\Nm {\tilde{\a}_{n}} ^k}
-\leq \NC \MB{E} \SB {\Nm {\b_{n}} ^k} \NR[+]
+\NC \MB{E} \SB {\Nm {\a_{n}'} ^k}
+\leq \NC \MB{E} \SB {\Nm {\g_{n}'} ^k} \NR[+]
 }
 Then, for \m {k =1,2,3,\dots},
 \Disp{
-\NC \MB{E} \SB {\Nm {\sum_{n=0}^{N-1} \a_{n}} ^k}
-\leq \NC \MB{E} \SB {\Nm {\sum_{n=0}^{N-1} \g_{n}} ^k} \NR[+]
+\NC \MB{E} \SB {\Nm {\sum_{n=0}^{N-1} \a_{n}' \b_{n}} ^k}
+\leq \NC \MB{E} \SB {\Nm {\sum_{n=0}^{N-1} \g_{n}' \b_{n}} ^k} \NR[+]
 }
 }
+
+The proof of even \m {k} is straightforward, by expanding and comparing term-by-term.
+The proof of odd \m {k} also follows by observation \m {\RB {x} ^k =\RB {\RB {x} ^{2k}} ^{1/2}} and Generalized Binomial Theorem for power \m {1/2}.
+
 
 Then, since the linear combination of Normal r.vs.\ is also a Normal r.v.,
 \Disp{
@@ -856,195 +860,145 @@ Then, since the linear combination of Normal r.vs.\ is also a Normal r.v.,
 
 \startsubsection [title={Using Chernoff Bound}]
 
-Imitating the Chernoff Bound argument in classical probability, we have, for any \m {s_{+} >0} so that, supposedly, both sides \m {< \infty},
+Imitating the Chernoff Bound argument in classical probability, we have, for any \m {s_+ >0} so that, supposedly, both sides \m {< \infty},
 \Disp {
-\NC \NC \MB{P} \SB {\rho \geq \RB {1 +\e} \MB{E} \SB {\rho}} \NR
-\NC =\NC \MB{P} \SB {\rho \geq \RB {1 +\e}} \NR
-\NC =\NC \MB{P} \SB {\Ss {e} ^{\R {s_{+} \rho}} \geq \Ss {e} ^{\R {s_{+} \RB {1 +\e}}}} \NR
-\NC \leq \NC \Ss {e} ^{-\R {s_{+} \RB {1 +\e}}} \MB{E} \SB {\Ss {e} ^{\R {s_{+} \rho}}} \NR[+]
-%
-%\NC =\NC \MB{P} \SB {\Ss {e} ^{s_{+} \rho} \geq \Ss {e} ^{s_{+} \RB {1 +\e}}} \NR
-%\NC \leq \NC \Ss {e} ^{-s_{+} \RB {1 +\e}} \MB{E} \SB {\Ss {e} ^{s_{+} \rho}} \NR[+]
+\NC p
+= \NC \MB{P} \SB {\rho \geq \RB {1 +\e} \MB{E} \SB {\rho}} \NR
+\NC =\NC \MB{P} \SB {\rho \geq 1 +\e} \NR
+\NC =\NC \MB{P} \SB {\R {\rho} \geq \R {1 +\e}} \NR
+\NC =\NC \MB{P} \SB {\Ss {e} ^{s_+ \R {\rho}} \geq \Ss {e} ^{s_+ \R {1 +\e}}} \NR
+\NC \leq \NC \Ss {e} ^{-s_+ \R {1 +\e}} \MB{E} \SB {\Ss {e} ^{s_+ \R {\rho}}} \NR[+]
 }
-Assuming the convergence of power series of \m {\Ss {e} ^{s_{+} \rho}} for a moment, which will be justified below.
+Assuming the convergence of power series of \m {\Ss {e} ^{s_+ \R {\rho}}} for a moment, which will be justified below.
 Take log on both sides, by various result in previous subsections, we get
 \Disp {
-\NC \NC \MB{E} \SB {\Ss {e} ^{\R {s_{+} \rho}}} \NR
+\NC \NC \MB{E} \SB {\Ss {e} ^{s_+ \R {\rho}}} \NR
 %
 \NC \leq \NC 1
-+s_+ ^{1/2} \MB{E} \SB {\rho ^{1/2}}
-+\F{s_+ ^{1/2}} {2} \MB{E} \SB {\rho}
-+\F{s_+ ^{3/2}} {6} \MB{E} \SB {\rho ^{3/2}}
-+\F{s_+ ^2} {24} \MB{E} \SB {\rho ^2}
-+\sum_{k=5}^\infty \F{1} {k!} \MB{E} \SB {s_+ ^{k/2} \rho ^{k/2}} \NR[+]
-%
-%\NC \NC \log \MB{P} \SB {\rho \geq \RB {1 +\e} \MB{E} \SB {\rho}} \NR
-%\NC \leq \NC
-%-s_{+} \RB {1 +\e}
-%+\log \RB {\sum_{k=0}^\infty \F{1} {k!} \MB{E} \SB {\rho ^{k}} s_+ ^{k}} \NR
-%\NC \leq \NC
-%-s_{+} \RB {1 +\e}
-%+\log \RB{
-%  1 +s_+ +\F{1} {2} \RB {1 +N_Y^{-2}} s_+^2
-%  +\sum_{k=3}^\infty \F{1} {k!} \MB{E} \SB {\rho ^{k}} s_+ ^{k}
-%} \NR[+]
++s_+ \MB{E} \SB {\R {\rho}}
++\F{s_+ ^2} {2} \MB{E} \SB {\rho}
++\F{s_+ ^3} {6} \MB{E} \SB {\rho ^{3/2}}
++\F{s_+ ^4} {24} \MB{E} \SB {\rho ^2}
++\sum_{k=5}^\infty \F{1} {k!} \MB{E} \SB {s_+ ^k \rho ^{k/2}} \NR[+]
 }
 By Power Mean inequality;
 by Stirling Approximation of the Gamma function;
 by assuming \m {s_+ <1} for a moment, by replacing \m {N_Y \geq 2} in certain places with rough value,
 \Disp {
 \NC \leq \NC 1
-+s_{+} ^{1/2} \RB {\MB{E} \SB {\rho}} ^{1/2}
-+\F{1} {2} s_{+} \D \MB{E} \SB {\rho}
-+\F{1} {6} \RB {1 +N_Y^{-2}} ^{3/4} s_{+} ^{3/2} \D \RB {\MB{E} \SB {\rho}} ^{3/2} \NR
-\NC \NC \SixQ +\F{1} {24} \RB {1 +N_Y^{-2}} s_{+} ^2 \D \RB {\MB{E} \SB {\rho}} ^{2}
++s_+ \D \R {\MB{E} \SB {\rho}}
++\F{1} {2} s_+ ^2 \D \MB{E} \SB {\rho}
++\F{1} {6} \RB {1 +N_Y^{-2}} ^{3/4} s_+ ^3 \D \MB{E} \SB {\rho} ^{3/2} \NR
+\NC \NC \FourQ +\F{1} {24} \RB {1 +N_Y^{-2}} s_+ ^4 \D \MB{E} \SB {\rho} ^{2}
 +\sum_{k=5}^\infty
-  \F{1} {k!} \G \SB {k +1} s_{+} ^{k/2}
-  \D \RB {\MB{E} \SB {\rho}} ^{k/2} \NR
+  \F{1} {k!} \G \SB {k +1} s_+ ^k
+  \D \MB{E} \SB {\rho} ^{k/2} \NR
 %
 \NC \leq \NC 1
-+s_{+} ^{1/2}
-+\F{1} {2} s_{+}
-+\F{1} {6} \RB {1 +N_Y^{-2}} ^{3/4} s_{+} ^{3/2} \NR
-\NC \NC \SixQ +\F{1} {24} \RB {1 +N_Y^{-2}} s_{+} ^2
-+\sum_{k=5}^\infty s_{+} ^{k/2} \NR[+]
-%
-\NC \leq \NC 1
-+s_{+} ^{1/2}
-+\F{1} {2} s_{+}
-+\F{1} {5} s_{+} ^{3/2} \NR
-\NC \NC \SixQ +\F{1} {11} s_{+} ^2
-+\F {1} {1-s_+^{5/2}} \NR[+]
-}
-
-\stoptext
-
-Meanwhile, we recall the Stirling's Approximation
-\Result
-{Lemma}
-{
-For \m {n>1},
-\Disp {
-\NC \R {2 \pi} n ^{n+1/2} \Ss {e} ^{-n+1/(12n+1)}
-<\NC \Gamma \SB {n+1} \NR
-\NC <\NC \R {2 \pi} n ^{n+1/2} \Ss {e} ^{-n+1/12n} \NR
-}
-}
-
-Thus,
-\Disp {
-\NC \F {\RB {\Gamma \SB {k/4+1}}^4} {\Gamma \SB {k+1}}
-\leq \NC \F {\RB {\R {2\pi} \RB {k/4} ^{k/4+1/2} \Ss {e} ^{-k/4 +1/3k}} ^4}
-  {\R {2\pi} \; k ^{k+1/2} \; \Ss {e} ^{-k +1/(12k+1)}} \NR
-\NC =\NC \RB {2\pi} ^{3/2} \; k ^{3/2} \; 2 ^{-2k-4} \; \Ss {e} ^{5/4k} \NR
-}
-
-Setting
-\Disp {
-\NC c_0
-=\NC 2 ^{-5/2} \pi ^{3/2} \Ss {e} ^{1/3} \NR[+]
-\NC \T{s}_+
-=\NC \F{1}{4} \R{s} \NR[+]
-}
-We would see that we must require \m {\T{s}_+ \SB{s} < 1} for the series to converge.
-Indeed, we may bound the last series summation by the integration
-\Disp {
-\NC \NC \F{1}{c_0} \sum_{k=5}^\infty \F{s_{+} ^{k/2}} {k!}
-  \Gamma \SB {\F{k}{4} +1} ^4 N_Y^{k} N_R^{k}
-  \VNm {\V{u}} _2 ^k \NR
-%
-\NC \leq \NC \int _{4} ^{\infty} \T{s}_+ ^x x ^{3/2} \Ss {d} x \NR
-%
-\NC \leq \NC \F{1} {\log \T{s}_+}
-\RB {
-  \lim_{x \to \infty} \T{s}_+ ^x x ^{3/2} -8 \T{s}_+ ^4
-  -\F{3}{2} \int _{4} ^{\infty} \T{s}_+ ^x x ^{1/2} \Ss {d} x
-} \NR
-%
-\NC = \NC \F{8} {-\log \T{s}_+} \T{s}_+^4
--\F{3} {2 \RB {-\log \T{s}_+}^2}
-\RB {
-  \lim_{x \to \infty} \T{s}_+ ^x x ^{1/2} -2 \T{s}_+ ^4
-  -\F{1}{2} \int _{4} ^{\infty} \T{s}_+ ^x x ^{-1/2} \Ss {d} x
-} \NR
-%
-\NC = \NC \RB { \F{8} {-\log \T{s}_+} +\F{3} {\RB {-\log \T{s}_+}^2} } \T{s}_+^4
-+\F{3} {4 \RB {-\log \T{s}_+}^2} \int _{4} ^{\infty} \T{s}_+ ^x x ^{-1/2} \Ss {d} x \NR[+]
-%
-\NC \leq \NC \RB { \F{8} {-\log \T{s}_+} +\F{3} {\RB {-\log \T{s}_+}^2} } \T{s}_+^4
-+\F{3} {8 \RB {-\log \T{s}_+}^2} \int _{4} ^{\infty} \T{s}_+ ^x \Ss {d} x \NR[+]
-%
-\NC = \NC \RB { \F{8} {-\log \T{s}_+} +\F{3} {\RB {-\log \T{s}_+}^2} } \T{s}_+^4
--\F{3} {8 \RB {-\log \T{s}_+}^3} \RB {\lim_{x \to \infty} \T{s}_+ ^x -\T{s}_+ ^4} \NR
-%
-\NC = \NC \RB {
-  \F{8} {-\log \T{s}_+}
-  +\F{3} {\RB {-\log \T{s}_+}^2}
-  +\F{3} {8 \RB {-\log \T{s}_+}^3}
-}
-\T{s}_+^4 \NR[+]
++s_+
++\F{1} {2} s_+ ^2
++\F{1} {6} \RB {1 +N_Y^{-2}} ^{3/4} s_+ ^3
++\F{1} {24} \RB {1 +N_Y^{-2}} s_+ ^4
++\sum_{k=5}^\infty s_+ ^k \NR[+]
 }
 
 Back to the Chernoff Bound, an application of \m {\log \RB {1 +x} \leq x} gives
 \Disp {
-\NC \NC \log \MB{P} \SB {\rho \geq \RB {1 +\e} \MB{E} \SB {\rho}} \NR
+\NC \log p
+=\NC \Min {s_+ >0} \log \MB{P} \SB {\rho \geq \RB {1 +\e} \MB{E} \SB {\rho}} \NR
 \NC \leq \NC \Min {s_+ >0}
 \RB {
-  -\R {s_{+} \RB {1 +\e}} +\log \MB{E} \SB {\Ss {e} ^{\R {s_{+} \rho}}}
+  -s_+ \R {1 +\e} +\log \MB{E} \SB {\Ss {e} ^{s_+ \R {\rho}}}
 }
 \NR[+]
+}
+If \m {s \ll 1}, we drop the last term (of \m {\MC {O} \SB {s ^5}}).
+If \m {\e \ll 1} too, then
+\Disp{
+\NC \R {1+\e}
+\geq \NC 1 +\F{1}{2} \e -\F{1}{8} \e^2 \NR
+}
+And recall that for \m {x \geq 0},
+\Disp{
+\NC \log \RB{1+x}
+\leq \NC x -\F{1}{2} x^2 +\F{1}{3} x^3 \NR
+}
+We have
+\Disp{
+\NC \log p
+%
+\leq \NC \Min {s_+ >0} 
+-\RB {1 +\F{1}{2} \e -\F{1}{8} \e^2} s_+
++\RB{s_+ +\F{1} {2} s_+ ^2 +\dots} \NR
+\NC \NC \SixQ -\F{1}{2} \RB{s_+ +\F{1} {2} s_+ ^2 +\dots}^2
++\F{1}{3} \RB{s_+ +\F{1} {2} s_+ ^2 +\dots}^3 \NR
+%
 \NC \leq \NC \Min {s_+ >0}
-\Bigg (
-  1
-  +s_{+} ^{1/2}
-  +\F{1} {2} s_{+}
-  +\F{1} {6} \RB {1 +N_Y^{-2}} ^{3/4} s_{+} ^{3/2}
-  +\F{1} {24} \RB {1 +N_Y^{-2}} s_{+} ^2 \NR
-  \NC \NC \SixQ
-  +\RB {
-    \F{8} {-\log \T{s}_+}
-    +\F{3} {\RB {-\log \T{s}_+}^2}
-    +\F{3} {8 \RB {-\log \T{s}_+}^3}
-  }
-  \T{s}_+^4
-\Bigg ) \NR[+]
+-\RB {\F{1}{2} \e -\F{1}{8} \e^2} s_+
++\F{1}{8 N_Y^2} s_+ ^3
++\dots \NR
+%
+\NC \leq \NC \Min {s_+ >0}
+-\F{1} {8} \RB {
+  3 \e s_+ -\F{1}{N_Y^2} s_+ ^3 +\dots
+} \NR[+]
 }
-Rather than devoting too much time in minimizing the quantity, in particular, set \m {\T{s}_+ =\e^2 /4}.
-Also, bound \m {N_Y \geq 2} should be enough.
-The decision is motivated by examine the minimal value of the first two or three terms.
+Rather than devoting too much time in minimizing the quantity, in particular, set
+\Disp{
+\NC s
+=\NC N_Y \R {\e}
+}
+The decision is motivated by examining the first two terms only.
+Notice it is reasonable to assume \m {\e \leq 1}, so the square root is real.
+If we furthermore keep only the leading term \m {\e ^{3/2}}, we get a simpler expression
 \Disp {
-\NC \leq \NC -\F {1} {8} \e^2
-+\F {67} {768} \e^3
-+\F {5} {1536} \e^4 \NR
-\NC \NC \SixQ +\RB {
-  \F{8} {-\log \RB {\e /8}}
-  +\F{3} {\RB {-\log \RB {\e /8}}^2}
-  +\F{3} {8 \RB {-\log \RB {\e /8}}^3}
-}
-\F {\e^4} {4096} \NR[+]
-}
-Some calculation show that, for \m {\e <2/5},
-\Disp {
-\NC \leq \NC -\F {1} {12} \e^2 \NR[+]
+\NC m
+\leq \NC -\F{1}{4} N_Y \e ^{3/2} \NR[+]
 }
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
-Similarly, for some \m {s_{-} >0}.
+Similarly, for any \m {s_- >0}.
 \Disp {
-\NC \NC \MB{P} \SB {\rho \leq \RB {1 -\e} \MB{E} \SB {\rho}} \NR
-\NC =\NC \Ss {e} ^{s_{-} \RB {1 -\e} \VNm {\V{u}} _2 ^2}
-\RB {1 -\VNm {\V{u}} _2 ^2 +\F{1} {2} \VNm {\V{u}} _2 ^4 +\sum_{k=3}^\infty \F{\RB {-1}^{k}} {k!} \MB{E} \SB {\rho^k}} \NR
+\NC p
+= \NC \MB{P} \SB {\rho \leq \RB {1 -\e} \MB{E} \SB {\rho}} \NR
+\NC =\NC \MB{P} \SB {\Ss {e} ^{s_- \R {\rho}} \leq \Ss {e} ^{s_- \R {1 -\e}}} \NR
+\NC \leq \NC \Ss {e} ^{s_- \R {1 -\e}} \MB{E} \SB {\Ss {e} ^{-s_- \R {\rho}}} \NR[+]
 }
-
-
-It follows that
+Here
 \Disp{
-\NC \Ss{Var} \SB {\VNm {\M{P} \V{u}} _2 ^2}
-= \NC \Ss{Var} \SB {\VNm {\M{Q} \V{u}} _2 ^2} \NR
-\NC \leq \NC N_Y^{-2} \VNm {\V{u}} _2 ^4 \NR[+]
+\NC \NC \MB{E} \SB {\Ss {e} ^{-s_- \R {\rho}}} \NR
+\NC \leq \NC 1
+-s_-
++\F{1} {2} s_- ^2
+-\F{1} {6} \RB {1 +N_Y^{-2}} ^{3/4} s_- ^3
++\F{1} {24} \RB {1 +N_Y^{-2}} s_- ^4
++\sum_{k=5}^\infty \RB{-1} ^k s_- ^k \NR[+]
 }
-Thus, by Chebyshev bound,
+And, miraculously, we get analogous expression
+\Disp{
+\NC \log p
+%
+\leq \NC \Min {s_- >0} 
+\RB {1 -\F{1}{2} \e +\F{1}{8} \e^2} s_-
+-\RB{s_- -\F{1} {2} s_- ^2 +\dots} \NR
+\NC \NC \SixQ -\F{1}{2} \RB{s_- -\F{1} {2} s_- ^2 +\dots}^2
+-\F{1}{3} \RB{s_- -\F{1} {2} s_- ^2 +\dots}^3 \NR
+%
+\NC \leq \NC \Min {s_- >0} 
+-\RB {\F{1}{2} \e -\F{1}{8} \e^2} s_-
+-\F{1}{8 N_Y^2} s_- ^3
++\dots \NR
+%
+\NC \leq \NC \Min {s_- >0} 
+-\F{1} {8} \RB {
+  3 \e s_- +\F{1}{N_Y^2} s_- ^3 +\dots
+} \NR[+]
+}
+
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
 \Result
 {Theorem}
 {
