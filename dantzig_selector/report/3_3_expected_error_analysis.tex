@@ -139,26 +139,29 @@ Again, their proof works with complex vector spaces in place of real ones too.
 \startsubsection [title={Main Result}]
 
 We are going to combine previous lemmata and show the main result.
-In accordance with (), set
-\Disp{
-\NC S
-=\NC s^2 L \NR
-}
 
 \Result
 {Theorem}
 {
 Let \m {\V {y}}, \m {\M {P}}, \m {\V {g}}, \m {\hat {\V {g}}}, \m {\V {d}} be defined as above.
-Then, with \m {S =s^2 L}, as \m {N_H \to \infty},
+Then the bound
 \Disp {
 \NC \VNm {\V {d}} _2
-\leq \NC 32 s^2 L \log N_H \NR[+]
+\leq \NC 32 s^2 L \log N_H
++L \R {\F {20 L \log N_H} {3 N_H}}
++\F {L} {3 s^2 N_H} \NR[+]
 }
-the bound holds for probability \m {p}, with
+holds for probability \m {p}, with
 \Disp {
 \NC 1 -p
-\leq \NC N_H^{-2} +12^s \D \d_s^{-\RB {s+2}} N_Y^{-2} \NR[+]
+\leq \NC 2 \D 6^s \D \exp \SB {-\F{N_Y^2} {32}} +N_H^{-2} \NR[+]
 }
+}
+
+In accordance with (), set
+\Disp{
+\NC S
+=\NC s^2 L \NR
 }
 
 The first quantity we want to bound away is
@@ -219,7 +222,7 @@ In particular for asymptotic \m {N_H \gg 1}, keep only the dominating term.
 \leq \NC 32 s^2 L \log N_H \NR
 }
 
-The probability that it is true may be bounded by plugging the probability in Lemma () and Lemma ().
+We set \m {\d_s =1} and plug in approximate values to get the desired bound.
 
 \stopsubsection
 \stopsection
