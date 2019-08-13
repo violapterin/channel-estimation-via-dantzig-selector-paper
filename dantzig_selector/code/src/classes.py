@@ -61,16 +61,6 @@ class Ww_bb:
                         + 1J * np.random.normal (cst.part_mean_bb, cst.part_std_bb))
         self.val /= np.sqrt (cst.nn_yy)
 
-class Ww_rr:
-    def __init__ (self):
-        self.val = np.zeros ((cst.nn_rr, cst.nn_hh), dtype=complex)
-
-    def gen (self):
-        for i in range (cst.nn_rr):
-            for j in range (cst.nn_hh):
-                idx_phase = np.random.randint (cst.num_grid_phase)
-                self.val[i][j] = np.exp (2 * np.pi * 1J * idx_phase /cst.num_grid_phase)
-        self.val /= np.sqrt (cst.nn_rr)
 
 class Dd_ss:
     def __init__(self, pp, y, gG):
@@ -108,6 +98,7 @@ class Dd_ss:
         constr = [cp.SOC (c[i].T @ x + d[i], aa[i] @ x + b[i]) for i in range (2 * cst.nn_h)]
         prob = cp.Problem (cp.Minimize (t.T@x), constr)
         prob.solve ()
+        #print (x.value) #XXX
 
         x_hat = x.value
         g_repr_hat = x_hat [0 : 2 * cst.nn_h]

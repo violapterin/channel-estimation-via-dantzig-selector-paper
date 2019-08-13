@@ -6,6 +6,10 @@ import os # getcwd
 
 import functions as fct
 
+x =np.random.randint (4, size=2)
+y =np.exp (x)
+print (x)
+print (y)
 
 #tt =np.array (range(3))
 #pp =np. array ([[4,5,6,3], [0,-2,7,4]])
@@ -15,7 +19,6 @@ import functions as fct
 #r =y
 #t =np.argmin (abs (pp [:, tt].conj().T @ r))
 
-aa=[[1,2,3],[7,8,9]]
 
 #aa=[]
 #b=[[1,3],[2,4]]
