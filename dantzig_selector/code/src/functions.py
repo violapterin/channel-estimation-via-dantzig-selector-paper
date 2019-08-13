@@ -5,11 +5,11 @@ import os
 import constants as cst
 import classes as cls
 
-def array_response (pG):
+def arr_resp (pG):
     return np.array ([np.exp (1J *i *pG) for i in range (cst.nn_hh)])
 
 def kk (): # DFT matrix
-    ret =np.zeros ((cst.nn_hh, cst.nn_hh))
+    ret =np.zeros ((cst.nn_hh, cst.nn_hh), dtype=complex)
     for i in range (cst.nn_hh):
         for j in range (cst.nn_hh):
             ret [i] [j] =(1 /np.sqrt (cst.nn_h)) *np.exp (2 *np.pi *1J *i *j /cst.nn_hh)
@@ -30,13 +30,13 @@ def inv_find_repr_vec (v):
     return v_re +1J *v_im
 
 def find_repr_mat (aa):
-    ret =np.zeros ((2 *len (aa)[0], 2 *len (aa)[1]))
-    for i in range (len (aa)[0]):
-        for j in range (len (aa)[1]):
+    ret =np.zeros ((2 *(aa.shape[0]), 2 *(aa.shape[1])))
+    for i in range (aa.shape[0]):
+        for j in range (aa.shape[1]):
             ret [2*i] [2*j] ==np.real (aa [i,j])
             ret [2*i+1] [2*j] ==np.imag (aa [i,j])
-            ret [2*i] [2*j+1] ==np.real (aa [i,j])
-            ret [2*i+1] [2*j+1] ==np.imag (aa [i,j])
+            ret [2*i] [2*j+1] ==-np.imag (aa [i,j])
+            ret [2*i+1] [2*j+1] ==np.real (aa [i,j])
     return ret
 
 def vectorize (v):
@@ -56,9 +56,6 @@ def indication_repr_mat (n_h):
     ret [2*n_h] [2*n_h] =1
     ret [2*n_h +1] [2*n_h +1] =1
     return ret
-
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 

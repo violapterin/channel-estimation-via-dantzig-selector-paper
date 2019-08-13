@@ -140,6 +140,12 @@ Again, their proof works with complex vector spaces in place of real ones too.
 
 We are going to combine previous lemmata and show the main result.
 
+In accordance with (), set
+\Disp{
+\NC S
+=\NC s^2 L \NR
+}
+
 \Result
 {Theorem}
 {
@@ -147,22 +153,15 @@ Let \m {\V {y}}, \m {\M {P}}, \m {\V {g}}, \m {\hat {\V {g}}}, \m {\V {d}} be de
 Then the bound
 \Disp {
 \NC \VNm {\V {d}} _2
-\leq \NC 32 s^2 L \log N_H
-+L \R {\F {20 L \log N_H} {3 N_H}}
-+\F {L} {3 s^2 N_H} \NR[+]
+\leq \NC 32 S \log N_H \NR[+]
 }
 holds for probability \m {p}, with
 \Disp {
 \NC 1 -p
-\leq \NC 2 \D 6^s \D \exp \SB {-\F{N_Y^2} {32}} +N_H^{-2} \NR[+]
+\leq \NC 2 \D 6^S \D \exp \SB {-\F{N_Y^2} {32}} \NR[+]
 }
 }
 
-In accordance with (), set
-\Disp{
-\NC S
-=\NC s^2 L \NR
-}
 
 The first quantity we want to bound away is
 \Disp {
@@ -212,17 +211,11 @@ Again for simplicity, we keep only the first order small terms.
 Plug in \m {S =s^2 L} and \m {N_h =N_H^2} we get, finally,
 \Disp {
 \NC \VNm {\V {d}} _2^2
-\leq \NC 32 s^2 L \log N_H
+\leq \NC 32 S \log N_H
 +\F {8 \R {2\pi}} {3} \d_{3S} L \R {\F {\log N_H} {N_H}}
 +\F {\pi} {9} \F {L} {s^2 N_H} \NR
 }
-In particular for asymptotic \m {N_H \gg 1}, keep only the dominating term.
-\Disp {
-\NC \VNm {\V {d}} _2^2
-\leq \NC 32 s^2 L \log N_H \NR
-}
-
-We set \m {\d_s =1} and plug in approximate values to get the desired bound.
+Set \m {\d_S =1} for the worst situation, and we get the desired bound.
 
 \stopsubsection
 \stopsection

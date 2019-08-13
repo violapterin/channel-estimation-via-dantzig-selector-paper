@@ -12,11 +12,11 @@ nn_h = nn_hh *nn_hh
 
 num_grid_phase = 8
 amp_mean_hh = 3
-amp_std_hh = 0.5
+amp_std_hh = 1/np.sqrt(2)
 part_mean_bb = 1
 part_std_bb = 0.2
 
-power_constr = nn_rr *nn_yy *10
+#power_constr
 
 
 

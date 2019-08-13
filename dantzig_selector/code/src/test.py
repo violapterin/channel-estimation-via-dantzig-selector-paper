@@ -15,8 +15,13 @@ import functions as fct
 #r =y
 #t =np.argmin (abs (pp [:, tt].conj().T @ r))
 
-a =[3,4]
-print (np.linalg.norm(a, 2))
+aa=[[1,2,3],[7,8,9]]
+
+#aa=[]
+#b=[[1,3],[2,4]]
+#c=[[5,6],[7,8]]
+#aa.append (np.concatenate ([b,c],axis=1))
+#aa.append (np.concatenate ([b,c],axis=1))
 
 #i =[1,2,4,5]
 #aa =np.array ([[5,8,-2,-3,0,9], [3,6,7,9,10,11]])
@@ -39,24 +44,5 @@ print (np.linalg.norm(a, 2))
 #a =np.array ([[1+2J, 3+4.4J], [-1J, -2.3+3J]])
 #print (a.conj().T)
 
-#a = np.array ([ [(i+j^2) for i in range(5)] for j in range(5)])
-#a = [ [(i+j^2) for i in range(5)] for j in range(5)]
-#print (a)
-#s =set([0,2,4])
-#b =a [:, list(s)]
-#print (b)
-
-
-#a =np.array ([1,2,4,5,7,8])
-#b1 =np.array ([1,-1,0,1,3,6])
-#b2 =np.array ([2,3,4,4.5,1,1])
-#b3 =np.array ([1,3,5,7,5,3])
-#list_dat =[hp.Data(b1,"1st"), hp.Data(b2,"2nd"), hp.Data(b3,"3rd")]
-#hp.draw (a, list_dat, "Number", "Value", "Test")
-
-#print (np.linalg.norm (b, ord='fro'))
-#print(np.kron(a,b))
-#print (type (np.reshape (a, (1,-1))[0]))
-#print(np.reshape(np.kron(a,b), (1,-1)))
 
 

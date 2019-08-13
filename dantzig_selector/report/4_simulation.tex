@@ -24,47 +24,47 @@ For convenience, define the following real representation function for complex v
 \Result
 {Definition}
 {
-For \m {\V{x} \in \MB {V}_{\MB {C}} \SB {M}}, we say that \m {\MC {R} \SB {\V{x}}} is the real representation of \m {\V{x}}, defined by
+For \m {\V {x} \in \MB {V}_{\MB {C}} \SB {M}}, we say that \m {\MC {R} \SB {\V {x}}} is the real representation of \m {\V {x}}, defined by
 \Disp {
-\NC \MC {R} \SB {\V{x}}
+\NC \MC {R} \SB {\V {x}}
 \in \NC \MB {V}_{\MB {R}} \SB {2M} \NR
-\NC \MC {R} \SB {\V{x}} \DB {m}
+\NC \MC {R} \SB {\V {x}} \DB {m}
 = \NC \startcases
-\NC \MF {Re} \SB {\V{x} \DB {m'}}, \MC m =2m' \NR
-\NC \MF {Im} \SB {\V{x} \DB {m'}}, \MC m =2m'+1 \NR
+\NC \MF {Re} \SB {\V {x} \DB {m'}}, \MC m =2m' \NR
+\NC \MF {Im} \SB {\V {x} \DB {m'}}, \MC m =2m'+1 \NR
 \stopcases \NR[+]
 \NC m' 
 = \NC  0, 1, 2, \ldots, M-1 \NR
 }
 The bijectivity is obvious, and we define \m {\MC {R} ^{-1}} so that
 \Disp {
-\NC \MC {R} ^{-1} \SB {\MC {R} \SB {\V{x}}}
-=\NC \V{x} \NR[+]
+\NC \MC {R} ^{-1} \SB {\MC {R} \SB {\V {x}}}
+=\NC \V {x} \NR[+]
 }
 }
 
-By the same token, a moment's reflection reveals the corresponding definition of real representation of matrices.
+Accordingly, the corresponding definition of real representation of matrices is valid, once we call the ring representation of complex numbers.
 
 \Result
 {Definition}
 {
-For \m {\M{A} \in \MB {M}_{\MB {C}} \SB {M_1, M_2}}, we say that \m {\MC {R} \SB {\M{A}}} is the real representation of \m {\M{A}}, defined by
+For \m {\M {A} \in \MB {M}_{\MB {C}} \SB {M_1, M_2}}, we say that \m {\MC {R} \SB {\M {A}}} is the real representation of \m {\M {A}}, defined by
 \Disp {
-\NC \MC {R} \SB {\M{A}}
+\NC \MC {R} \SB {\M {A}}
 \in \NC \MB {M}_{\MB {R}} \SB {2M_1, 2M_2} \NR
-\NC \MC {R} \SB {\M{A}} \DB {m_1,m_2} =
+\NC \MC {R} \SB {\M {A}} \DB {m_1,m_2} =
 \NC \startcases
-\NC \MF {Re} \SB {\M{A} \DB {m_1',m_2'}}, \MC (m_1, m_2) = (2m_1'-1, 2m_2'-1) \NR
-\NC \MF {Im} \SB {\M{A} \DB {m_1',m_2'}}, \MC (m_1, m_2) = (2m_1', 2m_2'-1) \NR
-\NC -\MF {Im} \SB {\M{A} \DB {m_1',m_2'}}, \MC (m_1, m_2) = (2m_1'-1, 2m_2') \NR
-\NC \MF {Re} \SB {\M{A} \DB {m_1',m_2'}}, \MC (m_1, m_2) = (2m_1', 2m_2') \NR
+\NC \MF {Re} \SB {\M {A} \DB {m_1',m_2'}}, \MC (m_1, m_2) = (2m_1', 2m_2') \NR
+\NC \MF {Im} \SB {\M {A} \DB {m_1',m_2'}}, \MC (m_1, m_2) = (2m_1'+1, 2m_2') \NR
+\NC -\MF {Im} \SB {\M {A} \DB {m_1',m_2'}}, \MC (m_1, m_2) = (2m_1', 2m_2'+1) \NR
+\NC \MF {Re} \SB {\M {A} \DB {m_1',m_2'}}, \MC (m_1, m_2) = (2m_1'+1, 2m_2'+1) \NR
 \stopcases \NR[+]
 \NC m_1 
 = \NC 0, 1, 2, \ldots, M_1 -1 \NR
 \NC m_2 
 = \NC 0, 1, 2, \ldots, M_2 -1 \NR
 }
-Notice that Here not all matrices in \m {\MB {M}_{\MB {R}} \SB {2M_1, 2M_2}} are images, and we will not call the inverse function anyway.
+Not all matrices in \m {\MB {M}_{\MB {R}} \SB {2M_1, 2M_2}} are images, but we do not need the inverse function.
 }
 
 We continue the notation of program ().
@@ -120,12 +120,12 @@ Finally, introduce the following matrices to identify the components where we wa
 = \NC 0, 1, 2, \ldots, N_h -1 \NR
 }
 Moreover, denote \m {\V {1}} to be the all-\m{1} vector for short, and \m {\V {0}} the all-\m{0} vector, whose dimension will be specified from context.
-Now, if we introduce vector \m{\V{m}}
+Now, if we introduce vector \m{\V {m}}
 
 \Disp{
 \NC \V {m} \in \NC \MB {V}_{\MB {R}} \SB {N_h} \NR
-\NC \V{m} \DB{n_h}
-= \NC \Nm{\V{g} \DB{n_h}} \NR[+]
+\NC \V {m} \DB{n_h}
+= \NC \Nm{\V {g} \DB{n_h}} \NR[+]
 \NC n_h, n_h', n_h'' 
 = \NC 0, 1, 2, \ldots, N_h -1 \NR
 }
@@ -153,16 +153,16 @@ We shall see furthermore that the program can be cast into an SOCP.
 To make the point clearer, we rewrite Program () into a stricter, extended block matrix form, by defining auxiliary variables with dimension
 
 \Disp{
-\NC \V{t}_i
+\NC \V {t}_i
 \NC \in \MB {V}_{\MB {R}} \SB {3N_h} \NR
-\NC \V{x}_i
+\NC \V {x}_i
 \NC \in \MB {V}_{\MB {R}} \SB {3N_h} \NR
-\NC \M{A}_i
+\NC \M {A}_i
 \NC \in \MB {M}_{\MB {R}} \SB {2N_h, 3N_h} \NR
-\NC \V{b}_i
-\NC \in \MB {V}_{\MB {R}} \SB {3N_h} \NR
-\NC \V{c}_i
+\NC \V {b}_i
 \NC \in \MB {V}_{\MB {R}} \SB {2N_h} \NR
+\NC \V {c}_i
+\NC \in \MB {V}_{\MB {R}} \SB {3N_h} \NR
 \NC d_i
 \NC \in \MB {R} ^+ \NR
 }
@@ -170,30 +170,30 @@ To make the point clearer, we rewrite Program () into a stricter, extended block
 defined below to be
 
 \Disp{
-\NC \V{t}
+\NC \V {t}
 = \NC \startTheMatrix
-\NC \V{0} \NR
-\NC \V{1} \NR
+\NC \V {0} \NR
+\NC \V {1} \NR
 \stopTheMatrix \NR[+]
-\NC \V{x}'
+\NC \V {x}'
 = \NC \startTheMatrix
 \NC \T {\V {g}}' \NR
-\NC \V{m} \NR
+\NC \V {m} \NR
 \stopTheMatrix \NR[+]
 }
 
 with
 
 \Disp{
-\NC \M{A}_i
+\NC \M {A}_i
 = \NC \startTheMatrix
-\NC \T {\M {U}}_{i}, \NC \M{0} \NR
+\NC \T {\M {U}}_{i}, \NC \M {0} \NR
 \stopTheMatrix \NR[+]
-\NC \V{b}_i
-= \NC \V{0} \NR[+]
-\NC \V{c}_i
+\NC \V {b}_i
+= \NC \V {0} \NR[+]
+\NC \V {c}_i
 = \NC \startTheMatrix
-\NC \V{0} \NR
+\NC \V {0} \NR
 \NC \V {u}_{i} \NR
 \stopTheMatrix \NR[+]
 \NC d_i
@@ -205,14 +205,14 @@ with
 And
 
 \Disp{
-\NC \M{A}_i
+\NC \M {A}_i
 = \NC \startTheMatrix
-\NC -\T {\M {U}}_{i -N_h} \T {\M {P}}^\Adj \T {\M {P}}, \NC \M{0} \NR
+\NC -\T {\M {U}}_{i -N_h} \T {\M {P}}^\Adj \T {\M {P}}, \NC \M {0} \NR
 \stopTheMatrix \NR[+]
-\NC \V{b}_i
+\NC \V {b}_i
 =\NC \T {\M {U}}_{i -N_h} \T {\M {P}}^\Adj \T {\V {y}} \NR[+]
-\NC \V{c}_i
-= \NC \V{0} \NR[+]
+\NC \V {c}_i
+= \NC \V {0} \NR[+]
 \NC d_i
 = \NC \g \NR[+]
 \NC i 
@@ -226,7 +226,7 @@ The step that we convert \m {\Hat {\V {g}}} back is same as Algorithm () is same
 {
 \startitemize[n]
 \item Input \m{\M {P} \in \MB {M}_{\MB {C}} \SB {N_y, N_h}}, \m{\V {y} \in \MB {V}_{\MB {C}} \SB {N_y}}, \m{\g > 0}.
-\item Define \m{\V{t}, \V{x}, \M{A}_i, \V{b}_i, \V{c}_i, d_i} according to ().
+\item Define \m{\V {t}, \V {x}, \M {A}_i, \V {b}_i, \V {c}_i, d_i} according to ().
 \item Calculate
 \Disp{
 \NC \Hat {\V {x}}
@@ -234,21 +234,21 @@ The step that we convert \m {\Hat {\V {g}}} back is same as Algorithm () is same
 \NC \Min {\V {x}' \in \MB {V}_{\MB {C}} \SB {N_h}}
 \MC \IP {\V {t}, \V {x}'} \NR[+]
 \NC \Rm {subject} \; \Rm {to}
-\Q  \MC \VNm {\M {A} _{i} \V {x}' +\V{b} _{i}} _2
-\leq \IP {\V{c}_{i}, \V {x}'} +\V{d}_i \NR
+\Q  \MC \VNm {\M {A} _{i} \V {x}' +\V {b} _{i}} _2
+\leq \IP {\V {c}_{i}, \V {x}'} +\V {d}_i \NR
 \NC \MC i 
 =0, 1, 2, \ldots, 2N_h -1 \NR
 \stopcases \NR[+]
 }
 \item Extract
 \Disp{
-\NC \Hat{\T{\V{g}}}
-\LA \NC \Hat{\V{x}} \DB {0 : 2N_h-1} \NR[+]
+\NC \Hat{\T{\V {g}}}
+\LA \NC \Hat{\V {x}} \DB {0 : 2N_h-1} \NR[+]
 }
 \item Convert 
 \Disp{
-\NC \Hat{\V{g}}
-\LA \NC \MC{R} ^{-1} \SB {\Hat{\T{\V{g}}}} \NR[+]
+\NC \Hat{\V {g}}
+\LA \NC \MC{R} ^{-1} \SB {\Hat{\T{\V {g}}}} \NR[+]
 }
 \item Calculate
 \Disp {
