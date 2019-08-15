@@ -393,7 +393,7 @@ if not utilitydata.structures.counters then utilitydata.structures.counters = { 
 
 utilitydata.structures.counters.collected={
  ["NumResult"]={
-  { 31 },
+  { 30 },
  },
  ["chemical"]={
   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -411,7 +411,7 @@ utilitydata.structures.counters.collected={
   { 0 },
  },
  ["formula"]={
-  { 0, 0, 0, 0, 0, 15, 22, 77, 28, 0, 0 },
+  { 0, 0, 0, 0, 0, 15, 22, 82, 28, 0, 0 },
  },
  ["graphic"]={
   { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -754,7 +754,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=21,
-   ["realpage"]=24,
+   ["realpage"]=23,
    ["section"]=21,
    ["used"]="fit",
   },
@@ -769,7 +769,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=22,
-   ["realpage"]=24,
+   ["realpage"]=23,
    ["section"]=22,
    ["used"]="fit",
   },
@@ -784,7 +784,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=23,
-   ["realpage"]=25,
+   ["realpage"]=24,
    ["section"]=23,
    ["used"]="fit",
   },
@@ -859,7 +859,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=28,
-   ["realpage"]=32,
+   ["realpage"]=31,
    ["section"]=28,
    ["used"]="fit",
   },
@@ -889,7 +889,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=30,
-   ["realpage"]=39,
+   ["realpage"]=38,
    ["section"]=30,
    ["used"]="fit",
   },
@@ -904,7 +904,7 @@ utilitydata.structures.lists.collected={
   ["references"]={
    ["block"]="bodypart",
    ["internal"]=31,
-   ["realpage"]=39,
+   ["realpage"]=38,
    ["section"]=31,
    ["used"]="fit",
   },

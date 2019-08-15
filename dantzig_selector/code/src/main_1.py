@@ -9,9 +9,6 @@ import constants as cst
 import classes as cls
 import functions as fct
 
-
-# # # # # # # # # # # # # # # # 
-
 pow_low_gG = -int (cst.num_try_gG * 2 / 3)
 pow_high_gG = cst.num_try_gG + pow_low_gG
 list_gG = [
@@ -22,17 +19,23 @@ pow_high_noise = cst.num_scale_noise + pow_low_noise
 list_noise = [
     np.sqrt(2) ** x
     for x in reversed (range (int(pow_high_noise), int(pow_low_noise), -1))]
+list_legend = ["DS bound"]
+for gG in list_gG:
+    list_legend.append ("γ = " + '%.2f' % gG)
+bound = ((np.log (4 * np.sqrt (2 * cst.ll * cst.nn_hh * np.log (cst.nn_hh))))
+    * np.array ([1 for _ in range (len (list_noise))]))
 
-kk = fct.kk()
-
+list_data_y =[bound]
 count = 0
+kk = fct.kk()
 time_start = time.time()
-list_arr_e = []
 for gG in list_gG:
     print ("gamma = ", "{0:.2f}".format (gG), " :", sep ='')
     arr_e = np.array ([])
     for noise in list_noise:
-        print ("    Noise std. = ", "{0:.2f}".format (noise), " :", end='', sep ='')
+        print (
+            "    Noise std. = ", "{0:.2f}".format (noise), " :",
+            end = '', sep = '', flush = True)
         count += 1
         e = 0
         for _ in range (cst.num_repeat):
@@ -56,24 +59,28 @@ for gG in list_gG:
             hh_hat = (kk
                 @ fct.inv_vectorize (dd_ss.g_hat, cst.nn_hh, cst.nn_hh)
                 @ kk.conj().T)
-            e += np.log ((np.linalg.norm (hh_hat -hh, ord='fro') ** 2)
-                / (np.linalg.norm (hh, ord='fro') ** 2))
+            e += np.log (np.linalg.norm (hh_hat -hh, ord=2))
         e /= cst.num_repeat
         arr_e =np.append (arr_e, [e])
         count_progress = 100 * count / (cst.num_scale_noise * cst.num_try_gG)
         print (" done (", "{0:.1f}".format (count_progress), "%)", sep = '')
-    list_arr_e.append(arr_e)
-
+    list_data_y.append(arr_e)
 time_stop = time.time()
 
-fct.draw (list_noise, list_arr_e, "Std. of Noise", "Log Relative Error", "DS_Performance")
+data_x = np.array (np.log (list_noise))
+label_x = "Log Std. of Noise"
+label_y = "Log 2-Norm Error"
+title = "Channel Estimation via DS"
+fct.save_plot (list_noise, list_data_y, label_x, label_y, list_legend, title)
+fct.save_table (list_noise, list_data_y, label_x, label_y, list_legend, title)
 
 print (
     "averaged time elapsed for each data point: ",
-    ((time_stop - time_start)
-        / (60 * cst.num_scale_noise * cst.num_repeat * cst.num_try_gG)),
+    '%.2f' %
+        ((time_stop - time_start)
+            / (60 * cst.num_scale_noise * cst.num_repeat * cst.num_try_gG)),
     " (min)")
 print (
     "total time elapsed: ",
-    (time_stop - time_start) / 60,
+    '%.2f' % ((time_stop - time_start) / 60),
     " (min)")

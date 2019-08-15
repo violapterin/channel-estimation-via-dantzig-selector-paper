@@ -12,14 +12,16 @@ import functions as fct
 #print ("Test: ", "{0:.2f}".format (a), ";", sep ='')
 #print ("{0:.2f}".format (a))
 
-#dat_x = np.array ([2,4,6,8])
-#dat_y1 =np.zeros (4)
-#dat_y2 =np.zeros (4)
-#for i in range(4):
-#    dat_y1 [i] = 3 * dat_x [i] + 0.1 * np.random.normal (0, 1)
-#    dat_y2 [i] = 5 * dat_x [i] + 0.1 * np.random.normal (0, 1)
-#list_dat_y =[dat_y1, dat_y2]
-#fct.draw(dat_x, list_dat_y, "foo", "bar", "Quux")
+# dat_x = np.array ([2,4,6,8])
+# dat_y1 =np.zeros (4)
+# dat_y2 =np.zeros (4)
+# for i in range(4):
+#     dat_y1 [i] = 3 * dat_x [i] + 0.1 * np.random.normal (0, 1)
+#     dat_y2 [i] = 5 * dat_x [i] + 0.1 * np.random.normal (0, 1)
+# list_dat_y =[dat_y1, dat_y2]
+# list_legend =["a", "b"]
+# fct.save_plot (dat_x, list_dat_y, "foo", "bar", list_legend, "Quux")
+# fct.save_table (dat_x, list_dat_y, "foo", "bar", list_legend, "Quux")
 
 #tt =np.array (range(3))
 #pp =np. array ([[4,5,6,3], [0,-2,7,4]])

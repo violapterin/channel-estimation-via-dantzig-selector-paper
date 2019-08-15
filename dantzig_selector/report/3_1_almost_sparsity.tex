@@ -69,32 +69,27 @@ Towards that end, introduce
    } \;
    \Rm{Mod}\; \RB {2\pi}
 }
--\pi \NR
+-\pi \NR[+]
 }
 Note that by construction
 \Disp{
 \NC \Nm {\psi \SB {\f, n_H}}
-\leq \NC \pi \NR
+\leq \NC \pi \NR[+]
 }
 And define the so-called Dirichlet kernel
 \Disp {
 \NC D \SB {\psi'}
-:= \NC \sum_{n_H=0}^{N_H-1} \Ss {e}^{i n_H \psi'} \NR
+:= \NC \sum_{n_H=0}^{N_H-1} \Ss {e}^{i n_H \psi'} \NR[+]
 }
 Then observe
 \Disp {
 \NC \RB {\M {K}^\Adj \V {a} \SB {\f}} \DB {n_H}
-=\NC \F {1}{N_H} D \SB {\psi \SB {\f, n_H}} \NR
+=\NC \F {1}{N_H} D \SB {\psi \SB {\f, n_H}} \NR[+]
 }
 
-Now, it can be verified that
-\Result
-{Lemma}
-{
-For \m {-\pi \leq x < \pi}, we have
+Now, by the nature of alternating series, for \m {-\pi \leq x < \pi}, it holds that
 \Disp {
 \NC \Nm {x - \F {x^3}{6}} \leq \NC \Nm {\sin x}. \NR[+]
-}
 }
 
 Applying Lemma () to the denominator of () and bounding the nominator by 1, we have
@@ -202,7 +197,7 @@ Let \m {\f \SB {\o_h}} and \m {\th \SB {\o_h}} be uniformly, independently distr
 If \m {N_h \geq 4^2 =16}, then \m {\V {g}} is almost-\m {s^2 L}-sparse with \m {\ell_1}-residue \m {R} to be
 \Disp {
 \NC R
-\leq \NC \F {\R{\pi} L} {3 \R{N_H}} \NR
+\leq \NC \F {\R{\pi} L} {3 \R{N_H}} \NR[+]
 }
 }
 

@@ -106,9 +106,8 @@ def indication_repr_mat (n_h):
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
-def draw (dat_x, list_dat_y, label_x, label_y, title):
+def save_plot (data_x, list_data_y, label_x, label_y, list_legend, title):
     plt.close ("all")
-    fig =plt.figure ()
     plt.title (title, fontsize = 15)
     plt.xlabel (label_x, fontsize = 12)
     plt.ylabel (label_y, fontsize = 12)
@@ -122,30 +121,46 @@ def draw (dat_x, list_dat_y, label_x, label_y, title):
     num_marker = 6
     list_marker = ['v', '^', 'o', 's', '*', 'D']
         # triangle down, triangle up, circle, square, star, diamond
-    size_marker = 7 # fixed marker size
-    width_line = 3 # fixed line width
+    size_marker = 7
+    width_line = 3
 
-    size_line =len (dat_x)
-    for i in range (len (list_dat_y)):
-        dat_y =list_dat_y [i]
-        assert (size_line == len (dat_y))
+    assert (len (list_data_y) == len (list_legend))
+    size_line =len (data_x)
+    i = 0
+    for data_y in list_data_y:
+        assert (size_line == len (data_y))
         plt.plot (
-            dat_x,
-            dat_y,
-            markersize =size_marker,
-            linewidth =width_line,
-            linestyle =list_style [int (i % num_style)],
-            color =list_color [int (i % num_color)],
-            marker =list_marker [int (i % num_marker)])
-    # TODO: legend
+            data_x,
+            data_y,
+            markersize = size_marker,
+            linewidth = width_line,
+            linestyle = list_style [int (i % num_style)],
+            color = list_color [int (i % num_color)],
+            marker = list_marker [int (i % num_marker)],
+            label = list_legend [i])
+        i += 1
+    plt.legend (bbox_to_anchor = (1.05, 1), loc = 'upper left', borderaxespad = 0.)
 
-    path_fig_out =(
+    path_plot_out =(
         os.path.abspath (os.path.join (os.getcwd (), os.path.pardir))
-        +"/plt/" +title +".png")
-    if os.path.isfile(path_fig_out):
-        os.system("rm "+path_fig_out)
-    plt.savefig (path_fig_out, bbox_inches ="tight")
+        + "/plt/" + title.replace (" ", "_") +".png")
+    if os.path.isfile(path_plot_out):
+        os.system("rm "+path_plot_out)
+    plt.savefig (path_plot_out, bbox_inches = "tight")
 
+def save_table (data_x, list_data_y, label_x, label_y, list_legend, title):
+
+    path_table_out =(
+        os.path.abspath (os.path.join (os.getcwd (), os.path.pardir))
+        + "/dat/" + title.replace (" ", "_") + ".txt")
+
+    with open(path_table_out, 'w') as the_file:
+        the_file.write (label_x + '\t')
+        the_file.write ('\t'.join (map (str, data_x)) + '\n')
+        i = 0
+        for data_y in list_data_y:
+            the_file.write (list_legend [i] + '\t' + '\t'.join (map (str, list_data_y[i])) + '\n')
+            i += 1
 
 
 
