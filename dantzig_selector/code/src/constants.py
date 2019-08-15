@@ -16,11 +16,12 @@ d_ant = 2
 ll = 4
 
 # simulation count
-num_scale_ssnnrr = 6
-num_try_gG = 2
-num_repeat = 8
+num_scale_noise = 9
+num_try_gG = 3
+num_repeat = 12
 
-# # # # # # # # # # # # # # # #
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
 # # Part 2
 # # Uncomment the following to try different values:
 
@@ -38,11 +39,12 @@ num_repeat = 8
 # ll = 4
 
 # # simulation count
-# num_scale_ssnnrr = 8
-# num_try_gG = 3
-# num_repeat = 12
+# num_scale_noise = 12
+# num_try_gG = 4
+# num_repeat = 18
 
-# # # # # # # # # # # # # # # #
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
 # # Part 3
 # # Uncomment the following to try different values:
 
@@ -60,6 +62,6 @@ num_repeat = 8
 # ll = 4
 
 # # simulation count
-# num_scale_ssnnrr = 12
-# num_try_gG = 4
-# num_repeat = 16
+# num_scale_noise = 15
+# num_try_gG = 6
+# num_repeat = 24
