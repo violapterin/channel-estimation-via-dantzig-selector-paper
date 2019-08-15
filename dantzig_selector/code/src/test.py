@@ -1,3 +1,5 @@
+#! /usr/bin/env python3
+
 import matplotlib.pyplot as plt # plotting functions
 import numpy as np
 import constants as cst
@@ -6,10 +8,18 @@ import os # getcwd
 
 import functions as fct
 
-x =np.random.randint (4, size=2)
-y =np.exp (x)
-print (x)
-print (y)
+#a =[x ** 3 for x in range (-(7/2), 4)]
+#print (a)
+
+#dat_x = np.array ([2,4,6,8])
+#dat_y1 =np.zeros (4)
+#dat_y2 =np.zeros (4)
+#for i in range(4):
+#    dat_y1 [i] = 3 * dat_x [i] + 0.1 * np.random.normal (0, 1)
+#    dat_y2 [i] = 5 * dat_x [i] + 0.1 * np.random.normal (0, 1)
+#list_dat_y =[dat_y1, dat_y2]
+#fct.draw(dat_x, list_dat_y, "foo", "bar", "Quux")
+
 
 #tt =np.array (range(3))
 #pp =np. array ([[4,5,6,3], [0,-2,7,4]])

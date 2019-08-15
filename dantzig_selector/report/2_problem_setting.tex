@@ -12,7 +12,7 @@ We restrict our consideration to the uniform linear array, which can be modeled 
 \NC \V {a} \SB {\psi'}
 \in \NC \MB {V}_\MB {C} \SB {N_H} \NR
 \NC \V {a} \SB {\psi'}
-= \NC \F {1}{\R {N_H}} \sum_{n=0}^{N-1} \Ss {e}^{n \psi' \Ss {i}} \V {u}_n \NR
+= \NC \F {1}{\R {N_H}} \sum_{n_h=0}^{N_H-1} \Ss {e} ^{\Ss {i} n_h \psi'} \V {u}_{n_h} \NR
 }
 where \m {\Ss {e}} is the base of natural logarithm, and \m {\Ss {i}} the imaginary unit.
 
@@ -21,21 +21,21 @@ And consider the virtual representation of the MIMO channel (see for example Akd
 \NC \M{H}
 =\NC \sum_{l=0} ^{L-1}
 \a_l
-\V {a} \SB { \F {d_{\Rm {arr}}} {\l _{\Rm {arr}} \sin \f_l' }}
-\V {a} \SB { \F {d_{\Rm {arr}}} {\l _{\Rm {arr}} \sin \th_l' }}^\Adj \NR[+]
+\V {a} \SB { 2\pi \F {d_{\Rm {arr}}} {\l _{\Rm {arr}}} \sin \f_l'}
+\V {a} \SB { 2\pi \F {d_{\Rm {arr}}} {\l _{\Rm {arr}}} \sin \th_l'}^\Adj \NR[+]
 }
 The physical meaning of \m {\th_l} is the \m {l}-th angle of incidence (formed by the ray and the normal line) of departure electronic wave, and \m {\th_l}, the \m {l}-th that of arrival wave, while \m {d_{\Rm {arr}}} is the distance between two adjacent antennae.
 For our purpose, we may absorb the argument of \m {\V {a}} as
 \Disp {
 \NC \f_l
 = \NC \RB {
-\F {d_{\Rm {arr}}} {\l_{\Rm {arr}}} \sin \f_l'
-\; \Rm{Mod}\; \RB {2\pi}
+  2\pi \F {d_{\Rm {arr}}} {\l_{\Rm {arr}}} \sin \f_l'
+  \; \Rm{Mod}\; \RB {2\pi}
 } \NR[+]
 \NC \th_l
 = \NC \RB {
-\F {d_{\Rm {arr}}} {\l_{\Rm {arr}}} \sin \th_l'
-\; \Rm{Mod}\; \RB {2\pi}
+  2\pi \F {d_{\Rm {arr}}} {\l_{\Rm {arr}}} \sin \th_l'
+  \; \Rm{Mod}\; \RB {2\pi}
 } \NR[+]
 }
 to get a simpler form

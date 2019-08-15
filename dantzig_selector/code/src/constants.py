@@ -1,22 +1,65 @@
 import numpy as np
 
-dist_antenna = 2
-ll_path = 8
+# # Part 1
 
-lG = 3
+# precoder dimension
 nn_yy = 3
-nn_rr = 5
-nn_hh = 7
+nn_rr = 6
+nn_hh = 9
 nn_y = nn_yy *nn_yy
 nn_h = nn_hh *nn_hh
+num_grid_phase = 16
 
-num_grid_phase = 8
-amp_mean_hh = 3
-amp_std_hh = 1/np.sqrt(2)
-part_mean_bb = 1
-part_std_bb = 0.2
+# channel parameters
+lG_ant = 3
+d_ant = 2
+ll = 4
 
-#power_constr
+# simulation count
+num_scale_ssnnrr = 6
+num_try_gG = 2
+num_repeat = 8
 
+# # # # # # # # # # # # # # # #
+# # Part 2
+# # Uncomment the following to try different values:
 
+# # precoder dimension
+# nn_yy = 4
+# nn_rr = 8
+# nn_hh = 12
+# nn_y = nn_yy *nn_yy
+# nn_h = nn_hh *nn_hh
+# num_grid_phase = 16
 
+# # channel parameters
+# lG_ant = 3
+# d_ant = 2
+# ll = 4
+
+# # simulation count
+# num_scale_ssnnrr = 8
+# num_try_gG = 3
+# num_repeat = 12
+
+# # # # # # # # # # # # # # # #
+# # Part 3
+# # Uncomment the following to try different values:
+
+# # precoder dimension
+# nn_yy = 8
+# nn_rr = 12
+# nn_hh = 16
+# nn_y = nn_yy *nn_yy
+# nn_h = nn_hh *nn_hh
+# num_grid_phase = 16
+
+# # channel parameters
+# lG_ant = 3
+# d_ant = 2
+# ll = 4
+
+# # simulation count
+# num_scale_ssnnrr = 12
+# num_try_gG = 4
+# num_repeat = 16

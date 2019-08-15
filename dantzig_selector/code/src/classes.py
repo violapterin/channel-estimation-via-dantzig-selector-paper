@@ -4,63 +4,6 @@ import cvxpy as cp
 import constants as cst
 import functions as fct
 
-class Hh:
-    def __init__ (self):
-        self.val = np.zeros ((cst.nn_hh, cst.nn_hh), dtype=complex)
-    
-    def gen (self):
-        for l in range (cst.ll_path):
-            aG_l = np.random.normal (cst.amp_mean_hh, cst.amp_std_hh)
-            pG_l = (cst.dist_antenna /cst.lG) * np.sin (np.random.uniform (0, 2 * np.pi))
-            tG_l = (cst.dist_antenna /cst.lG) * np.sin (np.random.uniform (0, 2 * np.pi))
-            self.val += aG_l * (fct.arr_resp (pG_l)) @ fct.arr_resp (pG_l).conj().T
-
-class Zz:
-    def __init__ (self):
-        self.val = np.zeros ((cst.nn_yy, cst.nn_yy), dtype=complex)
-    
-    def gen (self):
-        for i in range (cst.nn_yy):
-            for j in range (cst.nn_yy):
-                self.val [i] [j] = (
-                    np.random.normal (0, 1)
-                    + 1J * np.random.normal (0, 1))
-
-class Ff_bb:
-    def __init__ (self):
-        self.val = np.zeros ((cst.nn_rr, cst.nn_yy), dtype=complex)
-
-    def gen (self):
-        for i in range (cst.nn_rr):
-            for j in range (cst.nn_yy):
-                self.val [i] [j] = (
-                    np.random.normal (cst.part_mean_bb, cst.part_std_bb)
-                    + 1J * np.random.normal (cst.part_mean_bb, cst.part_std_bb))
-        self.val /= np.sqrt (cst.nn_yy)
-
-class Ff_rr:
-    def __init__ (self):
-        self.val = np.zeros ((cst.nn_hh, cst.nn_rr), dtype=complex)
-
-    def gen (self):
-        for i in range (cst.nn_hh):
-            for j in range (cst.nn_rr):
-                idx_phase = np.random.randint (cst.num_grid_phase)
-                self.val[i][j] = np.exp (2 * np.pi * 1J * idx_phase /cst.num_grid_phase)
-        self.val /= np.sqrt (cst.nn_rr)
-        
-class Ww_bb:
-    def __init__ (self):
-        self.val = np.zeros ((cst.nn_yy, cst.nn_rr), dtype=complex)
-
-    def gen (self):
-        for i in range (cst.nn_yy):
-            for j in range (cst.nn_rr):
-                self.val [i] [j] = (
-                        np.random.normal (cst.part_mean_bb, cst.part_std_bb)
-                        + 1J * np.random.normal (cst.part_mean_bb, cst.part_std_bb))
-        self.val /= np.sqrt (cst.nn_yy)
-
 
 class Dd_ss:
     def __init__(self, pp, y, gG):
@@ -75,30 +18,37 @@ class Dd_ss:
         c=[]
         d=[]
         for i in range (cst.nn_h):
-            aa.append (np.concatenate ([fct.indication_repr_mat (i),
-                                       np.zeros ((2 * cst.nn_h, cst.nn_h))],
-                                       axis= 1))
+            aa.append (
+                np.concatenate (
+                    [fct.indication_repr_mat (i),
+                        np.zeros ((2 * cst.nn_h, cst.nn_h))],
+                    axis= 1))
             b.append (np.zeros ((2 * cst.nn_h)))
-            c.append (np.concatenate ([np.zeros ((2 * cst.nn_h)), fct.indication_vec (i)]))
+            c.append (
+                np.concatenate (
+                    [np.zeros ((2 * cst.nn_h)), fct.indication_vec (i)]))
             d.append (0)
-        for i in range (cst.nn_h, 2 * cst.nn_h):
-            aa.append (np.concatenate ([-fct.indication_repr_mat (i -cst.nn_h)
-                                        @ fct.find_repr_mat (self.pp.conj().T)
-                                        @ fct.find_repr_mat (self.pp),
-                                        np.zeros ((2 * cst.nn_h, cst.nn_h))],
-                       axis= 1))
-            b.append (fct.indication_repr_mat (i -cst.nn_h)
-                      @ fct.find_repr_mat (self.pp.conj().T)
-                      @ fct.find_repr_vec (self.y))
+        for i in range (cst.nn_h):
+            aa.append (
+                np.concatenate (
+                    [-fct.indication_repr_mat (i)
+                            @ fct.find_repr_mat (self.pp.conj().T)
+                            @ fct.find_repr_mat (self.pp),
+                        np.zeros ((2 * cst.nn_h, cst.nn_h))],
+                    axis= 1))
+            b.append (fct.indication_repr_mat (i)
+                @ fct.find_repr_mat (self.pp.conj().T)
+                @ fct.find_repr_vec (self.y))
             c.append (np.zeros ((3 * cst.nn_h)))
             d.append (self.gG)
-        t = np.concatenate ([np.zeros ((2 * cst.nn_h)), np.ones ((cst.nn_h))])
+        t = np.concatenate (
+            [np.zeros ((2 * cst.nn_h)),
+                np.ones ((cst.nn_h))])
         x = cp.Variable (3 * cst.nn_h)
 
         constr = [cp.SOC (c[i].T @ x + d[i], aa[i] @ x + b[i]) for i in range (2 * cst.nn_h)]
         prob = cp.Problem (cp.Minimize (t.T@x), constr)
         prob.solve ()
-        #print (x.value) #XXX
 
         x_hat = x.value
         g_repr_hat = x_hat [0 : 2 * cst.nn_h]

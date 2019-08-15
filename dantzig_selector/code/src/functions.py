@@ -6,15 +6,8 @@ import constants as cst
 import classes as cls
 
 def mat_complex_normal (nn_1, nn_2):
-    return ((np.random.normal (
-        cst.part_mean_bb,
-        cst.part_std_bb,
-        (nn_1, nn_2))
-    +np.random.normal (
-        cst.part_mean_bb,
-        cst.part_std_bb,
-        (nn_1, nn_2))))
-
+    return ((np.random.normal (0, 1, (nn_1, nn_2))
+        +1J * np.random.normal (0, 1, (nn_1, nn_2))))
 
 def mat_uniform_phase (nn_1, nn_2):
     return (
@@ -45,25 +38,29 @@ def ww_rr ():
 
 def hh():
     ret =np.zeros ((cst.nn_hh, cst.nn_hh), dtype=complex)
-    for l in range (cst.ll_path):
-        aG_l = np.random.normal (cst.amp_mean_hh, cst.amp_std_hh)
-        pG_l = (cst.dist_antenna /cst.lG) * np.sin (np.random.uniform (0, 2 * np.pi))
-        tG_l = (cst.dist_antenna /cst.lG) * np.sin (np.random.uniform (0, 2 * np.pi))
-        ret += aG_l * (arr_resp (pG_l)) @ arr_resp (pG_l).conj().T
+    for _ in range (cst.ll):
+        aG = (np.random.normal (0, 1)
+            + 1J * np.random.normal (0, 1))
+        pG = (2 * np.pi * (cst.d_ant /cst.lG_ant)
+            * np.sin (np.random.uniform (0, 2 * np.pi)))
+        tG = (2 * np.pi * (cst.d_ant /cst.lG_ant)
+            * np.sin (np.random.uniform (0, 2 * np.pi)))
+        ret += aG * arr_resp (pG) @ arr_resp (tG).conj().T
     return ret
 
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
-def arr_resp (pG):
-    return np.array ([np.exp (1J *i *pG) for i in range (cst.nn_hh)])
-
 def kk (): # DFT matrix
     ret =np.zeros ((cst.nn_hh, cst.nn_hh), dtype=complex)
     for i in range (cst.nn_hh):
         for j in range (cst.nn_hh):
-            ret [i] [j] =(1 /np.sqrt (cst.nn_h)) *np.exp (2 *np.pi *1J *i *j /cst.nn_hh)
+            ret [i] [j] =(1 /np.sqrt (cst.nn_hh)) *np.exp (2 *np.pi *1J *i *j /cst.nn_hh)
     return ret
+
+def arr_resp (t):
+    return ((1 / np.sqrt (cst.nn_hh))
+        * np.array ([np.exp (1J * i * t) for i in range (cst.nn_hh)]))
 
 def find_repr_vec (v):
     ret =np.zeros ((2*len (v)))
@@ -109,7 +106,7 @@ def indication_repr_mat (n_h):
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
-def draw (dat_x, list_dat, label_x, label_y, title):
+def draw (dat_x, list_dat_y, label_x, label_y, title):
     plt.close ("all")
     fig =plt.figure ()
     plt.title (title, fontsize = 15)
@@ -129,21 +126,22 @@ def draw (dat_x, list_dat, label_x, label_y, title):
     width_line = 3 # fixed line width
 
     size_line =len (dat_x)
-    for i in range (len (list_dat)):
-        dat =list_dat[i]
-        assert (size_line == len (dat.arr))
-        plt.plot (dat_x,
-                  dat.arr,
-                  markersize =size_marker,
-                  linewidth =width_line,
-                  linestyle =list_style [int (i % num_style)],
-                  color =list_color [int (i % num_color)],
-                  marker =list_marker [int (i % num_marker)],
-                  )
+    for i in range (len (list_dat_y)):
+        dat_y =list_dat_y [i]
+        assert (size_line == len (dat_y))
+        plt.plot (
+            dat_x,
+            dat_y,
+            markersize =size_marker,
+            linewidth =width_line,
+            linestyle =list_style [int (i % num_style)],
+            color =list_color [int (i % num_color)],
+            marker =list_marker [int (i % num_marker)])
     # TODO: legend
 
-    path_fig_out =(os.path.abspath (os.path.join (os.getcwd (), os.path.pardir))
-                  +"/plt/" +title +".png")
+    path_fig_out =(
+        os.path.abspath (os.path.join (os.getcwd (), os.path.pardir))
+        +"/plt/" +title +".png")
     if os.path.isfile(path_fig_out):
         os.system("rm "+path_fig_out)
     plt.savefig (path_fig_out, bbox_inches ="tight")
