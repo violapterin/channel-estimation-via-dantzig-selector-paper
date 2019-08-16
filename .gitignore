@@ -9,6 +9,7 @@
 *.toc
 *.o
 *.pyc
+*.txt
 bin/
 lib/
 __pycache__/
