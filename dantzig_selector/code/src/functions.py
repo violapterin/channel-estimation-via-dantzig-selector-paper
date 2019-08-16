@@ -39,8 +39,8 @@ def ww_rr ():
 def hh():
     ret =np.zeros ((cst.nn_hh, cst.nn_hh), dtype=complex)
     for _ in range (cst.ll):
-        aG = (np.random.normal (0, 1)
-            + 1J * np.random.normal (0, 1))
+        aG = (np.random.normal (0, cst.nn_hh / cst.ll)
+            + 1J * np.random.normal (0, cst.nn_hh / cst.ll))
         pG = (2 * np.pi * (cst.d_ant /cst.lG_ant)
             * np.sin (np.random.uniform (0, 2 * np.pi)))
         tG = (2 * np.pi * (cst.d_ant /cst.lG_ant)

@@ -8,9 +8,10 @@ import os # getcwd
 
 import functions as fct
 
-#a=54.2349723876
-#print ("Test: ", "{0:.2f}".format (a), ";", sep ='')
-#print ("{0:.2f}".format (a))
+x =1.3452
+v =np.array ([3.5, 7.8])
+u =np.append (v, np.array([x]))
+print (v)
 
 # dat_x = np.array ([2,4,6,8])
 # dat_y1 =np.zeros (4)

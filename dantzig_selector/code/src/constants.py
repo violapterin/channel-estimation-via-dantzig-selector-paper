@@ -1,31 +1,11 @@
 import numpy as np
 
-# Part 0
-# Uncomment the following to try different values:
-# precoder dimension
-nn_yy = 2
-nn_rr = 4
-nn_hh = 6
-nn_y = nn_yy *nn_yy
-nn_h = nn_hh *nn_hh
-num_grid_phase = 16
-# channel parameters
-lG_ant = 3
-d_ant = 2
-ll = 4
-# simulation count
-num_scale_noise = 6
-num_try_gG = 2
-num_repeat = 8
-
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-
-# # Part 1
+# # Part 0
 # # Uncomment the following to try different values:
 # # precoder dimension
-# nn_yy = 3
-# nn_rr = 6
-# nn_hh = 9
+# nn_yy = 2
+# nn_rr = 4
+# nn_hh = 6
 # nn_y = nn_yy *nn_yy
 # nn_h = nn_hh *nn_hh
 # num_grid_phase = 16
@@ -34,9 +14,29 @@ num_repeat = 8
 # d_ant = 2
 # ll = 4
 # # simulation count
-# num_scale_noise = 9
-# num_try_gG = 3
-# num_repeat = 12
+# num_scale_sigma = 6
+# num_try_gamma = 2
+# num_repeat = 8
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+# Part 1
+# Uncomment the following to try different values:
+# precoder dimension
+nn_yy = 3
+nn_rr = 6
+nn_hh = 9
+nn_y = nn_yy *nn_yy
+nn_h = nn_hh *nn_hh
+num_grid_phase = 16
+# channel parameters
+lG_ant = 3
+d_ant = 2
+ll = 4
+# simulation count
+num_scale_sigma = 9
+num_try_gamma = 3
+num_repeat = 12
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
@@ -54,8 +54,8 @@ num_repeat = 8
 # d_ant = 2
 # ll = 4
 # # simulation count
-# num_scale_noise = 12
-# num_try_gG = 4
+# num_scale_sigma = 12
+# num_try_gamma = 4
 # num_repeat = 18
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -74,6 +74,6 @@ num_repeat = 8
 # d_ant = 2
 # ll = 4
 # # simulation count
-# num_scale_noise = 15
-# num_try_gG = 6
+# num_scale_sigma = 15
+# num_try_gamma = 6
 # num_repeat = 24

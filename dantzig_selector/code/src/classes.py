@@ -54,6 +54,7 @@ class Dd_ss:
         g_repr_hat = x_hat [0 : 2 * cst.nn_h]
         self.g_hat = fct.inv_find_repr_vec (g_repr_hat)
 
+# TODO
 class Oo_mm_pp:
     def __init__(self, pp, y, eG):
         self.pp = pp
