@@ -1,0 +1,52 @@
+
+\blank [big, force]
+
+\Title {\TitleText}
+\Subtitle {II. Completing the Proof}
+\blank [big]
+
+\Subtitle {\AuthorText}
+\blank [big]
+
+\Subsubtitle {\DateText}
+
+\page [yes]
+% % % % % % % % % % % % % % % % % % % % % % % % % %
+\Frame {Organization}
+{
+\I Introduction
+
+\I Problem Setting and Proposed Method
+
+\I Proving the performance bound: Sparsity, Concentration Inequality, and Expected Error
+
+\I Conclusion and Future Work
+
+\I References
+}
+% % % % % % % % % % % % % % % % % % % % % % % % % %
+\Frame {Background}
+{
+\I Multiple-input-multiple-output (MIMO) wireless communication is expected to be the next-generation r\'egime.
+
+\I But channel response has to be known at the receiver to facilitate such algorithms as beamforming and channel calibration.
+
+\I It calls for high complexity to estimate MIMO channels.
+
+\I Meanwhile, millimeter wave (mmWave) channels often exhibit sparse properties.
+
+\I Under mmWave setting, if the sparsity is exploited, can few observations suffice to estimate the channel?
+}
+% % % % % % % % % % % % % % % % % % % % % % % % % %
+\Frame {Compressive Sensing}
+{
+\I The situation that the number of model parameters is much larger than the number of measurements has been well studied, and and \it{compressed sensing} (CS) address exactly that.
+
+\I The problem can be considered to be inverting a wide, rectangular matrix.
+With insufficient (even noisy) measurements, this does not make sense.
+
+\I But what if we impose other conditions?
+Indeed, it turns out that, when the signal is sparse, few observations may be sufficient for the reconstruction.
+And Dantzig Selector (DS), proposed by Cand\`es and Tao (2006) in the advent, is a possible solution.
+}
+

@@ -1,9 +1,8 @@
+
 \define [0] {\a} {\alpha}
-\define [0] {\b} {\beta}
 \define [0] {\g} {\gamma}
-\define [0] {\G} {\Gamma}
 \define [0] {\d} {\delta}
-\define [0] {\e} {\varepsilon}
+\define [0] {\e} {\epsilon}
 \define [0] {\f} {\varphi}
 \define [0] {\l} {\lambda}
 \define [0] {\s} {\sigma}
@@ -18,27 +17,7 @@
 \define [0] {\Q} {\quad}
 \define [0] {\FourQ} {\Q \Q \Q \Q}
 \define [0] {\SixQ} {\Q \Q \Q \Q \Q \Q}
-\define [0] {\I} {\item} % for slides
-
-\define [0] {\TitleText} % for slides
-{
-   Dantzig Selector \\
-   Applied on mm-Wave MIMO \\
-   Channel Estimation
-}
-\define [0] {\AuthorText} % for slides
-{
-   Presenter: Tzu-Yu Jeng \\
-   Advisor: Prof.\ H.\ J.\ Su
-}
-\define [0] {\DateText} % for slides
-{
-Aug.\ 19, 2019 \\
-Graduate Instute of \\
-Communication Engineering, \\
-National Taiwan University
-}
-
+\define [0] {\I} {\item}
 
 \define [0] {\TheCount}
 {
@@ -67,48 +46,37 @@ National Taiwan University
 \define [1] {\V} {\underline {#1 \mkern -1mu} \mkern 2mu}
 \define [1] {\T} {\tilde {\vphantom {\overline{#1}} #1}}
 \define [1] {\Hat} {\hat {\vphantom {\overline{#1}} #1}}
-\define [1] {\Stack} {\startsubstack #1 \stopsubstack}
 
-\define [1] {\Title} { % for slides
-   \startalignment [middle]
-   {\ss\bfc #1}
-   \stopalignment}
-\define [1] {\Subtitle} { % for slides
-   \startalignment [middle]
-   {\ss\tfb #1}
-   \stopalignment}
-\define [1] {\Subsubtitle} { % for slides
-   \startalignment [middle]
-   {\ss\itx #1}
-   \stopalignment}
-\define [1] {\Frametitle} { % for slides
-   {\ss\bfb \color [lightskyblue]{#1}}} % for slides
-\define [1] {\Disp} {
+\define [1] {\Stack} {\startsubstack #1 \stopsubstack}
+\define[1] {\Uurrll} {\goto {\mono {\hyphenatedurl {#1}}} [url (#1)]}
+\define [1] {\Title} {\startalignment [middle] {\ss\bfc #1} \stopalignment}
+\define [1] {\Subtitle} {\startalignment [middle] {\ss\tfb #1} \stopalignment}
+\define [1] {\Subsubtitle} {\startalignment [middle] {\ss\itx #1} \stopalignment}
+\define [1] {\Frametitle} {{\ss\bfb \color [lightskyblue]{#1}}}
+
+\define [1] {\Disp}
+{
    \placeformula
    \startsplitformula
    \startalign
       #1
    \stopalign
-   \stopsplitformula}
-\define [1] {\M} {
+   \stopsplitformula
+}
+\define [1] {\M}
+{
    \underline {{\underline {#1 \mkern -1mu} \mkern 2mu} \mkern -2mu}
-   \mkern 2mu}
-\define[1] {\Uurrll} {\goto {\mono {\hyphenatedurl {#1}}} [url (#1)]}
+   \mkern 2mu
+}
 
 \define [2] {\F} {\frac {#1}{#2}}
 
-\define[2] {\Result} {
-   \bigskip
-   \noindent \hskip 3em
-   \TheCount \; {\bf #1} \par
-   #2 \par
-   \hfill
-   \m{\blacksquare} \par}
-
-\define [2] {\Frame} { % for slides
+\define [2] {\Frame}
+{
    \Frametitle {#1}
    \startitemize #2 \stopitemize
-   \page [yes]}
+   \page [yes]
+}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
@@ -122,39 +90,21 @@ National Taiwan University
 \definefallbackfamily [MainFace] [mm] [TeX Gyre DejaVu Math] [force=yes,range=lowercasescript]
 \definefontfamily [MainFace] [mm] [TeX Gyre Pagella Math]
 \definemeasure [pointoneline] [1.5\baselineskip]
-\definecolor [headingcolor] [r=0.2, g=0.25, b=0.5]
-\definealternativestyle [TitleStyle] [\ss\bfd] []
-\definealternativestyle [AuthorStyle] [\ss\tfb] []
-\definemakeup [titlepage] [align=middle]
-\definetextbackground [framedcode] [frame=off, background=no, rightoffset=0.3cm, location=paragraph]
-\definetyping [code] [numbering=no, bodyfont=small, before={\startframedcode}, after={\stopframedcode}]
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
-\setuppapersize[S4][S4] % for slides
-\setupbackgrounds [page] [background=color, backgroundcolor=midnightblue] % for slides
-
-\setupparagraphs [n=3, before={\blank}, after={\blank}]
+\setuppapersize[S4][S4]
 \setupbodyfont [MainFace, 12pt]
 \setupinteraction [state=start]
 \setupcolors [state=start]
+\setupbackgrounds [page] [background=color, backgroundcolor=midnightblue]
 \setuppagenumbering [location={footer,middle}, style=slanted]
-\setuphead [chapter, section, subsection] [color=headingcolor]
-\setuphead [chapter] [style={\ss\bfd}]
-\setuphead [section] [style={\ss\tfc}]
-\setuphead [subsection] [style={\ss\itb}]
-\setuphead[title] [incrementnumber=list, number=no]
-\setuphead[subject] [incrementnumber=list, number=no]
-\setuphead[subsubject] [incrementnumber=list, number=no]
-\setuplist[chapter] [width=2cm]
-\setuplist[section] [width=2cm]
-\setuplist[subject] [width=2cm]
 \setupitemize [inbetween={}, style=bold]
 \setuptype [lines=hyphenated]
 \setupindenting[big,always]
 \setupwhitespace[medium]
-\setupcombinedlist [content] [list={chapter, title, section, subject, subsection, subsubject}]
-\setuplayout [ % for slides
+
+\setuplayout [
    backspace=9mm,
    margin=0mm,
    margindistance=0mm,
@@ -166,8 +116,10 @@ National Taiwan University
    bottomdistance=0mm,
    bottom=4mm
 ]
-\startcolor[white] % for slides
+
+\startcolor[white]
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
-\usecolors[xwi] % for slides
+\usecolors[xwi]
+

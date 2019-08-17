@@ -139,7 +139,10 @@ def save_plot (data_x, list_data_y, label_x, label_y, list_legend, title):
             marker = list_marker [int (i % num_marker)],
             label = list_legend [i])
         i += 1
-    plt.legend (bbox_to_anchor = (1.05, 1), loc = 'upper left', borderaxespad = 0.)
+    plt.legend (
+        bbox_to_anchor = (1.05, 1),
+        loc = 'upper left',
+        borderaxespad = 0.)
 
     path_plot_out =(
         os.path.abspath (os.path.join (os.getcwd (), os.path.pardir))
@@ -159,7 +162,9 @@ def save_table (data_x, list_data_y, label_x, label_y, list_legend, title):
         the_file.write ('\t'.join (map (str, data_x)) + '\n')
         i = 0
         for data_y in list_data_y:
-            the_file.write (list_legend [i] + '\t' + '\t'.join (map (str, list_data_y[i])) + '\n')
+            the_file.write (
+                list_legend [i] + '\t'
+                    + '\t'.join (map (str, list_data_y[i])) + '\n')
             i += 1
 
 
