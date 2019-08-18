@@ -1,267 +1,264 @@
-\Frame {The Need of Bounding the Expected Error}
+\Frame {The Need of a Modified Proof}
 {
-\I Dantzig Selector requires the measurement matrix to observe restricted isometry property (more below), but it is not clear it is true for \m {\M {P}}, for what design of \m {\M {F}_B, \M {F}_R, \M {W}_B, \M {W}_R}.
+\I \Emph {Q1}: Dantzig Selector works for \Emph {sparse} vectors, but while \m {\M {H}} is sparse in the angular domain, is it sparse by itself?
 
-\I Cand\`es and Tao established the case for real matrices, but it is not clear whether complex case applies.
+\I \Emph{Q2}: Dantzig Selector requires the measurement matrix to observe restricted isometry property (more below), but is it true for \m {\M {P}}, and for what \Emph {design} of \m {\M {F}_B, \M {F}_R, \M {W}_B, \M {W}_R}?
 
-\I Cand\`es and Tao showed the Big-O error bound in terms of (in our notation) \m {N_H}, but it is worth investigation whether, for practical values, the algorithm converges quickly enough.
+\I \Emph{Q3}: Cand\`es and Tao established the case for real matrices, but does \Emph {complex} case apply?
+
+\I \Emph{Q4}: Cand\`es and Tao showed the Big-O error bound in terms of (in our notation) \m {N_H}, but does, for practical values, the algorithm converges for \Emph {high probability}?
 }
-
+% % % % % % % % % % % % % % % % % % % % % % % % % %
 \Frame {Restricted Isometry Property}
 {
-\I \m {\V {x}} is called \m {s}-sparse, if only \m {s} of its components are nonzero.
+\I \m {\V {g}} is called \Emph {\m {s}-sparse}, if only \m {s} of its components are nonzero.
 
-\I We say that \m {\M{\Phi}} satisfies the restricted isometry property (RIP) of sparsity \m {s} with respect to \m {0 \leq \d_s \leq 1}, if, for all \m {s}-sparse \m {\V {x}},
+\I We say that \m {\M{P}} satisfies the \Emph {restricted isometry property} (RIP) of sparsity \m {s} with respect to \m {0 < \d_s < 1}, if, for all \m {s}-sparse \m {\V {g}},
 \Disp {
-\NC \RB {1-\d_s} \VNm {\V {x}}^2
-\leq \NC \VNm {\M{\Phi} \V {x}} _2^2
-\leq \RB {1+\d_s} \VNm {\V {x}} _2^2
+\NC \RB {1-\d_s} \VNm {\V {g}}^2
+\leq \NC \VNm {\M{P} \V {g}} _2^2
+\leq \RB {1+\d_s} \VNm {\V {g}} _2^2
 }
 
-\I Interpretation: \m {\M{\Phi}} is \quotation {almost unitary} up to \quotation {relative error} \m {\d_s}.
+\I Interpretation: \m {\M{P}} is \Emph {almost unitary} up to relative error \m {\d_s}.
+
+\I Set shorthand, for any unit vector \m {\V{u}},
+\Disp {
+\NC \rho := \NC \VNm {\M{P} \V{u}}_2^2 \NR
+}
 }
 % % % % % % % % % % % % % % % % % % % % % % % % % %
 \Frame {Proof Strategy}
 {
 \I Show that \m {\V{g}} is almost sparse
 
-\I Find \m {\MB {E} \SB {\VNm {\M{P} \V{u}} _2 ^2}} and \m {\MB {E} \SB {\VNm {\M{P} \V{u}} _2 ^4}}
+\I Find \m {\MB {E} \SB {\rho}} and \m {\MB {E} \SB {\rho^2}}, and bound \m {\MB {E} \SB {\rho ^k}} for \m {k=3,4,5,\dots}.
 
-\I Bound \m {\MB {E} \SB {\VNm {\M{P} \V{u}} _2 ^k}} for \m {k=6,8,10,\dots}.
+\I Bound the probability that \m {\Nm {\VNm {\M{P} \V{u}} _2 ^2 -\VNm {\V{u}} _2 ^2} \geq \e \VNm {\V{u}} _2 ^2}.
 
-\I Bound the probability that \m {\Nm {\VNm {\M{P} \V{u}} _2 ^2 -\VNm {\V{u}} _2 ^2} \geq \e \VNm {\V{u}} _2 ^2} by Chernoff Bound.
+\I Establish that \m {\M{P}} satisfies RIP for what probability
 
-\I Established that \m {\M{P}} satisfies RIP for such probability by invoking existing results
-
-\I Substitute \m {\VNm {\V {g} _{\MC {K}}} _1} into the original Dantzig Selector Proof
+\I Take into consideration how \m {\V{g}} is not exactly sparse
 }
 % % % % % % % % % % % % % % % % % % % % % % % % % %
 \Frame {\m {\V{g}} is Almost Sparse}
 {
-\I Let \m {s} be a small integer.
-Call the vector of largest-magnitude \m {s^2 L} positions of \m {\V{g}} to be \m {\V{g}_A}, and remaining positions of \m {\V{g}} to be \m {\V{g}_K}, so that \m {\V{g}_A +\V{g}_K =\V{g}}
+\I Call the vector of largest-magnitude \m {N_H L} positions of \m {\V{g}} to be \m {\V{g}_A}, and remaining positions of \m {\V{g}} to be \m {\V{g}_K}, so that \m {\V{g}_A +\V{g}_K =\V{g}}
 
 \I We can show that 
 \Disp {
 \NC \V{g}_K
 \leq R
-:= \NC \VNm {\MC {C} \SB {\M {K}^\Adj \V {a} \SB {\f}, s}} _2
-\leq \m {\F{1}{3 \R{N_H}}} \NR
-}
-}
-% % % % % % % % % % % % % % % % % % % % % % % % % %
-\Frame {Design of \m {\M{F}_B}}
-{
-\I Set each entry of \m {\M{F}_B} to be i.i.d.\ Gaussian r.v.\ with mean 0, standard deviation \m {1/2}, multiplied by \m {\l_B >0}
-
-\I The magnitude \m {\M{F}_B \DB {n_R, n_Y}} follows Rayleigh distribution, having
-\Disp {
-\NC M_{B,2}
-:=\NC \MB{E} \SB {\Nm {\M{F}_B \DB {n_R, n_Y}}^2}
-=\l_R^2 \NR
-\NC M_{B,4}
-:=\NC \MB{E} \SB {\Nm {\M{F}_B \DB {n_R, n_Y}}^4}
-=2 \l_R^4 \NR
+:=\m {\F{1}{3 \R{N_H}}} \NR
 }
 
-\I We have \m {\MB{E} \SB {\M{F}_B \DB {n_R, n_Y}^2} =0}
+\I \m {R \to 0} as \m {N_H \to \infty}
 }
 % % % % % % % % % % % % % % % % % % % % % % % % % %
-\Frame {Design of \m {\M{F}_R}}
+\Frame {Concentration Inequality}
 {
-\I Let \m {\M{F}_R \DB {n_H, n_R}} be uniformly distributed on the unit circle on the complex plane, giving
+
+\I According to Lemma 5.1 in Baraniuk et.\ al.\ (2008), it has been established that, if the \Emph {concentration inequality} holds that
 \Disp{
-\NC M_{R,2}
-:=\NC \MB{E} \SB {\Nm {\M{F}_R \DB {n_H, n_R}}^2}
-=\l_R^2 \NR
-\NC M_{R,4}
-:=\NC \MB{E} \SB {\Nm {\M{F}_R \DB {n_H, n_R}}^4}
-=\l_R^4 \NR
+\NC \MB{P}
+\SB {
+  \Nm {\VNm {\M{P} \V{u}} _2 ^2 -\VNm {\V{u}} _2 ^2}
+  \geq \F {\d_s} {2} \VNm {\V{u}} _2 ^2
 }
-
-\I We have \m {\MB{E} \SB {\M{F}_R \DB {n_H, n_R}^2} =0}
+\leq \NC B \RB {\d_s, N_Y} \NR
 }
-% % % % % % % % % % % % % % % % % % % % % % % % % %
-\Frame {Indicator Function}
-{
-\I To make expressions more compact, introduce the indication function \m {\i}, which \m {=1} only when the manner that arguments repeat agrees exactly with the subscripts
-
-\I For example \m {\i_{2} \SB {7,7} =1}, and \m {\i_{2,2} \SB {0,3,3,0} =1}, but \m {\i_{2} \SB {5, 6} =0}
-
-\I That is, for some injective \m {\s:\; \CB {0, \ldots, M-1} \mapsto \CB {0, \ldots, N-1}},
-\Disp {
-\NC \NC \i_{a_0, \ldots, a_{N-1}} \SB {x_0, \ldots, x_{M-1}} \NR
-\NC =\NC \startcases
-\NC 1, \MC \Q
-x_0 \cdots x_{N-1}
-=x_{\s \SB {0}} ^{a_0} \cdots x_{\s \SB {M-1}} ^{a_{M-1}} \NR
-\NC 0, \NC \Q \Rm {otherwise} \NR
-\stopcases \NR
-}
-
-}
-% % % % % % % % % % % % % % % % % % % % % % % % % %
-\Frame {Suffice to Ignore \m {\M{K}}}
-{
-\I Recall \m {\M {P} := \RB {\M {F}_B^\Tr \M {F}_R^\Tr \M{K}^\ast} \otimes \RB {\M {W}_B \M {W}_R \M {K}}}
-
-\I Define \m {\M{Q} :=\RB {\M {F}_R^\Tr \M {F}_B^\Tr} \otimes \RB {\M {W}_B \M {W}_R}}, then
-\Disp {
-\NC \V{u} ^\Adj \M{P} ^\Adj \M{P} \V{u}
-= \NC \V{u} ^\Adj \M{Q} ^\Adj \M{Q} \V{u} \NR
-}
-
-\I Thus
-\Disp {
-\NC \VNm {\M{P} \V{u}} _2
-= \NC \VNm {\M{Q} \V{u}} _2 \NR
-}
-}
-% % % % % % % % % % % % % % % % % % % % % % % % % %
-\Frame {Finding \m {\MB {E} \VNm {\M{P} \V{u}} _2 ^2}}
-{
+\I then, supppose the probability that RIP holds for \m {\M{P}} is \m {p},
 \Disp{
-\NC \NC \MB{E} \SB {\VNm {\M{Q} \V{u}} _2 ^2} \NR
-\NC = \NC \MB{E} \SB {
-  \sum_{n_y=0}^{N_y-1}
-  \Nm {\sum_{n_h=0}^{N_h-1} \M{Q} \DB {n_y, n_h} ^\ast \V{u} \DB{n_h}} ^2
+\NC 1 -p
+\leq \NC \RB {\F {12 e N_H} {s \d_s}} ^s B \RB {\d_s, N_Y} \NR
+}
+
+\I Our task is reduced into establishment of the inequality!
+}
+% % % % % % % % % % % % % % % % % % % % % % % % % %
+\Frame {Design of Beamformers}
+{
+\I Considering \Emph {Q2}: If each entry of \m {\M {P}} is i.i.d., then it's likely that, by whatever variation of Central Limit Theorem,
+\Disp {
+\NC \MB {E} \SB {\rho ^{k}}
+\approx \NC 1
+\quad \Ss {in distribution} \NR
+}
+
+\I Unfortunately, they are \Emph {not i.i.d.}!
+\m {\Rightarrow} Need closer scrutiny.
+
+\I Try to set each entry of \m {\M{F}_B} (resp.\ \m {\M{W}_B}) to be i.i.d.\ Standard Complex Normal, multiplied by a design constant \m {\l_B >0} (so that the magnitude follows Rayleigh distribution).
+
+\I And let each entry of \m {\M{F}_R} (resp.\ \m {\M{W}_B}) be uniformly distributed on the unit circle on the complex plane, multiplied by a design constant \m {\l_B >0}.
+}
+% % % % % % % % % % % % % % % % % % % % % % % % % %
+\Frame {Chernoff Inequality}
+{
+\I Imitating the Chernoff Inequality argument in classical probability, we have, for any \m {s >0} so that, supposedly, both sides \m {< \infty},
+\Disp {
+\NC p
+= \NC \MB{P} \SB {\rho \geq \RB {1 +\e} \MB{E} \SB {\rho}} \NR
+\NC =\NC \MB{P} \SB {\Ss {e} ^{s \rho} \geq \Ss {e} ^{s \RB {1 +\e}}} \NR
+\NC \leq \NC \Ss {e} ^{-s \RB {1 +\e}} \MB{E} \SB {\Ss {e} ^{s \rho}} \NR
+}
+
+\I Assuming the convergence of power series for a moment,
+\Disp {
+\NC \MB{E} \SB {\Ss {e} ^{s \rho}}
+=\NC \sum_{k=0}^\infty \F{s ^k} {k!} \MB{E} \SB {\rho ^k} \NR
+}
+
+\I But what are the \Emph {moments} of \m {\rho}?
+}
+% % % % % % % % % % % % % % % % % % % % % % % % % %
+\Frame {Finding the First Moment}
+{
+\I It is easy show that
+\Disp {
+\NC \MB{E} \SB {\rho}
+= \NC N_Y^2 N_R^2 \l_B^4 \l_R^4 \D \VNm {\V{u}} _2 ^2 \NR
+}
+
+\I This motivates
+\Disp {
+\NC \l_B
+=\NC \F {1} {\R {N_Y}},
+\l_R
+=\F {1} {\R {N_R}} \NR
+}
+
+\I So that
+\Disp {
+\NC \MB{E} \SB {\rho}
+=\NC 1
+}
+}
+% % % % % % % % % % % % % % % % % % % % % % % % % %
+\Frame {Finding the Second Moment}
+{
+\I We can show that, after tedius calculation,
+\Disp {
+\NC \MB{E} \SB {\rho ^2}
+\leq \NC N_Y^4 N_R^4 \l_B^8 \l_R^8 \RB {1 +N_Y^{-2}} \D \VNm {\V{u}} _2 ^4 \NR
+\NC = \NC \RB {1 +N_Y^{-2}} \NR
+}
+}
+% % % % % % % % % % % % % % % % % % % % % % % % % %
+\Frame {Bounding Higher Moments}
+{
+\I We can show that, after a lot applications of various inequalities,
+\Disp {
+\NC \MB{E} \SB {\rho ^k}
+\leq \NC N_Y^{2k} N_R^{2k} \l_B^{4k} \l_R^{4k}
+\D \G \SB {k +1}^2
+\D \VNm {\V{u}} _2 ^k \NR
+\NC = \NC \G \SB {k +1}^2 \NR
+}
+}
+% % % % % % % % % % % % % % % % % % % % % % % % % %
+\Frame {Try to Substite the Moments of \m {\rho}...}
+{
+\I Plugging into the Chernoff Inequality we have
+\Disp {
+\NC \log p
+\leq \NC \Min {s >0} \Bigg [
+  -\RB {1 +\F{1}{2} \e -\F{1}{8} \e^2} s \NR
+  \NC \NC \FourQ +\log \RB{
+    1
+    +s \MB{E} \SB {\rho}
+    +\F{s ^2} {2} \MB{E} \SB {\rho^2}
+    +\dots
+  }
+\Bigg ] \NR
+}
+
+\I We want the exponent to go small, and it looks promising.
+
+\I But the remainder term of MGF, \m {\MB{E} \SB {\Ss {e} ^{s \rho}}}, seems to \Emph {diverge}!
+\Disp {
+\NC \sum_{k=3}^\infty \F{s ^k} {k!} \MB{E} \SB {\rho ^k}
+\leq \NC \sum_{k=3}^\infty \F{s ^k} {k!} \G \SB {k +1}^2
+= \sum_{k=3}^\infty k! \D s ^k
+\to \infty \NR
+}
+}
+% % % % % % % % % % % % % % % % % % % % % % % % % %
+\Frame {Try Again for \m {\R {\rho}}...}
+{
+\I Take square roots on both sides so that \m {\sum_{k=3}^\infty s ^k} is finite for \m {s <1}.
+\Disp {
+\NC p
+= \NC \MB{P} \SB {\rho \geq \RB {1 +\e} \MB{E} \SB {\rho}} \NR
+\NC =\NC \MB{P} \SB {\Ss {e} ^{s \R {\rho}} \geq \Ss {e} ^{s \R {1 +\e}}} \NR
+\NC \leq \NC \Ss {e} ^{-s \R {1 +\e}} \MB{E} \SB {\Ss {e} ^{s \R {\rho}}} \NR
+}
+
+\I The \m {1/2} and \m {3/2} moments can be bounded by Cauchy Inequality:
+\Disp{
+\NC \F{1}{\R{1+N_Y^{-2}}}
+\leq \NC \MB{E} \SB {\R{\rho}}
+\leq 1, \NR
+\NC 1
+\leq \NC \MB{E} \SB {\rho ^{3/2}}
+\leq \R{1+N_Y^{-2}}, \NR
+}
+}
+% % % % % % % % % % % % % % % % % % % % % % % % % %
+\Frame {Confirming the Concentration Ineq.}
+{
+\I Thus, Minimizing for \m {s} we have, for any \m {\e >0},
+\Disp {
+\NC \NC \log p \NR
+%
+\NC =\NC \Min {s >0} \Bigg [
+  -\RB {1 +\F{1}{2} \e -\F{1}{8} \e^2} s
+  +\MB{E} \SB {\R{\rho}} s
+  +\F{1}{2} \RB {\MB{E} \SB {\rho} -\MB{E} \SB {\R {\rho}}^2} s^2 \NR
+  \NC \NC \FourQ +\F{1}{6} \RB {-3 \MB{E} \SB {\R {\rho}} \MB{E} \SB {\rho} +2\MB{E} \SB {\R{\rho}} ^3 +\MB{E} \SB {\rho ^{3/2}}} s^3
+  +\dots
+\Bigg ] \NR
+%
+\NC =\NC \Min {s >0} \SB{
+  -\F{1}{2} \e s
+  +\F{1}{2} N_Y^{-2} \RB {1 -N_Y^{-2}} s^2
+  +N_Y^{-2} \RB {\F{1}{3} -\F{5}{24} N_Y^{-2}} s^3
 } \NR
-\NC = \NC
-2 \sum_{n_y=0}^{N_y-1}
-\sum_{\Stack { n_h, n_h'=0 \NR n_h <n_h' }}^{N_h-1}
-\MF {Re} \SB{
-   \MB{E} \SB {\M{Q} \DB {n_y, n_h}^\ast}
-   \MB{E} \SB {\M{Q} \DB {n_y, n_h'}}
-}
-\V{u} \DB{n_h} \V{u} \DB{n_h'} ^\ast
-\NR
-\NC \NC \FourQ +\sum_{n_y=0}^{N_y-1}
-   \sum_{n_h=0}^{N_h-1} \MB{E} \SB {\Nm {\M{Q} \DB {n_y, n_h}}^2} \Nm {\V{u} \DB{n_h}}^2
-\NR
-\NC = \NC N_y \D N_R^2 \l_B^4 \l_R^4  \D \VNm {\V{u}} _2 ^2 \NR
+%
+\NC =\NC -\F{\e^2 N_Y^2} {8} \NR
 }
 }
 % % % % % % % % % % % % % % % % % % % % % % % % % %
-\Frame {Confirming the RIP of \m {\M{P}}}
+\Frame {Confirming the Concentration}
 {
-\I Finding the variance
-\Disp{
-\NC \Ss{Var} \SB {\VNm {\M{P} \V{u}} _2 ^2}
-\leq \NC \RB {4 N_H^2 N_Y^{-3} -1} \VNm {\V{u}} _2 ^4 \NR
-}
+\I The lower tail can be proved in the same way as upper tail.
 
-\I Using the Chebyshev Bound
+\I Conbining we have
 \Disp{
 \NC \MB{P}
 \SB {
   \Nm {\VNm {\M{P} \V{u}} _2 ^2 -\VNm {\V{u}} _2 ^2}
   \geq \e \VNm {\V{u}} _2 ^2
 }
-\leq \NC \F {1} {\e^2} \RB {4 N_H^2 N_Y^{-3} -1} \NR
+\leq \NC 2\exp \SB {-\F{N_Y^2}{8} \e^2} \NR
 }
 }
-
-
 % % % % % % % % % % % % % % % % % % % % % % % % % %
 \Frame {Expected Error of DS}
 {
-\I Let \m {\V {y}}, \m {\M {P}}, \m {\V {g}}, \m {\hat {\V {g}}}, \m {\V {d}} be defined as above.
-Then, with \m {S =s^2 L},
+\I In answer of \Emph {Q3}, It can be checked that the generalization from real to complex does not affect the argument, but only loosen the bound by a multiple.
+
+\I In conclusion, and also in answer of \Emph {Q4}, the bound
 \Disp {
 \NC \VNm {\V {d}} _2
-\leq \NC 32 s^2 L \log N_H \NR
+\leq \NC 4 \R{2} \D \R{L N_H \log N_H} \NR
 }
 
-\I Moreover, under the design condition
+\I holds for probability \m {p}, 
 \Disp {
-\NC \RB {2 N_H}^2
-\approx \NC N_Y^3 \NR
+\NC p
+\geq \NC 1 -2 \D 6^{N_H L} \D \exp \SB {-\F{N_Y^2} {32}} \NR
 }
 
-\I The bound holds for probability \m {p}, with
-\Disp {
-\NC 1 -p
-\leq \NC 16 \D {12}^S \d_{S}^{-S-2} \RB {N_H^2 N_Y^{-3} -\F{1}{4}} \NR
+\I Note that \m {p \to 1} as \m {N_Y \to \infty} exponentially.
 }
-
-\I \m {\Rightarrow} Is \m {16 \D {12}^S \d_{S}^{-S-2}} unreasonably large?
-
-\I \m {\Rightarrow} Can \m {N_H^2 N_Y^{-3} -1/4} be made small?
-}
-% % % % % % % % % % % % % % % % % % % % % % % % % %
-\Frame {Technical Lemmata}
-{
-{\tfx
-\I Define \m {\V {d} := \Hat {\V {g}} -\V {g}}
-
-\I From optimality of \m {\Hat {\V {g}}}: \m {
-\NC \VNm {\V {d} _{\MC {K}}} _1
-\leq \NC \VNm {\V {d} _{\MC {A}}} _1 +2\VNm {\V {g} _{\MC {K}}} _1 \NR
-}
-
-\I From central limit theorem: \m {
-\NC \MB {E} \SB {\Nm {\IP {\V {z}, \M {P} \DB {:, n_h}}}}
-\leq \NC  2 \R {\log N_h} \NR
-}
-
-\I From above: \m {
-\NC \VNm {\M {P}^\Adj \M {P} \V {d}} _\infty
-\leq \NC  4 \R {\log N_h} \NR
-}
-
-\I From DS paper: \m {
-\NC \VNm {\V {d} _{\MC {AB}}} _2
-\leq \NC \F {1}{1-\d_{2S}} \VNm {P _{\MC {A} \MC {B}}^\Tr P d} _2 +\F {\d_{3S}}{\RB {1-\d_{2S}} \R {S}} \VNm {d_{\MC {K}}} _1 \NR
-}
-
-\I From DS paper: \m {
-\NC \VNm {\V {d}} _2^2
-\leq \NC \VNm {\V {d} _{\MC {A} \MC {B}}} _2^2 +\F {1}{S} \VNm {\V {d} _{\MC {K}}} _1^2 \NR
-}
-}
-}
-% % % % % % % % % % % % % % % % % % % % % % % % % %
-\Frame {Proof (1 of 2)}
-{
-\I By \m {\ell_p}-norm ineq., by Lemma for \m {\VNm {\M {P}^\Tr \M {P} \V {d}} _\infty},
-\Disp {
-\NC \VNm {\M {P} _{\MC {A} \MC {B}}^\Tr \M {P} \V {d}} _2
-\leq \NC \R {S} \VNm {\M {P}^\Tr \M {P} \V {d}} _\infty
-\leq 4 \R {S \log N_h} \NR
-}
-
-\I By \m {\ell_p}-norm ineq., by Lemma for \m {\VNm {\V {d} _{\MC {AB}}} _2}, by above,
-\Disp {
-\NC \VNm {\V {d}_{\MC {A}}} _1
-\leq \NC \R {S} \VNm {\V {d}_{\MC {A}}} _2 \NR
-\NC \leq \NC \d_{3S} \RB {1+\d_{2S}} \VNm {\V {d} _{\MC {K}}} _1
-+4 \RB {1+\d_{2S}} S \R {\log N_h} \NR
-}
-
-\I By Lemma for \m {\VNm {\V {d} _{\MC {K}}} _1}, by above, by dropping terms,
-\Disp {
-\NC \VNm {\V {d} _{\MC {K}}} _1
-\leq \NC 2 \RB {1+\d_{3S}} \VNm {\V {g} _{\MC {K}}} _1
-+4 \RB {1+2\d_{3S}} S \R {\log N_h} \NR
-}
-}
-% % % % % % % % % % % % % % % % % % % % % % % % % %
-\Frame {Proof (2 of 2)}
-{
-\Disp {
-\NC \VNm {\V {d}} _2^2
-\leq \NC 16 S \log N_h
-+8 \d_{3S} \R {\log N_h} 
-+\F {\d_{3S}^2} {S} \VNm {\V {d} _{\MC {K}}} _1 \NR
-\NC \leq \NC 32 s^2 L \log N_H
-+\F {8 \R {2\pi}} {3} \d_{3S} L \R {\F {\log N_H} {N_H}}
-+\F {\pi} {9} \F {L} {s^2 N_H} \NR
-\NC \leq \NC 32 s^2 L \log N_H \NR
-}
-
-1. Plug in the bound for \m {\VNm {\V {d} _{\MC {K}}} _1}
-
-2. Plug in \m {S =s^2 L} and \m {N_h =N_H^2}
-}
-
-

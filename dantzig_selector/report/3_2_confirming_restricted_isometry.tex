@@ -312,7 +312,7 @@ Now, fix any test vector \m {\V{u} \in \MB{V}_\MB{C} \SB{N_Y}}, we shall study t
 \NC \rho \SB {\o_t, \o_r}
 :=\NC \VNm {\M{Q} \SB {\o_t, \o_r} \V{u}}_2^2 \NR[+]
 }
-by exploiting Chernoff bound.
+by exploiting Chernoff Inequality.
 
 In this section, since the quantity \m {\Nm {\rho -\MB{E} \SB {\rho}}} is linear in \m {\VNm {\V{u}} _2}, by a scaling argument we may set, without loss of generality,
 \Disp {
@@ -324,7 +324,7 @@ In this section, since the quantity \m {\Nm {\rho -\MB{E} \SB {\rho}}} is linear
 
 \startsubsection [title={The First Moment}]
 
-The Chernoff bound is most effective if all higher moments are known.
+The Chernoff Inequality is most effective if all higher moments are known.
 To begin with, study \m {\MB{E} \SB {\rho \SB {\o_t, \o_r}}}.
 The calculation can be simplified if we expand the square of norm and pass through the expectation sign.
 \Disp{
@@ -356,7 +356,7 @@ Thus, we may set
 \NC \l_B
 =\NC \F {1} {\R {N_Y}} \NR[+]
 \NC \l_R
-=\NC \F {1} {\R {N_R}} \NR[+] \NR
+=\NC \F {1} {\R {N_R}} \NR[+]
 }
 To make
 \Disp{
@@ -859,9 +859,9 @@ Then, since the linear combination of Normal r.vs.\ is also a Normal r.v.,
 
 \stopsubsection
 
-\startsubsection [title={Using Chernoff Bound}]
+\startsubsection [title={Using Chernoff Inequality}]
 
-Imitating the Chernoff Bound argument in classical probability, we have, for any \m {s_+ >0} so that, supposedly, both sides \m {< \infty},
+Imitating the Chernoff Inequality argument in classical probability, we have, for any \m {s_+ >0} so that, supposedly, both sides \m {< \infty},
 \Disp {
 \NC p
 = \NC \MB{P} \SB {\rho \geq \RB {1 +\e} \MB{E} \SB {\rho}} \NR
@@ -870,8 +870,7 @@ Imitating the Chernoff Bound argument in classical probability, we have, for any
 \NC =\NC \MB{P} \SB {\Ss {e} ^{s_+ \R {\rho}} \geq \Ss {e} ^{s_+ \R {1 +\e}}} \NR
 \NC \leq \NC \Ss {e} ^{-s_+ \R {1 +\e}} \MB{E} \SB {\Ss {e} ^{s_+ \R {\rho}}} \NR[+]
 }
-Assuming the convergence of power series of \m {\Ss {e} ^{s_+ \R {\rho}}} for a moment, which will be justified below.
-Take log on both sides, by various result in previous subsections, we get
+Assuming the convergence of power series of \m {\Ss {e} ^{s_+ \R {\rho}}} for a moment, which will be justified below,
 \Disp {
 \NC \NC \MB{E} \SB {\Ss {e} ^{s_+ \R {\rho}}} \NR
 %
@@ -889,7 +888,7 @@ Take log on both sides, by various result in previous subsections, we get
 +\F{s_+ ^4} {24} \MB{E} \SB {\rho ^2}
 +\sum_{k=5}^\infty s_+ ^k \NR[+]
 }
-Back to the Chernoff Bound, by taking log on both sides we have
+Back to the Chernoff Inequality, by taking log on both sides we have
 \Disp {
 \NC \log p
 =\NC \Min {s_+ >0} \log \MB{P} \SB {\rho \geq \RB {1 +\e} \MB{E} \SB {\rho}} \NR
