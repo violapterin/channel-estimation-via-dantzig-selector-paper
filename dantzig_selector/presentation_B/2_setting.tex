@@ -16,7 +16,8 @@
 \V {a} \SB { \F {d_{\Rm {arr}}} {\l _{\Rm {arr}}} \sin \th_l}^\Adj
 \in \MB {C} ^{N_H \D N_H} \NR
 }
-where \m {L} is the number of paths, \m {\f_l} the angle of arrival, \m {\th_l} the angle of arrival
+
+\I where \m {L} is the number of paths, \m {\f_l}'s the angles of arrival, \m {\th_l}'s the angles of arrival.
 }
 % % % % % % % % % % % % % % % % % % % % % % % % % %
 \Frame {Precoders and Combiners}
@@ -25,24 +26,27 @@ where \m {L} is the number of paths, \m {\f_l} the angle of arrival, \m {\th_l} 
 
 \I Tx: Analog precoder \m {\NC \M {F}_R \in \NC \MB {C} ^{N_H \D N_R}}
 
-\I Rx: Digital combiner \m {\M {W}_R \in \NC \MB {C} ^{N_R \D N_H}}
+\I Rx: Digital combiner \m {\M {W}_B \in \NC \MB {C} ^{N_R \D N_H}}
 
-\I Rx: Analog combiner \m {\M {W}_B \in \NC \MB {C} ^{N_Y \D N_R}}
+\I Rx: Analog combiner \m {\M {W}_R \in \NC \MB {C} ^{N_Y \D N_R}}
 
 \I With the unity magnitude constraint
 \Disp {
 \NC \Nm {\M {F}_R \SB {n_H, n_R}}
-= \NC 1, \NR
-\NC \Nm {\M {W}_R \SB {n_R, n_H}}
-= \NC 1, \NR
+= \NC 1,
+\quad \Nm {\M {W}_R \SB {n_R, n_H}}
+= 1, \NR
 }
 
-\I Under the assumption \m {N_H \gg N_R \gg N_Y}
+\I Under the assumption
+\Disp {
+\NC N_H \gg \NC N_R \gg N_Y \NR
+}
 }
 % % % % % % % % % % % % % % % % % % % % % % % % % %
 \Frame {Effective Channel}
 {
-\I Consider zero-mean, unity-variance additive white Gaussian noise (AWGN) \m {\M{Z} \in \NC \MB {C} ^{N_H \D N_H}}
+\I Consider zero-mean, unity-variance Complex Standard Normal \m {\M{Z} \in \NC \MB {C} ^{N_H \D N_H}}
 
 \I Introduce the effective channel
 \Disp{
@@ -50,9 +54,9 @@ where \m {L} is the number of paths, \m {\f_l} the angle of arrival, \m {\th_l} 
 :=\M{W}_B \M{W}_R \RB {\M{H} \M{F}_R \M{F}_B +\M{Z}} \NR
 }
 
-\I How do we recover \m {\M {H}} with knowledge of \m {\M {Y}}?
+\I How do we \Emph {recover} \m {\M {H}} with knowledge of \m {\M {Y}}?
 
-\I How do we design \m {\M {W}_R}, \m {\M {W}_B}, \m {\M {F}_R}, and \m {\M {F}_B}?
+\I How do we \Emph {design} \m {\M {W}_R}, \m {\M {W}_B}, \m {\M {F}_R}, and \m {\M {F}_B}?
 }
 % % % % % % % % % % % % % % % % % % % % % % % % % %
 \Frame {Transform to the Angular Domain}
@@ -65,13 +69,17 @@ where \m {L} is the number of paths, \m {\f_l} the angle of arrival, \m {\th_l} 
 
 \I Write
 \Disp {
-\NC \V {y} := \NC \Rm {vec} \SB {\M {Y}} \NR
-\NC \M {P} := \NC \RB {\M {F}_B^\Tr \M {F}_R^\Tr \M{K}^\ast} \otimes \RB {\M {W}_B \M {W}_R \M {K}} \NR
-\NC \V {g} := \NC \Rm {vec} \SB {\M {K}^\Adj \M {H} \M {K}} \NR
-\NC \V {z} := \NC \Rm {vec} \SB {\M {Z}} \NR
+\NC \V {y}
+:= \NC \Rm {vec} \SB {\M {Y}},
+\quad \M {P}
+:= \RB {\M {F}_B^\Tr \M {F}_R^\Tr \M{K}^\ast} \otimes \RB {\M {W}_B \M {W}_R \M {K}}, \NR
+\NC \V {g}
+:= \NC \Rm {vec} \SB {\M {K}^\Adj \M {H} \M {K}},
+\quad \V {z}
+:= \Rm {vec} \SB {\M {Z}} \NR
 }
 
-\I Then we have a vector equation
+\I Then we have a \Emph {linear equation}
 \Disp {
 \NC \V {y}
 =\NC \M {P} \V {g} +\V {z} \NR

@@ -53,7 +53,7 @@ Let \m {\T {\V {y}}} be the real representation of \m {\V {y}}, and \m {\T {\M {
 = \NC \startTheMatrix
 \NC \V {0} \NR
 \NC \V {1} \NR
-\stopTheMatrix
+\stopTheMatrix,
 \quad \M {A}_i
 = \startTheMatrix
 \NC \T {\M {U}}_{i}, \NC \M {0} \NR
@@ -61,7 +61,7 @@ Let \m {\T {\V {y}}} be the real representation of \m {\V {y}}, and \m {\T {\M {
 %
 \NC \V {b}_i
 =\NC \V {0},
-\V {c}_i
+\quad \V {c}_i
 = \startTheMatrix
 \NC \V {0} \NR
 \NC \V {u}_{i} \NR
@@ -122,7 +122,7 @@ Let \m {\T {\V {y}}} be the real representation of \m {\V {y}}, and \m {\T {\M {
 \I Antenae number of channel \m {N_H = 12}
 \I Analog beamformer quantization grid: 16
 \I Number of paths \m {L =4}
-\I Number of \m {\s} values tried: 12
+\I Number of noise std.\ values tried: 12
 \I Number of \m {\g} values tried: 4
 \I Number of repetition of each data point: 18
 }
@@ -137,13 +137,13 @@ Let \m {\T {\V {y}}} be the real representation of \m {\V {y}}, and \m {\T {\M {
 
 \I Log absolute error:
 \Disp {
-\NC \eta_{\Ss{rel}}
+\NC \eta_{\Ss{abs}}
 =\NC \RB {\log_2 {\VNm {\V {h} -\Hat {\V {h}}}_2}} _{\Ss{avg}} \NR
 }
 
 \I Relative error:
 \Disp {
-\NC \eta_{\Ss{abs}}
+\NC \eta_{\Ss{rel}}
 =\NC \F {\RB {\log_2 {\VNm {\V {h} -\Hat {\V {h}}}_2}} _{\Ss{avg}}}
 {\RB {\log_2 {\VNm {\V {h}}_2}} _{\Ss{avg}}} \NR
 }
