@@ -106,39 +106,37 @@ def indication_repr_mat (n_h):
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
-def save_plot (data_x, list_data_y, label_x, label_y, list_legend, title):
+def save_plot (arr_x, lst_arr_y, label_x, label_y, lst_legend, title):
     plt.close ("all")
     plt.title (title, fontsize = 15)
     plt.xlabel (label_x, fontsize = 12)
     plt.ylabel (label_y, fontsize = 12)
 
     num_style = 4
-    list_style = ['-', '--', '-.', ':']
+    lst_style = ['-', '--', '-.', ':']
         # from the thinner to thicker
     num_color = 5
-    list_color = ['r', 'g', 'c', 'b', 'k']
+    lst_color = ['r', 'g', 'c', 'b', 'k']
         # red, green, cyan, blue, black
     num_marker = 6
-    list_marker = ['v', '^', 'o', 's', '*', 'D']
+    lst_marker = ['v', '^', 'o', 's', '*', 'D']
         # triangle down, triangle up, circle, square, star, diamond
     size_marker = 7
     width_line = 3
 
-    assert (len (list_data_y) == len (list_legend))
-    size_line =len (data_x)
-    i = 0
-    for data_y in list_data_y:
-        assert (size_line == len (data_y))
+    assert (len (lst_arr_y) == len (lst_legend))
+    for i_method in range (len (lst_arr_y)):
+        arr_y = lst_arr_y [i_method]
+        assert (len (arr_x) == len (arr_y))
         plt.plot (
-            data_x,
-            data_y,
+            arr_x,
+            arr_y,
             markersize = size_marker,
             linewidth = width_line,
-            linestyle = list_style [int (i % num_style)],
-            color = list_color [int (i % num_color)],
-            marker = list_marker [int (i % num_marker)],
-            label = list_legend [i])
-        i += 1
+            linestyle = lst_style [int (i_method % num_style)],
+            color = lst_color [int (i_method % num_color)],
+            marker = lst_marker [int (i_method % num_marker)],
+            label = lst_legend [i_method])
     plt.legend (
         bbox_to_anchor = (1.05, 1),
         loc = 'upper left',
@@ -146,27 +144,23 @@ def save_plot (data_x, list_data_y, label_x, label_y, list_legend, title):
 
     path_plot_out =(
         os.path.abspath (os.path.join (os.getcwd (), os.path.pardir))
-        + "/plt/" + title.replace (" ", "_") +".png")
+            + "/plt/" + title.replace (" ", "_") + ".png")
     if os.path.isfile(path_plot_out):
-        os.system("rm "+path_plot_out)
+        os.system ("rm " + path_plot_out)
     plt.savefig (path_plot_out, bbox_inches = "tight")
 
-def save_table (data_x, list_data_y, label_x, label_y, list_legend, title):
-
+def save_table (arr_x, lst_arr_y, label_x, label_y, lst_legend, title):
     path_table_out =(
         os.path.abspath (os.path.join (os.getcwd (), os.path.pardir))
         + "/dat/" + title.replace (" ", "_") + ".txt")
 
-    with open(path_table_out, 'w') as the_file:
+    with open (path_table_out, 'w') as the_file:
         the_file.write (label_x + '\t')
-        the_file.write ('\t'.join (map (str, data_x)) + '\n')
-        i = 0
-        for data_y in list_data_y:
+        the_file.write ('\t'.join (map (str, arr_x)) + '\n')
+        assert (len (lst_arr_y) == len (lst_legend))
+        for i in range (len (lst_arr_y)):
             the_file.write (
-                list_legend [i] + '\t'
-                    + '\t'.join (map (str, list_data_y[i])) + '\n')
-            i += 1
-
-
+                lst_legend [i] + '\t'
+                    + '\t'.join (map (str, lst_arr_y [i])) + '\n')
 
 

@@ -9,6 +9,19 @@
 \I \Emph{Q4}: Cand\`es and Tao showed the Big-O error bound in terms of (in our case) \m {N_H}, but does, for practical values, the algorithm converges for \Emph {high probability}?
 }
 % % % % % % % % % % % % % % % % % % % % % % % % % %
+\Frame {Proof Strategy}
+{
+\I Show that \m {\V{g}} is almost sparse.
+
+\I Take into consideration how not exactly sparse \m {\V{g}} is.
+
+\I Find \m {\MB {E} \SB {\rho}} and \m {\MB {E} \SB {\rho^2}}, and bound \m {\MB {E} \SB {\rho ^k}} for \m {k=3,4,5,\dots}.
+
+\I Bound the probability that \m {\Nm {\rho -1} \geq \e}.
+
+\I Establish that \m {\M{P}} satisfies RIP for certain probability.
+}
+% % % % % % % % % % % % % % % % % % % % % % % % % %
 \Frame {Restricted Isometry Property}
 {
 \I \m {\V {g}} is called \Emph {\m {s}-sparse}, if only \m {s} of its components are nonzero.
@@ -26,19 +39,6 @@
 \Disp {
 \NC \rho := \NC \VNm {\M{P} \V{u}}_2^2 \NR
 }
-}
-% % % % % % % % % % % % % % % % % % % % % % % % % %
-\Frame {Proof Strategy}
-{
-\I Show that \m {\V{g}} is almost sparse.
-
-\I Take into consideration how not exactly sparse \m {\V{g}} is.
-
-\I Find \m {\MB {E} \SB {\rho}} and \m {\MB {E} \SB {\rho^2}}, and bound \m {\MB {E} \SB {\rho ^k}} for \m {k=3,4,5,\dots}.
-
-\I Bound the probability that \m {\Nm {\VNm {\M{P} \V{u}} _2 ^2 -\VNm {\V{u}} _2 ^2} \geq \e \VNm {\V{u}} _2 ^2}.
-
-\I Establish that \m {\M{P}} satisfies RIP for certain probability.
 }
 % % % % % % % % % % % % % % % % % % % % % % % % % %
 \Frame {\m {\V{g}} is Almost Sparse}
@@ -78,7 +78,7 @@
 % % % % % % % % % % % % % % % % % % % % % % % % % %
 \Frame {Design of Beamformers}
 {
-\I Considering \Emph {Q2}: If each entry of \m {\M {P}} is i.i.d., then it's likely that, by whatever variation of \m {Central Limit Theorem},
+\I Considering \Emph {Q2}: If each entry of \m {\M {P}} is i.i.d., then it's likely that, by whatever variation of \Emph {Central Limit Theorem},
 \Disp {
 \NC \MB {E} \SB {\rho ^{k}}
 \approx \NC 1

@@ -30,13 +30,13 @@ Let \m {\T {\V {y}}} be the real representation of \m {\V {y}}, and \m {\T {\M {
 
 \I Define the indicator vectors and matrices as
 \Disp {
-\NC {\V {u}}_{n_h} \DB {n_h'}
+\NC {\V {u}}_{n_h} \SB {n_h'}
 = \NC \startcases
 1, \Q \MC n_h' =n_h \NR
 0, \Q \NC \Rm {otherwise} \NR
 \stopcases \NR
 %
-\NC {\T {\M {U}}}_{n_h} \DB {n_h', n_h''}
+\NC {\T {\M {U}}}_{n_h} \SB {n_h', n_h''}
 = \NC \startcases
 1, \Q \MC n_h' =2n_h,\; n_h'' =2n_h \NR
 1, \Q \MC n_h' =2n_h +1,\; n_h'' =2n_h +1 \NR
@@ -112,20 +112,6 @@ Let \m {\T {\V {y}}} be the real representation of \m {\V {y}}, and \m {\T {\M {
 \LA \NC \M {K} \Rm {vec}^{-1} \SB {\Hat {g}} \M {K}^\Adj \NR
 }
 }
-
-% % % % % % % % % % % % % % % % % % % % % % % % % %
-
-\Frame {Simulation Parameters}
-{
-\I Antenae number of digital stage \m {N_Y = 4}
-\I Antenae number of analog stage \m {N_R = 8}
-\I Antenae number of channel \m {N_H = 12}
-\I Analog beamformer quantization grid: 16
-\I Number of paths \m {L =4}
-\I Number of noise std.\ values tried: 12
-\I Number of \m {\g} values tried: 4
-\I Number of repetition of each data point: 18
-}
 % % % % % % % % % % % % % % % % % % % % % % % % % %
 \Frame {Performance Metric}
 {
@@ -149,16 +135,52 @@ Let \m {\T {\V {y}}} be the real representation of \m {\V {y}}, and \m {\T {\M {
 }
 }
 % % % % % % % % % % % % % % % % % % % % % % % % % %
-\Frame {Noise Std vs Absolute Error}
+\Frame {Simulation Parameters}
+{
+\I Antennae number of digital stage \m {N_Y = 4}
+\I Antennae number of analog stage \m {N_R = 8}
+\I Antennae number of channel \m {N_H = 12}
+\I Analog beamformer quantization grid: 16
+\I Number of paths \m {L =4}
+\I Number of noise std.\ values tried: 12
+\I Number of \m {\g} values tried: 4
+\I Number of repetition of each data point: 18
+}
+% % % % % % % % % % % % % % % % % % % % % % % % % %
+\Frame {Absolute Error (Less Data Points)}
 {
 \blank [big]
 \externalfigure [sim_1_abs.png] [factor=broad]
 }
 % % % % % % % % % % % % % % % % % % % % % % % % % %
-\Frame {Noise Std vs Relative Error}
+\Frame {Relative Error (Less Data Points)}
 {
 \blank [big]
 \externalfigure [sim_1_rel.png] [factor=broad]
+}
+% % % % % % % % % % % % % % % % % % % % % % % % % %
+\Frame {Simulation Parameters}
+{
+\I Antennae number of digital stage \m {N_Y = 8}
+\I Antennae number of analog stage \m {N_R = 12}
+\I Antennae number of channel \m {N_H = 16}
+\I Analog beamformer quantization grid: 16
+\I Number of paths \m {L =4}
+\I Number of noise std.\ values tried: 12
+\I Number of \m {\g} values tried: 4
+\I Number of repetition of each data point: 18
+}
+% % % % % % % % % % % % % % % % % % % % % % % % % %
+\Frame {Absolute Error (More Data Points)}
+{
+\blank [big]
+\externalfigure [sim_2_abs.png] [factor=broad]
+}
+% % % % % % % % % % % % % % % % % % % % % % % % % %
+\Frame {Relative Error (More Data Points)}
+{
+\blank [big]
+\externalfigure [sim_2_rel.png] [factor=broad]
 }
 % % % % % % % % % % % % % % % % % % % % % % % % % %
 \Frame {Discussion}

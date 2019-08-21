@@ -8,10 +8,13 @@ import os # getcwd
 
 import functions as fct
 
-x =1.3452
-v =np.array ([3.5, 7.8])
-u =np.append (v, np.array([x]))
-print (v)
+v =[2,3,4]
+print (v/5)
+
+#vv = [[1,2,3],[7,8,9]]
+#vv_arr =np.array (vv)
+#vv_inv = vv_arr.T.tolist()
+#print (vv_inv)
 
 # dat_x = np.array ([2,4,6,8])
 # dat_y1 =np.zeros (4)
@@ -32,16 +35,5 @@ print (v)
 #r =y
 #t =np.argmin (abs (pp [:, tt].conj().T @ r))
 
-
-#aa=[]
-#b=[[1,3],[2,4]]
-#c=[[5,6],[7,8]]
-#aa.append (np.concatenate ([b,c],axis=1))
-#aa.append (np.concatenate ([b,c],axis=1))
-
-#i =[1,2,4,5]
-#aa =np.array ([[5,8,-2,-3,0,9], [3,6,7,9,10,11]])
-#bb =aa [:, i]
-#print (bb)
 
 
