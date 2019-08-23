@@ -28,13 +28,14 @@ num_repeat = 8
 
 # # Fixed part
 
-nn_y = nn_yy *nn_yy
-nn_h = nn_hh *nn_hh
+nn_y = nn_yy * nn_yy
+nn_h = nn_hh * nn_hh
 num_grid_phase = 16
 lG_ant = 3
 d_ant = 2
 ll = 4
-num_try_sigma = 2*1+1
-num_try_gamma = 2*1+1 # DS
-num_method = 4 # DS theory, DS 3 times
+num_try_sigma = 2 * 3+1
+num_try_gamma = 2 * 1+1 # DS
+num_method = 6 # DS theory, DS 3 times, LS, OMP
+max_iter_oommpp = 4 * nn_h
 

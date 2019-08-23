@@ -10,7 +10,7 @@ import classes as cls
 import functions as fct
 
 m_g = int ((cst.num_try_gamma - 1) / 2) # hold
-arr_gamma = (np.sqrt (np.log2 (cst.nn_h))
+arr_gamma = (np.sqrt (2 * np.log2 (cst.nn_h))
     * np.array (
         [2 ** x for x in reversed (range (m_g, -m_g-1, -1))]))
 
@@ -19,6 +19,8 @@ arr_sigma = (np.array (
         [np.sqrt(2) ** x for x in reversed (range (m_s, -m_s-1, -1))]))
 
 lst_legend = []
+lst_legend.append ("LS")
+lst_legend.append ("OMP")
 lst_legend.append ("DS, theoretical")
 for gamma in arr_gamma:
     lst_legend.append ("DS, γ = " + '%.2f' % gamma)
@@ -55,16 +57,35 @@ for i_sigma in range (cst.num_try_sigma):
         y = pp @ g + sigma * z
         i_method = 0
 
+        # Least Square
+        llss = cls.Llss (pp, y)
+        llss.run()
+        hh_hat = (kk
+            @ fct.inv_vectorize (llss.g_hat, cst.nn_hh, cst.nn_hh)
+            @ kk.conj().T)
+        lst_err_abs [i_method] += np.log2 (np.linalg.norm (hh_hat -hh, ord=2))
+        i_method += 1
+
+        # Orthogonal Matching Pursuit
+        epsilon = np.sqrt (2 * np.log2 (cst.nn_h))
+        oommpp = cls.Oommpp (pp, y, epsilon)
+        oommpp.run()
+        hh_hat = (kk
+            @ fct.inv_vectorize (oommpp.g_hat, cst.nn_hh, cst.nn_hh)
+            @ kk.conj().T)
+        lst_err_abs [i_method] += np.log2 (np.linalg.norm (hh_hat -hh, ord=2))
+        i_method += 1
+
         # Dantzig Selector error bound
         lst_err_abs [i_method] += ddss_bound
         i_method += 1
 
         # Dantzig Selector
         for gamma in arr_gamma:
-            dd_ss = cls.Dd_ss (pp, y, gamma);
-            dd_ss.run()
+            ddss = cls.Ddss (pp, y, gamma)
+            ddss.run()
             hh_hat = (kk
-                @ fct.inv_vectorize (dd_ss.g_hat, cst.nn_hh, cst.nn_hh)
+                @ fct.inv_vectorize (ddss.g_hat, cst.nn_hh, cst.nn_hh)
                 @ kk.conj().T)
             lst_err_abs [i_method] += np.log2 (np.linalg.norm (hh_hat -hh, ord=2))
             i_method += 1

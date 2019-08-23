@@ -5,6 +5,12 @@ import os
 import constants as cst
 import classes as cls
 
+def zero_vec (nn_1):
+    return np.zeros ((nn_1), dtype = complex)
+
+def zero_mat (nn_1, nn_2):
+    return np.zeros ((nn_1, nn_2), dtype = complex)
+
 def mat_complex_normal (nn_1, nn_2):
     return ((np.random.normal (0, 1, (nn_1, nn_2))
         +1J * np.random.normal (0, 1, (nn_1, nn_2))))

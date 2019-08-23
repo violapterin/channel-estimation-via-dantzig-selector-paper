@@ -3,14 +3,15 @@ import cvxpy as cp
 
 import constants as cst
 import functions as fct
+import sys
 
 
-class Dd_ss:
-    def __init__(self, pp, y, gG):
+class Ddss:
+    def __init__(self, pp, y, gamma):
         self.pp = pp
         self.y = y
-        self.gG = gG
-        self.g_hat = np.zeros ((cst.nn_hh))
+        self.gamma = gamma
+        self.g_hat = np.zeros ((cst.nn_h))
 
     def run (self):
         aa=[]
@@ -40,7 +41,7 @@ class Dd_ss:
                 @ fct.find_repr_mat (self.pp.conj().T)
                 @ fct.find_repr_vec (self.y))
             c.append (np.zeros ((3 * cst.nn_h)))
-            d.append (self.gG)
+            d.append (self.gamma)
         t = np.concatenate (
             [np.zeros ((2 * cst.nn_h)),
                 np.ones ((cst.nn_h))])
@@ -54,31 +55,42 @@ class Dd_ss:
         g_repr_hat = x_hat [0 : 2 * cst.nn_h]
         self.g_hat = fct.inv_find_repr_vec (g_repr_hat)
 
-# TODO
-class Oo_mm_pp:
-    def __init__(self, pp, y, eG):
+class Oommpp:
+    def __init__(self, pp, y, epsilon):
         self.pp = pp
         self.y = y
-        self.g_hat = np.zeros ((cst.nn_hh))
+        self.epsilon = epsilon
+        self.g_hat = np.zeros ((cst.nn_h), dtype = complex)
     def run (self):
-        r =y # remained vector
-        tt =np.array (range (cst.nn_h)) # list of column indices
-        ss =set ([]) # extracted column indices
+        r = self.y # remained vector
+        tt = range (cst.nn_h) # list of column indices
+        ss = [] # extracted column indices
+        count_iter = 0
+        pp_ss_inv = np.zeros ((cst.nn_h, cst.nn_y))
         while True:
-            y -pp @ g_hat
-            s =np.argmin (abs (pp [:, tt].conj().T @ r))
-            ss.add(s)
-            pp_ss =pp [:, list(ss)]
-            pp_ss_ps_inv =np.linalg.inv (pp_ss.conj().T @ pp_ss) @ pp_ss.conj().T
-            r =y -pp_ss.conj().T @ pp_ss_ps_inv @ y
-            if np.linalg.norm(r, 2) <self.eG:
+            lst_match = [abs (self.pp [:, i].conj().T @ r) for i in tt]
+            s = np.argmax (lst_match)
+            ss.append (s)
+            ss = sorted (ss)
+            pp_ss = self.pp [:, ss]
+            if (abs (np.linalg.det (pp_ss.conj().T @ pp_ss)) <= 1.0e-08):
+                sys.exit("Error: Singular matrix!")
+            pp_ss_inv = np.linalg.inv (pp_ss.conj().T @ pp_ss) @ pp_ss.conj().T
+            r = self.y - pp_ss @ pp_ss_inv @ self.y
+            count_iter += 1
+            if ((np.linalg.norm (r, 2) <self.epsilon)
+                    or (count_iter >= cst.max_iter_oommpp)):
                 break
+        g_hat_ss = pp_ss_inv @ self.y
+        for i in range (len(ss)):
+            self.g_hat [ss[i]] = g_hat_ss[i] 
 
-class Ll_ss:
+class Llss:
     def __init__(self, pp, y):
         self.pp = pp
         self.y = y
-        self.g_hat = np.zeros ((cst.nn_hh))
+        self.g_hat = np.zeros ((cst.nn_h), dtype = complex)
     def run (self):
-        g_hat =numpy.linalg.inv (self.pp @ self.pp.conj().T).inv @ pp.conj().T @ self.y
+        self.g_hat = (self.pp.conj().T @
+            np.linalg.inv (self.pp @ self.pp.conj().T) @ self.y)
 
