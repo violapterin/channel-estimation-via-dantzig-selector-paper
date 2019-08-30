@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import os
 
 import constants as cst
-import classes as cls
+import algorithms as alg
 
 def zero_vec (nn_1):
     return np.zeros ((nn_1), dtype = complex)
@@ -16,11 +16,9 @@ def mat_complex_normal (nn_1, nn_2):
         +1J * np.random.normal (0, 1, (nn_1, nn_2))))
 
 def mat_uniform_phase (nn_1, nn_2):
-    return (
-        np.exp (
-            2 * np.pi * 1J * np.random.randint (
-                cst.num_grid_phase,
-                size=(nn_1, nn_2))
+    return ( np.exp (
+        2 * np.pi * 1J
+            * np.random.randint ( cst.num_grid_phase, size = (nn_1, nn_2))
             / cst.num_grid_phase))
 
 def zz ():

@@ -12,4 +12,6 @@
 *.txt
 bin/
 lib/
+plt/
+doc/
 __pycache__/

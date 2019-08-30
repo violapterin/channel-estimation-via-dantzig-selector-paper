@@ -6,27 +6,42 @@ import matplotlib.pyplot as plt
 import time
 
 import constants as cst
-import classes as cls
+import algorithms as alg
 import functions as fct
-
-m_g = int ((cst.num_try_gamma - 1) / 2) # hold
-arr_gamma = (np.sqrt (2 * np.log2 (cst.nn_h))
-    * np.array (
-        [2 ** x for x in reversed (range (m_g, -m_g-1, -1))]))
 
 m_s = int ((cst.num_try_sigma - 1) / 2) # hold
 arr_sigma = (np.array (
         [np.sqrt(2) ** x for x in reversed (range (m_s, -m_s-1, -1))]))
+m_g = int ((cst.num_try_gamma - 1) / 2) # hold
+arr_gamma_ddss = (np.log2 (cst.nn_hh)
+    * np.array ([4 ** x for x in reversed (range (m_g, -m_g-1, -1))]))
 
 lst_legend = []
+lst_method = [] # arguments: (estimation, sigma)
+# DS
+# Least Square
 lst_legend.append ("LS")
-lst_legend.append ("OMP")
-lst_legend.append ("DS, theoretical")
-for gamma in arr_gamma:
-    lst_legend.append ("DS, γ = " + '%.2f' % gamma)
+lst_method.append (lambda x, y: llss (x))
+# Lasso
+lst_legend.append ("Lasso")
+lst_method.append (lambda x, y: lasso (x, np.log2 (cst.nn_hh)))
+# Orthogonal Matching Pursuit: fixed iteration number
+lst_legend.append ("OMP, $L$ times")
+lst_method.append (lambda x, y: oommpp_fixed_times (x, y * cst.nn_ll))
+# Orthogonal Matching Pursuit: limited l-2 norm
+lst_legend.append ("OMP, $l_2$-norm")
+lst_method.append (lambda x, y: oommpp_2_norm (x, y * cst.nn_yy))
+# Orthogonal Matching Pursuit: limited l-infinity norm
+lst_legend.append ("OMP, $l_\infty$-norm")
+lst_method.append (lambda x, y: oommpp_infty_norm (x, y * np.log (cst.nn_hh)))
+# Dantzig Selector error bound
+lst_legend.append ("DS, theory")
+lst_method.append (lambda x, y: ddss_theory (x))
+for gamma in arr_gamma_ddss:
+    lst_legend += ["DS, γ = " + '%.2f' % gamma]
+    lst_method.append (lambda x, y: ddss_complex (x, gamma))
 
-ddss_bound = (np.log2 (
-    4 * np.sqrt (2 * cst.ll * cst.nn_hh * np.log2 (cst.nn_hh))))
+num_method = len (lst_method)
 kk = fct.kk()
 
 count_prog = 0
@@ -55,37 +70,30 @@ for i_sigma in range (cst.num_try_sigma):
         g = fct.vectorize (gg)
         z = fct.vectorize (zz)
         y = pp @ g + sigma * z
+        estimation = cls.Estimation (pp, y, hh)
         i_method = 0
 
-        # Least Square
-        llss = cls.Llss (pp, y)
-        llss.run()
-        hh_hat = (kk
-            @ fct.inv_vectorize (llss.g_hat, cst.nn_hh, cst.nn_hh)
-            @ kk.conj().T)
-        lst_err_abs [i_method] += np.log2 (np.linalg.norm (hh_hat -hh, ord=2))
-        i_method += 1
-
-        # Orthogonal Matching Pursuit
-        epsilon = np.sqrt (2 * np.log2 (cst.nn_h))
-        oommpp = cls.Oommpp (pp, y, epsilon)
-        oommpp.run()
-        hh_hat = (kk
-            @ fct.inv_vectorize (oommpp.g_hat, cst.nn_hh, cst.nn_hh)
-            @ kk.conj().T)
-        lst_err_abs [i_method] += np.log2 (np.linalg.norm (hh_hat -hh, ord=2))
-        i_method += 1
-
         # Dantzig Selector error bound
+        lst_err_abs [0] += ddss_bound
+        for i in range (num_method):
+            lst_method [i] (estimation, sigma)
+            lst_err_abs [i_method] += estimation.d
+
+
+
+        estimation.oommpp_limited_2_norm (sigma * np.log (cst.nn_hh))
+        lst_err_abs [i_method] += estimation.d
+        i_method += 1
+
         lst_err_abs [i_method] += ddss_bound
         i_method += 1
 
         # Dantzig Selector
-        for gamma in arr_gamma:
-            ddss = cls.Ddss (pp, y, gamma)
-            ddss.run()
+        for gamma in arr_gamma_ddss:
+            ddss_complex = cls.Ddss_complex (pp, y, gamma)
+            ddss_complex.run()
             hh_hat = (kk
-                @ fct.inv_vectorize (ddss.g_hat, cst.nn_hh, cst.nn_hh)
+                @ fct.inv_vectorize (ddss_complex.g_hat, cst.nn_hh, cst.nn_hh)
                 @ kk.conj().T)
             lst_err_abs [i_method] += np.log2 (np.linalg.norm (hh_hat -hh, ord=2))
             i_method += 1
