@@ -4,18 +4,15 @@ import matplotlib.pyplot as plt # plotting functions
 import os
 import numpy as np
 import cvxpy as cp
+from enum import Enum
 
-import constants as cst
-import algorithms as alg
-import functions as fct
+#import constants as cst
+#import classes as cls
+#import functions as fct
 
-a = [2,3,5,7]
-list (np.array (a))
-
-print (a)
-
-# expected: 9, 13, 21, 29
-# result: 29, 29, 29, 29
+print (np.array(range(0)))
+for x in range (0):
+    print ("HEY")
 
 quit()
 
