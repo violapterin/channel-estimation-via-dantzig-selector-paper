@@ -7,10 +7,10 @@
 # num_repeat = 8
 
 # # Set 1 (Uncomment to try these values)
-nn_yy = 3
-nn_rr = 6
-nn_hh = 9
-num_repeat = 12
+# nn_yy = 3
+# nn_rr = 6
+# nn_hh = 9
+# num_repeat = 12
 
 # # Set 2 (Uncomment to try these values)
 # nn_yy = 4
@@ -18,11 +18,11 @@ num_repeat = 12
 # nn_hh = 12
 # num_repeat = 18
 
-# # Set 3 (Uncomment to try these values)
-# nn_yy = 6
-# nn_rr = 12
-# nn_hh = 18
-# num_repeat = 24
+# Set 3 (Uncomment to try these values)
+nn_yy = 6
+nn_rr = 12
+nn_hh = 18
+num_repeat = 24
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
@@ -36,6 +36,6 @@ d_ant = 2
 ll = 4
 num_try_sigma = 2 * 3 + 1
 num_try_gamma = 2 * 2 + 1 # DS
-num_method = 9 # LS, Lasso, OMP of 3 kinds, DS theory, DS 3 times
+#num_method = 9 # LS, Lasso, OMP of 3 kinds, DS theory, DS 3 times
 max_iter_oommpp = 4 * nn_h
 
