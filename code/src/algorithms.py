@@ -138,11 +138,11 @@ def oommpp_infty_norm (est, alpha):
         est.g_hat [ss[i]] = g_hat_ss[i] 
     est.convert ()
 
-def ddss_theory (est):
+def ddss_theory (est, sigma):
     est.refresh ()
-    est.d = (np.log2 (4 * np.sqrt (2 * cst.ll * np.log2 (cst.nn_hh))))
+    est.d = np.log2 (4 * np.sqrt (2 * cst.ll * np.log2 (cst.nn_hh))) * sigma
 
-def ddss_complex (est, gamma):
+def ddss (est, gamma):
     est.refresh ()
     g = cp.Variable (cst.nn_h, complex = True)
     prob = cp.Problem (
@@ -156,57 +156,5 @@ def ddss_complex (est, gamma):
         est.g_hat = (np.linalg.pinv (est.pp) @ est.y)
         return
     est.g_hat = g.value
-    est.convert ()
-
-# Deprecated!
-def ddss_real (est, gamma):
-    est.refresh ()
-    aa=[]
-    b=[]
-    c=[]
-    d=[]
-    for i in range (cst.nn_h):
-        aa.append (
-            np.concatenate (
-                [fct.indication_repr_mat (i),
-                    np.zeros ((2 * cst.nn_h, cst.nn_h))],
-                axis= 1))
-        b.append (np.zeros ((2 * cst.nn_h)))
-        c.append (
-            np.concatenate (
-                [np.zeros ((2 * cst.nn_h)), fct.indication_vec (i)]))
-        d.append (0)
-    for i in range (cst.nn_h):
-        aa.append (
-            np.concatenate (
-                [-fct.indication_repr_mat (i)
-                        @ fct.find_repr_mat (est.pp.conj().T)
-                        @ fct.find_repr_mat (est.pp),
-                    np.zeros ((2 * cst.nn_h, cst.nn_h))],
-                axis= 1))
-        b.append (fct.indication_repr_mat (i)
-            @ fct.find_repr_mat (est.pp.conj().T)
-            @ fct.find_repr_vec (est.y))
-        c.append (np.zeros ((3 * cst.nn_h)))
-        d.append (gamma)
-    t = np.concatenate (
-        [np.zeros ((2 * cst.nn_h)),
-            np.ones ((cst.nn_h))])
-    x = cp.Variable (3 * cst.nn_h) # real
-
-    constr = [cp.SOC (c[i].T @ x + d[i], aa[i] @ x + b[i]) for i in range (2 * cst.nn_h)]
-    prob = cp.Problem (cp.Minimize (t.T@x), constr)
-    try:
-        prob.solve ()
-    except cp.error.SolverError:
-        print ("Real DS fails to solve the program!", flush = True)
-        est.g_hat = (np.linalg.pinv (est.pp) @ est.y)
-        return
-    est.g_hat = g.value
-
-    x_hat = x.value
-    g_repr_hat = x_hat [0 : 2 * cst.nn_h]
-    est.g_hat = fct.inv_find_repr_vec (g_repr_hat)
-
     est.convert ()
 

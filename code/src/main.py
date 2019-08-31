@@ -9,10 +9,11 @@ import constants as cst
 import functions as fct
 import algorithms as alg
 
-arr_sigma = np.array (
-    [2 ** x for x in list (
-        (np.array(range (cst.num_try_sigma))
-            - (cst.num_try_sigma - 1) / 2) / 2)])
+arr_sigma = (np.sqrt (2)
+    * np.array (
+        [2 ** x for x in list (
+            (np.array(range (cst.num_try_sigma))
+                - (cst.num_try_sigma - 1) / 2) / 2)]))
 arr_gamma_0_ddss = (np.sqrt (2 * np.log2 (cst.nn_h))
     * np.array (
         [2 ** x for x in list (
@@ -39,15 +40,15 @@ lst_method.append (
 # Orthogonal Matching Pursuit: limited l-infinity norm
 lst_legend.append ("OMP, $l_\infty$-norm")
 lst_method.append (
-    lambda x, y: alg.oommpp_infty_norm (x, y * 2 * np.sqrt (2 * np.log (cst.nn_hh))))
+    lambda x, y: alg.oommpp_infty_norm (x, 2 * y * np.sqrt (2 * np.log (cst.nn_hh))))
 # Dantzig Selector error bound
 lst_legend.append ("DS, theory")
 lst_method.append (
-    lambda x, y: alg.ddss_theory (x))
+    lambda x, y: alg.ddss_theory (x, np.sqrt(2) * y))
 for gamma_0 in arr_gamma_0_ddss:
     lst_legend.append ("DS, $\gamma$ = " + '%.2f' % gamma_0 + "$\sigma$")
     lst_method.append (
-        lambda x, y, g = gamma_0: alg.ddss_complex (x, np.sqrt (2) * y * g))
+        lambda x, y, g = gamma_0: alg.ddss (x, np.sqrt (2) * y * g))
 assert (len (lst_method) == len (lst_legend))
 num_method = len (lst_method)
 
@@ -57,7 +58,7 @@ lst_lst_err_abs = [] # each sigma, each method
 lst_lst_err_rel = [] # each sigma, each method
 for i_sigma in range (cst.num_try_sigma):
     sigma = arr_sigma [i_sigma]
-    print ("σ = " + '%.2f' % sigma + " :", sep = '')
+    print ("σ = ", '%.2f' % sigma, " :", sep = '')
     lst_err_abs = [0] * num_method
     norm_hh = 0
     for _ in range (cst.num_repeat):
@@ -85,8 +86,8 @@ for i_sigma in range (cst.num_try_sigma):
 
         percent_progress = 100 * count_prog / (cst.num_try_sigma * cst.num_repeat)
         print (
-            "    experiment " + count_prog + " ("
-            + '%.1f' % percent_progress + "%)",
+            "    experiment ", count_prog, " (",
+            '%.1f' % percent_progress, "%)",
             sep = '', end = '\r')
     lst_err_abs = list ((np.array (lst_err_abs) / cst.num_repeat))
     norm_hh /= cst.num_repeat
@@ -98,14 +99,14 @@ for i_sigma in range (cst.num_try_sigma):
 time_stop = time.time ()
 
 print (
-    "averaged time elapsed for each experiment: "
-    + '%.2f' %
-        ((time_stop - time_start) / (60 * cst.num_try_sigma * cst.num_repeat))
-    + " (min)")
+    "averaged time elapsed for each experiment: ",
+    '%.2f' %
+        ((time_stop - time_start) / (60 * cst.num_try_sigma * cst.num_repeat)),
+    " (min)")
 print (
     "total time elapsed: ",
-    + '%.2f' % ((time_stop - time_start) / 60)
-    + " (min)")
+    '%.2f' % ((time_stop - time_start) / 60),
+    " (min)")
 
 arr_x = np.array (np.log2 (arr_sigma))
 lst_arr_y_abs = list (np.array (lst_lst_err_abs).T) # each method, each sigma

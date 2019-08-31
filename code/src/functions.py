@@ -116,17 +116,20 @@ def save_plot (arr_x, lst_arr_y, label_x, label_y, lst_legend, title):
     plt.xlabel (label_x, fontsize = 12)
     plt.ylabel (label_y, fontsize = 12)
 
-    num_style = 4
-    lst_style = ['-', '--', '-.', ':']
-        # from the thinner to thicker
-    num_color = 5
-    lst_color = ['r', 'g', 'c', 'b', 'k']
+    num_style = 3
+    lst_style = ['-', '--', ':']
+        # '-', '--', '-.', ':':
+        # solid, long dotted, long-short dotted, short dotted
+    num_color = 4
+    lst_color = ['r', 'g', 'b', 'k']
+        # 'r', 'g', 'c', 'b', 'k':
         # red, green, cyan, blue, black
-    num_marker = 6
-    lst_marker = ['v', '^', 'o', 's', '*', 'D']
+    num_marker = 5
+    lst_marker = ['v', '^', 'o', 's', 'D']
+        # 'v', '^', 'o', 's', '*', 'D':
         # triangle down, triangle up, circle, square, star, diamond
-    size_marker = 7
-    width_line = 3
+    size_marker = 6
+    width_line = 2
 
     assert (len (lst_arr_y) == len (lst_legend))
     for i_method in range (len (lst_arr_y)):
