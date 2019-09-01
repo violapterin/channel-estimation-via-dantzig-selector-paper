@@ -1,51 +1,48 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import os
+import time
 
 import constants as cst
 import classes as cls
+import cvxpy as cp
+
 
 def execute (ver):
-    arr_sigma = ((lambda x :
-        2 ** ((np.array (range(x)) - (x - 1) / 2) / 2))
-        (cst.NUM_SIGMA (ver)))
-    arr_gamma_0_ddss = ((lambda x :
-        2 ** ((np.array (range(x)) - (x - 1) / 2) / 2))
-        (cst.NUM_SIGMA (ver)))
-
+    arr_sigma = multiple_values (cst.NUM_SIGMA ())
     lst_legend = []
     lst_method = [] # arguments: (estimation, sigma)
 
     if (ver.focus == cls.Focus.ASSORTED):
         # Least Square
         lst_legend.append ("LS")
-        lst_method.append (lambda x, y: cls.llss (x))
+        lst_method.append (lambda x, y: llss (x, ver))
         # Lasso
         lst_legend.append ("Lasso")
-        lst_method.append (lambda x, y: cls.lasso (x, GAMMA_LASSO (ver) * y))
+        lst_method.append (lambda x, y: lasso (x, GAMMA_LASSO (ver) * y, ver))
 
     if (ver.focus == cls.Focus.OOMMPP or ver.focus == cls.Focus.ASSORTED):
         # Orthogonal Matching Pursuit: fixed iteration number
         lst_legend.append ("OMP, $L$ times")
-        lst_method.append (lambda x, y: cls.oommpp_fixed_times (x, cst.LL (ver)))
+        lst_method.append (lambda x, y: oommpp_fixed_times (x, cst.LL (ver), ver))
         # Orthogonal Matching Pursuit: limited l-2 norm
         for c in multiple_values (cst.NUM_ETA (ver)):
             lst_legend.append ("OMP, $l_2$-norm")
             lst_method.append (
-                lambda x, y: cls.oommpp_2_norm (x, c * cst.ETA_OOMMPP_2_NORM (ver) * y))
+                lambda x, y, c_0 = c: oommpp_2_norm (x, c_0 * cst.ETA_OOMMPP_2_NORM (ver) * y, ver))
         # Orthogonal Matching Pursuit: limited l-infinity norm
         for c in multiple_values (cst.NUM_ETA (ver)):
             lst_legend.append ("OMP, $l_\infty$-norm")
             lst_method.append (
-                lambda x, y: cls.oommpp_infty_norm (x, c * ETA_OOMMPP_INFTY_NORM (ver) * y))
+                lambda x, y, c_0 = c: oommpp_infty_norm (x, c_0 * ETA_OOMMPP_INFTY_NORM (ver) * y, ver))
 
     # Dantzig Selector error bound
     if (ver.focus == cls.Focus.DDSS or ver.focus == cls.Focus.ASSORTED):
         lst_legend.append ("DS, theory")
-        lst_method.append (lambda x, y: cls.ddss_theory (x, y))
+        lst_method.append (lambda x, y: ddss_theory (x, y, ver))
         for c in multiple_values (cst.NUM_GAMMA_DS (ver)):
-            lst_legend.append ("DS, $\gamma$ = " + '%.2f' % gamma_0 + "$\sigma$")
-            lst_method.append (lambda x, y, c_0 = c: cls.ddss (x, c_0 * y))
+            lst_legend.append ("DS, $\gamma$ = " + '%.2f' % c + "$\sigma$")
+            lst_method.append (lambda x, y, c_0 = c: ddss (x, c_0 * y, ver))
 
     assert (len (lst_method) == len (lst_legend))
     num_method = len (lst_method)
@@ -54,41 +51,42 @@ def execute (ver):
     time_start = time.time()
     lst_lst_err_abs = [] # each sigma, each method
     lst_lst_err_rel = [] # each sigma, each method
-    for i_sigma in range (cst.num_sigma (ver)):
+    for i_sigma in range (cst.NUM_SIGMA ()):
         sigma = arr_sigma [i_sigma]
         print ("σ = ", '%.2f' % sigma, " :", sep = '')
         lst_err_abs = [0] * num_method
         norm_hh = 0
-        for _ in range (cst.num_repeat):
+        for _ in range (cst.NUM_REPEAT (ver)):
             count_prog += 1
-            ff_bb = fct.ff_bb (ver)
-            ff_rr = fct.ff_rr (ver)
-            ww_bb = fct.ww_bb (ver)
-            ww_rr = fct.ww_rr (ver)
-            hh = fct.hh (ver)
-            zz = fct.zz (ver)
-            gg = fct.kk (ver).conj().T @ hh @ fct.kk (ver)
+            ff_bb = pick_ff_bb (ver)
+            ff_rr = pick_ff_rr (ver)
+            ww_bb = pick_ww_bb (ver)
+            ww_rr = pick_ww_rr (ver)
+            hh = pick_hh (ver)
+            zz = pick_zz (ver)
+            kk = get_kk (ver)
+            gg = kk.conj().T @ hh @ kk
             norm_hh += np.log2 (np.linalg.norm (hh, ord=2))
 
             pp = np.kron (
-                ff_bb.T @ ff_rr.T @ fct.kk().conj(),
-                ww_bb @ ww_rr @ fct.kk())
-            g = fct.vectorize (gg)
-            z = fct.vectorize (zz)
+                ff_bb.T @ ff_rr.T @ kk.conj(),
+                ww_bb @ ww_rr @ kk)
+            g = vectorize (gg)
+            z = vectorize (zz)
             y = pp @ g + sigma * z
-            est = cls.Estimation (pp, y, hh)
+            est = cls.Estimation (pp, y, hh, ver)
 
             for i in range (num_method):
                 lst_method [i] (est, sigma)
                 lst_err_abs [i] += np.log2 (est.d)
 
-            percent_progress = 100 * count_prog / (cst.num_sigma (ver) * cst.num_repeat)
+            percent_progress = 100 * count_prog / (cst.NUM_SIGMA () * cst.NUM_REPEAT (ver))
             print (
                 "    experiment ", count_prog, " (",
                 '%.1f' % percent_progress, "%)",
                 sep = '', end = '\r')
-        lst_err_abs = list ((np.array (lst_err_abs) / cst.num_repeat))
-        norm_hh /= cst.num_repeat
+        lst_err_abs = list ((np.array (lst_err_abs) / cst.NUM_REPEAT (ver)))
+        norm_hh /= cst.NUM_REPEAT (ver)
         lst_err_rel = list ((np.array (lst_err_abs) / norm_hh))
         lst_lst_err_abs.append (lst_err_abs)
         lst_lst_err_rel.append (lst_err_rel)
@@ -99,7 +97,7 @@ def execute (ver):
     print (
         "averaged time elapsed for each experiment: ",
         '%.2f' %
-            ((time_stop - time_start) / (60 * cst.num_sigma (ver) * cst.num_repeat)),
+            ((time_stop - time_start) / (60 * cst.NUM_SIGMA () * cst.NUM_REPEAT (ver))),
         " (min)")
     print (
         "total time elapsed: ",
@@ -115,17 +113,17 @@ def execute (ver):
     label_x = "Std. of Noise (Log)"
     label_y = "Absolute 2-Norm error (Log)"
     title = "Channel Estimation Performance, Absolute"
-    fct.save_table (arr_sigma, lst_arr_y_abs, label_x, label_y, lst_legend, title)
-    fct.save_plot (arr_sigma, lst_arr_y_abs, label_x, label_y, lst_legend, title)
+    save_table (arr_sigma, lst_arr_y_abs, label_x, label_y, lst_legend, title)
+    save_plot (arr_sigma, lst_arr_y_abs, label_x, label_y, lst_legend, title)
     label_x = "Std. of Noise (Log)"
     label_y = "Relative 2-Norm error"
     title = "Channel Estimation Performance, Relative"
-    fct.save_table (arr_sigma, lst_arr_y_rel, label_x, label_y, lst_legend, title)
-    fct.save_plot (arr_sigma, lst_arr_y_rel, label_x, label_y, lst_legend, title)
+    save_table (arr_sigma, lst_arr_y_rel, label_x, label_y, lst_legend, title)
+    save_plot (arr_sigma, lst_arr_y_rel, label_x, label_y, lst_legend, title)
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
-def llss (est):
+def llss (est, ver):
     est.refresh ()
     try:
         pp_inv = np.linalg.pinv (est.pp)
@@ -135,9 +133,9 @@ def llss (est):
     est.g_hat = pp_inv @ est.y
     est.convert ()
 
-def lasso (est, gamma):
+def lasso (est, gamma, ver):
     est.refresh ()
-    g = cp.Variable (cst.NN_H [ver.size], complex = True)
+    g = cp.Variable (cst.NN_H (ver), complex = True)
     prob = cp.Problem (
         cp.Minimize (cp.norm (est.pp @ g - est.y, 2)),
         [cp.norm (g, 1) <= gamma])
@@ -150,13 +148,13 @@ def lasso (est, gamma):
     est.g_hat = g.value
     est.convert ()
 
-def oommpp_fixed_times (est, times):
+def oommpp_fixed_times (est, times, ver):
     est.refresh ()
     r = est.y # remainder
-    tt = range (cst.NN_H [ver.size]) # list of column indices
+    tt = range (cst.NN_H (ver)) # list of column indices
     ss = [] # extracted column indices
     count_iter = 0
-    pp_ss_inv = np.zeros ((cst.NN_H [ver.size], cst.nn_y))
+    pp_ss_inv = np.zeros ((cst.NN_H (ver), cst.NN_Y (ver)))
     while True:
         count_iter += 1
         lst_match = [abs (est.pp [:, i].conj().T @ r) for i in tt]
@@ -177,13 +175,13 @@ def oommpp_fixed_times (est, times):
         est.g_hat [ss[i]] = g_hat_ss[i] 
     est.convert ()
 
-def oommpp_2_norm (est, eta):
+def oommpp_2_norm (est, eta, ver):
     est.refresh ()
     r = est.y # remained vector
-    tt = range (cst.NN_H [ver.size]) # list of column indices
+    tt = range (cst.NN_H (ver)) # list of column indices
     ss = [] # extracted column indices
     count_iter = 0
-    pp_ss_inv = np.zeros ((cst.NN_H [ver.size], cst.nn_y))
+    pp_ss_inv = np.zeros ((cst.NN_H (ver), cst.NN_Y (ver)))
     while True:
         count_iter += 1
         lst_match = [abs (est.pp [:, i].conj().T @ r) for i in tt]
@@ -199,20 +197,20 @@ def oommpp_2_norm (est, eta):
         r = est.y - pp_ss @ pp_ss_inv @ est.y
         if (np.linalg.norm (r, 2) <= eta):
             break
-        if (count_iter >= cst.max_iter_oommpp):
+        if (count_iter >= cst.MAX_ITER_OOMMPP (ver)):
             break
     g_hat_ss = pp_ss_inv @ est.y
     for i in range (len(ss)):
         est.g_hat [ss[i]] = g_hat_ss[i] 
     est.convert ()
 
-def oommpp_infty_norm (est, eta):
+def oommpp_infty_norm (est, eta, ver):
     est.refresh ()
     r = est.y # remained vector
-    tt = range (cst.NN_H [ver.size]) # list of column indices
+    tt = range (cst.NN_H (ver)) # list of column indices
     ss = [] # extracted column indices
     count_iter = 0
-    pp_ss_inv = np.zeros ((cst.NN_H [ver.size], cst.nn_y))
+    pp_ss_inv = np.zeros ((cst.NN_H (ver), cst.NN_Y (ver)))
     while True:
         count_iter += 1
         lst_match = [abs (est.pp [:, i].conj().T @ r) for i in tt]
@@ -227,20 +225,20 @@ def oommpp_infty_norm (est, eta):
             return
         r = est.y - pp_ss @ pp_ss_inv @ est.y
         if (np.linalg.norm (pp_ss.conj().T @ r, 2) <= eta
-            or count_iter >= cst.max_iter_oommpp):
+            or count_iter >= cst.MAX_ITER_OOMMPP):
             break
     g_hat_ss = pp_ss_inv @ est.y
     for i in range (len(ss)):
         est.g_hat [ss[i]] = g_hat_ss[i] 
     est.convert ()
 
-def ddss_theory (est, sigma):
+def ddss_theory (est, sigma, ver):
     est.refresh ()
-    est.d = np.log2 (4 * np.sqrt (2 * cst.ll * np.log2 (cst.NN_HH [ver.size]))) * sigma
+    est.d = 8 * np.sqrt (cst.LL (ver) * cst.NN_HH (ver) * np.log (cst.NN_HH (ver))) * sigma
 
-def ddss (est, gamma):
+def ddss (est, gamma, ver):
     est.refresh ()
-    g = cp.Variable (cst.NN_H [ver.size], complex = True)
+    g = cp.Variable (cst.NN_H (ver), complex = True)
     prob = cp.Problem (
         cp.Minimize (cp.norm (g, 1)),
         [cp.norm (est.pp.conj().T @ (est.pp @ g - est.y), "inf")
@@ -257,8 +255,8 @@ def ddss (est, gamma):
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 def multiple_values (n):
-    return list (cst.VALUE_SPACING
-        ** ((np.array (range(n)) - (n - 1) / 2) / 2))
+    return list (cst.VALUE_SPACING ()
+        ** ((np.array (range (n)) - (n - 1) / 2) / 2))
 
 def mat_complex_normal (nn_1, nn_2):
     return ((np.random.normal (0, 1, (nn_1, nn_2))
@@ -267,51 +265,51 @@ def mat_complex_normal (nn_1, nn_2):
 def mat_uniform_phase (nn_1, nn_2):
     return ( np.exp (
         2 * np.pi * 1J
-            * np.random.randint ( cst.NUM_GRID_PHASE, size = (nn_1, nn_2))
-            / cst.NUM_GRID_PHASE))
+            * np.random.randint ( cst.NUM_GRID_PHASE (), size = (nn_1, nn_2))
+            / cst.NUM_GRID_PHASE ()))
 
-def zz (ver):
-    return mat_complex_normal (cst.nn_yy, cst.nn_yy)
+def pick_zz (ver):
+    return mat_complex_normal (cst.NN_YY (ver), cst.NN_YY (ver))
 
-def ff_bb (ver):
-    return (mat_complex_normal (cst.nn_rr, cst.nn_yy)
-    / np.sqrt (cst.nn_yy))
+def pick_ff_bb (ver):
+    return (mat_complex_normal (cst.NN_RR (ver), cst.NN_YY (ver))
+    / np.sqrt (cst.NN_YY (ver)))
 
-def ww_bb (ver):
-    return (mat_complex_normal (cst.nn_yy, cst.nn_rr)
-    / np.sqrt (cst.nn_yy))
+def pick_ww_bb (ver):
+    return (mat_complex_normal (cst.NN_YY (ver), cst.NN_RR (ver))
+    / np.sqrt (cst.NN_YY (ver)))
 
-def ff_rr (ver):
-    return (mat_uniform_phase (cst.NN_HH [ver.size], cst.nn_rr)
-    / np.sqrt (cst.nn_rr))
+def pick_ff_rr (ver):
+    return (mat_uniform_phase (cst.NN_HH (ver), cst.NN_RR (ver))
+    / np.sqrt (cst.NN_RR (ver)))
 
-def ww_rr (ver):
-    return (mat_uniform_phase (cst.nn_rr, cst.NN_HH [ver.size])
-    / np.sqrt (cst.nn_rr))
+def pick_ww_rr (ver):
+    return (mat_uniform_phase (cst.NN_RR (ver), cst.NN_HH (ver))
+    / np.sqrt (cst.NN_RR (ver)))
 
-def hh (ver):
-    ret =np.zeros ((cst.NN_HH [ver.size], cst.NN_HH [ver.size]), dtype=complex)
-    for _ in range (cst.ll):
-        alpha = (np.random.normal (0, cst.NN_HH [ver.size] / cst.ll)
-            + 1J * np.random.normal (0, cst.NN_HH [ver.size] / cst.ll))
-        phi = (2 * np.pi * (cst.DIST_ANT /cst.LAMBDA_ANT)
+def pick_hh (ver):
+    ret =np.zeros ((cst.NN_HH (ver), cst.NN_HH (ver)), dtype=complex)
+    for _ in range (cst.LL (ver)):
+        alpha = (np.random.normal (0, cst.NN_HH (ver) / cst.LL (ver))
+            + 1J * np.random.normal (0, cst.NN_HH (ver) / cst.LL (ver)))
+        phi = (2 * np.pi * (cst.DIST_ANT () /cst.LAMBDA_ANT ())
             * np.sin (np.random.uniform (0, 2 * np.pi)))
-        theta = (2 * np.pi * (cst.DIST_ANT /cst.LAMBDA_ANT)
+        theta = (2 * np.pi * (cst.DIST_ANT () /cst.LAMBDA_ANT ())
             * np.sin (np.random.uniform (0, 2 * np.pi)))
-        ret += alpha * arr_resp (phi) @ arr_resp (theta).conj().T
+        ret += alpha * arr_resp (phi, ver) @ arr_resp (theta, ver).conj().T
     return ret
 
-def kk (): # DFT matrix
-    ret = np.zeros ((cst.NN_HH [ver.size], cst.NN_HH [ver.size]), dtype=complex)
-    for i in range (cst.NN_HH [ver.size]):
-        for j in range (cst.NN_H [ver.size]):
-            ret [i] [j] = ((1 / np.sqrt (cst.NN_HH [ver.size]))
-                * np.exp (2 * np.pi * 1J * i * j / cst.NN_H [ver.size]))
+def get_kk (ver): # DFT matrix
+    ret = np.zeros ((cst.NN_HH (ver), cst.NN_HH (ver)), dtype=complex)
+    for i in range (cst.NN_HH (ver)):
+        for j in range (cst.NN_HH (ver)):
+            ret [i] [j] = ((1 / np.sqrt (cst.NN_HH (ver)))
+                * np.exp (2 * np.pi * 1J * i * j / cst.NN_HH (ver)))
     return ret
 
-def arr_resp (t):
-    return ((1 / np.sqrt (cst.NN_HH [ver.size]))
-        * np.array ([np.exp (1J * i * t) for i in range (cst.NN_HH [ver.size])]))
+def arr_resp (t, ver):
+    return ((1 / np.sqrt (cst.NN_HH (ver)))
+        * np.array ([np.exp (1J * i * t) for i in range (cst.NN_HH (ver))]))
 
 def vectorize (v):
     return np.reshape (v, (1,-1)) [0]
@@ -381,3 +379,5 @@ def save_table (arr_x, lst_arr_y, label_x, label_y, lst_legend, title):
             the_file.write (
                 lst_legend [i] + '\t'
                     + '\t'.join (map (str, lst_arr_y [i])) + '\n')
+
+

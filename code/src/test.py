@@ -6,13 +6,15 @@ import numpy as np
 import cvxpy as cp
 from enum import Enum
 
-#import constants as cst
-#import classes as cls
-#import functions as fct
+import constants as cst
+import classes as cls
+import functions as fct
 
-print (np.array(range(0)))
-for x in range (0):
-    print ("HEY")
+def foo (): baz ()
+
+def baz (): print ("Hey")
+
+foo ()
 
 quit()
 
