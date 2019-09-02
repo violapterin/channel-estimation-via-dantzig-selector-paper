@@ -11,7 +11,7 @@ def DIST_ANT ():
     return 2
 
 def VALUE_SPACING ():
-    return np.sqrt (2)
+    return 2
 
 def NUM_SIGMA ():
     return 7

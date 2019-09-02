@@ -24,25 +24,28 @@ def execute (ver):
     if (ver.focus == cls.Focus.OOMMPP or ver.focus == cls.Focus.ASSORTED):
         # Orthogonal Matching Pursuit: fixed iteration number
         lst_legend.append ("OMP, $L$ times")
-        lst_method.append (lambda x, y: oommpp_fixed_times (x, cst.LL (ver), ver))
+        lst_method.append (lambda x, y:
+                oommpp_fixed_times (x, cst.LL (ver), ver))
         # Orthogonal Matching Pursuit: limited l-2 norm
-        for c in multiple_values (cst.NUM_ETA (ver)):
+        for c_0 in multiple_values (cst.NUM_ETA (ver)):
             lst_legend.append ("OMP, $l_2$-norm")
             lst_method.append (
-                lambda x, y, c_0 = c: oommpp_2_norm (x, c_0 * cst.ETA_OOMMPP_2_NORM (ver) * y, ver))
+                lambda x, y, c = c_0:
+                oommpp_2_norm (x, c * cst.ETA_OOMMPP_2_NORM (ver) * y, ver))
         # Orthogonal Matching Pursuit: limited l-infinity norm
-        for c in multiple_values (cst.NUM_ETA (ver)):
+        for c_0 in multiple_values (cst.NUM_ETA (ver)):
             lst_legend.append ("OMP, $l_\infty$-norm")
             lst_method.append (
-                lambda x, y, c_0 = c: oommpp_infty_norm (x, c_0 * ETA_OOMMPP_INFTY_NORM (ver) * y, ver))
+                lambda x, y, c = c_0:
+                oommpp_infty_norm (x, c * ETA_OOMMPP_INFTY_NORM (ver) * y, ver))
 
     # Dantzig Selector error bound
     if (ver.focus == cls.Focus.DDSS or ver.focus == cls.Focus.ASSORTED):
         lst_legend.append ("DS, theory")
         lst_method.append (lambda x, y: ddss_theory (x, y, ver))
-        for c in multiple_values (cst.NUM_GAMMA_DS (ver)):
-            lst_legend.append ("DS, $\gamma$ = " + '%.2f' % c + "$\sigma$")
-            lst_method.append (lambda x, y, c_0 = c: ddss (x, c_0 * y, ver))
+        for c_0 in multiple_values (cst.NUM_GAMMA_DS (ver)):
+            lst_legend.append ("DS, $\gamma$ = " + '%.2f' % c_0 + "$\sigma$")
+            lst_method.append (lambda x, y, c = c_0: ddss (x, c * y, ver))
 
     assert (len (lst_method) == len (lst_legend))
     num_method = len (lst_method)
@@ -66,7 +69,7 @@ def execute (ver):
             zz = pick_zz (ver)
             kk = get_kk (ver)
             gg = kk.conj().T @ hh @ kk
-            norm_hh += np.log2 (np.linalg.norm (hh, ord=2))
+            norm_hh += np.log (np.linalg.norm (hh, ord=2))
 
             pp = np.kron (
                 ff_bb.T @ ff_rr.T @ kk.conj(),
@@ -78,7 +81,7 @@ def execute (ver):
 
             for i in range (num_method):
                 lst_method [i] (est, sigma)
-                lst_err_abs [i] += np.log2 (est.d)
+                lst_err_abs [i] += np.log (est.d)
 
             percent_progress = 100 * count_prog / (cst.NUM_SIGMA () * cst.NUM_REPEAT (ver))
             print (
@@ -104,20 +107,21 @@ def execute (ver):
         '%.2f' % ((time_stop - time_start) / 60),
         " (min)")
 
-    arr_x = np.array (np.log2 (arr_sigma))
-    lst_arr_y_abs = list (np.array (lst_lst_err_abs).T) # each method, each sigma
-    lst_arr_y_abs = [np.array (lst) for lst in lst_arr_y_abs]
-    lst_arr_y_rel = list (np.array (lst_lst_err_rel).T) # each method, each sigma
-    lst_arr_y_rel = [np.array (lst) for lst in lst_arr_y_rel]
+    arr_x = np.array (np.log (arr_sigma))
+    lst_lst_y_abs = list (np.array (lst_lst_err_abs).T) # each method, each sigma
+    lst_arr_y_abs = [np.array (lst) for lst in lst_lst_y_abs]
+    lst_lst_y_rel = list (np.array (lst_lst_err_rel).T) # each method, each sigma
+    lst_arr_y_rel = [np.array (lst) for lst in lst_lst_y_rel]
 
     label_x = "Std. of Noise (Log)"
     label_y = "Absolute 2-Norm error (Log)"
     title = "Channel Estimation Performance, Absolute"
-    save_table (arr_sigma, lst_arr_y_abs, label_x, label_y, lst_legend, title)
-    save_plot (arr_sigma, lst_arr_y_abs, label_x, label_y, lst_legend, title)
+    save_table (arr_x, lst_arr_y_abs, label_x, label_y, lst_legend, title)
+    save_plot (arr_x, lst_arr_y_abs, label_x, label_y, lst_legend, title)
     label_x = "Std. of Noise (Log)"
     label_y = "Relative 2-Norm error"
     title = "Channel Estimation Performance, Relative"
+
     save_table (arr_sigma, lst_arr_y_rel, label_x, label_y, lst_legend, title)
     save_plot (arr_sigma, lst_arr_y_rel, label_x, label_y, lst_legend, title)
 
@@ -234,7 +238,7 @@ def oommpp_infty_norm (est, eta, ver):
 
 def ddss_theory (est, sigma, ver):
     est.refresh ()
-    est.d = 8 * np.sqrt (cst.LL (ver) * cst.NN_HH (ver) * np.log (cst.NN_HH (ver))) * sigma
+    est.d = 8 * np.sqrt (cst.LL (ver) * np.log (cst.NN_HH (ver))) * sigma
 
 def ddss (est, gamma, ver):
     est.refresh ()
@@ -256,7 +260,7 @@ def ddss (est, gamma, ver):
 
 def multiple_values (n):
     return list (cst.VALUE_SPACING ()
-        ** ((np.array (range (n)) - (n - 1) / 2) / 2))
+        ** (np.array (range (n)) - (n - 1) / 2))
 
 def mat_complex_normal (nn_1, nn_2):
     return ((np.random.normal (0, 1, (nn_1, nn_2))
