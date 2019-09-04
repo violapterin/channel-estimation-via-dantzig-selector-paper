@@ -10,9 +10,7 @@
 *.o
 *.pyc
 *.txt
-bin/
-lib/
-plt/
-doc/
+handwriting-notes
+copy-papers
+
 __pycache__/
-text.py
