@@ -1,0 +1,32 @@
+\startchapter [title={Simulation}]
+
+After the introduction of problem configuration and analysis of expected square error, we shall formulate our algorithm and focus on the practical aspects.
+As of now, we have transformed the sparse-recovery problem of complex matrix \m {H} to complex vector \m {h}, and finally to real vector \m {\MC {R} \SB {h}}.
+
+It is mentioned in ``\m {\ell_1}-MAGIC'' (Cand\`es and J Romberg 2005) that the complex DS can be converted as an SOCP program.
+If so, primal-dual interior point algorithm (for example) may readily be applied on it to simplify the program, for which we may consult Boyd and Vandenberghe (2004), {\it Convex Optimization} chap.\ 11 as a standard reference.
+But we will not implement that here.
+For brevity, we use Python Library CVXPY to solve the complex DS.
+
+
+\startsection [title={Parameters}]
+
+
+
+\stopsection
+
+
+
+\startsection [title={Discussion}]
+
+On the other hand, DS goes not without criticism for its large complexity (Friedlander and Saunders 2007).
+Indeed it is clear, even from the primal-dual implementation above, that DS requires memory for large dimensional vector, but OMP does not.
+
+And a meaningful comparison of bounds of OMP and DS is not easy, as their settings are somewhat different.
+The author thus criticises the tendency of current literature to mix up results for DS and OMP without clear justification.
+Indeed, DS calls for a RIP matrix and guarantees such performance even in noisy observation (Cand\`es and Tao 2005, 2007), while RIP is not easily to justify rigorously, and its easy construction is even an open problem.
+On the other hand, as of OMP, besides the original justification of entrywise i.i.d.\ Gaussian sensing matrix (Tropp and Gilbert 2007a), and existent attempt to characterize MIP condition, there is much to be done OMP for Gaussian.
+
+\stopsection
+
+\stopchapter

@@ -44,7 +44,6 @@
 \define [0] {\Q} {\quad}
 \define [0] {\FourQ} {\Q \Q \Q \Q}
 \define [0] {\SixQ} {\Q \Q \Q \Q \Q \Q}
-
 \define [0] {\AuthorText}
 {
    Author: Tzu-Yu Jeng \\
@@ -86,25 +85,24 @@
 \define [1] {\T} {\tilde {\vphantom {\overline{#1}} #1}}
 \define [1] {\Hat} {\hat {\vphantom {\overline{#1}} #1}}
 \define [1] {\Stack} {\startsubstack #1 \stopsubstack}
-
-\define [1] {\Disp}
-{
-   \placeformula
-   \startsplitformula
-   \startalign
-      #1
-   \stopalign
-   \stopsplitformula
-}
+\define [1] {\PF} {\placeformula [#1]}
+\define [1] {\Rf} {\eqnref [#1]}
 \define [1] {\M}
 {
    \underline {{\underline {#1 \mkern -1mu} \mkern 2mu} \mkern -2mu}
    \mkern 2mu
 }
 \define[1] {\Uurrll} {\goto {\mono {\hyphenatedurl {#1}}} [url (#1)]}
+\define [1] {\Disp}
+{
+   \startsplitformula
+   \startalign
+      #1 [+]
+   \stopalign
+   \stopsplitformula
+}
 
 \define [2] {\F} {\frac {#1}{#2}}
-
 \define[2] {\Result}
 {
    \bigskip
@@ -134,6 +132,8 @@
 \definetextbackground [framedcode] [frame=off, background=no, rightoffset=0.3cm, location=paragraph]
 \definetyping [code] [numbering=no, bodyfont=small, before={\startframedcode}, after={\stopframedcode}]
 
+\definereferenceformat [eqnref] [left=(, right=), text=Eqn.] 
+
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
 \setupparagraphs [n=3, before={\blank}, after={\blank}]
@@ -157,7 +157,6 @@
 \setupindenting[big,always]
 \setupwhitespace[medium]
 \setupcombinedlist [content] [list={chapter, title, section, subject, subsection, subsubject}]
-
 \setuplayout [
    backspace=17mm,
    margin=15mm,

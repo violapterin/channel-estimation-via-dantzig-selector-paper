@@ -1,19 +1,23 @@
-\startsection [title={Expected Error Analysis for Dantzig Selector}]
-\startsubsection [title={Generalizing Technical Lemmata for Complex Case}]
+\startsection [title={Generalizing the Dantzig Selector Bound}]
+\startsubsection [title={Technical Lemmata in Complex Case}]
 
-Let \m {\hat {\V {g}}} be the Dantzig Selector.
-For concreteness, we set
-\Disp {
-\NC \g 
-= \NC \R {2 \log N_h} \NR[+]
-}
-
-Other values are of course possible, but this is enough to illustrate our purpose.
-Also set for short
+The third and last part of our task is to plug in the almost-sparsity found in Section 3.1, and plug in the probablity found in Section 3.2.
+Set for short
+\PF {d:g,g}
 \Disp {
 \NC \V {d} 
-= \NC \Hat {\V {g}} -\V {g} \NR[+]
+= \NC \Hat {\V {g}} -\V {g} \NR
 }
+And our task is to bound its expectation.
+
+We argue that \m {\V{g}} can essentially be seen as sparse, and for that purpose we ignore relevent terms.
+Also, we do not seek a very tight bound and will approximate \m {\d_{S}} by \m {1}.
+And, as shall be seen, it suffices to set
+\Disp {
+\NC \g 
+= \NC \R {2 \log N_h} \NR
+}
+
 
 The rest follows \quotation {The Dantzig Selector} very closely.
 The generalization to complex vector is necessary in our setting.
@@ -141,7 +145,7 @@ Again, their proof works with complex vector spaces in place of real ones too.
 We are going to combine previous lemmata and show the main result.
 
 In accordance with (), set
-\Disp{
+\Disp {
 \NC S
 =\NC s^2 L \NR
 }
@@ -154,12 +158,12 @@ Let \m {\V {y}}, \m {\M {P}}, \m {\V {g}}, \m {\hat {\V {g}}}, \m {\V {d}} be de
 Then the bound
 \Disp {
 \NC \VNm {\V {d}} _2
-\leq \NC 4 \R{2} \D \R{L N_H \log N_H} \NR[+]
+\leq \NC 4 \R{2} \D \R{L N_H \log N_H} \NR
 }
 holds for probability \m {p}, with
 \Disp {
 \NC 1 -p
-\leq \NC 2 \D 6^S \D \exp \SB {-\F{N_Y^2} {32}} \NR[+]
+\leq \NC 2 \D 6^S \D \exp \SB {-\F{N_Y^2} {32}} \NR
 }
 }
 

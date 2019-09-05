@@ -36,12 +36,10 @@ A design of new algorithms that addressed these issues is thus necessary.
 It is a recent developement that the estimation of channels is facilitated by advances of compressed sensing.
 A series of paper by Cand\`es and Tao (2006) marks its advent.
 
-To motivate their work, note that it is a common situation in statsitical applications that the number of model parameters \m {N_p \in \MB {N}} is much larger than the number of measurements \m {N_m \in \MB {N}}, namely,
-
+To motivate the need, we observe that it is a common situation in statsitical applications that the number of model parameters \m {N_p \in \MB {N}} is much larger than the number of measurements \m {N_m \in \MB {N}}, namely,
 \Disp {
 \NC N_p \gg N_m \NR
 }
-
 In such case of insufficient measurements, possibly even with corruption of noise, do we have the knowledge of all \m {N_p} parameters?
 Of course, more assumption must be made to make the question meaningful.
 Any two vectors of parameters differing an element in the null space of the sensing matrix will produce the same measurement.
@@ -61,11 +59,11 @@ In this article we focus on DS, and we introduce several notions before we descr
 In this section, consider \m {\V{x} \in \MB {V}_{\MB {K}} \SB {N_p}} and \m {\V{\Phi} \in \MB {M}_{\MB {K}} \SB {N_m, N_p}}.
 Set \m {\MC {T} \RB {N_p} =\CB {0, \dots, N_p-1}} for short.
 For \m {\MC {A} \subseteq \MC {T} \SB {N_p}}, denote
-\Disp{
+\Disp {
 \NC \V {x}  \DB {\MC {A}}
-=\NC \sum _{i \in \MC {A}} \V {v} \V {u} _{i} \NR[+]
+=\NC \sum _{i \in \MC {A}} \V {v} \V {u} _{i} \NR
 \NC \M {\Phi}  \DB {\MC {A}}
-=\NC \sum _{i \in \MC {A}} \M {\Phi} \DB {:,i} \NR[+]
+=\NC \sum _{i \in \MC {A}} \M {\Phi} \DB {:,i} \NR
 }
 That is, respectfully, the components of \m {\V {x}}, and the columns of \m {\M {A}}, that have indices in \m {\MC {A}}.
 
@@ -92,7 +90,7 @@ For fixed \m {s =0, \dots N_p -1}, we say that \m {\M{\Phi}} satisfies the restr
 \Disp {
 \NC \RB {1-\d_s} \VNm {\V {x}}^2
 \leq \NC \VNm {\M{\Phi} \V {x}} _2^2 \NR
-\NC \leq \NC \RB {1+\d_s} \VNm {\V {x}} _2^2 \NR[+]
+\NC \leq \NC \RB {1+\d_s} \VNm {\V {x}} _2^2 \NR
 }
 }
 That is, \m {\Phi} is ``almost unitary'' up to ``relative error'' \m {\d_s}.
@@ -165,37 +163,37 @@ We pick up the columns of \m {\M {\Phi}} greedily, hoping to correspond to the n
 \startitemize[n]
 \item Input \m {\M {\Phi} \in \MB {V}_\MB {R} \SB {N_m, N_p}}, \m {\V {y} \in \MB {V}_\MB {R} \SB {N_m}}, \m {\eta >0}.
 \item Initialize
-\Disp{
+\Disp {
 \NC \V{r}
-\LA \NC \V{y} \NR[+]
+\LA \NC \V{y} \NR
 \NC S
-\LA \NC \varnothing \NR[+]
+\LA \NC \varnothing \NR
 }
 \item Start the loop with counter \m {i \LA 1}.
 \item Find
-\Disp{
+\Disp {
 \NC c
 \LA \NC \underset {i =0, \dots, N_p-1} {\Rm{argmax}}
-\Nm {\M{\Phi} \DB {:,i} \V{r}} \NR[+]
+\Nm {\M{\Phi} \DB {:,i} \V{r}} \NR
 }
 and insert \m {S \LA S \cup {i}}.
 \item Compute
-\Disp{
+\Disp {
 \NC \M{\Phi} ^\ddagger
-\LA \NC \RB {\M{\Phi} \DB {S} ^\Adj \M{\Phi} \DB {S}} ^{-1} \M{\Phi} \DB {S} ^\Adj \NR[+]
+\LA \NC \RB {\M{\Phi} \DB {S} ^\Adj \M{\Phi} \DB {S}} ^{-1} \M{\Phi} \DB {S} ^\Adj \NR
 \NC \V{r}
-\LA \NC \V{y} -\M{\Phi} \DB {S} ^\Adj \M{\Phi} ^\ddagger \V{y} \NR[+]
+\LA \NC \V{y} -\M{\Phi} \DB {S} ^\Adj \M{\Phi} ^\ddagger \V{y} \NR
 }
 \item Break if
-\Disp{
+\Disp {
 \NC \VNm {\V{r}} _2
-<\NC \eta \NR[+]
+<\NC \eta \NR
 }
 where \m {\VNm {\M{\Phi} ^\ddagger} _1} denotes the operator norm.
 \item Output 
 \Disp {
 \NC \Hat {\V {g}}
-\LA \NC \M{\Phi} ^\ddagger \V{y} \NR[+]
+\LA \NC \M{\Phi} ^\ddagger \V{y} \NR
 }
 \stopitemize
 }
@@ -218,14 +216,14 @@ Let signal \m {\V {x}} be sent, and \m {\V {y}} be receiverd, that is
 {
 Define \m {\Rm {vec} \SB {\M {A}} \in \MB {V}_{\MB {K}} \SB {N_1, N_2}} to be the vectorization of \m {\M {A} \in \MB {M}_{\MB {K}} \SB {N_1, N_2}}.
 Formally,
-\Disp{
+\Disp {
 \NC \RB {\Rm{vec} \SB {\M{A}}} \DB {m_1}
-=\NC \M{A} \DB {m_1\; \Rm{Mod}\; N_1, \Fl{ m_1/N_1 }} \NR[+]
+=\NC \M{A} \DB {m_1\; \Rm{Mod}\; N_1, \Fl{ m_1/N_1 }} \NR
 }
 The bijectivity is obvious, and we define \m {\Rm {vec} ^{-1}} so that
 \Disp {
 \NC \Rm {vec} ^{-1} \SB {\Rm {vec} \SB {x}}
-=\NC x \NR[+]
+=\NC x \NR
 }
 }
 
@@ -233,10 +231,10 @@ The bijectivity is obvious, and we define \m {\Rm {vec} ^{-1}} so that
 {Definition.}
 {
 For \m {\M{A} \in \MB {M}_{\MB {K}} \SB {N_1, N_2}} and \m {\M{B} \in \MB {M}_{\MB {K}} \SB {N_3, N_4}}, define the Kronecker product \m {\M{A} \otimes \M{B} \in \MB {M}_{\MB {K}} \SB {N_1 N_3, N_2 N_4}} by
-\Disp{
+\Disp {
 \NC \NC \RB {\M{A} \otimes \M{B}} \DB {m_1, m_2} \NR
 \NC =\NC \M{A} \DB {\Fl{ m_1/N_3 }, \Fl{ m_2/N_4 }}
-\M{B} \DB {m_1\; \Rm{Mod}\; N_3, m_2\; \Rm{Mod}\; N_4} \NR[+]
+\M{B} \DB {m_1\; \Rm{Mod}\; N_3, m_2\; \Rm{Mod}\; N_4} \NR
 }
 }
 
@@ -256,16 +254,16 @@ The proof is not particularly easy to find, and we show it here.
 We thus verify that arbitrary components of lhs and rhs agree.
 On one hand,
 
-\Disp{
+\Disp {
 \NC \NC \RB {\Rm{vec} \SB {\M{A}\M{X}\M{B}}} \DB {m_1} \NR
 \NC = \NC \RB {\M{A}\M{X}\M{B}} \DB {m_1\; \Rm{Mod}\; N_1, \Fl{ m_1/N_1 }} \NR
 \NC = \NC \sum _{n_2 =0} ^{N_2 -1} \sum _{n_3 =0} ^{N_3 -1}
-\M{A} \DB {m_1\; \Rm{Mod}\; N_1, n_2} \M{X} \DB {n_2, n_3} \M{B} \DB {n_3, \Fl{ m_1/N_1 }} \NR[+]
+\M{A} \DB {m_1\; \Rm{Mod}\; N_1, n_2} \M{X} \DB {n_2, n_3} \M{B} \DB {n_3, \Fl{ m_1/N_1 }} \NR
 }
 
 On the other hand,
 
-\Disp{
+\Disp {
 \NC \NC \RB {\RB {\M{B}^\Tr \otimes \M{A}} \Rm{vec} \SB{\M{X}} } \DB {m_1} \NR
 \NC = \NC \sum _{m_2 =0} ^{N_2 N_3 -1} \RB {\M{B}^\Tr \otimes \M{A}} \DB {m_1, m_2} \Rm{vec} \SB {\M{X}} \DB {m_2} \NR
 \NC = \NC \sum _{m_2 =0} ^{N_2 N_3 -1} \RB {\M{B}^\Tr} \DB {\Fl{ m_1/N_1 }, \Fl{ m_2/N_2 }}
@@ -276,7 +274,7 @@ On the other hand,
 \M{A} \DB {m_1\; \Rm{Mod}\; N_1, m_2\; \Rm{Mod}\; N_2} \NR
 \NC \NC \SixQ
 \M{X} \DB {m_2\; \Rm{Mod}\; N_2, \Fl{ m_2/N_2 }}
-\NR[+]
+\NR
 }
 
 In () and (), the row indices of \m {\M{A}} and \m {\M{B}} already agree.
