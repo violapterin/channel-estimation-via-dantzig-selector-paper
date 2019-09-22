@@ -7,6 +7,7 @@
 *.snm
 *.nav
 *.toc
+*.tuc
 *.o
 *.pyc
 *.txt

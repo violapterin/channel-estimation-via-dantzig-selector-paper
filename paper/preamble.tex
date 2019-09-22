@@ -9,18 +9,12 @@
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
-% XXX
-% Hold regex:
-% Replace math mode:
-%       %s/\\(\(.\{-}\)\\)/\\m{\1}/g
-% Reformatting:
-%       %s/\(\a\){/\1 {/g
-%       %s/}\([\\(\[]\)/} \1/g
-%       %s/\(\a\) }/\1}/g
-%       %s/{ \(\a\)/{\1/g
-%       %s/\([}\a]\)_/\1 _/g
-%       %s/(\(.\{-}\))/\\RB{\1}/gc
-%       %s/(\(.\{-}\))/\\SB{\1}/gc
+\startluacode
+   userdata = userdata or {} -- namespace
+   u = userdata
+   u.result_count = 0
+\stopluacode
+
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
@@ -44,23 +38,21 @@
 \define [0] {\Q} {\quad}
 \define [0] {\FourQ} {\Q \Q \Q \Q}
 \define [0] {\SixQ} {\Q \Q \Q \Q \Q \Q}
-\define [0] {\AuthorText}
-{
+\define [0] {\AuthorText} {
    Author: Tzu-Yu Jeng \\
    Advisor: Prof.\ H.\ J.\ Su \\
-   Nov.\ 2018 to (Mar.\ 2019) \_\_\_\_
-}
-\define [0] {\TitleText}
-{
+   Nov.\ 2018 to Sep.\ 2019}
+\define [0] {\TitleText} {
    Compressive Channel Sensing \\
    of Multipath Millimeter Channel \\
    via an Angular Domain Dantzig Selector \\
-   and its Probabilistic Performance Bound
-}
-\define [0] {\TheCount}
-{
-   \incrementcounter [NumResult]
-   {\bf \rawcountervalue [NumResult]}
+   and its Probabilistic Performance Bound}
+
+\define [0] {\ResultCount} {
+   \startluacode
+      u.result_count = u.result_count + 1
+   \stopluacode
+   \ctxlua {context (u.result_count)}
 }
 
 \define [1] {\MB} {{\mathblackboard {#1}}}
@@ -72,7 +64,7 @@
 \define [1] {\Ss} {{\ss {#1}}}
 \define [1] {\RB} {\left( #1 \right)}
 \define [1] {\SB} {\left[ #1 \right]}
-\define [1] {\CB} {\left{ #1 \right}}
+\define [1] {\CB} {\left { #1 \right}}
 \define [1] {\DB} {\left[ \! \left[ #1 \right] \! \right]}
 \define [1] {\Fl} {\left \lfloor #1 \right \rfloor}
 \define [1] {\Cl} {\left \lfloor #1 \right \rfloor}
@@ -82,36 +74,38 @@
 \define [1] {\Min} {\underset {#1} {\Rm {min}}}
 \define [1] {\IP} {\left \langle #1 \right \rangle}
 \define [1] {\V} {\underline {#1 \mkern -1mu} \mkern 2mu}
-\define [1] {\T} {\tilde {\vphantom {\overline{#1}} #1}}
-\define [1] {\Hat} {\hat {\vphantom {\overline{#1}} #1}}
+\define [1] {\T} {\tilde {\vphantom {\overline {#1}} #1}}
+\define [1] {\Hat} {\hat {\vphantom {\overline {#1}} #1}}
 \define [1] {\Stack} {\startsubstack #1 \stopsubstack}
 \define [1] {\PF} {\placeformula [#1]}
 \define [1] {\Rf} {\eqnref [#1]}
-\define [1] {\M}
-{
+\define [1] {\M} {
    \underline {{\underline {#1 \mkern -1mu} \mkern 2mu} \mkern -2mu}
-   \mkern 2mu
-}
-\define[1] {\Uurrll} {\goto {\mono {\hyphenatedurl {#1}}} [url (#1)]}
-\define [1] {\Disp}
-{
+   \mkern 2mu}
+\define[1] {\Uurrll} {
+   \goto {\mono {\hyphenatedurl {#1}}} [url (#1)]}
+\define [1] {\Disp} {
+   \startsplitformula
+   \startalign
+      #1
+   \stopalign
+   \stopsplitformula}
+\define [1] {\DispN} {
+   \placeformula
    \startsplitformula
    \startalign
       #1 [+]
    \stopalign
-   \stopsplitformula
-}
+   \stopsplitformula}
 
-\define [2] {\F} {\frac {#1}{#2}}
-\define[2] {\Result}
-{
+\define [2] {\F} {\frac {#1} {#2}}
+\define[2] {\Result} {
    \bigskip
    \noindent \hskip 3em
-   \TheCount \; {\bf #1} \par
+   \Bf {\ResultCount \; #1} \par
    #2 \par
    \hfill
-   \m{\blacksquare} \par
-}
+   \m {\blacksquare} \par}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
@@ -130,7 +124,8 @@
 \definealternativestyle [AuthorStyle] [\ss\tfb] []
 \definemakeup [titlepage] [align=middle]
 \definetextbackground [framedcode] [frame=off, background=no, rightoffset=0.3cm, location=paragraph]
-\definetyping [code] [numbering=no, bodyfont=small, before={\startframedcode}, after={\stopframedcode}]
+\definetyping [code] [
+   numbering=no, bodyfont=small, before={\startframedcode}, after={\stopframedcode}]
 
 \definereferenceformat [eqnref] [left=(, right=), text=Eqn.] 
 
@@ -167,7 +162,12 @@
    header=10mm,
    footer=10mm,
    bottomdistance=0mm,
-   bottom=8mm
-]
+   bottom=8mm]
+\setupformulae [spacebefore=2mm, spaceafter=2mm]
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\usebtxdataset [references.bib]
+\setupbtx [alternative=num]
 
 

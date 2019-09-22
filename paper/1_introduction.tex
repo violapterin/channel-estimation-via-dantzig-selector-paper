@@ -37,7 +37,7 @@ It is a recent developement that the estimation of channels is facilitated by ad
 A series of paper by Cand\`es and Tao (2006) marks its advent.
 
 To motivate the need, we observe that it is a common situation in statsitical applications that the number of model parameters \m {N_p \in \MB {N}} is much larger than the number of measurements \m {N_m \in \MB {N}}, namely,
-\Disp {
+\DispN {
 \NC N_p \gg N_m \NR
 }
 In such case of insufficient measurements, possibly even with corruption of noise, do we have the knowledge of all \m {N_p} parameters?
@@ -56,10 +56,10 @@ From the realistic perspective, the formulation as an \m {\ell_1} minimization p
 Indeed, relevent code has been put on the web for the reader to access and verify (Cand\`es \& Romberg 2005).
 In this article we focus on DS, and we introduce several notions before we describe their work.
 
-In this section, consider \m {\V{x} \in \MB {V}_{\MB {K}} \SB {N_p}} and \m {\V{\Phi} \in \MB {M}_{\MB {K}} \SB {N_m, N_p}}.
+In this section, consider \m {\V {x} \in \MB {K} ^{N_p}} and \m {\V {\Phi} \in \MB {K} ^{N_m \D  N_p}}.
 Set \m {\MC {T} \RB {N_p} =\CB {0, \dots, N_p-1}} for short.
 For \m {\MC {A} \subseteq \MC {T} \SB {N_p}}, denote
-\Disp {
+\DispN {
 \NC \V {x}  \DB {\MC {A}}
 =\NC \sum _{i \in \MC {A}} \V {v} \V {u} _{i} \NR
 \NC \M {\Phi}  \DB {\MC {A}}
@@ -73,12 +73,12 @@ Formally,
 {Definition: Sparsity}
 {
 \m {\V {x}} is called \m {s}-sparse, if there is \m {\MC {A} \subseteq \MC {T} \SB {N_p}} such that
-\Disp { 
-\NC \V{x} \DB {\MC {A}}
-=\NC \V{x} \NR
+\DispN { 
+\NC \V {x} \DB {\MC {A}}
+=\NC \V {x} \NR
 }
 with
-\Disp { 
+\DispN { 
 \NC \# \MC {A} \leq s. \NR
 }
 }
@@ -86,10 +86,10 @@ with
 \Result
 {Definition: Restricted Isometry Property}
 {
-For fixed \m {s =0, \dots N_p -1}, we say that \m {\M{\Phi}} satisfies the restricted isometry property (RIP) of sparsity \m {s} with respect to \m {0 \leq \d_s \leq 1}, if, for all \m {s}-sparse \m {\V {x}},
-\Disp {
+For fixed \m {s =0, \dots N_p -1}, we say that \m {\M {\Phi}} satisfies the restricted isometry property (RIP) of sparsity \m {s} with respect to \m {0 \leq \d_s \leq 1}, if, for all \m {s}-sparse \m {\V {x}},
+\DispN {
 \NC \RB {1-\d_s} \VNm {\V {x}}^2
-\leq \NC \VNm {\M{\Phi} \V {x}} _2^2 \NR
+\leq \NC \VNm {\M {\Phi} \V {x}} _2^2 \NR
 \NC \leq \NC \RB {1+\d_s} \VNm {\V {x}} _2^2 \NR
 }
 }
@@ -97,21 +97,21 @@ That is, \m {\Phi} is ``almost unitary'' up to ``relative error'' \m {\d_s}.
 
 Now, consider a linear transformation with noise corruption,
 
-\Disp {
+\DispN {
 \NC \V {y}
 =\NC \M {\Phi} \V {x} + \V {z} \NR
 }
 
-where (w.l.o.g.) \m {\V{z}} is an i.i.d.\ normalized Gaussian vector.
-How can we hope to estimate \m {\V{x}} when, in addition to insufficient observations, there are too few observations?
+where (w.l.o.g.) \m {\V {z}} is an i.i.d.\ normalized Gaussian vector.
+How can we hope to estimate \m {\V {x}} when, in addition to insufficient observations, there are too few observations?
 
 \Result
 {Algorithm: Dantzig Selector}
 {
 \startitemize[n]
-\item Input \m {\M {\Phi} \in \MB {V}_\MB {R} \SB {N_m, N_p}}, \m {\V {y} \in \MB {V}_\MB {R} \SB {N_m}}.
+\item Input \m {\M {\Phi} \in \MB {R} ^{N_m \D N_p}} and \m {\V {y} \in \MB {R} ^{N_m}}.
 \item Calculate
-\Disp {
+\DispN {
 \NC \Hat {\V {h}}
 \LA \NC \startcases
 \NC \Min {\V {h}'} \MC \VNm {\V {h}'} _1 \NR
@@ -151,7 +151,7 @@ Around that time, Tropp and Gilbert (2007b) points out if we apply a greedy algo
 
 Same as before, consider an \m {s}-sparse \m {\V {x}}, with \m {N_p \gg N_s}.
 For the noiseless, real-number case,
-\Disp {
+\DispN {
 \NC \V {y}
 =\NC \M {\Phi} \V {x}, \NR
 }
@@ -161,43 +161,43 @@ We pick up the columns of \m {\M {\Phi}} greedily, hoping to correspond to the n
 {Algorithm: Orthogonal Matching Pursuit}
 {
 \startitemize[n]
-\item Input \m {\M {\Phi} \in \MB {V}_\MB {R} \SB {N_m, N_p}}, \m {\V {y} \in \MB {V}_\MB {R} \SB {N_m}}, \m {\eta >0}.
+\item Input \m {\M {\Phi} \in \MB {R} ^{N_m, N_p}} and \m {\V {y} \in \MB {R} ^{N_m}}, \m {\eta >0}.
 \item Initialize
-\Disp {
-\NC \V{r}
-\LA \NC \V{y} \NR
+\DispN {
+\NC \V {r}
+\LA \NC \V {y} \NR
 \NC S
 \LA \NC \varnothing \NR
 }
 \item Start the loop with counter \m {i \LA 1}.
 \item Find
-\Disp {
+\DispN {
 \NC c
-\LA \NC \underset {i =0, \dots, N_p-1} {\Rm{argmax}}
-\Nm {\M{\Phi} \DB {:,i} \V{r}} \NR
+\LA \NC \underset {i =0, \dots, N_p-1} {\Rm {argmax}}
+\Nm {\M {\Phi} \DB {:,i} \V {r}} \NR
 }
 and insert \m {S \LA S \cup {i}}.
 \item Compute
-\Disp {
-\NC \M{\Phi} ^\ddagger
-\LA \NC \RB {\M{\Phi} \DB {S} ^\Adj \M{\Phi} \DB {S}} ^{-1} \M{\Phi} \DB {S} ^\Adj \NR
-\NC \V{r}
-\LA \NC \V{y} -\M{\Phi} \DB {S} ^\Adj \M{\Phi} ^\ddagger \V{y} \NR
+\DispN {
+\NC \M {\Phi} ^\ddagger
+\LA \NC \RB {\M {\Phi} \DB {S} ^\Adj \M {\Phi} \DB {S}} ^{-1} \M {\Phi} \DB {S} ^\Adj \NR
+\NC \V {r}
+\LA \NC \V {y} -\M {\Phi} \DB {S} ^\Adj \M {\Phi} ^\ddagger \V {y} \NR
 }
 \item Break if
-\Disp {
-\NC \VNm {\V{r}} _2
+\DispN {
+\NC \VNm {\V {r}} _2
 <\NC \eta \NR
 }
-where \m {\VNm {\M{\Phi} ^\ddagger} _1} denotes the operator norm.
+where \m {\VNm {\M {\Phi} ^\ddagger} _1} denotes the operator norm.
 \item Output 
-\Disp {
+\DispN {
 \NC \Hat {\V {g}}
-\LA \NC \M{\Phi} ^\ddagger \V{y} \NR
+\LA \NC \M {\Phi} ^\ddagger \V {y} \NR
 }
 \stopitemize
 }
-Here \m {\V{r}} can be thought of as the estimated noise, and \m {S} the estimated position where \m {h} is nonzero (where we have slightly abused the usage of double brackets).
+Here \m {\V {r}} can be thought of as the estimated noise, and \m {S} the estimated position where \m {h} is nonzero (where we have slightly abused the usage of double brackets).
 
 From Tropp and Gilbert (2007a), the probability OMP recovers \m {h} completely is overwhelming.
 
@@ -206,7 +206,7 @@ It is interesting to note that, ever since, the channel sensing scholars have ap
 For our purposes, let \m {\M {F}} be the precoder and \m {\M {W}} the combiner, and \m {\M {H}} the channel, and consider the noiseless case.
 Let signal \m {\V {x}} be sent, and \m {\V {y}} be receiverd, that is
 
-\Disp {
+\DispN {
 \NC \V {y}
 =\NC \M {W} \M {H} \M {F} \V {x} \NR
 }
@@ -214,14 +214,14 @@ Let signal \m {\V {x}} be sent, and \m {\V {y}} be receiverd, that is
 \Result
 {Definition.}
 {
-Define \m {\Rm {vec} \SB {\M {A}} \in \MB {V}_{\MB {K}} \SB {N_1, N_2}} to be the vectorization of \m {\M {A} \in \MB {M}_{\MB {K}} \SB {N_1, N_2}}.
+Define \m {\Rm {vec} \SB {\M {A}} \in \MB {K} ^{N_1, N_2}} to be the vectorization of \m {\M {A} \in \MB {K} ^{N_1 \D  N_2}}.
 Formally,
-\Disp {
-\NC \RB {\Rm{vec} \SB {\M{A}}} \DB {m_1}
-=\NC \M{A} \DB {m_1\; \Rm{Mod}\; N_1, \Fl{ m_1/N_1 }} \NR
+\DispN {
+\NC \RB {\Rm {vec} \SB {\M {A}}} \DB {m_1}
+=\NC \M {A} \DB {m_1\; \Rm {Mod}\; N_1, \Fl { m_1/N_1 }} \NR
 }
 The bijectivity is obvious, and we define \m {\Rm {vec} ^{-1}} so that
-\Disp {
+\DispN {
 \NC \Rm {vec} ^{-1} \SB {\Rm {vec} \SB {x}}
 =\NC x \NR
 }
@@ -230,11 +230,11 @@ The bijectivity is obvious, and we define \m {\Rm {vec} ^{-1}} so that
 \Result
 {Definition.}
 {
-For \m {\M{A} \in \MB {M}_{\MB {K}} \SB {N_1, N_2}} and \m {\M{B} \in \MB {M}_{\MB {K}} \SB {N_3, N_4}}, define the Kronecker product \m {\M{A} \otimes \M{B} \in \MB {M}_{\MB {K}} \SB {N_1 N_3, N_2 N_4}} by
-\Disp {
-\NC \NC \RB {\M{A} \otimes \M{B}} \DB {m_1, m_2} \NR
-\NC =\NC \M{A} \DB {\Fl{ m_1/N_3 }, \Fl{ m_2/N_4 }}
-\M{B} \DB {m_1\; \Rm{Mod}\; N_3, m_2\; \Rm{Mod}\; N_4} \NR
+For \m {\M {A} \in \MB {K} ^{N_1 \D  N_2}} and \m {\M {B} \in \MB {K} ^{N_3 \D N_4}}, define the Kronecker product \m {\M {A} \otimes \M {B} \in \MB {K} ^{N_1 N_3 \D N_2 N_4}} by
+\DispN {
+\NC \NC \RB {\M {A} \otimes \M {B}} \DB {m_1, m_2} \NR
+\NC =\NC \M {A} \DB {\Fl { m_1/N_3 }, \Fl { m_2/N_4 }}
+\M {B} \DB {m_1\; \Rm {Mod}\; N_3, m_2\; \Rm {Mod}\; N_4} \NR
 }
 }
 
@@ -242,42 +242,38 @@ With (), scholars often exploit the relation
 \Result
 {Lemma.}
 {
-Suppose \m {\M{A} \in \MB {M}_{\MB {K}} \SB {N_1, N_2}, \M{X} \in \MB {M}_{\MB {K}} \SB {N_2, N_3}, \M{B} \in \MB {M}_{\MB {K}} \SB {N_3, N_4}},
+Suppose \m {\M {A} \in \MB {K} ^{N_1 \D  N_2}, \M {X} \in \MB {K} ^{N_2 \D N_3}, \M {B} \in \MB {K} ^{N_3 \D N_4}},
 Then
-\Disp {
-\NC \Rm{vec} \SB {\M{A}\M{X}\M{B}}
-= \NC \RB {\M{B}^\Tr \otimes \M{A}} \Rm{vec} \SB {\M{X}} \NR
+\DispN {
+\NC \Rm {vec} \SB {\M {A}\M {X}\M {B}}
+= \NC \RB {\M {B}^\Tr \otimes \M {A}} \Rm {vec} \SB {\M {X}} \NR
 }
 }
 
-The proof is not particularly easy to find, and we show it here.
-We thus verify that arbitrary components of lhs and rhs agree.
+To show this, we shall verify that arbitrary components of lhs and rhs agree.
 On one hand,
-
-\Disp {
-\NC \NC \RB {\Rm{vec} \SB {\M{A}\M{X}\M{B}}} \DB {m_1} \NR
-\NC = \NC \RB {\M{A}\M{X}\M{B}} \DB {m_1\; \Rm{Mod}\; N_1, \Fl{ m_1/N_1 }} \NR
+\DispN {
+\NC \NC \RB {\Rm {vec} \SB {\M {A}\M {X}\M {B}}} \DB {m_1} \NR
+\NC = \NC \RB {\M {A}\M {X}\M {B}} \DB {m_1\; \Rm {Mod}\; N_1, \Fl { m_1/N_1 }} \NR
 \NC = \NC \sum _{n_2 =0} ^{N_2 -1} \sum _{n_3 =0} ^{N_3 -1}
-\M{A} \DB {m_1\; \Rm{Mod}\; N_1, n_2} \M{X} \DB {n_2, n_3} \M{B} \DB {n_3, \Fl{ m_1/N_1 }} \NR
+\M {A} \DB {m_1\; \Rm {Mod}\; N_1, n_2} \M {X} \DB {n_2, n_3} \M {B} \DB {n_3, \Fl { m_1/N_1 }} \NR
 }
-
 On the other hand,
-
-\Disp {
-\NC \NC \RB {\RB {\M{B}^\Tr \otimes \M{A}} \Rm{vec} \SB{\M{X}} } \DB {m_1} \NR
-\NC = \NC \sum _{m_2 =0} ^{N_2 N_3 -1} \RB {\M{B}^\Tr \otimes \M{A}} \DB {m_1, m_2} \Rm{vec} \SB {\M{X}} \DB {m_2} \NR
-\NC = \NC \sum _{m_2 =0} ^{N_2 N_3 -1} \RB {\M{B}^\Tr} \DB {\Fl{ m_1/N_1 }, \Fl{ m_2/N_2 }}
-\M{A} \DB {m_1\; \Rm{Mod}\; N_1, m_2\; \Rm{Mod}\; N_2} \Rm{vec} \SB {\M{X}} \DB {m_2} \NR 
+\DispN {
+\NC \NC \RB {\RB {\M {B}^\Tr \otimes \M {A}} \Rm {vec} \SB {\M {X}}} \DB {m_1} \NR
+\NC = \NC \sum _{m_2 =0} ^{N_2 N_3 -1} \RB {\M {B}^\Tr \otimes \M {A}} \DB {m_1, m_2} \Rm {vec} \SB {\M {X}} \DB {m_2} \NR
+\NC = \NC \sum _{m_2 =0} ^{N_2 N_3 -1} \RB {\M {B}^\Tr} \DB {\Fl { m_1/N_1 }, \Fl { m_2/N_2 }}
+\M {A} \DB {m_1\; \Rm {Mod}\; N_1, m_2\; \Rm {Mod}\; N_2} \Rm {vec} \SB {\M {X}} \DB {m_2} \NR 
 \NC = \NC
 \sum _{m_2 =0} ^{N_2 N_3 -1}
-\M{B} \DB {\Fl{ m_2/N_2 }, \Fl{ m_1/N_1 }}
-\M{A} \DB {m_1\; \Rm{Mod}\; N_1, m_2\; \Rm{Mod}\; N_2} \NR
+\M {B} \DB {\Fl { m_2/N_2 }, \Fl { m_1/N_1 }}
+\M {A} \DB {m_1\; \Rm {Mod}\; N_1, m_2\; \Rm {Mod}\; N_2} \NR
 \NC \NC \SixQ
-\M{X} \DB {m_2\; \Rm{Mod}\; N_2, \Fl{ m_2/N_2 }}
+\M {X} \DB {m_2\; \Rm {Mod}\; N_2, \Fl { m_2/N_2 }}
 \NR
 }
 
-In () and (), the row indices of \m {\M{A}} and \m {\M{B}} already agree.
+In () and (), the row indices of \m {\M {A}} and \m {\M {B}} already agree.
 The key observation is that when \m {n_2} runs through \m {0, \dots, N_2-1} and \m {n_3} runs through \m {0, \dots, N_3-1}, it follows \m {n_2 n_3} runs through \m {0, \dots, N_2 N_3-1}.
 We see two expressions are exactly the same, and we are done.
 
@@ -321,7 +317,7 @@ We remark several observation on past literature, that has been, to the best of 
 \startitemize
 \item Previous work favors OMP rather than DS, let alone other sparse algorithm.
 \item Previous work simply assumes the bound of the norm of the channel matrix.
-\item The requirement that the sensing matrix should be elementwise i.i.d.\ Gaussian (Tropp and Gilvert 2007) seems to be more restrictive than RIP (Cand\`es and Tao 2007).
+\item The condition that the sensing matrix should be elementwise i.i.d.\ Normal (required by Tropp and Gilvert 2007) seems to be more restrictive than RIP (required by Cand\`es and Tao 2007).
 \item The quantization of angle in generating may be a problem, and that is difficult to analyze in OMP's setting
 \item No bounds is derived that explicitly depends on the sparsity of the channel parameters as, say, number of channel paths and array response.
 \stopitemize

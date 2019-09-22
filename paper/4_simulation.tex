@@ -11,9 +11,75 @@ For brevity, we use Python Library CVXPY to solve the complex DS.
 
 \startsection [title={Parameters}]
 
+We do three series of experiments, which are of size from small to large.
+In three experiments, we take respectively \m {L} to be \m {2, 3, 4}, \m {N_Y} to be \m {5, 7, 9}, \m {N_R} to be \m {10, 14, 18}, and \m {N_H} to be \m {20, 28, 36}.
 
+Other parameters are fixed in these experiments; 
+The number of grid of quantization of analog precoder is 16
+The wavelength of the EM wave that antenna is emitting, \m {\l _{\Rm{ant}} = 1}, is set to be 0.1.
+and the antenna spacing \m {d _{\Rm{ant}} =3}.
+Note that only their ratio matters.
+See chapter 2 for meaning of them.
+
+There are also parameters related to the convex optimization algorithm.
+The tolerance of absolute error in the primal-dual algorithm used in CVXPY is set as \m {10^{-4}}, and the tolerance of relative error, as \m {10^{-3}}.
+The maximal number of iteration of CVXPY is set to be \m {32}.
+On the other hand, the maximal number of iteration of OMP is set to be \m {4 N_H}.
+
+Each data point is repeated for 32 times, and taken average.
+We plot the absolute log error
+\DispN {
+\NC \eta_{\Rm{abs}}
+=\NC \RB {\log_2 {\VNm {\V {h} -\Hat {\V {h}}}_2}} _{\Ss{avg}}, \NR
+}
+and relative log error.
+\DispN {
+\NC \eta_{\Rm{rel}}
+=\NC \F {\RB {\log_2 {\VNm {\V {h} -\Hat {\V {h}}}_2}} _{\Ss{avg}}}
+{\RB {\log_2 {\VNm {\V {h}}_2}} _{\Ss{avg}}} \NR
+}
+The averaged error values are plotted along with the theoretical expected error of DS, derived in chap.\ 3, namely
+\DispN {
+\NC \eta_{\Rm{th}}
+=\NC \F{5}{2} + \log \RB{L N_H} + \log \log N_H \NR
+}
+
+Several threshold values occur in relevant alorithms.
+The threshold used in DS program is called \m {\g_{\Rm {DS}}} here, and another threshold of Lasso, called \m {\a}.
+Yet another threshold used for the residue norm used in OMP program is called \m {\eta}.
+Various several values are tried for them, determined as thus: Take a central value roughly corresponding to the theory, and mutiply or divided the central value by powers of 2, or 
+
+Concretely, we set \m {\g_{\Rm {DS}} = 2 \R {\log N_H}}, corresponding to Cand\`es \& Tao (2007)
+For comparison, \m {\g_{\Rm {Lasso}} = 2 \R {\log N_H}} too.
+For OMP, suggested values in Cai \& Wang (2011) is illuminating.
+There, Theorem 7 considered \m {\ell _2}-norm, and Theorem 8, \m {\ell _\infty}-norm.
+We make simplification and set respectively \m {\R {3} N_Y} and \m {2 \R {\log N_H}}
 
 \stopsection
+
+\startsubsection [title={On Complexity}]
+
+In general, complexity analysis of convex program is difficult, in that it is not easily ensured how many iteration the program uses.
+Specifically, the implementers of CVXPY, Diamond and Boyd \cite [DiB16], alleges that the program is usually converted in to primal-dual problem.
+
+However, if we use Newton method and assume self-concordance, there is an analysis in B \& V.
+Such analysis, in our opinion, still gives us an idea about the complexity of the DS program.
+
+It can be shown that DS can be cast into an Second Order Cone Programming (SOCP), and it is clear that self concordance applies to SOCP.
+
+The function being minimized is \m {\underset {x} {\Rm{min}} \VNm {\V {g}}_1}.
+Let \m {\V {g} _0} denote the starting value of \m {\V {g}}, and \m {\V {g} ^{\star}} the the point of convergence.
+Then the number of iteration of Newton method is bounded by
+\DispN {
+\NC \F {\VNm {\V {g}} _1 - \VNm {\V {g} ^{\star}}} {\g} + \log_2 \log_2 \F {1} {\e} \NR
+}
+Here \m {\g} is a parameter related to the Backtracking algorithm, and \m {\e} the tolerance of error.
+The details can be found in Boyd \& Vandenberghe (2004).
+They cites various numerical experiements, and it turns out almost always that a value of \m {\g} close to 1 gives the best result, so we take \m {\g} as a constant.
+
+Numerically, we see that the complexity of DS is generally very high.
+But it also depends on the tolerence of error.
+% XXX criticism on DS complexity?
 
 
 
