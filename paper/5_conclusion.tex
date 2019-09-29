@@ -15,6 +15,12 @@ Afterwards we transformed DS into an SOCP, which is quite different as in the or
 Simulation is done, and DS's performance is compared to OMP.
 \color[red]{(To be done)}
 
+Considering analytical bounds, it can be not easy to give meaningful comparison of existent bounds for these algorithms, as their settings are somewhat different, which we ought to keep in mind.
+Indeed, DS requires a RIP matrix and performance is guaranteed in noisy observation (Cand\`es and Tao 2005, 2007), while RIP is not easily to justify rigorously, and its easy construction is even an open problem.
+On the other hand, as of OMP, besides the original justification of entrywise i.i.d.\ Gaussian sensing matrix (Tropp and Gilbert 2007a), there do not seem to be much analysis.
+and that (to add to complication) is still different from RIP.
+
+
 We cannot think OMP, or indeed every algorithm, as a universal solution.
 OMP trades off precision for time and space complexity, and for DS the other way around is true, hence we cannot say which is definitely better than the other.
 All in all, different problems requires different technique and algorihm within the current constraint, as is probably true in every discipline of engineering.

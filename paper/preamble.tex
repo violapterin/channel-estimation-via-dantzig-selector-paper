@@ -9,12 +9,24 @@
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
-\startluacode
-   userdata = userdata or {} -- namespace
-   u = userdata
-   u.result_count = 0
-\stopluacode
-
+\definemathmatrix[TheMatrix][left={\left[}, right={\right]}]
+\definecounter [NumResult] [start=0, way=bytext, prefix=no]
+\definefontfeature [default] [default] [onum=yes]
+\definefontfamily [MainFace] [rm] [TeX Gyre Pagella]
+\definefontfamily [MainFace] [ss] [TeX Gyre Heros]
+\definefontfamily [MainFace] [tt] [TeX Gyre Cursor] [features=none]
+\definefallbackfamily [MainFace] [mm] [TeX Gyre DejaVu Math] [force=yes,range=uppercasescript]
+\definefallbackfamily [MainFace] [mm] [TeX Gyre DejaVu Math] [force=yes,range=lowercasescript]
+\definefontfamily [MainFace] [mm] [TeX Gyre Pagella Math]
+\definemeasure [pointoneline] [1.5\baselineskip]
+\definecolor [headingcolor] [r=0.2, g=0.25, b=0.5]
+\definealternativestyle [TitleStyle] [\ss\bfd] []
+\definealternativestyle [AuthorStyle] [\ss\tfb] []
+\definemakeup [titlepage] [align=middle]
+\definetextbackground [framedcode] [frame=off, background=no, rightoffset=0.3cm, location=paragraph]
+\definetyping [code] [
+   numbering=no, bodyfont=small, before={\startframedcode}, after={\stopframedcode}]
+\definereferenceformat [eqnref] [left=(, right=), text=Eqn.] 
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
@@ -29,6 +41,7 @@
 \define [0] {\s} {\sigma}
 \define [0] {\i} {\iota}
 \define [0] {\th} {\vartheta}
+\define [0] {\z} {\zeta}
 \define [0] {\O} {\Omega}
 \define [0] {\o} {\omega}
 \define [0] {\D} {\cdot}
@@ -49,10 +62,6 @@
    and its Probabilistic Performance Bound}
 
 \define [0] {\ResultCount} {
-   \startluacode
-      u.result_count = u.result_count + 1
-   \stopluacode
-   \ctxlua {context (u.result_count)}
 }
 
 \define [1] {\MB} {{\mathblackboard {#1}}}
@@ -62,6 +71,7 @@
 \define [1] {\It} {{\it {#1}}}
 \define [1] {\Bf} {{\bf {#1}}}
 \define [1] {\Ss} {{\ss {#1}}}
+\define [1] {\Tt} {{\tt {#1}}}
 \define [1] {\RB} {\left( #1 \right)}
 \define [1] {\SB} {\left[ #1 \right]}
 \define [1] {\CB} {\left { #1 \right}}
@@ -100,34 +110,14 @@
 
 \define [2] {\F} {\frac {#1} {#2}}
 \define[2] {\Result} {
+   \incrementcounter[NumResult]
    \bigskip
    \noindent \hskip 3em
-   \Bf {\ResultCount \; #1} \par
+   \Bf {\getnumber [NumResult] \; #1} \par
    #2 \par
    \hfill
    \m {\blacksquare} \par}
 
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-
-\definemathmatrix[TheMatrix][left={\left[}, right={\right]}]
-\definecounter [NumResult] [start=0, way=text]
-\definefontfeature [default] [default] [onum=yes]
-\definefontfamily [MainFace] [rm] [TeX Gyre Pagella]
-\definefontfamily [MainFace] [ss] [TeX Gyre Heros]
-\definefontfamily [MainFace] [tt] [TeX Gyre Cursor] [features=none]
-\definefallbackfamily [MainFace] [mm] [TeX Gyre DejaVu Math] [force=yes,range=uppercasescript]
-\definefallbackfamily [MainFace] [mm] [TeX Gyre DejaVu Math] [force=yes,range=lowercasescript]
-\definefontfamily [MainFace] [mm] [TeX Gyre Pagella Math]
-\definemeasure [pointoneline] [1.5\baselineskip]
-\definecolor [headingcolor] [r=0.2, g=0.25, b=0.5]
-\definealternativestyle [TitleStyle] [\ss\bfd] []
-\definealternativestyle [AuthorStyle] [\ss\tfb] []
-\definemakeup [titlepage] [align=middle]
-\definetextbackground [framedcode] [frame=off, background=no, rightoffset=0.3cm, location=paragraph]
-\definetyping [code] [
-   numbering=no, bodyfont=small, before={\startframedcode}, after={\stopframedcode}]
-
-\definereferenceformat [eqnref] [left=(, right=), text=Eqn.] 
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 

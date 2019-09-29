@@ -188,7 +188,11 @@ If so, our program reads
 {
 \startitemize[n]
 \item Let \m {\g_{\Rm {DS}} \geq 0} be given.
-\item Input \m {\M {F} _B \in \NC \MB {C} ^{N_R \D  N_Y}, \M {F} _R \in \NC \MB {M} _{\MB {C}} \SB {N_H, N_R}, \M {W} _R \in \NC \MB {M} _{\MB {C}} \SB {N_R, N_H}, \M {W} _B \in \NC \MB {M} _{\MB {C}} \SB {N_Y, N_R}}, \m {\M {Y} \in \NC \MB {M} _{\MB {C}} \SB {N_Y, N_Y}},
+\item Input \m {\M {F} _B \in \NC \MB {C} ^{N_R \D  N_Y}},
+\m {\M {F} _R \in \NC \MB {C} ^{N_H \D N_R}},
+\m {\M {W} _R \in \NC \MB {C} ^{N_R \D N_H}},
+\m {\M {W} _B \in \NC \MB {C} ^{N_Y \D N_R}},
+and \m {\M {Y} \in \NC \MB {C} ^{N_Y \D N_Y}}.
 \item Find \m {\M {P} \in \MB {C} ^{N_y \D  N_h}}, \m {\V {y} \in \MB {C} ^{N_h}} as in above.
 \item Calculate
 \DispN {
@@ -201,12 +205,12 @@ If so, our program reads
 \item Convert \m {\Hat {\V {g}}} back to the space domain, namely
 \DispN {
 \NC \Hat {G}
-\LA \Rm {vec}^{-1} \SB {\Hat {g}} \NR
+\LA \NC \Rm {vec}^{-1} \SB {\Hat {g}} \NR
 }
 \item Recover the estimated \m {\Hat {\M {H}}}, as
 \DispN {
 \NC \Hat {\M {H}}
-\LA \M {K} \Hat {\M {G}} \M {K}^\Adj \NR
+\LA \NC \M {K} \Hat {\M {G}} \M {K}^\Adj \NR
 }
 \item Output \m {\Hat {\M {H}}}.
 \stopitemize

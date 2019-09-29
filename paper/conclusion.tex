@@ -1,23 +1,18 @@
 
 \startchapter [title={Conclusion}]
 
-This article addresses the problem of effective and estimation of the millimeter wave channel by exploiting its sparsity.
-We motivated the problem, and provided a rather broad survey of recent literature.
-This article adopts The Dantzig Selector (DS) rather than Orthogonal Matching Pursuit (OMP), like many of past literature, as the estimation algorithm.
-Rather than exploiting the sparsity of space domain representation as existing literature does, we proceed the estimation algorithm in the spatial frequency domain.
-The technique is surely inspiring to future work, as many bounds are ready to be obtained once we change the physical model of the channel.
-In addition, we have, as a secondary product, derived the generalization of DS for complex vectors.
+This article addresses the problem of effective and estimation of the millimeter wave, multiple-input, multiple-output channel.
+We adopts the Dantzig Selector (DS) rather than Orthogonal Matching Pursuit (OMP), like many of past literature, as the estimation algorithm.
 
-Moreover, assuming the virtual channel model according to uniform linear array response, we managed to prove explicitly, following the spirit of Cand\`es and Tao (2007), that the probability that the expected square error is bounded is overwhelming.
-We thus have derived a probability bound of performance on a fairly general setting, where the bounding constant is expressed as an explicit function of physical parameters, such as the number of path.
+We proceed the estimation algorithm by exploiting its sparsity in spacial Fourier domain.
+We bounded the expected square error, and in doing so, following the spirit of Cand\`es and Tao \cite [CaT07], we characterizes the spacial sparsity, confirmed the restricted isometry of measurement matrix \m {\M {P}}, and justified the generalization for complex vectors space.
+The bound assumes a fairly general setting, and is expressed as an explicit function of physical parameters, such as the number of path \m {L} and channel dimension \m {N_H}.
 
-Afterwards we transformed DS into an SOCP, which is quite different as in the original DS (where we have an LP instead).
-Simulation is done, and DS's performance is compared to OMP.
-{ \color {red} (To be done) }
-
-We cannot think OMP, or indeed every algorithm, as a universal solution.
-OMP trades off precision for time and space complexity, and for DS the other way around is true, hence we cannot say which is definitely better than the other.
-All in all, different problems requires different technique and algorihm within the current constraint, as is probably true in every discipline of engineering.
+Simulation is done, and DS's performance is compared to OMP, Lasso, and LS.
+In our case, DS performs better but gives higher complexity, and our analysis agrees the numerical experiment.
+Different problems requires solution within the feasible constraint, as is probably true in every discipline of engineering.
+Put concisely, no algorithm is a universal solution, and they trade off precision for time and space complexity, or conversely, among other things.
+We hope the investigation of DS can be a welcomed alternative added to the present literature of channel estimation.
 
 \stopchapter
 

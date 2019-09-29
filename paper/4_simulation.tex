@@ -1,15 +1,15 @@
 \startchapter [title={Simulation}]
 
-After the introduction of problem configuration and analysis of expected square error, we shall formulate our algorithm and focus on the practical aspects.
-As of now, we have transformed the sparse-recovery problem of complex matrix \m {H} to complex vector \m {h}, and finally to real vector \m {\MC {R} \SB {h}}.
+\startsection [title={Result}]
 
-It is mentioned in ``\m {\ell_1}-MAGIC'' (Cand\`es and J Romberg 2005) that the complex DS can be converted as an SOCP program.
-If so, primal-dual interior point algorithm (for example) may readily be applied on it to simplify the program, for which we may consult Boyd and Vandenberghe (2004), {\it Convex Optimization} chap.\ 11 as a standard reference.
+\startsubsection [title={Settings}]
+
+We are ready to verify theoretical bound of DS by numerical experiments.
+DS is a convex optimization program, and there are many library devoted on that.
+We choose the Python Library CVXPY.
 But we will not implement that here.
-For brevity, we use Python Library CVXPY to solve the complex DS.
 
 
-\startsection [title={Parameters}]
 
 We do three series of experiments, which are of size from small to large.
 In three experiments, we take respectively \m {L} to be \m {2, 3, 4}, \m {N_Y} to be \m {5, 7, 9}, \m {N_R} to be \m {10, 14, 18}, and \m {N_H} to be \m {20, 28, 36}.
@@ -28,17 +28,20 @@ On the other hand, the maximal number of iteration of OMP is set to be \m {4 N_H
 
 Each data point is repeated for 32 times, and taken average.
 We plot the absolute log error
+\PF {h'-ABS;h,h}
 \DispN {
 \NC \eta_{\Rm{abs}}
 =\NC \RB {\log_2 {\VNm {\V {h} -\Hat {\V {h}}}_2}} _{\Ss{avg}}, \NR
 }
 and relative log error.
+\PF {h'-REL;h,h}
 \DispN {
 \NC \eta_{\Rm{rel}}
 =\NC \F {\RB {\log_2 {\VNm {\V {h} -\Hat {\V {h}}}_2}} _{\Ss{avg}}}
 {\RB {\log_2 {\VNm {\V {h}}_2}} _{\Ss{avg}}} \NR
 }
 The averaged error values are plotted along with the theoretical expected error of DS, derived in chap.\ 3, namely
+\PF {h'-TH;5,2}
 \DispN {
 \NC \eta_{\Rm{th}}
 =\NC \F{5}{2} + \log \RB{L N_H} + \log \log N_H \NR
@@ -51,47 +54,143 @@ Various several values are tried for them, determined as thus: Take a central va
 
 Concretely, we set \m {\g_{\Rm {DS}} = 2 \R {\log N_H}}, corresponding to Cand\`es \& Tao (2007)
 For comparison, \m {\g_{\Rm {Lasso}} = 2 \R {\log N_H}} too.
-For OMP, suggested values in Cai \& Wang (2011) is illuminating.
-There, Theorem 7 considered \m {\ell _2}-norm, and Theorem 8, \m {\ell _\infty}-norm.
+For OMP, suggested values in Cai \& Wang (2011) is illuminating, where they (in their Theorem 7) considered \m {\ell _2}-norm, and Theorem 8, \m {\ell _\infty}-norm.
 We make simplification and set respectively \m {\R {3} N_Y} and \m {2 \R {\log N_H}}
+
+\stopsubsection
+
+\startsubsection [title={Plots}]
+
+\stopsubsection
+
+\startsubsection [title={Discussion}]
+
+Reasonably, for all methods, a higher \m {\s} corresponds to higher \eta_{\Rm{rel}} and \eta_{\Rm{rel}}.
+The trends of absolute and relative error are the same, and in the below we call them simply error.
+
+From our simulation result, DS has usually the least error.
+For low SNR it is slightly but steadily outperforms OMP, and for high SNR the difference becomes vanishingly small and is sometimes surpassed by OMP.
+Different values of threshold \m {\g_{\Rm{DS}}} matter, and a smaller \m {\g_{\Rm{DS}}} does not necessarily give a lower error.
+It seems \m {\g_{\Rm{DS}}} is usually best chosen in the order of magnitude of \m {\s}, which is intuitive.
+
+The error of OMP is slightly higher than DS, but the trend is less steady as well.
+Interestingly, different values of threshold \m {\eta} do not seem to affect much to performance, and often the iteration stablizes much earlier than is constrained by maximum iteration number.
+Lasso has substantially higher error than OMP, and Least Square (pseudo inverse) is still worse.
+
+Lastly, the theoretical bound for expected error of DS is much looser than the actual perfomance, and is well above the Least Square line, making it the highest line of all.
+Our bound is correct but not tight enough.
 
 \stopsection
 
-\startsubsection [title={On Complexity}]
+\startsection [title={Complexity}]
 
-In general, complexity analysis of convex program is difficult, in that it is not easily ensured how many iteration the program uses.
-Specifically, the implementers of CVXPY, Diamond and Boyd \cite [DiB16], alleges that the program is usually converted in to primal-dual problem.
+\startsubsection [title={Asymtotic Analysis}]
 
-However, if we use Newton method and assume self-concordance, there is an analysis in B \& V.
-Such analysis, in our opinion, still gives us an idea about the complexity of the DS program.
+We discuss the complexity of DS and OMP.
 
-It can be shown that DS can be cast into an Second Order Cone Programming (SOCP), and it is clear that self concordance applies to SOCP.
+For DS, we note that, in general, complexity analysis of convex programs is difficult, in that it is not easily ensured how many iteration the program uses.
 
-The function being minimized is \m {\underset {x} {\Rm{min}} \VNm {\V {g}}_1}.
+There is an analysis in \cite [BoV04] of inequality constrained Newton method, in which they assumed self-concordance (discussed in p.496ff there, see also p.531).
+It is mentioned in Candès and Romberg \cite [CaR05] that the complex DS can be cast into an Second Order Cone Programming (SOCP), and it is clear that self concordance applies to SOCP.
+However, it is not clear that Newton method is the fastest, nor that they are utilized in CVXPY.
+Specifically, the implementers of CVXPY, Diamond and Boyd \cite [DiB16], alleges that the program is usually converted in to primal-dual problem, and there are several different approaches in solving a primal-dual problem.
+But for our purpose, we only discuss the complexity analysis for Newton method.
+
+The function being minimized is \m {\VNm {\V {g}}_1}.
 Let \m {\V {g} _0} denote the starting value of \m {\V {g}}, and \m {\V {g} ^{\star}} the the point of convergence.
-Then the number of iteration of Newton method is bounded by
+Then \cite [BoV04] (p.505, eq.9.56) gives a bound of the number of iteration of Newton method.
+If just take that as the complexity bound for DS, it becomes
+\PF {cc-DS;cc-0,g-0}
 \DispN {
-\NC \F {\VNm {\V {g}} _1 - \VNm {\V {g} ^{\star}}} {\g} + \log_2 \log_2 \F {1} {\e} \NR
+\NC C_{\Rm{DS}}
+= \NC C_0 \VNm {\V {g}_0 -\V {g} ^{\star}}_1
++ \log_2 \log_2 \F {1} {\e} \NR
 }
-Here \m {\g} is a parameter related to the Backtracking algorithm, and \m {\e} the tolerance of error.
-The details can be found in Boyd \& Vandenberghe (2004).
-They cites various numerical experiements, and it turns out almost always that a value of \m {\g} close to 1 gives the best result, so we take \m {\g} as a constant.
+where \m {C_0} is constant related to implementation of Newton method, and \m {\e} the tolerance of error.
+According to the analysis of \cite [BoV04] (eq.9.57), for most cases \m {-\log_2 \log_2 \e} can be bounded by \m {6}.
+Also, \m {C_0} usually assumes the value of about several hundred;
+They gives an example \m {C_0 =375} (with their notation, \m {C_0 =\dfrac {20 -8\a} {\a \b \RB {1 -2\a}^2}}, where \m {\a = 0.1, \b = 0.8, \e =0.01}, and \m {\a, \b} are parameters used in the Backtrack Line Tracing algorithm).
 
-Numerically, we see that the complexity of DS is generally very high.
-But it also depends on the tolerence of error.
-% XXX criticism on DS complexity?
+Since we are doing big-O analysis, we feel that we have more license on making approximation.
+For concreteness, we may assume that we start the iteration by specifying the Least Square estimator as the initial value of \m {\V {g}_0}, namely
+\PF {g-0;g-LS,pp}
+\Disp {
+\NC \V {g}_0
+=\NC \V {g}_{\Rm {LS}} \NR
+\NC = \NC \RB {\M {P} ^\Adj \M {P}} ^{-1} \M {P} ^\Adj \V {y} \NR
+}
+If we drop it, we may write the complexity of DS to be, simply,
+\PF {cc-DS;oo,g,g}
+\Disp {
+\NC C_{\Rm{DS}}
+=\NC \MC {O} \SB {\VNm {\V {g}_{\Rm {LS}} -\V {g} ^\star} _1} \NR
+}
+For simplicity we assume
+\DispN {
+\PF {g;g,}
+\NC \V {g} ^\star
+\approx \NC \V {g} \NR
+}
+Indeed, this is the main objective of our investigation!
+And by restricted isometry, \m {\M {P}} has unity-normed, almost orthogonal columns, so
+\DispN {
+\PF {pp,pp;ii-nn-hh-2}
+\NC \M {P} ^\Adj \M {P}
+\approx \NC I _{N_{H}^2} \NR
+}
+Thus
+\Disp {
+\PF {cc;oo;g,pp}
+\NC C_{\Rm{DS}}
+=\NC \MC {O} \SB {
+   \VNm {\V {g} +\RB {\M {P} ^\Adj \M {P}} ^{-1} \M {P} ^\Adj \V {z}
+   -\V {g}} _1} \NR
+\NC =\NC \MC {O} \SB {\VNm {\M {P} ^\Adj \V {z}} _1} \NR
+}
+\m {\RB {\M {P} ^\Adj \V {z}} \DB {j}} Complex Normal distribution, and is easily bounded by \m {\s}.
+\Disp {
+\PF {;oo,nn-hh-2}
+\NC =\NC \MC {O} \SB {N_{H}^2 \s} \NR
+}
+
+On the other hand, Tropp and Gilbert \cite [TrG07b] discussed the complexity of OMP, and they give
+\PF {cc-OMP;oo,nn-hh-2}
+\Disp {
+\NC C_{\Rm{OMP}}
+=\NC \MC {O} \SB {N_H^2 \log N_Y} \NR
+}
+And it would appear that this is greater than \m {C_{\Rm{DS}}}.
+However, we dropped some constants in analyzing \m {C_{\Rm{DS}}}, and here \m {\log N_Y} is really small in our case.
+If we drop it, then we get \m {\MC {O} \SB {N_H^2}} again.
+
+At least our discussion suggests that, approximately
+\PF {cc-OMP;cc-DS}
+\Disp {
+\NC C_{\Rm{OMP}}
+\approx \NC C_{\Rm{DS}} \NR
+\NC \approx \NC \MC {O} \SB {N_H^2} \NR
+}
+
+\stopsubsection
+
+\startsubsection [title={Runtime Statistics}]
+
+Besides analytical bound, our result shows that DS indeed exhibits high complexity when (in our case) \m {N_H} grows, and the such rate of growth is significant, 
+Such computation cost is not suprising, even without knowing implementation details, from the nature of convex programming, being an iterative and random alrogithm.
+Moreover, DS requires a sizable memory for holding not only (in our case) \m {\M {P}}, and matrix multiplication of dimension \m {\M {N}_H^2}.
+Friedlander and Saunders \cite [FrS07] criticizes, according to their numerical experiments, that DS often gives a higher computational cost, compared to Lasso, corroborating our observation, 
+However we note that different settings of \m {\z}, tolerance of error, or maximal iteration number result in vastly different computation time.
+
+On the other hand, we see the complexity of OMP is several order of magnitude lower than that of DS.
+This is reasonable, given that it is a greedy alrogithm.
+In fact, the time OMP takes is negligibly small.
+
+Since LS involves the same target function as DS, the same argument also gives \m {C_{\Rm{Lasso}} =\MC {O} \SB {N_H^2}}.
+The numerical 
+We are not going to further discuss Lasso.
 
 
-
-\startsection [title={Discussion}]
-
-On the other hand, DS goes not without criticism for its large complexity (Friedlander and Saunders 2007).
-Indeed it is clear, even from the primal-dual implementation above, that DS requires memory for large dimensional vector, but OMP does not.
-
-And a meaningful comparison of bounds of OMP and DS is not easy, as their settings are somewhat different.
-The author thus criticises the tendency of current literature to mix up results for DS and OMP without clear justification.
-Indeed, DS calls for a RIP matrix and guarantees such performance even in noisy observation (Cand\`es and Tao 2005, 2007), while RIP is not easily to justify rigorously, and its easy construction is even an open problem.
-On the other hand, as of OMP, besides the original justification of entrywise i.i.d.\ Gaussian sensing matrix (Tropp and Gilbert 2007a), and existent attempt to characterize MIP condition, there is much to be done OMP for Gaussian.
+\stopsubsection
 
 \stopsection
 
