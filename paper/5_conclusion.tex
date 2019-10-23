@@ -8,12 +8,12 @@ Rather than exploiting the sparsity of space domain representation as existing l
 The technique is surely inspiring to future work, as many bounds are ready to be obtained once we change the physical model of the channel.
 In addition, we have, as a secondary product, derived the generalization of DS for complex vectors.
 
-Moreover, assuming the virtual channel model according to uniform linear array response, we managed to prove explicitly, following the spirit of Cand\`es and Tao (2007), that the probability that the expected square error is bounded is overwhelming.
+Moreover, assuming the virtual channel model according to uniform linear array response, we managed to prove explicitly, following the spirit of Cand\`es and Tao \cite [CaT07], that the probability that the expected square error is bounded is overwhelming.
 We thus have derived a probability bound of performance on a fairly general setting, where the bounding constant is expressed as an explicit function of physical parameters, such as the number of path.
 
 Afterwards we transformed DS into an SOCP, which is quite different as in the original DS (where we have an LP instead).
 Simulation is done, and DS's performance is compared to OMP.
-\color[red]{(To be done)}
+DS is slightly but steadily more accurate than OMP, while DS exhibits rather high complexity.
 
 Considering analytical bounds, it can be not easy to give meaningful comparison of existent bounds for these algorithms, as their settings are somewhat different, which we ought to keep in mind.
 Indeed, DS requires a RIP matrix and performance is guaranteed in noisy observation (Cand\`es and Tao 2005, 2007), while RIP is not easily to justify rigorously, and its easy construction is even an open problem.

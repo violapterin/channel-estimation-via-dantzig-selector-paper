@@ -1,27 +1,35 @@
 \startsection [title={Almost-Sparsity of Angular Channel Response}]
 \startsubsection [title={Norm of Array Response}]
 
-We first show that \m {\V {g}} is almost sparse, and substitute the bound into the expected square error of DS, thus generalizing the original argument.
-We will continue to use the variables \m {\V {P}}, \m {\V {g}}, \m {\V {y}}, and \m {\V {z}} introduced in Chapter 2.
+Let \m {\hat {\V {g}}} be the Dantzig Selector, and let the sparsity index \m {s} be given.
+Split \m {\V {g}} into two parts: \m {\V {g} _{\SB{\MC {A}}}}, the largest \m {s} components of \m {\V {g}}, \m {\V {g} _{\SB{\MC {A}}}} the next \m {s} largest components of \m {\V {g}}, and \m {\V {g} _{\SB{\MC {C}}}} are the components complement to \m {\V {g} _{\SB{\MC {A}}}}.
+For example, if \m {\V {g} =\IP {-1,3,-4,2,8}}, and \m {S=2}, then \m {\V {g} _{\SB{\MC {A}}} =\IP {0,3,0,0,8}}, \m {\V {g} _{\SB{\MC {B}}} =\IP {-1,0,0,2,0}}, and \m {\V {g} _{\SB{\MC {A}}} =\IP {-1,0,-4,2,0}}.
+In this section, the subscripts \m {\MC {A}, \MC {B}, \MC {C}} will keep bearing analogous meaning.
 
-Let \m {\hat {\V {g}}} be the Dantzig Selector, and let the sparsity index \m {S} be given.
-Split \m {\V {g}} into two parts: \m {\V {g} _{\MC {A}}}, the largest \m {S} components of \m {\V {g}}, \m {\V {g} _{\MC {A}}} the next \m {S} largest components of \m {\V {g}}, and \m {\V {g} _{\MC {C}}} are the components complement to \m {\V {g} _{\MC {A}}}.
-For example, if \m {\V {g} =\IP {-1,3,-4,2,8}}, and \m {S=2}, then \m {\V {g} _{\MC {A}} =\IP {0,3,0,0,8}}, \m {\V {g} _{\MC {B}} =\IP {-1,0,0,2,0}}, and \m {\V {g} _{\MC {A}} =\IP {-1,0,-4,2,0}}.
-
-We hope that \m {\VNm {\V {g} _{\MC {C}}} _1} is small.
-
-\m {\M {H}} is the function of \m {\V {a}}, and we seek to establish that \m {\V {a}} is almost sparse.
-We define, similarly, \m {\V {a} _{\MC {A}}} and \m {\V {a} _{\MC {C}}}, with undetermined sparsity index \m {s}.
-First, we investigate
-\DispN {
-\NC \NC \VNm {\V {a} \SB {\f} _{\MC {C}}} _2 ^2 \NR
-\NC =\NC \VNm {\RB {\M {K}^\Adj \V {a} \SB {\f}} _{\MC {C}}} _2 ^2 \NR
+We hope that \m {\VNm {\V {g} _{\SB{\MC {C}}}} _1} is small.
+If so, we shall substitute the quantity into the expected square error of DS, thus generalizing the original argument.
+Recall that \m {\M {G}} is just the vectorization of \m {\V {g}}, and \m {\M {G}} is the function of \m {\V {a}}, so we seek to establish that \m {\V {a}} is almost sparse.
+We define, similarly, \m {\V {a} _{\SB{\MC {A}}}} and \m {\V {a} _{\SB{\MC {C}}}}, with undetermined sparsity index
+%
+\Disp {
+\NC S
+\leq \NC \R {N_H}. \NR
 }
+%
+If \m {N_H} is large, we need not bother ourself with the requirement that \m {S} is an integer.
 
+First, we investigate
+%
+\Disp {
+\NC \VNm {\V {a} \SB {\f} _{\SB{\MC {C}}}} _2 ^2
+=\NC \VNm {\RB {\M {K}^\Adj \V {a} \SB {\f}} _{\SB{\MC {C}}}} _2 ^2 \NR
+}
+%
 Let \m {\f} be fixed.
 Towards that end, 
 Introduce
-\DispN {
+%
+\Disp {
 \NC \psi \SB {\f, n_H}
 :=\NC \RB {
    \RB {
@@ -33,53 +41,65 @@ Introduce
 }
 -\pi \NR
 }
+%
 Note that by construction
-\DispN {
+%
+\Disp {
 \NC \Nm {\psi \SB {\f, n_H}}
 \leq \NC \pi \NR
 }
+%
 And define the so-called Dirichlet kernel
-\DispN {
+%
+\Disp {
 \NC D \SB {\psi'}
 := \NC \sum_{n_H=0}^{N_H-1} \Ss {e}^{i n_H \psi'} \NR
 }
+%
 Then observe
-\DispN {
-\NC \RB {\M {K}^\Adj \V {a} \SB {\f}} \DB {n_H}
+%
+\Disp {
+\NC \RB {\M {K}^\Adj \V {a} \SB {\f}} _{\SB {n_H}}
 =\NC \F {1} {N_H} D \SB {\psi \SB {\f, n_H}} \NR
 }
 
 Now, by the nature of alternating series, for \m {-\pi \leq x < \pi}, it holds that
-\DispN {
+%
+\Disp {
 \NC \Nm {x - \F {x^3} {6}} \leq \NC \Nm {\sin x}. \NR
 }
 
 Applying Lemma () to the denominator of () and bounding the nominator by 1, we have
-\DispN {
+%
+\Disp {
 \NC \Nm {D \SB {\psi'}}
 = \NC \F {\Nm {\sin \SB {N_H \psi'/2}}} {\Nm {\sin \SB {\psi' /2}}} \NR
 \NC \leq \NC B \SB {\psi'} \NR
 \NC := \NC \F {48} {\Nm {\psi'^2 -24} \Nm {\psi'}} \NR
 \NC -\pi \leq \NC \psi' < \pi. \NR
 }
+%
 Thus,
-\DispN {
-\NC \VNm {\V {a} \SB {\f} _{\MC {C}}} _1
+%
+\Disp {
+\NC \VNm {\V {a} \SB {\f} _{\SB{\MC {C}}}} _1
 =\NC \F {1} {N_H}
 \VNm {
 \RB {
    \sum_{n_H' =0}^{N_H -1}
       B \SB {\psi \SB {\f, n_H'}}
       \V {u} _{n_H'}
-} _{\MC {C}}
+} _{\SB{\MC {C}}}
 } _1
 \NR
 }
+%
 Note that \m {\Nm {B \SB {\psi'}}} is strictly decreasing in \m {\SB {0,\pi}}.
 We seek to bound the \quotation {rectangulars} with an integral, and we have to split the cases that \m {N_H} is odd and even.
 Anyway, a moment's reflection shows
-\DispN {
-\NC \VNm {\V {a} \SB {\f} _{\MC {C}}} _1
+%
+\Disp {
+\NC \VNm {\V {a} \SB {\f} _{\SB{\MC {C}}}} _1
 \leq \NC \F {1} {N_H} \D \F {N_H} {2\pi} \D 2 \int_{\pi s/N_H}^{\pi} B \SB {\psi'} ^2 d \psi' \NR
 \NC = \NC \F {2304} {N_H \pi^6}
 \int _{s /N_H} ^1 \F {1} {(24/\pi^2 -x'^2)^2 x'^2} dx' \NR
@@ -96,7 +116,7 @@ Anyway, a moment's reflection shows
 
 
 % % Deprecated!
-% \DispN {
+% \Disp {
 % \NC R^2
 % \leq \NC \F {1} {N_H^2} \D \F {N_H} {2\pi} \D 2 \int_{\pi s/N_H}^{\pi} B \SB {\psi'} ^2 d \psi' \NR
 % \NC = \NC \F {2304} {N_H \pi^6}
@@ -119,22 +139,23 @@ Anyway, a moment's reflection shows
 Let \m {\f } be given, and linear array response \m {\V {a} \SB {\f}} defined as in ().
 Suppose \m {N_H \geq 4}.
 Then, for any instance of \m {\f},
-\PF {a;f',C}
-\DispN {
-\NC \VNm {\V {a} \SB {\f} _{\MC {C}}} _2
+%
+\DispNum {a;f',C} {
+\NC \VNm {\V {a} \SB {\f} _{\SB{\MC {C}}}} _2
 \leq \NC \F {2} {\pi \R{s}} \NR
 }
 }
 
 Since the value of \m {s} is at our disposal, we try
-\PF {s;nn-hh,}
-\DispN {
+%
+\DispNum {s;nn-hh,} {
 \NC s
 =\NC \R {\log N_H} \NR
 }
+%
 so that
-\PF {R;2,p'}
-\DispN {
+%
+\DispNum {R;2,p'} {
 \NC R
 \leq \NC \F {2} {\pi \R{\log N_H}} \NR
 }
@@ -144,38 +165,58 @@ so that
 \startsubsection [title={Norm of Angular Channel Response}]
 
 Recall that, by \m {\ell_p}-norm inequality,
-\DispN {
-\NC \VNm {\M {g} _{\MC {C}}} _1
-\leq \NC N_H \VNm {\M {g} _{\MC {C}}} _2 \NR
+%
+\Disp {
+\NC \VNm {\M {g} _{\SB{\MC {C}}}} _2
+\leq \NC \VNm {\M {g} _{\SB{\MC {C}}}} _1 \NR
 }
-So it remains to bound \m {\VNm {\M {G}} _F}.
+%
+And just by definition
+%
+\Disp {
+\NC \VNm {\M {G} _{\SB{\MC {C}}}} _F
+\leq \NC \VNm {\M {g} _{\SB{\MC {C}}}} _2 \NR
+}
+%
+So it remains to bound \m {\VNm {\M {G} _{\SB{\MC {C}}}} _F}.
+
 Note that
-\PF {G;H,a'-l}
-\DispN {
-\NC \VNm {\M {G}} _F
-=\NC \VNm {\M {H}} _F \NR
-\NC \NC \VNm {\sum _{l=0} ^{L-1} \a_l
+%
+\DispNum {G;H,a'-l} {
+\NC \VNm {\M {G} _{\SB{\MC {C}}}} _F
+=\NC \VNm {\M {H} _{\SB{\MC {C}}}} _F \NR
+}
+%
+And by definition
+%
+\Disp {
+\NC \VNm {\M {H} _{\SB{\MC {C}}}} _F
+=\NC \VNm {\sum _{l=0} ^{L-1} \a_l
 \V {a} \SB {\f_l} \V {a} \SB {\th_l} ^\Adj} _F \NR
 }
+%
 By triangle inequality, by the property of 2-norm and Frobenius norm,
-\PF {;a'-l,a,f'-l}
-\DispN {
-\NC \leq \NC \sum _{l=0} ^{L-1} \Nm {\a_l}\VNm {\V {a} \SB {\f_l} \V {a} \SB {\th_l} ^\Adj } _F \NR
+%
+\DispNum {;a'-l,a,f'-l} {
+\NC \leq \NC \sum _{l=0} ^{L-1}
+\Nm {\a_l}\VNm {\V {a} \SB {\f_l} \V {a} \SB {\th_l} ^\Adj } _F \NR
 \NC \leq \NC
 \sum _{l=0} ^{L-1} \Nm {\a_l}
 \VNm {\V {a} \SB {\f_l}} _2
 \VNm {\V {a} \SB {\th_l}} _2 \NR
 }
+%
 It follows that
-\DispN {
-\NC \VNm {\M {H} _{\MC {C}}} _F
+%
+\Disp {
+\NC \VNm {\M {H} _{\SB{\MC {C}}}} _F
 \leq \NC
 \sum _{l=0} ^{L-1} \Nm {\a_l}
-\VNm {\V {a} \SB {\f_l} _{\MC {C}}} _2
-\VNm {\V {a} \SB {\th_l} _{\MC {C}}} _2 \NR
+\VNm {\V {a} \SB {\f_l} _{\SB{\MC {C}}}} _2
+\VNm {\V {a} \SB {\th_l} _{\SB{\MC {C}}}} _2 \NR
 \NC \leq \NC
-\VNm {\V {a} \SB {\f_l} _{\MC {C}}} _2
-\VNm {\V {a} \SB {\th_l} _{\MC {C}}} _2
+\VNm {\V {a} \SB {\f_l} _{\SB{\MC {C}}}} _2
+\VNm {\V {a} \SB {\th_l} _{\SB{\MC {C}}}} _2
 \sum _{l=0} ^{L-1} \Nm {\a_l} \NR
 \NC \leq \NC
 \F {4} {\pi^2 \log N_H}
@@ -183,46 +224,51 @@ It follows that
 }
 
 Observe that
-\DispN {
+%
+\Disp {
 \NC \MB {E} \SB {\sum _{l=0} ^{L-1} \Nm {\a_l}}
 =\NC \F{\R {2} L} {\R {\pi}} \NR
-}
-\DispN {
+%
 \NC \Ss {Var} \SB {\sum _{l=0} ^{L-1} \Nm {\a_l}}
 =\NC \RB {1 - \F{2}{\pi}} L \NR
 }
 
 We expect that
-\DispN {
+%
+\Disp {
 \NC \sum _{l=0} ^{L-1} \Nm {\a_l}
 \leq \NC L \R {\F {2} {\pi}}
    +\R {1 -\F {2} {\pi}} \R {L} \RB {\log N_H} ^{3/2} \NR
 \NC \approx \NC \R {1 -\F {2} {\pi}} \R {L} \RB {\log N_H} ^{3/2} \NR
 }
+%
 Thus, by Chebyshev inequality,
-\DispN {
+%
+\Disp {
 \NC \MB {P} \SB {
    \sum _{l=0} ^{L-1} \Nm {\a_l}
    \geq \R {1 -\F {2} {\pi}} \R {L} \RB {\log N_H} ^{3/2}
 }
 \leq \NC \F {1} {\RB {\log N_H} ^3} \NR
 }
+%
 Summarizing, we have the following result.
 
 \Result
 {Lemma}
 {
 Let \m {\f} and \m {\th} be uniformly, independently distributed in \m {[0,2\pi)},
-and let \m {\V {g} \in \MB {C} ^{N_h}} be defined as in ().
+and let \m {\V {g} \in \MB {C} ^{N_H^2}} be defined as in ().
 Then the bound
-\PF {g-C;4,p'-2}
-\DispN {
-\NC \VNm {\M {g} _{\MC {C}}} _1
+%
+\DispNum {g-C;4,p'-2} {
+\NC \VNm {\M {g} _{\SB{\MC {C}}}} _1
 \leq \NC \F {4} {\pi^2} \R {1 -\F {2} {\pi}} L N_H \R {\log N_H} \NR
 }
+%
 holds with probability \m {p} such that
-\PF {1,p;1}
-\DispN {
+%
+\DispNum {1,p;1} {
 \NC 1 -p
 \leq \NC \F {1} {\RB {\log N_H} ^3} \NR
 }

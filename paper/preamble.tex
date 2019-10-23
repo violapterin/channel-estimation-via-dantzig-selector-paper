@@ -23,10 +23,10 @@
 \definealternativestyle [TitleStyle] [\ss\bfd] []
 \definealternativestyle [AuthorStyle] [\ss\tfb] []
 \definemakeup [titlepage] [align=middle]
-\definetextbackground [framedcode] [frame=off, background=no, rightoffset=0.3cm, location=paragraph]
-\definetyping [code] [
-   numbering=no, bodyfont=small, before={\startframedcode}, after={\stopframedcode}]
 \definereferenceformat [eqnref] [left=(, right=), text=Eqn.] 
+\definetextbackground [framedcode] [frame=off, background=no, rightoffset=0.3cm, location=paragraph]
+\definetyping [Code] [
+   numbering=no, bodyfont=small, before={\startframedcode}, after={\stopframedcode}]
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
@@ -87,7 +87,7 @@
 \define [1] {\T} {\tilde {\vphantom {\overline {#1}} #1}}
 \define [1] {\Hat} {\hat {\vphantom {\overline {#1}} #1}}
 \define [1] {\Stack} {\startsubstack #1 \stopsubstack}
-\define [1] {\PF} {\placeformula [#1]}
+%\define [1] {\PF} {\placeformula [#1]}
 \define [1] {\Rf} {\eqnref [#1]}
 \define [1] {\M} {
    \underline {{\underline {#1 \mkern -1mu} \mkern 2mu} \mkern -2mu}
@@ -99,14 +99,8 @@
    \startalign
       #1
    \stopalign
-   \stopsplitformula}
-\define [1] {\DispN} {
-   \placeformula
-   \startsplitformula
-   \startalign
-      #1 [+]
-   \stopalign
-   \stopsplitformula}
+   \stopsplitformula
+   \noindent}
 
 \define [2] {\F} {\frac {#1} {#2}}
 \define[2] {\Result} {
@@ -117,7 +111,14 @@
    #2 \par
    \hfill
    \m {\blacksquare} \par}
-
+\define [2] {\DispNum} {
+   \placeformula [#1]
+   \startsplitformula
+   \startalign
+      #2 [+]
+   \stopalign
+   \stopsplitformula
+   \noindent}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
@@ -153,7 +154,7 @@
    footer=10mm,
    bottomdistance=0mm,
    bottom=8mm]
-\setupformulae [spacebefore=2mm, spaceafter=2mm]
+\setupformulae [spacebefore=2mm, spaceafter=2mm, indentnext=no]
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 

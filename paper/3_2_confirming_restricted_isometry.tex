@@ -1,6 +1,6 @@
 \startsection [title={Restricted Isometry of Effective Beamformer}]
-\startsubsection [title={Design of Beamformer Matrices}]
 
+\startsubsection [title={Design of Beamformer Matrices}]
 
 Our plan is setting the four precoder matrices to be i.i.d.\ random matrix, hoping that the resulting \m {P} has RIP.
 
@@ -24,52 +24,107 @@ At least we have made sure that \m {\M {F} _R ^\Tr \V {u}} has norm close to uni
 If we have a stronger result, that \m {\M {F} _B ^\Tr \V {u}} is almost unitary even for \It {not-sparse} vectors, then we are done.
 That does sound somehow plausible, considering the Normal entries of \m {\M {F} _B ^\Tr} would introduce a Central-limit-theorem-like sum, though the summands are not independent, but weakly dependent.
 
-\startsubsection [title={Confirming the Restricted Isometry}]
+But how does we relate RIP of \m {\M {F} _R ^\Tr}, \m {\M {F} _B ^\Tr}, \m {\M {W} _R}, and \m {\M {W} _B} to that of \m {\M {P}}?
+Indeed, if it were not for the sparsity constraint, we would have
+%
+\DispNum {P,2;FB,R2} {
+\NC \VNm {\M {P}}_2
+=\NC \VNm {\M {F}_B^\Tr \M {F}_R^\Tr} _2 \VNm {\M {W}_B \M {W}_R} _2 \NR
+}
+%
+However, it is not true that \m {\VNm {\M {P}} _2 \approx 1 \pm \d}.
+Nevertheless, if columns of \m {\M {G}} is also sparse, RIP follows respectively.
+Thus we would like to assume that all \m {N_H} but \m {\R {s}} columns of \m {\M {G}} are all-zero vector.
+This would seem more likely if \m {s} is chosen to be less than \m {\R {N_H}}, and we decide that
+%
+\DispNum {s,s;2N,NH} {
+\NC s
+=\NC 2 \log N_H \NR
+}
+%
+And
+%
+\Disp {
+\NC q
+\sim \NC 2 \RB {q _{\Rm {RIP}, B} +q _{\Rm {RIP}, R}} +q _{\s} +q _{\Rm {Sp}} \NR
+\NC \sim \NC N_H ^{-1/2}
++N_H^{-2/3} \RB {\log N_H} ^{1/3}
++\RB {\log N_H} ^{-3}
++N_H ^{-1/2} \NR
+}
 
+\stopsubsection
 
+\startsubsection [title={Operator Norm of Digital Beamformers}]
 
 To start, use \m {\chi _{i,j}} to denote Complex Standard Normal random variables, and to simplify notation, let them be independent if they have different arguments.
 With this,
-\PF {cc';w-bb,u}
-\DispN {
-\NC \Xi
-:= \NC \VNm {\M {W} _B \V {u}} \NR
-\NC =\NC \R {
+%
+\DispNum {C',C';WB,j2} {
+\NC \VNm {\M {W} _B \V {u}}
+=\NC \R {
    \sum _{i=0} ^{N_B-1} \VNm {\sum _{j=0} ^{N_R-1} \F {1} {\R{N_B}} \chi _{i,j} \V {u} _{j}} ^2} \NR
 }
-By looking up well known properties of Chi distribution, we get the expression of its PDF
-\Disp {
-\NC f_{\Xi} \SB {\xi}
-=\NC \F {\xi ^{N_B /2 -1} \Ss {e} ^{-\xi /2}}
-{2 ^{N_B/2} \G \SB {\F {N_B} {2}}} \NR
-}
-By Lemma 1 in Laurent and Massart \cite [LaM00],
-
-\Disp {
-\NC \MB {P} \SB {\Xi^2 -N_B \geq 2 \R {N_B x} +2x}
+%
+Essentially, we seek for a large-deviation result for i.i.d.\ sum of chi-square random variables now.
+To so so, we may apply Lemma 1 in Laurent and Massart \cite [LaM00] for equal weights.
+By some calculation, we have upper tail inequality, for \m {x > 0},
+%
+\DispNum {P,x;ex,ex} {
+\NC \MB {P} \SB {\VNm {\M {W} _B \V {u}}^2 \geq 1 + 2 \R {\F {x} {N_B}} +\F {2x} {N_B}}
 \leq \NC \Ss {e} ^{-x} \NR
 }
-And
-\Disp {
-\NC \MB {P} \SB {N_B -\Xi^2 \geq 2 \R {N_B x}}
+%
+And lower tail inequality
+%
+\DispNum {P,x;ex,ex!} {
+\NC \MB {P} \SB {\VNm {\M {W} _B \V {u}}^2 \leq 1 + 2 \R {\F {x} {N_B}}}
 \leq \NC \Ss {e} ^{-x} \NR
 }
-It can be seen that, with substitution \m {\d = 4x/N_B} and some substitution and loosening, we get
-
+%
+With substitution
+%
+\Disp {
+\NC \d
+= \NC \F {16x^2} {N_B^2} \NR
+}
+%
+naturally \m {\d <1}, and the upper tail can be simplified with \m {x <N_B}, and we get the following lemma.
 
 \Result
 {Lemma}
 {
-For \m {\Xi} defined in \Rf {cc';w-bb,u}, we have
-\DispN {
-\NC \MB {P} \SB {\Xi^2 \geq 1 -\d}
-\leq \NC \Ss {e} ^{-N_B \d /4} \NR
-}
-\DispN {
-\NC \MB {P} \SB {\Xi^2 \geq 1 -\d}
-\leq \NC \Ss {e} ^{-N_B \d /4} \NR
+For \m {0 <\d <1},
+%
+\DispNum {P,d;eN,d4} {
+\NC \MB {P} \SB {\Nm {\VNm {\M {W} _B \V {u}}^2 - 1} \geq \d}
+\leq \NC 2 \Ss {e} ^{-N_B \R {\d} /4} \NR
 }
 }
 
+\stopsubsection
+
+\startsubsection [title={Operator Norm of Analog Beamformers}]
+
+Here, we consult Haviv and Regev, ``The restricted isometry property of subsampled Fourier matrices'' in \cite [KlM17].
+We need their Thm.\ 4.5; it gives a RIP guarantee w.r.t.\ \m {\d}, and probability lower bound, for DFT submatrix.
+However, the probability bound they give involve is expressed in terms of big-\m {\O} and big-\m {O}, and since our methodology is 
+Fortunately, it can be seen that their argument allows precise constants, and they just did not spell out, which we briefly explain.
+Indeed, their Thm.\ 2.2 is a form of hoeffding bound, and the constant \m
+
+So, we have the following modified statement, which has been conformed to our setting.
+
+\Result
+{Theorem}
+{
 
 
+}
+
+\stopsubsection
+
+\startsubsection [title={Confirming the Restricted Isometry}]
+
+\stopsubsection
+
+\stopsection
