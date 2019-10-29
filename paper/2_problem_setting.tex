@@ -4,9 +4,10 @@
 
 We restrict our consideration to the uniform linear array, which can be modeled as
 %
-\DispNum {a,y';VC,nh} {
+\DispNum {a-y'-VC-nh} {
 \NC \V {a} \SB {\psi'}
 \in \NC \MB {V} _\MB {C} \SB {N_H} \NR
+%
 \NC \V {a} \SB {\psi'}
 = \NC \F {1} {\R {N_H}} \sum_{n_h=0}^{N_H-1} \Ss {e} ^{\Ss {i} n_h \psi'} \V {u} _{n_h} \NR
 }
@@ -15,7 +16,7 @@ where \m {\Ss {e}} is the base of natural logarithm, and \m {\Ss {i}} the imagin
 
 And consider the virtual representation of the MIMO channel (see for example Akdeniz et.\ al.\ \cite [ALS14]).
 %
-\DispNum {H,H;l0,ql} {
+\DispNum {H-H-l0-ql} {
 \NC \M {H}
 =\NC \sum_{l=0} ^{L-1}
 \a_l
@@ -26,12 +27,13 @@ And consider the virtual representation of the MIMO channel (see for example Akd
 The physical meaning of \m {\th_l} is the \m {l}-th angle of incidence (formed by the ray and the normal line) of departure electronic wave, and \m {\th_l}, the \m {l}-th that of arrival wave, while \m {d_{\Rm {arr}}} is the distance between two adjacent antennae.
 For our purpose, we may absorb the argument of \m {\V {a}} as
 %
-\DispNum {f,l;2p,2p} {
+\DispNum {f-l-2p-2p} {
 \NC \f_l
 = \NC \RB {
   2\pi \F {d_{\Rm {arr}}} {\l_{\Rm {arr}}} \sin \f_l'
   \; \Rm {Mod}\; \RB {2\pi}
 } \NR
+%
 \NC \th_l
 = \NC \RB {
   2\pi \F {d_{\Rm {arr}}} {\l_{\Rm {arr}}} \sin \th_l'
@@ -41,11 +43,10 @@ For our purpose, we may absorb the argument of \m {\V {a}} as
 %
 to get a simpler form
 %
-\DispNum {H,H;CN,ql} {
+\DispNum {H-H-l0-ql} {
 \NC \M {H}
-\in \NC \MB {C} ^{N_H \D N_H} \NR
-\NC \M {H}
-=\NC \sum_{l=0} ^{L-1} \a_l \V {a} \SB {\f_l} \V {a} \SB {\th_l}^\Adj \NR
+=\NC \sum_{l=0} ^{L-1} \a_l \V {a} \SB {\f_l} \V {a} \SB {\th_l}^\Adj
+\in \MB {C} ^{N_H \D N_H} \NR
 }
 
 \stopsection
@@ -59,28 +60,32 @@ Similarly, in the receiver end, there are, in order seeing from the end, digital
 
 Recall that analog precoder is restricted to have value with magnitude being unity, i.e.,
 %
-\Disp {
+\DispNum {F-R-1--R1} {
 \NC \Nm {\M {F} _R \DB {n_H, n_R}}
 = \NC 1, \NR
+%
 \NC \Nm {\M {W} _R \DB {n_R, n_H}}
 = \NC 1, \NR
+%
 \NC n_H
 = \NC 0, \dots N_H-1, \NR
+%
 \NC n_R
 = \NC 0, \dots N_R-1 \NR
 }
 %
 And we assume
 %
-\DispNum {N,H;NY,NY} {
+\DispNum {N-H-NY-NY} {
 \NC N_H \gg \NC N_R \NR
+%
 \NC N_R \gg \NC N_Y \NR
 }
 
 Since we restrict our discussion to a specific snapshot of time, the noise term may be simply taken as a matrix \m {\M {Z} \in \NC \MB {C} ^{N_Y \D  N_Y}} with each entry being i.i.d.\ Standard Normal.
 We may introduce the effective channel
 %
-\Disp {
+\DispNum {Y-Y-WB-BZ} {
 \NC \M {Y}
 :=\NC \M {W} _B \M {W} _R \RB {\M {H} \M {F} _R \M {F} _B +\M {Z}} \NR
 }
@@ -98,14 +103,14 @@ To convert the problem into a linear system recovery problem, we need several de
 Define \m {\Rm {vec} \SB {\M {A}} \in \MB {K} ^{N_1, N_2}} to be the vectorization of \m {\M {A} \in \MB {K} ^{N_1 \D  N_2}}.
 Formally,
 %
-\DispNum {v,1;Am,N1} {
+\DispNum {v-1-Am-N1} {
 \NC \RB {\Rm {vec} \SB {\M {A}}} _{\SB {m_1}}
 =\NC \M {A} _{\SB {m_1\; \Rm {Mod}}\; N_1, \Fl {m_1/N_1 }} \NR
 }
 %
 The bijectivity is obvious, and we define \m {\Rm {vec} ^{-1}} so that
 %
-\DispNum {v,x;x-,x-} {
+\DispNum {v-x-x--x-} {
 \NC \Rm {vec} ^{-1} \SB {\Rm {vec} \SB {x}}
 =\NC x \NR
 }
@@ -116,8 +121,9 @@ The bijectivity is obvious, and we define \m {\Rm {vec} ^{-1}} so that
 {
 For \m {\M {A} \in \MB {K} ^{N_1 \D  N_2}} and \m {\M {B} \in \MB {K} ^{N_3 \D N_4}}, define the Kronecker product \m {\M {A} \otimes \M {B} \in \MB {K} ^{N_1 N_3 \D N_2 N_4}} by
 %
-\DispNum {A,2;Am,N4} {
+\DispNum {A-2-Am-N4} {
 \NC \NC \RB {\M {A} \otimes \M {B}} _{\SB {m_1, m_2}} \NR
+%
 \NC =\NC \M {A} _{\SB {\Fl {m_1/N_3 }, \Fl {m_2/N_4 }}}
 \M {B} _{\SB {m_1\; \Rm {Mod}\; N_3, m_2\; \Rm {Mod}\; N_4}} \NR
 }
@@ -130,7 +136,7 @@ And we will exploit the relation (whose proof is a strightforward application of
 Suppose \m {\M {A} \in \MB {K} ^{N_1 \D  N_2}, \M {X} \in \MB {K} ^{N_2 \D N_3}, \M {B} \in \MB {K} ^{N_3 \D N_4}},
 Then
 %
-\DispNum {v,B;BA,cX} {
+\DispNum {v-B-BA-cX} {
 \NC \Rm {vec} \SB {\M {A}\M {X}\M {B}}
 = \NC \RB {\M {B}^\Tr \otimes \M {A}} \Rm {vec} \SB {\M {X}} \NR
 }
@@ -138,16 +144,17 @@ Then
 
 Now, for short we set
 %
-\Disp {
+\Disp {N-h-NH-Y2} {
 \NC N_h
 = \NC N_H^2 \NR
+%
 \NC N_y
 = \NC N_Y^2 \NR
 }
 %
 If we had followed the widely accepted approach of compressive channel sensing, we would have written
 %
-\Disp {
+\DispNum {h-h-ve-Nh} {
 \NC \V {h}
 := \NC \Rm {vec} \SB {\M {H}}
 \in \MB {C} ^{N_h} \NR
@@ -167,7 +174,7 @@ If we had followed the widely accepted approach of compressive channel sensing, 
 %
 to formulate our goal as sparse recovery problem of \m {\Rm {vec} \SB {\M {H}}} to be
 %
-\Disp {
+\DispNum {y-y-Qh-hz} {
 \NC \V {y}
 =\NC \M {Q} \V {h} +\V {z} \NR
 }
@@ -176,14 +183,16 @@ As we have motivated in previous sections, we want to use DS by considering spar
 However, there is no guarantee, though, that \m {\V {h}} will be sparse.
 
 \stopsection
-\startsection [title={Working in the Angular Space}]
+\startsection [title={The Angular Space}]
 
 Introduce the discrete Fourier transform matrix \m {\M {K}} defined to be
 %
-\Disp {
+\DispNum {K-K-CN-H1} {
 \NC \M {K} \in  \NC \MB {C} ^{N_H \D  N_H} \NR
+%
 \NC \M {K} \DB {n_1, n_2}
 = \NC \F {1} {\R {N_H}} \Ss {e}^{2\pi \Ss {i} n_1 n_2 /N_H}, \NR
+%
 \NC \Q n_1, n_2
 = \NC 0, 1, \dots, N_H-1 \NR
 }
@@ -191,33 +200,31 @@ Introduce the discrete Fourier transform matrix \m {\M {K}} defined to be
 Roman \m {\Ss {e}} and \m {\Ss {i}} denote the natural base and imaginary unit, respectively.
 Here recall that we have
 %
-\Disp {
+\DispNum {K-K-I---I} {
 \NC \M {K}^\Adj \M {K}
 = \NC \M {I} \NR
 }
 %
 Observe that, if we write
 %
-\Disp {
+\DispNum {G-G-KH-HK} {
 \NC \M {G}
 =\NC \M {K}^\Adj \M {H} \M {K} \NR
 }
 %
 which has the interpretation as the angular space (i.e., spatial frequency domain) representation of \m {\M {H}}, then
 %
-\Disp {
+\DispNum {Y-Y-WB-NY} {
 \NC \M {Y}
-=\NC \M {W} _B \M {W} _R \M {K} \cdot \M {G} \cdot \M {K}^\Adj \M {F} _R \M {F} _B
+=\NC \M {W} _B \M {W} _R \M {K} \D \M {G} \D \M {K}^\Adj \M {F} _R \M {F} _B
 +\M {W} _B \M {W} _R \M {Z}
 \in \MB {C} ^{N_Y \D  N_Y} \NR
 }
 %
 If at the end of day, \m {\M {G}} is sparse, then we recover \m {\M {G}} instead, and our use of DS is fully justified.
-
-That is to say, a similar Kronecker product may be used.
 To simplify notation, set
 %
-\Disp {
+\DispNum {P-P-FB-Nh} {
 \NC \M {P}
 :=\NC \RB {\M {F} _B^\Tr \M {F} _R^\Tr \M {K}^\ast} \otimes \RB {\M {W} _B \M {W} _R \M {K}}
 \in \MB {C} ^{N_y \D  N_h} \NR
@@ -225,7 +232,7 @@ To simplify notation, set
 %
 And accordingly
 %
-\Disp {
+\DispNum {g-g-ve-Nh} {
 \NC \V {g}
 := \NC \Rm {vec} \SB {\M {G}}
 \in \MB {M} _{\MB {C}} \SB {N_h} \NR
@@ -233,7 +240,7 @@ And accordingly
 %
 Then
 %
-\Disp {
+\DispNum {y-y-Pg-gz} {
 \NC \V {y}
 =\NC \M {P} \V {g} +\V {z} \NR
 }
@@ -256,22 +263,23 @@ and \m {\M {Y} \in \NC \MB {C} ^{N_Y \D N_Y}}.
 \item Find \m {\M {P} \in \MB {C} ^{N_y \D  N_h}}, \m {\V {y} \in \MB {C} ^{N_h}} as in above.
 \item Calculate
 %
-\Disp {
+\DispNum {g-g-mi-DS} {
 \NC \Hat {\V {g}}
 \LA \NC \startcases
 \NC \Min {\V {g}' \in \MB {C} ^{N_h}}  \MC \VNm {\V {g}'} _1 \NR
+%
 \NC \Rm {subject} \; \Rm {to} \Q \MC \VNm {\M {P}^\Adj \RB {\V {y} -\M {P} \V {g}'}} _\infty \leq \g_{\Rm {DS}} \NR
 \stopcases \NR
 }
 \item Convert \m {\Hat {\V {g}}} back to the space domain, namely
 %
-\Disp {
+\DispNum {G-G-ve-1g} {
 \NC \Hat {G}
 \LA \NC \Rm {vec}^{-1} \SB {\Hat {g}} \NR
 }
 \item Recover the estimated \m {\Hat {\M {H}}}, as
 %
-\Disp {
+\DispNum {H-H-KG-GK} {
 \NC \Hat {\M {H}}
 \LA \NC \M {K} \Hat {\M {G}} \M {K}^\Adj \NR
 }

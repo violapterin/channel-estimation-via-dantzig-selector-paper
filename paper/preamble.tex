@@ -81,13 +81,12 @@
 \define [1] {\Nm} {\left \vert #1 \right \vert}
 \define [1] {\VNm} {\left \Vert #1 \right \Vert}
 \define [1] {\R} {\sqrt {#1}}
-\define [1] {\Min} {\underset {#1} {\Rm {min}}}
+\define [1] {\Min} {\underset {#1} {\Rm {min}}\;}
 \define [1] {\IP} {\left \langle #1 \right \rangle}
 \define [1] {\V} {\underline {#1 \mkern -1mu} \mkern 2mu}
 \define [1] {\T} {\tilde {\vphantom {\overline {#1}} #1}}
 \define [1] {\Hat} {\hat {\vphantom {\overline {#1}} #1}}
 \define [1] {\Stack} {\startsubstack #1 \stopsubstack}
-%\define [1] {\PF} {\placeformula [#1]}
 \define [1] {\Rf} {\eqnref [#1]}
 \define [1] {\M} {
    \underline {{\underline {#1 \mkern -1mu} \mkern 2mu} \mkern -2mu}
@@ -106,11 +105,10 @@
 \define[2] {\Result} {
    \incrementcounter[NumResult]
    \bigskip
-   \noindent \hskip 3em
-   \Bf {\getnumber [NumResult] \; #1} \par
+   \noindent \Bf {\getnumber [NumResult] \; #1} \par
    #2 \par
-   \hfill
-   \m {\blacksquare} \par}
+   \hfill \m {\blacksquare} \break
+}
 \define [2] {\DispNum} {
    \placeformula [#1]
    \startsplitformula

@@ -9,14 +9,8 @@ In this section, the subscripts \m {\MC {A}, \MC {B}, \MC {C}} will keep bearing
 We hope that \m {\VNm {\V {g} _{\SB{\MC {C}}}} _1} is small.
 If so, we shall substitute the quantity into the expected square error of DS, thus generalizing the original argument.
 Recall that \m {\M {G}} is just the vectorization of \m {\V {g}}, and \m {\M {G}} is the function of \m {\V {a}}, so we seek to establish that \m {\V {a}} is almost sparse.
-We define, similarly, \m {\V {a} _{\SB{\MC {A}}}} and \m {\V {a} _{\SB{\MC {C}}}}, with undetermined sparsity index
-%
-\Disp {
-\NC S
-\leq \NC \R {N_H}. \NR
-}
-%
-If \m {N_H} is large, we need not bother ourself with the requirement that \m {S} is an integer.
+We define, similarly, \m {\V {a} _{\SB{\MC {A}}}} and \m {\V {a} _{\SB{\MC {C}}}}, with sparsity \m {s}.
+If \m {N_H} is large, we may forget for a moment the requirement that \m {s =1,2,3,\dots}.
 
 First, we investigate
 %
@@ -26,10 +20,9 @@ First, we investigate
 }
 %
 Let \m {\f} be fixed.
-Towards that end, 
-Introduce
+Towards that end, introduce
 %
-\Disp {
+\DispNum {y'-H-f'M-p'p'} {
 \NC \psi \SB {\f, n_H}
 :=\NC \RB {
    \RB {
@@ -44,22 +37,29 @@ Introduce
 %
 Note that by construction
 %
-\Disp {
+\DispNum {y'-H-p'--p'-} {
 \NC \Nm {\psi \SB {\f, n_H}}
 \leq \NC \pi \NR
 }
 %
 And define the so-called Dirichlet kernel
 %
-\Disp {
+\DispNum {D-y'-nH-Hy'} {
 \NC D \SB {\psi'}
 := \NC \sum_{n_H=0}^{N_H-1} \Ss {e}^{i n_H \psi'} \NR
 }
 %
+Set for short
+%
+\DispNum {b-f'-Ka-af'} {
+\NC b \SB {\f}
+=\NC \M {K}^\Adj \V {a} \SB {\f} \NR
+}
+%
 Then observe
 %
-\Disp {
-\NC \RB {\M {K}^\Adj \V {a} \SB {\f}} _{\SB {n_H}}
+\DispNum {K-H-1N-nH} {
+\NC \RB {\V {b} \SB {\f}} _{\SB {n_H}}
 =\NC \F {1} {N_H} D \SB {\psi \SB {\f, n_H}} \NR
 }
 
@@ -68,21 +68,23 @@ Now, by the nature of alternating series, for \m {-\pi \leq x < \pi}, it holds t
 \Disp {
 \NC \Nm {x - \F {x^3} {6}} \leq \NC \Nm {\sin x}. \NR
 }
-
-Applying Lemma () to the denominator of () and bounding the nominator by 1, we have
+Therefore,
 %
-\Disp {
+\DispNum {D-y'-si-y'p'} {
 \NC \Nm {D \SB {\psi'}}
 = \NC \F {\Nm {\sin \SB {N_H \psi'/2}}} {\Nm {\sin \SB {\psi' /2}}} \NR
+%
 \NC \leq \NC B \SB {\psi'} \NR
+%
 \NC := \NC \F {48} {\Nm {\psi'^2 -24} \Nm {\psi'}} \NR
+%
 \NC -\pi \leq \NC \psi' < \pi. \NR
 }
 %
-Thus,
+Combining \Rf {y'-H-f'M-p'p'}, \Rf {K-H-1N-nH}, and \Rf {D-y'-si-y'p'} we have
 %
 \Disp {
-\NC \VNm {\V {a} \SB {\f} _{\SB{\MC {C}}}} _1
+\NC \VNm {\V {b} \SB {\f} _{\SB{\MC {C}}}} _1
 =\NC \F {1} {N_H}
 \VNm {
 \RB {
@@ -99,178 +101,103 @@ We seek to bound the \quotation {rectangulars} with an integral, and we have to 
 Anyway, a moment's reflection shows
 %
 \Disp {
-\NC \VNm {\V {a} \SB {\f} _{\SB{\MC {C}}}} _1
+\NC \VNm {\V {b} \SB {\f} _{\SB{\MC {C}}}} _1
 \leq \NC \F {1} {N_H} \D \F {N_H} {2\pi} \D 2 \int_{\pi s/N_H}^{\pi} B \SB {\psi'} ^2 d \psi' \NR
-\NC = \NC \F {2304} {N_H \pi^6}
-\int _{s /N_H} ^1 \F {1} {(24/\pi^2 -x'^2)^2 x'^2} dx' \NR
-\NC =\NC \F {1} {2\pi^2 N_H}
-\RB {
-  -\F {8} {u}
-+\F {4\pi^2 u} {24 -\pi^2 u^2}
-+\R {6} \pi \tanh^{-1} \SB {\F {\pi u} {2\R {6}}}
-}
-\Bigg \| _{s/N_H} ^1 \NR
-\NC \leq \NC \F {4} {\pi^2} \D \F {1} {s} +\F {0.032670} {N_H} \NR
-\NC \approx \NC \F {4} {\pi^2 s} \NR
-}
-
-
-% % Deprecated!
-% \Disp {
-% \NC R^2
-% \leq \NC \F {1} {N_H^2} \D \F {N_H} {2\pi} \D 2 \int_{\pi s/N_H}^{\pi} B \SB {\psi'} ^2 d \psi' \NR
-% \NC = \NC \F {2304} {N_H \pi^6}
-% \int _{s /N_H} ^1 \F {1} {(24/\pi^2 -x'^2)^2 x'^2} dx' \NR
-% \NC =\NC \F {1} {2\pi^2 N_H}
-% \RB {
-%   -\F {8} {u}
-% +\F {4\pi^2 u} {24 -\pi^2 u^2}
-% +\R {6} \pi \tanh^{-1} \SB {\F {\pi u} {2\R {6}}}
-% }
-% \Bigg \| _{s/N_H} ^1 \NR
-% \NC \leq \NC \F {4} {\pi^2} \D \F {1} {s} +\F {0.032670} {N_H} \NR
-% \NC \approx \NC \F {4} {\pi^2 s} \NR
-% }
-% In the last step we bound the lower limit of the second and third term with \m {x' =0}, and leave the dominating \m {1/x'}.
-
-\Result
-{Lemma}
-{
-Let \m {\f } be given, and linear array response \m {\V {a} \SB {\f}} defined as in ().
-Suppose \m {N_H \geq 4}.
-Then, for any instance of \m {\f},
 %
-\DispNum {a;f',C} {
-\NC \VNm {\V {a} \SB {\f} _{\SB{\MC {C}}}} _2
-\leq \NC \F {2} {\pi \R{s}} \NR
+\NC = \NC \F {48} {N_H \pi^3}
+\int _{s /N_H} ^1 \F {1} {\RB {24/\pi^2 -x'^2} ^2 x'^2} dx' \NR
+%
+\NC =\NC \F {1} {\pi} \log \F {N_H^2 /s^2 -\pi^2 /24} {1 -\pi^2 /24} \NR
+%
+\NC \simeq \NC \F {1} {\pi} \RB {\log N_H -\log s} \NR
 }
-}
-
+%
 Since the value of \m {s} is at our disposal, we try
 %
-\DispNum {s;nn-hh,} {
+\DispNum {s-s-lo-NH} {
 \NC s
 =\NC \R {\log N_H} \NR
 }
 %
-so that
+so that, by \m {\ell_p}-norm inequality, 
+
+\Result
+{Lemma}
+{
+Let \m {\f } be given, and linear array response in spacial frequency domain \m {\V {b} \SB {\f}} defined in {b-f'-Ka-af'}.
+Then, for any random instance of \m {\f},
 %
-\DispNum {R;2,p'} {
-\NC R
-\leq \NC \F {2} {\pi \R{\log N_H}} \NR
+\DispNum {a-2-4N-NH} {
+\NC \VNm {\V {b} \SB {\f} _{\SB{\MC {C}}}} _2
+\leq \NC \F {2} {\pi} \log N_H \NR
+}
 }
 
 \stopsubsection
 
 \startsubsection [title={Norm of Angular Channel Response}]
 
-Recall that, by \m {\ell_p}-norm inequality,
+If that we set
+\DispNum {S-S-Ls-s2} {
+\NC S
+=\NC L s^2 \NR
+}
+by triangle inequality, by the property of 2-norm and Frobenius norm,
 %
 \Disp {
-\NC \VNm {\M {g} _{\SB{\MC {C}}}} _2
-\leq \NC \VNm {\M {g} _{\SB{\MC {C}}}} _1 \NR
-}
-%
-And just by definition
-%
-\Disp {
-\NC \VNm {\M {G} _{\SB{\MC {C}}}} _F
-\leq \NC \VNm {\M {g} _{\SB{\MC {C}}}} _2 \NR
-}
-%
-So it remains to bound \m {\VNm {\M {G} _{\SB{\MC {C}}}} _F}.
-
-Note that
-%
-\DispNum {G;H,a'-l} {
-\NC \VNm {\M {G} _{\SB{\MC {C}}}} _F
-=\NC \VNm {\M {H} _{\SB{\MC {C}}}} _F \NR
-}
-%
-And by definition
-%
-\Disp {
-\NC \VNm {\M {H} _{\SB{\MC {C}}}} _F
-=\NC \VNm {\sum _{l=0} ^{L-1} \a_l
-\V {a} \SB {\f_l} \V {a} \SB {\th_l} ^\Adj} _F \NR
-}
-%
-By triangle inequality, by the property of 2-norm and Frobenius norm,
-%
-\DispNum {;a'-l,a,f'-l} {
-\NC \leq \NC \sum _{l=0} ^{L-1}
-\Nm {\a_l}\VNm {\V {a} \SB {\f_l} \V {a} \SB {\th_l} ^\Adj } _F \NR
-\NC \leq \NC
-\sum _{l=0} ^{L-1} \Nm {\a_l}
-\VNm {\V {a} \SB {\f_l}} _2
-\VNm {\V {a} \SB {\th_l}} _2 \NR
-}
-%
-It follows that
-%
-\Disp {
-\NC \VNm {\M {H} _{\SB{\MC {C}}}} _F
+\NC \VNm {\V {g} _{\SB{\MC {C}}}} _1
 \leq \NC
 \sum _{l=0} ^{L-1} \Nm {\a_l}
-\VNm {\V {a} \SB {\f_l} _{\SB{\MC {C}}}} _2
-\VNm {\V {a} \SB {\th_l} _{\SB{\MC {C}}}} _2 \NR
+\VNm {\\V {b} \SB {\f_l} _{\SB{\MC {C}}}} _2
+\VNm {\\V {b} \SB {\th_l} _{\SB{\MC {C}}}} _2 \NR
+%
 \NC \leq \NC
-\VNm {\V {a} \SB {\f_l} _{\SB{\MC {C}}}} _2
-\VNm {\V {a} \SB {\th_l} _{\SB{\MC {C}}}} _2
+\VNm {\V {b} \SB {\f_l} _{\SB{\MC {C}}}} _2
+\VNm {\V {b} \SB {\th_l} _{\SB{\MC {C}}}} _2
 \sum _{l=0} ^{L-1} \Nm {\a_l} \NR
+%
 \NC \leq \NC
-\F {4} {\pi^2 \log N_H}
-\sum _{l=0} ^{L-1} \Nm {\a_l} \NR
-}
-
-Observe that
-%
-\Disp {
-\NC \MB {E} \SB {\sum _{l=0} ^{L-1} \Nm {\a_l}}
-=\NC \F{\R {2} L} {\R {\pi}} \NR
-%
-\NC \Ss {Var} \SB {\sum _{l=0} ^{L-1} \Nm {\a_l}}
-=\NC \RB {1 - \F{2}{\pi}} L \NR
-}
-
-We expect that
-%
-\Disp {
-\NC \sum _{l=0} ^{L-1} \Nm {\a_l}
-\leq \NC L \R {\F {2} {\pi}}
-   +\R {1 -\F {2} {\pi}} \R {L} \RB {\log N_H} ^{3/2} \NR
-\NC \approx \NC \R {1 -\F {2} {\pi}} \R {L} \RB {\log N_H} ^{3/2} \NR
+\F {4} {\pi^2} L \RB {\log N_H}^2 \D
+\F {1} {L} \sum _{l=0} ^{L-1} \Nm {\a_l} \NR
 }
 %
-Thus, by Chebyshev inequality,
+The quantity \m {(1/L) \sum _{l=0} ^{L-1} \Nm {\a_l}} is a sample mean, and we may want to use Hoeffding inequality.
+Since it requires that the random variable shall have compact support, we truncate \m {\Nm {\a_l}} on \m {\Nm {\a_l} \leq 2}, on which there is 95\% probability mass.
+%
+To do so, observe that
 %
 \Disp {
+\NC \MB {E} \SB {\F {1} {L} \sum _{l=0} ^{L-1} \Nm {\a_l}}
+=\NC \F{\R {2}} {\R {\pi}} \NR
+}
+So, by Hoeffding inequality, choose for simplicity
+%
+\DispNum {P-p'-2e-3p'} {
 \NC \MB {P} \SB {
-   \sum _{l=0} ^{L-1} \Nm {\a_l}
-   \geq \R {1 -\F {2} {\pi}} \R {L} \RB {\log N_H} ^{3/2}
+   \F {1} {L} \sum _{l=0} ^{L-1} \Nm {\a_l}
+   \geq \F {4 \R{2}} {\R {\pi}}
 }
-\leq \NC \F {1} {\RB {\log N_H} ^3} \NR
+\leq \NC 2 \exp \SB {-\F {9L} {\pi}} \NR
 }
 %
-Summarizing, we have the following result.
-
+Now we have \m {\VNm {\M {g} _{\SB{\MC {C}}}} _1 /\RB {\log N_H}^2 \leq 12 \R{2} /\pi ^{5/2} \leq 4/3}.
+%
 \Result
 {Lemma}
 {
-Let \m {\f} and \m {\th} be uniformly, independently distributed in \m {[0,2\pi)},
-and let \m {\V {g} \in \MB {C} ^{N_H^2}} be defined as in ().
+Let \m {\V {g} \in \MB {C} ^{N_H^2}} be defined as in \Rf {g-g-ve-Nh}.
 Then the bound
 %
-\DispNum {g-C;4,p'-2} {
+\DispNum {g-C-4p'-NH} {
 \NC \VNm {\M {g} _{\SB{\MC {C}}}} _1
-\leq \NC \F {4} {\pi^2} \R {1 -\F {2} {\pi}} L N_H \R {\log N_H} \NR
+\leq \NC \F {4} {3} \RB {\log N_H}^2 \NR
 }
 %
-holds with probability \m {p} such that
+holds for probability \m {p}, with
 %
-\DispNum {1,p;1} {
+\DispNum {1-p-1N-H3} {
 \NC 1 -p
-\leq \NC \F {1} {\RB {\log N_H} ^3} \NR
+\leq \NC 2 \exp \SB {-\F {9L} {\pi}} \NR
 }
 }
 

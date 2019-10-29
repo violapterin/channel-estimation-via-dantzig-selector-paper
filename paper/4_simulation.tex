@@ -5,7 +5,7 @@ DS is a convex optimization program, and there are many library devoted on that.
 For present purpose, we choose the ready-made Python library CVXPY.
 For the implementation details, see Diamond and Boyd \cite [DiB16]
 
-However, it turns out direct implementation of () exhibit extraordinarily large complexity, and we would like to recast the problem in a more tractable form.
+However, it turns out direct implementation of Algorithm 8 exhibit extraordinarily large complexity, and we would like to recast the problem in a more tractable form.
 Towards that end, we found out that Candès and Romberg \cite [CaR05] has shown that DS can be simplified as an linear program (LP).
 However, the situation is more cubersome than that, since they deal with real vectors, but we consider the complex ones.
 Fortunately, they have briefly pointed out, complex DS can be recast as an second-order cone program (SOCP), and SOCP is one of the several standard convex programming problems for which there are already numerous efficient algorithms.
@@ -16,7 +16,7 @@ Before describing the recast, for ease of treatment we would like to represent c
 {
 For \m {\V {x} \in \MB {C} ^{M}}, define the real representation \m {\MC {R} \SB {\V {x}}} of \m {\V {x}} to be
 %
-\Disp {
+\DispNum {R-x-R2-M1} {
 \NC \MC {R} \SB {\V {x}}
 \in \NC \MB {R} ^{2M} \NR
 \NC \MC {R} \SB {\V {x}} _{\SB {m}}
@@ -30,7 +30,7 @@ For \m {\V {x} \in \MB {C} ^{M}}, define the real representation \m {\MC {R} \SB
 %
 The injectivity is obvious, and we may define \m {\MC {R} ^{-1}} so that
 %
-\Disp {
+\DispNum {R-1-x--x-} {
 \NC \MC {R} ^{-1} \SB {\MC {R} \SB {\V {x}}}
 =\NC \V {x} \NR
 }
@@ -42,7 +42,7 @@ Accordingly, the following generalization to complex matrices is valid, once we 
 {
 For \m {\M {A} \in \MB {C} ^{M_1 \D M_2}}, define real representation \m {\MC {R} \SB {\M {A}}} of \m {\M {A}} to be
 %
-\Disp {
+\DispNum {R-A-R2-21} {
 \NC \MC {R} \SB {\M {A}}
 \in \NC \MB {R} ^{2M_1 \D 2M_2} \NR
 \NC \MC {R} \SB {\M {A}} _{\SB {m_1,m_2}} =
@@ -61,7 +61,7 @@ For \m {\M {A} \in \MB {C} ^{M_1 \D M_2}}, define real representation \m {\MC {R
 
 With these, we define
 %
-\Disp {
+\DispNum {y---Ry-Ny} {
 \NC \T {\V {y}}
 = \NC \MC {R} \SB {\V {y}}
 \in \MB {R} ^{2N_y} \NR
@@ -85,14 +85,14 @@ With these, we define
 %
 such that, by construction,
 %
-\Disp {
+\DispNum {y---Pg-gz} {
 \NC \V {\T {y}}
 = \NC \M {\T {P}} \V {\T {g}} +\V {\T {z}} \NR
 }
 
 Furthermore, introduce the following matrices to identify the components where we want to take \m {\ell_2}-norm, in the manner similar to an indicator function.
 %
-\Disp {
+\DispNum {u-h-RN-h1} {
 \NC {\V {u}}_{n_h}
 \in \NC \MB {R} ^{N_h} \NR
 \NC \RB {\V {u}_{n_h}} _{\SB {n_h'}}
@@ -116,7 +116,7 @@ Furthermore, introduce the following matrices to identify the components where w
 And denote \m {\V {1}} to be the all-\m{1} vector for short, and \m {\V {0}} the all-\m{0} vector, whose dimension will be specified from context.
 Now, if we introduce vector \m{\V {m}}
 %
-\Disp{
+\DispNum {m---RN-h1} {
 \NC \V {m} \in \NC \MB {R} ^{N_h} \NR
 \NC \V {m} \DB{n_h}
 = \NC \Nm{\V {g} \DB{n_h}} \NR
@@ -126,7 +126,7 @@ Now, if we introduce vector \m{\V {m}}
 %
 to denote the entrywise complex modulus of \m{\V {g}}, we see that the convex optimization now takes the form
 %
-\Disp {
+\DispNum {g---mi-h1} {
 \NC \Hat {\T {\V {g}}}
 = \NC \startcases
 \NC \Min {\T {\V {g}}', \V {m}} \Q
@@ -135,7 +135,7 @@ to denote the entrywise complex modulus of \m{\V {g}}, we see that the convex op
 \MC \VNm { \T {\M {U}}_{n_h} \T {\V {g}}' }_2
 \leq \IP { \V {u}_{n_h}, \V {m} } \NR
 \NC \MC \VNm { \T {\M {U}}_{n_h} \T {\M {P}}^\Adj \RB { \T {\M {P}} \T {\V {g}}' -\T {\V {y}} } }_2
-\leq \g \NR
+\leq \g_{\Rm {DS}} \NR
 \stopcases \NR
 \NC n_h 
 = \NC 0, 1, 2, \ldots, N_h-1 \NR
@@ -146,9 +146,9 @@ to denote the entrywise complex modulus of \m{\V {g}}, we see that the convex op
 \startsection [title={Second Order Cone Programming}]
 
 We shall see furthermore that the program can be cast into an SOCP.
-To make the point clearer, we rewrite Program () into an extended block matrix form, by defining auxiliary variables as follows,
+To make the point clearer, we rewrite the program just above into an extended block matrix form, by defining auxiliary variables as follows,
 %
-\Disp{
+\DispNum {t---01-Nh} {
 \NC \V {t}
 = \NC \startTheMatrix
 \NC \V {0} \NR
@@ -166,7 +166,7 @@ To make the point clearer, we rewrite Program () into an extended block matrix f
 %
 with
 %
-\Disp{
+\DispNum {A-i-Ui-h1} {
 \NC \M {A}_i
 = \NC \startTheMatrix
 \NC \T {\M {U}}_{i}, \NC \M {0} \NR
@@ -193,7 +193,7 @@ with
 
 And
 %
-\Disp{
+\DispNum {A-i-Ui-h1} {
 \NC \M {A}_i
 = \NC \startTheMatrix
 \NC -\T {\M {U}}_{i -N_h} \T {\M {P}}^\Adj \T {\M {P}}, \NC \M {0} \NR
@@ -209,23 +209,21 @@ And
 \in \MB {R} ^{3N_h} \NR
 %
 \NC d_i
-= \NC \g \NR
+= \NC \g_{\Rm {DS}} \NR
 %
 \NC i 
 = \NC N_h, N_h +1, N_h +2, \ldots, 2N_h -1 \NR
 }
-%
-The step that we convert \m {\Hat {\V {g}}} back is same as Algorithm () is same as before, but this is listed for sake of completeness.
 
 \Result
 {Algorithm}
 {
 \startitemize[n]
-\item Input \m{\M {P} \in \MB {C} ^{N_y \D N_h}}, \m{\V {y} \in \MB {C} ^{N_y}}, \m{\g > 0}.
+\item Input \m{\M {P} \in \MB {C} ^{N_y \D N_h}}, \m{\V {y} \in \MB {C} ^{N_y}}, \m {\g_{\Rm {DS}} > 0}.
 \item Define \m{\V {t}, \V {x}, \M {A}_i, \V {b}_i, \V {c}_i, d_i} according to ().
 \item Calculate
 %
-\Disp{
+\DispNum {x---mi-h1} {
 \NC \Hat {\V {x}}
 \LA \NC \startcases
 \NC \Min {\V {x}' \in \MB {C} ^{N_h}}
@@ -239,13 +237,13 @@ The step that we convert \m {\Hat {\V {g}}} back is same as Algorithm () is same
 }
 \item Extract
 %
-\Disp{
+\DispNum {g---x0-h1} {
 \NC \Hat{\T{\V {g}}}
 \LA \NC \Hat{\V {x}} _{\SB {0 : 2N_h-1}} \NR
 }
 \item Convert 
 %
-\Disp{
+\DispNum {g---R1-1g} {
 \NC \Hat{\V {g}}
 \LA \NC \MC{R} ^{-1} \SB {\Hat{\T{\V {g}}}} \NR
 }
@@ -289,8 +287,7 @@ The tolerance of absolute error in the primal-dual algorithm used in CVXPY is se
 The maximal number of iteration of CVXPY is set to be \m {32}.
 On the other hand, the maximal number of iteration of OMP is set to be \m {4 N_H}.
 
-Several threshold values occur in relevant alorithms.
-The threshold used in DS program is called \m {\g_{\Rm {DS}}} here, and another threshold of Lasso, called \m {\a}.
+Denote the threshold used in DS program to be \m {\g_{\Rm {DS}}}, and similar threshold of Lasso to be \m {\g_{\Rm {Lasso}}}.
 Yet another threshold used for the residue norm used in OMP program is called \m {\eta}.
 Various several values are tried for them, determined as thus: Take a central value roughly corresponding to the theory, and mutiply or divided the central value by powers of 2, or 
 
@@ -302,14 +299,14 @@ We make simplification and set respectively \m {\R {3} N_Y} and \m {2 \R {\log N
 Each data point is repeated for 32 times, and taken average.
 We plot the absolute log error
 %
-\DispNum {e',s;lo,vg} {
+\DispNum {e'-s-lo-vg} {
 \NC \e_{\Rm{abs}}
 =\NC \RB {\log_2 {\VNm {\V {h} -\Hat {\V {h}}}_2}} _{\Ss{avg}}, \NR
 }
 %
 and relative log error.
 %
-\DispNum {e',l;lo,vg} {
+\DispNum {e'-l-lo-vg} {
 \NC \e_{\Rm{rel}}
 =\NC \F {\RB {\log_2 {\VNm {\V {h} -\Hat {\V {h}}}_2}} _{\Ss{avg}}}
 {\RB {\log_2 {\VNm {\V {h}}_2}} _{\Ss{avg}}} \NR
@@ -317,7 +314,7 @@ and relative log error.
 %
 The averaged error values are plotted along with the theoretical expected error of DS, derived in chap.\ 3, namely
 %
-\DispNum {e',h;52,NH} {
+\DispNum {e'-h-52-NH} {
 \NC \e_{\Rm{th}}
 =\NC \F{5}{2} + \log \RB{L N_H} + \log \log N_H \NR
 }
@@ -366,7 +363,7 @@ Let \m {\V {g} _0} denote the starting value of \m {\V {g}}, and \m {\V {g} ^{\s
 Then \cite [BoV04] (p.505, eq.9.56) gives a bound of the number of iteration of Newton method.
 If just take that as the complexity bound for DS, it becomes
 %
-\DispNum {C,S;C0,1e'} {
+\DispNum {C-S-C0-1e'} {
 \NC C_{\Rm{DS}}
 = \NC C_0 \VNm {\V {g}_0 -\V {g} ^{\star}}_1
 + \log_2 \log_2 \F {1} {\e} \NR
@@ -380,7 +377,7 @@ They gives an example \m {C_0 =375} (with their notation, \m {C_0 =\dfrac {20 -8
 Since we are doing big-O analysis, we feel that we have more license on making approximation.
 For concreteness, we may assume that we start the iteration by specifying the Least Square estimator as the initial value of \m {\V {g}_0}, namely
 %
-\DispNum {g,0;gL,Py} {
+\DispNum {g-0-gL-Py} {
 \NC \V {g}_0
 =\NC \V {g}_{\Rm {LS}} \NR
 \NC = \NC \RB {\M {P} ^\Adj \M {P}} ^{-1} \M {P} ^\Adj \V {y} \NR
@@ -388,14 +385,14 @@ For concreteness, we may assume that we start the iteration by specifying the Le
 %
 If we drop it, we may write the complexity of DS to be, simply,
 %
-\DispNum {C,S;Og,g1} {
+\DispNum {C-S-Og-g1} {
 \NC C_{\Rm{DS}}
 =\NC \MC {O} \SB {\VNm {\V {g}_{\Rm {LS}} -\V {g} ^\star} _1} \NR
 }
 %
 For simplicity we assume
 %
-\DispNum {g-;g-,-g} {
+\DispNum {g-;g-,-g;} {
 \NC \V {g} ^\star
 \approx \NC \V {g} \NR
 }
@@ -403,7 +400,7 @@ For simplicity we assume
 Indeed, this is the main objective of our investigation!
 And by restricted isometry, \m {\M {P}} has unity-normed, almost orthogonal columns, so
 %
-\DispNum {P,P;IN,H2} {
+\DispNum {P-P-IN-H2} {
 \NC \M {P} ^\Adj \M {P}
 \approx \NC I _{N_{H}^2} \NR
 }
@@ -421,14 +418,14 @@ Thus
 If we agree that, for high probability,
 %
 \Disp {
-\NC \MC {O} \RB {\VNm {\M {P} ^\Adj \V {z}} _{\SB {j}}}
+\NC \MC {O} \SB {\VNm {\M {P} ^\Adj \V {z}} _{\SB {j}}}
 = \NC \s \MC {O} \RB {1} \NR
 }
 
-By condition (), it is easy to see that \m {\RB {\M {P} ^\Adj \V {z}} _{\SB {j}}} observes Complex Standard Normal distribution.
+It is easy to see that \m {\RB {\M {P} ^\Adj \V {z}} _{\SB {j}}} observes Complex Standard Normal distribution.
 and is easily bounded by \m {\s}.
 %
-\DispNum {--;ON,2s} {
+\DispNum {--;ON,2s;} {
 \NC C_{\Rm{DS}}
 =\NC \MC {O} \SB {N_{H}^2 \s} \NR
 }
@@ -436,7 +433,7 @@ and is easily bounded by \m {\s}.
 On the other hand, Tropp and Gilbert \cite [TrG07a] discussed the complexity of OMP, and the proof of technical lemmata in it can be found in the companion paper \cite [TrG07b].
 They give
 %
-\DispNum {C,O;ON,NY} {
+\DispNum {C-O-ON-NY} {
 \NC C_{\Rm{OMP}}
 =\NC \MC {O} \SB {N_H^2 \log N_Y} \NR
 }
@@ -448,7 +445,7 @@ If we drop \m {\log N_Y}, then we get \m {\MC {O} \SB {N_H^2}} again.
 
 In summary
 %
-\DispNum {C,P;CD,H2} {
+\DispNum {C-P-CD-H2} {
 \NC C_{\Rm{OMP}}
 \approx \NC C_{\Rm{DS}} \NR
 \NC \approx \NC \s \MC {O} \SB {N_H^2} \NR
