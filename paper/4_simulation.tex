@@ -64,23 +64,23 @@ With these, we define
 \DispNum {y---Ry-Ny} {
 \NC \T {\V {y}}
 = \NC \MC {R} \SB {\V {y}}
-\in \MB {R} ^{2N_y} \NR
+\in \MB {R} ^{2 N_Y^2} \NR
 %
 \NC \T {\V {g}}
 = \NC \MC {R} \SB {\V {g}}
-\in \MB {R} ^{2N_h} \NR
+\in \MB {R} ^{2 N_H^2} \NR
 %
 \NC \T {\M {P}}
 = \NC \MC {R} \SB {\M {P}}
-\in \MB {R} ^{2N_y \D 2N_h} \NR
+\in \MB {R} ^{2 N_Y^2 \D 2 N_H^2} \NR
 %
 \NC \T {\M {P}} ^\Adj
 = \NC \MC {R} \SB {\M {P} ^\Adj}
-\in \MB {R} ^{2N_y \D 2N_h} \NR
+\in \MB {R} ^{2 N_Y^2 \D 2 N_H^2} \NR
 %
 \NC \T {\V {z}}
 = \NC \MC {R} \SB {\V {z}}
-\in \MB {R} ^{2N_y} \NR
+\in \MB {R} ^{2 N_Y^2} \NR
 }
 %
 such that, by construction,
@@ -94,14 +94,14 @@ Furthermore, introduce the following matrices to identify the components where w
 %
 \DispNum {u-h-RN-h1} {
 \NC {\V {u}}_{n_h}
-\in \NC \MB {R} ^{N_h} \NR
+\in \NC \MB {R} ^{N_H^2} \NR
 \NC \RB {\V {u}_{n_h}} _{\SB {n_h'}}
 = \NC
 \startcases
 1, \Q \MC n_h' =n_h \NR
 0, \Q \NC \Rm {otherwise} \NR
 \stopcases \NR
-\NC \T {\M {U}}_{n_h} \in \NC \MB {R} ^{2N_h \D 2N_h} \NR
+\NC \T {\M {U}}_{n_h} \in \NC \MB {R} ^{2 N_H^2 \D 2 N_H^2} \NR
 \NC \RB {\T {\M {U}}_{n_h}} _{\SB {n_h', n_h''}}
 = \NC
 \startcases
@@ -110,18 +110,18 @@ Furthermore, introduce the following matrices to identify the components where w
 0, \Q \NC \Rm {otherwise} \NR
 \stopcases \NR
 \NC n_h, n_h', n_h'' 
-= \NC 0, 1, 2, \ldots, N_h -1 \NR
+= \NC 0, 1, 2, \ldots, N_H^2 -1 \NR
 }
 %
 And denote \m {\V {1}} to be the all-\m{1} vector for short, and \m {\V {0}} the all-\m{0} vector, whose dimension will be specified from context.
 Now, if we introduce vector \m{\V {m}}
 %
 \DispNum {m---RN-h1} {
-\NC \V {m} \in \NC \MB {R} ^{N_h} \NR
+\NC \V {m} \in \NC \MB {R} ^{N_H^2} \NR
 \NC \V {m} \DB{n_h}
 = \NC \Nm{\V {g} \DB{n_h}} \NR
 \NC n_h, n_h', n_h'' 
-= \NC 0, 1, 2, \ldots, N_h -1 \NR
+= \NC 0, 1, 2, \ldots, N_H^2 -1 \NR
 }
 %
 to denote the entrywise complex modulus of \m{\V {g}}, we see that the convex optimization now takes the form
@@ -138,7 +138,7 @@ to denote the entrywise complex modulus of \m{\V {g}}, we see that the convex op
 \leq \g_{\Rm {DS}} \NR
 \stopcases \NR
 \NC n_h 
-= \NC 0, 1, 2, \ldots, N_h-1 \NR
+= \NC 0, 1, 2, \ldots, N_H^2-1 \NR
 }
 
 \stopsection
@@ -154,14 +154,14 @@ To make the point clearer, we rewrite the program just above into an extended bl
 \NC \V {0} \NR
 \NC \V {1} \NR
 \stopTheMatrix
-\in \MB {R} ^{3N_h} \NR
+\in \MB {R} ^{3 N_H^2} \NR
 %
 \NC \V {x}'
 = \NC \startTheMatrix
 \NC \T {\V {g}}' \NR
 \NC \V {m} \NR
 \stopTheMatrix
-\in \MB {R} ^{3N_h} \NR
+\in \MB {R} ^{3 N_H^2} \NR
 }
 %
 with
@@ -171,24 +171,24 @@ with
 = \NC \startTheMatrix
 \NC \T {\M {U}}_{i}, \NC \M {0} \NR
 \stopTheMatrix
-\in \MB {R} ^{2N_h \D 3N_h} \NR
+\in \MB {R} ^{2 N_H^2 \D 3 N_H^2} \NR
 %
 \NC \V {b}_i
 = \NC \V {0}
-\in \MB {R} ^{2N_h} \NR
+\in \MB {R} ^{2 N_H^2} \NR
 %
 \NC \V {c}_i
 = \NC \startTheMatrix
 \NC \V {0} \NR
 \NC \V {u}_{i} \NR
 \stopTheMatrix
-\in \MB {R} ^{3N_h} \NR
+\in \MB {R} ^{3 N_H^2} \NR
 %
 \NC d_i
 = \NC 0 \NR
 %
 \NC i 
-= \NC 0, 1, 2, \ldots, N_h -1 \NR
+= \NC 0, 1, 2, \ldots, N_H^2 -1 \NR
 }
 
 And
@@ -196,50 +196,50 @@ And
 \DispNum {A-i-Ui-h1} {
 \NC \M {A}_i
 = \NC \startTheMatrix
-\NC -\T {\M {U}}_{i -N_h} \T {\M {P}}^\Adj \T {\M {P}}, \NC \M {0} \NR
+\NC -\T {\M {U}}_{i - N_H^2} \T {\M {P}}^\Adj \T {\M {P}}, \NC \M {0} \NR
 \stopTheMatrix
-\in \MB {R} ^{2N_h \D 3N_h} \NR
+\in \MB {R} ^{2 N_H^2 \D 3 N_H^2} \NR
 %
 \NC \V {b}_i
-=\NC \T {\M {U}}_{i -N_h} \T {\M {P}}^\Adj \T {\V {y}}
-\in \MB {R} ^{2N_h} \NR
+=\NC \T {\M {U}}_{i - N_H^2} \T {\M {P}}^\Adj \T {\V {y}}
+\in \MB {R} ^{2 N_H^2} \NR
 %
 \NC \V {c}_i
 = \NC \V {0}
-\in \MB {R} ^{3N_h} \NR
+\in \MB {R} ^{3 N_H^2} \NR
 %
 \NC d_i
 = \NC \g_{\Rm {DS}} \NR
 %
 \NC i 
-= \NC N_h, N_h +1, N_h +2, \ldots, 2N_h -1 \NR
+= \NC N_H^2, N_H^2 +1, N_H^2 +2, \ldots, 2 N_H^2 -1 \NR
 }
 
 \Result
 {Algorithm}
 {
 \startitemize[n]
-\item Input \m{\M {P} \in \MB {C} ^{N_y \D N_h}}, \m{\V {y} \in \MB {C} ^{N_y}}, \m {\g_{\Rm {DS}} > 0}.
+\item Input \m{\M {P} \in \MB {C} ^{ N_Y^2 \D N_H^2}}, \m{\V {y} \in \MB {C} ^{ N_Y^2}}, \m {\g_{\Rm {DS}} > 0}.
 \item Define \m{\V {t}, \V {x}, \M {A}_i, \V {b}_i, \V {c}_i, d_i} according to ().
 \item Calculate
 %
 \DispNum {x---mi-h1} {
 \NC \Hat {\V {x}}
 \LA \NC \startcases
-\NC \Min {\V {x}' \in \MB {C} ^{N_h}}
+\NC \Min {\V {x}' \in \MB {C} ^{N_H^2}}
 \MC \IP {\V {t}, \V {x}'} \NR
 \NC \Rm {subject} \; \Rm {to}
 \Q  \MC \VNm {\M {A} _{i} \V {x}' +\V {b} _{i}} _2
 \leq \IP {\V {c}_{i}, \V {x}'} +\V {d}_i \NR
 \NC \MC i 
-=0, 1, 2, \ldots, 2N_h -1 \NR
+=0, 1, 2, \ldots, 2 N_H^2 -1 \NR
 \stopcases \NR
 }
 \item Extract
 %
 \DispNum {g---x0-h1} {
 \NC \Hat{\T{\V {g}}}
-\LA \NC \Hat{\V {x}} _{\SB {0 : 2N_h-1}} \NR
+\LA \NC \Hat{\V {x}} _{\SB {0 : 2 N_H^2-1}} \NR
 }
 \item Convert 
 %
@@ -268,9 +268,6 @@ And
 \startsection [title={Result}]
 
 \startsubsection [title={Settings}]
-
-
-
 
 We do three series of experiments, which are of size from small to large.
 In three experiments, we take respectively \m {L} to be \m {2, 3, 4}, \m {N_Y} to be \m {5, 7, 9}, \m {N_R} to be \m {10, 14, 18}, and \m {N_H} to be \m {20, 28, 36}.

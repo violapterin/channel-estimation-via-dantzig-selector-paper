@@ -109,7 +109,9 @@ Anyway, a moment's reflection shows
 %
 \NC =\NC \F {1} {\pi} \log \F {N_H^2 /s^2 -\pi^2 /24} {1 -\pi^2 /24} \NR
 %
-\NC \simeq \NC \F {1} {\pi} \RB {\log N_H -\log s} \NR
+\NC \eqsim \NC \F {2} {\pi} \RB {\log N_H -\log s} \NR
+%
+\NC \leq \NC \F {2} {\pi} \log N_H \NR
 }
 %
 Since the value of \m {s} is at our disposal, we try
@@ -137,7 +139,7 @@ Then, for any random instance of \m {\f},
 
 \startsubsection [title={Norm of Angular Channel Response}]
 
-If that we set
+If we set that
 \DispNum {S-S-Ls-s2} {
 \NC S
 =\NC L s^2 \NR
@@ -148,8 +150,8 @@ by triangle inequality, by the property of 2-norm and Frobenius norm,
 \NC \VNm {\V {g} _{\SB{\MC {C}}}} _1
 \leq \NC
 \sum _{l=0} ^{L-1} \Nm {\a_l}
-\VNm {\\V {b} \SB {\f_l} _{\SB{\MC {C}}}} _2
-\VNm {\\V {b} \SB {\th_l} _{\SB{\MC {C}}}} _2 \NR
+\VNm {\V {b} \SB {\f_l} _{\SB{\MC {C}}}} _2
+\VNm {\V {b} \SB {\th_l} _{\SB{\MC {C}}}} _2 \NR
 %
 \NC \leq \NC
 \VNm {\V {b} \SB {\f_l} _{\SB{\MC {C}}}} _2

@@ -17,7 +17,7 @@ And, as shall be seen, it suffices to set
 %
 \DispNum {g'-g'-2N-Nh} {
 \NC \g
-= \NC \R {2 \log N_h} \NR
+= \NC \R {4 \log N_H} \NR
 }
 %
 The lemmata below are taken from \cite [CaT07] and modified slightly in accordance to our settings, except possibly the generalization to complex vector.
@@ -47,40 +47,34 @@ To show this, observe that with triangle inequality applied respectively on \m {
 %
 On the other hand, by construction that \m {\hat {g}} minimizes the \m {\ell_1}-norm,
 %
-\DispNum {--;g1,g1;} {
+\Disp {
 \NC \leq \NC \VNm {\V {g}} _1 \NR
 }
 %
-\Result
-{Lemma}
-{
-Let \m {\M {P}} be fixed, and instance of \m {\V {z}} be given.
-Then
+To prove the next result, fix an instance of \m {\M {P}} and instance of \m {\V {z}}.
+We claim that
 %
 \DispNum {E-h-2N-Nh} {
-\NC \MB {E} \SB {\Nm {\IP {\V {z} , \M {P} \DB {:, n_h}}}}
-\leq \NC  2 \R {\log N_h} \NR
+\NC \MB {E} \SB {\Nm {\IP {\V {z} , \M {P} _{\SB {:, n_h}}}}}
+\leq \NC  2 \R {2 \log N_H} \NR
 %
 \NC n_h 
-=\NC 1, \ldots, N_h. \NR
+=\NC 1, \ldots, N_H^2. \NR
 }
 %
-holds with probability \m {\geq 1 -N_h^{-1}}.
-}
-%
-Indeed, recall the fact that \m {\M {P} \DB {:, n_g}} has unity \m {\ell_2}-norm, and on the randomness of \m {\V {z}}, the quantity \m {\Nm {\IP {\V {z} , \M {P} \DB {:, n_h}}}} observes standard Normal.
-Recall the following bound for \m {Q} function
+This follows by the fact that \m {\M {P} _{\SB {:, n_g}}} has unity \m {\ell_2}-norm, and on the randomness of \m {\V {z}}, the quantity \m {\Nm {\IP {\V {z} , \M {P} _{\SB {:, n_h}}}}} observes Standard Normal.
+To bound the failure probability, recall the tail bound for \m {Q} function
 %
 \DispNum {Q-x-12-22} {
-\NC Q\SB {x}
-\leq \NC \F {1} {2} \Ss {e}^{-x^2/2} \NR
+\NC Q\SB {x'}
+\leq \NC \F {1} {2} \Ss {e}^{-x'^2 /2} \NR
 }
 %
-Particularly, for \m {x =\R {2 \log N_h}},
+Particularly, for \m {x' =\R {4 \log N_H}}, this gives the failure probability
 %
 \DispNum {Q-h-1N-Nh} {
-\NC Q\SB {\R {2 \log N_h}}
-=\NC \F {1} {N_h}. \NR
+\NC Q\SB {\R {4 \log N_H}}
+=\NC \F {1} {N_H^2}. \NR
 }
 %
 \Result
@@ -90,64 +84,74 @@ If \m {\M {P}} is \m {\d_S}-RIP,
 %
 \DispNum {P-d-4N-Nh} {
 \NC \VNm {\M {P}^\Adj \M {P} \V {d}} _\infty
-\leq \NC  4 \R {\log N_h} \NR
+\leq \NC  4 \R {2 \log N_H} \NR
 }
 %
-holds with probability \m {\geq 1 -N_h^{-1}}.
+holds for probability \m {p} 
+%
+\DispNum {1-p-NH-H2} {
+\NC 1 -p
+\leq \NC N_H^{-2}. \NR
+}
 }
 %
 To show this, by definition
 %
 \DispNum {z-y-Pg-ny} {
-\NC \IP {\V {z} -\RB {\V {y} -\M {P} \hat {\V {g}}}, \M {P} \DB {:,n_y}}
-= \NC \IP {\M {P} \hat {\V {g}} -\M {P} \V {g}, \M {P} \DB {:,n_y}} \NR
+\NC \IP {\V {z} -\RB {\V {y} -\M {P} \hat {\V {g}}}, \M {P} _{\SB {:,n_y}}}
+= \NC \IP {\M {P} \hat {\V {g}} -\M {P} \V {g}, \M {P} _{\SB {:,n_y}}} \NR
 %
-\NC = \NC \IP {\M {P} \V {d}, \M {P} \DB {:,n_y}} \NR
+\NC = \NC \IP {\M {P} \V {d}, \M {P} _{\SB {:,n_y}}} \NR
 }
 %
 By construction
 %
 \DispNum {P-g-Py-Nh} {
-\NC \VNm {\M {P} \DB {:,n_y}^\Adj \RB {\V {y} -\M {P} \hat {\V {g}}}} _\infty
+\NC \VNm {\M {P} _{\SB {:,n_y}}^\Adj \RB {\V {y} -\M {P} \hat {\V {g}}}} _\infty
 \leq \NC \VNm {\M {P}^\Adj \RB {\V {y} -\M {P} \hat {\V {g}}}} _\infty \NR
 %
-\NC \leq \NC 2\R {\log N_h} \NR
+\NC \leq \NC 2\R {2 \log N_H} \NR
 }
 %
-By triangle inequality, together with \Rf {E-h-2N-Nh}, we have
+By triangle inequality, together with \Rf {Q-h-1N-Nh}, we obtain the desired result.
 %
 \DispNum {P-d-zP-Nh} {
-\NC \VNm {\M {P} \DB {:,n_y}^\Adj \M {P} \V {d}} _\infty
-\leq \NC \VNm {\IP {\V {z}, \M {P} \DB {:,n_y}}} _\infty
-+\IP {\V {y} -\M {P} \hat {\V {g}}, \M {P} \DB {:,n_y}} \NR
+\NC \VNm {\M {P} _{\SB {:,n_y}}^\Adj \M {P} \V {d}} _\infty
+\leq \NC \VNm {\IP {\V {z}, \M {P} _{\SB {:,n_y}}}} _\infty
++\IP {\V {y} -\M {P} \hat {\V {g}}, \M {P} _{\SB {:,n_y}}} \NR
 %
-\NC \leq \NC 2 \R {\log N_h} +2 \R {\log N_h} \NR
-}
-%
-which implies
-%
-\DispNum {P-d-4l-Nh} {
-\NC \VNm {\M {P}^\Adj \M {P} \V {d}} _\infty
-\leq \NC 4 \R {\log N_h}. \NR
+\NC \leq \NC 2 \R {2 \log N_H} +2 \R {2 \log N_H} \NR
 }
 %
 Lastly, the following two lemmata is taken from \cite [CaT07], Lemma 1.
 The generalization from real vector spaces to complex spaces is completely straightforward, while meaning of magnitude and inner product has to be changed.
+One of them reads
+%
+\DispNum {d-2-dA-12} {
+\NC \VNm {\V {d}} _2^2
+\leq \NC \VNm {\V {d} _{\SB {\MC {AB}}}} _2^2 +\F {1} {S} \VNm {\V {d} _{\SB{\MC {C}}}} _1^2 \NR
+}
+%
+By power mean inequality, we get a statement cruder than \Rf {d-2-dA-12} that
+%
 \Result
 {Lemma}
 {
 %
-\DispNum {d-2-dA-12} {
-\NC \VNm {\V {d}} _2^2
-\leq \NC \VNm {\V {d} _{\MC {A} \MC {B}}} _2^2 +\F {1} {S} \VNm {\V {d} _{\SB{\MC {C}}}} _1^2 \NR
+\DispNum {d-2-dA-C1} {
+\NC \VNm {\V {d}} _2
+\leq \NC \VNm {\V {d} _{\SB {\MC {AB}}}} _2 +\F {1} {\R {S}} \VNm {\V {d} _{\SB{\MC {C}}}} _1 \NR
 }
 }
-The other one reads
+%
+The other one of them reads
+%
 \DispNum {d-2-11-C1} {
 \NC \VNm {\V {d} _{\SB{\MC {AB}}}} _2
-\leq \NC \F {1} {1-\d_{2S}} \VNm {P _{\MC {A} \MC {B}}^\Tr P d} _2
+\leq \NC \F {1} {1-\d_{2S}} \VNm {P _{\SB {\MC {AB}}}^\Tr P d} _2
 +\F {\T {\d}_{S, 2S}} {\RB {1-\d_{2S}} \R {S}} \VNm {d_{\SB{\MC {C}}}} _1 \NR
 }
+%
 Here \m {\T {\d} _{s_1, s_2}} is called the \m {s_1,s_2}-restricted isometry constant, and is defined in \cite [Can05] (which uses \m {\th}), as follows.
 Let \m {\M {Q}'} be fixed.
 For all \m {s_1}-sparse \m {\V {x}_1}, for all \m {s_2}-sparse \m {\V {x}_2}, whose positions for nonzero components are disjoint,
@@ -173,29 +177,37 @@ By triangle inequality, by power-mean inequality,
 \leq \NC \VNm {Q' \V {x}_1}
 +\VNm {Q' \V {x}_2} \NR
 %
-\NC \leq \NC \RB {1 +\d _{s}} \RB {\VNm {\V {x}_1} +\VNm {\V {x}_2}} \NR
+\NC \leq \NC \RB {1 +\d _{s'}} \RB {\VNm {\V {x}_1} +\VNm {\V {x}_2}} \NR
 %
-\NC \leq \NC \RB {1 +\d _{s}} \D \R{2} \VNm {\V {x}_1 +\V {x}_2} \NR
+\NC \leq \NC \RB {1 +\d _{s'}} \D \R{2} \VNm {\V {x}_1 +\V {x}_2} \NR
 }
 Therefore
 \Disp {
-\NC \d_{2s}
-\leq \NC \R {2} \d_{s} \NR
+\NC \d_{2s'}
+\leq \NC \R {2} \d_{s'} \NR
 }
 By the same token,
 %
 \Result
 {Lemma}
 {
-If \m {\M {Q}'} has \m {\d}-RIP, then, for \m {M=1,2,3,\dots} so that \m {\d _{Ms}} is meaningful,
+If \m {\M {Q}'} has \m {\d_{s'}}-RIP, then, for \m {M=1,2,3,\dots} so that \m {\d _{Ms'}} is meaningful,
 %
 \DispNum {d-s-Md'-d's} {
-\NC \d_{Ms}
-\leq \NC \R {M} \d_{s} \NR
+\NC \d_{Ms'}
+\leq \NC \R {M} \d_{s'} \NR
 }
 }
 %
-Thus we have, in view of \Rf {d-2-11-C1},
+In particular,
+%
+\DispNum {d'-S-Ll-d's} {
+\NC \d_{S}
+\leq \NC \R {L} \RB {\log N_H} ^{1/4} \d_{s} \NR
+}
+%
+So \Rf {d-2-11-C1} becomes
+%
 \Result
 {Lemma}
 {
@@ -203,12 +215,10 @@ If \m {\M {P}} is \m {\d_S}-RIP,
 %
 \DispNum {d-2-11-C1} {
 \NC \VNm {\V {d} _{\SB{\MC {AB}}}} _2
-\leq \NC \F {1} {1-\R{2} \d_{S}} \VNm {P _{\MC {A} \MC {B}}^\Tr P d} _2
+\leq \NC \F {1} {1-\R{2} \d_{S}} \VNm {P _{\SB {\MC {AB}}}^\Tr P d} _2
 +\F {\R{3} \d_{S}} {\RB {1-\R{2} \d_{S}} \R {S}} \VNm {d_{\SB{\MC {C}}}} _1 \NR
 }
 }
-%
-
 \stopsubsection
 
 \startsubsection [title={Main Result}]
@@ -216,7 +226,7 @@ If \m {\M {P}} is \m {\d_S}-RIP,
 We are going to combine previous lemmata and show the main result.
 For simplicity, set
 %
-\DispNum {d'-S;18,18;} {
+\DispNum {d'-S-18-18} {
 \NC \d_S
 \leq \NC \F {1} {8} \NR
 }
@@ -235,21 +245,30 @@ Then the bound
 %
 \DispNum {d-2-42-NH} {
 \NC \VNm {\V {d}} _2
-\leq \NC 4 \R {2L} \log N_H \NR
-}
+%
+\leq \NC 3.29 \R {L} \log N_H +4.56 \R {L} \R {\log N_H}^3 \NR
 }
 %
+holds for probability \m {p}, with
+%
+\DispNum {1-p-ON-13} {
+\NC 1 -p
+=\NC \MC {O} \SB {N_H ^{-1/3}} \NR
+}
+}
 
-We start to prove \Rf {d-2-42-NH}.
+To prove \Rf {d-2-42-NH}, we simplify the expression for \m {\VNm {\V {d} _{\SB{\MC {AB}}}} _2} in \Rf {d-2-11-C1} and the one for \m {\VNm {\V {d} _{\SB{\MC {C}}}} _1} in \Rf {d-1-dA-C1} and 
+In this section we substitute rough numbers.
+
 By the definition of truncation, by \m {\ell_p} norm inequality, by \Rf {P-d-4N-Nh},
 %
 \DispNum {P-2-PP-NH} {
-\NC \VNm {\M {P} _{\MC {A} \MC {B}}^\Tr \M {P} \V {d}} _2
+\NC \VNm {\M {P} _{\SB {\MC {AB}}}^\Tr \M {P} \V {d}} _2
 \leq \NC \VNm {\M {P}^\Tr \M {P} \V {d}} _2 \NR
 %
 \NC \leq \NC \R {S} \VNm {\M {P}^\Tr \M {P} \V {d}} _\infty \NR
 %
-\NC \leq \NC 4 \R {2 \log N_H} \NR
+\NC \leq \NC 5.65 \R {\log N_H} \NR
 }
 %
 By \m {\ell_p}-norm inequality, by the definition of truncation, by \Rf {d-2-11-C1}, and by \Rf {P-2-PP-NH} just above,
@@ -260,77 +279,91 @@ By \m {\ell_p}-norm inequality, by the definition of truncation, by \Rf {d-2-11-
 %
 \NC \leq \NC \R {S} \VNm {\V {d} _{\SB{\MC {AB}}}} _2 \NR
 %
-\NC \leq \NC 4 \R {2 \log N_H}
-+\F {1} {\R{L \log N_H}} \VNm {\V {d} _{\SB{\MC {C}}}} _1 \NR
-}
-%
-Next, we want to use \Rf {d-1-dA-C1} to eliminate \m {\VNm {d _{\SB{\MC {A}}}} _1}.
-%
-\DispNum {8,2,nn-hh;} {
-\NC \leq \NC 4 \R {2 \log N_H}
-+\F {1} {\R{L \log N_H}} \RB {\VNm {\V {d} _{\SB{\MC {A}}}} _1 +2\VNm {\V {g} _{\SB{\MC {C}}}} _1} \NR
+\NC \leq \NC 1.21 L \R {\log N_H}^3
++0.262 \VNm {\V {d} _{\SB{\MC {C}}}} _1 \NR
 }
 %
 And \Rf {a-2-4N-NH} gives, after arrangement,
 %
-\DispNum {d-A;8,2;} {
+\DispNum {d-A1-16-H2} {
 \NC \VNm {\V {d} _{\SB{\MC {A}}}} _1
-\leq \NC 4 \R {2 \log N_H}
-+2\VNm {\V {g} _{\SB{\MC {C}}}} _1 \NR
 %
-\NC \leq \NC \RB {16 \R {2} +\F {4} {\pi^2} \R {1 -\F {2} {\pi}}} \log N_H \NR
+\leq \NC 1.64 L \R {\log N_H}^3 +0.951 L \RB {\log N_H}^2 \NR
 }
 %
-We are now in a position to bound \m {\VNm {d} _2^2}.
-Using \Rf {d-2-dA-12} again, we have
+Then, substituting \Rf {g-C-4p'-NH} and \Rf {d-A1-16-H2} above into \Rf {d-1-dA-C1}, we get
+\DispNum {d-C1-16-H2} {
+\NC \VNm {\V {d} _{\SB{\MC {C}}}} _1
 %
-\Disp {
-\NC \VNm {\V {d}} _2^2
-\leq \NC 32 S \log N_H
-+8 \d_{3S} \R {2 \log N_H} 
-+\F {\d_{3S}^2} {S} \VNm {\V {d} _{\SB{\MC {C}}}} _1 \NR
+\leq \NC 1.64 L \R {\log N_H}^3 +3.61 L \RB {\log N_H}^2 \NR
 }
 %
-Finally, plug in the bound for \m {\VNm {\V {d} _{\SB{\MC {C}}}} _1}, the last unknown, and we make use of the almost-sparsity condition of \m {\VNm {\V {d} _{\SB{\MC {C}}}} _1}.
-Again for simplicity, we keep only the first order small terms.
+And \Rf {d-2-11-C1} becomes
 %
-\Disp {
-\NC \VNm {\V {d}} _2^2
-\leq \NC 32 S \log N_H
-+\F {8 \R {2\pi}} {3} \d_{3S} L \R {\F {\log N_H} {N_H}}
-+\F {\pi} {9} \F {L} {s^2 N_H} \NR
+\DispNum {d-2-16-H3} {
+\NC \VNm {\V {d} _{\SB{\MC {AB}}}} _2
+%
+\leq \NC 1.64 \R {L} \log N_H +0.951 \R {L} \R {\log N_H}^3 \NR
 }
-%
-Set \m {\d_S =1} for the worst situation, and we get the desired bound.
+We are now in a position to bound \m {\VNm {d} _2}, just by using \Rf {d-2-dA-C1} again, and plugging in \Rf {d-2-16-H3} and \Rf {d-C1-16-H2} above.
 
-In addition to the bound, we shall discuss the four sources of error, namely
+In addition, we shall discuss the four events of failure, namely
 \DispNum {q-q-2q-ar} {
 \NC q
-\simeq \NC 2 \RB {q _{\Rm {isom}, B} + q _{\Rm {isom}, R}} +q _{\Rm {nois}} +q _{\Rm {spar}} \NR
+\eqsim \NC 2 \RB {q _{\Rm {iso}, B} + q _{\Rm {iso}, R}} +q _{\Rm {no}} +q _{\Rm {sp}} \NR
 }
-subscript for restricted isometry, noise, sparsity, respectively.
-
-Quoting previous results, they are
-\Disp {
-q
-\simeq \Ss {e} ^{N_B \d}
+subscript respectively for restricted isometry, noise, sparsity, respectively.
+Quoting previous results \Rf {1-p-1N-H3}, \Rf {P-d-eN-d4}, \Rf {1-p-ex-d's}, and \Rf {1-p-NH-H2}, we make some approximation and set
+\DispNum {q-B-2e-Lp'} {
+\NC q _{\Rm {iso}, B}
+\lesssim \NC 2 \Ss {e} ^{-N_B /12} \NR
+%
+\NC q _{\Rm {iso}, R}
+\lesssim \NC 2 N_H ^{-1/3} \RB {\log N_H} ^{-1/6} \NR
+%
+\NC q _{\Rm {no}}
+\lesssim \NC N_H ^{-2} \NR
+%
+\NC q _{\Rm {sp}}
+\lesssim \NC 2 \Ss {e} ^{-9L/\pi} \NR
 }
 %
-Provided the design values
-\Disp {
-\NC N_R
-\leftarrow \NC \RB {\log N_H} ^{3/2} \NR
-%
+If we provide the design values
+\DispNum {N-B-4l-H2} {
 \NC N_B
-\leftarrow \NC \log \log N_H \NR
+\gtrsim \NC 4 \log N_H \NR
+%
+\NC N_R
+\gtrsim \NC 16 L \RB {\log N_H}^2 \NR
 }
 %
-And we get the estimation
-\Disp {
+It can be seen that
+\DispNum {q-p-qn-oR} {
+\NC q _{\Rm {sp}}
+\lesssim \NC q _{\Rm {no}} \NR
+%
+\NC \lesssim \NC q _{\Rm {iso}, B} \NR
+%
+\NC \eqsim \NC q _{\Rm {iso}, R} \NR
+}
+%
+then we get the estimation
+\DispNum {q-q-ON-13} {
 \NC q
-=\NC \MC {O} \SB {\F {1} {\RB {\log N_H}^3}} \NR
+\eqsim \NC q _{\Rm {iso}, R} \NR
+%
+\NC \eqsim \NC q _{\Rm {iso}, B} \NR
+%
+\NC \eqsim \NC 2 N_H ^{-1/3} \NR
 }
 %
+
+%gC1 {g-C-4p'-NH}
+%dC1 {d-1-dA-C1}
+%PPd-infty {P-d-4N-Nh}
+%d2 {d-2-dA-C1}
+%dAB2 {d-2-11-C1}
+
 \stopsubsection
 \stopsection
 

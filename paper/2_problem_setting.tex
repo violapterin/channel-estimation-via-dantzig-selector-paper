@@ -55,8 +55,8 @@ to get a simpler form
 
 We consider the hybrid configuration at both transmitter and receiver end.
 That is to say, each end consists of both digital and analog percoders and combiners, as follows.
-In the transmitter end, there are, in order seeing from the end, digital precoder \m {\M {F} _B \in \MB {C} ^{N_R \D  N_Y}} and analog precoder \m {\M {F} _R \in \MB {C} ^{N_H \D  N_R}}.
-Similarly, in the receiver end, there are, in order seeing from the end, digital combiner \m {\M {W} _R \in \MB {C} ^{N_R \D  N_H}} and analog combiner \m {\M {W} _B \in \MB {C} ^{N_Y \D  N_R}}.
+In the transmitter end, there are, in order seeing from the end, digital precoder \m {\M {F} _B \in \MB {C} ^{N_R \D N_Y}} and analog precoder \m {\M {F} _R \in \MB {C} ^{N_H \D  N_R}}.
+Similarly, in the receiver end, there are, in order seeing from the end, digital combiner \m {\M {W} _R \in \MB {C} ^{N_R \D N_H}} and analog combiner \m {\M {W} _B \in \MB {C} ^{N_Y \D  N_R}}.
 
 Recall that analog precoder is restricted to have value with magnitude being unity, i.e.,
 %
@@ -82,7 +82,7 @@ And we assume
 \NC N_R \gg \NC N_Y \NR
 }
 
-Since we restrict our discussion to a specific snapshot of time, the noise term may be simply taken as a matrix \m {\M {Z} \in \NC \MB {C} ^{N_Y \D  N_Y}} with each entry being i.i.d.\ Standard Normal.
+Since we restrict our discussion to a specific snapshot of time, the noise term may be simply taken as a matrix \m {\M {Z} \in \NC \MB {C} ^{N_Y \D N_Y}} with each entry being i.i.d.\ Standard Normal.
 We may introduce the effective channel
 %
 \DispNum {Y-Y-WB-BZ} {
@@ -142,34 +142,24 @@ Then
 }
 }
 
-Now, for short we set
-%
-\Disp {N-h-NH-Y2} {
-\NC N_h
-= \NC N_H^2 \NR
-%
-\NC N_y
-= \NC N_Y^2 \NR
-}
-%
-If we had followed the widely accepted approach of compressive channel sensing, we would have written
+It would seem now appealing to write
 %
 \DispNum {h-h-ve-Nh} {
 \NC \V {h}
 := \NC \Rm {vec} \SB {\M {H}}
-\in \MB {C} ^{N_h} \NR
+\in \MB {C} ^{N_H^2} \NR
 %
 \NC \V {y}
 := \NC \Rm {vec} \SB {\M {Y}}
-\in \MB {C} ^{N_y} \NR
+\in \MB {C} ^{N_Y^2} \NR
 %
 \NC \V {z}
 := \NC \Rm {vec} \SB {\M {W} _B \M {W} _R \M {Z}}
-\in \MB {C} ^{N_y} \NR
+\in \MB {C} ^{N_Y^2} \NR
 %
 \NC \M {Q}
 := \NC \RB {\M {F} _B^\Tr \M {F} _R^\Tr} \otimes \RB {\M {W} _B \M {W} _R}
-\in \MB {C} ^{N_y \D  N_h} \NR
+\in \MB {C} ^{N_Y^2 \D N_H^2} \NR
 }
 %
 to formulate our goal as sparse recovery problem of \m {\Rm {vec} \SB {\M {H}}} to be
@@ -188,7 +178,7 @@ However, there is no guarantee, though, that \m {\V {h}} will be sparse.
 Introduce the discrete Fourier transform matrix \m {\M {K}} defined to be
 %
 \DispNum {K-K-CN-H1} {
-\NC \M {K} \in  \NC \MB {C} ^{N_H \D  N_H} \NR
+\NC \M {K} \in  \NC \MB {C} ^{N_H \D N_H} \NR
 %
 \NC \M {K} \DB {n_1, n_2}
 = \NC \F {1} {\R {N_H}} \Ss {e}^{2\pi \Ss {i} n_1 n_2 /N_H}, \NR
@@ -218,7 +208,7 @@ which has the interpretation as the angular space (i.e., spatial frequency domai
 \NC \M {Y}
 =\NC \M {W} _B \M {W} _R \M {K} \D \M {G} \D \M {K}^\Adj \M {F} _R \M {F} _B
 +\M {W} _B \M {W} _R \M {Z}
-\in \MB {C} ^{N_Y \D  N_Y} \NR
+\in \MB {C} ^{N_Y \D N_Y} \NR
 }
 %
 If at the end of day, \m {\M {G}} is sparse, then we recover \m {\M {G}} instead, and our use of DS is fully justified.
@@ -227,7 +217,7 @@ To simplify notation, set
 \DispNum {P-P-FB-Nh} {
 \NC \M {P}
 :=\NC \RB {\M {F} _B^\Tr \M {F} _R^\Tr \M {K}^\ast} \otimes \RB {\M {W} _B \M {W} _R \M {K}}
-\in \MB {C} ^{N_y \D  N_h} \NR
+\in \MB {C} ^{N_Y^2 \D N_H^2} \NR
 }
 %
 And accordingly
@@ -235,7 +225,7 @@ And accordingly
 \DispNum {g-g-ve-Nh} {
 \NC \V {g}
 := \NC \Rm {vec} \SB {\M {G}}
-\in \MB {M} _{\MB {C}} \SB {N_h} \NR
+\in \MB {M} _{\MB {C}} \SB {N_H^2} \NR
 }
 %
 Then
@@ -255,18 +245,18 @@ If so, our program reads
 {
 \startitemize[n]
 \item Let \m {\g_{\Rm {DS}} \geq 0} be given.
-\item Input \m {\M {F} _B \in \NC \MB {C} ^{N_R \D  N_Y}},
+\item Input \m {\M {F} _B \in \NC \MB {C} ^{N_R \D N_Y}},
 \m {\M {F} _R \in \NC \MB {C} ^{N_H \D N_R}},
 \m {\M {W} _R \in \NC \MB {C} ^{N_R \D N_H}},
 \m {\M {W} _B \in \NC \MB {C} ^{N_Y \D N_R}},
 and \m {\M {Y} \in \NC \MB {C} ^{N_Y \D N_Y}}.
-\item Find \m {\M {P} \in \MB {C} ^{N_y \D  N_h}}, \m {\V {y} \in \MB {C} ^{N_h}} as in above.
+\item Find \m {\M {P} \in \MB {C} ^{N_Y^2 \D N_H^2}}, \m {\V {y} \in \MB {C} ^{N_H^2}} as in above.
 \item Calculate
 %
 \DispNum {g-g-mi-DS} {
 \NC \Hat {\V {g}}
 \LA \NC \startcases
-\NC \Min {\V {g}' \in \MB {C} ^{N_h}}  \MC \VNm {\V {g}'} _1 \NR
+\NC \Min {\V {g}' \in \MB {C} ^{N_H^2}}  \MC \VNm {\V {g}'} _1 \NR
 %
 \NC \Rm {subject} \; \Rm {to} \Q \MC \VNm {\M {P}^\Adj \RB {\V {y} -\M {P} \V {g}'}} _\infty \leq \g_{\Rm {DS}} \NR
 \stopcases \NR
