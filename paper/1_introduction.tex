@@ -14,7 +14,7 @@ The channel capacity is the major information theoretic metric to be considered 
 Roughly, the capacity of a MIMO channel at perfect channel state information is well-known to be in the form \m {\log \det \RB {I +\Ss {snr}}}, but the expression of channel is hardly always available, and in fact, the explicit dependence of capacity on relevant parameters is often a difficult problem (Goldsmith et.\ al.\ \cite [GJJ03]).
 When the estimated channel is compromised, the ensuing analysis is also undermined.
 
-It turns out that not only is the channel hard to estimate due to so many antennae, but the transmission is prone to noise corruption, 
+It turns out that not only is the channel hard to estimate due to a large number of antennae, but the transmission is prone to noise corruption.
 In real applications, channel may also be fast varying with respect to time, and a high complexity algorithm is surely less than being ideal.
 
 \stopsection
@@ -89,7 +89,7 @@ For fixed \m {s =0, \dots N_p -1}, we say that \m {\M {Q}} satisfies \m {\d_s}-r
 %
 It helps to think that \m {\M {Q}} is almost unitary up to relative error \m {\d_s}.
 
-Now, consider a linear transformation of real vectors with noise corruption,
+Now, consider a linear transformation of real vectors added of noise,
 %
 \DispNum {y-y-Qx-xz} {
 \NC \V {y}
@@ -97,7 +97,7 @@ Now, consider a linear transformation of real vectors with noise corruption,
 }
 %
 where, for example, \m {\V {z}} is an i.i.d.\ normalized Gaussian vector.
-How can we hope to estimate \m {\V {x}} when, in addition to insufficient observations, there are too few observations?
+How can we hope to estimate \m {\V {x}} when, in addition to insufficient measurements, there is also noise corruption?
 
 \Result
 {Algorithm}

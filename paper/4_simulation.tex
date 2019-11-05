@@ -1,6 +1,6 @@
 \startchapter [title={Simulation}]
 
-We are ready to verify theoretical bound of DS by numerical experiments.
+We are ready to verify bound of eror norm of DS by numerical experiments.
 DS is a convex optimization program, and there are many library devoted on that.
 For present purpose, we choose the ready-made Python library CVXPY.
 For the implementation details, see Diamond and Boyd \cite [DiB16]
@@ -270,11 +270,12 @@ And
 \startsubsection [title={Settings}]
 
 We do three series of experiments, which are of size from small to large.
-In three experiments, we take respectively \m {L} to be \m {2, 3, 4}, \m {N_Y} to be \m {5, 7, 9}, \m {N_R} to be \m {10, 14, 18}, and \m {N_H} to be \m {20, 28, 36}.
+In the following experiments, we take respectively \m {N_H} to be \m {16, 32, 48}, \m {N_Y} to be \m {\log N_H} (giving \m {3, 3, 4}), \m {N_R} to be \m {\RB {\log N_H}^2} (giving \m {8, 12, 15}).
 
 Other parameters are fixed in these experiments; 
-The number of grid of quantization of analog precoder is 16
-The wavelength of the EM wave that antenna is emitting, \m {\l _{\Rm{ant}} = 1}, is set to be 0.1.
+The number of grid of quantization of analog precoder is \m {16}.
+The number of paths \m {L} is \m {4}.
+The wavelength of the EM wave that antenna is emitting, \m {\l _{\Rm{ant}} = 1}, is set to be \m {0.1}.
 and the antenna spacing \m {d _{\Rm{ant}} =3}.
 Note that only their ratio matters.
 See chapter 2 for meaning of them.
@@ -293,32 +294,62 @@ For comparison, \m {\g_{\Rm {Lasso}} = 2 \R {\log N_H}} too.
 For OMP, suggested values in Cai \& Wang (2011) is illuminating, where they (in their Theorem 7) considered \m {\ell _2}-norm, and Theorem 8, \m {\ell _\infty}-norm.
 We make simplification and set respectively \m {\R {3} N_Y} and \m {2 \R {\log N_H}}
 
-Each data point is repeated for 32 times, and taken average.
+Each data point is repeated for 16 times, and taken average.
 We plot the absolute log error
 %
-\DispNum {e'-s-lo-vg} {
-\NC \e_{\Rm{abs}}
+\DispNum {h'-s-lo-vg} {
+\NC \h_{\Rm{abs}}
 =\NC \RB {\log_2 {\VNm {\V {h} -\Hat {\V {h}}}_2}} _{\Ss{avg}}, \NR
 }
 %
 and relative log error.
 %
-\DispNum {e'-l-lo-vg} {
-\NC \e_{\Rm{rel}}
-=\NC \F {\RB {\log_2 {\VNm {\V {h} -\Hat {\V {h}}}_2}} _{\Ss{avg}}}
+\DispNum {h'-l-lo-vg} {
+\NC \h_{\Rm{rel}}
+=\NC \F {\h_{\Ss{abs}}}
 {\RB {\log_2 {\VNm {\V {h}}_2}} _{\Ss{avg}}} \NR
 }
 %
-The averaged error values are plotted along with the theoretical expected error of DS, derived in chap.\ 3, namely
+The averaged error values are plotted along with the bound of error norm.
+Taking log of \Rf {d-2-42-NH} we have
 %
-\DispNum {e'-h-52-NH} {
-\NC \e_{\Rm{th}}
-=\NC \F{5}{2} + \log \RB{L N_H} + \log \log N_H \NR
+\Disp {
+\NC \log \SB {7.85 \R {L} \RB {\log N_H}^3}
+\lesssim \NC \F {1} {2} \log L +\F {3} {2} \log \log N_H +2.06 \NR
+}
+Thus we draw
+\DispNum {h'-h-12-H2} {
+\NC \h_{\Rm{th}}
+\eqsim \NC \F {1} {2} \log L +\F {3} {2} \log \log N_H +2 \NR
 }
 
 \stopsubsection
 
-\startsubsection [title={Plots}]
+\startsubsection [title={Plots for \m {N_H=32}}]
+
+\blank [big]
+\externalfigure [medium-assorted-abs.png] [wfactor=fit, hfactor=fit]
+
+\blank [big]
+\externalfigure [medium-assorted-rel.png] [wfactor=fit, hfactor=fit]
+
+\blank [big]
+\externalfigure [medium-assorted-time.png] [wfactor=fit, hfactor=fit]
+
+\stopsubsection
+
+\startsubsection [title={Plots for \m {N_H=48}}]
+
+\blank [big]
+\externalfigure [big-assorted-abs.png] [wfactor=fit, hfactor=fit]
+
+\blank [big]
+\externalfigure [big-assorted-rel.png] [wfactor=fit, hfactor=fit]
+
+\blank [big]
+\externalfigure [big-assorted-time.png] [wfactor=fit, hfactor=fit]
+
+
 
 \stopsubsection
 
@@ -336,7 +367,7 @@ The error of OMP is slightly higher than DS, but the trend is less steady as wel
 Interestingly, different values of threshold \m {\eta} do not seem to affect much to performance, and often the iteration stablizes much earlier than is constrained by maximum iteration number.
 Lasso has substantially higher error than OMP, and Least Square (pseudo inverse) is still worse.
 
-Lastly, the theoretical bound for expected error of DS is much looser than the actual perfomance, and is well above the Least Square line, making it the highest line of all.
+Lastly, the bound for error norm of DS is much looser than the actual perfomance, and is well above the Least Square line, making it the highest line of all.
 Our bound is correct but not tight enough.
 
 \stopsection

@@ -52,14 +52,6 @@
 \define [0] {\Q} {\quad}
 \define [0] {\FourQ} {\Q \Q \Q \Q}
 \define [0] {\SixQ} {\Q \Q \Q \Q \Q \Q}
-\define [0] {\AuthorText} {
-   Author: Tzu-Yu Jeng \\
-   Advisor: Prof.\ H.\ J.\ Su \\
-   Nov.\ 2018 to Nov.\ 2019}
-\define [0] {\TitleText} {
-   Dantzig Selector \\
-   Applied on mm-Wave MIMO Channel Estimation \\
-   and Error Analysis}
 
 \define [0] {\ResultCount} {
 }
@@ -159,4 +151,67 @@
 \usebtxdataset [references.bib]
 \setupbtx [alternative=num]
 
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% % % % % % SLIDES ONLY % % % % % %
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
+\define [0] {\I} {\item}
+
+\define [0] {\TitleText}
+{
+   Dantzig Selector \\
+   Applied on mm-Wave MIMO \\
+   Channel Estimation}
+\define [0] {\AuthorText}
+{
+   Presenter: Tzu-Yu Jeng \\
+   Advisor: Prof.\ H.\ J.\ Su}
+\define [0] {\DateText}
+{
+Aug.\ 19, 2019 \\
+Graduate Instute of \\
+Communication Engineering, \\
+National Taiwan University}
+
+\define [1] {\Title} {
+   \startalignment [middle]
+   {\ss\bfc #1}
+   \stopalignment}
+\define [1] {\Subtitle} {
+   \startalignment [middle]
+   {\ss\tfb #1}
+   \stopalignment}
+\define [1] {\Subsubtitle} {
+   \startalignment [middle]
+   {\ss\itx #1}
+   \stopalignment}
+\define [1] {\Frametitle} {
+   %{\ss\bfb \color [lightskyblue]{#1}}}
+   {\ss\bfb #1}} % No color
+\define [1] {\Emph} {
+   %\color [middlegreen] {{\bf{#1}}}}
+   {\bf{#1}}} % No color
+
+\define [2] {\Frame} {
+   \Frametitle {#1}
+   \startitemize #2 \stopitemize
+   \page [yes]}
+
+\setuppapersize[S4][S4]
+%\setupbackgrounds [page] [background=color, backgroundcolor=midnightblue] % Comment out if no color
+
+\setuplayout [
+   backspace=9mm,
+   margin=0mm,
+   margindistance=0mm,
+   width=122mm,
+   topspace=9mm,
+   height=90mm,
+   header=0mm,
+   footer=4mm,
+   bottomdistance=0mm,
+   bottom=4mm
+]
+%\startcolor[white] % Comment out if no color
+
+\usecolors[xwi]

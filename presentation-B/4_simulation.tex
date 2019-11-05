@@ -1,0 +1,197 @@
+\Frame {Real Valued Representation}
+{
+\I To solve the convex optimization, we use Python package CVXPY.
+
+\I Since it doesn't allow complex variables, we represent complex number by real part and imarinary parts.
+
+\I For vectors, substitute
+\Disp {
+\NC a +b \Ss{i}
+\leftrightarrow \NC \startTheMatrix
+\NC a \NR
+\NC b \NR
+\stopTheMatrix \NR
+}
+
+\I For matrices, substitute
+\Disp {
+\NC a +b \Ss{i}
+\leftrightarrow \NC \startTheMatrix
+\NC a, \NC -b \NR
+\NC b, \NC a \NR
+\stopTheMatrix \NR
+}
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Algorithm Cast as SOCP (1/3)}
+{
+\I Given are \m{\M {P} \in \MB {C} ^{N_Y^2 \D N_H^2}}, \m {\V {y} \in \MB {C} ^{N_Y^2}}, \m{\g > 0}.
+Let \m {\T {\V {y}}} be the real representation of \m {\V {y}}, and \m {\T {\M {P}}} that of \m {\M {P}}.
+
+\I Define the indicator vectors and matrices as
+\Disp {
+\NC {\V {u}}_{n_h} \SB {n_h'}
+= \NC \startcases
+1, \Q \MC n_h' =n_h \NR
+0, \Q \NC \Rm {otherwise} \NR
+\stopcases \NR
+%
+\NC {\T {\M {U}}}_{n_h} \SB {n_h', n_h''}
+= \NC \startcases
+1, \Q \MC n_h' =2n_h,\; n_h'' =2n_h \NR
+1, \Q \MC n_h' =2n_h +1,\; n_h'' =2n_h +1 \NR
+0, \Q \NC \Rm {otherwise} \NR
+\stopcases \NR
+}
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Algorithm Cast as SOCP (2/3)}
+{
+\I To fit the form of SOCP, we just have to define \m {\V {t}, \M {A}_i, \V {b}_i, \V {c}_i, d_i}, for \m {i = 0, 1, \ldots, N_H^2 -1},
+\Disp{
+\NC \V {t}
+= \NC \startTheMatrix
+\NC \V {0} \NR
+\NC \V {1} \NR
+\stopTheMatrix,
+\Q \M {A}_i
+= \startTheMatrix
+\NC \T {\M {U}}_{i}, \NC \M {0} \NR
+\stopTheMatrix \NR
+%
+\NC \V {b}_i
+=\NC \V {0},
+\Q \V {c}_i
+= \startTheMatrix
+\NC \V {0} \NR
+\NC \V {u}_{i} \NR
+\stopTheMatrix,
+\Q d_i
+= 0 \NR
+}
+
+\I Similarly, for \m {i = N_H^2, N_H^2 +1, \ldots, 2N_H^2 -1},
+\Disp{
+\NC \M {A}_i
+= \NC \startTheMatrix
+\NC -\T {\M {U}}_{i -N_H^2} \T {\M {P}}^\Adj \T {\M {P}}, \NC \M {0} \NR
+\stopTheMatrix, \NR
+%
+\NC \V {b}_i
+=\NC \T {\M {U}}_{i -N_H^2} \T {\M {P}}^\Adj \T {\V {y}},
+\Q \V {c}_i
+= \V {0},
+\Q d_i
+= \g \NR
+}
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Algorithm Cast as SOCP (3/3)}
+{
+\I Now, run the Second Order Cone Programming:
+\Disp{
+\NC \Hat {\V {x}}
+\LA \NC \startcases
+\NC \Min {\V {x}'}
+\MC \IP {\V {t}, \V {x}'} \NR
+\NC \Rm {subject} \; \Rm {to}
+\Q  \MC \VNm {\M {A} _{i} \V {x}' +\V {b} _{i}} _2
+\leq \IP {\V {c}_{i}, \V {x}'} +\V {d}_i \NR
+\NC \MC i 
+=0, 1, \ldots, 2N_H^2 -1 \NR
+\stopcases \NR
+}
+\I Extract channel response as real vector:
+\Disp {
+\NC \Hat{\V {g}}
+\LA \NC \MC{R} ^{-1} \SB {\Hat{\V {x}} \DB {0 : 2N_H^2-1}} \NR
+}
+\I Convert back from Angular domain and output:
+\Disp {
+\NC \Hat {\M {H}}
+\LA \NC \M {K} \Rm {vec}^{-1} \SB {\Hat {g}} \M {K}^\Adj \NR
+}
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Performance Metric}
+{
+\I Bound of log of error norm:
+\Disp {
+\NC \h_{\Ss{th}}
+\eqsim \NC \F {1} {2} \log L +\F {3} {2} \log \log N_H +2 \NR
+}
+\I Log absolute / relative error:
+\Disp {
+\NC \h_{\Ss{abs}}
+=\NC \RB {\log_2 {\VNm {\V {h} -\Hat {\V {h}}}_2}} _{\Ss{avg}} \NR
+%
+\NC \h_{\Ss{rel}}
+=\NC \F {\h_{\Ss{abs}}}
+{\RB {\log_2 {\VNm {\V {h}}_2}} _{\Ss{avg}}} \NR
+}
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Simulation Parameters}
+{
+\I Antennae number of channel \m {N_H = 16, 32, 48}
+\I Antennae number of analog stage \m {N_R = \RB {\log N_H}^2}
+\I Antennae number of digital stage \m {N_Y = \log N_H}
+\I Analog beamformer quantization grid: \m {16}
+\I Number of paths \m {L =4}
+\I How many noise standard deviation tried: \m {12}
+\I Number of repetition of each data point: \m {16}
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Absolute Error, \m {N_H=32}}
+{
+\blank [big]
+\externalfigure [medium-assorted-abs.png] [wfactor=fit, hfactor=fit]
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Relative Error, \m {N_H=32}}
+{
+\blank [big]
+\externalfigure [medium-assorted-rel.png] [wfactor=fit, hfactor=fit]
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Time Taken, \m {N_H=32}}
+{
+\blank [big]
+\externalfigure [medium-assorted-time.png] [wfactor=fit, hfactor=fit]
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Absolute Error, \m {N_H=48}}
+{
+\blank [big]
+\externalfigure [medium-assorted-abs.png] [wfactor=fit, hfactor=fit]
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Relative Error, \m {N_H=48}}
+{
+\blank [big]
+\externalfigure [medium-assorted-rel.png] [wfactor=fit, hfactor=fit]
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Time Taken, \m {N_H=48}}
+{
+\blank [big]
+\externalfigure [medium-assorted-time.png] [wfactor=fit, hfactor=fit]
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Discussion}
+{
+
+\I \m {\eta _{\Ss {th}}} is in correct order of magnitude but not tight when \m {\s \gg 1}
+
+\I The smaller the noise std., the smaller the error
+
+\I It is \It {not} true that the smaller \m {\g _{\Ss {DS}}}, the smaller the error
+
+\I We have reasonable results, but exceedingly high complexity
+
+\I Have to do more experiments to smooth out the lines
+
+\I The requirement \m {N_R \gtrsim 16 L \RB {\log N_H}^2} is demanding
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+

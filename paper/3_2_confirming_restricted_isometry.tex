@@ -24,7 +24,6 @@ At least we have made sure that \m {\M {F} _R ^\Tr \V {u}} has norm close to uni
 If we have a stronger result, that \m {\M {F} _B ^\Tr \V {u}} is almost unitary even for \It {not-sparse} vectors, then we are done.
 That does sound somehow plausible, considering the Normal entries of \m {\M {F} _B ^\Tr} would introduce a Central-limit-theorem-like sum, though the summands are not independent, but weakly dependent.
 
-
 \stopsubsection
 
 \startsubsection [title={Operator Norm of Digital Beamformers}]
@@ -61,8 +60,13 @@ With substitution \m {\d_s =16x^2 /N_B^2}, the upper tail can be simplified with
 {
 For \m {0 <\d_s <1},
 %
-\DispNum {P-d-eN-d4} {
-\NC \MB {P} \SB {\Nm {\VNm {\M {W} _B \V {u}}^2 - 1} \geq \d_s}
+\DispNum {W-1-ds-ds} {
+\NC \Nm {\VNm {\M {W} _B \V {u}}^2 - 1}
+\geq \NC \d_s \NR
+}
+holds for probability \m {p}, with
+\DispNum {1-p-2e-s4} {
+\NC 1 -p
 \leq \NC 2 \Ss {e} ^{-N_B \R {\d_s} /4} \NR
 }
 }
@@ -115,7 +119,7 @@ Notice, by the nature of operator norm,
 \NC \VNm {P} _2
 =\NC \VNm {\M {F}_B^\Tr \M {F}_B^\Tr} \VNm {\M {W}_B \M {W}_R} \NR
 }
-Indeed, if it were not for the sparsity constraint, if both \m {\M {F}_B^\Tr \M {F}_B^\Tr} and \m {\M {F}_B^\Tr \M {F}_B^\Tr} are \m {\d_s}-RIP, \m {\M {P}} is approximately \m {2\d_s}-RIP.
+Indeed, if it were not for the sparsity constraint, if both \m {\M {F}_B^\Tr \M {F}_B^\Tr} and \m {\M {F}_B^\Tr \M {F}_B^\Tr} are \m {\d_s}-RIP, \m {\M {P}} has approximately \m {2\d_s}-RIP.
 However, it is doubtful to assume that the Kronecker product of two RIP matrices exhibit RIP.
 
 We suggest the following argument.
@@ -128,9 +132,9 @@ for some \m {S}-sparse \m {\V {d}} and unitary \m {\M {U}}.
 Clearly,
 \Disp {
 \NC \VNm {\M {G}} _2
-=\NC \VNm {\V {d}} _2 \NR
+=\NC \VNm {\V {g}} _2 \NR
 %
-\NC =\NC \VNm {\Rm {abs} \SB {\V {d}}} _2 \NR
+\NC =\NC \VNm {\Rm {abs} \SB {\V {g}}} _2 \NR
 }
 where \m {\Rm {abs} \SB {\V {d}}} denotes elementwise taking absolute value.
 Then if we notice that \m {\M {W} _B \M {W} _R \M {K} \M {U}} and \m {\M {U} ^\Adj \M {K}^\Adj \M {F} _R^\Adj \M {F} _B^\Adj} has \m {\d_s}-RIP too, we see
@@ -140,19 +144,20 @@ Then if we notice that \m {\M {W} _B \M {W} _R \M {K} \M {U}} and \m {\M {U} ^\A
 \NC =\NC \VNm {
    \M {W} _B \M {W} _R \M {K} \M {U} \D
    \Rm {diag} \SB {\Rm {abs} \SB {\V {d}}} \D
-   \M {U} \M {K} \M {F} _R \M {F} _B} \NR
+   \M {U} ^\Adj \M {K} ^\Adj \M {F} _R \M {F} _B} \NR
 %
 \NC =\NC \VNm {
    \M {W} _B \M {W} _R \M {K} \M {U}
    \R {\Rm {abs} \SB {\V {d}}} \D
    \R {\Rm {abs} \SB {\V {d}}}
-   \M {U} \M {K} \M {F} _R \M {F} _B} \NR
+   \M {U} ^\Adj \M {K} ^\Adj \M {F} _R \M {F} _B} \NR
 %
 \NC =\NC \VNm {
    \M {W} _B \M {W} _R \M {K} \M {U}
    \R {\Rm {abs} \SB {\V {d}}}} \D
-   \VNm {\M {F} _B ^\Adj \M {F} _R ^\Adj \M {K} ^\Adj \M {U} ^\Adj
+   \VNm {\M {F} _B ^\Adj \M {F} _R ^\Adj \M {K} \M {U}
    \R {\Rm {abs} \SB {\V {d}}}} \NR
+%
 \NC \eqsim \NC \VNm {\M {G}} _2 \RB {1 +2\d_s} \NR
 }
 Thus, even we cannot make sure that \m {\M {P}} is \m {\d_s}-RIP with respect to all possible \m {\V {g}}'s, at least \m {\M {P}} has RIP with respect to relevant \m {\V {g}} in accordance to the form of \Rf {H-H-l0-ql}.

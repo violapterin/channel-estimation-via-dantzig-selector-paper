@@ -9,7 +9,7 @@ Set for short
 = \NC \Hat {\V {g}} -\V {g} \NR
 }
 %
-And our task is to bound the expectation \m {\MB {E} \SB {\V {d}}}.
+And our task is to bound the error norm \m {\VNm {\V {d}} _2}, where \m {\V {d} =\V {g} -\Hat {\V {g}}}.
 
 We argue that \m {\V {g}} can essentially be seen as sparse, and for that purpose we ignore relevent terms.
 Also, we do not seek a very tight bound and will approximate \m {\d_{S}} by \m {1}.
@@ -224,17 +224,18 @@ If \m {\M {P}} is \m {\d_S}-RIP,
 \startsubsection [title={Main Result}]
 
 We are going to combine previous lemmata and show the main result.
-For simplicity, set
+For simplicity, set \m {S = Ls^2}, thus
+%
+\DispNum {S-S-4N-NH} {
+\NC S
+=\NC L \log N_H \NR
+}
+%
+And
 %
 \DispNum {d'-S-18-18} {
 \NC \d_S
 \leq \NC \F {1} {8} \NR
-}
-%
-Thus
-\DispNum {S-S-4N-NH} {
-\NC S
-=\NC L \log N_H \NR
 }
 %
 \Result
@@ -313,7 +314,7 @@ In addition, we shall discuss the four events of failure, namely
 \eqsim \NC 2 \RB {q _{\Rm {iso}, B} + q _{\Rm {iso}, R}} +q _{\Rm {no}} +q _{\Rm {sp}} \NR
 }
 subscript respectively for restricted isometry, noise, sparsity, respectively.
-Quoting previous results \Rf {1-p-1N-H3}, \Rf {P-d-eN-d4}, \Rf {1-p-ex-d's}, and \Rf {1-p-NH-H2}, we make some approximation and set
+Quoting previous results \Rf {1-p-2e-s4}, \Rf {P-d-eN-d4}, \Rf {1-p-ex-d's}, and \Rf {1-p-NH-H2}, we make some approximation and set
 \DispNum {q-B-2e-Lp'} {
 \NC q _{\Rm {iso}, B}
 \lesssim \NC 2 \Ss {e} ^{-N_B /12} \NR
@@ -350,11 +351,7 @@ It can be seen that
 then we get the estimation
 \DispNum {q-q-ON-13} {
 \NC q
-\eqsim \NC q _{\Rm {iso}, R} \NR
-%
-\NC \eqsim \NC q _{\Rm {iso}, B} \NR
-%
-\NC \eqsim \NC 2 N_H ^{-1/3} \NR
+\eqsim \NC 2 N_H ^{-1/3} \NR
 }
 %
 
