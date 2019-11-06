@@ -186,11 +186,11 @@ National Taiwan University}
    {\ss\itx #1}
    \stopalignment}
 \define [1] {\Frametitle} {
-   %{\ss\bfb \color [lightskyblue]{#1}}}
-   {\ss\bfb #1}} % No color
+   {\ss\bfb \color [lightskyblue]{#1}}}
+   %{\ss\bfb #1}} % No color
 \define [1] {\Emph} {
-   %\color [middlegreen] {{\bf{#1}}}}
-   {\bf{#1}}} % No color
+   \color [middlegreen] {{\bf{#1}}}}
+   %{\bf{#1}}} % No color
 
 \define [2] {\Frame} {
    \Frametitle {#1}
@@ -198,8 +198,7 @@ National Taiwan University}
    \page [yes]}
 
 \setuppapersize[S4][S4]
-%\setupbackgrounds [page] [background=color, backgroundcolor=midnightblue] % Comment out if no color
-
+\setupbackgrounds [page] [background=color, backgroundcolor=midnightblue] % Comment out if no color
 \setuplayout [
    backspace=9mm,
    margin=0mm,
@@ -212,6 +211,10 @@ National Taiwan University}
    bottomdistance=0mm,
    bottom=4mm
 ]
-%\startcolor[white] % Comment out if no color
+
+\setupitemize [] [serried]
 
 \usecolors[xwi]
+
+\startcolor[white] % Comment out if no color
+

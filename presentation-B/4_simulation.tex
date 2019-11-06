@@ -1,8 +1,7 @@
 \Frame {Real Valued Representation}
 {
 \I To solve the convex optimization, we use Python package CVXPY.
-
-\I Since it doesn't allow complex variables, we represent complex number by real part and imarinary parts.
+To save complexity, we represent a complex number by its real- and imarinary-parts.
 
 \I For vectors, substitute
 \Disp {
@@ -25,8 +24,8 @@
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Algorithm Cast as SOCP (1/3)}
 {
-\I Given are \m{\M {P} \in \MB {C} ^{N_Y^2 \D N_H^2}}, \m {\V {y} \in \MB {C} ^{N_Y^2}}, \m{\g > 0}.
-Let \m {\T {\V {y}}} be the real representation of \m {\V {y}}, and \m {\T {\M {P}}} that of \m {\M {P}}.
+\I Given are \m{\M {P} \in \MB {C} ^{N_Y^2 \D N_H^2}}, \m {\V {y} \in \MB {C} ^{N_Y^2}}, \m{\g _{\Ss {DS}} > 0}.
+Let \m {\T {\V {y}}} and \m {\T {\M {P}}} respectively be their real representation.
 
 \I Define the indicator vectors and matrices as
 \Disp {
@@ -82,7 +81,7 @@ Let \m {\T {\V {y}}} be the real representation of \m {\V {y}}, and \m {\T {\M {
 \Q \V {c}_i
 = \V {0},
 \Q d_i
-= \g \NR
+= \g _{\Ss {DS}} \NR
 }
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
@@ -100,14 +99,10 @@ Let \m {\T {\V {y}}} be the real representation of \m {\V {y}}, and \m {\T {\M {
 \NC \MC i 
 =0, 1, \ldots, 2N_H^2 -1 \NR
 \stopcases \NR
-}
-\I Extract channel response as real vector:
-\Disp {
+%
 \NC \Hat{\V {g}}
-\LA \NC \MC{R} ^{-1} \SB {\Hat{\V {x}} \DB {0 : 2N_H^2-1}} \NR
-}
-\I Convert back from Angular domain and output:
-\Disp {
+\LA \NC \MC{R} ^{-1} \SB {\Hat{\V {x}} _{\SB {0 : 2N_H^2-1}}} \NR
+%
 \NC \Hat {\M {H}}
 \LA \NC \M {K} \Rm {vec}^{-1} \SB {\Hat {g}} \M {K}^\Adj \NR
 }
