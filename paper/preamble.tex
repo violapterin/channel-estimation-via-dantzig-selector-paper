@@ -4,7 +4,6 @@
 % `\notag` equivalent: A wrapper class?
 % Table of contents: wider vertical spacing? Font?
 % Book title: wider line spacing?
-% Chapter 0
 % Table width
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
@@ -29,6 +28,7 @@
    numbering=no, bodyfont=small, before={\startframedcode}, after={\stopframedcode}]
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% General purpose macros
 
 \define [0] {\a} {\alpha}
 \define [0] {\b} {\beta}
@@ -52,20 +52,9 @@
 \define [0] {\Q} {\quad}
 \define [0] {\FourQ} {\Q \Q \Q \Q}
 \define [0] {\SixQ} {\Q \Q \Q \Q \Q \Q}
-\define [0] {\AuthorText} {
-   Author: Tzu-Yu Jeng \\
-   Advisor: Prof.\ H.\ J.\ Su \\
-   Nov.\ 2018 to Nov.\ 2019}
-\define [0] {\TitleText} {
-   Dantzig Selector \\
-   Applied on mm-Wave MIMO Channel Estimation \\
-   and Error Analysis}
-
-\define [0] {\ResultCount} {
-}
 
 \define [1] {\MB} {{\mathblackboard {#1}}}
-\define [1] {\MC} {{\mathscript {#1}}}
+\define [1] {\MS} {{\mathscript {#1}}}
 \define [1] {\MF} {{\mathfraktur {#1}}}
 \define [1] {\Rm} {{\rm {#1}}}
 \define [1] {\It} {{\it {#1}}}
@@ -119,6 +108,55 @@
    \noindent}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% Ad-hoc macros
+
+\define [0] {\AuthorText} {
+   Author: Tzu-Yu Jeng \\
+   Advisor: Prof.\ H.\ J.\ Su \\
+   Nov.\ 2018 to Nov.\ 2019}
+\define [0] {\TitleText} {
+   Dantzig Selector \\
+   Applied on mm-Wave MIMO Channel Estimation \\
+   and Error Analysis}
+
+\define [0] {\fp} {\V {f} ^{+}}
+\define [0] {\fm} {\V {f} ^{-}}
+\define [0] {\fpU} {\V {f} _{\SB {\MS {U}}} ^{+}}
+\define [0] {\fmU} {\V {f} _{\SB {\MS {U}}} ^{-}}
+\define [0] {\fpV} {\V {f} _{\SB {\MS {V}}} ^{+}}
+\define [0] {\fmV} {\V {f} _{\SB {\MS {V}}} ^{-}}
+\define [0] {\gp} {\V {g} ^{+}}
+\define [0] {\gm} {\V {g} ^{-}}
+\define [0] {\gpU} {\V {g} _{\SB {\MS {U}}} ^{+}}
+\define [0] {\gmU} {\V {g} _{\SB {\MS {U}}} ^{-}}
+\define [0] {\gpV} {\V {g} _{\SB {\MS {V}}} ^{+}}
+\define [0] {\gmV} {\V {g} _{\SB {\MS {V}}} ^{-}}
+\define [0] {\kp} {\V {k} ^{+}}
+\define [0] {\km} {\V {k} ^{-}}
+\define [0] {\kpU} {\V {k} _{\SB {\MS {U}}} ^{+}}
+\define [0] {\kmU} {\V {k} _{\SB {\MS {U}}} ^{-}}
+\define [0] {\kpV} {\V {k} _{\SB {\MS {V}}} ^{+}}
+\define [0] {\kmV} {\V {k} _{\SB {\MS {V}}} ^{-}}
+\define [0] {\sp} {\V {s} ^{+}}
+\define [0] {\sm} {\V {s} ^{-}}
+\define [0] {\spU} {\V {s} _{\SB {\MS {U}}} ^{+}}
+\define [0] {\smU} {\V {s} _{\SB {\MS {U}}} ^{-}}
+\define [0] {\spV} {\V {s} _{\SB {\MS {V}}} ^{+}}
+\define [0] {\smV} {\V {s} _{\SB {\MS {V}}} ^{-}}
+\define [0] {\tp} {\V {t} ^{+}}
+\define [0] {\tm} {\V {t} ^{-}}
+\define [0] {\tpU} {\V {t} _{\SB {\MS {U}}} ^{+}}
+\define [0] {\tmU} {\V {t} _{\SB {\MS {U}}} ^{-}}
+\define [0] {\tpV} {\V {t} _{\SB {\MS {V}}} ^{+}}
+\define [0] {\tmV} {\V {t} _{\SB {\MS {V}}} ^{-}}
+\define [0] {\IU} {\M {I} _{\SB {:, \MS {U}}}}
+\define [0] {\IV} {\M {I} _{\SB {:, \MS {V}}}}
+\define [0] {\QU} {\M {Q} _{\SB {:, \MS {U}}}}
+\define [0] {\QV} {\M {Q} _{\SB {:, \MS {V}}}}
+\define [0] {\DU} {\M {D} _{\SB {:, \MS {U}}}}
+
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
 \setupparagraphs [n=3, before={\blank}, after={\blank}]
 \setupbodyfont [MainFace, 12pt]
@@ -142,16 +180,12 @@
 \setupwhitespace[medium]
 \setupcombinedlist [content] [list={chapter, title, section, subject, subsection, subsubject}]
 \setuplayout [
-   backspace=17mm,
-   margin=15mm,
-   margindistance=0mm,
-   width=168mm,
-   topspace=13mm,
-   height=260mm,
-   header=10mm,
-   footer=10mm,
-   bottomdistance=0mm,
-   bottom=8mm]
+   leftmargin=12mm,
+   rightmargin=12mm,
+   top=16mm,
+   header=6mm,
+   footer=6mm,
+   bottom=12mm]
 \setupformulae [spacebefore=2mm, spaceafter=2mm, indentnext=no]
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %

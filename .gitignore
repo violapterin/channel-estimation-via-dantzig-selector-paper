@@ -11,7 +11,8 @@
 *.o
 *.pyc
 *.txt
-handwriting-notes
-copy-papers
 
+handwritten/
+literature/
+trash/
 __pycache__/

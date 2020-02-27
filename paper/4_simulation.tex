@@ -14,12 +14,12 @@ Before describing the recast, for ease of treatment we would like to represent c
 \Result
 {Definition}
 {
-For \m {\V {x} \in \MB {C} ^{M}}, define the real representation \m {\MC {R} \SB {\V {x}}} of \m {\V {x}} to be
+For \m {\V {x} \in \MB {C} ^{M}}, define the real representation \m {\MS {R} \SB {\V {x}}} of \m {\V {x}} to be
 %
-\DispNum {R-x-R2-M1} {
-\NC \MC {R} \SB {\V {x}}
+\DispNum {R:x:R2:M1} {
+\NC \MS {R} \SB {\V {x}}
 \in \NC \MB {R} ^{2M} \NR
-\NC \MC {R} \SB {\V {x}} _{\SB {m}}
+\NC \MS {R} \SB {\V {x}} _{\SB {m}}
 = \NC \startcases
 \NC \MF {Re} \SB {\V {x} _{\SB {m'}}}, \MC m =2m' \NR
 \NC \MF {Im} \SB {\V {x} _{\SB {m'}}}, \MC m =2m'+1 \NR
@@ -28,10 +28,10 @@ For \m {\V {x} \in \MB {C} ^{M}}, define the real representation \m {\MC {R} \SB
 = \NC  0, 1, 2, \ldots, M-1 \NR
 }
 %
-The injectivity is obvious, and we may define \m {\MC {R} ^{-1}} so that
+The injectivity is obvious, and we may define \m {\MS {R} ^{-1}} so that
 %
-\DispNum {R-1-x--x-} {
-\NC \MC {R} ^{-1} \SB {\MC {R} \SB {\V {x}}}
+\DispNum {R:1:x::x:} {
+\NC \MS {R} ^{-1} \SB {\MS {R} \SB {\V {x}}}
 =\NC \V {x} \NR
 }
 }
@@ -40,17 +40,17 @@ Accordingly, the following generalization to complex matrices is valid, once we 
 \Result
 {Definition}
 {
-For \m {\M {A} \in \MB {C} ^{M_1 \D M_2}}, define real representation \m {\MC {R} \SB {\M {A}}} of \m {\M {A}} to be
+For \m {\M {A} \in \MB {C} ^{M_1 \D M_2}}, define real representation \m {\MS {R} \SB {\M {A}}} of \m {\M {A}} to be
 %
-\DispNum {R-A-R2-21} {
-\NC \MC {R} \SB {\M {A}}
+\DispNum {R:A:R2:21} {
+\NC \MS {R} \SB {\M {A}}
 \in \NC \MB {R} ^{2M_1 \D 2M_2} \NR
-\NC \MC {R} \SB {\M {A}} _{\SB {m_1,m_2}} =
+\NC \MS {R} \SB {\M {A}} _{\SB {m_1,m_2}} =
 \NC \startcases
-\NC \MF {Re} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC (m_1, m_2) = (2m_1', 2m_2') \NR
-\NC \MF {Im} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC (m_1, m_2) = (2m_1'+1, 2m_2') \NR
-\NC -\MF {Im} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC (m_1, m_2) = (2m_1', 2m_2'+1) \NR
-\NC \MF {Re} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC (m_1, m_2) = (2m_1'+1, 2m_2'+1) \NR
+\NC \MF {Re} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC \RB {m_1, m_2} = \RB {2m_1', 2m_2'} \NR
+\NC \MF {Im} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC \RB {m_1, m_2} = \RB {2m_1'+1, 2m_2'} \NR
+\NC -\MF {Im} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC \RB {m_1, m_2} = \RB {2m_1', 2m_2'+1} \NR
+\NC \MF {Re} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC \RB {m_1, m_2} = \RB {2m_1'+1, 2m_2'+1} \NR
 \stopcases \NR
 \NC m_1 
 = \NC 0, 1, 2, \ldots, M_1 -1 \NR
@@ -61,38 +61,38 @@ For \m {\M {A} \in \MB {C} ^{M_1 \D M_2}}, define real representation \m {\MC {R
 
 With these, we define
 %
-\DispNum {y---Ry-Ny} {
+\DispNum {y:::Ry:Ny} {
 \NC \T {\V {y}}
-= \NC \MC {R} \SB {\V {y}}
+= \NC \MS {R} \SB {\V {y}}
 \in \MB {R} ^{2 N_Y^2} \NR
 %
 \NC \T {\V {g}}
-= \NC \MC {R} \SB {\V {g}}
+= \NC \MS {R} \SB {\V {g}}
 \in \MB {R} ^{2 N_H^2} \NR
 %
 \NC \T {\M {P}}
-= \NC \MC {R} \SB {\M {P}}
+= \NC \MS {R} \SB {\M {P}}
 \in \MB {R} ^{2 N_Y^2 \D 2 N_H^2} \NR
 %
 \NC \T {\M {P}} ^\Adj
-= \NC \MC {R} \SB {\M {P} ^\Adj}
+= \NC \MS {R} \SB {\M {P} ^\Adj}
 \in \MB {R} ^{2 N_Y^2 \D 2 N_H^2} \NR
 %
 \NC \T {\V {z}}
-= \NC \MC {R} \SB {\V {z}}
+= \NC \MS {R} \SB {\V {z}}
 \in \MB {R} ^{2 N_Y^2} \NR
 }
 %
 such that, by construction,
 %
-\DispNum {y---Pg-gz} {
+\DispNum {y:::Pg:gz} {
 \NC \V {\T {y}}
 = \NC \M {\T {P}} \V {\T {g}} +\V {\T {z}} \NR
 }
 
 Furthermore, introduce the following matrices to identify the components where we want to take \m {\ell_2}-norm, in the manner similar to an indicator function.
 %
-\DispNum {u-h-RN-h1} {
+\DispNum {u:h:RN:h1} {
 \NC {\V {u}}_{n_h}
 \in \NC \MB {R} ^{N_H^2} \NR
 \NC \RB {\V {u}_{n_h}} _{\SB {n_h'}}
@@ -113,28 +113,28 @@ Furthermore, introduce the following matrices to identify the components where w
 = \NC 0, 1, 2, \ldots, N_H^2 -1 \NR
 }
 %
-And denote \m {\V {1}} to be the all-\m{1} vector for short, and \m {\V {0}} the all-\m{0} vector, whose dimension will be specified from context.
-Now, if we introduce vector \m{\V {m}}
+And denote \m {\V {1}} to be the all-\m {1} vector for short, and \m {\V {0}} the all-\m {0} vector, whose dimension will be specified from context.
+Now, if we introduce vector \m {\V {m}}
 %
-\DispNum {m---RN-h1} {
+\DispNum {m:::RN:h1} {
 \NC \V {m} \in \NC \MB {R} ^{N_H^2} \NR
-\NC \V {m} \DB{n_h}
-= \NC \Nm{\V {g} \DB{n_h}} \NR
+\NC \V {m} \DB {n_h}
+= \NC \Nm {\V {g} \DB {n_h}} \NR
 \NC n_h, n_h', n_h'' 
 = \NC 0, 1, 2, \ldots, N_H^2 -1 \NR
 }
 %
-to denote the entrywise complex modulus of \m{\V {g}}, we see that the convex optimization now takes the form
+to denote the entrywise complex modulus of \m {\V {g}}, we see that the convex optimization now takes the form
 %
-\DispNum {g---mi-h1} {
+\DispNum {g:::mi:h1} {
 \NC \Hat {\T {\V {g}}}
 = \NC \startcases
 \NC \Min {\T {\V {g}}', \V {m}} \Q
-\MC \IP { \V {1}, \V {m} } \NR
+\MC \IP {\V {1}, \V {m}} \NR
 \NC \Rm {subject} \; \Rm {to} \Q
-\MC \VNm { \T {\M {U}}_{n_h} \T {\V {g}}' }_2
-\leq \IP { \V {u}_{n_h}, \V {m} } \NR
-\NC \MC \VNm { \T {\M {U}}_{n_h} \T {\M {P}}^\Adj \RB { \T {\M {P}} \T {\V {g}}' -\T {\V {y}} } }_2
+\MC \VNm {\T {\M {U}}_{n_h} \T {\V {g}}'}_2
+\leq \IP {\V {u}_{n_h}, \V {m}} \NR
+\NC \MC \VNm { \T {\M {U}}_{n_h} \T {\M {P}}^\Adj \RB {\T {\M {P}} \T {\V {g}}' -\T {\V {y}}}}_2
 \leq \g_{\Rm {DS}} \NR
 \stopcases \NR
 \NC n_h 
@@ -148,7 +148,7 @@ to denote the entrywise complex modulus of \m{\V {g}}, we see that the convex op
 We shall see furthermore that the program can be cast into an SOCP.
 To make the point clearer, we rewrite the program just above into an extended block matrix form, by defining auxiliary variables as follows,
 %
-\DispNum {t---01-Nh} {
+\DispNum {t:::01:Nh} {
 \NC \V {t}
 = \NC \startTheMatrix
 \NC \V {0} \NR
@@ -166,7 +166,7 @@ To make the point clearer, we rewrite the program just above into an extended bl
 %
 with
 %
-\DispNum {A-i-Ui-h1} {
+\DispNum {A:i:Ui:h1} {
 \NC \M {A}_i
 = \NC \startTheMatrix
 \NC \T {\M {U}}_{i}, \NC \M {0} \NR
@@ -193,7 +193,7 @@ with
 
 And
 %
-\DispNum {A-i-Ui-h1} {
+\DispNum {A:i:Ui:h1} {
 \NC \M {A}_i
 = \NC \startTheMatrix
 \NC -\T {\M {U}}_{i - N_H^2} \T {\M {P}}^\Adj \T {\M {P}}, \NC \M {0} \NR
@@ -214,16 +214,19 @@ And
 \NC i 
 = \NC N_H^2, N_H^2 +1, N_H^2 +2, \ldots, 2 N_H^2 -1 \NR
 }
-
+%
 \Result
 {Algorithm}
 {
 \startitemize[n]
-\item Input \m{\M {P} \in \MB {C} ^{ N_Y^2 \D N_H^2}}, \m{\V {y} \in \MB {C} ^{ N_Y^2}}, \m {\g_{\Rm {DS}} > 0}.
-\item Define \m{\V {t}, \V {x}, \M {A}_i, \V {b}_i, \V {c}_i, d_i} according to ().
+%
+\item Input \m {\M {P} \in \MB {C} ^{ N_Y^2 \D N_H^2}}, \m {\V {y} \in \MB {C} ^{N_Y^2}}, \m {\g_{\Rm {DS}} > 0}.
+%
+\item Define \m {\V {t}, \V {x}, \M {A}_i, \V {b}_i, \V {c}_i, d_i} according to ().
+%
 \item Calculate
 %
-\DispNum {x---mi-h1} {
+\DispNum {x:::mi:h1} {
 \NC \Hat {\V {x}}
 \LA \NC \startcases
 \NC \Min {\V {x}' \in \MB {C} ^{N_H^2}}
@@ -235,31 +238,37 @@ And
 =0, 1, 2, \ldots, 2 N_H^2 -1 \NR
 \stopcases \NR
 }
+%
 \item Extract
 %
-\DispNum {g---x0-h1} {
-\NC \Hat{\T{\V {g}}}
-\LA \NC \Hat{\V {x}} _{\SB {0 : 2 N_H^2-1}} \NR
+\DispNum {g:::x0:h1} {
+\NC \Hat {\T {\V {g}}}
+\LA \NC \Hat {\V {x}} _{\SB {0 : 2 N_H^2-1}} \NR
 }
+%
 \item Convert 
 %
-\DispNum {g---R1-1g} {
-\NC \Hat{\V {g}}
-\LA \NC \MC{R} ^{-1} \SB {\Hat{\T{\V {g}}}} \NR
+\DispNum {g:::R1:1g} {
+\NC \Hat {\V {g}}
+\LA \NC \MS {R} ^{-1} \SB {\Hat {\T {\V {g}}}} \NR
 }
-\item Calculate
+%
+\item Find \m {\Hat {G}} by
 %
 \Disp {
 \NC \Hat {G}
 \LA \NC \Rm {vec}^{-1} \SB {\Hat {g}} \NR
 }
-\item Calculate
+%
+\item Find \m {\Hat {\M {H}}} by
 %
 \Disp {
 \NC \Hat {\M {H}}
 \LA \NC \M {K} \Hat {\M {G}} \M {K}^\Adj \NR
 }
+%
 \item Output \m {\Hat {\M {H}}}.
+%
 \stopitemize
 }
 
@@ -275,8 +284,8 @@ In the following experiments, we take respectively \m {N_H} to be \m {16, 32, 48
 Other parameters are fixed in these experiments; 
 The number of grid of quantization of analog precoder is \m {16}.
 The number of paths \m {L} is \m {4}.
-The wavelength of the EM wave that antenna is emitting, \m {\l _{\Rm{ant}} = 1}, is set to be \m {0.1}.
-and the antenna spacing \m {d _{\Rm{ant}} =3}.
+The wavelength of the EM wave that antenna is emitting, \m {\l _{\Rm {ant}} = 1}, is set to be \m {0.1}.
+and the antenna spacing \m {d _{\Rm {ant}} =3}.
 Note that only their ratio matters.
 See chapter 2 for meaning of them.
 
@@ -297,54 +306,186 @@ We make simplification and set respectively \m {\R {3} N_Y} and \m {2 \R {\log N
 Each data point is repeated for 16 times, and taken average.
 We plot the absolute log error
 %
-\DispNum {h'-s-lo-vg} {
-\NC \h_{\Rm{abs}}
-=\NC \RB {\log_2 {\VNm {\V {h} -\Hat {\V {h}}}_2}} _{\Ss{avg}}, \NR
+\DispNum {h':s:lo:vg} {
+\NC \h_{\Rm {abs}}
+=\NC \RB {\log_2 {\VNm {\V {h} -\Hat {\V {h}}}_2}} _{\Ss {avg}}, \NR
 }
 %
 and relative log error.
 %
-\DispNum {h'-l-lo-vg} {
-\NC \h_{\Rm{rel}}
-=\NC \F {\h_{\Ss{abs}}}
-{\RB {\log_2 {\VNm {\V {h}}_2}} _{\Ss{avg}}} \NR
+\DispNum {h':l:lo:vg} {
+\NC \h_{\Rm {rel}}
+=\NC \F {\h_{\Ss {abs}}}
+{\RB {\log_2 {\VNm {\V {h}}_2}} _{\Ss {avg}}} \NR
 }
 %
 The averaged error values are plotted along with the bound of error norm.
-Taking log of \Rf {d-2-42-NH} we have
+As a basis for comparison, we approximate \Rf {d:2:42:NH} and take log, giving
 %
-\Disp {
-\NC \log \SB {7.85 \R {L} \RB {\log N_H}^3}
-\lesssim \NC \F {1} {2} \log L +\F {3} {2} \log \log N_H +2.06 \NR
-}
-Thus we draw
-\DispNum {h'-h-12-H2} {
-\NC \h_{\Rm{th}}
+\DispNum {h':h:12:H2} {
+\NC \h_{\Rm {th}}
 \eqsim \NC \F {1} {2} \log L +\F {3} {2} \log \log N_H +2 \NR
 }
+
+\startsubsection [title={Transformation by Diagonalization}]
+
+By Real Spectral Theorem, \m {\M {P} ^\Tr \M {P}} can be diagonized.
+Let
+\Disp {
+\NC \M {P} ^\Tr \M {P}
+= \NC \M {Q} \M {D} \M {Q} ^\Tr \NR
+}
+where
+\Disp {
+\NC \M {Q} ^\Tr \M {D} \M {Q}
+= \NC I \NR
+}
+It can be seen that only \m {2N_Y^2} of \m {2N_H^2} singular values are nonzero.
+Without loss of generality, suppose
+\Disp {
+\NC \MB {R} ^{2 N_H^2}
+= \NC \MS {U} \oplus \MS {V} \NR
+}
+with
+\Disp {
+\NC \Rm {dim} \; \MS {U}
+= \NC 2 N_Y^2 \NR
+\NC \Rm {dim} \; \MS {V}
+= \NC 2 N_H^2 -2 N_Y^2 \NR
+}
+such that
+\Disp {
+\NC \M {D}
+= \NC \startTheMatrix
+\NC \DU, \NC \M {0} \NR
+\NC \M {0}, \NC \M {0} \NR
+\stopTheMatrix \NR
+}
+
+Suppose
+\Disp {
+\NC \V {g}
+= \NC \gp - \gm \NR
+}
+with
+\Disp {
+\NC -\gp
+\preceq \NC 0 \NR
+\NC -\gm
+\preceq \NC 0 \NR
+}
+Introduce
+\Disp {
+\NC \fp
+= \NC \M {Q} ^\Tr \gp \NR
+\NC \fm
+= \NC \M {Q} ^\Tr \gm \NR
+}
+If we define
+\Disp {
+\NC \fp
+= \NC \fpU + \fpV \NR
+\NC \fm
+= \NC \fmU + \fmV \NR
+}
+That is, taking components of \m {\fp, \fm} respectively in \m {\MS {U}, \MS {V}}.
+Then we see that
+\Disp {
+\NC \fpU
+= \NC \QU ^\Tr \gp \NR
+\NC \fmU
+= \NC \QU ^\Tr \gm \NR
+\NC \fpV
+= \NC \QV ^\Tr \gp \NR
+\NC \fmV
+= \NC \QV ^\Tr \gm \NR
+}
+Here \m {\QU ^\Tr} is the abbreviation of \m {\RB {\QU} ^\Tr}.
+
+Notice that the constraint
+\Disp {
+\NC \M {P} ^\Tr \RB {\M {P} \V {g} - \V {y}}
+\preceq \NC \g \V {1} \NR
+}
+can be written as
+\Disp {
+\NC \M {P} ^\Tr \RB {\M {P} \V {g} - \V {y}} - \g \V {1} + \sp
+= \NC \V {0} \NR
+\NC \M {P} ^\Tr \RB {\M {P} \V {g} - \V {y}} - \g \V {1} - \sm
+= \NC \V {0} \NR
+}
+with
+\Disp {
+\NC -\sp
+\preceq \NC 0 \NR
+\NC -\sm
+\preceq \NC 0 \NR
+}
+
+
+
+Now, define
+\Disp {
+\NC \kpU
+= \NC -\QU ^\Tr \RB {\M {P} ^\Tr \V {y} - \g \V {1}} \NR
+\NC \kmU
+= \NC -\QU ^\Tr \RB {\M {P} ^\Tr \V {y} + \g \V {1}} \NR
+\NC \kpV
+= \NC -\QV ^\Tr \RB {\M {P} ^\Tr \V {y} - \g \V {1}} \NR
+\NC \kmV
+= \NC -\QV ^\Tr \RB {\M {P} ^\Tr \V {y} + \g \V {1}} \NR
+}
+
+\stopsubsection
+
+\page [yes]
+
+\startsubsection [title={Plots for \m {N_H=16}}]
 
 \stopsubsection
 
 \startsubsection [title={Plots for \m {N_H=32}}]
 
 \blank [big]
-\externalfigure [medium-assorted-abs.png] [wfactor=fit, hfactor=fit]
+\externalfigure [medium-assorted-absolute.png] [wfactor=fit, hfactor=fit]
 
 \blank [big]
-\externalfigure [medium-assorted-rel.png] [wfactor=fit, hfactor=fit]
+\externalfigure [medium-assorted-relative.png] [wfactor=fit, hfactor=fit]
 
 \blank [big]
 \externalfigure [medium-assorted-time.png] [wfactor=fit, hfactor=fit]
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\blank [big]
+\externalfigure [medium-ddss-absolute.png] [wfactor=fit, hfactor=fit]
+
+\blank [big]
+\externalfigure [medium-ddss-relative.png] [wfactor=fit, hfactor=fit]
+
+\blank [big]
+\externalfigure [medium-ddss-time.png] [wfactor=fit, hfactor=fit]
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\blank [big]
+\externalfigure [medium-oommpp-absolute.png] [wfactor=fit, hfactor=fit]
+
+\blank [big]
+\externalfigure [medium-oommpp-relative.png] [wfactor=fit, hfactor=fit]
+
+\blank [big]
+\externalfigure [medium-oommpp-time.png] [wfactor=fit, hfactor=fit]
 
 \stopsubsection
 
 \startsubsection [title={Plots for \m {N_H=48}}]
 
 \blank [big]
-\externalfigure [big-assorted-abs.png] [wfactor=fit, hfactor=fit]
+\externalfigure [big-assorted-absolute.png] [wfactor=fit, hfactor=fit]
 
 \blank [big]
-\externalfigure [big-assorted-rel.png] [wfactor=fit, hfactor=fit]
+\externalfigure [big-assorted-relative.png] [wfactor=fit, hfactor=fit]
 
 \blank [big]
 \externalfigure [big-assorted-time.png] [wfactor=fit, hfactor=fit]
@@ -355,13 +496,13 @@ Thus we draw
 
 \startsubsection [title={Discussion}]
 
-Reasonably, for all methods, a higher \m {\s} corresponds to higher \m {\eta_{\Rm{rel}}} and \m {\eta_{\Rm{rel}}}.
+Reasonably, for all methods, a higher \m {\s} corresponds to higher \m {\eta_{\Rm {rel}}} and \m {\eta_{\Rm {rel}}}.
 The trends of absolute and relative error are the same, and in the below we call them simply error.
 
 From our simulation result, DS has usually the least error.
 For low SNR it is slightly but steadily outperforms OMP, and for high SNR the difference becomes vanishingly small and is sometimes surpassed by OMP.
-Different values of threshold \m {\g_{\Rm{DS}}} matter, and a smaller \m {\g_{\Rm{DS}}} does not necessarily give a lower error.
-It seems \m {\g_{\Rm{DS}}} is usually best chosen in the order of magnitude of \m {\s}, which is intuitive.
+Different values of threshold \m {\g_{\Rm {DS}}} matter, and a smaller \m {\g_{\Rm {DS}}} does not necessarily give a lower error.
+It seems \m {\g_{\Rm {DS}}} is usually best chosen in the order of magnitude of \m {\s}, which is intuitive.
 
 The error of OMP is slightly higher than DS, but the trend is less steady as well.
 Interestingly, different values of threshold \m {\eta} do not seem to affect much to performance, and often the iteration stablizes much earlier than is constrained by maximum iteration number.
@@ -391,8 +532,8 @@ Let \m {\V {g} _0} denote the starting value of \m {\V {g}}, and \m {\V {g} ^{\s
 Then \cite [BoV04] (p.505, eq.9.56) gives a bound of the number of iteration of Newton method.
 If just take that as the complexity bound for DS, it becomes
 %
-\DispNum {C-S-C0-1e'} {
-\NC C_{\Rm{DS}}
+\DispNum {C:S:C0:1e'} {
+\NC C_{\Rm {DS}}
 = \NC C_0 \VNm {\V {g}_0 -\V {g} ^{\star}}_1
 + \log_2 \log_2 \F {1} {\e} \NR
 }
@@ -405,7 +546,7 @@ They gives an example \m {C_0 =375} (with their notation, \m {C_0 =\dfrac {20 -8
 Since we are doing big-O analysis, we feel that we have more license on making approximation.
 For concreteness, we may assume that we start the iteration by specifying the Least Square estimator as the initial value of \m {\V {g}_0}, namely
 %
-\DispNum {g-0-gL-Py} {
+\DispNum {g:0:gL:Py} {
 \NC \V {g}_0
 =\NC \V {g}_{\Rm {LS}} \NR
 \NC = \NC \RB {\M {P} ^\Adj \M {P}} ^{-1} \M {P} ^\Adj \V {y} \NR
@@ -413,14 +554,14 @@ For concreteness, we may assume that we start the iteration by specifying the Le
 %
 If we drop it, we may write the complexity of DS to be, simply,
 %
-\DispNum {C-S-Og-g1} {
-\NC C_{\Rm{DS}}
-=\NC \MC {O} \SB {\VNm {\V {g}_{\Rm {LS}} -\V {g} ^\star} _1} \NR
+\DispNum {C:S:Og:g1} {
+\NC C_{\Rm {DS}}
+=\NC \MS {O} \SB {\VNm {\V {g}_{\Rm {LS}} -\V {g} ^\star} _1} \NR
 }
 %
 For simplicity we assume
 %
-\DispNum {g-;g-,-g;} {
+\DispNum {g:;g:,:g;} {
 \NC \V {g} ^\star
 \approx \NC \V {g} \NR
 }
@@ -428,7 +569,7 @@ For simplicity we assume
 Indeed, this is the main objective of our investigation!
 And by restricted isometry, \m {\M {P}} has unity-normed, almost orthogonal columns, so
 %
-\DispNum {P-P-IN-H2} {
+\DispNum {P:P:IN:H2} {
 \NC \M {P} ^\Adj \M {P}
 \approx \NC I _{N_{H}^2} \NR
 }
@@ -436,47 +577,47 @@ And by restricted isometry, \m {\M {P}} has unity-normed, almost orthogonal colu
 Thus
 %
 \Disp {
-\NC C_{\Rm{DS}}
-=\NC \MC {O} \SB {
+\NC C_{\Rm {DS}}
+=\NC \MS {O} \SB {
    \VNm {\V {g} +\RB {\M {P} ^\Adj \M {P}} ^{-1} \M {P} ^\Adj \V {z}
    -\V {g}} _1} \NR
-\NC =\NC \MC {O} \SB {\VNm {\M {P} ^\Adj \V {z}} _1} \NR
+\NC =\NC \MS {O} \SB {\VNm {\M {P} ^\Adj \V {z}} _1} \NR
 }
 
 If we agree that, for high probability,
 %
 \Disp {
-\NC \MC {O} \SB {\VNm {\M {P} ^\Adj \V {z}} _{\SB {j}}}
-= \NC \s \MC {O} \RB {1} \NR
+\NC \MS {O} \SB {\VNm {\M {P} ^\Adj \V {z}} _{\SB {j}}}
+= \NC \s \MS {O} \RB {1} \NR
 }
 
 It is easy to see that \m {\RB {\M {P} ^\Adj \V {z}} _{\SB {j}}} observes Complex Standard Normal distribution.
 and is easily bounded by \m {\s}.
 %
-\DispNum {--;ON,2s;} {
-\NC C_{\Rm{DS}}
-=\NC \MC {O} \SB {N_{H}^2 \s} \NR
+\DispNum {::;ON,2s;} {
+\NC C_{\Rm {DS}}
+=\NC \MS {O} \SB {N_{H}^2 \s} \NR
 }
 
 On the other hand, Tropp and Gilbert \cite [TrG07a] discussed the complexity of OMP, and the proof of technical lemmata in it can be found in the companion paper \cite [TrG07b].
 They give
 %
-\DispNum {C-O-ON-NY} {
-\NC C_{\Rm{OMP}}
-=\NC \MC {O} \SB {N_H^2 \log N_Y} \NR
+\DispNum {C:O:ON:NY} {
+\NC C_{\Rm {OMP}}
+=\NC \MS {O} \SB {N_H^2 \log N_Y} \NR
 }
 %
-And it would appear that this is greater than \m {C_{\Rm{DS}}}.
+And it would appear that this is greater than \m {C_{\Rm {DS}}}.
 However, \m {\log N_Y} is really small in our experiments.
-and we dropped some constants, too, in analyzing \m {C_{\Rm{DS}}}.
-If we drop \m {\log N_Y}, then we get \m {\MC {O} \SB {N_H^2}} again.
+and we dropped some constants, too, in analyzing \m {C_{\Rm {DS}}}.
+If we drop \m {\log N_Y}, then we get \m {\MS {O} \SB {N_H^2}} again.
 
 In summary
 %
-\DispNum {C-P-CD-H2} {
-\NC C_{\Rm{OMP}}
-\approx \NC C_{\Rm{DS}} \NR
-\NC \approx \NC \s \MC {O} \SB {N_H^2} \NR
+\DispNum {C:P:CD:H2} {
+\NC C_{\Rm {OMP}}
+\approx \NC C_{\Rm {DS}} \NR
+\NC \approx \NC \s \MS {O} \SB {N_H^2} \NR
 }
 
 \stopsubsection
@@ -493,7 +634,7 @@ On the other hand, we see the complexity of OMP is several order of magnitude lo
 This is reasonable, given that it is a greedy alrogithm.
 In fact, the time OMP takes is negligibly small.
 
-Since LS involves the same target function as DS, the same argument also gives \m {C_{\Rm{Lasso}} =\MC {O} \SB {N_H^2}}.
+Since LS involves the same target function as DS, the same argument also gives \m {C_{\Rm {Lasso}} =\MS {O} \SB {N_H^2}}.
 The numerical 
 We are not going to further discuss Lasso.
 

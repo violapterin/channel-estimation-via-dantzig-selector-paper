@@ -24,7 +24,7 @@ It is a recent developement that the estimation of channels is facilitated by ad
 A series of paper by Candès and Tao marks its advent.
 They start by observing that it is a common situation in statsitical applications that the number of model parameters \m {N_p \in \MB {N}} is much larger than the number of measurements \m {N_m \in \MB {N}}, namely,
 %
-\DispNum {N-p-Nm-Nm} {
+\DispNum {N:p:Nm:Nm} {
 \NC N_p \gg \NC N_m \NR
 }
 %
@@ -42,34 +42,34 @@ Indeed, relevent code has been put on the web for the reader to access and verif
 In this paper we focus on DS, and we introduce several notions before we describe their work.
 
 To start, consider \m {\V {x} \in \MB {K} ^{N_p}} and \m {\M {Q} \in \MB {K} ^{N_m \D  N_p}}.
-For \m {\MC {A} \subseteq \CB {0, \dots, N_p-1}}, denote
+For \m {\MS {A} \subseteq \CB {0, \dots, N_p-1}}, denote
 %
 \Disp {
-\NC \V {x}  _{\SB {\MC {A}}}
-=\NC \sum _{i \in \MC {A}} \V {v} \V {u} _{i} \NR
+\NC \V {x}  _{\SB {\MS {A}}}
+=\NC \sum _{i \in \MS {A}} \V {v} \V {u} _{i} \NR
 %
-\NC \M {Q}  _{\SB {\MC {A}}}
-=\NC \sum _{i \in \MC {A}} \M {Q} _{\SB {:,i}} \NR
+\NC \M {Q}  _{\SB {\MS {A}}}
+=\NC \sum _{i \in \MS {A}} \M {Q} _{\SB {:,i}} \NR
 }
 %
-That is, respectively, the components of \m {\V {x}}, and the columns of \m {\M {A}}, that have indices in \m {\MC {A}}.
+That is, respectively, the components of \m {\V {x}}, and the columns of \m {\M {A}}, that have indices in \m {\MS {A}}.
 
 We say \m {\V {x}} is \m {s}-sparse, if only at most \m {s} components of \m {x} is nonzero.
 Formally,
 \Result
 {Definition}
 {
-\m {\V {x}} is called \m {s}-sparse, if there is some \m {\MC {A} \subseteq \CB {0, \dots, N_p-1}} such that
+\m {\V {x}} is called \m {s}-sparse, if there is some \m {\MS {A} \subseteq \CB {0, \dots, N_p-1}} such that
 %
-\DispNum {x-A-x--x-} {
-\NC \V {x} _{\SB {\MC {A}}}
+\DispNum {x:A:x::x:} {
+\NC \V {x} _{\SB {\MS {A}}}
 =\NC \V {x} \NR
 }
 %
 with
 %
-\DispNum {A-A-s--s-} { 
-\NC \Nm {\MC {A}} \leq \NC s. \NR
+\DispNum {A:A:s::s:} { 
+\NC \Nm {\MS {A}} \leq \NC s. \NR
 }
 }
 
@@ -79,7 +79,7 @@ And for given \m {s},
 {
 For fixed \m {s =0, \dots N_p -1}, we say that \m {\M {Q}} satisfies \m {\d_s}-restricted isometry property (hereafter \m {\d_s}-RIP) of sparsity \m {s} with respect to \m {0 \leq \d_s \leq 1}, if for all \m {s}-sparse \m {\V {x}}
 %
-\DispNum {1-2-Qx-22} {
+\DispNum {1:2:Qx:22} {
 \NC \RB {1-\d_s} \VNm {\V {x}} _2 ^2
 \leq \NC \VNm {\M {Q} \V {x}} _2 ^2 \NR
 %
@@ -91,7 +91,7 @@ It helps to think that \m {\M {Q}} is almost unitary up to relative error \m {\d
 
 Now, consider a linear transformation of real vectors added of noise,
 %
-\DispNum {y-y-Qx-xz} {
+\DispNum {y:y:Qx:xz} {
 \NC \V {y}
 =\NC \M {Q} \V {x} + \V {z} \NR
 }
@@ -107,7 +107,7 @@ How can we hope to estimate \m {\V {x}} when, in addition to insufficient measur
 %
 \item Calculate
 %
-\DispNum {h-h-mi-yg'} {
+\DispNum {h:h:mi:yg'} {
 \NC \Hat {\V {h}}
 \LA \NC \startcases
 \NC \Min {\V {h}'} \MC \VNm {\V {h}'} _1 \NR
@@ -140,7 +140,7 @@ Then \cite [BHR08] showed that \m {\M {X}} is RIP of overwhelmingly probability,
 
 Around that time, Tropp and Gilbert \cite [TrG07b] suggest that a greedy algorithm called Orthogonal Matching Pursuit (OMP), which also makes use of an i.i.d.\ random matrix, may also reconstruct the sparse signal sufficiently well in an overwhemingly probability.
 
-Still consider \Rf {y-y-Qx-xz}.
+Still consider \Rf {y:y:Qx:xz}.
 We pick up the columns of \m {\M {Q}} greedily, hoping to correspond to the nonzero components of \m {\V {x}}, and thus recovering the original signal.
 
 \Result
@@ -161,7 +161,7 @@ We pick up the columns of \m {\M {Q}} greedily, hoping to correspond to the nonz
 \item Start the loop with counter \m {i \LA 1}.
 \item Find
 %
-\DispNum {c-c-i0-ir} {
+\DispNum {c:c:i0:ir} {
 \NC c
 \LA \NC \underset {i =0, \dots, N_p-1} {\Rm {argmax}}
 \Nm {\M {Q} _{\SB {:,i}} \V {r}} \NR
@@ -170,7 +170,7 @@ We pick up the columns of \m {\M {Q}} greedily, hoping to correspond to the nonz
 and insert \m {S \LA S \cup {i}}.
 \item Compute
 %
-\DispNum {Q-Q-QS-Qy} {
+\DispNum {Q:Q:QS:Qy} {
 \NC \M {Q} ^\ddagger
 \LA \NC \RB {\M {Q} _{\SB {S}} ^\Adj \M {Q} _{\SB {S}}} ^{-1} \M {Q} _{\SB {S}} ^\Adj \NR
 %
@@ -179,7 +179,7 @@ and insert \m {S \LA S \cup {i}}.
 }
 \item Break if
 %
-\DispNum {r-2-h'-h'} {
+\DispNum {r:2:h':h'} {
 \NC \VNm {\V {r}} _2
 <\NC \eta \NR
 }
@@ -187,7 +187,7 @@ and insert \m {S \LA S \cup {i}}.
 where \m {\VNm {\M {Q} ^\ddagger} _1} denotes the operator norm.
 \item Output 
 %
-\DispNum {g-g-Qy-Qy} {
+\DispNum {g:g:Qy:Qy} {
 \NC \Hat {\V {g}}
 \LA \NC \M {Q} ^\ddagger \V {y} \NR
 }
