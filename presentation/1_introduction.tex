@@ -2,7 +2,7 @@
 \blank [big, force]
 
 \Title {\TitleText}
-\Subtitle {III. Numerical Experiments}
+\Subtitle {Numerical Experiments}
 \blank [big]
 
 \Subtitle {\AuthorText}
@@ -14,37 +14,25 @@
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Organization}
 {
-\I Introduction
+\I Problem Setting
 
-\I Problem Setting and Proposed Method
+\I Proposed Method
 
-\I Bounding the Error Norm
+\I Bound for the Error Norm
 
 \I Numerical Experiments
 
-\I Conclusion and Key References
+\I Conclusion and References
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Background}
 {
-\I \Emph {Multiple-input multiple-output} (MIMO) communication system has been proposed to be incorporated into the 5G specification.
-However, its hardware overhead increases complexity and power consumption.
+\I Multiple-input multiple-output (MIMO) communication system has been proposed as part of the 5G specification, but its hardware overhead increases complexity and power consumption.
 
-\I The design of new algorithms that addressed these issues requires the expression of channel to be known.
+\I The design of new algorithms addressing these issues requires channel information to be known.
 
-\I Estimation of MIMO channels results in high complexity, due to the large number of antennae.
+\I Estimation of MIMO channels also results in high complexity, due to the large number of antennae.
 
-\I Meanwhile, millimeter wave (mm-Wave) channels often exhibit \Emph {sparse} properties, and what if we exploit the sparsity to save for some measurements?
-}
-% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Compressive Sensing}
-{
-\I The situation that the number of model parameters is much larger than the number of measurements has been addressed by \Emph {compressed sensing} (CS) theory
-
-\I A CS problem involves inverting a wide, rectangular matrix.
-Indeed, with insufficient (even noisy) measurements, this does not make sense.
-
-\I But it turns out that, when the signal is sparse, few measurements may be sufficient for the reconstruction.
-And \Emph {Dantzig Selector} (DS), proposed by Cand\`es and Tao (2006) in the advent, is a possible solution.
+\I Meanwhile, millimeter wave (mm-Wave) channels often exhibit sparse properties, which we exploit to save for some measurements.
 }
 

@@ -1,192 +1,157 @@
-\Frame {Real Valued Representation}
-{
-\I To solve the convex optimization, we use Python package CVXPY.
-To save complexity, we represent a complex number by its real- and imarinary-parts.
-
-\I For vectors, substitute
-\Disp {
-\NC a +b \Ss{i}
-\leftrightarrow \NC \startTheMatrix
-\NC a \NR
-\NC b \NR
-\stopTheMatrix \NR
-}
-
-\I For matrices, substitute
-\Disp {
-\NC a +b \Ss{i}
-\leftrightarrow \NC \startTheMatrix
-\NC a, \NC -b \NR
-\NC b, \NC a \NR
-\stopTheMatrix \NR
-}
-}
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Algorithm Cast as SOCP (1/3)}
+\Frame {Linear Programming}
 {
-\I Given are \m{\M {P} \in \MB {C} ^{N_Y^2 \D N_H^2}}, \m {\V {y} \in \MB {C} ^{N_Y^2}}, \m{\g _{\Ss {DS}} > 0}.
-Let \m {\T {\V {y}}} and \m {\T {\M {P}}} respectively be their real representation.
-
-\I Define the indicator vectors and matrices as
+\I Set \m {\V {1} = \IP {1, \dots, 1}}.
+\I Calculate
 \Disp {
-\NC {\V {u}}_{n_h} \SB {n_h'}
-= \NC \startcases
-1, \Q \MC n_h' =n_h \NR
-0, \Q \NC \Rm {otherwise} \NR
-\stopcases \NR
-%
-\NC {\T {\M {U}}}_{n_h} \SB {n_h', n_h''}
-= \NC \startcases
-1, \Q \MC n_h' =2n_h,\; n_h'' =2n_h \NR
-1, \Q \MC n_h' =2n_h +1,\; n_h'' =2n_h +1 \NR
-0, \Q \NC \Rm {otherwise} \NR
-\stopcases \NR
-}
-}
-% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Algorithm Cast as SOCP (2/3)}
-{
-\I To fit the form of SOCP, we just have to define \m {\V {t}, \M {A}_i, \V {b}_i, \V {c}_i, d_i}, for \m {i = 0, 1, \ldots, N_H^2 -1},
-\Disp{
-\NC \V {t}
-= \NC \startTheMatrix
-\NC \V {0} \NR
-\NC \V {1} \NR
-\stopTheMatrix,
-\Q \M {A}_i
-= \startTheMatrix
-\NC \T {\M {U}}_{i}, \NC \M {0} \NR
-\stopTheMatrix \NR
-%
-\NC \V {b}_i
-=\NC \V {0},
-\Q \V {c}_i
-= \startTheMatrix
-\NC \V {0} \NR
-\NC \V {u}_{i} \NR
-\stopTheMatrix,
-\Q d_i
-= 0 \NR
-}
-
-\I Similarly, for \m {i = N_H^2, N_H^2 +1, \ldots, 2N_H^2 -1},
-\Disp{
-\NC \M {A}_i
-= \NC \startTheMatrix
-\NC -\T {\M {U}}_{i -N_H^2} \T {\M {P}}^\Adj \T {\M {P}}, \NC \M {0} \NR
-\stopTheMatrix, \NR
-%
-\NC \V {b}_i
-=\NC \T {\M {U}}_{i -N_H^2} \T {\M {P}}^\Adj \T {\V {y}},
-\Q \V {c}_i
-= \V {0},
-\Q d_i
-= \g _{\Ss {DS}} \NR
-}
-}
-% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Algorithm Cast as SOCP (3/3)}
-{
-\I Now, run the Second Order Cone Programming:
-\Disp{
-\NC \Hat {\V {x}}
+\NC \Hat {\V {g}}, \Hat {\V {f}}
 \LA \NC \startcases
-\NC \Min {\V {x}'}
-\MC \IP {\V {t}, \V {x}'} \NR
-\NC \Rm {subject} \; \Rm {to}
-\Q  \MC \VNm {\M {A} _{i} \V {x}' +\V {b} _{i}} _2
-\leq \IP {\V {c}_{i}, \V {x}'} +\V {d}_i \NR
-\NC \MC i 
-=0, 1, \ldots, 2N_H^2 -1 \NR
+   \NC \Min {\V {g}', \V {f}'}  \MC \IP {\V {1}, \V {f}'} \NR
+   \NC \Rm {subject} \; \Rm {to} \MC \V {g}' \leq \V {f}' \NR
+   \NC \MC - \V {g}' \leq \V {f}' \NR
+   \NC \MC \M {P}^\Adj \M {P} \V {g}' \leq \M {P}^\Adj \V {y} + \g_{\Ss {DS}} \V {1} \NR
+   \NC \MC - \M {P}^\Adj \M {P} \V {g}' \leq - \M {P}^\Adj \V {y} + \g_{\Ss {DS}} \V {1} \NR
 \stopcases \NR
-%
-\NC \Hat{\V {g}}
-\LA \NC \MC{R} ^{-1} \SB {\Hat{\V {x}} _{\SB {0 : 2N_H^2-1}}} \NR
-%
-\NC \Hat {\M {H}}
-\LA \NC \M {K} \Rm {vec}^{-1} \SB {\Hat {g}} \M {K}^\Adj \NR
 }
+\I Output \m {\Hat {\M {H}} \LA \M {K} \Rm {vec}^{-1} \SB {\Hat {g}} \M {K}^\Adj}
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Two-Stage Estimation (1/2)}
+{
+\I Denote
+\Disp {
+\NC N_0 = \NC 2 N_H^2 \NR
+\NC N_1 = \NC 2 N_H \NR
+\NC N_2 = \NC 2 \lfloor \Rm {min} \SB {L \log \SB {N_H^2}, N_H} \rfloor \NR
+}
+
+\I Apply DS to \m {\V {y}, \M {P}} to get \m {\Hat {\V {g}}_0}.
+
+\I Choose the \m {N_1} largest component of \m {\Hat {\V {g}}_0} and call it \m {\V {g}_1}.
+Choose corresponding columns of \m {\M {P}} and call it \m {\M {P} _1}.
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Two-Stage Estimation (2/2)}
+{
+\I Apply DS to \m {\V {y}, \M {P} _1} to get \m {\Hat {\V {g}}_1}.
+
+\I Choose the \m {N_2} largest component of \m {\Hat {\V {g}}_1} and call it \m {\V {g}_2}.
+Choose corresponding columns of \m {\M {P}_1} and call it \m {\M {P} _2}.
+
+\I Apply pseudoinverse (linear square) to \m {\V {y}, \M {P} _2} to get \m {\Hat {\V {g}}_2}.
+
+\I Assign corresponding components of \m {\Hat {\V {g}}_2} in \m {\Hat {\V {g}}}, and pad \m {0} otherwise.
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Performance Metric}
 {
-\I Bound of log of error norm:
+\I With some approximations, I suggest the following metric for spectral efficiency:
+\I Denote \m {E := \Hat {H} - H}
+\I Observe
 \Disp {
-\NC \h_{\Ss{th}}
-\eqsim \NC \F {1} {2} \log L +\F {3} {2} \log \log N_H +2 \NR
+\NC \VNm {\RB {\M {H} + \M {E}} \RB {\M {H} + \M {E}} ^\Adj - \M {H} \M {H} ^\Adj} \V {x}
+\lesssim 2 \VNm {\M {E}} _2 \VNm {\M {H}} _2 \VNm {\V {x}} \NR
 }
-\I Log absolute / relative error:
+\I Define the spectral efficiency to be
 \Disp {
-\NC \h_{\Ss{abs}}
-=\NC \RB {\log_2 {\VNm {\V {h} -\Hat {\V {h}}}_2}} _{\Ss{avg}} \NR
-%
-\NC \h_{\Ss{rel}}
-=\NC \F {\h_{\Ss{abs}}}
-{\RB {\log_2 {\VNm {\V {h}}_2}} _{\Ss{avg}}} \NR
+\NC \log \det \SB {I + \RB {\s + \F {2 \VNm {\M {E}} _2 \VNm {\M {H}} _2} {N_H ^{3/2}}} ^{-1} \M {H} \M {H} ^ \Adj} \NR
+}
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Theoretical Metric}
+{
+\I For the theoretical error norm,
+\Disp {
+\NC \log d_{\Rm {th}}
+\lesssim \NC \F {1} {2} \log L +\F {3} {2} \log \log N_H \NR
+}
+\I Define the theoretical spectral efficiency to be
+\Disp {
+\NC \log \det \SB {I + \RB {\s + \F {2 d_{\Rm {th}} \VNm {\M {H}} _2} {N_H ^{3/2}}} ^{-1} \M {H} \M {H} ^ \Adj} \NR
 }
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Simulation Parameters}
 {
-\I Antennae number of channel \m {N_H = 16, 32, 48}
-\I Antennae number of analog stage \m {N_R = \RB {\log N_H}^2}
-\I Antennae number of digital stage \m {N_Y = \log N_H}
+\I Antennae number of channel \m {N_H = 16, 20, 24}
+\I Antennae number of analog stage \m {N_R = \lfloor \R {N_H N_Y} \rfloor}
+\I Antennae number of digital stage \m {N_Y = \lfloor N_H/3 \rfloor}
+\I Number of paths \m {L =3}
 \I Analog beamformer quantization grid: \m {16}
-\I Number of paths \m {L =4}
-\I How many noise standard deviation tried: \m {12}
-\I Number of repetition of each data point: \m {16}
+\I How many noise standard deviation tried: \m {7}
+\I Number of repetition of each data point: \m {12}
+\I Solved by Python CVXPY
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Absolute Error, \m {N_H=32}}
+\Frame {Spectral Efficiency, \m {N_H=16}}
 {
 \blank [big]
-\externalfigure [medium-assorted-abs.png] [wfactor=fit, hfactor=fit]
+\externalfigure [assorted-small-efficiency.png] [factor=fit]
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Relative Error, \m {N_H=32}}
+\Frame {Time Taken, \m {N_H=16}}
 {
 \blank [big]
-\externalfigure [medium-assorted-rel.png] [wfactor=fit, hfactor=fit]
+\externalfigure [assorted-small-time.png] [factor=fit]
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Time Taken, \m {N_H=32}}
+\Frame {Spectral Efficiency, \m {N_H=20}}
 {
 \blank [big]
-\externalfigure [medium-assorted-time.png] [wfactor=fit, hfactor=fit]
+\externalfigure [assorted-medium-efficiency.png] [factor=fit]
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Absolute Error, \m {N_H=48}}
+\Frame {Time Taken, \m {N_H=20}}
 {
 \blank [big]
-\externalfigure [medium-assorted-abs.png] [wfactor=fit, hfactor=fit]
+\externalfigure [assorted-medium-time.png] [factor=fit]
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Relative Error, \m {N_H=48}}
+\Frame {Spectral Efficiency, \m {N_H=24}}
 {
 \blank [big]
-\externalfigure [medium-assorted-rel.png] [wfactor=fit, hfactor=fit]
+\externalfigure [assorted-big-efficiency.png] [factor=fit]
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Time Taken, \m {N_H=48}}
+\Frame {Time Taken, \m {N_H=24}}
 {
 \blank [big]
-\externalfigure [medium-assorted-time.png] [wfactor=fit, hfactor=fit]
+\externalfigure [assorted-big-time.png] [factor=fit]
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Discussion}
 {
+\I DS is slightly better than others when \m {\s \gg 1}
 
 \I \m {\eta _{\Ss {th}}} is in correct order of magnitude but not tight when \m {\s \gg 1}
 
-\I The smaller the noise std., the smaller the error
+\I The smaller the noise, the smaller the error
 
 \I It is \It {not} true that the smaller \m {\g _{\Ss {DS}}}, the smaller the error
 
-\I We have reasonable results, but exceedingly high complexity
+\I We have exceedingly high complexity than OMP
 
-\I Have to do more experiments to smooth out the lines
-
-\I The requirement \m {N_R \gtrsim 16 L \RB {\log N_H}^2} is demanding
+\I The requirement that \m {N_H \gg N_Y} is demanding
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Complexity (1/2)}
+{
+\I In general, the complexity of convex optimization is hard to obtain.
+
+\I However, there exist expressions for number of Newton steps in the course of optimization.
+It is \m {\MC {O} \SB {\VNm {\V {g} _0 - \V {g} ^\star} _1}}, where \m {\VNm {\V {g} _0} _1} is the starting value, \m {\V {g} ^\star} the true value.
+Assume that is \m {\MC {O} \SB {\VNm {\M {P} ^\Adj \V {z}} _1}}, which is at most \m {\MC {O} \SB {N_H^2}}.
+
+\I Moreover, every Newton step requires a matrix inversion of dimension \m {N_H^2}, with at least \m {\MC {O} \SB {N_H^4}}.
+This gives \m {\MC {O} \SB {N_H^6}}.
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Complexity (2/2)}
+{
+\I On the other hand, it is pointed out that Lasso (least absolute shrinkage and selection operator) has similar complexity with Least Angle regression, which has complexity \m {\MC {O} \SB {N_H^6}}.
+Since DS and Lasso have similar form, we expect DS has similar complexity.
+
+\I Clearly, the complexity of OMP is at most \m {\MC {O} \SB {N_H^2}}, so much smaller than DS.
+}
+
 

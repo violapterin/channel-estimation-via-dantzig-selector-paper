@@ -1,46 +1,54 @@
-\Frame {The Need of a Modified Proof}
+\Frame {Modifying the Original Proof}
 {
-\I \Emph {Q1}: DS is shown to work for \Emph {sparse} vectors, but is \m {\M {H}} really sparse?
+\I \Emph{Q1}: Candès and Tao established the case for real matrices, but does \Emph {complex} case apply?
 
-\I \Emph{Q2}: Dantzig Selector requires the measurement matrix to observe restricted isometry property (more below), but is it true for \m {\M {P}}, and under what \Emph {design} of \m {\M {F}_B, \M {F}_R, \M {W}_B, \M {W}_R}?
+\I \Emph {Q2}: DS works for \Emph {sparse} vectors, but as \m {\M {H}} is not sparse, does DS work?
 
-\I \Emph{Q3}: Candès and Tao established the case for real matrices, but does \Emph {complex} case apply?
+\I \Emph{Q3}: DS requires the measurement matrix to have restricted isometry property, but under what \Emph {design} of \m {\M {F}_B, \M {F}_R, \M {W}_B, \M {W}_R}, is it true for \m {\M {P}}?
 
 \I \Emph{Q4}: Candès and Tao showed the Big-\m {\MC {O}} of error norm depends on (in our case) \m {N_H}, but does the algorithm work successfully for \Emph {high probability}?
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Proof Strategy}
+\Frame {Real Valued Representation}
 {
-\I \m {\M {H}} is not sparse, but \m {\M {K}^\Adj \M {H} \M {K}} is.
-Remove the largest-magnitude \m {S} components of \m {\V{g}}, and call the remaining vector \m {\M {g} _{\SB{\MC {C}}}}, so that it remains to bound \m {\VNm {\M {g} _{\SB{\MC {C}}}} _1}.
+\I To save complexity, we represent a complex number by its real- and imarinary-parts.
 
-\I Establish that all four beamformers satisfy RIP, thus \m {\M{P}} satisfies RIP too, for high probability.
+\I For vectors, substitute
+\Disp {
+\NC a +b \Ss{i}
+\leftrightarrow \NC \startTheMatrix
+\NC a \NR
+\NC b \NR
+\stopTheMatrix \NR
+}
 
-\I We then establish a modified bound of error norm based on Candès and Tao.
+\I For matrices, substitute
+\Disp {
+\NC a +b \Ss{i}
+\leftrightarrow \NC \startTheMatrix
+\NC a, \NC -b \NR
+\NC b, \NC a \NR
+\stopTheMatrix \NR
+}
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Restricted Isometry Property}
+
+\Frame {Observations on Sparsity}
 {
-\I \m {\V {g}} is called \Emph {\m {s}-sparse}, if only \m {s} of its components are nonzero.
+\I \m {\M {H}} is not sparse, but \m {\M {K}^\Adj \M {H} \M {K}} is almost sparse.
+Call the largest-magnitude \m {S} components of \m {\V{g}} to be \m {\M {g} _{\SB{\MC {A}}}}, and call the remaining vector \m {\M {g} _{\SB{\MC {C}}}}, we still have to bound \m {\VNm {\M {g} _{\SB{\MC {C}}}} _1}.
 
-\I We say that \m {\M{P}} satisfies the \Emph {restricted isometry property} (RIP) of sparsity \m {s} with respect to \m {0 < \d_s < 1}, if, for all \m {s}-sparse \m {\V {g}},
-\Disp {
-\NC \RB {1-\d_s} \VNm {\V {g}} _2^2
-\leq \NC \VNm {\M{P} \V {g}} _2^2
-\leq \RB {1+\d_s} \VNm {\V {g}} _2^2
-}
+\I Establish that all four beamformers satisfy RIP, for high probability, thus \m {\m {P}} satisfies RIP too, for high probability.
 
-\I Verbally, \m {\M{P}} is \Emph {almost unitary} up to relative error \m {\d_s}.
+\I We then establish a modified bound of error norm.
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {\m {\V{g}} is Almost Sparse}
 {
 \I Suppose for concreteness,
 \Disp {
-\NC s
-=\NC \R {\log N_H},
-\Q S
-= L s^2,
+\NC S
+= L \log N_H,
 \Q \d_S
 \leq \F {1} {8} \NR
 }
@@ -60,46 +68,14 @@ Remove the largest-magnitude \m {S} components of \m {\V{g}}, and call the remai
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Design of Beamformers}
 {
-\I Considering \Emph {Q2}: If each entry of \m {\M {P}} is i.i.d., then it's likely that, by whatever variation of \Emph {Central Limit Theorem}, for unit vector \m {\V {u}}
-\Disp {
-\NC \MB {E} \SB {\VNm {\M {P} \V {u}} _2 ^k}
-\approx \NC 1
-\Q \Ss {in\; distribution} \NR
-}
+\I I argue in the treatise that \m {\M {F} _R ^\Tr}, \m {\M {F} _B ^\Tr}, \m {\M {W} _R}, and \m {\M {W} _B} all have RIP, then \m {\M {P}} has?
 
-\I Unfortunately, they are \Emph {not i.i.d.}, and that need closer scrutiny.
+\I Try to set each entry of \m {\m {F}_B} (resp.\ \m {\m {W}_B}) to be i.i.d.\ Complex Standard Normal, up to a design constant
 
-\I Try to set each entry of \m {\M{F}_B} (resp.\ \m {\M{W}_B}) to be i.i.d.\ Complex Standard Normal, up to a design constant
-
-\I And let each entry of \m {\M{F}_R} (resp.\ \m {\M{W}_R}) be uniformly distributed argument and unity magnitude, up to a design constant
+\I And let each entry of \m {\m {F}_R} (resp.\ \m {\m {W}_R}) be uniformly distributed argument and unity magnitude, up to a design constant
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {RIP of Effective Beamformers}
-{
-\I Is it true that if \m {\M {F} _R ^\Tr}, \m {\M {F} _B ^\Tr}, \m {\M {W} _R}, and \m {\M {W} _B} all have RIP, then \m {\M {P}} has?
-
-\I Indeed, if so, \m {\M {P}} has approximately \m {2\d_s}-RIP, if there is no sparsity constraint:
-\Disp {
-\NC \VNm {P} _2
-=\NC \VNm {\M {F}_B^\Tr \M {F}_B^\Tr} _2 \VNm {\M {W}_B \M {W}_R} _2 \NR
-}
-
-\I I argue that this is true for sparse \m {\V {g}}.
-In fact, if \m {\M {K} ^\Adj \M {H} \M {K} =\M {U} \Rm {diag} \SB {\V {d}} \M {U} ^\Adj}, for some \m {S}-sparse \m {\V {d}} and unitary \m {\M {U}}, then
-
-\Disp {
-\NC \VNm {\M {W} _B \M {W} _R \M {H} \M {F} _R \M {F} _B} _2
-=\NC \VNm {
-   \M {W} _B \M {W} _R \M {K} \M {U}
-   \R {\Rm {abs} \SB {\V {d}}} \D
-   \R {\Rm {abs} \SB {\V {d}}}
-   \M {U} ^\Adj \M {K} ^\Adj \M {F} _R \M {F} _B} _2 \NR
-%
-\NC \eqsim \NC \VNm {\M {H}} _2 \RB {1 +2\d_s} \NR
-}
-}
-% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Isometry of Digital Beamformers}
+\Frame {RIP of Digital Beamformers}
 {
 \I For \m {0 <\d_s <1}, unit vector \m {\V {u}}, \m {\M {W}_B} (resp.\ \m {\M {F} _B ^\Adj}) satisfies
 %
@@ -111,7 +87,7 @@ In fact, if \m {\M {K} ^\Adj \M {H} \M {K} =\M {U} \Rm {diag} \SB {\V {d}} \M {U
 \I holds for probability \m {p}, with
 \Disp {
 \NC 1 -p
-\leq \NC 2 \Ss {e} ^{-N_B \R {\d_s} /4} \NR
+\leq \NC 2 \Ss {e} ^{-N_Y \R {\d_s} /4} \NR
 }
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
@@ -135,51 +111,30 @@ In fact, if \m {\M {K} ^\Adj \M {H} \M {K} =\M {U} \Rm {diag} \SB {\V {d}} \M {U
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Error Norm of Dantzig Selector}
 {
-\I In answer of \Emph {Q3}, it can be checked that the generalization to complex vectors only introduces the bound of a multiple \m {\R {2}}.
-
-\I then the following bound holds for high probability \m {p}:
+\I The following bound holds for high probability \m {p}:
 \Disp {
-\NC \VNm {\V {d}} _2
+\NC \VNm {\Hat {\V {g}} - \V {g}} _2
 %
-\leq \NC 3.29 \R {L} \log N_H +4.56 \R {L} \R {\log N_H}^3 \NR
+\leq \NC 8 \R {L} \R {\log N_H}^3 \NR
 }
 
-\I and we may bound failure probability \m {1-p}...
+\I where it hold for \m {p} that...
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Big-\m {O} of Success Probability (1/2)}
+\Frame {Big-\m {O} of Success Probability}
 {
 \I Denote the four events of failure, subscript respectively for restricted isometry, noise, sparsity,
 \Disp {
-\NC q
-\eqsim \NC 2 \RB {q _{\Rm {iso}, B} + q _{\Rm {iso}, R}} +q _{\Rm {no}} +q _{\Rm {sp}} \NR
+\NC q = 1-p
+\lesssim \NC 2 \RB {q _{\Rm {iso}, B} + q _{\Rm {iso}, R}} +q _{\Rm {no}} +q _{\Rm {sp}} \NR
 }
 
-\I Then previous discussions
-\Disp {
-\NC q _{\Rm {iso}, B}
-\lesssim \NC 2 \Ss {e} ^{-N_B /12} \NR
-%
-\NC q _{\Rm {iso}, R}
-\lesssim \NC 2 N_H ^{-1/3} \RB {\log N_H} ^{-1/6} \NR
-%
-\NC q _{\Rm {no}}
-\lesssim \NC N_H ^{-2} \NR
-%
-\NC q _{\Rm {sp}}
-\lesssim \NC 2 \Ss {e} ^{-9L/\pi} \NR
-}
-}
-% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Big-\m {O} of Success Probability (2/2)}
-{
 \I If we provide the design values
 \Disp {
-\NC N_B
-\gtrsim \NC 4 \log N_H \NR
-%
-\NC N_R
-\gtrsim \NC 16 L \RB {\log N_H}^2 \NR
+\NC N_Y
+\gtrsim \NC 4 \log N_H, \Q
+N_R
+\gtrsim 16 L \RB {\log N_H}^2 \NR
 }
 
 \I It follows that
@@ -187,13 +142,10 @@ In fact, if \m {\M {K} ^\Adj \M {H} \M {K} =\M {U} \Rm {diag} \SB {\V {d}} \M {U
 \NC q _{\Rm {sp}}
 \lesssim \NC q _{\Rm {no}}
 \lesssim q _{\Rm {iso}, B}
-\eqsim q _{\Rm {iso}, R}
-}
-
-\I Then we get the estimation
-\Disp {
+\eqsim q _{\Rm {iso}, R} \NR
+%
 \NC q
-\eqsim 2 N_H ^{-1/3} \NR
+\lesssim \NC 2 N_H ^{-1/3} \NR
 }
 }
 

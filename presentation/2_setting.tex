@@ -9,7 +9,7 @@
 
 \I Consider the channel representation
 \Disp {
-\NC \M{H}
+\NC \m {H}
 =\NC \sum_{l=0} ^{L-1}
 \a_l
 \V {a} \SB {\f_l'}
@@ -46,27 +46,27 @@
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Effective Channel}
 {
-\I Consider Complex Standard Normal \m {\M{Z} \in \NC \MB {C} ^{N_H \D N_H}}
+\I Consider Complex Standard Normal \m {\m {Z} \in \NC \MB {C} ^{N_H \D N_H}}
 
 \I Introduce the effective channel
 \Disp {
-\NC \M{Y}
-:=\M{W}_B \M{W}_R \RB {\M{H} \M{F}_R \M{F}_B +\M{Z}} \NR
+\NC \m {Y}
+:=\m {W}_B \m {W}_R \RB {\m {H} \m {F}_R \m {F}_B +\m {Z}} \NR
 }
 
-\I Summarizing the dimension,
+\I Their dimension is summarized for convenience:
 \Disp {
 \NC \MB {C}^{N_Y}
-\underset {\M{F}_B} {\mapsto} \NC \MB {C}^{N_R}
-\underset {\M{F}_R} {\mapsto} \MB {C}^{N_H}
-\underset {\M{H}} {\mapsto} \MB {C}^{N_H}
-\underset {\M{W}_R} {\mapsto} \MB {C}^{N_R}
-\underset {\M{W}_B} {\mapsto} \MB {C}^{N_Y} \NR
+\underset {\m {F}_B} {\mapsto} \NC \MB {C}^{N_R}
+\underset {\m {F}_R} {\mapsto} \MB {C}^{N_H}
+\underset {\m {H}} {\mapsto} \MB {C}^{N_H}
+\underset {\m {W}_R} {\mapsto} \MB {C}^{N_R}
+\underset {\m {W}_B} {\mapsto} \MB {C}^{N_Y} \NR
 }
 
-\I How do we \Emph {recover} \m {\M {H}} with knowledge of \m {\M {Y}}?
+\I Problem (a): How do we recover \m {\M {H}} with knowledge of \m {\M {Y}}?
 
-\I How do we \Emph {design} \m {\M {W}_R}, \m {\M {W}_B}, \m {\M {F}_R}, and \m {\M {F}_B}?
+\I Problem (b): How do we design \m {\M {W}_R}, \m {\M {W}_B}, \m {\M {F}_R}, and \m {\M {F}_B}?
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Transform to the Angular Domain}
@@ -76,23 +76,71 @@
 \NC \V {y}
 := \NC \Rm {vec} \SB {\M {Y}},
 \Q \M {P}
-:= \RB {\M {F}_B^\Tr \M {F}_R^\Tr \M{K}^\ast} \otimes \RB {\M {W}_B \M {W}_R \M {K}}, \NR
+:= \RB {\M {F}_B^\Tr \M {F}_R^\Tr \m {K}^\ast} \otimes \RB {\M {W}_B \M {W}_R \M {K}}, \NR
 \NC \V {g}
 := \NC \Rm {vec} \SB {\M {K}^\Adj \M {H} \M {K}},
 \Q \V {z}
 := \Rm {vec} \SB {\M {Z}} \NR
 }
 
-\I Then we have a \Emph {linear equation}
+\I Then we have a linear equation
 \Disp {
 \NC \V {y}
 =\NC \M {P} \V {g} +\V {z} \NR
 }
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Compressive Sensing}
+{
+\I In our case, we have to essentially invert an underdetermined system, and usually, that is not well defined.
+
+\I Consider a simpler case: \m {\V {y} = \M {A} \V {x} + \V {z}}, where \m {\M {A} \in \MB {R} ^{N_m \D N_p}}, \m {\V {y} \in \MB {C} ^{N_m}}.
+
+\I If \m {\V {y} = \M {A} \V {x}_1 = \M {A} \V {x}_2}
+\Disp {
+\NC \V {x}_1 - \V {x}_2 \in \Rm {null}\; \M {A} \NR
+}
+Then \m {\V {x}_1, \V {x}_2} cannot be recovered.
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Restricted Isometry Property}
+{
+\I However, Candès and Tao shows that when the signal is sparse, few measurements may be sufficient for the reconstruction, with vanishing error norm, in overwhelming probability.
+
+\I \m {\V {g}} is called \Emph {\m {s}-sparse}, if only \m {s} of its components are nonzero.
+
+\I We say that \m {\m {P}} satisfies the \Emph {restricted isometry property} (RIP) of sparsity \m {s} with respect to \m {0 < \d_s < 1}, if, for all \m {s}-sparse \m {\V {g}},
+\Disp {
+\NC \RB {1-\d_s} \VNm {\V {g}} _2^2
+\leq \NC \VNm {\m {P} \V {g}} _2^2
+\leq \RB {1+\d_s} \VNm {\V {g}} _2^2
+}
+
+\I Verbally, \m {\m {P}} is \Emph {almost unitary} up to relative error \m {\d_s}.
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Dantzig Selector for Sparse Vectors}
+{
+\I Let \m {\V {x}} be \m {S}-sparse.
+If \m {\g_{\Ss {DS}} = \R {2 \log N_p}}, then
+\Disp {
+\NC \Hat {\V {x}}
+\LA \NC \startcases
+\NC \Min {\V {x}'}  \MC \VNm {\V {x}'} _1 \NR
+\NC \Rm {subject} \; \Rm {to} \Q \MC \VNm {\M {A}^\intercal \RB {\V {y} -\M {A} \V {x}'}} _\infty \leq \g_{\Ss {DS}} \NR
+\stopcases \NR
+}
+with
+\Disp {
+\NC \VNm {\V {x} - \hat {\V {x}}} _2 ^2
+\leq \NC 32 S \sigma^2 \log N_p \NR
+}
+For high probability.
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Proposed Method}
 {
-\I Input \m{\M {P} \in \MB {C} ^{N_Y^2 \D N_H^2}}, \m{\V {y} \in \MB {C} ^{N_H^2}}, \m{\g_{\Ss {DS}} \geq 0}.
+\I Back to our problem: Input \m {\M {P} \in \MB {C} ^{N_Y^2 \D N_H^2}}, \m {\V {y} \in \MB {C} ^{N_H^2}}, \m {\g_{\Ss {DS}} \geq 0}.
 
 \I Calculate
 \Disp {

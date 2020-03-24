@@ -1,35 +1,37 @@
 \Frame {Conclusion}
 {
-\I We propose a feasible method to estimate MIMO mm-Wave channel \m {\M {H}} by exploiting its sparsity, and employing Dantzig Selector (DS).
+\I We propose a method to estimate MIMO mm-Wave channel \m {\M {H}} by exploiting its sparsity, and employing Dantzig Selector (DS).
 
-\I We modified DS for present setting, for the almost-sparse condition in the angular domain, with respect to the effective beamformer \m {\M {P}} in our setting, and concerning complex vectors.
+\I We modified DS for present setting, for the almost-sparse condition in the angular domain, using the effective beamformer \m {\M {P}}, and concerning complex vectors.
 
-\I We bound the error norm with respect to parameters \m {N_H}, \m {N_Y}, and \m{L}, and investigated the big \m {\MC{O}} of the successful probability
+\I We have a bound of the error norm with respect to parameters \m {N_H}, \m {N_Y}, and \m{L}, and investigated the asymptotic behavior of the successful probability.
+
+\I We adopt linear programming to reduce complexity.
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Future Work}
 {
-\I Investigate the reason of high complexity and reduce it.
+\I Is it possible to resort to less precision to reduce complexity, but retaining the performance?
 
-\I Run for bigger values of \m {N_H}, \m {N_Y}, and \m{L} if possible.
+\I Run for bigger values of \m {N_H}, \m {N_Y} and repeat for enough times to observe a definite result.
 
-\I Maybe try the real case and use existent code for DS.
+\I I want to know why DS is not as good as expected, and to provide discussion, before closing the case.
 
-\I More literature review on other methods.
+\I The proof section need some rewriting, but it is not big deal.
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {References}
 {
 {\tfx
-\I E. Candès and J. Romberg, \It {\m {\ell_1}-magic: Recovery of Sparse Signals via Convex Programming}, retrieved from \Tt {www.acm.caltech.edu/l1magic/downloads/l1magic.pdf}, 2005.
+\I S Boyd and L Vandenberghe, \It {Convex optimization}, Cambridge U Press, 2004.
 
-\I E. Candès and T. Tao, ``The Dantzig Selector: Statistical estimation when \m {p} is much larger than \m {n}'', The annals of Statistics 35(6), 2313–2351, 2007.
+\I E Candès and J Romberg, \Quote {\m {\ell_1}-magic: Recovery of Sparse Signals via Convex Programming}, retrieved online, 2005.
 
-\I M.P. Friedlander and M.A. Saunders, ``Discussion: the Dantzig Selector'', The Annals of Statistics 35(6), 2385–2391, 2007.
+\I E Candès and T Tao, \Quote {The Dantzig Selector: Statistical estimation when \m {p} is much larger than \m {n}}, \It {The Annals of Statistics} 35(6), 2007.
 
-\I B. Klartag and E. Milman, \It {Geometric Aspects of Functional Analysis}, Springer, 2017.
+\I B Efron and T Hastie, \Quote {Least angle regression}, \Quote {The Annals of statistics}, 32(2), 2004.
 
-\I B. Laurent and P. Massart, ``Adaptive estimation of a quadratic functional by model selection'', Annals of Statistics, 1302–1338, 2000.
+\I J Lee, G-T Lee, and H Yong, \Quote {Channel estimation via orthogonal matching pursuit for hybrid MIMO systems in millimeter wave communications}, \It {IEEE Transactions on Communications}, 64(6), 2016.
 }
 }
 
