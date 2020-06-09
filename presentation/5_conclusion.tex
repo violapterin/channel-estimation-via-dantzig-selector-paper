@@ -1,37 +1,45 @@
 \Frame {Conclusion}
 {
-\I We propose a method to estimate MIMO mm-Wave channel \m {\M {H}} by exploiting its sparsity, and employing Dantzig Selector (DS).
+\I We propose a method to estimate MIMO mm-Wave channel \m {\M {H}} by modifying Dantzig Selector (DS), exploiting the sparsity inherent in the problem.
 
-\I We modified DS for present setting, for the almost-sparse condition in the angular domain, using the effective beamformer \m {\M {P}}, and concerning complex vectors.
+\I We argue for its validity, for the almost-sparse condition in the angular domain, using the effective beamformer \m {\M {P}}, and concerning complex vectors.
 
-\I We have a bound of the error norm with respect to parameters \m {N_H}, \m {N_Y}, and \m{L}, and investigated the asymptotic behavior of the successful probability.
+\I We propose a bound of the error norm with respect to parameters \m {N_H}, \m {N_Y}, and \m{L}, and investigated the asymptotic behavior of the successful probability.
 
-\I We adopt linear programming to reduce complexity.
+\I We convert the problem into a linear program to reduce complexity, and run a two-stage version to estimate the position of components.
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Future Work}
 {
-\I Is it possible to resort to less precision to reduce complexity, but retaining the performance?
+\I Is it possible to reduce complexity, while retaining the performance?
 
-\I Run for bigger values of \m {N_H}, \m {N_Y} and repeat for enough times to observe a definite result.
+\I Is the trend the same for bigger values of \m {N_H}?
 
-\I I want to know why DS is not as good as expected, and to provide discussion, before closing the case.
-
-\I The proof section need some rewriting, but it is not big deal.
+\I Why DS is not as good as expected, and is there any mistakes in the proof of error bound?
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {References}
+\Frame {References (1/2)}
 {
 {\tfx
+\I W U Bajwa, J Haupt, A M Sayeed, and R Nowak, \Quote {Compressed channel sensing: A new approach to estimating sparse multipath channels}, \It {Proceedings of the IEEE}, 98(6), 2010
+
 \I S Boyd and L Vandenberghe, \It {Convex optimization}, Cambridge U Press, 2004.
 
 \I E Candès and J Romberg, \Quote {\m {\ell_1}-magic: Recovery of Sparse Signals via Convex Programming}, retrieved online, 2005.
 
 \I E Candès and T Tao, \Quote {The Dantzig Selector: Statistical estimation when \m {p} is much larger than \m {n}}, \It {The Annals of Statistics} 35(6), 2007.
+}
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {References (2/2)}
+{
+{\tfx
+\I E J Candès and T Tao, \Quote {Decoding by Linear Programming}, \It {IEEE Transactions on Information Theory}, 51(12), 2005
 
-\I B Efron and T Hastie, \Quote {Least angle regression}, \Quote {The Annals of statistics}, 32(2), 2004.
+\I M P Friedlander and M A Saunders, \Quote {Discussion: the Dantzig selector: statistical estimation when p is much larger than n}, \It {The Annals of Statistics}, 35(6), 2007
 
 \I J Lee, G-T Lee, and H Yong, \Quote {Channel estimation via orthogonal matching pursuit for hybrid MIMO systems in millimeter wave communications}, \It {IEEE Transactions on Communications}, 64(6), 2016.
-}
-}
 
+\I J A Tropp and A C Gilbert, \Quote {Signal recovery from random measurements via orthogonal matching pursuit}, \It {IEEE Transactions on information theory}, 53(12), 2007.
+}
+}

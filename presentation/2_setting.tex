@@ -64,9 +64,9 @@
 \underset {\m {W}_B} {\mapsto} \MB {C}^{N_Y} \NR
 }
 
-\I Problem (a): How do we recover \m {\M {H}} with knowledge of \m {\M {Y}}?
+\I Problem (a): Recover \m {\M {H}} with knowledge of \m {\M {Y}}?
 
-\I Problem (b): How do we design \m {\M {W}_R}, \m {\M {W}_B}, \m {\M {F}_R}, and \m {\M {F}_B}?
+\I Problem (b): Design \m {\M {W}_R}, \m {\M {W}_B}, \m {\M {F}_R}, and \m {\M {F}_B}?
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Transform to the Angular Domain}
@@ -83,30 +83,15 @@
 := \Rm {vec} \SB {\M {Z}} \NR
 }
 
-\I Then we have a linear equation
+\I Then we have a linear equation, where we have to essentially invert an underdetermined system:
 \Disp {
 \NC \V {y}
 =\NC \M {P} \V {g} +\V {z} \NR
 }
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Compressive Sensing}
+\Frame {Terminology}
 {
-\I In our case, we have to essentially invert an underdetermined system, and usually, that is not well defined.
-
-\I Consider a simpler case: \m {\V {y} = \M {A} \V {x} + \V {z}}, where \m {\M {A} \in \MB {R} ^{N_m \D N_p}}, \m {\V {y} \in \MB {C} ^{N_m}}.
-
-\I If \m {\V {y} = \M {A} \V {x}_1 = \M {A} \V {x}_2}
-\Disp {
-\NC \V {x}_1 - \V {x}_2 \in \Rm {null}\; \M {A} \NR
-}
-Then \m {\V {x}_1, \V {x}_2} cannot be recovered.
-}
-% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Restricted Isometry Property}
-{
-\I However, Candès and Tao shows that when the signal is sparse, few measurements may be sufficient for the reconstruction, with vanishing error norm, in overwhelming probability.
-
 \I \m {\V {g}} is called \Emph {\m {s}-sparse}, if only \m {s} of its components are nonzero.
 
 \I We say that \m {\m {P}} satisfies the \Emph {restricted isometry property} (RIP) of sparsity \m {s} with respect to \m {0 < \d_s < 1}, if, for all \m {s}-sparse \m {\V {g}},
@@ -116,11 +101,13 @@ Then \m {\V {x}_1, \V {x}_2} cannot be recovered.
 \leq \RB {1+\d_s} \VNm {\V {g}} _2^2
 }
 
-\I Verbally, \m {\m {P}} is \Emph {almost unitary} up to relative error \m {\d_s}.
+\I We may think \m {\m {P}} to be almost unitary up to relative error \m {\d_s}.
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Dantzig Selector for Sparse Vectors}
 {
+\I Candès and Tao shows that when the signal is sparse, few measurements may be sufficient for the reconstruction, with vanishing error norm, in overwhelming probability.
+
 \I Let \m {\V {x}} be \m {S}-sparse.
 If \m {\g_{\Ss {DS}} = \R {2 \log N_p}}, then
 \Disp {
