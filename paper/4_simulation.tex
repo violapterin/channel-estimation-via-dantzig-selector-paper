@@ -8,18 +8,16 @@ For the implementation details, see Diamond and Boyd \cite [DiB16]
 However, it turns out direct implementation of Algorithm 8 exhibit extraordinarily large complexity, and we would like to recast the problem in a more tractable form.
 Towards that end, we found out that Candès and Romberg \cite [CaR05] has shown that DS can be simplified as an linear program (LP).
 However, the situation is more cubersome than that, since they deal with real vectors, but we consider the complex ones.
-Fortunately, they have briefly pointed out, complex DS can be recast as an linear program (LP),
-one of the basic convex programming problems for which there are already numerous efficient algorithms.
-Moreover, we show that this LP can be recast to another form with the total dimension of variables reduced.
+Fortunately, they have briefly pointed out, complex DS can be recast as an linear program (LP), one of the several standard convex programming problems for which there are already several efficient algorithms.
 
-Before that, we again introduce some notation.
-We want to represent complex vector and matrices by real vectors and matrices, as follows.
-\Result
-{Definition}
-{
+\startsection [title={Method}]
+
+\startsubsection [title={Some Notation}]
+
+For brevity we shall represent complex vector and matrices by real ones, comprising of its real an imaginary parts.
 For \m {\V {x} \in \MB {C} ^{M}}, define the real representation \m {\MS {R} \SB {\V {x}}} of \m {\V {x}} to be
 %
-\DispNum {R:x:R2:M1} {
+\DispNum {R-x-R2-M1} {
 \NC \MS {R} \SB {\V {x}}
 \in \NC \MB {R} ^{2M} \NR
 \NC \MS {R} \SB {\V {x}} _{\SB {m}}
@@ -33,38 +31,33 @@ For \m {\V {x} \in \MB {C} ^{M}}, define the real representation \m {\MS {R} \SB
 %
 The injectivity is obvious, and we may define \m {\MS {R} ^{-1}} so that
 %
-\DispNum {R:1:x::x:} {
+\DispNum {R-1-x--x-} {
 \NC \MS {R} ^{-1} \SB {\MS {R} \SB {\V {x}}}
 =\NC \V {x} \NR
 }
-}
 %
 Accordingly, the following generalization to complex matrices is valid, once we call the ring representation of complex numbers.
-\Result
-{Definition}
-{
 For \m {\M {A} \in \MB {C} ^{M_1 \D M_2}}, define real representation \m {\MS {R} \SB {\M {A}}} of \m {\M {A}} to be
 %
-\DispNum {R:A:R2:21} {
+\DispNum {R-A-R2-21} {
 \NC \MS {R} \SB {\M {A}}
 \in \NC \MB {R} ^{2M_1 \D 2M_2} \NR
 \NC \MS {R} \SB {\M {A}} _{\SB {m_1,m_2}} =
 \NC \startcases
-\NC \MF {Re} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC \RB {m_1, m_2} = \RB {2m_1', 2m_2'} \NR
-\NC \MF {Im} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC \RB {m_1, m_2} = \RB {2m_1'+1, 2m_2'} \NR
-\NC -\MF {Im} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC \RB {m_1, m_2} = \RB {2m_1', 2m_2'+1} \NR
-\NC \MF {Re} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC \RB {m_1, m_2} = \RB {2m_1'+1, 2m_2'+1} \NR
+\NC \MF {Re} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC (m_1, m_2) = (2m_1', 2m_2') \NR
+\NC \MF {Im} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC (m_1, m_2) = (2m_1'+1, 2m_2') \NR
+\NC -\MF {Im} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC (m_1, m_2) = (2m_1', 2m_2'+1) \NR
+\NC \MF {Re} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC (m_1, m_2) = (2m_1'+1, 2m_2'+1) \NR
 \stopcases \NR
 \NC m_1 
 = \NC 0, 1, 2, \ldots, M_1 -1 \NR
 \NC m_2 
 = \NC 0, 1, 2, \ldots, M_2 -1 \NR
 }
-}
 
 With these, we define
 %
-\DispNum {y:::Ry:Ny} {
+\DispNum {y---Ry-Ny} {
 \NC \T {\V {y}}
 = \NC \MS {R} \SB {\V {y}}
 \in \MB {R} ^{2 N_Y^2} \NR
@@ -88,14 +81,14 @@ With these, we define
 %
 such that, by construction,
 %
-\DispNum {y:::Pg:gz} {
+\DispNum {y---Pg-gz} {
 \NC \V {\T {y}}
 = \NC \M {\T {P}} \V {\T {g}} +\V {\T {z}} \NR
 }
 
 Furthermore, introduce the following matrices to identify the components where we want to take \m {\ell_2}-norm, in the manner similar to an indicator function.
 %
-\DispNum {u:h:RN:h1} {
+\DispNum {u-h-RN-h1} {
 \NC {\V {u}}_{n_h}
 \in \NC \MB {R} ^{N_H^2} \NR
 \NC \RB {\V {u}_{n_h}} _{\SB {n_h'}}
@@ -116,270 +109,159 @@ Furthermore, introduce the following matrices to identify the components where w
 = \NC 0, 1, 2, \ldots, N_H^2 -1 \NR
 }
 %
-And denote \m {\V {1}} to be the all-\m {1} vector for short, and \m {\V {0}} the all-\m {0} vector, whose dimension will be specified from context.
-Now, if we introduce vector \m {\V {m}}
+And denote \m {\V {1}} to be the all-\m{1} vector for short, and \m {\V {0}} the all-\m{0} vector, whose dimension will be specified from context.
+Now, if we introduce vector \m{\V {m}}
 %
-\DispNum {m:::RN:h1} {
+\DispNum {m---RN-h1} {
 \NC \V {m} \in \NC \MB {R} ^{N_H^2} \NR
-\NC \V {m} \DB {n_h}
-= \NC \Nm {\V {g} \DB {n_h}} \NR
+\NC \V {m} \DB{n_h}
+= \NC \Nm{\V {g} \DB{n_h}} \NR
 \NC n_h, n_h', n_h'' 
 = \NC 0, 1, 2, \ldots, N_H^2 -1 \NR
 }
 %
-to denote the entrywise complex modulus of \m {\V {g}}, we see that the convex optimization now takes the form
+to denote the entrywise complex modulus of \m{\V {g}}, we see that the convex optimization now takes the form
 %
-\DispNum {g:::mi:h1} {
+\DispNum {g---mi-h1} {
 \NC \Hat {\T {\V {g}}}
 = \NC \startcases
 \NC \Min {\T {\V {g}}', \V {m}} \Q
-\MC \IP {\V {1}, \V {m}} \NR
+\MC \IP { \V {1}, \V {m} } \NR
 \NC \Rm {subject} \; \Rm {to} \Q
-\MC \VNm {\T {\M {U}}_{n_h} \T {\V {g}}'}_2
-\leq \IP {\V {u}_{n_h}, \V {m}} \NR
-\NC \MC \VNm { \T {\M {U}}_{n_h} \T {\M {P}}^\Adj \RB {\T {\M {P}} \T {\V {g}}' -\T {\V {y}}}}_2
+\MC \VNm { \T {\M {U}}_{n_h} \T {\V {g}}' }_2
+\leq \IP { \V {u}_{n_h}, \V {m} } \NR
+\NC \MC \VNm { \T {\M {U}}_{n_h} \T {\M {P}}^\Adj \RB { \T {\M {P}} \T {\V {g}}' -\T {\V {y}} } }_2
 \leq \g_{\Rm {DS}} \NR
 \stopcases \NR
 \NC n_h 
 = \NC 0, 1, 2, \ldots, N_H^2-1 \NR
 }
 
-\stopsection
+\stopsubsection
 
-\startsubsection [title={Transformation into Linear Program}]
+\startsubsection [title={A Linear Program}]
 
-Next, we define some auxiliary variables, and prepare to rewrite Program ().
-The first idea is that \m {\V {g}} can be split into positive and negative parts, making the \m {\ell}-1 norm target function into a inner product, and this already makes Algorithm () a LP, just as noted by Tao [].
-The second idea is that, by Real Spectral Theorem, \m {\M {P} ^\Tr \M {P}} can be diagonized, and with suitable choice of variables, we may greatly reduce the overhead due to Newton step.
-This has not been remarked on the literature as far as we know.
-
-
-As pointed out above, let
-\Disp {
-\NC \M {P} ^\Tr \M {P}
-= \NC \M {Q} \M {D} \M {Q} ^\Tr \NR
-}
-where
-\Disp {
-\NC \M {Q} ^\Tr \M {Q}
-= \NC I \NR
-}
-It can be seen that only \m {2N_Y^2} of \m {2N_H^2} singular values are nonzero.
-Without loss of generality, suppose
-\Disp {
-\NC \MB {R} ^{2 N_H^2}
-= \NC \MS {U} \oplus \MS {V} \NR
-}
-with
-\Disp {
-\NC \Rm {dim} \; \MS {U}
-= \NC 2 N_Y^2 \NR
-\NC \Rm {dim} \; \MS {V}
-= \NC 2 N_H^2 -2 N_Y^2 \NR
-}
-such that
-\Disp {
-\NC \M {D}
+We shall see furthermore that the program can be cast into an SOCP.
+To make the point clearer, we rewrite the program just above into an extended block matrix form, by defining auxiliary variables as follows,
+%
+\DispNum {t---01-Nh} {
+\NC \V {t}
 = \NC \startTheMatrix
-\NC \DU, \NC \M {0} \NR
-\NC \M {0}, \NC \M {0} \NR
-\stopTheMatrix \NR
+\NC \V {0} \NR
+\NC \V {1} \NR
+\stopTheMatrix
+\in \MB {R} ^{3 N_H^2} \NR
+%
+\NC \V {x}'
+= \NC \startTheMatrix
+\NC \T {\V {g}}' \NR
+\NC \V {m} \NR
+\stopTheMatrix
+\in \MB {R} ^{3 N_H^2} \NR
 }
-
-Suppose
-\Disp {
-\NC \V {g}
-= \NC \gp - \gm \NR
-}
+%
 with
-\Disp {
-\NC -\gp
-\preceq \NC 0 \NR
-\NC -\gm
-\preceq \NC 0 \NR
-}
-Introduce
-\Disp {
-\NC \fp
-= \NC \M {Q} ^\Tr \gp \NR
-\NC \fm
-= \NC \M {Q} ^\Tr \gm \NR
-}
-If we define
-\Disp {
-\NC \fp
-= \NC \fpU + \fpV \NR
-\NC \fm
-= \NC \fmU + \fmV \NR
-}
-That is, taking components of \m {\fp, \fm} respectively in \m {\MS {U}, \MS {V}}.
-Note that
-\Disp {
-\NC \fpU
-= \NC \QU ^\Tr \gp \NR
-\NC \fmU
-= \NC \QU ^\Tr \gm \NR
-\NC \fpV
-= \NC \QV ^\Tr \gp \NR
-\NC \fmV
-= \NC \QV ^\Tr \gm \NR
-}
-Here \m {\QU ^\Tr} is the abbreviation of \m {\RB {\QU} ^\Tr}.
-
-Notice that the constraint
-\Disp {
-\NC \M {P} ^\Tr \RB {\M {P} \V {g} - \V {y}}
-\preceq \NC \g \V {1} \NR
-}
-can be written as
-\Disp {
-\NC \M {P} ^\Tr \RB {\M {P} \V {g} - \V {y}} - \g \V {1} + \tp
-= \NC \V {0} \NR
-\NC \M {P} ^\Tr \RB {\M {P} \V {g} - \V {y}} + \g \V {1} - \tm
-= \NC \V {0} \NR
-}
-for some \m {\tp, \tm} with
-\Disp {
-\NC -\tp
-\preceq \NC 0 \NR
-\NC -\tm
-\preceq \NC 0 \NR
-}
-
-Now, define
-\Disp {
-\NC \kp
-= \NC \M {Q} ^\Tr \RB {\M {P} ^\Tr \V {y} + \g \V {1}} \NR
-\NC \km
-= \NC \M {Q} ^\Tr \RB {\M {P} ^\Tr \V {y} - \g \V {1}} \NR
-}
-and that, similarly,
-\Disp {
-\NC \kp
-=\NC \kpU + \kpV \NR
-\NC \km
-=\NC \kmU + \kmV \NR
-}
-Again, allow us write it out for clarity that
-\Disp {
-\NC \kpU
-= \NC \QU ^\Tr \RB {\M {P} ^\Tr \V {y} + \g \V {1}} \NR
 %
-\NC \kmU
-= \NC \QU ^\Tr \RB {\M {P} ^\Tr \V {y} + \g \V {1}} \NR
+\DispNum {A-i-Ui-21} {
+\NC \M {A}_i
+= \NC \startTheMatrix
+\NC \T {\M {U}}_{i}, \NC \M {0} \NR
+\stopTheMatrix
+\in \MB {R} ^{2 N_H^2 \D 3 N_H^2} \NR
 %
-\NC \kpV
-= \NC \QV ^\Tr \RB {\M {P} ^\Tr \V {y} - \g \V {1}} \NR
+\NC \V {b}_i
+= \NC \V {0}
+\in \MB {R} ^{2 N_H^2} \NR
 %
-\NC \kmV
-= \NC \QV ^\Tr \RB {\M {P} ^\Tr \V {y} - \g \V {1}} \NR
+\NC \V {c}_i
+= \NC \startTheMatrix
+\NC \V {0} \NR
+\NC \V {u}_{i} \NR
+\stopTheMatrix
+\in \MB {R} ^{3 N_H^2} \NR
+%
+\NC d_i
+= \NC 0 \NR
+%
+\NC i 
+= \NC 0, 1, 2, \ldots, N_H^2 -1 \NR
 }
-And () becomes
-\Disp {
-\NC \DU \RB {\fpU - \fmU} + \QU ^\Tr \tp - \kpU
-=\NC 0 \NR
 %
-\NC \DU \RB {\fpU - \fmU} + \QU ^\Tr \tm - \kmU
-=\NC 0 \NR
+and
 %
-\NC \QV ^\Tr \tp - \kpV
-=\NC 0 \NR
+\DispNum {A-i-Ui-21-"} {
+\NC \M {A}_i
+= \NC \startTheMatrix
+\NC -\T {\M {U}}_{i - N_H^2} \T {\M {P}}^\Adj \T {\M {P}}, \NC \M {0} \NR
+\stopTheMatrix
+\in \MB {R} ^{2 N_H^2 \D 3 N_H^2} \NR
 %
-\NC \QV ^\Tr \tm - \kmV
-=\NC 0 \NR
+\NC \V {b}_i
+=\NC \T {\M {U}}_{i - N_H^2} \T {\M {P}}^\Adj \T {\V {y}}
+\in \MB {R} ^{2 N_H^2} \NR
+%
+\NC \V {c}_i
+= \NC \V {0}
+\in \MB {R} ^{3 N_H^2} \NR
+%
+\NC d_i
+= \NC \g_{\Rm {DS}} \NR
+%
+\NC i 
+= \NC N_H^2, N_H^2 +1, N_H^2 +2, \ldots, 2 N_H^2 -1 \NR
 }
-
-Our target function, in terms of new variables, reads
-\Disp {
-\NC \VNm {\V {g}} _1
-=\NC \IP {\V {1}, \gp} - \IP {\V {1}, \gm} \NR
-%
-\NC =\NC \IP {\M {Q} ^\Tr \V {1}, \fp} - \IP {\M {Q} ^\Tr \V {1}, \fm} \NR
-%
-\NC =\NC \IP {\M {Q} ^\Tr \V {1}, \fpU} - \IP {\M {Q} ^\Tr \V {1}, \fmU}
-+ \IP {\M {Q} ^\Tr \V {1}, \fpV} - \IP {\M {Q} ^\Tr \V {1}, \fmV} \NR
-}
-
-This way, the matrix whose Hessian is required by Newton step would be much more sparse (Boyd p.565)
-
 
 \Result
 {Algorithm}
 {
 \startitemize[n]
+\item Input \m{\M {P} \in \MB {C} ^{ N_Y^2 \D N_H^2}}, \m{\V {y} \in \MB {C} ^{ N_Y^2}}, \m {\g_{\Rm {DS}} > 0}.
+\item Define \m{\V {t}, \V {x}, \M {A}_i, \V {b}_i, \V {c}_i, d_i} according to \Rf {t---01-Nh}, \Rf {A-i-Ui-h1}, \Rf {A-i-Ui-h1-"}.
+\item Calculate
 %
-\item Input \m {\M {P} \in \MB {C} ^{ N_Y^2 \D N_H^2}}, \m {\V {y} \in \MB {C} ^{N_Y^2}}, \m {\g_{\Rm {DS}} > 0}.
-%
-\item Define \m {\V {t}, \V {x}, \M {A}_i, \V {b}_i, \V {c}_i, d_i} according to ().
-%
-\item Solve the convex program
-%
-\DispNum {x:::mi:h1} {
-\NC \startcases
-\NC \MC \fpU, \fpV, \fmU, \fmV, \sp, \sm: \NR
-%
-\NC \min
-\MC \IP {\M {Q} ^\Tr \V {1}, \fpU}
-- \IP {\M {Q} ^\Tr \V {1}, \fmU}
-+ \IP {\M {Q} ^\Tr \V {1}, \fpV}
-- \IP {\M {Q} ^\Tr \V {1}, \fmV} \NR
-%
-\NC \Rm {subject} \; \Rm {to} \Q
-\MC -\QU \fpU -\QV \fpV \preceq 0 \NR
-%
-\NC \MC -\QU \fmU -\QV \fmV \preceq 0 \NR
-
-\NC \MC \DU \RB {\fpU - \fmU} + \QU ^\Tr \tp - \kpU = 0 \NR
-%
-\NC \MC \DU \RB {\fpU - \fmU} + \QU ^\Tr \tm - \kmU = 0 \NR
-%
-\NC \MC \QV ^\Tr \tp - \kpV = 0 \NR
-%
-\NC \MC \QV ^\Tr \tm - \kmV = 0 \NR
-%
-\NC \MC -\tp \preceq 0 \NR
-%
-\NC \MC -\tm \preceq 0 \NR
+\DispNum {x---mi-h1} {
+\NC \Hat {\V {x}}
+\LA \NC \startcases
+\NC \Min {\V {x}' \in \MB {C} ^{N_H^2}}
+\MC \IP {\V {t}, \V {x}'} \NR
+\NC \Rm {subject} \; \Rm {to}
+\Q  \MC \VNm {\M {A} _{i} \V {x}' +\V {b} _{i}} _2
+\leq \IP {\V {c}_{i}, \V {x}'} +\V {d}_i \NR
+\NC \MC i 
+=0, 1, 2, \ldots, 2 N_H^2 -1 \NR
 \stopcases \NR
 }
-%
 \item Extract
 %
-\DispNum {g:::x0:h1} {
-\NC \Hat {\T {\V {g}}}
-\LA \NC \Hat {\V {x}} _{\SB {0 : 2 N_H^2-1}} \NR
+\DispNum {g---x0-h1} {
+\NC \Hat{\T{\V {g}}}
+\LA \NC \Hat{\V {x}} _{\SB {0 : 2 N_H^2-1}} \NR
 }
+\item Convert 
 %
-\item Convert \m {\Hat {\V {g}}} by
-%
-\DispNum {g:::R1:1g} {
-\NC \Hat {\V {g}}
-\LA \NC \MS {R} ^{-1} \SB {\Hat {\T {\V {g}}}} \NR
+\DispNum {g---R1-1g} {
+\NC \Hat{\V {g}}
+\LA \NC \MS {R} ^{-1} \SB {\Hat{\T{\V {g}}}} \NR
 }
-%
-\item Find \m {\Hat {G}} by
+\item Calculate
 %
 \Disp {
 \NC \Hat {G}
 \LA \NC \Rm {vec}^{-1} \SB {\Hat {g}} \NR
 }
-%
-\item Find \m {\Hat {\M {H}}} by
+\item Calculate
 %
 \Disp {
 \NC \Hat {\M {H}}
 \LA \NC \M {K} \Hat {\M {G}} \M {K}^\Adj \NR
 }
-%
 \item Output \m {\Hat {\M {H}}}.
-%
 \stopitemize
 }
 
 \stopsubsection
 
 \stopsection
-
 
 \startsection [title={Result}]
 
@@ -434,61 +316,83 @@ As a basis for comparison, we approximate \Rf {d:2:42:NH} and take log, giving
 \eqsim \NC \F {1} {2} \log L +\F {3} {2} \log \log N_H +2 \NR
 }
 
-
+\stopsubsection
 
 \page [yes]
 
-\startsubsection [title={Plots for \m {N_H=16}}]
+\startsubsection [title={Assorted Plots}]
+
+For \m {N_H = 12}, noise vs spectral efficiency,
+%
+\blank [big]
+\externalfigure [assorted-small-spectral.png] [wfactor=fit, hfactor=fit]
+
+For \m {N_H = 18}, noise vs spectral efficiency,
+%
+\blank [big]
+\externalfigure [assorted-medium-spectral.png] [wfactor=fit, hfactor=fit]
+
+For \m {N_H = 24}, noise vs spectral efficiency,
+%
+\blank [big]
+\externalfigure [assorted-big-spectral.png] [wfactor=fit, hfactor=fit]
+
+For \m {N_H = 18}, noise vs time taken,
+%
+\blank [big]
+\externalfigure [assorted-medium-time.png] [wfactor=fit, hfactor=fit]
 
 \stopsubsection
 
-\startsubsection [title={Plots for \m {N_H=32}}]
+\page [yes]
 
+\startsubsection [title={Plots of Dantzig Selector}]
+
+For \m {N_H = 12}, noise vs spectral efficiency,
+%
 \blank [big]
-\externalfigure [medium-assorted-absolute.png] [wfactor=fit, hfactor=fit]
+\externalfigure [ddss-small-spectral.png] [wfactor=fit, hfactor=fit]
 
+For \m {N_H = 18}, noise vs spectral efficiency,
+%
 \blank [big]
-\externalfigure [medium-assorted-relative.png] [wfactor=fit, hfactor=fit]
+\externalfigure [ddss-medium-spectral.png] [wfactor=fit, hfactor=fit]
 
+For \m {N_H = 24}, noise vs spectral efficiency,
+%
 \blank [big]
-\externalfigure [medium-assorted-time.png] [wfactor=fit, hfactor=fit]
+\externalfigure [ddss-big-spectral.png] [wfactor=fit, hfactor=fit]
 
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-
+For \m {N_H = 18}, noise vs time taken,
+%
 \blank [big]
-\externalfigure [medium-ddss-absolute.png] [wfactor=fit, hfactor=fit]
-
-\blank [big]
-\externalfigure [medium-ddss-relative.png] [wfactor=fit, hfactor=fit]
-
-\blank [big]
-\externalfigure [medium-ddss-time.png] [wfactor=fit, hfactor=fit]
-
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-
-\blank [big]
-\externalfigure [medium-oommpp-absolute.png] [wfactor=fit, hfactor=fit]
-
-\blank [big]
-\externalfigure [medium-oommpp-relative.png] [wfactor=fit, hfactor=fit]
-
-\blank [big]
-\externalfigure [medium-oommpp-time.png] [wfactor=fit, hfactor=fit]
+\externalfigure [ddss-medium-time.png] [wfactor=fit, hfactor=fit]
 
 \stopsubsection
 
-\startsubsection [title={Plots for \m {N_H=48}}]
+\page [yes]
 
+\startsubsection [title={Plots of Orthogonal Matching Pursuit}]
+
+For \m {N_H = 12}, noise vs spectral efficiency,
+%
 \blank [big]
-\externalfigure [big-assorted-absolute.png] [wfactor=fit, hfactor=fit]
+\externalfigure [oommpp-small-spectral.png] [wfactor=fit, hfactor=fit]
 
+For \m {N_H = 18}, noise vs spectral efficiency,
+%
 \blank [big]
-\externalfigure [big-assorted-relative.png] [wfactor=fit, hfactor=fit]
+\externalfigure [oommpp-medium-spectral.png] [wfactor=fit, hfactor=fit]
 
+For \m {N_H = 24}, noise vs spectral efficiency,
+%
 \blank [big]
-\externalfigure [big-assorted-time.png] [wfactor=fit, hfactor=fit]
+\externalfigure [oommpp-big-spectral.png] [wfactor=fit, hfactor=fit]
 
-
+For \m {N_H = 18}, noise vs time taken,
+%
+\blank [big]
+\externalfigure [oommpp-medium-time.png] [wfactor=fit, hfactor=fit]
 
 \stopsubsection
 
