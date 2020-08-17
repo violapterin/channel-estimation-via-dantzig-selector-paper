@@ -1,0 +1,20 @@
+
+\starttitle [title={Abstract}]
+
+Multiple-input-multiple-output (MIMO) is the next-generation standard of wireless communication.
+However, for MIMO system it is not easy to estimate the channel, while many communication algorithms often requires that the channel state information be known at the receiver.
+Meanwhile, the millimeter wave (mm-Wave) band, often used in MIMO context, is known to exhibit sparsity, and results on compressive sensing suggests that sparsity implies that fewer channel measurement shall suffice.
+For that reason, Orthogonal Matching Pursuit (OMP) is usually used, as it has a very lower complexity.
+However, Dantzig Selector (DS), proposed by Tao and Candès, has long been introduced and ignored.
+DS has several promising properties, and it is curious how it fares on the present problem.
+
+In this treatise, we consider a mm-Wave MIMO channel, and a hybrid structure at both the transmitter and receiver end.
+Using pilot signal and designed random beamformer, we apply DS for channel estimation, arguing in favor of its greater generality, its tolerance of noise corruption, and its lower averaged error.
+The treatise also gives a bound for the expected square error of DS, as well as bounded probability of success, and in so doing, showing dependency on the number of path and channel sparsity.
+
+DS can be cast as a second order cone problem (SOCP), so that well known methods for convex programs may be used.
+Simulation is done on DS and other methods, and we discuss their respective merits.
+It turns out DS is often slightly better than other alternatives, while it has siginificantly greater complexity.
+
+
+\stoptitle

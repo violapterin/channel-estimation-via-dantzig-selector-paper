@@ -1,0 +1,621 @@
+\startchapter [title={Simulation}]
+
+We are ready to verify bound of eror norm of DS by numerical experiments.
+DS is a convex optimization program, and there are many library devoted on that.
+For present purpose, we choose the ready-made Python library CVXPY.
+For the implementation details, see Diamond and Boyd \cite [DiB16]
+
+However, it turns out direct implementation of Algorithm 8 exhibit extraordinarily large complexity, and we would like to recast the problem in a more tractable form.
+Towards that end, we found out that Candès and Romberg \cite [CaR05] has shown that DS can be simplified as an linear program (LP).
+However, the situation is more cubersome than that, since they deal with real vectors, but we consider the complex ones.
+Fortunately, they have briefly pointed out, complex DS can be recast as an linear program (LP), one of the several standard convex programming problems for which there are already several efficient algorithms.
+
+\startsection [title={Method}]
+
+\startsubsection [title={Some Notation}]
+
+For brevity we shall represent complex vector and matrices by real ones, comprising of its real an imaginary parts.
+For \m {\V {x} \in \MB {C} ^{M}}, define the real representation \m {\MS {R} \SB {\V {x}}} of \m {\V {x}} to be
+%
+\DispNum {R-x-R2-M1} {
+\NC \MS {R} \SB {\V {x}}
+\in \NC \MB {R} ^{2M} \NR
+\NC \MS {R} \SB {\V {x}} _{\SB {m}}
+= \NC \startcases
+\NC \MF {Re} \SB {\V {x} _{\SB {m'}}}, \MC m =2m' \NR
+\NC \MF {Im} \SB {\V {x} _{\SB {m'}}}, \MC m =2m'+1 \NR
+\stopcases \NR
+\NC m' 
+= \NC  0, 1, 2, \ldots, M-1 \NR
+}
+%
+The injectivity is obvious, and we may define \m {\MS {R} ^{-1}} so that
+%
+\DispNum {R-1-x--x-} {
+\NC \MS {R} ^{-1} \SB {\MS {R} \SB {\V {x}}}
+=\NC \V {x} \NR
+}
+%
+Accordingly, the following generalization to complex matrices is valid, once we call the ring representation of complex numbers.
+For \m {\M {A} \in \MB {C} ^{M_1 \D M_2}}, define real representation \m {\MS {R} \SB {\M {A}}} of \m {\M {A}} to be
+%
+\DispNum {R-A-R2-21} {
+\NC \MS {R} \SB {\M {A}}
+\in \NC \MB {R} ^{2M_1 \D 2M_2} \NR
+\NC \MS {R} \SB {\M {A}} _{\SB {m_1,m_2}} =
+\NC \startcases
+\NC \MF {Re} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC (m_1, m_2) = (2m_1', 2m_2') \NR
+\NC \MF {Im} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC (m_1, m_2) = (2m_1'+1, 2m_2') \NR
+\NC -\MF {Im} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC (m_1, m_2) = (2m_1', 2m_2'+1) \NR
+\NC \MF {Re} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC (m_1, m_2) = (2m_1'+1, 2m_2'+1) \NR
+\stopcases \NR
+\NC m_1 
+= \NC 0, 1, 2, \ldots, M_1 -1 \NR
+\NC m_2 
+= \NC 0, 1, 2, \ldots, M_2 -1 \NR
+}
+
+With these, we define
+%
+\DispNum {y---Ry-Ny} {
+\NC \T {\V {y}}
+= \NC \MS {R} \SB {\V {y}}
+\in \MB {R} ^{2 N_Y^2} \NR
+%
+\NC \T {\V {g}}
+= \NC \MS {R} \SB {\V {g}}
+\in \MB {R} ^{2 N_H^2} \NR
+%
+\NC \T {\M {P}}
+= \NC \MS {R} \SB {\M {P}}
+\in \MB {R} ^{2 N_Y^2 \D 2 N_H^2} \NR
+%
+\NC \T {\M {P}} ^\Adj
+= \NC \MS {R} \SB {\M {P} ^\Adj}
+\in \MB {R} ^{2 N_Y^2 \D 2 N_H^2} \NR
+%
+\NC \T {\V {z}}
+= \NC \MS {R} \SB {\V {z}}
+\in \MB {R} ^{2 N_Y^2} \NR
+}
+%
+such that, by construction,
+%
+\DispNum {y---Pg-gz} {
+\NC \V {\T {y}}
+= \NC \M {\T {P}} \V {\T {g}} +\V {\T {z}} \NR
+}
+
+Furthermore, introduce the following matrices to identify the components where we want to take \m {\ell_2}-norm, in the manner similar to an indicator function.
+%
+\DispNum {u-h-RN-h1} {
+\NC {\V {u}}_{n_h}
+\in \NC \MB {R} ^{N_H^2} \NR
+\NC \RB {\V {u}_{n_h}} _{\SB {n_h'}}
+= \NC
+\startcases
+1, \Q \MC n_h' =n_h \NR
+0, \Q \NC \Rm {otherwise} \NR
+\stopcases \NR
+\NC \T {\M {U}}_{n_h} \in \NC \MB {R} ^{2 N_H^2 \D 2 N_H^2} \NR
+\NC \RB {\T {\M {U}}_{n_h}} _{\SB {n_h', n_h''}}
+= \NC
+\startcases
+1, \Q \MC n_h' =2n_h,\; n_h'' =2n_h \NR
+1, \Q \MC n_h' =2n_h +1,\; n_h'' =2n_h +1 \NR
+0, \Q \NC \Rm {otherwise} \NR
+\stopcases \NR
+\NC n_h, n_h', n_h'' 
+= \NC 0, 1, 2, \ldots, N_H^2 -1 \NR
+}
+%
+And denote \m {\V {1}} to be the all-\m{1} vector for short, and \m {\V {0}} the all-\m{0} vector, whose dimension will be specified from context.
+Now, if we introduce vector \m{\V {m}}
+%
+\DispNum {m---RN-h1} {
+\NC \V {m} \in \NC \MB {R} ^{N_H^2} \NR
+\NC \V {m} \DB{n_h}
+= \NC \Nm{\V {g} \DB{n_h}} \NR
+\NC n_h, n_h', n_h'' 
+= \NC 0, 1, 2, \ldots, N_H^2 -1 \NR
+}
+%
+to denote the entrywise complex modulus of \m{\V {g}}, we see that the convex optimization now takes the form
+%
+\DispNum {g---mi-h1} {
+\NC \Hat {\T {\V {g}}}
+= \NC \startcases
+\NC \Min {\T {\V {g}}', \V {m}} \Q
+\MC \IP { \V {1}, \V {m} } \NR
+\NC \Rm {subject} \; \Rm {to} \Q
+\MC \VNm { \T {\M {U}}_{n_h} \T {\V {g}}' }_2
+\leq \IP { \V {u}_{n_h}, \V {m} } \NR
+\NC \MC \VNm { \T {\M {U}}_{n_h} \T {\M {P}}^\Adj \RB { \T {\M {P}} \T {\V {g}}' -\T {\V {y}} } }_2
+\leq \g_{\Rm {DS}} \NR
+\stopcases \NR
+\NC n_h 
+= \NC 0, 1, 2, \ldots, N_H^2-1 \NR
+}
+
+\stopsubsection
+
+\startsubsection [title={A Linear Program}]
+
+We shall see furthermore that the program can be cast into an SOCP.
+To make the point clearer, we rewrite the program just above into an extended block matrix form, by defining auxiliary variables as follows,
+%
+\DispNum {t---01-Nh} {
+\NC \V {t}
+= \NC \startTheMatrix
+\NC \V {0} \NR
+\NC \V {1} \NR
+\stopTheMatrix
+\in \MB {R} ^{3 N_H^2} \NR
+%
+\NC \V {x}'
+= \NC \startTheMatrix
+\NC \T {\V {g}}' \NR
+\NC \V {m} \NR
+\stopTheMatrix
+\in \MB {R} ^{3 N_H^2} \NR
+}
+%
+with
+%
+\DispNum {A-i-Ui-21} {
+\NC \M {A}_i
+= \NC \startTheMatrix
+\NC \T {\M {U}}_{i}, \NC \M {0} \NR
+\stopTheMatrix
+\in \MB {R} ^{2 N_H^2 \D 3 N_H^2} \NR
+%
+\NC \V {b}_i
+= \NC \V {0}
+\in \MB {R} ^{2 N_H^2} \NR
+%
+\NC \V {c}_i
+= \NC \startTheMatrix
+\NC \V {0} \NR
+\NC \V {u}_{i} \NR
+\stopTheMatrix
+\in \MB {R} ^{3 N_H^2} \NR
+%
+\NC d_i
+= \NC 0 \NR
+%
+\NC i 
+= \NC 0, 1, 2, \ldots, N_H^2 -1 \NR
+}
+%
+and
+%
+\DispNum {A-i-Ui-21-"} {
+\NC \M {A}_i
+= \NC \startTheMatrix
+\NC -\T {\M {U}}_{i - N_H^2} \T {\M {P}}^\Adj \T {\M {P}}, \NC \M {0} \NR
+\stopTheMatrix
+\in \MB {R} ^{2 N_H^2 \D 3 N_H^2} \NR
+%
+\NC \V {b}_i
+=\NC \T {\M {U}}_{i - N_H^2} \T {\M {P}}^\Adj \T {\V {y}}
+\in \MB {R} ^{2 N_H^2} \NR
+%
+\NC \V {c}_i
+= \NC \V {0}
+\in \MB {R} ^{3 N_H^2} \NR
+%
+\NC d_i
+= \NC \g_{\Rm {DS}} \NR
+%
+\NC i 
+= \NC N_H^2, N_H^2 +1, N_H^2 +2, \ldots, 2 N_H^2 -1 \NR
+}
+
+\Result
+{Algorithm}
+{
+\startitemize[n]
+\item Input \m{\M {P} \in \MB {C} ^{ N_Y^2 \D N_H^2}}, \m{\V {y} \in \MB {C} ^{ N_Y^2}}, \m {\g_{\Rm {DS}} > 0}.
+\item Define \m{\V {t}, \V {x}, \M {A}_i, \V {b}_i, \V {c}_i, d_i} according to \Rf {t---01-Nh}, \Rf {A-i-Ui-21}, \Rf {A-i-Ui-21-"}.
+
+\item Calculate
+%
+\DispNum {x---mi-h1} {
+\NC \Hat {\V {x}}
+\LA \NC \startcases
+\NC \Min {\V {x}' \in \MB {C} ^{N_H^2}}
+\MC \IP {\V {t}, \V {x}'} \NR
+\NC \Rm {subject} \; \Rm {to}
+\Q  \MC \VNm {\M {A} _{i} \V {x}' +\V {b} _{i}} _2
+\leq \IP {\V {c}_{i}, \V {x}'} +\V {d}_i \NR
+\NC \MC i 
+=0, 1, 2, \ldots, 2 N_H^2 -1 \NR
+\stopcases \NR
+}
+\item Extract
+%
+\DispNum {g---x0-h1} {
+\NC \Hat{\T{\V {g}}}
+\LA \NC \Hat{\V {x}} _{\SB {0 : 2 N_H^2-1}} \NR
+}
+\item Convert 
+%
+\DispNum {g---R1-1g} {
+\NC \Hat{\V {g}}
+\LA \NC \MS {R} ^{-1} \SB {\Hat{\T{\V {g}}}} \NR
+}
+\item Calculate
+%
+\DispNum {
+\NC \Hat {G}
+\LA \NC \Rm {vec}^{-1} \SB {\Hat {g}} \NR
+}
+\item Calculate
+%
+\DispNum {
+\NC \Hat {\M {H}}
+\LA \NC \M {K} \Hat {\M {G}} \M {K}^\Adj \NR
+}
+\item Output \m {\Hat {\M {H}}}.
+\stopitemize
+}
+
+\stopsubsection
+
+\startsection [title={A Two-Stage Estimation}]
+
+We also tried another version of DS, in which DS is done for a second time in estimated nonzero-position.
+The two-stage method was briefly mentioned \cite [CaT07] but without further validation by numerical experiments.
+The method starts by applying DS as before.
+Then, we extract largest positions of the estimated vector, and apply DS again.
+Last, we extract largest positions again, and apply LS.
+Note that the final vector has to be scrambled back to the original dimension.
+
+\Result
+{Algorithm}
+{
+\startitemize[n]
+\item Let \m {\g_{\Rm {DS}} \geq 0} be given, and \m {\M {P}}
+
+\item Set
+\Disp {
+\NC N_0
+=\NC 2 N_H^2, \NR
+\NC N_2
+=\NC \lfloor 4 \log N_H \rfloor, \NR
+\NC N_1
+=\NC \lfloor \R {N_0 N_2} \rfloor \NR
+}
+
+\item Apply DS to \m {\V {y}, \M {P}} to get \m {\Hat {\V {g}}_0}, call the \m {N_1} largest component of \m {\Hat {\V {g}}_0} and to be \m {\V {g}_1}, and corresponding columns of \m {\M {P}} to be \m {\M {P} _1}.
+
+\item Apply DS to \m {\V {y}, \M {P}_1} to get \m {\Hat {\V {g}}_1}, call the \m {N_2} largest component of \m {\Hat {\V {g}}_1} and to be \m {\V {g}_2}, and corresponding columns of \m {\M {P}} to be \m {\M {P} _2}.
+
+\item Apply least square to \m {\V {y}, \M {P} _2} to get \m {\Hat {\V {g}}_2}, which corresponds to \m {\Hat {\V {g}}}.
+\stopitemize
+}
+
+It may be appropriate to scale \m {\g_{\Rm {DS}}} with respect to \m {N_H}.
+It is not clear to us for now what is most reasonable choice of \m {N_1, N_1, N_2}.
+
+\stopsection
+
+\startsection [title={Result}]
+
+\startsubsection [title={Settings}]
+
+To get some idea of the order of magnitude of noise-to-signal level, plug in some actual numbers.
+Consider only path loss in the simplest form according to Friis Law.
+Suppose the power of mobile phone antenna is 0.25 W,
+the carrier frequency is 5GHz,
+the base station is \m {1.5} km away,
+the noise is \m {–40} dB W.
+The noise-to-signal ratio would be
+\DispNum {1:8:02:24} {
+\NC 10^{-4} \F {1} {0.25} \R {\F {5 \D 10^9 \D 4 \pi \D 1500} {3 \D 10^8}}
+=\NC 0.224 \NR
+}
+In the following simulation, we use dimensionless noise-to-signal level \\ \m {\s = 2^{-4}, 2^{-3.5}, 2^{-3}, 2^{-2.5}, 2^{-2}, 2^{-1.5}, 2^{-2}}.
+
+We do three series of experiments, which are of size from small to large.
+In the following experiments, we take respectively \m {N_H} to be \m {8, 12, 16, 20, 24}.
+\m {N_Y} is set to be \m {\lfloor \log N_H \rfloor}, giving \m {2, 2, 3, 3, 3}.
+\m {N_R} to be \m {\lfloor \RB {\log N_H}^2 \rfloor}, giving \m {4, 6, 7, 9, 10}.
+Unfortunately, this is very far from achieving the design values \Rf {N:B:4l:H2}, and this may be part of the reason the results is not as successful as expected.
+
+Other parameters are fixed in these experiments; 
+The number of grid of quantization of analog precoder is \m {16}.
+The number of paths \m {L} is \m {4}.
+The wavelength of carrier \m {\l _{\Rm {ant}}}, is set to be \m {0.1}.
+and the antenna spacing \m {d _{\Rm {ant}} =0.2}.
+Only their ratio matters.
+
+For parameters related to the convex optimization algorithm, the tolerance of absolute error in the primal-dual algorithm used in CVXPY is set as \m {10^{-4}}, and the tolerance of relative error, as \m {10^{-3}}.
+The maximal number of iteration of CVXPY is set to be \m {32}.
+On the other hand, the maximal number of iteration of OMP is set to be \m {4 N_H}.
+
+Denote the threshold used in DS program to be \m {\g_{\Rm {DS}}}, and similar threshold of Lasso to be \m {\g_{\Rm {Lasso}}}.
+Various several values are tried for them by first taking the theory value, and multiply or divide it by powers of 2.
+
+Concretely, we set \m {\g_{\Rm {DS}} = 2 \R {\log N_H}}, corresponding to Cand\`es \& Tao (2007)
+For comparison, \m {\g_{\Rm {Lasso}} = 2 \R {\log N_H}} too.
+For OMP, suggested values in Cai \& Wang (2011) is illuminating, where they (in their Theorem 7) considered \m {\ell _2}-norm, and Theorem 8, \m {\ell _\infty}-norm.
+We make simplification and set respectively \m {\R {3} N_Y} and \m {2 \R {\log N_H}}
+
+Yet another threshold used for the remainder norm used in OMP program, \m {\h_{\Rm {OMP}}}.
+For its suggested values, see \cite [CaW11].
+We take \m {2 \R {\log N_H}} for infinity norm constraint, \m {\R {3 N_Y}} for 2-norm constraint.
+
+\startsubsection [title={Performance Metric}]
+
+
+Lee, Gil, and Lee \cite [LGL16] proposed the proformance metric
+\DispNum {h:h:lo:vg} {
+\NC \chi'
+=\NC \RB {
+   \F {\log_2 {\VNm {\V {h} -\Hat {\V {h}}} _2}}
+   {\log_2 {\VNm {\V {h}}_2}}
+} _{\Ss {avg}}, \NR
+}
+However, we find that when \m {\VNm {\V {h}}_2} is small, this can blow up.
+
+We propose another metric that is suggestive of spectral efficiency.
+Indeed, since we have not specified the channel, we can't logically use any particular channel capacity expression.
+But we may still adopt the MIMO capacity with perfect CSI, with an estimated quantity for SNR.
+Denote \m {\M {E} = \Hat {\M {H}} - \M {H}}.
+Assume that
+\Disp {
+\NC \VNm {\RB {\M {H} + \M {E}} \RB {\M {H} + \M {E}} ^\Adj \V {x} - \M {H} \M {H} ^\Adj \V {x}} _2
+\lesssim 2 \VNm {\M {E}} _2 \VNm {\M {H}} _2 \VNm {\V {x}} \NR
+}
+
+Then \m {2 \VNm {\M {E}} _2 \VNm {\M {H}} _2 \VNm {\V {x}}} can be considered as part of the noise.
+In view of the MIMO channel, \m {\s} has to be multiplied by factor \m {\R {N_H}}, and \m {\VNm {\M {H}} _2} and \m {\VNm {\M {E}} _2} both divided by factor \m {\R {N_H}}.
+Therefore, we define the quantity
+\Disp {
+\NC \chi
+= \log \det \SB {\M {I} + \RB {\s + \F {2 \VNm {\M {E}} _2 \VNm {\M {H}} _2} {N_H ^{3/2}}} ^{-1} \M {H} \M {H} ^ \Adj} \NR
+}
+
+Each data point is repeated for 24 times, and taken average.
+
+\stopsubsection
+
+\page [yes]
+
+\startsubsection [title={Assorted Plots}]
+
+For \m {N_H = 12}, noise vs spectral efficiency,
+%
+\blank [big]
+\externalfigure [assorted-small-spectral.png] [wfactor=fit, hfactor=fit]
+
+For \m {N_H = 18}, noise vs spectral efficiency,
+%
+\blank [big]
+\externalfigure [assorted-medium-spectral.png] [wfactor=fit, hfactor=fit]
+
+For \m {N_H = 24}, noise vs spectral efficiency,
+%
+\blank [big]
+\externalfigure [assorted-big-spectral.png] [wfactor=fit, hfactor=fit]
+
+For \m {N_H = 18}, noise vs time taken,
+%
+\blank [big]
+\externalfigure [assorted-medium-time.png] [wfactor=fit, hfactor=fit]
+
+\stopsubsection
+
+\page [yes]
+
+\startsubsection [title={Plots of Dantzig Selector}]
+
+For \m {N_H = 12}, noise vs spectral efficiency,
+%
+\blank [big]
+\externalfigure [ddss-small-spectral.png] [wfactor=fit, hfactor=fit]
+
+For \m {N_H = 18}, noise vs spectral efficiency,
+%
+\blank [big]
+\externalfigure [ddss-medium-spectral.png] [wfactor=fit, hfactor=fit]
+
+For \m {N_H = 24}, noise vs spectral efficiency,
+%
+\blank [big]
+\externalfigure [ddss-big-spectral.png] [wfactor=fit, hfactor=fit]
+
+For \m {N_H = 18}, noise vs time taken,
+%
+\blank [big]
+\externalfigure [ddss-medium-time.png] [wfactor=fit, hfactor=fit]
+
+\stopsubsection
+
+\page [yes]
+
+\startsubsection [title={Plots of Orthogonal Matching Pursuit}]
+
+For \m {N_H = 12}, noise vs spectral efficiency,
+%
+\blank [big]
+\externalfigure [oommpp-small-spectral.png] [wfactor=fit, hfactor=fit]
+
+For \m {N_H = 18}, noise vs spectral efficiency,
+%
+\blank [big]
+\externalfigure [oommpp-medium-spectral.png] [wfactor=fit, hfactor=fit]
+
+For \m {N_H = 24}, noise vs spectral efficiency,
+%
+\blank [big]
+\externalfigure [oommpp-big-spectral.png] [wfactor=fit, hfactor=fit]
+
+For \m {N_H = 18}, noise vs time taken,
+%
+\blank [big]
+\externalfigure [oommpp-medium-time.png] [wfactor=fit, hfactor=fit]
+
+\stopsubsection
+
+\startsubsection [title={Discussion}]
+
+Reasonably, for all methods, a higher \m {\s} corresponds to lower \m {\chi}.
+For low noise, DS slightly but steadily outperforms other methods, but for high noise, DS degrades quickly.
+
+Different values of threshold \m {\g_{\Rm {DS}}} does not seem matter much.
+It appears \m {\g_{\Rm {DS}}} is usually best chosen in the order of magnitude of \m {\s}, which is intuitive.
+
+For OMP, interestingly, different values of \m {\h_{\Rm {OMP}}} do not seem to affect much to performance, and often the iteration stablizes much earlier than is constrained by maximum iteration number.
+Lasso and Least Square usually has substantially lower \m {\chi} than OMP.
+
+The theory bound of DS is an overestimation for low noise, but underestimation for high noise.
+This suggest our bound is correct but not tight.
+
+\blank [big]
+\externalfigure [scatter-ddss-success.png] [wfactor=300]
+
+The figure above illustrates a case where DS succeeded.
+The true values of \m {\M {H}} entries are ordered with respect to absolute value, and corresponding estimated value in the first and second stage, are plotted agains the true values.
+We see that the soft thresholding policy does rule out those entries which are too small and gives a reasonable guess of the positions of non-zero entries.
+The subsequent application of DS on this smaller index set refines the estimated values.
+
+\blank [big]
+\externalfigure [scatter-ddss-failure.png] [wfactor=300]
+
+The figure above illustrates a case where DS succeeded.
+We see that the soft thresholding policy does rule out those entries which are too small and gives a reasonable guess of the positions of non-zero entries.
+Subsequent application of DS on the wrong index set fails, as a result.
+
+\stopsection
+
+\startsection [title={Complexity}]
+
+\startsubsection [title={Asymtotic Analysis}]
+
+We discuss the complexity of DS and OMP.
+
+For DS, we note that, in general, complexity analysis of convex programs is difficult, in that it is not easily ensured how many iteration the program uses.
+
+There is an analysis (Boyd and Vandenberghe \cite [BoV04]) of inequality constrained Newton method, in which they assumed self-concordance (p.496ff, also p.531).
+It is also pointed out (Candès and Romberg \cite [CaR05]) that the complex DS can be cast into an Second Order Cone Programming (SOCP), and it is clear that self concordance applies to SOCP.
+
+However, it is not clear whether these results hold for methods faster than Newton method, and of course they are not necessarily utilized the same way in CVXPY.
+Specifically, the implementers of CVXPY, Diamond and Boyd \cite [DiB16], alleges that the program is usually converted in to primal-dual problem, for which and there are several different approaches.
+For our purpose, we only discuss the complexity analysis for Newton method.
+
+The function being minimized is \m {\VNm {\V {g}}_1}.
+Let \m {\V {g} _0} denote the starting value of \m {\V {g}}, and \m {\V {g} ^{\star}} the the point of convergence.
+Then (\cite [BoV04] p.505, Eqn.\ 9.56) gives a bound of the number of iteration of Newton method.
+If we just take that as the complexity bound for DS, it becomes
+%
+\DispNum {C:S:C0:1e'} {
+\NC C_{\Rm {DS}}
+= \NC C_0 \VNm {\V {g}_0 -\V {g} ^{\star}}_1
++ \log_2 \log_2 \F {1} {\e} \NR
+}
+%
+where \m {C_0} is constant related to implementation of Newton method, and \m {\e} the tolerance of error.
+According to the analysis of \cite [BoV04] (eq.9.57), for most cases \m {-\log_2 \log_2 \e} can be bounded by \m {6}.
+Also, \m {C_0} usually assumes the value of about several hundred;
+They gives an example \m {C_0 =375} (with their notation, \m {C_0 =\dfrac {20 -8\a} {\a \b \RB {1 -2\a}^2}}, where \m {\a = 0.1, \b = 0.8, \e =0.01}, and \m {\a, \b} are parameters used in the Backtrack Line Tracing algorithm).
+
+Every step involves a inversion of \m {\MS {O} \SB {\M {P} ^\Adj \M {P}}}, which is of the same order of magnitude to the time needed for matrix multiplication.
+Since the dimension of \m {\M {P} ^\Adj \M {P}} is \m {N_H^2}, the cost of inversion is \m {\MS {O} \SB {N_H^4}}.
+
+
+We now take some license to approximate.
+Assume that we start the iteration by specifying the Least Square estimator as the initial value of \m {\V {g}_0}, namely
+%
+\DispNum {g:0:gL:Py} {
+\NC \V {g}_0
+=\NC \V {g}_{\Rm {LS}} \NR
+\NC = \NC \RB {\M {P} ^\Adj \M {P}} ^{-1} \M {P} ^\Adj \V {y} \NR
+}
+%
+By above, we may write the complexity of DS to be
+%
+\DispNum {C:S:Og:g1} {
+\NC C_{\Rm {DS}}
+=\NC \MS {O} \SB {\VNm {\V {g}_{\Rm {LS}} -\V {g} ^\star} _1} N_H^4 \NR
+}
+%
+Also assume
+%
+\DispNum {g:g:g;:;g} {
+\NC \V {g} ^\star
+\approx \NC \V {g} \NR
+}
+%
+Indeed, this is the main objective of our investigation!
+And by restricted isometry, \m {\M {P}} has unity-normed, almost orthogonal columns, so
+%
+\DispNum {P:P:IN:H2} {
+\NC \M {P} ^\Adj \M {P}
+\approx \NC I _{N_{H}^2} \NR
+}
+%
+Thus, by \Rf {g:0:gL:Py}, \Rf {C:S:Og:g1}, and \Rf {g:g:g;:;g},
+%
+\DispNum {C:S:Og:z1} {
+\NC C_{\Rm {DS}}
+=\NC \MS {O} \SB {
+   \VNm {\V {g} +\RB {\M {P} ^\Adj \M {P}} ^{-1} \M {P} ^\Adj \V {z}
+   -\V {g}} _1} N_H^4 \NR
+\NC =\NC \MS {O} \SB {\VNm {\M {P} ^\Adj \V {z}} _1} N_H^4 \NR
+}
+
+If we agree that, for high probability,
+%
+\DispNum {O:j:sO:O1} {
+\NC \MS {O} \SB {\VNm {\M {P} ^\Adj \V {z}} _{\SB {j}}}
+= \NC \s \MS {O} \RB {1} \NR
+}
+
+It is easy to see that \m {\RB {\M {P} ^\Adj \V {z}} _{\SB {j}}} observes Complex Standard Normal distribution.
+If the quantity can be estimated by \m {\s}, we have
+%
+\DispNum {C:S:ON:H6} {
+\NC C_{\Rm {DS}}
+=\NC \MS {O} \SB {N_{H}^6} \NR
+}
+
+On the other hand, Tropp and Gilbert \cite [TrG07a] discussed the complexity of OMP, and the proof of technical lemmata in it can be found in the companion paper \cite [TrG07b].
+They give
+%
+\DispNum {C:P:ON:NY} {
+\NC C_{\Rm {OMP}}
+=\NC \MS {O} \SB {N_H^2 \log N_Y} \NR
+}
+%
+And it would appear that this is greater than \m {C_{\Rm {DS}}}.
+However, \m {\log N_Y} is really small in our experiments.
+and we dropped some constants, too, in analyzing \m {C_{\Rm {DS}}}.
+If we drop \m {\log N_Y}, then we get \m {\MS {O} \SB {N_H^2}} again.
+
+Lastly, since LS involves the same target function as DS, the same argument is valid, giving \m {C_{\Rm {Lasso}} =\MS {O} \SB {N_H^6}}.
+
+\stopsubsection
+
+\startsubsection [title={Runtime Statistics}]
+
+Friedlander and Saunders \cite [FrS07] criticizes that DS often gives a higher computational cost, compared to Lasso.
+Agreeing their observation, simulation result shows that DS indeed exhibits high complexity when (in our case) \m {N_H} grows.
+It is not suprising from the nature of convex programming.
+On one hand, the algorithm is iterative and random.
+On the other hand, it requires a sizable memory when finding the inversion of (in our case) \m {\M {P}}, a matrix of dimension \m {\M {N}_H^2}.
+However we note that different tolerance of error and value of maximal iteration number may result vastly different computation time.
+
+Meanwhile, we see the complexity of OMP is several order of magnitude lower than that of DS.
+This is reasonable, given that it is a greedy alrogithm.
+In fact, the time OMP takes is negligibly small.
+
+Lasso usually takes time \m {1/2} to \m {1/4} of that of DS.
+
+\stopsubsection
+
+\stopsection
+
+\stopchapter
+

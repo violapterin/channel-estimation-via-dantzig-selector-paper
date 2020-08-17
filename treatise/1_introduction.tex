@@ -1,0 +1,248 @@
+\startchapter [title={Introduction}]
+
+\startsection [title={Background: Estimation of MIMO Channel}]
+
+Multiple-input multiple-output (MIMO) communication system will be part of the 5G specification (Rappaport et.\ al.\ \cite [RSM13]).
+With a large number of antennae on both transmitter and receiver, MIMO is expected to provide a large signal gain.
+The appeal of MIMO includes multiplexing gain (with parallel transmission of data), diversity gain (with redundant transmission using space-time coding), and antenna gain (with beamforming).
+The millimeter wave (mm-wave) is also suggested: its smaller wavelength results in higher frequency bands, and thus wider bands available.
+The antennae may be closer-spaced, making it possible to increase their number.
+
+However, MIMO also leads to hardware overhead and increases complexity and power consumption.
+To design new algorithms that address these issues, it is necessary to obtain channel state information, so that channel capacity, among other metrics, can be calculated.
+Not only is the channel estimation difficult due to a large number of antennae, but the transmission is prone to noise corruption.
+With more antennae, conventional training-based algorithms also increase in complexity and storage.
+
+\startsection [title={Compressive Sensing}]
+
+Then, a recent developement called compressive sensing turns out to be relevant.
+Generally speaking, it is a technique for reconstructing a signal in the case of underdetermined linear systems, if the sparsity of signal guarantees successful recovery in the majority of cases.
+A more common situation is that some signals are not sparse in the original basis, but there exists a certain basis on which the signal is sparse, and fewer measurements suffice, though constructing such bases is another undertaking.
+
+\blank [big]
+\externalfigure [compressive-sensing.png] [wfactor=fit, hfactor=fit]
+
+The figure shows the signal in both original basis and Hermite polynomials basis.
+It is not sparse in the former, but is in the latter.
+Thus, the recovery from just a few Hermite polynomial components are able to approximate it well.
+(Source: Wikimedia Commons, retrived from \Uurrll {https://commons.wikimedia.org/wiki/File:Orthogonal_Matching_Pursuit.gif})
+
+In the beginning, a Candès and Tao \cite [Can05] pointed out that in various statsitical applications the number of model parameters \m {N_p \in \MB {N}} is much larger than the number of measurements \m {N_m \in \MB {N}}, that is,
+%
+\DispNum {N:p:Nm:Nm} {
+\NC N_p \gg \NC N_m \NR
+}
+%
+They showed that in the noiseless case \cite [Can05], it is possible to recover the sparse signal, under a \m {\ell_1}-minimization program, revealing the phenomenon that fewer than \m {N_p} measurement suffices to resonstruct the \m {N_m}-dimensional signal, when it is sparse.
+
+Indeed, usually any two vectors of parameters differing an element in the null space of the sensing matrix will produce the same measurement.
+But the sparsity constraint essentially restrict the underdetermined system so much that we obtain unique solution for most of the time.
+
+As a practical example, it may be desirable that a camera equipped with few sensors may obtain a lower resolution image, to save computation and storage, and recover the image later, rather than taking a high definition photo at first, and compressing the image later.
+Another example is that of medical imaging: surely, since is not only expensive, but also harmful to the body, we may well obtain one image only, while the result can be critically important to assess the patient's well being \cite [CaT07].
+
+\stopsection
+
+\startsection [title={The Dantzig Selector}]
+
+But with insufficient measurements, possibly even with corruption of noise, do we have the knowledge of all \m {N_p} parameters?
+A stronger result was established \cite [CaT07] that, with another \m {\ell_1} minimization program they named The Dantzig Selector (hencefore DS), they can recover the noisy case too, but in doing so, we have to make a few carefully constructed, and seemingly random measurements.
+
+To start, consider \m {\V {x} \in \MB {K} ^{N_p}} and \m {\M {Q} \in \MB {K} ^{N_m \D  N_p}}.
+For \m {\MS {A} \subseteq \CB {0, \dots, N_p-1}}, denote
+%
+\Disp {
+\NC \V {x}  _{\SB {\MS {A}}}
+=\NC \sum _{i \in \MS {A}} \V {v} \V {u} _{i} \NR
+%
+\NC \M {Q}  _{\SB {\MS {A}}}
+=\NC \sum _{i \in \MS {A}} \M {Q} _{\SB {:,i}} \NR
+}
+%
+That is, respectively, the components of \m {\V {x}}, and the columns of \m {\M {A}}, that have indices in \m {\MS {A}}.
+
+We say \m {\V {x}} is \m {s}-sparse, if only at most \m {s} components of \m {x} is nonzero.
+Formally,
+\Result
+{Definition}
+{
+\m {\V {x}} is called \m {s}-sparse, if there is some \m {\MS {A} \subseteq \CB {0, \dots, N_p-1}} such that
+%
+\DispNum {x:A:x::x:} {
+\NC \V {x} _{\SB {\MS {A}}}
+=\NC \V {x} \NR
+}
+%
+with
+%
+\DispNum {A:A:s::s:} {
+\NC \Nm {\MS {A}} \leq \NC s. \NR
+}
+}
+
+\Result
+{Definition}
+{
+For fixed \m {s =0, \dots N_p -1}, we say that \m {\M {Q}} satisfies \m {\d_s}-restricted isometry property (hereafter \m {\d_s}-RIP) of sparsity \m {s} with respect to \m {0 \leq \d_s \leq 1}, if for all \m {s}-sparse \m {\V {x}}
+%
+\DispNum {1:2:Qx:22} {
+\NC \RB {1-\d_s} \VNm {\V {x}} _2 ^2
+\leq \NC \VNm {\M {Q} \V {x}} _2 ^2 \NR
+%
+\NC \leq \NC \RB {1+\d_s} \VNm {\V {x}} _2 ^2 \NR
+}
+}
+%
+It helps to think that \m {\M {Q}} is almost unitary up to relative error \m {\d_s}.
+
+Now, consider a linear transformation of real vectors added of noise,
+%
+\DispNum {y:y:Qx:xz} {
+\NC \V {y}
+=\NC \M {Q} \V {x} + \V {z} \NR
+}
+%
+where, for example, \m {\V {z}} is an i.i.d.\ normalized Gaussian vector.
+How can we hope to estimate \m {\V {x}} when, in addition to insufficient measurements, there is also noise corruption?
+
+\Result
+{Algorithm}
+{
+\startitemize[n]
+\item Input \m {\M {Q} \in \MB {R} ^{N_m \D N_p}} and \m {\V {y} \in \MB {R} ^{N_m}}.
+%
+\item Calculate
+%
+\DispNum {h:h:mi:yg'} {
+\NC \Hat {\V {h}}
+\LA \NC \startcases
+\NC \Min {\V {h}'} \MC \VNm {\V {h}'} _1 \NR
+%
+\NC \Rm {subject} \; \Rm {to} \Q \MC \VNm {\M {Q}^\Adj \RB {\M {Q} \V {h}' -\V {y}}} _\infty \leq \g \NR
+\stopcases \NR
+}
+\item Output \m {\Hat {\V {h}}}.
+\stopitemize
+}
+
+They were able to show \cite [CaT07] that Algorithm [3] recovers \m {\V {x}} with the expected square error bounded with overwhelming probability.
+
+From the computational perspective, the formulation as an \m {\ell_1} minimization problem, which is convex, made techniques from convex optimization usable.
+Indeed, relevent code has been put on their website for the reader to access and verify (Candès \& Romberg \cite [CaR05]).
+
+Also, the \m {\ell_1}-minimization problem with \m {\ell_\infty}-constraint may be recast as a Linear Program (hereafter LP), rendering convex programming technique applicable.
+The constant \m {\d_s} in Definition [2] is crucial, and here we can't just take \m {\M {Q}} to be any unitary matrix, for which it is trivial that \m {\d_s =0}.
+One common proposal is choosing every entry of \m {\M {Q}} to be i.i.d., and it can be established that if \m {\VNm {\M {Q} \V {x}}} concentrates sharply, \m {\M {Q}} has RIP for overwhelming probability (Baraniuk et.\ al.\ \cite [BDD08]).
+However it remains a research problem to find RIP matrices efficiently.
+
+Back at the ranch, recall that the overhead of channel estimation has been a concern in the mm-wave MIMO setting.
+Luckily, physical evidences suggest that millimeter wave channels are in fact sparse in the frequency domain, and some scholars have thus applied compressive sensing techniques to the problem.
+One of the first attempt has been Bajwa et.\ al.\ \cite [BHS10], where they argue that the \m {\ell_0}-norm of the channel matrix may be bounded by a constant, and in such settings the Dantzig Selector may be applied.
+What they explored was the estimation of single-antenna channel response with respect to time.
+The accompanying note by the same authors (Bajwa et.\ al.\ \cite [BHR08]) shows that \m {X} is RIP for overwhelming probability, providing the ground for the IEEE paper.
+Dealing with a linear time-invariant channel, \cite [BHR08] showed that if the convolution is seen as a linear system, the sensing matrix has RIP of overwhelmingly probability, and DS is ready to be applied, with some nice performance bounds drawing directly from \cite [CaT07].
+
+\stopsection
+
+\startsection [title={Orthogonal Matching Pursuit}]
+
+Around that time, Tropp and Gilbert \cite [TrG07b] suggest that a greedy algorithm called Orthogonal Matching Pursuit (OMP), which also makes use of an i.i.d.\ random matrix, may also reconstruct the sparse signal sufficiently well in an overwhemingly probability.
+
+Still consider \Rf {y:y:Qx:xz}.
+We pick up the columns of \m {\M {Q}} greedily, hoping to correspond to the nonzero components of \m {\V {x}}, and thus recovering the original signal.
+
+\Result
+{Algorithm}
+{
+\startitemize[n]
+\item Input \m {\M {Q} \in \MB {R} ^{N_m, N_p}} and \m {\V {y} \in \MB {R} ^{N_m}}, \m {\eta >0}.
+%
+\item Initialize
+%
+\Disp {
+\NC \V {r}
+\LA \NC \V {y} \NR
+%
+\NC S
+\LA \NC \varnothing \NR
+}
+\item Start the loop with counter \m {i \LA 1}.
+\item Find
+%
+\DispNum {c:c:i0:ir} {
+\NC c
+\LA \NC \underset {i =0, \dots, N_p-1} {\Rm {argmax}}
+\Nm {\M {Q} _{\SB {:,i}} \V {r}} \NR
+}
+%
+and insert \m {S \LA S \cup {i}}.
+\item Compute
+%
+\DispNum {Q:Q:QS:Qy} {
+\NC \M {Q} ^\ddagger
+\LA \NC \RB {\M {Q} _{\SB {S}} ^\Adj \M {Q} _{\SB {S}}} ^{-1} \M {Q} _{\SB {S}} ^\Adj \NR
+%
+\NC \V {r}
+\LA \NC \V {y} -\M {Q} _{\SB {S}} ^\Adj \M {Q} ^\ddagger \V {y} \NR
+}
+\item Break if
+%
+\DispNum {r:2:h':h'} {
+\NC \VNm {\V {r}} _2
+<\NC \eta \NR
+}
+%
+where \m {\VNm {\M {Q} ^\ddagger} _1} denotes the operator norm.
+\item Output 
+%
+\DispNum {g:g:Qy:Qy} {
+\NC \Hat {\V {g}}
+\LA \NC \M {Q} ^\ddagger \V {y} \NR
+}
+\stopitemize
+}
+%
+Here \m {\V {r}} can be thought of as the estimated noise, and \m {S} the number of estimated nonzero-position of \m {\V {x}}, which \cite [CaT07] calls support (here we have slightly abused the usage of subscript to indicate component indices).
+From Tropp and Gilbert \cite [TrG07a], the probability that OMP recovers \m {\V {x}} completely is overwhelming, providing a perfomance guarantee.
+It is instructive to note that the matrix consisting of a collection of columns that likely spans \m {\V {x}} plays the role of the sensing matrix in the previous section.
+
+Alkhateeb et.\ al.\ \cite [AEL14] proposes an adaptive algorithm with a beam codebook for quantized angles of arrival and departure.
+Alkhateeb, Leus, and Heath Jr.\ \cite [ALH15] discusses the trade-off between number of OMP measurement and accuracy in OMP, applied on an all-phase-shifter beamformers, with quantized, non-uniform, predetermined angles.
+Gao et.\ al.\ \cite [LGC16] proposed a jointly reconstruction, with a modified OMP, of several high-dimensional sparse signals with restriction on nonzero-positions.
+Hu, Wang, and He \cite [HWH13] applies OMP to estimate quantized path delay of each OFDM subcarrier, assuming the channel gain in each path is stationary.
+Lee, Gil, and Lee \cite [LGL16] consider a hybrid system similar to this paper, with the effective beamformer considered as sensing matrix, where they specially designed a set of quantized angles, and in their simulations permuted DFT matrix is used in analog stage.
+
+Some further attempts include Manoj and Kannu \cite [MaK17], which formulate the sparse condition as overlapping block in the reconstructed signal, and encode possible blocks.
+Gurbuz, Yapici, and Guvenc \cite [GYG18] introduce perturbation of the quantized set of angles, on which the sensing matrix is based.
+Most recently, Panayirci et.\ al.\ \cite [PAU19] put forward a more thorough treatment, where in addition to application of OMP, they use a first stage of max-likelihood estimation of model parameters, and a second stage of maximum-a-posteriori estimation of channel gains.
+
+Performance guarantee of OMP is also studied, by refining or proposing different conditions.
+Cai, Wang, and Xu \cite [CWX10], under assumption on low coherence of columns of matrices, give new bound on OMP.
+Coherence-based assumptions, instead of almost-unitarity, make the condition easier to verify.
+Cai and Wang \cite [CaW11] extends the investigation to DS and other convex programs for sparse recovery, and Ben-Haim et.\ al.\ \cite [BEE10] follow up and refine their bounds, and conclude that OMP is better for low-SNR scenario, and DS is better for high-SNR.
+
+\stopsection
+
+\startsection [title={Motivation and Contribution}]
+
+Ever since, OMP has since been applied in a variety of ways.
+Especially, work on channel estimation seems to favored OMP for its low complexity.
+One notable drawback of OMP, as pointed out by \cite [GYG18], is that the quantized angle of the sensing matrix used dos not necessarily match the true ones.
+Indeed, in the uniform linear array setting, DFT matrix can be used as sensing matrix, but the true angle of arrival and departure is often slightly off.
+Meanwhile, as the nature of OMP is greedy, and it is dubious whether it achieves optimality.
+In addition, the assumption that the channel matrix is sparse, at least, warrant justification.
+
+In this treatise, we argue that DS is worth trying as an alternative.
+As the next section shows, the effective beamformer serves readily as the sensing matrix with RIP.
+Assuming uniform linear array, the sparsity may be exploited, and a convex program analogous to DS can be used for estimation, which ensures several desirable properties.
+Along the lines of \cite [CaT07], we give a bound on expected square error, expressed in terms of on the sparsity and the number of paths, which will surely faciliate system design.
+We show that it holds under an overwhelming probability, which is also bounded quantitatively.
+
+Moreover, we illustrate that the convex program is equivalent to a linear program, for which several efficient algorithms are known.
+In view of numerical results, DS is often superior to OMP among other methods, at the cost of higher complexity.
+
+
+\stopsection
+
+\stopchapter
+

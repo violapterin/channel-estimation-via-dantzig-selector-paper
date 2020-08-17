@@ -1,0 +1,167 @@
+\startsection [title={Restricted Isometry of Effective Beamformer}]
+
+\startsubsection [title={Design of Beamformer Matrices}]
+
+Our plan is setting the four precoder matrices to be i.i.d.\ random matrix, hoping that the resulting \m {P} has RIP.
+
+Let us make it simple and set each entry of \m {\M {F} _B} to be i.i.d.\ Normal r.v.\ with mean 0, standard deviation \m {1/2}, multiplied by a normalizing constant \m {\l_B >0}.
+We know that the magnitude \m {\RB {\M {F} _B} _{\SB {n_R, n_Y}}} follows Rayleigh distribution.
+\m {\RB {\M {W} _B ^\Tr} _{\SB {n_Y, n_R}}} is set in an entirely analolous manner.
+
+In addition, let \m {\RB {\M {F} _R} _{\SB {n_H, n_R}}} be uniformly distributed on the unit circle on the complex plane.
+\m {\RB {\M {W} _R ^\Tr} _{\SB {n_Y, n_R}}} is set in an entirely analolous manner.
+
+It turns out we have results that guarantee that both \m {\M {F} _B ^\Tr} and \m {\M {F} _R ^\Tr} are RIP, and same can be said of \m {\M {W} _B} and \m {\M {W} _R}.
+Consider a sparse \m {\V {u}} or unity norm, then we are sure that \m {\M {F} _R ^\Tr \V {u}} has almost unity norm.
+If, furthermore, \m {\M {F} _R ^\Tr \V {u}} is sparse, we see that \m {\M {F} _B ^\Tr \M {F} _R ^\Tr \V {u}} has almost unity norm, and the RIP of \m {\M{P}} also follows by construction.
+
+However, it is not clear that \m {\M {F} _B ^\Tr \M {F} _R ^\Tr}, the product of two RIP matrices, have RIP, nor that, \m {\M {P}}, the result of Kronecker product, is RIP.
+In fact, the statement seems to be false in general.
+Indeed, since a \m {\M {F} _R ^\Tr} of the same \m {\d} is sparse, up to a factor of isometry matrix, and \m {\M {F} _R ^\Tr} is generated randomly, it would seem to us that the probability that \m {\M {F} _R ^\Tr \V {u}} be sparse is exceedingly small.
+
+But all is not lost.
+At least we have made sure that \m {\M {F} _R ^\Tr \V {u}} has norm close to unity.
+If we have a stronger result, that \m {\M {F} _B ^\Tr \V {u}} is almost unitary even for \It {not-sparse} vectors, then we are done.
+That does sound somehow plausible, considering the Normal entries of \m {\M {F} _B ^\Tr} would introduce a Central-limit-theorem-like sum, though the summands are not independent, but weakly dependent.
+
+\stopsubsection
+
+\startsubsection [title={Operator Norm of Digital Beamformers}]
+
+To start, use \m {\chi _{i,j}} to denote Complex Standard Normal random variables, and to simplify notation, let them be independent if they have different arguments.
+With this,
+%
+\DispNum {C':C':WB:j2} {
+\NC \VNm {\M {W} _B \V {u}} _2
+=\NC \R {
+   \sum _{i=0} ^{N_B-1} \VNm {\sum _{j=0} ^{N_R-1} \F {1} {\R{N_B}} \chi _{i,j} \V {u} _{j}} _2 ^2} \NR
+}
+%
+Essentially, we seek for a large- deviation result for i.i.d.\ sum of chi-square random variables now.
+To so so, we may apply Lemma 1 in Laurent and Massart \cite [LaM00] for equal weights.
+By some calculation, we have upper tail inequality, for \m {x > 0},
+%
+\DispNum {P:x:ex:ex} {
+\NC \MB {P} \SB {\VNm {\M {W} _B \V {u}} _2 ^2 \geq 1 + 2 \R {\F {x} {N_B}} + \F {2x} {N_B}}
+\leq \NC \Ss {e} ^{-x} \NR
+}
+%
+And lower tail inequality
+%
+\DispNum {P:x:ex:ex!} {
+\NC \MB {P} \SB {\VNm {\M {W} _B \V {u}} _2 ^2 \leq 1 + 2 \R {\F {x} {N_B}}}
+\leq \NC \Ss {e} ^{-x} \NR
+}
+%
+With substitution \m {\d_s =16x^2 /N_B^2}, the upper tail can be simplified with \m {x <N_B}, and we get the following bound for failure probability.
+
+\Result
+{Proposition}
+{
+For \m {0 <\d_s <1},
+%
+\DispNum {W:1:ds:ds} {
+\NC \Nm {\VNm {\M {W} _B \V {u}} _2 ^2 - 1}
+\geq \NC \d_s \NR
+}
+holds for probability \m {p}, with
+\DispNum {1:p:2e:s4} {
+\NC 1 -p
+\leq \NC 2 \Ss {e} ^{-N_B \R {\d_s} /4} \NR
+}
+}
+
+\stopsubsection
+
+\startsubsection [title={Operator Norm of Analog Beamformers}]
+
+Here, we consult Haviv and Regev, ``The restricted isometry property of subsampled Fourier matrices'' collected in \cite [KlM17].
+We need their Thm.\ 4.5; it gives a RIP guarantee w.r.t.\ \m {\d_s}, and probability lower bound, for DFT submatrix.
+The estimation they give involve is expressed in terms of big- \m {\O} and big- \m {O}, and since our methodology is 
+However, it can be seen that their argument allows precise constants, and they just did not spell out, which we briefly explain.
+Roughly, they use Chernoff-Hoeffding bounds, but write the exponent in the form of \m {\Omega}.
+Starting in their Thm.\ 2.2, we may substitute (say) \m {C \leftarrow 1/3} in place of their big- \m {\Omega}.
+The conclusions, their Thm.\ 3.7 and Thm.\ 4.5, may be changed accordingly.
+If modified with respect to our setting, the condition
+%
+\DispNum {N:R:sd':NH} {
+\NC N_R
+\geq \NC \F {s} {\d_s^2} \RB {\log \F{1}{\d_s}}^2 \RB {\log \F{s}{\d_s}}^2 \log N_H \NR
+}
+%
+guarantees a failure probability \m {\d_s /N_H s}.
+We would like to drop \m {\log \SB {1 /\d_s}^2} and the denominator \m {\d_s} in \m {\log \SB {s /\d_s}^2} in \Rf {N:R:sd':NH}.
+
+\Result
+{Theorem}
+{
+Suppose
+%
+\DispNum {N:R:sd'NH} {
+\NC N_R
+\geq \NC \F {s} {\d_s^2} \RB {\log s}^2 \log N_H \NR
+}
+%
+Then \m {\M {F}_R} (resp.\ \m {\M {W} _R}) has \m {\d_s}-RIP for probability \m {p}, with
+\DispNum {1:p:ex:d's} {
+\NC 1 -p
+\leq \NC \RB {\F {\d_s} {N_H s}} ^{1/3} \NR
+}
+}
+
+\stopsubsection
+
+\startsubsection [title={Confirming the Restricted Isometry}]
+
+So, how do we relate RIP of \m {\M {F} _R ^\Tr}, \m {\M {F} _B ^\Tr}, \m {\M {W} _R}, and \m {\M {W} _B} to that of \m {\M {P}}?
+Notice, by the nature of operator norm,
+\DispNum {P:2:FB:WR} {
+\NC \VNm {P} _2
+=\NC \VNm {\M {F}_B^\Tr \M {F}_B^\Tr} _2 \VNm {\M {W}_B \M {W}_R} _2 \NR
+}
+Indeed, if it were not for the sparsity constraint, if both \m {\M {F}_B^\Tr \M {F}_B^\Tr} and \m {\M {F}_B^\Tr \M {F}_B^\Tr} are \m {\d_s}-RIP, \m {\M {P}} has approximately \m {2\d_s}-RIP.
+However, it is doubtful to assume that the Kronecker product of two RIP matrices exhibit RIP.
+
+We suggest the following argument.
+If all angles \m {\th_l, \f_l} are on exactly on the grid, then, with overwhelming probability, it is possible to write
+\DispNum {G:G:Ud:dU} {
+\NC \M {G}
+=\NC \M {U} \Rm {diag} \SB {\V {d}'} \M {U} ^\Adj \NR
+}
+for some \m {S}-sparse \m {\V {d}'} and unitary \m {\M {U}}.
+Clearly,
+\DispNum {G:2:g2:g2} {
+\NC \VNm {\M {G}} _2
+=\NC \VNm {\V {g}} _2 \NR
+%
+\NC =\NC \VNm {\Rm {abs} \SB {\V {g}}} _2 \NR
+}
+where \m {\Rm {abs}} denotes elementwise taking absolute value.
+Then if we notice that \m {\M {W} _B \M {W} _R \M {K} \M {U}} and \m {\M {U} ^\Adj \M {K}^\Adj \M {F} _R^\Adj \M {F} _B^\Adj} has \m {\d_s}-RIP too, we see
+\DispNum {W:2:WB:d's} {
+\NC \NC \VNm {\M {W} _B \M {W} _R \M {H} \M {F} _R \M {F} _B} _2 \NR
+%
+\NC =\NC \VNm {
+   \M {W} _B \M {W} _R \M {K} \M {U} \D
+   \Rm {diag} \SB {\Rm {abs} \SB {\V {d}'}} \D
+   \M {U} ^\Adj \M {K} ^\Adj \M {F} _R \M {F} _B} _2 \NR
+%
+\NC =\NC \VNm {
+   \M {W} _B \M {W} _R \M {K} \M {U}
+   \R {\Rm {abs} \SB {\V {d}'}} \D
+   \R {\Rm {abs} \SB {\V {d}'}}
+   \M {U} ^\Adj \M {K} ^\Adj \M {F} _R \M {F} _B} _2 \NR
+%
+\NC =\NC \VNm {
+   \M {W} _B \M {W} _R \M {K} \M {U}
+   \R {\Rm {abs} \SB {\V {d}'}}} _2 \D
+   \VNm {\M {F} _B ^\Adj \M {F} _R ^\Adj \M {K} \M {U}
+   \R {\Rm {abs} \SB {\V {d}'}}} _2 \NR
+%
+\NC \eqsim \NC \VNm {\M {G}} _2 \RB {1 +2\d_s} \NR
+}
+Thus, even we cannot make sure that \m {\M {P}} is \m {\d_s}-RIP with respect to all possible \m {\V {g}}'s, at least \m {\M {P}} has RIP with respect to relevant \m {\V {g}} in accordance to the form of \Rf {H:H:l0:ql}.
+
+\stopsubsection
+
+\stopsection
