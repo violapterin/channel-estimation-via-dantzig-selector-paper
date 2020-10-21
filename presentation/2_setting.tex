@@ -1,75 +1,30 @@
-\Frame {Channel Model}
+\Frame {Channel Model and Beamformers}
 {
-\I Consider the uniform linear array
-\Disp {
-\NC \V {a} \SB {\psi'}
-= \NC \F {1}{\R {N_H}} \sum_{n=0}^{N-1} \Ss {e}^{n \psi' \Ss {i}} \V {u}_n
-\in \MB {C} ^{N_H} \NR
-}
+\I Given channel \m {\M {H} \in \NC \MB {C} ^{N_H \D N_H}} with uniform linear array
 
-\I Consider the channel representation
-\Disp {
-\NC \m {H}
-=\NC \sum_{l=0} ^{L-1}
-\a_l
-\V {a} \SB {\f_l'}
-\V {a} \SB {\th_l'}^\Adj
-\in \MB {C} ^{N_H \D N_H} \NR
-}
+\I Complex standard normal noise \m {\m {Z} \in \NC \MB {C} ^{N_H \D N_H}}
 
-\I where \m {L} is the number of paths, \m {\f_l'} is related to the angles of arrival, \m {\th_l'} is related to the angles of arrival.
-}
-% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Precoders and Combiners}
-{
 \I Tx: Digital precoder \m {\M {F}_B \in \NC \MB {C} ^{N_R \D N_Y}}
-
 \I Tx: Analog precoder \m {\NC \M {F}_R \in \NC \MB {C} ^{N_H \D N_R}}
 
 \I Rx: Digital combiner \m {\M {W}_B \in \NC \MB {C} ^{N_R \D N_H}}
-
 \I Rx: Analog combiner \m {\M {W}_R \in \NC \MB {C} ^{N_Y \D N_R}}
 
-\I With the unity magnitude constraint
-\Disp {
-\NC \Nm {\M {F}_R \SB {n_H, n_R}}
-= \NC 1,
-\Q \Nm {\M {W}_R \SB {n_R, n_H}}
-= 1, \NR
-}
-
-\I Under the assumption
-\Disp {
-\NC N_H \gg \NC N_R \gg N_Y \NR
-}
+\I Magnitude constraint \m {\Nm {\M {F}_R \SB {n_H, n_R}} = 1}, \m {\Nm {\M {W}_R \SB {n_R, n_H}} = 1} 
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Effective Channel}
+\Frame {System Diagram}
 {
-\I Consider Complex Standard Normal \m {\m {Z} \in \NC \MB {C} ^{N_H \D N_H}}
+\blank [big]
+\externalfigure [system.png] [factor=fit]
 
-\I Introduce the effective channel
-\Disp {
-\NC \m {Y}
-:=\m {W}_B \m {W}_R \RB {\m {H} \m {F}_R \m {F}_B +\m {Z}} \NR
-}
-
-\I Their dimension is summarized for convenience:
-\Disp {
-\NC \MB {C}^{N_Y}
-\underset {\m {F}_B} {\mapsto} \NC \MB {C}^{N_R}
-\underset {\m {F}_R} {\mapsto} \MB {C}^{N_H}
-\underset {\m {H}} {\mapsto} \MB {C}^{N_H}
-\underset {\m {W}_R} {\mapsto} \MB {C}^{N_R}
-\underset {\m {W}_B} {\mapsto} \MB {C}^{N_Y} \NR
-}
-
-\I Problem (a): Recover \m {\M {H}} with knowledge of \m {\M {Y}}?
+\I Problem (a): Recover \m {\M {H}} with knowledge of \\
+\m {\M {Y} :=\M {W}_B \M {W}_R \RB {\M {H} \M {F}_R \M {F}_B +\M {Z}} }?
 
 \I Problem (b): Design \m {\M {W}_R}, \m {\M {W}_B}, \m {\M {F}_R}, and \m {\M {F}_B}?
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Transform to the Angular Domain}
+\Frame {Cast to Linear System}
 {
 \I Introduce the DFT matrix \m {\M {K} \in \NC \MB {C} ^{N_H \D N_H}}, and write
 \Disp {
@@ -83,51 +38,34 @@
 := \Rm {vec} \SB {\M {Z}} \NR
 }
 
-\I Then we have a linear equation, where we have to essentially invert an underdetermined system:
+\I Then we have a underdetermined linear system:
 \Disp {
 \NC \V {y}
 =\NC \M {P} \V {g} +\V {z} \NR
 }
+
+\I When the signal is sparse, few measurements may be sufficient for the reconstruction
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Terminology}
 {
-\I \m {\V {g}} is called \Emph {\m {s}-sparse}, if only \m {s} of its components are nonzero.
+\I \m {\V {g}} is called \Emph {\m {s}-sparse}, if at most \m {s} of its components are nonzero.
 
-\I We say that \m {\m {P}} satisfies the \Emph {restricted isometry property} (RIP) of sparsity \m {s} with respect to \m {0 < \d_s < 1}, if, for all \m {s}-sparse \m {\V {g}},
+\I We say that \m {\M {P}} satisfies the \Emph {restricted isometry property} (RIP) of sparsity \m {s} with respect to \m {0 < \d_s < 1}, if, for all \m {s}-sparse \m {\V {g}},
 \Disp {
 \NC \RB {1-\d_s} \VNm {\V {g}} _2^2
 \leq \NC \VNm {\m {P} \V {g}} _2^2
 \leq \RB {1+\d_s} \VNm {\V {g}} _2^2
 }
 
-\I We may think \m {\m {P}} to be almost unitary up to relative error \m {\d_s}.
+\I We may think \m {\M {P}} to be almost unitary up to relative error \m {\d_s}.
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Dantzig Selector for Sparse Vectors}
+\Frame {Applying Dantzig Selector}
 {
-\I Candès and Tao shows that when the signal is sparse, few measurements may be sufficient for the reconstruction, with vanishing error norm, in overwhelming probability.
+\I We try to apply Dantzig Selector to our problem:
 
-\I Let \m {\V {x}} be \m {S}-sparse.
-If \m {\g_{\Ss {DS}} = \R {2 \log N_p}}, then
-\Disp {
-\NC \Hat {\V {x}}
-\LA \NC \startcases
-\NC \Min {\V {x}'}  \MC \VNm {\V {x}'} _1 \NR
-\NC \Rm {subject} \; \Rm {to} \Q \MC \VNm {\M {A}^\intercal \RB {\V {y} -\M {A} \V {x}'}} _\infty \leq \g_{\Ss {DS}} \NR
-\stopcases \NR
-}
-with
-\Disp {
-\NC \VNm {\V {x} - \hat {\V {x}}} _2 ^2
-\leq \NC 32 S \sigma^2 \log N_p \NR
-}
-For high probability.
-}
-% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Proposed Method}
-{
-\I Back to our problem: Input \m {\M {P} \in \MB {C} ^{N_Y^2 \D N_H^2}}, \m {\V {y} \in \MB {C} ^{N_H^2}}, \m {\g_{\Ss {DS}} \geq 0}.
+\I Input \m {\M {P} \in \MB {C} ^{N_Y^2 \D N_H^2}}, \m {\V {y} \in \MB {C} ^{N_H^2}}, \m {\g_{\Ss {DS}} \geq 0}.
 
 \I Calculate
 \Disp {
@@ -140,4 +78,16 @@ For high probability.
 
 \I Output \m {\Hat {\M {H}} \LA \M {K} \Rm {vec}^{-1} \SB {\Hat {g}} \M {K}^\Adj}
 }
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Design of Beamformers}
+{
+\I Let us set each entry of \m {\m {F}_B} (resp.\ \m {\m {W}_B}) to be i.i.d.\ complex standard normal, up to a design constant
+
+\I And set each entry of \m {\m {F}_R} (resp.\ \m {\m {W}_R}) be uniformly distributed in argument and unity magnitude, up to a design constant
+
+\I We will argue that \m {\M {F} _R ^\Tr}, \m {\M {F} _B ^\Tr}, \m {\M {W} _R}, and \m {\M {W} _B} all have RIP, thus \m {\M {P}} has too.
+
+\I Fix sparsity \m {s = L \RB {\log N_H}^2} for concreteness
+}
+
 

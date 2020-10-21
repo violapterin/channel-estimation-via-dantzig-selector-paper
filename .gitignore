@@ -1,5 +1,3 @@
-*.png
-*.jpg
 *.pdf
 *.aux
 *.log
@@ -12,7 +10,4 @@
 *.pyc
 *.txt
 
-handwritten/
-literature/
-trash/
 __pycache__/

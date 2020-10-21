@@ -2,13 +2,12 @@
 \blank [big, force]
 
 \Title {\TitleText}
-\Subtitle {Numerical Experiments}
 \blank [big]
 
 \Subtitle {\AuthorText}
 \blank [big]
 
-\Subsubtitle {\DateText}
+\Subsubtitle {\InstitutionText}
 
 \page [yes]
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
@@ -18,21 +17,55 @@
 
 \I Proposed Method
 
-\I Bound for the Error Norm
+\I Error Analysis
 
 \I Numerical Experiments
 
-\I Conclusion and References
+\I Conclusion
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Background}
 {
-\I Multiple-input multiple-output (MIMO) communication system has been proposed as part of the 5G specification, but its hardware overhead increases complexity and power consumption.
+\I Multiple-input multiple-output (MIMO) systems \\ have been suggested in 5G communication.
 
-\I The design of various algorithms requires channel information to be known.
+\I Estimation of MIMO channels results in high complexity, due to a large number of antennae.
 
-\I Estimation of MIMO channels also results in high complexity, due to the large number of antennae.
+\I Meanwhile, millimeter wave (mm-Wave) channels are often sparse due its poor scattering nature
 
-\I Meanwhile, millimeter wave (mm-Wave) channels often exhibit sparse properties, which we might exploit to reduce complexity.
+\I According to compressive sensing theory, we might exploit the sparsity to reduce complexity of estimation procedure.
 }
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Compressive Sensing}
+{
+\blank [big]
+\externalfigure [compressive-sensing.png] [factor=fit]
+
+\I The signal as shown in is not sparse in the basis on the left, but it is in the basis on the right.
+
+\I Thus, the recovery from just a few components are able to approximate it well.
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Work on Compressive Channel Sensing}
+{
+\I Bajwa, Haupt, Sayeed, and Nowak (2010): MIMO, linear invariant system, using Dantzig Selector (DS)
+
+\I Alkhateeb, Ayach, Leus, Heath (2014): mm-wave channel, adaptive training algorithm for given codebook
+
+\I Alkhateeb, Leus, and Heath (2015): single path mm-wave channel, all-phase-shifter beamformers,
+using Orthogonal Matching Pursuit (OMP)
+
+\I Lee, Lee, and Yong (2016): MIMO mm-wave channel, hybrid beamforming, using Orthogonal Matching Pursuit (OMP)
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Our Contribution}
+{
+\I Consider MIMO mm-wave channel, with hybrid beamforming
+
+\I Use a modified DS (convex programming), instead of OMP (greedy algorithm)
+
+\I Illustrate by experiments that DS has better performance
+
+\I Give an analysis of error norm and successful probability in terms of system parameters
+}
+
 

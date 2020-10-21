@@ -1,7 +1,8 @@
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Linear Programming}
 {
-\I Set \m {\V {1} = \IP {1, \dots, 1}}.
+\I DS is equivalent to a linear program, which allows more efficient convex programming methods to be used.
+
 \I Calculate
 \Disp {
 \NC \Hat {\V {g}}, \Hat {\V {f}}
@@ -16,188 +17,109 @@
 \I Output \m {\Hat {\M {H}} \LA \M {K} \Rm {vec}^{-1} \SB {\Hat {g}} \M {K}^\Adj}
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Two-Stage Estimation (1/2)}
+\Frame {Two-Stage Estimation}
 {
-\I Denote
-\Disp {
-\NC N_0 = \NC 2 N_H^2 \NR
-\NC N_1 = \NC 2 N_H \NR
-\NC N_2 = \NC 2 \lfloor \Rm {min} \SB {L \log \SB {N_H^2}, N_H} \rfloor \NR
-}
+\I Candès and Tao suggests a two stage version may be used to improve precision.
 
-\I Apply DS to \m {\V {y}, \M {P}} to get \m {\Hat {\V {g}}_0}.
+\I Choose \m {N_0 = 2 N_H^2, N_2 = \lfloor 4 \log N_H \rfloor, N_1 = \lfloor \R {N_0 N_2} \rfloor}
 
-\I Choose the \m {N_1} largest component of \m {\Hat {\V {g}}_0} and call it \m {\V {g}_1}.
-Choose corresponding columns of \m {\M {P}} and call it \m {\M {P} _1}.
-}
-% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Two-Stage Estimation (2/2)}
-{
-\I Apply DS to \m {\V {y}, \M {P} _1} to get \m {\Hat {\V {g}}_1}.
+\I Apply DS to \m {\V {y}, \M {P}} to get \m {\Hat {\V {g}}_0}, and take the \m {N_1} largest component of \m {\Hat {\V {g}}_0} to be \m {\V {g}_1}, and corresponding columns of \m {\M {P}} to be \m {\M {P} _1}.
 
-\I Choose the \m {N_2} largest component of \m {\Hat {\V {g}}_1} and call it \m {\V {g}_2}.
-Choose corresponding columns of \m {\M {P}_1} and call it \m {\M {P} _2}.
+\I Apply DS to \m {\V {y}, \M {P}_1} to get \m {\Hat {\V {g}}_1}, and take the \m {N_2} largest component of \m {\Hat {\V {g}}_1} and to be \m {\V {g}_2}, and corresponding columns of \m {\M {P}} to be \m {\M {P} _2}.
 
-\I Apply pseudoinverse (least square) to \m {\V {y}, \M {P} _2} to get \m {\Hat {\V {g}}_2}.
-
-\I Assign corresponding components of \m {\Hat {\V {g}}_2} in \m {\Hat {\V {g}}}, and pad \m {0} otherwise.
+\I Apply least square to \m {\V {y}, \M {P} _2} to get \m {\Hat {\V {g}}_2}, which corresponds to \m {\Hat {\V {g}}}.
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Performance Metric}
 {
-\I We call the following quantity \m {M} to be the efficiency, in view of approximate spectral efficiency:
-\I Denote \m {E := \Hat {H} - H}.
-Assume that
+\I We call the following quantity \m {\chi} efficiency, which is suggestive of the MIMO channel capacity.
+
+\I Denote \m {\M {E} = \Hat {\M {H}} - \M {H}}.
 \Disp {
-\NC \VNm {\RB {\M {H} + \M {E}} \RB {\M {H} + \M {E}} ^\Adj \V {x} - \M {H} \M {H} ^\Adj \V {x}} _2
-\lesssim 2 \VNm {\M {E}} _2 \VNm {\M {H}} _2 \VNm {\V {x}} \NR
+\NC \chi
+= \log \det \SB {\M {I} + \RB {\s + \F {2 \VNm {\M {E}} _2 \VNm {\M {H}} _2} {N_H ^{3/2}}} ^{-1} \M {H} \M {H} ^ \Adj} \NR
 }
-\I Then define
-\Disp {
-\NC M
-= \log \det \SB {I + \RB {\s + \F {2 \VNm {\M {E}} _2 \VNm {\M {H}} _2} {N_H ^{3/2}}} ^{-1} \M {H} \M {H} ^ \Adj} \NR
-}
+
+\I The theoretical efficiency \m {\chi _{\Rm {th}}} is defined by plugging in \m {\V {d}}.
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Theoretical Prediction}
+\Frame {Efficiency, \m {N_H=8}}
 {
-\I For the theoretical error norm,
-\Disp {
-\NC \log d_{\Rm {th}}
-\lesssim \NC \F {1} {2} \log L +\F {3} {2} \log \log N_H \NR
-}
-\I Then we may well define the theoretical efficiency to be
-\Disp {
-\NC \log \det \SB {I + \RB {\s + \F {2 d_{\Rm {th}} \VNm {\M {H}} _2} {N_H ^{3/2}}} ^{-1} \M {H} \M {H} ^ \Adj} \NR
-}
+\blank [big]
+\externalfigure [assorted-very-small-spectral.png] [factor=fit]
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Simulation Parameters}
-{
-\I Antennae number of channel \m {N_H = 12, 18, 24}
-\I Antennae number of analog stage \m {N_R = \lfloor \R {N_H N_Y} \rfloor}
-\I Antennae number of digital stage \m {N_Y = \lfloor N_H/3 \rfloor}
-\I Number of paths \m {L =3}
-\I Analog beamformer quantization grid: \m {16}
-\I How many noise standard deviation tried: \m {7}
-\I Solved by Python CVXPY
-}
-% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Repetition times}
-{
-\I Number of channels ...
-\I of each LS case: \m {64 \D 48}
-\I of each OMP case: \m {64 \D 24}
-\I of each Lasso case: \m {64 \D 2}
-\I of each DS case: \m {64 \D 1}
-}
-% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Assorted, Efficiency, \m {N_H=12}}
+\Frame {Efficiency, \m {N_H=12}}
 {
 \blank [big]
 \externalfigure [assorted-small-spectral.png] [factor=fit]
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Assorted, Efficiency, \m {N_H=18}}
+\Frame {Efficiency, \m {N_H=16}}
 {
 \blank [big]
 \externalfigure [assorted-medium-spectral.png] [factor=fit]
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Assorted, Efficiency, \m {N_H=24}}
+\Frame {Efficiency, \m {N_H=20}}
 {
 \blank [big]
 \externalfigure [assorted-big-spectral.png] [factor=fit]
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Assorted, Time Taken, \m {N_H=18}}
+\Frame {Efficiency, \m {N_H=24}}
+{
+\blank [big]
+\externalfigure [assorted-very-big-spectral.png] [factor=fit]
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Time, \m {N_H=16}}
 {
 \blank [big]
 \externalfigure [assorted-medium-time.png] [factor=fit]
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {DS, Efficiency, \m {N_H=12}}
-{
-\blank [big]
-\externalfigure [ddss-small-spectral.png] [factor=fit]
-}
-% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {DS, Efficiency, \m {N_H=18}}
-{
-\blank [big]
-\externalfigure [ddss-medium-spectral.png] [factor=fit]
-}
-% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {DS, Efficiency, \m {N_H=24}}
-{
-\blank [big]
-\externalfigure [ddss-big-spectral.png] [factor=fit]
-}
-% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {DS, Time Taken, \m {N_H=18}}
-{
-\blank [big]
-\externalfigure [ddss-medium-time.png] [factor=fit]
-}
-% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {OMP, Efficiency, \m {N_H=12}}
-{
-\blank [big]
-\externalfigure [oommpp-small-spectral.png] [factor=fit]
-}
-% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {OMP, Efficiency, \m {N_H=18}}
-{
-\blank [big]
-\externalfigure [oommpp-medium-spectral.png] [factor=fit]
-}
-% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {OMP, Efficiency, \m {N_H=24}}
-{
-\blank [big]
-\externalfigure [oommpp-big-spectral.png] [factor=fit]
-}
-% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {OMP, Time Taken, \m {N_H=18}}
-{
-\blank [big]
-\externalfigure [oommpp-medium-time.png] [factor=fit]
-}
-% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Discussion}
 {
-\I DS wins with a narrow margin for smaller \m {\s}, but it gets poorer for larger \m {\s}.
+\I DS wins narrowly for smaller \m {\s}, but deteriorates for larger \m {\s}.
 
-\I \m {\eta _{\Ss {th}}} is in correct order of magnitude for larger \m {\s}, but an overestimation for smaller \m {\s}.
+\I \m {\chi _{\Ss {th}}} is accurate for larger \m {\s}, but overestimates for smaller \m {\s}.
 
-\I The performance of DS seems not to be sensitive to \m {\g _{\Ss {DS}}}.
+\I The weaker constraint on sparsity conpromises DS's performance.
 
-\I DS has very high complexity compared to OMP, and similar complexity with Lasso.
+\I DS has complexity much higher than OMP, but similar to Lasso.
 
-\I The requirement that \m {N_H \gg N_R \gg N_Y} is demanding, and \m {2N_H^2} grows fast.
+\I As \m {2N_H^2} grows fast, DS becomes less feasible.
+
+\I The two-stage version is not always better.
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Complexity (1/2)}
+\Frame {A Successful Case of Estimation}
 {
-\I The number of Newton steps in the course of optimization is \m {\MC {O} \SB {\VNm {\V {g} _0 - \V {g} ^\star} _1}}, where \m {\VNm {\V {g} _0} _1} is the starting value, \m {\V {g} ^\star} the true value.
-Assume that is \m {\MC {O} \SB {\VNm {\M {P} ^\Adj \V {z}} _1}}, which is at most \m {\MC {O} \SB {N_H^2}}.
+\blank [big]
+\externalfigure [scatter-ddss-success.png] [wfactor=150]
 
-\I Every Newton step requires a matrix inversion of dimension \m {N_H^2}, with at least \m {\MC {O} \SB {N_H^4}}.
-
-\I This gives overall complexity to be \m {\MC {O} \SB {N_H^6}}.
+\I When DS succeeds: soft thresholding (green) correctly guesses the true values of non-zero positions (black), and refines the estimated value (orange)
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Complexity (2/2)}
+\Frame {A Failed Case of Estimation}
 {
-\I Alternatively, Lasso (least absolute shrinkage and selection operator) has similar complexity with Least Angle regression, which has complexity \m {\MC {O} \SB {N_H^6}}.
+\blank [big]
+\externalfigure [scatter-ddss-failure.png] [wfactor=150]
 
-\I Since DS and Lasso have similar form, we expect DS has similar complexity.
+\I When DS fails: soft thresholding (green) does not correctly guess the true values of non-zero positions (black), and the estimated value (orange) becomes worse
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Complexity}
+{
+\I The number of Newton steps is about \m {\MC {O} \SB {\VNm {\V {g} _0 - \V {g} ^\star} _1}}, where \m {\VNm {\V {g} _0} _1} is the starting value, \m {\V {g} ^\star} the true value.
+Assume that is \m {\MC {O} \SB {\VNm {\M {P} ^\Adj \V {z}} _1}}, or \m {\MC {O} \SB {N_H^2}}.
 
-\I Clearly, the complexity of OMP is at most \m {\MC {O} \SB {N_H^2}}, much smaller than DS.
+\I Every Newton step requires a matrix inversion of dimension \m {2 N_H^2}, with complexity \m {\MC {O} \SB {N_H^4}}, giving overall complexity \m {\MC {O} \SB {N_H^6}}.
+
+\I Complexity of Lasso can be similarly argued to be \m {\MC {O} \SB {N_H^6}}.
+
+\I Clearly, OMP has complexity \m {\MC {O} \SB {N_H^2}}, much smaller than DS.
 }
 
 
