@@ -346,10 +346,12 @@ Yet another threshold used for the remainder norm used in OMP program, \m {\h_{\
 For its suggested values, see \cite [CaW11].
 We take \m {2 \R {\log N_H}} for infinity norm constraint, \m {\R {3 N_Y}} for 2-norm constraint.
 
+Each data point is repeated for 24 times, and taken average.
+
 \startsubsection [title={Performance Metric}]
 
 
-Lee, Gil, and Lee \cite [LGL16] proposed the proformance metric
+We use the performance metric proposed in Lee, Gil, and Lee \cite [LGL16],
 \DispNum {h:h:lo:vg} {
 \NC \chi'
 =\NC \RB {
@@ -357,127 +359,127 @@ Lee, Gil, and Lee \cite [LGL16] proposed the proformance metric
    {\log_2 {\VNm {\V {h}}_2}}
 } _{\Ss {avg}}, \NR
 }
-However, we find that when \m {\VNm {\V {h}}_2} is small, this can blow up.
-
-We propose another metric that is suggestive of spectral efficiency.
-Indeed, since we have not specified the channel, we can't logically use any particular channel capacity expression.
-But we may still adopt the MIMO capacity with perfect CSI, with an estimated quantity for SNR.
-Denote \m {\M {E} = \Hat {\M {H}} - \M {H}}.
-Assume that
-\Disp {
-\NC \VNm {\RB {\M {H} + \M {E}} \RB {\M {H} + \M {E}} ^\Adj \V {x} - \M {H} \M {H} ^\Adj \V {x}} _2
-\lesssim 2 \VNm {\M {E}} _2 \VNm {\M {H}} _2 \VNm {\V {x}} \NR
-}
-
-Then \m {2 \VNm {\M {E}} _2 \VNm {\M {H}} _2 \VNm {\V {x}}} can be considered as part of the noise.
-In view of the MIMO channel, \m {\s} has to be multiplied by factor \m {\R {N_H}}, and \m {\VNm {\M {H}} _2} and \m {\VNm {\M {E}} _2} both divided by factor \m {\R {N_H}}.
-Therefore, we define the quantity
-\Disp {
-\NC \chi
-= \log \det \SB {\M {I} + \RB {\s + \F {2 \VNm {\M {E}} _2 \VNm {\M {H}} _2} {N_H ^{3/2}}} ^{-1} \M {H} \M {H} ^ \Adj} \NR
-}
-
-Each data point is repeated for 24 times, and taken average.
+However, we note that when \m {\VNm {\V {h}}_2} is small, this can blow up.
 
 \stopsubsection
 
-\page [yes]
-
 \startsubsection [title={Assorted Plots}]
 
-For \m {N_H = 12}, noise vs spectral efficiency,
+In the following, we plot the reciprocal of noise level vs relative error norm, for \m {N_H = 8, 12, 16, 20, 24}, respectively.
+Plots 1 to 5 have \m {N_H = 3 N_Y}, and the plots 6 to 10 has \m {N_H = 2 N_Y}.
 %
 \blank [big]
-\externalfigure [assorted-very-small-spectral.png] [wfactor=fit, hfactor=fit]
+%\externalfigure [assorted-wide-very-small-error.png] [wfactor=fit, hfactor=fit]
 %
 \blank [big]
-\externalfigure [assorted-small-spectral.png] [wfactor=fit, hfactor=fit]
+%\externalfigure [assorted-wide-small-error.png] [wfactor=fit, hfactor=fit]
+%
+\blank [big]
+%\externalfigure [assorted-wide-medium-error.png] [wfactor=fit, hfactor=fit]
+%
+\blank [big]
+%\externalfigure [assorted-wide-big-error.png] [wfactor=fit, hfactor=fit]
+%
+\blank [big]
+\externalfigure [assorted-wide-very-big-error.png] [wfactor=fit, hfactor=fit]
+%
+\blank [big]
+%\externalfigure [assorted-narrow-very-small-error.png] [wfactor=fit, hfactor=fit]
+%
+\blank [big]
+\externalfigure [assorted-narrow-small-error.png] [wfactor=fit, hfactor=fit]
+%
+\blank [big]
+%\externalfigure [assorted-narrow-medium-error.png] [wfactor=fit, hfactor=fit]
+%
+\blank [big]
+\externalfigure [assorted-narrow-big-error.png] [wfactor=fit, hfactor=fit]
+%
+\blank [big]
+\externalfigure [assorted-narrow-very-big-error.png] [wfactor=fit, hfactor=fit]
 
-For \m {N_H = 18}, noise vs spectral efficiency,
-%
-\blank [big]
-\externalfigure [assorted-medium-spectral.png] [wfactor=fit, hfactor=fit]
-
-For \m {N_H = 24}, noise vs spectral efficiency,
-%
-\blank [big]
-\externalfigure [assorted-big-spectral.png] [wfactor=fit, hfactor=fit]
-%
-\blank [big]
-\externalfigure [assorted-very-big-spectral.png] [wfactor=fit, hfactor=fit]
-
-For the plot of noise-to-signal vs time taken, we attach only one with \m {N_H = 18}, as an example.
+As of the plot of time taken in minutes, we give only one of \m {N_H = 18}, as an example.
 %
 \blank [big]
 \externalfigure [assorted-medium-time.png] [wfactor=fit, hfactor=fit]
 
 \stopsubsection
 
-\page [yes]
+\startsubsection [title={Plots of DS only}]
 
-\startsubsection [title={Plots of Dantzig Selector}]
+Again, we plot the reciprocal of noise level vs relative error norm, for \m {N_H = 8, 12, 16, 20, 24}, respectively, and \m {N_H = 3 N_Y} for each of them.
+Moreover, the bound of error norm suggested in chapter 3 is plotted.
 
-For \m {N_H = 12}, noise vs spectral efficiency,
 %
 \blank [big]
-\externalfigure [ddss-small-spectral.png] [wfactor=fit, hfactor=fit]
-
-For \m {N_H = 18}, noise vs spectral efficiency,
+%\externalfigure [ddss-very-small-error.png] [wfactor=fit, hfactor=fit]
 %
 \blank [big]
-\externalfigure [ddss-medium-spectral.png] [wfactor=fit, hfactor=fit]
-
-For \m {N_H = 24}, noise vs spectral efficiency,
+\externalfigure [ddss-small-error.png] [wfactor=fit, hfactor=fit]
 %
 \blank [big]
-\externalfigure [ddss-big-spectral.png] [wfactor=fit, hfactor=fit]
-
-For \m {N_H = 18}, noise vs time taken,
+\externalfigure [ddss-medium-error.png] [wfactor=fit, hfactor=fit]
 %
 \blank [big]
-\externalfigure [ddss-medium-time.png] [wfactor=fit, hfactor=fit]
+%\externalfigure [ddss-big-error.png] [wfactor=fit, hfactor=fit]
+%
+\blank [big]
+%\externalfigure [ddss-very-big-error.png] [wfactor=fit, hfactor=fit]
+%
+As of the plot of time taken in minutes, we give only one of \m {N_H = 16}, as an example.
+%
+\blank [big]
+\externalfigure [assorted-medium-time.png] [wfactor=fit, hfactor=fit]
 
 \stopsubsection
 
-\page [yes]
+\startsubsection [title={Plots of OMP only}]
 
-\startsubsection [title={Plots of Orthogonal Matching Pursuit}]
+Again, we plot the reciprocal of noise level vs relative error norm, for \m {N_H = 8, 12, 16, 20, 24}, respectively, and \m {N_H = 3 N_Y} for each of them.
 
-For \m {N_H = 12}, noise vs spectral efficiency,
 %
 \blank [big]
-\externalfigure [oommpp-small-spectral.png] [wfactor=fit, hfactor=fit]
-
-For \m {N_H = 18}, noise vs spectral efficiency,
+%\externalfigure [oommpp-very-small-error.png] [wfactor=fit, hfactor=fit]
 %
 \blank [big]
-\externalfigure [oommpp-medium-spectral.png] [wfactor=fit, hfactor=fit]
-
-For \m {N_H = 24}, noise vs spectral efficiency,
+%\externalfigure [oommpp-small-error.png] [wfactor=fit, hfactor=fit]
 %
 \blank [big]
-\externalfigure [oommpp-big-spectral.png] [wfactor=fit, hfactor=fit]
-
-For \m {N_H = 18}, noise vs time taken,
+\externalfigure [oommpp-medium-error.png] [wfactor=fit, hfactor=fit]
 %
 \blank [big]
-\externalfigure [oommpp-medium-time.png] [wfactor=fit, hfactor=fit]
+\externalfigure [oommpp-big-error.png] [wfactor=fit, hfactor=fit]
+%
+\blank [big]
+\externalfigure [oommpp-very-big-error.png] [wfactor=fit, hfactor=fit]
+%
+As of the plot of time taken in minutes, we give only one of \m {N_H = 16}, as an example.
+%
+\blank [big]
+\externalfigure [assorted-medium-time.png] [wfactor=fit, hfactor=fit]
 
 \stopsubsection
 
 \startsubsection [title={Discussion}]
 
-Reasonably, for all methods, a higher \m {\s} corresponds to lower \m {\chi}.
-For low noise, DS slightly but steadily outperforms other methods, but for high noise, DS degrades quickly.
+In the assorted plot, DS steadily outperforms other methods, and LS is worse than DS, and Lasso still worse, and OMP still worse.
+However, it is not clear how higher \m {\s} corresponds to lower error.
+It seems when \m {\s} is further increased near the leftmost of the figures, the error might also increase rapidly, but in that case, many methods give overflown values.
 
-Different values of threshold \m {\g_{\Rm {DS}}} does not seem matter much.
-It appears \m {\g_{\Rm {DS}}} is usually best chosen in the order of magnitude of \m {\s}, which is intuitive.
+Varying thresholds of DS (namely \m {\g_{\Rm {DS}}}) and OMP (namely \m {\h_{\Rm {OMP}}}) does not have significant effect on the output, and from the cases simulated, there can be no conclusive answer.
+Nevertheless, it appears \m {\g_{\Rm {DS}}} is usually best chosen in the order of magnitude of \m {\s}, which is intuitive.
+Sometimes the iteration stablizes much earlier than is constrained by maximum iteration number.
 
-For OMP, interestingly, different values of \m {\h_{\Rm {OMP}}} do not seem to affect much to performance, and often the iteration stablizes much earlier than is constrained by maximum iteration number.
-Lasso and Least Square usually has substantially lower \m {\chi} than OMP.
+Our suggested bound, unfortunately, does not agree the simulated error of DS, and the matter remains to be investigated in the future.
+As pointed above, the simulated error is very constant around 1, so the suggested bound is an overestimation when \m {\s} is high and underestimation when \m {\s} is low.
+A possible explanation is that the non-sparsity of \m {\V {g}} undermines the analysis in chapter 3 (despite our effort to estimate), and thus the validity of performance guarantee of DS becomes more dubious.
 
-The theory bound of DS is an overestimation for low noise, but underestimation for high noise.
-This suggest our bound is correct but not tight.
+\blank [big]
+\externalfigure [scatter-ddss-failure.png] [wfactor=300]
+
+To give some idea when DS works or not, the figure above illustrates a case where DS failed.
+We see that the soft thresholding policy does rule out those entries which are too small and gives a reasonable guess of the positions of non-zero entries.
+Subsequent application of DS on the wrong index set fails, as a result.
 
 \blank [big]
 \externalfigure [scatter-ddss-success.png] [wfactor=300]
@@ -486,13 +488,6 @@ The figure above illustrates a case where DS succeeded.
 The true values of \m {\M {H}} entries are ordered with respect to absolute value, and corresponding estimated value in the first and second stage, are plotted agains the true values.
 We see that the soft thresholding policy does rule out those entries which are too small and gives a reasonable guess of the positions of non-zero entries.
 The subsequent application of DS on this smaller index set refines the estimated values.
-
-\blank [big]
-\externalfigure [scatter-ddss-failure.png] [wfactor=300]
-
-The figure above illustrates a case where DS succeeded.
-We see that the soft thresholding policy does rule out those entries which are too small and gives a reasonable guess of the positions of non-zero entries.
-Subsequent application of DS on the wrong index set fails, as a result.
 
 \stopsection
 
