@@ -315,12 +315,16 @@ The noise-to-signal ratio would be
 \NC 10^{-4} \F {1} {0.25} \R {\F {5 \D 10^9 \D 4 \pi \D 1500} {3 \D 10^8}}
 =\NC 0.224 \NR
 }
-In the following simulation, we use dimensionless noise-to-signal level \\ \m {\s = 2^{-4}, 2^{-3.5}, 2^{-3}, 2^{-2.5}, 2^{-2}, 2^{-1.5}, 2^{-2}}.
+In the following simulation, we use dimensionless noise-to-signal level \m {\s}.
+Its value start with \m {2^{-4}}, and increase by multiplying 2.
+For the plot of assorted methods, 8 values of \m {\s} are used; for the plots of only OMP, 9 values are used; for the plots of only OMP, 6 values are used.
 
-We do three series of experiments, which are of size from small to large.
-In the following experiments, we take respectively \m {N_H} to be \m {8, 12, 16, 20, 24}.
-\m {N_Y} is set to be \m {\lfloor \log N_H \rfloor}, giving \m {2, 2, 3, 3, 3}.
-\m {N_R} to be \m {\lfloor \RB {\log N_H}^2 \rfloor}, giving \m {4, 6, 7, 9, 10}.
+We take \m {N_H} to be \m {8, 12, 16, 20, 24}, respectively.
+For assorted plots, two series of plots are simulated.
+One series for \m {N_Y = \lfloor N_H /2 \rfloor}, giving \m {4, 6, 8, 10, 12};
+one series for \m {N_Y = \lfloor N_H /3 \rfloor}, giving \m {3, 4, 5, 7, 8}.
+For OMP and DS only plots, we just choose \m {N_Y = \lfloor N_H /3 \rfloor}.
+On the other hand, \m {N_R} always set to be \m {\lfloor \RB {\log N_H}^2 \rfloor}.
 Unfortunately, this is very far from achieving the design values \Rf {N:B:4l:H2}, and this may be part of the reason the results is not as successful as expected.
 
 Other parameters are fixed in these experiments; 
@@ -342,11 +346,11 @@ For comparison, \m {\g_{\Rm {Lasso}} = 2 \R {\log N_H}} too.
 For OMP, suggested values in Cai \& Wang (2011) is illuminating, where they (in their Theorem 7) considered \m {\ell _2}-norm, and Theorem 8, \m {\ell _\infty}-norm.
 We make simplification and set respectively \m {\R {3} N_Y} and \m {2 \R {\log N_H}}
 
-Yet another threshold used for the remainder norm used in OMP program, \m {\h_{\Rm {OMP}}}.
-For its suggested values, see \cite [CaW11].
-We take \m {2 \R {\log N_H}} for infinity norm constraint, \m {\R {3 N_Y}} for 2-norm constraint.
+The threshold used for the remainder norm used in OMP program, \m {\h_{\Rm {OMP}}}, is suggested in \cite [CaW11].
+We take \m {2 \R {\log N_H}} for \m {\infty}-norm constraint, \m {\R {3 N_Y}} for 2-norm constraint.
 
-Each data point is repeated for 24 times, and taken average.
+Each data point for DS and Lasso is repeated for 256 times, and taken average.
+Other methods are repeated for more times: OMP for \m {4 \D 256} times, LS for \m {12 \D 256} times.
 
 \startsubsection [title={Performance Metric}]
 
@@ -408,7 +412,7 @@ As of the plot of time taken in minutes, we give only one of \m {N_H = 18}, as a
 \startsubsection [title={Plots of DS only}]
 
 Again, we plot the reciprocal of noise level vs relative error norm, for \m {N_H = 8, 12, 16, 20, 24}, respectively, and \m {N_H = 3 N_Y} for each of them.
-Moreover, the bound of error norm suggested in chapter 3 is plotted.
+Here, the bound \m {\T {\chi}} is shown.
 
 %
 \blank [big]
@@ -470,8 +474,8 @@ Varying thresholds of DS (namely \m {\g_{\Rm {DS}}}) and OMP (namely \m {\h_{\Rm
 Nevertheless, it appears \m {\g_{\Rm {DS}}} is usually best chosen in the order of magnitude of \m {\s}, which is intuitive.
 Sometimes the iteration stablizes much earlier than is constrained by maximum iteration number.
 
-Our suggested bound, unfortunately, does not agree the simulated error of DS, and the matter remains to be investigated in the future.
-As pointed above, the simulated error is very constant around 1, so the suggested bound is an overestimation when \m {\s} is high and underestimation when \m {\s} is low.
+Our \m {\T {\chi}}, unfortunately, does not agree the simulated error of DS, and the matter remains to be investigated in the future.
+As pointed above, the simulated error is very constant around 1, so \m {\T {\chi}} is an overestimation when \m {\s} is high and underestimation when \m {\s} is low.
 A possible explanation is that the non-sparsity of \m {\V {g}} undermines the analysis in chapter 3 (despite our effort to estimate), and thus the validity of performance guarantee of DS becomes more dubious.
 
 \blank [big]

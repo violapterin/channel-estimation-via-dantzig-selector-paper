@@ -17,19 +17,6 @@
 \I Output \m {\Hat {\M {H}} \LA \M {K} \Rm {vec}^{-1} \SB {\Hat {g}} \M {K}^\Adj}
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Two-Stage Estimation}
-{
-\I Candès and Tao suggests a two stage version may be used to improve precision.
-
-\I Choose \m {N_0 = 2 N_H^2, N_2 = \lfloor 4 \log N_H \rfloor, N_1 = \lfloor \R {N_0 N_2} \rfloor}
-
-\I Apply DS to \m {\V {y}, \M {P}} to get \m {\Hat {\V {g}}_0}, and take the \m {N_1} largest component of \m {\Hat {\V {g}}_0} to be \m {\V {g}_1}, and corresponding columns of \m {\M {P}} to be \m {\M {P} _1}.
-
-\I Apply DS to \m {\V {y}, \M {P}_1} to get \m {\Hat {\V {g}}_1}, and take the \m {N_2} largest component of \m {\Hat {\V {g}}_1} and to be \m {\V {g}_2}, and corresponding columns of \m {\M {P}} to be \m {\M {P} _2}.
-
-\I Apply least square to \m {\V {y}, \M {P} _2} to get \m {\Hat {\V {g}}_2}, which corresponds to \m {\Hat {\V {g}}}.
-}
-% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Performance Metric}
 {
 \I We call the following quantity \m {\chi} efficiency, which is suggestive of the MIMO channel capacity.
@@ -43,55 +30,47 @@
 \I The theoretical efficiency \m {\chi _{\Rm {th}}} is defined by plugging in \m {\V {d}}.
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Efficiency, \m {N_H=8}}
+\Frame {\m {1/\s} vs \m {\chi}, assorted, \m {N_H=24=2N_Y}}
 {
 \blank [big]
-\externalfigure [assorted-very-small-spectral.png] [factor=fit]
+\externalfigure [assorted-narrow-very-big-error.png] [width=11cm]
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Efficiency, \m {N_H=12}}
+\Frame {\m {1/\s} vs \m {\chi}, assorted, \m {N_H=24=3N_Y}}
 {
 \blank [big]
-\externalfigure [assorted-small-spectral.png] [factor=fit]
+\externalfigure [assorted-wide-very-big-error.png] [width=11cm]
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Efficiency, \m {N_H=16}}
+\Frame {\m {1/\s} vs \m {\chi}, OMP only, \m {N_H=24=3N_Y}}
 {
 \blank [big]
-\externalfigure [assorted-medium-spectral.png] [factor=fit]
+\externalfigure [oommpp-medium-error.png] [width=11cm]
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Efficiency, \m {N_H=20}}
+\Frame {\m {1/\s} vs \m {\chi}, DS only, \m {N_H=24=3N_Y}}
 {
 \blank [big]
-\externalfigure [assorted-big-spectral.png] [factor=fit]
+\externalfigure [ddss-medium-error.png] [width=11cm]
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Efficiency, \m {N_H=24}}
+\Frame {Time, assorted, \m {N_H=16}}
 {
 \blank [big]
-\externalfigure [assorted-very-big-spectral.png] [factor=fit]
-}
-% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Time, \m {N_H=16}}
-{
-\blank [big]
-\externalfigure [assorted-medium-time.png] [factor=fit]
+\externalfigure [assorted-medium-time.png] [width=11cm]
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Discussion}
 {
-\I DS wins narrowly for smaller \m {\s}, but deteriorates for larger \m {\s}.
+\I DS wins other method within the range drawn.
 
-\I \m {\chi _{\Ss {th}}} is accurate for larger \m {\s}, but overestimates for smaller \m {\s}.
+\I Simulated \m {\chi} does not show trend that estimated \m {\T {\chi}} predicts.
 
-\I The weaker constraint on sparsity conpromises DS's performance.
+\I The weaker constraint on sparsity might have conpromised DS's performance.
 
 \I DS has complexity much higher than OMP, but similar to Lasso.
 
 \I As \m {2N_H^2} grows fast, DS becomes less feasible.
-
-\I The two-stage version is not always better.
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {A Successful Case of Estimation}
