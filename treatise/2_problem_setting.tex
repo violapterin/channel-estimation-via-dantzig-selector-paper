@@ -1,12 +1,12 @@
-\startchapter [title={Problem Setting}]
+\startchapter [title={Problem setting}]
 
-\startsection [title={Channel Model}]
+\startsection [title={Channel model}]
 
 We restrict our consideration to the uniform linear array, which can be modeled as
 %
 \DispNum {a:y':VC:nh} {
 \NC \V {a} \SB {\psi'}
-\in \NC \MB {V} _\MB {C} \SB {N_H} \NR
+\in \NC \MB {C} ^ {N_H} \NR
 %
 \NC \V {a} \SB {\psi'}
 = \NC \F {1} {\R {N_H}} \sum_{n_h=0}^{N_H-1} \Ss {e} ^{\Ss {i} n_h \psi'} \V {u} _{n_h} \NR
@@ -47,7 +47,7 @@ to get a simpler form
 
 \stopsection
 
-\startsection [title={System Model}]
+\startsection [title={System model}]
 
 \externalfigure [system.png] [wfactor=fit, hfactor=fit]
 
@@ -171,7 +171,7 @@ As we have motivated in previous sections, we want to use DS by considering spar
 However, there is no guarantee, though, that \m {\V {h}} will be sparse.
 
 \stopsection
-\startsection [title={The Angular Space}]
+\startsection [title={Angular space}]
 
 Introduce the discrete Fourier transform matrix \m {\M {K}} defined to be
 %
@@ -223,7 +223,7 @@ And accordingly
 \DispNum {g:g:ve:Nh} {
 \NC \V {g}
 := \NC \Rm {vec} \SB {\M {G}}
-\in \MB {M} _{\MB {C}} \SB {N_H^2} \NR
+\in \MB {C} ^ {N_H \D N_H} \NR
 }
 %
 Then
@@ -234,7 +234,7 @@ Then
 }
 
 \stopsection
-\startsection [title={Proposed Method}]
+\startsection [title={Proposed method}]
 
 If so, our program reads
 

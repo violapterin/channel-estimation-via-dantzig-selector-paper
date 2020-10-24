@@ -1,6 +1,6 @@
 \startchapter [title={Introduction}]
 
-\startsection [title={Background: Estimation of MIMO Channel}]
+\startsection [title={Estimation of MIMO channel}]
 
 Multiple-input multiple-output (MIMO) communication system will be part of the 5G specification (Rappaport et.\ al.\ \cite [RSM13]).
 With a large number of antennae on both transmitter and receiver, MIMO is expected to provide a large signal gain.
@@ -15,7 +15,7 @@ Consequently, conventional training-based algorithms now have large time and spa
 
 \stopsection
 
-\startsection [title={Compressive Sensing}]
+\startsection [title={Compressive sensing}]
 
 Indeed, the estimation of MIMO channel amounts to determining all parameters of the channel, which is a big square matrix of dimension same as number of antennae.
 Fortunately, physical evidence has suggested that mm-wave channel are poor in scattering \cite [ALS14], reducing the number of paths, and thus the degree of freedom.
@@ -25,7 +25,13 @@ Generally speaking, it is a technique for reconstructing a underdetermined linea
 \blank [big]
 \externalfigure [compressive-sensing.png] [wfactor=fit, hfactor=fit]
 
-A series of investigation started when Candès and Tao \cite [Can05] noted in various statsitical applications that the number of model parameters \m {N_p \in \MB {N}} is much larger than the number of measurements \m {N_m \in \MB {N}}, that is,
+The figure above shows the generic situation in which a signal is ``crowded'' in the given basis, but is ``sparse'' in another basis.
+(Wikimedia Commons, \Uurrll {https://commons.wikimedia.org/wiki/File:Orthogonal_Matching_Pursuit.gif})
+In the given basis, more measurements are required to recover the signal, while fewer suffice in the sparse basis.
+But, even if we are guaranteed a sparse basis exists, it is still a nontrivial undertaking to construct it.
+
+A series of investigation started when Candès and Tao \cite [Can05].
+Let us say the number of model parameters \m {N_p \in \MB {N}} is much larger than the number of measurements \m {N_m \in \MB {N}}, that is,
 %
 \DispNum {N:p:Nm:Nm} {
 \NC N_p \gg \NC N_m \NR
@@ -53,9 +59,6 @@ with
 \DispNum {A:A:s::s:} {
 \NC \Nm {\MS {A}} \leq \NC s. \NR
 }
-A more common situation is that some signals are not sparse in the original basis, but there exists a certain basis on which the signal is sparse, though constructing such bases is another undertaking.
-(Figure: a signal becomes sparse after transformation of basis.
-Retrived from Wikimedia Commons, \Uurrll {https://commons.wikimedia.org/wiki/File:Orthogonal_Matching_Pursuit.gif})
 
 Candès and Tao showed that (\It {ibid}), in the noiseless case, a \m {\ell_1}-minimization program covers the \m {N_m}-dimensional signal, with fewer than \m {N_p} measurement, under overwhelming probability.
 
@@ -227,7 +230,7 @@ Cai and Wang \cite [CaW11] extends the investigation to DS and other convex prog
 
 \stopsection
 
-\startsection [title={Motivation and Contribution}]
+\startsection [title={Contribution}]
 
 From above we note that work on channel estimation seems to favored OMP for its low complexity.
 One notable drawback of OMP, as pointed out by \cite [GYG18], is that the quantized angle of the sensing matrix used dos not necessarily match the true ones.

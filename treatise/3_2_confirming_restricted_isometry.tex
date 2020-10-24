@@ -1,6 +1,6 @@
-\startsection [title={Restricted Isometry of Effective Beamformer}]
+\startsection [title={Restricted isometry of effective beamformer}]
 
-\startsubsection [title={Design of Beamformer Matrices}]
+\startsubsection [title={Design of beamformer matrices}]
 
 Our plan is setting the four precoder matrices to be i.i.d.\ random matrix, hoping that the resulting \m {P} has RIP.
 
@@ -26,7 +26,7 @@ That does sound somehow plausible, considering the Normal entries of \m {\M {F} 
 
 \stopsubsection
 
-\startsubsection [title={Operator Norm of Digital Beamformers}]
+\startsubsection [title={Operator norm of digital beamformers}]
 
 To start, use \m {\chi _{i,j}} to denote Complex Standard Normal random variables, and to simplify notation, let them be independent if they have different arguments.
 With this,
@@ -73,7 +73,7 @@ holds for probability \m {p}, with
 
 \stopsubsection
 
-\startsubsection [title={Operator Norm of Analog Beamformers}]
+\startsubsection [title={Operator norm of analog beamformers}]
 
 Here, we consult Haviv and Regev, ``The restricted isometry property of subsampled Fourier matrices'' collected in \cite [KlM17].
 We need their Thm.\ 4.5; it gives a RIP guarantee w.r.t.\ \m {\d_s}, and probability lower bound, for DFT submatrix.
@@ -111,7 +111,7 @@ Then \m {\M {F}_R} (resp.\ \m {\M {W} _R}) has \m {\d_s}-RIP for probability \m 
 
 \stopsubsection
 
-\startsubsection [title={Confirming the Restricted Isometry}]
+\startsubsection [title={Confirming the restricted isometry}]
 
 So, how do we relate RIP of \m {\M {F} _R ^\Tr}, \m {\M {F} _B ^\Tr}, \m {\M {W} _R}, and \m {\M {W} _B} to that of \m {\M {P}}?
 Notice, by the nature of operator norm,

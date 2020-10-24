@@ -17,7 +17,7 @@ Fortunately, they have briefly pointed out, complex DS can be recast as an linea
 For brevity we shall represent complex vector and matrices by real ones, comprising of its real an imaginary parts.
 For \m {\V {x} \in \MB {C} ^{M}}, define the real representation \m {\MS {R} \SB {\V {x}}} of \m {\V {x}} to be
 %
-\DispNum {R-x-R2-M1} {
+\DispNum {R:x:R2:M1} {
 \NC \MS {R} \SB {\V {x}}
 \in \NC \MB {R} ^{2M} \NR
 \NC \MS {R} \SB {\V {x}} _{\SB {m}}
@@ -31,7 +31,7 @@ For \m {\V {x} \in \MB {C} ^{M}}, define the real representation \m {\MS {R} \SB
 %
 The injectivity is obvious, and we may define \m {\MS {R} ^{-1}} so that
 %
-\DispNum {R-1-x--x-} {
+\DispNum {R:1:x::x:} {
 \NC \MS {R} ^{-1} \SB {\MS {R} \SB {\V {x}}}
 =\NC \V {x} \NR
 }
@@ -39,7 +39,7 @@ The injectivity is obvious, and we may define \m {\MS {R} ^{-1}} so that
 Accordingly, the following generalization to complex matrices is valid, once we call the ring representation of complex numbers.
 For \m {\M {A} \in \MB {C} ^{M_1 \D M_2}}, define real representation \m {\MS {R} \SB {\M {A}}} of \m {\M {A}} to be
 %
-\DispNum {R-A-R2-21} {
+\DispNum {R:A:R2:21} {
 \NC \MS {R} \SB {\M {A}}
 \in \NC \MB {R} ^{2M_1 \D 2M_2} \NR
 \NC \MS {R} \SB {\M {A}} _{\SB {m_1,m_2}} =
@@ -57,7 +57,7 @@ For \m {\M {A} \in \MB {C} ^{M_1 \D M_2}}, define real representation \m {\MS {R
 
 With these, we define
 %
-\DispNum {y---Ry-Ny} {
+\DispNum {y:::Ry:Ny} {
 \NC \T {\V {y}}
 = \NC \MS {R} \SB {\V {y}}
 \in \MB {R} ^{2 N_Y^2} \NR
@@ -81,14 +81,14 @@ With these, we define
 %
 such that, by construction,
 %
-\DispNum {y---Pg-gz} {
+\DispNum {y:::Pg:gz} {
 \NC \V {\T {y}}
 = \NC \M {\T {P}} \V {\T {g}} +\V {\T {z}} \NR
 }
 
 Furthermore, introduce the following matrices to identify the components where we want to take \m {\ell_2}-norm, in the manner similar to an indicator function.
 %
-\DispNum {u-h-RN-h1} {
+\DispNum {u:h:RN:h1} {
 \NC {\V {u}}_{n_h}
 \in \NC \MB {R} ^{N_H^2} \NR
 \NC \RB {\V {u}_{n_h}} _{\SB {n_h'}}
@@ -112,7 +112,7 @@ Furthermore, introduce the following matrices to identify the components where w
 And denote \m {\V {1}} to be the all-\m{1} vector for short, and \m {\V {0}} the all-\m{0} vector, whose dimension will be specified from context.
 Now, if we introduce vector \m{\V {m}}
 %
-\DispNum {m---RN-h1} {
+\DispNum {m:::RN:h1} {
 \NC \V {m} \in \NC \MB {R} ^{N_H^2} \NR
 \NC \V {m} \DB{n_h}
 = \NC \Nm{\V {g} \DB{n_h}} \NR
@@ -122,7 +122,7 @@ Now, if we introduce vector \m{\V {m}}
 %
 to denote the entrywise complex modulus of \m{\V {g}}, we see that the convex optimization now takes the form
 %
-\DispNum {g---mi-h1} {
+\DispNum {g:::mi:h1} {
 \NC \Hat {\T {\V {g}}}
 = \NC \startcases
 \NC \Min {\T {\V {g}}', \V {m}} \Q
@@ -144,7 +144,7 @@ to denote the entrywise complex modulus of \m{\V {g}}, we see that the convex op
 We shall see furthermore that the program can be cast into an SOCP.
 To make the point clearer, we rewrite the program just above into an extended block matrix form, by defining auxiliary variables as follows,
 %
-\DispNum {t---01-Nh} {
+\DispNum {t:t:01:Nh} {
 \NC \V {t}
 = \NC \startTheMatrix
 \NC \V {0} \NR
@@ -162,7 +162,7 @@ To make the point clearer, we rewrite the program just above into an extended bl
 %
 with
 %
-\DispNum {A-i-Ui-21} {
+\DispNum {A:i:Ui:21} {
 \NC \M {A}_i
 = \NC \startTheMatrix
 \NC \T {\M {U}}_{i}, \NC \M {0} \NR
@@ -189,7 +189,7 @@ with
 %
 and
 %
-\DispNum {A-i-Ui-21-"} {
+\DispNum {A:i:Ui:21:"} {
 \NC \M {A}_i
 = \NC \startTheMatrix
 \NC -\T {\M {U}}_{i - N_H^2} \T {\M {P}}^\Adj \T {\M {P}}, \NC \M {0} \NR
@@ -216,11 +216,11 @@ and
 {
 \startitemize[n]
 \item Input \m{\M {P} \in \MB {C} ^{ N_Y^2 \D N_H^2}}, \m{\V {y} \in \MB {C} ^{ N_Y^2}}, \m {\g_{\Rm {DS}} > 0}.
-\item Define \m{\V {t}, \V {x}, \M {A}_i, \V {b}_i, \V {c}_i, d_i} according to \Rf {t---01-Nh}, \Rf {A-i-Ui-21}, \Rf {A-i-Ui-21-"}.
+\item Define \m{\V {t}, \V {x}, \M {A}_i, \V {b}_i, \V {c}_i, d_i} according to \Rf {t:t:01:Nh}, \Rf {A:i:Ui:21}, \Rf {A:i:Ui:21:"}.
 
 \item Calculate
 %
-\DispNum {x---mi-h1} {
+\DispNum {x:::mi:h1} {
 \NC \Hat {\V {x}}
 \LA \NC \startcases
 \NC \Min {\V {x}' \in \MB {C} ^{N_H^2}}
@@ -234,25 +234,25 @@ and
 }
 \item Extract
 %
-\DispNum {g---x0-h1} {
+\DispNum {g:::x0:h1} {
 \NC \Hat{\T{\V {g}}}
 \LA \NC \Hat{\V {x}} _{\SB {0 : 2 N_H^2-1}} \NR
 }
 \item Convert 
 %
-\DispNum {g---R1-1g} {
+\DispNum {g:::R1:1g} {
 \NC \Hat{\V {g}}
 \LA \NC \MS {R} ^{-1} \SB {\Hat{\T{\V {g}}}} \NR
 }
 \item Calculate
 %
-\DispNum {
+\DispNum {G:G:ve:1g} {
 \NC \Hat {G}
 \LA \NC \Rm {vec}^{-1} \SB {\Hat {g}} \NR
 }
 \item Calculate
 %
-\DispNum {
+\DispNum {H:H:KG:GK} {
 \NC \Hat {\M {H}}
 \LA \NC \M {K} \Hat {\M {G}} \M {K}^\Adj \NR
 }
@@ -262,14 +262,14 @@ and
 
 \stopsubsection
 
-\startsection [title={A Two-Stage Estimation}]
+\startsubsection [title={A Two-Stage Version}]
 
-We also tried another version of DS, in which DS is done for a second time in estimated nonzero-position.
-The two-stage method was briefly mentioned \cite [CaT07] but without further validation by numerical experiments.
-The method starts by applying DS as before.
+We also tried another version of DS, in which DS is applied twice in estimated nonzero-position.
+The two-stage method was briefly mentioned \cite [CaT07] but without further justification by numerical experiments.
+To apply the method, we first apply DS as before.
 Then, we extract largest positions of the estimated vector, and apply DS again.
-Last, we extract largest positions again, and apply LS.
-Note that the final vector has to be scrambled back to the original dimension.
+Futhermore, we extract largest positions of the second estimated vector, and apply LS.
+The final vector's indices has to be scrambled back according to the original index.
 
 \Result
 {Algorithm}
@@ -295,10 +295,11 @@ Note that the final vector has to be scrambled back to the original dimension.
 \stopitemize
 }
 
-It may be appropriate to scale \m {\g_{\Rm {DS}}} with respect to \m {N_H}.
-It is not clear to us for now what is most reasonable choice of \m {N_1, N_1, N_2}.
+Unfortunately, the two-stage method does not always appear to be better than the one-stage method, and we did not include the result in the figures.
+It might have something to do with appropriately scaling \m {\g_{\Rm {DS}}} with respect to \m {N_H},
+and it is not clear what is most reasonable choice of \m {N_1, N_1, N_2}.
 
-\stopsection
+\stopsubsection
 
 \startsection [title={Result}]
 
@@ -341,29 +342,36 @@ On the other hand, the maximal number of iteration of OMP is set to be \m {4 N_H
 Denote the threshold used in DS program to be \m {\g_{\Rm {DS}}}, and similar threshold of Lasso to be \m {\g_{\Rm {Lasso}}}.
 Various several values are tried for them by first taking the theory value, and multiply or divide it by powers of 2.
 
-Concretely, we set \m {\g_{\Rm {DS}} = 2 \R {\log N_H}}, corresponding to Cand\`es \& Tao (2007)
-For comparison, \m {\g_{\Rm {Lasso}} = 2 \R {\log N_H}} too.
+In the plots of assorted methods, we set \m {\g_{\Rm {DS}} = 2 \R {\log N_H}} for concreteness, as suggested in \cite [CaT07].
+For sake of comparison, \m {\g_{\Rm {Lasso}} = 2 \R {\log N_H}} too.
 For OMP, suggested values in Cai \& Wang (2011) is illuminating, where they (in their Theorem 7) considered \m {\ell _2}-norm, and Theorem 8, \m {\ell _\infty}-norm.
-We make simplification and set respectively \m {\R {3} N_Y} and \m {2 \R {\log N_H}}
+We make simplification and set respectively \m {\R {3} N_Y} and \m {2 \R {\log N_H}}.
+Meanwhile, the threshold used for the remainder norm used in OMP program is suggested in \cite [CaW11].
+We take \m {\h_{\Rm {OMP}} = 2 \R {\log N_H}} for \m {\infty}-norm constraint, \m {\h_{\Rm {OMP}} = \R {3 N_Y}} for 2-norm constraint.
 
-The threshold used for the remainder norm used in OMP program, \m {\h_{\Rm {OMP}}}, is suggested in \cite [CaW11].
-We take \m {2 \R {\log N_H}} for \m {\infty}-norm constraint, \m {\R {3 N_Y}} for 2-norm constraint.
+In the plots of DS only or OMP only, we vary the values of \m {\g_{\Rm {DS}}} and \h_{\Rm {OMP}} to observe the effects of thresholds.
 
 Each data point for DS and Lasso is repeated for 256 times, and taken average.
 Other methods are repeated for more times: OMP for \m {4 \D 256} times, LS for \m {12 \D 256} times.
 
-\startsubsection [title={Performance Metric}]
-
-
-We use the performance metric proposed in Lee, Gil, and Lee \cite [LGL16],
+For performance metric, we follow Lee, Gil, and Lee \cite [LGL16],
 \DispNum {h:h:lo:vg} {
-\NC \chi'
+\NC \T {\chi}
 =\NC \RB {
    \F {\log_2 {\VNm {\V {h} -\Hat {\V {h}}} _2}}
    {\log_2 {\VNm {\V {h}}_2}}
 } _{\Ss {avg}}, \NR
 }
 However, we note that when \m {\VNm {\V {h}}_2} is small, this can blow up.
+It is not clear, either, whether \m {\T {\chi}} is a good indicator of channel capacity, since we do not fix a channel model in our investigation.
+
+The parameters related to precision of the Newton step may be adjusted from CVXPY's class methods.
+We set the maximum absolute tolerance to be \m {5 \D 10 ^ {-7}},
+the maximum absolute tolerance to be \m {5 \D 10 ^ {-6}},
+the maximum feasible tolerance to be \m {5 \D 10 ^ {-7}}.
+It remains to be investigated what values are most suitable for our purposes.
+If the tolerance parameters are too small, the program often gives overflown output, perhaps because it cannot find feasible solutions.
+On the other hand, if they are too big, the steps become imprecise and the program may fail to find correct solutions.
 
 \stopsubsection
 
@@ -606,10 +614,8 @@ Lastly, since LS involves the same target function as DS, the same argument is v
 \startsubsection [title={Runtime Statistics}]
 
 Friedlander and Saunders \cite [FrS07] criticizes that DS often gives a higher computational cost, compared to Lasso.
-Agreeing their observation, simulation result shows that DS indeed exhibits high complexity when (in our case) \m {N_H} grows.
-It is not suprising from the nature of convex programming.
-On one hand, the algorithm is iterative and random.
-On the other hand, it requires a sizable memory when finding the inversion of (in our case) \m {\M {P}}, a matrix of dimension \m {\M {N}_H^2}.
+Agreeing their observation, simulation shows that DS indeed exhibits high complexity when (in our case) \m {N_H} grows.
+It is not suprising from the fact that the convex program requires a sizable memory when finding the Newton step, where our program has to calculate (in our case) \m {\M {P}}, a matrix of dimension \m {\M {N}_H^2}.
 However we note that different tolerance of error and value of maximal iteration number may result vastly different computation time.
 
 Meanwhile, we see the complexity of OMP is several order of magnitude lower than that of DS.

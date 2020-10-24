@@ -2,19 +2,19 @@
 \starttitle [title={Abstract}]
 
 Multiple-input-multiple-output (MIMO) is the next-generation standard of wireless communication.
-However, for MIMO system it is not easy to estimate the channel, while many communication algorithms often requires that the channel state information be known at the receiver.
-Meanwhile, the millimeter wave (mm-Wave) band, often used in MIMO context, is known to exhibit sparsity, and results on compressive sensing suggests that sparsity implies that fewer channel measurement shall suffice.
-For that reason, Orthogonal Matching Pursuit (OMP) is usually used, as it has a very lower complexity.
-However, Dantzig Selector (DS), proposed by Tao and Candès, has long been introduced and ignored.
-DS has several promising properties, and it is curious how it fares on the present problem.
+While the channel state information has to be known at the receiver for communication algorithms, for MIMO system the estimation is not easy.
+Meanwhile, the millimeter wave (mm-Wave) band, often used together with MIMO, is known to exhibit sparsity, and results on compressive sensing suggest that sparsity implies that fewer channel measurements shall suffice.
+In practice, Orthogonal Matching Pursuit (OMP) is usually used, as it has lower complexity.
 
+It is interesting to note that Dantzig Selector (DS), proposed by Tao and Candès, has seldom been applied.
+DS has several promising properties, and it is worthwhile to investigate how it performs on the channel sensing problem.
 In this treatise, we consider a mm-Wave MIMO channel, and a hybrid structure at both the transmitter and receiver end.
-Using pilot signal and designed random beamformer, we apply DS for channel estimation, arguing in favor of its greater generality, its tolerance of noise corruption, and its lower averaged error.
+Using pilot signal and predetermind random beamformer, we apply DS for channel estimation, arguing in favor of its greater generality, its tolerance of noise corruption, and its lower averaged error.
 The treatise also gives a bound for the expected square error of DS, as well as bounded probability of success, and in so doing, showing dependency on the number of path and channel sparsity.
 
-DS can be cast as a second order cone problem (SOCP), so that well known methods for convex programs may be used.
+DS can be cast as a linear program (LP), so that known methods for convex programs may be applied.
 Simulation is done on DS and other methods, and we discuss their respective merits.
-It turns out DS is often slightly better than other alternatives, while it has siginificantly greater complexity.
+It turns out DS is steadily better than other alternatives, while it has siginificantly greater complexity.
 
 
 \stoptitle
