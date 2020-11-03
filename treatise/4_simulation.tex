@@ -1,14 +1,10 @@
 \startchapter [title={Simulation}]
 
-We are ready to verify bound of eror norm of DS by numerical experiments.
-DS is a convex optimization program, and there are many library devoted on that.
-For present purpose, we choose the ready-made Python library CVXPY.
+In this chapter we shall verify the bound \m {\T {\chi}} by numerical experiments.
+DS is a convex optimization program, and for present purpose, we choose the Python library CVXPY.
 For the implementation details, see Diamond and Boyd \cite [DiB16]
 
-However, it turns out direct implementation of Algorithm 8 exhibit extraordinarily large complexity, and we would like to recast the problem in a more tractable form.
-Towards that end, we found out that Candès and Romberg \cite [CaR05] has shown that DS can be simplified as an linear program (LP).
-However, the situation is more cubersome than that, since they deal with real vectors, but we consider the complex ones.
-Fortunately, they have briefly pointed out, complex DS can be recast as an linear program (LP), one of the several standard convex programming problems for which there are already several efficient algorithms.
+A direct implementation of Algorithm [7] exhibits extraordinarily large complexity, but Candès and Romberg \cite [CaR05] showed that DS can be simplified as an linear program (LP) (even though they assumed real vectors, and we consider the complex ones), which we reproduce below.
 
 \startsection [title={Method}]
 
@@ -114,8 +110,8 @@ Now, if we introduce vector \m{\V {m}}
 %
 \DispNum {m:::RN:h1} {
 \NC \V {m} \in \NC \MB {R} ^{N_H^2} \NR
-\NC \V {m} \DB{n_h}
-= \NC \Nm{\V {g} \DB{n_h}} \NR
+\NC \V {m} _{\SB{n_h}}
+= \NC \Nm{\V {g} _{\SB {n_h}}} \NR
 \NC n_h, n_h', n_h'' 
 = \NC 0, 1, 2, \ldots, N_H^2 -1 \NR
 }
@@ -264,11 +260,11 @@ and
 
 \startsubsection [title={A Two-Stage Version}]
 
-We also tried another version of DS, in which DS is applied twice in estimated nonzero-position.
+We also tried another version of DS, in which DS is applied twice in estimated nonzero components.
 The two-stage method was briefly mentioned \cite [CaT07] but without further justification by numerical experiments.
 To apply the method, we first apply DS as before.
-Then, we extract largest positions of the estimated vector, and apply DS again.
-Futhermore, we extract largest positions of the second estimated vector, and apply LS.
+Then, we extract largest components of the estimated vector, and apply DS again.
+Futhermore, we extract largest components of the second estimated vector, and apply LS.
 The final vector's indices has to be scrambled back according to the original index.
 
 \Result
@@ -317,7 +313,7 @@ The noise-to-signal ratio would be
 =\NC 0.224 \NR
 }
 In the following simulation, we use dimensionless noise-to-signal level \m {\s}.
-Its value start with \m {2^{-4}}, and increase by multiplying 2.
+Its value starts with \m {2^{-4}}, and is increased by being multiplied with 2.
 For the plot of assorted methods, 8 values of \m {\s} are used; for the plots of only OMP, 9 values are used; for the plots of only OMP, 6 values are used.
 
 We take \m {N_H} to be \m {8, 12, 16, 20, 24}, respectively.
@@ -326,30 +322,30 @@ One series for \m {N_Y = \lfloor N_H /2 \rfloor}, giving \m {4, 6, 8, 10, 12};
 one series for \m {N_Y = \lfloor N_H /3 \rfloor}, giving \m {3, 4, 5, 7, 8}.
 For OMP and DS only plots, we just choose \m {N_Y = \lfloor N_H /3 \rfloor}.
 On the other hand, \m {N_R} always set to be \m {\lfloor \RB {\log N_H}^2 \rfloor}.
-Unfortunately, this is very far from achieving the design values \Rf {N:B:4l:H2}, and this may be part of the reason the results is not as successful as expected.
+Unfortunately, this is very far from achieving the design values \Rf {N:B:4l:H2}, and this may be part of the reason the result is not as successful as expected.
 
 Other parameters are fixed in these experiments; 
 The number of grid of quantization of analog precoder is \m {16}.
 The number of paths \m {L} is \m {4}.
-The wavelength of carrier \m {\l _{\Rm {ant}}}, is set to be \m {0.1}.
-and the antenna spacing \m {d _{\Rm {ant}} =0.2}.
+The wavelength of carrier \m {\l _{\Rm {ant}}} is set to be \m {0.1}.
+and the antenna spacing \m {d _{\Rm {ant}}} is 0.2.
 Only their ratio matters.
 
 For parameters related to the convex optimization algorithm, the tolerance of absolute error in the primal-dual algorithm used in CVXPY is set as \m {10^{-4}}, and the tolerance of relative error, as \m {10^{-3}}.
 The maximal number of iteration of CVXPY is set to be \m {32}.
-On the other hand, the maximal number of iteration of OMP is set to be \m {4 N_H}.
+On the other hand, the maximal number of iteration of OMP is set to be \m {4 N_Y}.
 
 Denote the threshold used in DS program to be \m {\g_{\Rm {DS}}}, and similar threshold of Lasso to be \m {\g_{\Rm {Lasso}}}.
-Various several values are tried for them by first taking the theory value, and multiply or divide it by powers of 2.
+Different values are tried by multiplying or dividing them by powers of 2.
 
 In the plots of assorted methods, we set \m {\g_{\Rm {DS}} = 2 \R {\log N_H}} for concreteness, as suggested in \cite [CaT07].
 For sake of comparison, \m {\g_{\Rm {Lasso}} = 2 \R {\log N_H}} too.
-For OMP, suggested values in Cai \& Wang (2011) is illuminating, where they (in their Theorem 7) considered \m {\ell _2}-norm, and Theorem 8, \m {\ell _\infty}-norm.
-We make simplification and set respectively \m {\R {3} N_Y} and \m {2 \R {\log N_H}}.
+For OMP, suggested values in Cai \& Wang (2011) is illuminating, where they (in their Theorem 7) considered \m {\ell _2}-norm, and (in their Theorem 8), \m {\ell _\infty}-norm.
+We make simplification and set respectively \m {\R {3 N_Y}} and \m {2 \R {\log N_H}}.
 Meanwhile, the threshold used for the remainder norm used in OMP program is suggested in \cite [CaW11].
 We take \m {\h_{\Rm {OMP}} = 2 \R {\log N_H}} for \m {\infty}-norm constraint, \m {\h_{\Rm {OMP}} = \R {3 N_Y}} for 2-norm constraint.
 
-In the plots of DS only or OMP only, we vary the values of \m {\g_{\Rm {DS}}} and \h_{\Rm {OMP}} to observe the effects of thresholds.
+In the plots of DS only or OMP only, we vary the values of \m {\g_{\Rm {DS}}} and \m {\h_{\Rm {OMP}}} to observe the effects of thresholds.
 
 Each data point for DS and Lasso is repeated for 256 times, and taken average.
 Other methods are repeated for more times: OMP for \m {4 \D 256} times, LS for \m {12 \D 256} times.
@@ -363,23 +359,23 @@ For performance metric, we follow Lee, Gil, and Lee \cite [LGL16],
 } _{\Ss {avg}}, \NR
 }
 However, we note that when \m {\VNm {\V {h}}_2} is small, this can blow up.
-It is not clear, either, whether \m {\T {\chi}} is a good indicator of channel capacity, since we do not fix a channel model in our investigation.
+We do not know, either, whether \m {\T {\chi}} is a good indicator of channel capacity, since we do not fix a channel model in our investigation.
 
 The parameters related to precision of the Newton step may be adjusted from CVXPY's class methods.
 We set the maximum absolute tolerance to be \m {5 \D 10 ^ {-7}},
 the maximum absolute tolerance to be \m {5 \D 10 ^ {-6}},
 the maximum feasible tolerance to be \m {5 \D 10 ^ {-7}}.
-It remains to be investigated what values are most suitable for our purposes.
-If the tolerance parameters are too small, the program often gives overflown output, perhaps because it cannot find feasible solutions.
-On the other hand, if they are too big, the steps become imprecise and the program may fail to find correct solutions.
+It remains to be tested what values are most suitable for our purposes.
+If the tolerance parameters are too small, the program often gives overflowing values, perhaps because it cannot find feasible solutions.
+On the other hand, if they are too big, the steps are so imprecise that the program may fail to solve.
 
 \stopsubsection
 
 \startsubsection [title={Assorted Plots}]
 
-In the following, we plot the reciprocal of noise level vs relative error norm, for \m {N_H = 8, 12, 16, 20, 24} (from ``very small'' to ``very big''), respectively.
-Plots 1 to 5 have \m {N_H = 3 N_Y} (``narrow''), and the plots 6 to 10 has \m {N_H = 2 N_Y} (``wide'').
-%
+In the following, we plot the reciprocal of noise level vs relative error norm, for \m {N_H = 8, 12, 16, 20, 24}, respectively.
+Plots 1 to 5 have \m {N_H = 3 N_Y}, and the plots 6 to 10 has \m {N_H = 2 N_Y}.
+
 Assorted, \m {N_H = 3 N_Y, N_H = 12}, error:
 \blank [big]
 \externalfigure [assorted-wide-small-error.png] [wfactor=fit, hfactor=fit]
@@ -422,7 +418,7 @@ As for the plot of time taken in minutes, we give only one example of \m {N_H = 
 \startsubsection [title={Plots of DS only}]
 
 Again, we plot the reciprocal of noise level vs relative error norm, for \m {N_H = 8, 12, 16, 20, 24}, respectively, and \m {N_H = 3 N_Y} for each of them.
-Here, the bound \m {\T {\chi}} is shown.
+Here, \m {\T {\chi}} is shown too.
 %
 Assorted, \m {N_H = 3 N_Y, N_H = 12}, error:
 \blank [big]
@@ -477,34 +473,35 @@ As for the plot of time taken in minutes, we give only one example of \m {N_H = 
 
 \startsubsection [title={Discussion}]
 
-In the assorted plot, DS steadily outperforms other methods, and LS is worse than DS, and Lasso still worse, and OMP still worse.
-However, it is not clear how higher \m {\s} corresponds to lower error.
-It seems when \m {\s} is further increased near the leftmost of the figures, the error might also increase rapidly, but in that case, many methods give overflown values.
+In the assorted plots, DS steadily outperforms other methods, and LS is worse than DS, and Lasso still worse, and OMP still worse.
+However, it is not clear how higher \m {\s} (dimensionless noise level) corresponds to lower \m {\T {\chi}} (simulated error).
+It seems when \m {\s} is further increased (leftmost of the figures), the error might also increase rapidly, but more parameters have to be simulated for a conclusion.
 
-Varying thresholds of DS (namely \m {\g_{\Rm {DS}}}) and OMP (namely \m {\h_{\Rm {OMP}}}) does not have significant effect on the output, and from the cases simulated, there can be no conclusive answer.
-Nevertheless, it appears \m {\g_{\Rm {DS}}} is usually best chosen in the order of magnitude of \m {\s}, which is intuitive.
+Varying thresholds of DS (namely \m {\g_{\Rm {DS}}}) and OMP (namely \m {\h_{\Rm {OMP}}}) appears not to affect the estimation significantly.
+Nevertheless, it seems \m {\g_{\Rm {DS}}} is usually best chosen in the order of magnitude of \m {\s}, which is reasonable.
 Sometimes the iteration stablizes much earlier than is constrained by maximum iteration number.
 
-Our \m {\T {\chi}}, 
-It is not clear, unfortunately, why the simulated error \m {\T {\chi}} does not agree the simulated error \m {\chi} of DS, and why \m {\chi} does not appear to increase significantly as \m {\s} increases.
-The matter remains to be investigated in the future.
+Sadly, we remark that CVXPY sometimes gives overflowing answers, some of them as large as \m {10^11}.
+This indicates perhaps some typical-looking output may in fact be unreliable.
+To rid overflowing values, we discard output larger than a given threshold, like \m {10^4}, but there may be better methods.
+
+It is not clear, unfortunately, why \m {\T {\chi}} does not agree \m {\chi} (the error bound), and why \m {\chi} does not appear to increase significantly as \m {\s} increases.
 As shown above, the \m {\chi} is very constant around 1, thus \m {\T {\chi}} is an overestimation when \m {\s} is high and underestimation when \m {\s} is low.
 A possible explanation is that the non-sparsity of \m {\V {g}} undermines the analysis in chapter 3, despite our attempts.
+These matters remain to be investigated in the future.
 
 \blank [big]
 \externalfigure [scatter-ddss-failure.png] [wfactor=300]
 
 To give some idea of the case that DS works or fails, the figure above illustrates a case where DS failed.
-We see that the soft thresholding policy does rule out those entries which are too small and gives a reasonable guess of the positions of non-zero entries.
-Subsequent application of DS on the wrong index set fails, as a result.
+The true values of \m {\M {H}} entries are ordered with respect to their absolute value, and corresponding estimated values in the first and second stage are plotted against the true values.
+We see that the soft thresholding did not rule out smaller entries, so a second application of DS on the wrong index set fails too.
 
 \blank [big]
 \externalfigure [scatter-ddss-success.png] [wfactor=300]
 
 The figure above illustrates a case where DS succeeded.
-The true values of \m {\M {H}} entries are ordered with respect to absolute value, and corresponding estimated value in the first and second stage, are plotted agains the true values.
-We see that the soft thresholding policy does rule out those entries which are too small and gives a reasonable guess of the positions of non-zero entries.
-The subsequent application of DS on this smaller index set refines the estimated values.
+We see that the soft thresholding did rule out smaller entries, and gives a reasonable guess of the nonzero components, so a second application of DS on this smaller index set refines the estimated values.
 
 \stopsection
 
@@ -512,10 +509,8 @@ The subsequent application of DS on this smaller index set refines the estimated
 
 \startsubsection [title={Asymtotic Analysis}]
 
-We discuss the complexity of DS and OMP.
-
+We investigate the complexity of DS and OMP.
 For DS, we note that, in general, complexity analysis of convex programs is difficult, in that it is not easily ensured how many iteration the program uses.
-
 There is an analysis (Boyd and Vandenberghe \cite [BoV04]) of inequality constrained Newton method, in which they assumed self-concordance (p.496ff, also p.531).
 It is also pointed out (Candès and Romberg \cite [CaR05]) that the complex DS can be cast into an Second Order Cone Programming (SOCP), and it is clear that self concordance applies to SOCP.
 

@@ -9,8 +9,7 @@ Moreover, assuming the virtual channel model according to uniform linear array r
 
 We also point out that DS may be cast into an LP, and simulation is done.
 DS is steadily more accurate than all other methods, while exhibiting rather high complexity.
-Unfortunately, , and it remains to investigate why there is no obvious trend between the signal level and the relative error norm, and a wider range of parameter has to be tried for further conclusions.
-We also point out the Python package CVXPY sometimes gives overflown values.
+Unfortunately, and it remains to investigate why there is no obvious trend between the signal level and the relative error norm, and why CVXPY sometimes gives overflowing answers.
 
 One must be careful in giving meaningful comparison of existent analytic bounds for compressive sensing algorithms, as they might work in different settings.
 Indeed, DS requires a RIP matrix and performance is guaranteed in noisy observation \cite [CaT07], while RIP is not easily to justify rigorously, and its easy construction is even an open problem.

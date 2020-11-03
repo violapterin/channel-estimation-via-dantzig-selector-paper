@@ -2,16 +2,16 @@
 
 \startsubsection [title={Norm of array response}]
 
-Let \m {\hat {\V {g}}} be the Dantzig Selector, and let the sparsity index \m {S} be fixed.
-Split \m {\V {g}} into two parts: \m {\V {g} _{\SB{\MS {A}}}}, the largest \m {s} components of \m {\V {g}}, \m {\V {g} _{\SB{\MS {B}}}} the next \m {s} largest components of \m {\V {g}}, and \m {\V {g} _{\SB{\MS {C}}}} are the components complement to \m {\V {g} _{\SB{\MS {A}}}}.
-For example, if \m {\V {g} =\IP {-1,3,-4,2,8}}, and \m {S=2}, then \m {\V {g} _{\SB{\MS {A}}} =\IP {0,3,0,0,8}}, \m {\V {g} _{\SB{\MS {B}}} =\IP {-1,0,0,2,0}}, and \m {\V {g} _{\SB{\MS {C}}} =\IP {-1,0,-4,2,0}}.
-In this section, the subscripts \m {\MS {A}, \MS {B}, \MS {C}} will keep bearing analogous meaning.
+Let \m {\hat {\V {g}}} be the Dantzig Selector, and let the sparsity level \m {S} be fixed.
+Split \m {\V {g}} into two parts: \m {\V {g} _{\SB{\MS {A}}}}, the largest-magnitude \m {s} components of \m {\V {g}}, \m {\V {g} _{\SB{\MS {B}}}} the next \m {s} largest-magnitude components of \m {\V {g}}, and \m {\V {g} _{\SB{\MS {C}}}} are the components complement to \m {\V {g} _{\SB{\MS {A}}}}.
+For example, if \m {\V {g} =\IP {-1,3,-4,2,8}}, and \m {S=2}, then \m {\V {g} _{\SB{\MS {A}}} =\IP {0,0,-4,0,8}}, \m {\V {g} _{\SB{\MS {B}}} =\IP {0,3,0,2,0}}, and \m {\V {g} _{\SB{\MS {C}}} =\IP {-1,3,0,2,0}}.
+In this section, the subscripts \m {\MS {A}, \MS {B}, \MS {C}} will bear analogous meaning.
 
 We hope that \m {\VNm {\V {g} _{\SB{\MS {C}}}} _1} is small.
 If so, we shall substitute the quantity into the expected square error of DS, thus generalizing to the almost-sparse case.
 Recall that \m {\M {G}} is just the vectorization of \m {\V {g}}, and is the function of \m {\V {a}}, so we seek to establish that \m {\V {a}} is almost sparse.
-We define, similarly, \m {\V {a} _{\SB{\MS {A}}}} and \m {\V {a} _{\SB{\MS {C}}}}, with sparsity \m {s}, different from \m {S}.
-If \m {N_H} is large, we may forget for a moment the requirement that \m {s =1,2,3,\dots}.
+We define, similarly, \m {\V {a} _{\SB{\MS {A}}}} and \m {\V {a} _{\SB{\MS {C}}}}, with sparsity level \m {s} different from \m {S}.
+If \m {N_H} is large, we may forget for a moment that \m {s} is an integer.
 
 First, we investigate
 %
@@ -40,17 +40,17 @@ Note that by construction
 \leq \NC \pi \NR
 }
 %
-And define the so-called Dirichlet kernel
+And set for short
 %
 \DispNum {D:y':nH:Hy'} {
 \NC D \SB {\psi'}
 := \NC \sum_{n_H=0}^{N_H-1} \Ss {e}^{i n_H \psi'} \NR
 }
 %
-Set for short
+And
 %
 \DispNum {b:f':Ka:af'} {
-\NC b \SB {\f}
+\NC \V {b} \SB {\f}
 =\NC \M {K}^\Adj \V {a} \SB {\f} \NR
 }
 %
@@ -84,7 +84,7 @@ Combining \Rf {y':H:f'M:p'p'}, \Rf {K:H:1N:nH}, and \Rf {D:y':si:y'p'} we have
 %
 \DispNum {b:1:1N:C1} {
 \NC \VNm {\V {b} \SB {\f} _{\SB{\MS {C}}}} _1
-=\NC \F {1} {N_H}
+\leq \NC \F {1} {N_H}
 \VNm {
 \RB {
    \sum_{n_H' =0}^{N_H -1}
@@ -120,7 +120,7 @@ Since the value of \m {s} is at our disposal, we try
 =\NC \R {\log N_H} \NR
 }
 %
-so that, by \m {\ell_p}-norm inequality, 
+so that, by \m {\ell_p}-norm inequality, we have the following estimation.
 
 \Result
 {Proposition}
@@ -129,7 +129,7 @@ Let \m {\f } be given, and linear array response in spacial frequency domain \m 
 Then, for any random instance of \m {\f},
 %
 \DispNum {a:2:4N:NH} {
-\NC \VNm {\V {b} \SB {\f} _{\SB{\MS {C}}}} _2
+\NC \VNm {\V {b} \SB {\f} _{\SB{\MS {C}}}} _1
 \leq \NC \F {2} {\pi} \log N_H \NR
 }
 }
@@ -143,18 +143,18 @@ If we set that
 \NC S
 =\NC L s^2 \NR
 }
-by triangle inequality, by the property of 2-norm and Frobenius norm,
+by triangle inequality, by the property of Frobenius norm,
 %
 \DispNum {g:1:l0:a'1} {
 \NC \VNm {\V {g} _{\SB{\MS {C}}}} _1
 \leq \NC
 \sum _{l=0} ^{L-1} \Nm {\a_l}
-\VNm {\V {b} \SB {\f_l} _{\SB{\MS {C}}}} _2
-\VNm {\V {b} \SB {\th_l} _{\SB{\MS {C}}}} _2 \NR
+\VNm {\V {b} \SB {\f_l} _{\SB{\MS {C}}}} _1
+\VNm {\V {b} \SB {\th_l} _{\SB{\MS {C}}}} _1 \NR
 %
 \NC \leq \NC
-\VNm {\V {b} \SB {\f_l} _{\SB{\MS {C}}}} _2
-\VNm {\V {b} \SB {\th_l} _{\SB{\MS {C}}}} _2
+\VNm {\V {b} \SB {\f_l} _{\SB{\MS {C}}}} _1
+\VNm {\V {b} \SB {\th_l} _{\SB{\MS {C}}}} _1
 \sum _{l=0} ^{L-1} \Nm {\a_l} \NR
 %
 \NC \leq \NC
@@ -167,7 +167,7 @@ The quantity
 \NC \NC \F {1} {L} \sum _{l=0} ^{L-1} \Nm {\a_l} \NR
 }
 is a sample mean, and we may want to use Hoeffding inequality.
-Since it requires that the random variable shall have compact support, we truncate \m {\Nm {\a_l}} on \m {\Nm {\a_l} \leq 2}, on which there is 95 percent of the probability mass.
+Since it requires that the r.v.\ shall have compact support, we truncate \m {\Nm {\a_l}} on \m {\Nm {\a_l} \leq 2} for simplicity, on which there is 95 percent of the probability mass.
 %
 To do so, observe that
 %
@@ -175,7 +175,7 @@ To do so, observe that
 \NC \MB {E} \SB {\F {1} {L} \sum _{l=0} ^{L-1} \Nm {\a_l}}
 =\NC \F{\R {2}} {\R {\pi}} \NR
 }
-So, by Hoeffding inequality, choose for simplicity
+So, by Hoeffding inequality, choose also for simplicity
 %
 \DispNum {P:p':2e:3p'} {
 \NC \MB {P} \SB {

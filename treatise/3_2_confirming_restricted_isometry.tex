@@ -1,13 +1,11 @@
 \startsection [title={Restricted isometry of effective beamformer}]
 
-\startsubsection [title={Design of beamformer matrices}]
+\startsubsection [title={Design of beamformers}]
 
-Our plan is setting the four precoder matrices to be i.i.d.\ random matrix, hoping that the resulting \m {P} has RIP.
-
-Let us make it simple and set each entry of \m {\M {F} _B} to be i.i.d.\ Normal r.v.\ with mean 0, standard deviation \m {1/2}, multiplied by a normalizing constant \m {\l_B >0}.
+Our plan is setting the four beamformers to be i.i.d.\ random matrix, hoping that the resulting \m {P} has RIP.
+Let us make it simple and set each entry of \m {\M {F} _B} to be i.i.d.\ normal r.v.\ with mean 0, standard deviation \m {1/2}, multiplied by a normalizing constant \m {\l_B >0}.
 We know that the magnitude \m {\RB {\M {F} _B} _{\SB {n_R, n_Y}}} follows Rayleigh distribution.
 \m {\RB {\M {W} _B ^\Tr} _{\SB {n_Y, n_R}}} is set in an entirely analolous manner.
-
 In addition, let \m {\RB {\M {F} _R} _{\SB {n_H, n_R}}} be uniformly distributed on the unit circle on the complex plane.
 \m {\RB {\M {W} _R ^\Tr} _{\SB {n_Y, n_R}}} is set in an entirely analolous manner.
 
@@ -17,18 +15,14 @@ If, furthermore, \m {\M {F} _R ^\Tr \V {u}} is sparse, we see that \m {\M {F} _B
 
 However, it is not clear that \m {\M {F} _B ^\Tr \M {F} _R ^\Tr}, the product of two RIP matrices, have RIP, nor that, \m {\M {P}}, the result of Kronecker product, is RIP.
 In fact, the statement seems to be false in general.
-Indeed, since a \m {\M {F} _R ^\Tr} of the same \m {\d} is sparse, up to a factor of isometry matrix, and \m {\M {F} _R ^\Tr} is generated randomly, it would seem to us that the probability that \m {\M {F} _R ^\Tr \V {u}} be sparse is exceedingly small.
-
 But all is not lost.
-At least we have made sure that \m {\M {F} _R ^\Tr \V {u}} has norm close to unity.
-If we have a stronger result, that \m {\M {F} _B ^\Tr \V {u}} is almost unitary even for \It {not-sparse} vectors, then we are done.
-That does sound somehow plausible, considering the Normal entries of \m {\M {F} _B ^\Tr} would introduce a Central-limit-theorem-like sum, though the summands are not independent, but weakly dependent.
+Can we argue instead that \m {\M {F} _B ^\Tr \M {F} _R ^\Tr \V {u}} has similar norm with \m {\M {F} _R ^\Tr \V {u}}?
 
 \stopsubsection
 
 \startsubsection [title={Operator norm of digital beamformers}]
 
-To start, use \m {\chi _{i,j}} to denote Complex Standard Normal random variables, and to simplify notation, let them be independent if they have different arguments.
+Use \m {\chi _{i,j}} to denote complex standard normal r.vs., and to simplify notation, let them be independent if they have different indices.
 With this,
 %
 \DispNum {C':C':WB:j2} {
@@ -37,7 +31,7 @@ With this,
    \sum _{i=0} ^{N_B-1} \VNm {\sum _{j=0} ^{N_R-1} \F {1} {\R{N_B}} \chi _{i,j} \V {u} _{j}} _2 ^2} \NR
 }
 %
-Essentially, we seek for a large- deviation result for i.i.d.\ sum of chi-square random variables now.
+Essentially, we seek for a large- deviation result for i.i.d.\ sum of chi-square r.vs.\ now.
 To so so, we may apply Lemma 1 in Laurent and Massart \cite [LaM00] for equal weights.
 By some calculation, we have upper tail inequality, for \m {x > 0},
 %
@@ -49,7 +43,7 @@ By some calculation, we have upper tail inequality, for \m {x > 0},
 And lower tail inequality
 %
 \DispNum {P:x:ex:ex!} {
-\NC \MB {P} \SB {\VNm {\M {W} _B \V {u}} _2 ^2 \leq 1 + 2 \R {\F {x} {N_B}}}
+\NC \MB {P} \SB {\VNm {\M {W} _B \V {u}} _2 ^2 \leq 1 - 2 \R {\F {x} {N_B}}}
 \leq \NC \Ss {e} ^{-x} \NR
 }
 %
@@ -75,7 +69,7 @@ holds for probability \m {p}, with
 
 \startsubsection [title={Operator norm of analog beamformers}]
 
-Here, we consult Haviv and Regev, ``The restricted isometry property of subsampled Fourier matrices'' collected in \cite [KlM17].
+Here, we consult Haviv and Regev, “The restricted isometry property of subsampled Fourier matrices” collected in \cite [KlM17].
 We need their Thm.\ 4.5; it gives a RIP guarantee w.r.t.\ \m {\d_s}, and probability lower bound, for DFT submatrix.
 The estimation they give involve is expressed in terms of big- \m {\O} and big- \m {O}, and since our methodology is 
 However, it can be seen that their argument allows precise constants, and they just did not spell out, which we briefly explain.

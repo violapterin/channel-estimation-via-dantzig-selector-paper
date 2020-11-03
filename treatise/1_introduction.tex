@@ -2,31 +2,30 @@
 
 \startsection [title={Estimation of MIMO channel}]
 
-Multiple-input multiple-output (MIMO) communication system will be part of the 5G specification (Rappaport et.\ al.\ \cite [RSM13]).
+Multiple-input multiple-output (MIMO) communication system will be part of the 5G specification \cite [RSM13].
 With a large number of antennae on both transmitter and receiver, MIMO is expected to provide a large signal gain.
-The appeal of MIMO includes multiplexing gain (by parallel transmission of data), diversity gain (by redundant transmission with space-time coding), and antenna gain (by suitable beamforming).
-The millimeter wave (mm-wave) is also proposed, since its smaller wavelength, that is higher frequency, results in wider frequency bands available.
+The appeal of MIMO includes multiplexing gain (by parallel transmission of data), diversity gain (by redundant transmission with space-time coding), and antenna gain (by suitable beamforming to improve signal level).
+The millimeter wave (mm-wave) is also proposed, since its smaller wavelength, and thus higher frequency, results in wider bands available.
 The antennae, moreover, may be more closer-spaced, making it possible to increase their number.
 
 However, MIMO also gives rise to higher complexity, hence higher hardware overhead and power consumption.
-To design new algorithms that address these issues, it is necessary to obtain channel state information, so that channel capacity, among other metrics, may be found.
-Here, not only is the channel estimation difficult, due to the large antennae array, but the transmission in higher frequency is subject to noise corruption too.
-Consequently, conventional training-based algorithms now have large time and space complexity.
+To design new algorithms that address these issues, it is necessary to obtain channel state information, so that channel capacity, among other metrics, may be obtained.
+Not only is the channel estimation difficult, due to the large antennae array, but the transmission in higher frequency is subject to noise corruption too.
+As a result, conventional training-based algorithms lead to large time and space complexity.
 
 \stopsection
 
 \startsection [title={Compressive sensing}]
 
-Indeed, the estimation of MIMO channel amounts to determining all parameters of the channel, which is a big square matrix of dimension same as number of antennae.
-Fortunately, physical evidence has suggested that mm-wave channel are poor in scattering \cite [ALS14], reducing the number of paths, and thus the degree of freedom.
-And that's when a recent developement called compressive sensing may help.
-Generally speaking, it is a technique for reconstructing a underdetermined linear system, if the sparsity of solution guarantees successful recovery in the majority of cases.
+Indeed, the estimation of MIMO channel amounts to determining all parameters of the channel, which is a big square matrix of dimension \m {N_H}, the number of antennae.
+Fortunately, physical evidence has suggested that mm-wave channel are poor in scattering \cite [ALS14], reducing the number of paths, and that's when a recent developement called compressive sensing may help.
+Generally speaking, it is a technique for reconstructing a underdetermined linear system, when the sparsity of solution guarantees successful recovery in most cases.
 
 \blank [big]
 \externalfigure [compressive-sensing.png] [wfactor=fit, hfactor=fit]
 
-The figure above shows the generic situation in which a signal is ``crowded'' in the given basis, but is ``sparse'' in transformed basis.
-(Wikimedia Commons, \Uurrll {https://commons.wikimedia.org/wiki/File:Orthogonal_Matching_Pursuit.gif})
+The figure above shows the generic situation in which a signal is “crowded” in the given basis, but is “sparse” in transformed basis.
+(image taken from Wikimedia Commons, \Uurrll {commons.wikimedia.org/wiki/File:Orthogonal_Matching_Pursuit.gif})
 More measurements are required to recover the signal in the former, while fewer suffice in the latter basis.
 But, even if we are guaranteed latter basis exists, it is still a nontrivial undertaking to construct it.
 
@@ -43,10 +42,10 @@ To start, consider \m {\V {x}, \V {x}' \in \MB {K} ^{N_p}} and \m {\M {Q} \in \M
 \NC \V {y}
 =\NC \M {Q} \V {x} + \V {z} \NR
 }
-Certainly, \m {\M {Q} \RB {\V {x} - \V {x}'} = 0}, then \m {\V {x}, \V {x}'} are indistinguishable.
-But if \m {\V {x}} is sparse, it essentially restrict the system so much that we obtain unique solution for most of the time.
+Certainly, \m {\M {Q} \RB {\V {x}_1 - \V {x}_2} = 0}, then \m {\V {x}_1, \V {x}_2} are indistinguishable.
+But if \m {\V {x}} is supposed to be sparse, it essentially restricts the system so much that we obtain unique solution for most of the time.
 
-Formally, we say \m {\V {x}} is \m {s}-sparse, if only at most \m {s} components of \m {x} is nonzero.
+To define this, we say \m {\V {x}} is \m {s}-sparse, if only at most \m {s} components of \m {x} is nonzero.
 That is, if there is some \m {\MS {A} \subseteq \CB {0, \dots, N_p-1}} such that
 %
 \DispNum {x:A:x::x:} {
@@ -60,16 +59,17 @@ with
 \NC \Nm {\MS {A}} \leq \NC s. \NR
 }
 
-Candès and Tao showed that, in the noiseless case, a \m {\ell_1}-minimization program covers the \m {N_m}-dimensional signal, with fewer than \m {N_p} measurement, under overwhelming probability.
+Candès and Tao showed that, in the noiseless case, a \m {\ell_1}-minimization program recovers the \m {N_m}-dimensional signal, with fewer than \m {N_p} measurement, under overwhelming probability.
 
-As a practical example, it may be desirable that a camera equipped with few sensors may obtain a lower resolution image, to save computation and storage, and recover the image later, rather than taking a high definition photo at first, and compressing the image later.
-Such simplification is particularly important in medical imaging, since it is not only expensive, but also harmful to the body, to take too many images, but the imaging accuracy may be critical to the diagnosis \cite [CaT07].
+As an application, it often occurs that a camera takes a high definition photo, and compresses the image later.
+But it may be desirable that a camera equipped with fewer sensors shall take a lower-resolution photo, to save computation and storage, and shall recover the image later.
+Such advantage can be useful in medical imaging, since it is not only expensive, but also harmful, to take too many images, while the imaging accuracy may be critical to the diagnosis too \cite [CaT07].
 
 \stopsection
 
 \startsection [title={The Dantzig Selector}]
 
-But if the linear transformation is subject to noise,
+Now, if the linear transformation is subject to noise \m {z},
 %
 \DispNum {y:y:Qx:xz} {
 \NC \V {y}
@@ -77,7 +77,7 @@ But if the linear transformation is subject to noise,
 }
 is it still possible to recover \m {\V {x}}?
 
-We introduce several notions.
+We agree on some conventions.
 For \m {\MS {A} \subseteq \CB {0, \dots, N_p-1}}, denote
 %
 \Disp {
@@ -106,7 +106,7 @@ For fixed \m {s =0, \dots N_p -1}, we say that \m {\M {Q}} satisfies \m {\d_s}-r
 %
 It helps to think that \m {\M {Q}} is almost unitary up to relative error \m {\d_s}.
 
-For concreteness, say \m {\V {z}} is an i.i.d.\ normalized Gaussian vector.
+For concreteness, say \m {\V {z}} is an i.i.d.\ normalized random normal vector.
 If so, a stronger result was established \cite [CaT07] that, with another \m {\ell_1} minimization program called Dantzig Selector (hencefore DS), recovery under the noisy case is again possible.
 
 \Result
@@ -131,31 +131,28 @@ If so, a stronger result was established \cite [CaT07] that, with another \m {\e
 
 Particularly, Algorithm [2] recovers \m {\V {x}} with the expected square error bounded with overwhelming probability.
 
-From the computational perspective, the formulation as an \m {\ell_1} minimization problem, which is convex, made techniques from convex optimization usable.
-Indeed, relevent code has been put on their website for the reader to access and verify (Candès \& Romberg \cite [CaR05]).
-Also, the \m {\ell_1}-minimization problem with \m {\ell_\infty}-constraint may be recast as a Linear Program (hereafter LP), rendering convex programming technique applicable.
+From the computational perspective, the formulation as an \m {\ell_1} minimization problem, which is convex, allows techniques from convex optimization to be used.
+In fact, Candès \& Romberg provided an example implementation on their website (Candès \& Romberg \cite [CaR05]).
+In addition, the \m {\ell_1}-minimization problem with \m {\ell_\infty}-constraint may be recast as a Linear Program (hereafter LP), rendering convex programming technique applicable.
 
 Here the constant \m {\d_s} in Definition [1] is crucial:
-we must make a series of carefully chosen but seemingly random measurement.
+we must make a series of carefully chosen but random measurement.
 We can't just take \m {\M {Q}} to be any unitary matrix, for which it is trivial that \m {\d_s =0}.
-One common proposal is choosing every entry of \m {\M {Q}} to be i.i.d., and it can be established that if \m {\VNm {\M {Q} \V {x}}} concentrates sharply, \m {\M {Q}} has RIP for overwhelming probability (Baraniuk et.\ al.\ \cite [BDD08]).
-However it remains a research problem to find RIP matrices efficiently.
+One common proposal is choosing i.i.d.\ entries of \m {\M {Q}}, and it was established by Baraniuk et.\ al.\ \cite [BDD08] that if \m {\VNm {\M {Q} \V {x}}} concentrates sharply, \m {\M {Q}} has RIP for overwhelming probability, but it remains to conceive a algorithm that efficiently finds RIP matrices.
 
 Back at the ranch, recall that the channel estimation has been considered infeasible in the MIMO setting, but luckily, physical evidences suggest that mm-wave channels are in fact sparse in the frequency domain.
 Some scholars have thus applied compressive sensing techniques.
-One of the first attempt has been Bajwa et.\ al.\ \cite [BHS10], where they argue that the \m {\ell_0}-norm of the channel matrix may be bounded by a constant, and in such settings the Dantzig Selector may be applied.
-What they explored was the estimation of single-antenna channel response with respect to time.
-The accompanying note by the same authors (Bajwa et.\ al.\ \cite [BHR08]) shows that \m {X} is RIP for overwhelming probability, providing the ground for the IEEE paper.
-Dealing with a linear time-invariant channel, \cite [BHR08] showed that if the convolution is seen as a linear system, the sensing matrix has RIP of overwhelmingly probability, and DS is ready to be applied, with some nice performance bounds drawing directly from \cite [CaT07].
+An early attempt was Bajwa et.\ al.\ \cite [BHS10], where they argued that 
+if the \m {\ell_0}-norm of the channel matrix may be bounded by a constant, DS may be applied to estimate the time-dependent single-antenna channel response.
+The accompanying note by the same group \cite [BHR08] showed that \m {X} is RIP for overwhelming probability, justifying their work.
+And \cite [BHR08], which considered a linear time-invariant channel, showed that if the convolution with channel response can be seen as a linear system, whose sensing matrix has RIP of overwhelmingly probability, and DS is readlily applied.
 
 \stopsection
 
 \startsection [title={Orthogonal Matching Pursuit}]
 
-Around that time, Tropp and Gilbert \cite [TrG07b] suggest that a greedy algorithm called Orthogonal Matching Pursuit (OMP), which also makes use of an i.i.d.\ random matrix, may also reconstruct the sparse signal sufficiently well in an overwhemingly probability.
-
-Still consider \Rf {y:y:Qx:xz}.
-We pick up the columns of \m {\M {Q}} greedily, hoping to correspond to the nonzero components of \m {\V {x}}.
+At the same time, Tropp and Gilbert \cite [TrG07b] suggested that a greedy algorithm called Orthogonal Matching Pursuit (OMP), which also makes use of an i.i.d.\ random matrix, may also reconstruct the sparse signal sufficiently well in an overwhemingly probability. 
+In so doing, we still consider \Rf {y:y:Qx:xz}, and pick up the columns of \m {\M {Q}} greedily, hoping to correspond to the nonzero components of \m {\V {x}}.
 
 \Result
 {Algorithm}
@@ -208,7 +205,7 @@ where \m {\VNm {\M {Q} ^\ddagger} _1} denotes the operator norm.
 \stopitemize
 }
 %
-Here \m {\V {r}} can be thought of as the estimated noise, and \m {S} the number of estimated nonzero components of \m {\V {x}}, which \cite [CaT07] calls support (here we have slightly abused the usage of subscript to indicate component indices).
+Here \m {\V {r}} can be thought of as the estimated noise, and \m {S} the number of estimated nonzero components of \m {\V {x}} (here we have slightly abused the usage of subscript).
 From Tropp and Gilbert \cite [TrG07a], the probability that OMP recovers \m {\V {x}} completely is overwhelming, providing a perfomance guarantee.
 It is instructive to note that the matrix consisting of a collection of columns that likely spans \m {\V {x}} plays the role of the sensing matrix in the previous section.
 

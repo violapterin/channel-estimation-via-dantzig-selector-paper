@@ -59,10 +59,10 @@ Similarly, in the receiver end, there are, in order seeing from the end, digital
 Recall that analog precoder is restricted to have value with magnitude being unity, i.e.,
 %
 \DispNum {F:R:1::R1} {
-\NC \Nm {\M {F} _R \DB {n_H, n_R}}
+\NC \Nm {\M {F} _R} _{\SB {n_H, n_R}}
 = \NC 1, \NR
 %
-\NC \Nm {\M {W} _R \DB {n_R, n_H}}
+\NC \Nm {\M {W} _R} _{\SB {n_R, n_H}}
 = \NC 1, \NR
 %
 \NC n_H
@@ -178,7 +178,7 @@ Introduce the discrete Fourier transform matrix \m {\M {K}} defined to be
 \DispNum {K:K:CN:H1} {
 \NC \M {K} \in  \NC \MB {C} ^{N_H \D N_H} \NR
 %
-\NC \M {K} \DB {n_1, n_2}
+\NC \M {K} _{\SB {n_1, n_2}}
 = \NC \F {1} {\R {N_H}} \Ss {e}^{2\pi \Ss {i} n_1 n_2 /N_H}, \NR
 %
 \NC \Q n_1, n_2
