@@ -25,12 +25,12 @@ Generally speaking, it is a technique for reconstructing a underdetermined linea
 \blank [big]
 \externalfigure [compressive-sensing.png] [wfactor=fit, hfactor=fit]
 
-The figure above shows the generic situation in which a signal is ``crowded'' in the given basis, but is ``sparse'' in another basis.
+The figure above shows the generic situation in which a signal is ``crowded'' in the given basis, but is ``sparse'' in transformed basis.
 (Wikimedia Commons, \Uurrll {https://commons.wikimedia.org/wiki/File:Orthogonal_Matching_Pursuit.gif})
-In the given basis, more measurements are required to recover the signal, while fewer suffice in the sparse basis.
-But, even if we are guaranteed a sparse basis exists, it is still a nontrivial undertaking to construct it.
+More measurements are required to recover the signal in the former, while fewer suffice in the latter basis.
+But, even if we are guaranteed latter basis exists, it is still a nontrivial undertaking to construct it.
 
-A series of investigation started when Candès and Tao \cite [Can05].
+Candès and Tao \cite [Can05] first embarked a series of investigation on the problem.
 Let us say the number of model parameters \m {N_p \in \MB {N}} is much larger than the number of measurements \m {N_m \in \MB {N}}, that is,
 %
 \DispNum {N:p:Nm:Nm} {
@@ -60,10 +60,10 @@ with
 \NC \Nm {\MS {A}} \leq \NC s. \NR
 }
 
-Candès and Tao showed that (\It {ibid}), in the noiseless case, a \m {\ell_1}-minimization program covers the \m {N_m}-dimensional signal, with fewer than \m {N_p} measurement, under overwhelming probability.
+Candès and Tao showed that, in the noiseless case, a \m {\ell_1}-minimization program covers the \m {N_m}-dimensional signal, with fewer than \m {N_p} measurement, under overwhelming probability.
 
 As a practical example, it may be desirable that a camera equipped with few sensors may obtain a lower resolution image, to save computation and storage, and recover the image later, rather than taking a high definition photo at first, and compressing the image later.
-Such simplification is particularly important in medical imaging, since it is not only expensive, but also harmful to the body, to take too many images, but the imaging accuracy may be critical to the diagnosis (\It {ibid}).
+Such simplification is particularly important in medical imaging, since it is not only expensive, but also harmful to the body, to take too many images, but the imaging accuracy may be critical to the diagnosis \cite [CaT07].
 
 \stopsection
 
@@ -208,44 +208,40 @@ where \m {\VNm {\M {Q} ^\ddagger} _1} denotes the operator norm.
 \stopitemize
 }
 %
-Here \m {\V {r}} can be thought of as the estimated noise, and \m {S} the number of estimated nonzero-position of \m {\V {x}}, which \cite [CaT07] calls support (here we have slightly abused the usage of subscript to indicate component indices).
+Here \m {\V {r}} can be thought of as the estimated noise, and \m {S} the number of estimated nonzero components of \m {\V {x}}, which \cite [CaT07] calls support (here we have slightly abused the usage of subscript to indicate component indices).
 From Tropp and Gilbert \cite [TrG07a], the probability that OMP recovers \m {\V {x}} completely is overwhelming, providing a perfomance guarantee.
 It is instructive to note that the matrix consisting of a collection of columns that likely spans \m {\V {x}} plays the role of the sensing matrix in the previous section.
 
-Ever since, OMP has since been applied in a variety of ways.
-Alkhateeb et.\ al.\ \cite [AEL14] proposes an adaptive algorithm with a beam codebook for quantized angles of arrival and departure.
-Alkhateeb, Leus, and Heath Jr.\ \cite [ALH15] discusses the trade-off between number of OMP measurement and accuracy in OMP, applied on an all-phase-shifter beamformers, with quantized, non-uniform, predetermined angles.
-Gao et.\ al.\ \cite [LGC16] proposed a jointly reconstruction, with a modified OMP, of several high-dimensional sparse signals with restriction on nonzero-positions.
-Hu, Wang, and He \cite [HWH13] applies OMP to estimate quantized path delay of each OFDM subcarrier, assuming the channel gain in each path is stationary.
-Lee, Gil, and Lee \cite [LGL16] consider a hybrid system similar to this paper, with the effective beamformer considered as sensing matrix, where they specially designed a set of quantized angles, and in their simulations permuted DFT matrix is used in analog stage.
+OMP has since been applied widely in the literature.
+Alkhateeb et.\ al.\ \cite [AEL14] proposed an adaptive algorithm with a beam codebook for quantized angles of arrival and departure.
+Alkhateeb, Leus, and Heath Jr.\ \cite [ALH15] discussed the trade-off between number of OMP measurement and accuracy in OMP, applied on an all-phase-shifter beamformers, with quantized, non-uniform, predetermined angles.
+Gao et.\ al.\ \cite [LGC16] proposed a jointly reconstruction, with a modified OMP, of several high-dimensional sparse signals with restriction on nonzero components.
+Hu, Wang, and He \cite [HWH13] applied OMP to estimate quantized path delay of OFDM subcarriers, assuming the channel gain in each path is stationary.
+Lee, Gil, and Lee \cite [LGL16] considered a hybrid system, with the effective beamformer serving as sensing matrix, where set of quantized angles was specially designed, and permuted DFT matrix is used.
 
-Some further attempts include Manoj and Kannu \cite [MaK17], which formulate the sparse condition as overlapping block in the reconstructed signal, and encode possible blocks.
-Gurbuz, Yapici, and Guvenc \cite [GYG18] introduce perturbation of the quantized set of angles, on which the sensing matrix is based.
-Most recently, Panayirci et.\ al.\ \cite [PAU19] put forward a more thorough treatment, where in addition to application of OMP, they use a first stage of max-likelihood estimation of model parameters, and a second stage of maximum-a-posteriori estimation of channel gains.
+Some further attempts include Manoj and Kannu \cite [MaK17], who formulated the sparse condition on submatrices of the signal for successful reconstruction.
+Gurbuz, Yapici, and Guvenc \cite [GYG18] introduced perturbation of the quantized set of angles, on which the sensing matrix is based.
+Panayirci et.\ al.\ \cite [PAU19] suggested, in addition to application of OMP, a concatenation of max-likelihood estimation of model parameters, and maximum-a-posteriori estimation of channel gains.
 
-Performance guarantee of OMP is also studied, by refining or proposing different conditions.
-Cai, Wang, and Xu \cite [CWX10], under assumption on low coherence of columns of matrices, give new bound on OMP.
-Coherence-based assumptions, instead of almost-unitarity, make the condition easier to verify.
-Cai and Wang \cite [CaW11] extends the investigation to DS and other convex programs for sparse recovery, and Ben-Haim et.\ al.\ \cite [BEE10] follow up and refine their bounds, and conclude that OMP is better for low-SNR scenario, and DS is better for high-SNR.
+Performance guarantee of OMP is also studied on various conditions.
+Cai, Wang, and Xu \cite [CWX10], under assumption of low coherence of columns of matrices, instead of almost-unitarity, gave new bound on OMP.
+Cai and Wang \cite [CaW11] extended the study to DS and other convex programs for sparse recovery, and Ben-Haim et.\ al.\ \cite [BEE10] followed up and refined their bounds, concluding that OMP is better for low-SNR scenario, and DS is better for high-SNR.
 
 \stopsection
 
 \startsection [title={Contribution}]
 
 From above we note that work on channel estimation seems to favored OMP for its low complexity.
-One notable drawback of OMP, as pointed out by \cite [GYG18], is that the quantized angle of the sensing matrix used dos not necessarily match the true ones.
-Indeed, in the uniform linear array setting, DFT matrix can be used as sensing matrix, but the true angle of arrival and departure is often slightly off.
-Meanwhile, as the nature of OMP is greedy, and it is dubious whether it achieves optimality.
-In addition, the assumption that the channel matrix is sparse, at least, warrant justification.
+One notable difficulty in channel estimation is that, in the uniform linear array setting, the quantized angle of arrival and departure, which the sensing matrix is based on, does not necessarily match the true ones \cite [GYG18].
+Also, as the nature of OMP is greedy, and it is not clear whether it achieves optimality, and the assumption that the channel matrix is sparse warrant justification too.
 
-In this treatise, we argue that DS is worth trying as an alternative.
-As the next section shows, the effective beamformer serves readily as the sensing matrix with RIP.
+In this treatise, we suggest DS as an alternative.
+Chapter 2 shows, the effective beamformer may serve as the sensing matrix with RIP.
 Assuming uniform linear array, the sparsity may be exploited, and a convex program analogous to DS can be used for estimation, which ensures several desirable properties.
-Along the lines of \cite [CaT07], we give a bound on expected square error, expressed in terms of on the sparsity and the number of paths, which will surely faciliate system design.
-We show that it holds under an overwhelming probability, which is also bounded quantitatively.
-
-Moreover, we illustrate that the convex program is equivalent to a linear program, for which several efficient algorithms are known.
-In view of numerical results, DS is often superior to OMP among other methods, at the cost of higher complexity.
+In chapter 3, along the lines of \cite [CaT07], we give a bound on expected square error, expressed in terms of the sparsity and the number of paths.
+We claim that the bound holds for overwhelming probability.
+In chapter 4, we remark that DS can be written as an linear program, for which efficient algorithms are known.
+We present numerical results, which show that DS is often superior to OMP among other methods, which is achieved at the cost of higher complexity.
 
 
 \stopsection

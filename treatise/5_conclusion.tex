@@ -1,26 +1,21 @@
 
 \startchapter [title={Conclusion}]
 
-This article addresses the problem of effective and estimation of the millimeter wave channel by exploiting its sparsity.
-We motivated the problem, and provided a rather broad survey of recent literature.
-This article adopts The Dantzig Selector (DS) rather than Orthogonal Matching Pursuit (OMP), like many of past literature, as the estimation algorithm.
-Rather than exploiting the sparsity of space domain representation as existing literature does, we proceed the estimation algorithm in the spatial frequency domain.
-The technique is surely inspiring to future work, as many bounds are ready to be obtained once we change the physical model of the channel.
-In addition, we have, as a secondary product, derived the generalization of DS for complex vectors.
-
+The treatise addresses the problem of effective estimation of the millimeter wave channel by exploiting its sparsity.
+Towards that end, we try the Dantzig Selector (DS) rather than Orthogonal Matching Pursuit (OMP), which is a more common choice, as the estimation algorithm.
+We proceed by exploiting the sparsity of spatial frequency domain, rather than 
+the spatial domain itself, and suggested the generalization of DS for complex vectors work in present case.
 Moreover, assuming the virtual channel model according to uniform linear array response, we managed to prove explicitly, following the spirit of Candès and Tao \cite [CaT07], that for overwhelming probability, the expected square error is bounded.
 
 We also point out that DS may be cast into an LP, and simulation is done.
 DS is steadily more accurate than all other methods, while exhibiting rather high complexity.
-Unfortunately, the program is prone to give overflown output, and we have not investigated range of parameter extensive enough for more conclusions.
+Unfortunately, , and it remains to investigate why there is no obvious trend between the signal level and the relative error norm, and a wider range of parameter has to be tried for further conclusions.
+We also point out the Python package CVXPY sometimes gives overflown values.
 
-Considering analytical bounds, it can be not easy to give meaningful comparison of existent bounds for these algorithms, as their settings are somewhat different, which we ought to keep in mind.
-Indeed, DS requires a RIP matrix and performance is guaranteed in noisy observation (Cand\`es and Tao 2005, 2007), while RIP is not easily to justify rigorously, and its easy construction is even an open problem.
-On the other hand, as of OMP, besides the original justification of entrywise i.i.d.\ Gaussian sensing matrix (Tropp and Gilbert 2007a), there do not seem to be much analysis.
-and that (to add to complication) is still different from RIP.
-
-OMP trades off precision for time and space complexity, and for DS the other way around is true, hence we cannot say which one is universally better than the other.
-The investigation eloquently illustrates the fact that different problems requires different technique and algorihm within the current constraint, as is probably true in every discipline of engineering.
+One must be careful in giving meaningful comparison of existent analytic bounds for compressive sensing algorithms, as they might work in different settings.
+Indeed, DS requires a RIP matrix and performance is guaranteed in noisy observation \cite [CaT07], while RIP is not easily to justify rigorously, and its easy construction is even an open problem.
+OMP, on the other hand, requires only an entrywise i.i.d.\ Normal sensing matrix \cite [TrG07a], but much analysis remains to be done.
+OMP trades off precision for a lower time and space complexity, and for DS the other way around, and this eloquently illustrates that different technique suits different problems and constraints, as is true in every discipline of engineering.
 
 \stopchapter
 
