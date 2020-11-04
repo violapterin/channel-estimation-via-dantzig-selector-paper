@@ -510,13 +510,12 @@ We see that the soft thresholding did rule out smaller entries, and gives a reas
 \startsubsection [title={Asymtotic Analysis}]
 
 We investigate the complexity of DS and OMP.
-For DS, we note that, in general, complexity analysis of convex programs is difficult, in that it is not easily ensured how many iteration the program uses.
-There is an analysis (Boyd and Vandenberghe \cite [BoV04]) of inequality constrained Newton method, in which they assumed self-concordance (p.496ff, also p.531).
-It is also pointed out (Candès and Romberg \cite [CaR05]) that the complex DS can be cast into an Second Order Cone Programming (SOCP), and it is clear that self concordance applies to SOCP.
-
+In general, complexity analysis of convex programs is difficult, in that it is not easily to determine how many iterations were used.
+There is an analysis by Boyd and Vandenberghe \cite [BoV04] of inequality constrained Newton method, in which they assumed self-concordance (p.496ff, also p.531).
+It is also pointed out by Candès and Romberg \cite [CaR05] that the complex DS can be cast into an Second Order Cone Programming (SOCP), and it is clear that self concordance applies to SOCP.
+These results regard Newton method, which for our purpose, we only discuss the complexity analysis for Newton method.
 However, it is not clear whether these results hold for methods faster than Newton method, and of course they are not necessarily utilized the same way in CVXPY.
 Specifically, the implementers of CVXPY, Diamond and Boyd \cite [DiB16], alleges that the program is usually converted in to primal-dual problem, for which and there are several different approaches.
-For our purpose, we only discuss the complexity analysis for Newton method.
 
 The function being minimized is \m {\VNm {\V {g}}_1}.
 Let \m {\V {g} _0} denote the starting value of \m {\V {g}}, and \m {\V {g} ^{\star}} the the point of convergence.
@@ -613,16 +612,41 @@ Lastly, since LS involves the same target function as DS, the same argument is v
 
 \startsubsection [title={Runtime Statistics}]
 
-Friedlander and Saunders \cite [FrS07] criticizes that DS often gives a higher computational cost, compared to Lasso.
-Agreeing their observation, simulation shows that DS indeed exhibits high complexity when (in our case) \m {N_H} grows.
-It is not suprising from the fact that the convex program requires a sizable memory when finding the Newton step, where our program has to calculate (in our case) \m {\M {P}}, a matrix of dimension \m {\M {N}_H^2}.
-However we note that different tolerance of error and value of maximal iteration number may result vastly different computation time.
+Use \m {t_{\Rm {OMP}} \SB {N_H}}, \m {t_{\Rm {Lasso}} \SB {N_H}}, \m {t_{\Rm {DS}} \SB {N_H}} to denote their respective time taken.
+We reproduce the arithmetic average (including different \m {\s}) of simlated values below, in seconds.
+\DispNum {t:2:95:55} {
+\NC t_{\Rm {OMP}} \SB {12} \NC = 0.0119 \NR % OK
+\NC t_{\Rm {OMP}} \SB {16} \NC = 0.0297 \NR % OK
+\NC t_{\Rm {OMP}} \SB {20} \NC = 0.0600 \NR % OK
+\NC t_{\Rm {OMP}} \SB {24} \NC = 0.155 \NR % OK
+%
+\NC t_{\Rm {Lasso}} \SB {12} \NC = 0.0436 \NR % OK
+\NC t_{\Rm {Lasso}} \SB {16} \NC = 0.176 \NR % OK
+\NC t_{\Rm {Lasso}} \SB {20} \NC = 0.471 \NR % OK
+\NC t_{\Rm {Lasso}} \SB {24} \NC = 1.26 \NR % OK
+%
+\NC t_{\Rm {DS}} \SB {12} \NC = 0.357 \NR % OK
+\NC t_{\Rm {DS}} \SB {16} \NC = 2.07 \NR % OK
+\NC t_{\Rm {DS}} \SB {20} \NC = 29.8 \NR % OK
+\NC t_{\Rm {DS}} \SB {24} \NC = 91.5 \NR % OK
+}
+Simulation indeed shows that \m {t_{\Rm {DS}}} grows tremendously with (in our case) \m {N_H}, agreeing the criticism by Friedlander and Saunders \cite [FrS07] on the high complexity of DS.
+It is not suprising, regarding the fact that the convex program has to find the Newton step by calculating (in our case) \m {\M {P}}, a matrix of dimension \m {\M {N}_H^2}.
+The matrix inversion is probably the bottleneck of complexity.
+However, as we noted above, that different tolerance level of and maximal iteration number may result in vastly different computation time.
 
-Meanwhile, we see the complexity of OMP is several order of magnitude lower than that of DS.
-This is reasonable, given that it is a greedy alrogithm.
-In fact, the time OMP takes is negligibly small.
+Meanwhile, \m {t_{\Rm {Lasso}}} and \m {t_{\Rm {OMP}}} are often an order of magnitude lower than \m {t_{\Rm {DS}}}.
+In general, \m {t_{\Rm {DS}} \gg t_{\Rm {Lasso}} \gg t_{\Rm {OMP}}}.
+It is now wonder that, given that OMP is a greedy alrogithm, the time OMP takes is negligibly small.
+But it is also notable that, while Lasso has form similar to DS, it takes much lower time.
 
-Lasso usually takes time \m {1/2} to \m {1/4} of that of DS.
+Assuming the complexity of each of three methods is polynomial time, we calculate a least square fit for the power of complexity, giving
+
+\DispNum {t:P:NH:83} {
+\NC t_{\Rm {OMP}} \NC \eqsim \MS {O} \SB {N_H^{3.6}} \NR
+\NC t_{\Rm {Lasso}} \NC \eqsim \MS {O} \SB {N_H^{4.8}} \NR
+\NC t_{\Rm {DS}} \NC \eqsim \MS {O} \SB {N_H^{8.3}} \NR
+}
 
 \stopsubsection
 
