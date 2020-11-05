@@ -481,9 +481,10 @@ Varying thresholds of DS (namely \m {\g_{\Rm {DS}}}) and OMP (namely \m {\h_{\Rm
 Nevertheless, it seems \m {\g_{\Rm {DS}}} is usually best chosen in the order of magnitude of \m {\s}, which is reasonable.
 Sometimes the iteration stablizes much earlier than is constrained by maximum iteration number.
 
-Sadly, we remark that CVXPY sometimes gives overflowing answers, some of them as large as \m {10^11}.
+Sadly, we remark that CVXPY sometimes gives overflowing outputs, some of them as large as \m {10^11}.
 This indicates perhaps some typical-looking output may in fact be unreliable.
-To rid overflowing values, we discard output larger than a given threshold, like \m {10^4}, but there may be better methods.
+To rid overflowing values, we discard outputs larger than a given threshold, say \m {10^4}, and simply apply a least square.
+It is open whether there are better methods.
 
 It is not clear, unfortunately, why \m {\T {\chi}} does not agree \m {\chi} (the error bound), and why \m {\chi} does not appear to increase significantly as \m {\s} increases.
 As shown above, the \m {\chi} is very constant around 1, thus \m {\T {\chi}} is an overestimation when \m {\s} is high and underestimation when \m {\s} is low.
@@ -509,36 +510,37 @@ We see that the soft thresholding did rule out smaller entries, and gives a reas
 
 \startsubsection [title={Asymtotic Analysis}]
 
-We investigate the complexity of DS and OMP.
-In general, complexity analysis of convex programs is difficult, in that it is not easily to determine how many iterations were used.
-There is an analysis by Boyd and Vandenberghe \cite [BoV04] of inequality constrained Newton method, in which they assumed self-concordance (p.496ff, also p.531).
-It is also pointed out by Candès and Romberg \cite [CaR05] that the complex DS can be cast into an Second Order Cone Programming (SOCP), and it is clear that self concordance applies to SOCP.
-These results regard Newton method, which for our purpose, we only discuss the complexity analysis for Newton method.
-However, it is not clear whether these results hold for methods faster than Newton method, and of course they are not necessarily utilized the same way in CVXPY.
-Specifically, the implementers of CVXPY, Diamond and Boyd \cite [DiB16], alleges that the program is usually converted in to primal-dual problem, for which and there are several different approaches.
+We want to know the complexity of DS and OMP.
+In general, complexity of convex programs is difficult to analyze, in that it is not easily to determine how many iterations were done.
+Boyd and Vandenberghe \cite [BoV04] analyzed complexity of inequality constrained Newton method, in which self-concordance is assumed (p.496ff, also p.531).
+In our case, Candès and Romberg \cite [CaR05] pointed out that the complex DS can be cast into an second order cone programming (SOCP), and where self concordance holds.
+Diamond and Boyd (writers of CVXPY) \cite [DiB16] explained that convex programs are usually converted into primal-dual problems.
+The library we called in the simulation is ECOS, where Newton method is used.
+Of course, we are not certain there is no method faster than Newton method, and implmentation details of CVXPY may change the conclusion too.
 
-The function being minimized is \m {\VNm {\V {g}}_1}.
+We attemp to give a heuristic argument regarding the complexity of Newton steps.
+We say the function being minimized is \m {\VNm {\V {g}}_1}.
 Let \m {\V {g} _0} denote the starting value of \m {\V {g}}, and \m {\V {g} ^{\star}} the the point of convergence.
-Then (\cite [BoV04] p.505, Eqn.\ 9.56) gives a bound of the number of iteration of Newton method.
+Then Boyd and Vandenberghe \cite [BoV04] (p.505, Eqn.\ 9.56) gave a bound of the number of steps.
 If we just take that as the complexity bound for DS, it becomes
 %
 \DispNum {C:S:C0:1e'} {
 \NC C_{\Rm {DS}}
-= \NC C_0 \VNm {\V {g}_0 -\V {g} ^{\star}}_1
-+ \log_2 \log_2 \F {1} {\e} \NR
+= \NC \RB {C_0 \VNm {\V {g}_0 -\V {g} ^{\star}}_1
++ \log_2 \log_2 \F {1} {\e}} C_{\Rm {step}} \NR
 }
 %
-where \m {C_0} is constant related to implementation of Newton method, and \m {\e} the tolerance of error.
-According to the analysis of \cite [BoV04] (eq.9.57), for most cases \m {-\log_2 \log_2 \e} can be bounded by \m {6}.
-Also, \m {C_0} usually assumes the value of about several hundred;
-They gives an example \m {C_0 =375} (with their notation, \m {C_0 =\dfrac {20 -8\a} {\a \b \RB {1 -2\a}^2}}, where \m {\a = 0.1, \b = 0.8, \e =0.01}, and \m {\a, \b} are parameters used in the Backtrack Line Tracing algorithm).
+Here \m {C_0} is constant related to implementation of Newton method, and \m {\e} the tolerance of error, and \m {C_{\Rm {step}}} is the complexity of Newton step.
+According to their analysis (eq.9.57), for most cases \m {-\log_2 \log_2 \e} can be bounded by \m {6}.
+Also, \m {C_0} usually assumes the value of about several hundred.
+There was an example they gave in which \m {C_0 =375}, where, with their notation,
+\m {C_0 =(20 -8\a) / (\a \b \RB {1 -2\a}^2}), where \m {\a = 0.1, \b = 0.8, \e =0.01}, and \m {\a, \b} are parameters used in the Backtrack Line Tracing algorithm).
 
-Every step involves a inversion of \m {\MS {O} \SB {\M {P} ^\Adj \M {P}}}, which is of the same order of magnitude to the time needed for matrix multiplication.
-Since the dimension of \m {\M {P} ^\Adj \M {P}} is \m {N_H^2}, the cost of inversion is \m {\MS {O} \SB {N_H^4}}.
+Every Newton step involves a inversion of \m {\MS {O} \SB {\M {P} ^\Adj \M {P}}}, having the same order of magnitude to the time needed for matrix multiplication.
+Since the dimension of \m {\M {P} ^\Adj \M {P}} is \m {N_H^2}, the cost of inversion may be roughly considered to be \m {\MS {O} \SB {N_H^4}}, as we know from newer results on the complexity of matrix inversion.
+That is, we suppose \m {C_{\Rm {step}} = N_H^4}.
 
-
-We now take some license to approximate.
-Assume that we start the iteration by specifying the Least Square estimator as the initial value of \m {\V {g}_0}, namely
+We take some liberty to assume that, at the start the iteration, the least square estimator was taken to be the initial value of \m {\V {g}_0}, namely
 %
 \DispNum {g:0:gL:Py} {
 \NC \V {g}_0
@@ -560,7 +562,7 @@ Also assume
 \approx \NC \V {g} \NR
 }
 %
-Indeed, this is the main objective of our investigation!
+Indeed, this is the main thesis of our investigation.
 And by restricted isometry, \m {\M {P}} has unity-normed, almost orthogonal columns, so
 %
 \DispNum {P:P:IN:H2} {
@@ -578,15 +580,14 @@ Thus, by \Rf {g:0:gL:Py}, \Rf {C:S:Og:g1}, and \Rf {g:g:g;:;g},
 \NC =\NC \MS {O} \SB {\VNm {\M {P} ^\Adj \V {z}} _1} N_H^4 \NR
 }
 
+We see that \m {\RB {\M {P} ^\Adj \V {z}} _{\SB {j}}} observes complex standard normal distribution.
 If we agree that, for high probability,
 %
 \DispNum {O:j:sO:O1} {
 \NC \MS {O} \SB {\VNm {\M {P} ^\Adj \V {z}} _{\SB {j}}}
 = \NC \s \MS {O} \RB {1} \NR
 }
-
-It is easy to see that \m {\RB {\M {P} ^\Adj \V {z}} _{\SB {j}}} observes Complex Standard Normal distribution.
-If the quantity can be estimated by \m {\s}, we have
+Then we simply have
 %
 \DispNum {C:S:ON:H6} {
 \NC C_{\Rm {DS}}
@@ -594,19 +595,16 @@ If the quantity can be estimated by \m {\s}, we have
 }
 
 On the other hand, Tropp and Gilbert \cite [TrG07a] discussed the complexity of OMP, and the proof of technical lemmata in it can be found in the companion paper \cite [TrG07b].
-They give
+They gave
 %
 \DispNum {C:P:ON:NY} {
 \NC C_{\Rm {OMP}}
 =\NC \MS {O} \SB {N_H^2 \log N_Y} \NR
 }
 %
-And it would appear that this is greater than \m {C_{\Rm {DS}}}.
-However, \m {\log N_Y} is really small in our experiments.
-and we dropped some constants, too, in analyzing \m {C_{\Rm {DS}}}.
-If we drop \m {\log N_Y}, then we get \m {\MS {O} \SB {N_H^2}} again.
+Here \m {\log N_Y} is small in our experiments, and if we dropped some constants and \m {\log N_Y}, then we may assume \m {\MS {O} \SB {N_H^2}}.
 
-Lastly, since LS involves the same target function as DS, the same argument is valid, giving \m {C_{\Rm {Lasso}} =\MS {O} \SB {N_H^6}}.
+Lastly, since Lasso involves the same target function as DS, the same argument is valid, giving \m {C_{\Rm {Lasso}} =\MS {O} \SB {N_H^6}}.
 
 \stopsubsection
 
@@ -615,20 +613,20 @@ Lastly, since LS involves the same target function as DS, the same argument is v
 Use \m {t_{\Rm {OMP}} \SB {N_H}}, \m {t_{\Rm {Lasso}} \SB {N_H}}, \m {t_{\Rm {DS}} \SB {N_H}} to denote their respective time taken.
 We reproduce the arithmetic average (including different \m {\s}) of simlated values below, in seconds.
 \DispNum {t:2:95:55} {
-\NC t_{\Rm {OMP}} \SB {12} \NC = 0.0119 \NR % OK
-\NC t_{\Rm {OMP}} \SB {16} \NC = 0.0297 \NR % OK
-\NC t_{\Rm {OMP}} \SB {20} \NC = 0.0600 \NR % OK
-\NC t_{\Rm {OMP}} \SB {24} \NC = 0.155 \NR % OK
+\NC t_{\Rm {OMP}} \SB {12} \NC = 0.0119,
+\FourQ t_{\Rm {OMP}} \SB {16} = 0.0297, \NR
+\NC t_{\Rm {OMP}} \SB {20} \NC = 0.0600,
+\FourQ t_{\Rm {OMP}} \SB {24} = 0.155, \NR
 %
-\NC t_{\Rm {Lasso}} \SB {12} \NC = 0.0436 \NR % OK
-\NC t_{\Rm {Lasso}} \SB {16} \NC = 0.176 \NR % OK
-\NC t_{\Rm {Lasso}} \SB {20} \NC = 0.471 \NR % OK
-\NC t_{\Rm {Lasso}} \SB {24} \NC = 1.26 \NR % OK
+\NC t_{\Rm {Lasso}} \SB {12} \NC = 0.0436,
+\FourQ t_{\Rm {Lasso}} \SB {16} = 0.176, \NR
+\NC t_{\Rm {Lasso}} \SB {20} \NC = 0.471,
+\FourQ t_{\Rm {Lasso}} \SB {24} = 1.26, \NR
 %
-\NC t_{\Rm {DS}} \SB {12} \NC = 0.357 \NR % OK
-\NC t_{\Rm {DS}} \SB {16} \NC = 2.07 \NR % OK
-\NC t_{\Rm {DS}} \SB {20} \NC = 29.8 \NR % OK
-\NC t_{\Rm {DS}} \SB {24} \NC = 91.5 \NR % OK
+\NC t_{\Rm {DS}} \SB {12} \NC = 0.357,
+\FourQ t_{\Rm {DS}} \SB {16} = 2.07, \NR
+\NC t_{\Rm {DS}} \SB {20} \NC = 29.8,
+\FourQ t_{\Rm {DS}} \SB {24} = 91.5, \NR
 }
 Simulation indeed shows that \m {t_{\Rm {DS}}} grows tremendously with (in our case) \m {N_H}, agreeing the criticism by Friedlander and Saunders \cite [FrS07] on the high complexity of DS.
 It is not suprising, regarding the fact that the convex program has to find the Newton step by calculating (in our case) \m {\M {P}}, a matrix of dimension \m {\M {N}_H^2}.
@@ -640,12 +638,12 @@ In general, \m {t_{\Rm {DS}} \gg t_{\Rm {Lasso}} \gg t_{\Rm {OMP}}}.
 It is now wonder that, given that OMP is a greedy alrogithm, the time OMP takes is negligibly small.
 But it is also notable that, while Lasso has form similar to DS, it takes much lower time.
 
-Assuming the complexity of each of three methods is polynomial time, we calculate a least square fit for the power of complexity, giving
+Assuming the complexity of each of three methods is polynomial time, we calculate a least square fit for the power of complexity, giving the following estimated values, on which we add a tilde.
 
 \DispNum {t:P:NH:83} {
-\NC t_{\Rm {OMP}} \NC \eqsim \MS {O} \SB {N_H^{3.6}} \NR
-\NC t_{\Rm {Lasso}} \NC \eqsim \MS {O} \SB {N_H^{4.8}} \NR
-\NC t_{\Rm {DS}} \NC \eqsim \MS {O} \SB {N_H^{8.3}} \NR
+\NC \T {t}_{\Rm {OMP}} \NC \eqsim \MS {O} \SB {N_H^{3.6}} \NR
+\NC \T {t}_{\Rm {Lasso}} \NC \eqsim \MS {O} \SB {N_H^{4.8}} \NR
+\NC \T {t}_{\Rm {DS}} \NC \eqsim \MS {O} \SB {N_H^{8.3}} \NR
 }
 
 \stopsubsection
