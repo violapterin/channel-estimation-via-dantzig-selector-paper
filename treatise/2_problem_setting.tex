@@ -49,12 +49,15 @@ to get a simpler form
 
 \startsection [title={System model}]
 
+\blank [big]
 \externalfigure [system.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {Schematic diagram of the hybrid beamforming system we consider.}
+\blank [big]
 
-We consider the hybrid configuration at both transmitter and receiver end, as shown in the figure.
-That is to say, each end consists of both digital and analog percoders and combiners, as follows.
-In the transmitter end, there are, in order seeing from the end, digital precoder \m {\M {F} _B \in \MB {C} ^{N_R \D N_Y}} and analog precoder \m {\M {F} _R \in \MB {C} ^{N_H \D  N_R}}.
-Similarly, in the receiver end, there are, in order seeing from the end, digital combiner \m {\M {W} _R \in \MB {C} ^{N_R \D N_H}} and analog combiner \m {\M {W} _B \in \MB {C} ^{N_Y \D  N_R}}.
+We consider the hybrid beamforming at both transmitter and receiver end, as shown in the figure.
+That is to say, each end consists of both digital and analog precoders and combiners, as follows.
+In the transmitter end, there are (seeing towards receiver end), digital precoder \m {\M {F} _B \in \MB {C} ^{N_R \D N_Y}} and analog precoder \m {\M {F} _R \in \MB {C} ^{N_H \D  N_R}}.
+Similarly, in the receiver end, there are (seeing towards transmitter end) digital combiner \m {\M {W} _R \in \MB {C} ^{N_R \D N_H}} and analog combiner \m {\M {W} _B \in \MB {C} ^{N_Y \D  N_R}}.
 
 Recall that analog precoder is restricted to have value with magnitude being unity, i.e.,
 %
@@ -106,7 +109,7 @@ Formally,
 =\NC \M {A} _{\SB {m_1\; \Rm {Mod}}\; N_1, \Fl {m_1/N_1 }} \NR
 }
 %
-The bijectivity is obvious, and we define \m {\Rm {vec} ^{-1}} so that
+The bijection is obvious, and we define \m {\Rm {vec} ^{-1}} so that
 %
 \DispNum {v:x:x::x:} {
 \NC \Rm {vec} ^{-1} \SB {\Rm {vec} \SB {x}}
@@ -127,7 +130,7 @@ For \m {\M {A} \in \MB {K} ^{N_1 \D  N_2}} and \m {\M {B} \in \MB {K} ^{N_3 \D N
 }
 }
 
-And we will exploit the relation (whose proof is a strightforward application of definitions)
+And we will exploit the relation, which is straightforward from definitions.
 \Result
 {Proposition}
 {

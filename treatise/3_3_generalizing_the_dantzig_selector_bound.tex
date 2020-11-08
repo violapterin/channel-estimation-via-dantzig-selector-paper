@@ -1,7 +1,7 @@
 \startsection [title={Bound for the error norm}]
 \startsubsection [title={Technical propositions in complex case}]
 
-The third and last part of our task is to plug in the almost-sparsity found in Section 3.1, and plug in the probablity found in Section 3.2.
+The third and last part of our task is to plug in the almost-sparsity found in Section 3.1, and the failure probability found in Section 3.2.
 Set for short
 %
 \DispNum {d:d:gg:gg} {
@@ -9,18 +9,16 @@ Set for short
 = \NC \Hat {\V {g}} - \V {g} \NR
 }
 %
-And our task is to bound the error norm \m {\VNm {\V {d}} _2}.
-
-We argue that \m {\V {g}} can essentially be seen as sparse, and for that purpose we approximate irrelevent terms.
-For example, we generously bound \m {\d_{S}} by \m {1}.
-And, as shall be seen, it suffices to set
+And we seek to bound \m {\VNm {\V {d}} _2}.
+To do so, we argue that \m {\V {g}} can be seen as sparse, and for that purpose we generously bound \m {\d_{S}} by \m {1}.
+As shall be seen, it suffices to set
 %
 \DispNum {g':g':2N:Nh} {
 \NC \g
-= \NC \R {4 \log N_H} \NR
+= \NC 2 \R {\log N_H} \NR
 }
 %
-The propositions below are taken from \cite [CaT07] and modified slightly in accordance to our settings, except possibly the generalization to complex vector.
+The propositions below are taken from \cite [CaT07] and modified slightly in accordance to our settings, besides the generalization to complex vectors.
 %
 \Result
 {Proposition}
@@ -32,8 +30,8 @@ The propositions below are taken from \cite [CaT07] and modified slightly in acc
 +2\VNm {\V {g} _{\SB{\MS {C}}}} _1 \NR
 }
 }
-%
-To show this, observe that with triangle inequality applied respectively on \m {\MS {A}} and \m {\MS {C}}, while recalling that \m {\V {g} =\V {g} _{\SB{\MS {A}}}},
+
+To show this, apply triangle inequality respectively on \m {\MS {A}} and \m {\MS {C}}, and recall that \m {\V {g} =\V {g} _{\SB{\MS {A}}}},
 %
 \DispNum {g:1:gd:g1} {
 \NC \VNm {\V {g}} _1
@@ -53,81 +51,70 @@ Also, by construction that \m {\hat {g}} minimizes the \m {\ell_1}-norm,
 }
 as desired.
 
-We turn our attention to the next result, and fix an instance of \m {\M {P}} and instance of \m {\V {z}}.
-We claim that
-%
-\DispNum {E:h:2N:Nh} {
-\NC \MB {E} \SB {\Nm {\IP {\V {z} , \M {P} _{\SB {:, n_h}}}}}
-\leq \NC  2 \R {2 \log N_H} \NR
-%
-\NC n_h 
-=\NC 1, \ldots, N_H^2. \NR
-}
-%
-Start with the fact that \m {\M {P} _{\SB {:, n_g}}} has unity \m {\ell_2}-norm, and on the randomness of \m {\V {z}}.
-Now, the quantity \m {\Nm {\IP {\V {z} , \M {P} _{\SB {:, n_h}}}}} observes Standard Normal.
-To bound the failure probability, recall the tail bound for \m {Q} function
-%
-\DispNum {Q:x:12:22} {
-\NC Q\SB {x'}
-\leq \NC \F {1} {2} \Ss {e}^{-x'^2 /2} \NR
-}
-%
-Particularly, for \m {x' =\R {4 \log N_H}}, this gives the failure probability
-%
-\DispNum {Q:h:1N:Nh} {
-\NC Q\SB {\R {4 \log N_H}}
-=\NC \F {1} {N_H^2}. \NR
-}
 %
 \Result
 {Proposition}
 {
-If \m {\M {P}} is \m {\d_S}-RIP,
+If \m {\M {P}} is \m {\d_S}-RIP, then it holds that
 %
 \DispNum {P:d:4N:Nh} {
 \NC \VNm {\M {P}^\Adj \M {P} \V {d}} _\infty
 \leq \NC  4 \R {2 \log N_H} \NR
 }
 %
-holds for probability \m {p} 
+for probability \m {p}, with
 %
 \DispNum {1:p:NH:H2} {
 \NC 1 -p
 \leq \NC N_H^{-2}. \NR
 }
 }
+
+To show this, we would like to bound \m {\Nm {\IP {\V {z} , \M {P} _{\SB {:, n_h}}}}}, which observes standard normal.
+Recall the tail bound for \m {Q} function
 %
-To show this, by definition
+\DispNum {Q:x:12:22} {
+\NC Q\SB {x'}
+\leq \NC \F {1} {2} \Ss {e}^{-x'^2 /2} \NR
+}
+%
+Particularly, fix threshold \m {x' =2 \R {\log N_H}}, yielding
+%
+\DispNum {Q:h:1N:Nh} {
+\NC Q\SB {2 \R {\log N_H}}
+=\NC \F {1} {2 N_H^2}. \NR
+}
+%
+Now, by definition
 %
 \DispNum {z:y:Pg:ny} {
-\NC \IP {\V {z} - \RB {\V {y} - \M {P} \hat {\V {g}}}, \M {P} _{\SB {:,n_y}}}
-= \NC \IP {\M {P} \hat {\V {g}} - \M {P} \V {g}, \M {P} _{\SB {:,n_y}}} \NR
+\NC \IP {\V {z} - \RB {\V {y} - \M {P} \hat {\V {g}}}, \M {P} _{\SB {:,n_h}}}
+= \NC \IP {\M {P} \hat {\V {g}} - \M {P} \V {g}, \M {P} _{\SB {:,n_h}}} \NR
 %
-\NC = \NC \IP {\M {P} \V {d}, \M {P} _{\SB {:,n_y}}} \NR
+\NC = \NC \IP {\M {P} \V {d}, \M {P} _{\SB {:,n_h}}} \NR
 }
 %
 By construction
 %
 \DispNum {P:g:Py:Nh} {
-\NC \VNm {\M {P} _{\SB {:,n_y}}^\Adj \RB {\V {y} - \M {P} \hat {\V {g}}}} _\infty
+\NC \VNm {\M {P} _{\SB {:,n_h}}^\Adj \RB {\V {y} - \M {P} \hat {\V {g}}}} _\infty
 \leq \NC \VNm {\M {P}^\Adj \RB {\V {y} - \M {P} \hat {\V {g}}}} _\infty \NR
 %
 \NC \leq \NC 2\R {2 \log N_H} \NR
 }
 %
-By triangle inequality, together with \Rf {Q:h:1N:Nh}, we obtain the desired result.
+By triangle inequality, together with \Rf {Q:h:1N:Nh} and \Rf {P:g:Py:Nh}, we obtain the desired result.
 %
 \DispNum {P:d:zP:Nh} {
-\NC \VNm {\M {P} _{\SB {:,n_y}}^\Adj \M {P} \V {d}} _\infty
-\leq \NC \VNm {\IP {\V {z}, \M {P} _{\SB {:,n_y}}}} _\infty
-+ \IP {\V {y} - \M {P} \hat {\V {g}}, \M {P} _{\SB {:,n_y}}} \NR
+\NC \VNm {\M {P} _{\SB {:,n_h}}^\Adj \M {P} \V {d}} _\infty
+\leq \NC \VNm {\IP {\V {z}, \M {P} _{\SB {:,n_h}}}} _\infty
++ \IP {\V {y} - \M {P} \hat {\V {g}}, \M {P} _{\SB {:,n_h}}} \NR
 %
-\NC \leq \NC 2 \R {2 \log N_H} +2 \R {2 \log N_H} \NR
+\NC \simeq \NC 2 \R {2 \log N_H} +2 \R {2 \log N_H} \NR
 }
-%
+
 Lastly, the following two propositions are taken from \cite [CaT07], Lemma 1.
-The generalization from real vector spaces to complex spaces is completely straightforward, while meaning of magnitude and inner product has to be changed.
+The generalization from real vector spaces to complex spaces is trivial.
 One of the quoted propositions reads
 %
 \DispNum {d:2:dA:12} {
@@ -135,7 +122,7 @@ One of the quoted propositions reads
 \leq \NC \VNm {\V {d} _{\SB {\MS {AB}}}} _2^2 + \F {1} {S} \VNm {\V {d} _{\SB{\MS {C}}}} _1^2 \NR
 }
 %
-By power mean inequality, we get a statement cruder than \Rf {d:2:dA:12}, as below.
+By Jensen inequality,
 %
 \Result
 {Proposition}
@@ -146,8 +133,8 @@ By power mean inequality, we get a statement cruder than \Rf {d:2:dA:12}, as bel
 \leq \NC \VNm {\V {d} _{\SB {\MS {AB}}}} _2 + \F {1} {\R {S}} \VNm {\V {d} _{\SB{\MS {C}}}} _1 \NR
 }
 }
-%
-The other quoted proposition reads
+
+The other quoted proposition is
 %
 \DispNum {d:2:11:C1} {
 \NC \VNm {\V {d} _{\SB{\MS {AB}}}} _2
@@ -155,9 +142,9 @@ The other quoted proposition reads
 + \F {\T {\d}_{S, 2S}} {\RB {1- \d_{2S}} \R {S}} \VNm {d_{\SB{\MS {C}}}} _1 \NR
 }
 %
-Here \m {\T {\d} _{s_1, s_2}} is called the \m {s_1,s_2}-restricted isometry constant, and is defined in \cite [Can05] (which uses \m {\th}), as follows.
+Here \m {\T {\d} _{s_1, s_2}} denotes the \m {s_1,s_2}-restricted isometry constant, and is defined in \cite [Can05] (which uses \m {\th}), as follows.
 Let \m {\M {Q}'} be fixed.
-For all \m {s_1}-sparse \m {\V {x}_1}, for all \m {s_2}-sparse \m {\V {x}_2}, whose nonzero-positions are disjoint,
+For all \m {s_1}-sparse \m {\V {x}_1}, for all \m {s_2}-sparse \m {\V {x}_2}, whose nonzero-components are disjoint,
 %
 \DispNum {d:2:in:x2} {
 \NC \T {\d} _{s_1, s_2}
@@ -167,13 +154,13 @@ For all \m {s_1}-sparse \m {\V {x}_1}, for all \m {s_2}-sparse \m {\V {x}_2}, wh
 } \NR
 }
 %
-Here we use a result in \cite [Can05] that relates \m {\T {\d} _{s_1, s_2}} to \m {\d_s}, that is
+\m {\T {\d} _{s_1, s_2}} can be related to \m {\d_s} by \cite [Can05]
 \DispNum {d:2:ds:s2} {
 \NC \T {\d} _{s_1, s_2}
 \leq \NC \d_{s_1+s_2} \NR
 }
-And we need another crude bound to relate \m {\d_{2S}} to \m {\d_{S}}.
-By triangle inequality, by power-mean inequality,
+And it remains to relate \m {\d_{2S}} to \m {\d_{S}}.
+By triangle inequality, by Jensen inequality,
 \DispNum {Q:x:Qx:x2} {
 \NC \VNm {Q' \RB {\V {x}_1 + \V {x}_2}}
 %
@@ -209,7 +196,7 @@ In particular,
 \leq \NC \R {L} \RB {\log N_H} ^{1/4} \d_{s} \NR
 }
 %
-So \Rf {d:2:11:C1} becomes the following:
+So \Rf {d:2:11:C1} becomes
 %
 \Result
 {Proposition}
@@ -226,7 +213,7 @@ If \m {\M {P}} is \m {\d_S}-RIP,
 
 \startsubsection [title={Proposed bound}]
 
-We are going to combine previous propositions and show the main result.
+Finally, we shall show the proposed bound by combining previous propositions.
 For simplicity, set \m {S = Ls^2}, thus
 %
 \DispNum {S:S:4N:NH} {
@@ -245,24 +232,22 @@ And, for concreteness,
 {Theorem}
 {
 Let \m {\V {y}}, \m {\M {P}}, \m {\V {g}}, \m {\hat {\V {g}}}, \m {\V {d}} be defined as above.
-Then the bound
+Then it holds that
 %
 \DispNum {d:2:OL:H3} {
 \NC \VNm {\V {d}} _2
 \leq \NC \MS {O} \RB {\R {L} \R {\log N_H}^3} \NR
 }
 %
-holds for probability \m {p}, with
+for probability \m {p}, with
 %
 \DispNum {1:p:ON:13} {
 \NC 1 -p
 =\NC \MS {O} \SB {N_H ^{-1/3}} \NR
 }
 }
-
-To prove this, we simplify the expression for \m {\VNm {\V {d} _{\SB{\MS {AB}}}} _2} in \Rf {d:2:11:C1} and the one for \m {\VNm {\V {d} _{\SB{\MS {C}}}} _1} in \Rf {d:1:dA:C1}.
-In the below, we take the freedom to substitute rough numbers.
-
+%
+To show this, simplify the expression of \m {\VNm {\V {d} _{\SB{\MS {AB}}}} _2} in \Rf {d:2:11:C1} and \m {\VNm {\V {d} _{\SB{\MS {C}}}} _1} in \Rf {d:1:dA:C1}, and substitute rough numbers.
 By the definition of truncation, by \m {\ell_p} norm inequality, by \Rf {P:d:4N:Nh},
 %
 \DispNum {P:2:PP:NH} {
@@ -301,15 +286,14 @@ Then, substituting \Rf {g:C:4p':NH} and \Rf {d:A1:16:H2} above into \Rf {d:1:dA:
 \leq \NC 1.64 L \R {\log N_H}^3 +3.61 L \RB {\log N_H}^2 \NR
 }
 %
-And \Rf {d:2:11:C1} becomes the following:
+And \Rf {d:2:11:C1} becomes
 %
 \DispNum {d:2:16:H3} {
 \NC \VNm {\V {d} _{\SB{\MS {AB}}}} _2
 %
 \leq \NC 1.64 \R {L} \log N_H +0.951 \R {L} \R {\log N_H}^3 \NR
 }
-We are now in a position to bound \m {\VNm {d} _2}, just by using \Rf {d:2:dA:C1} again, and plugging in \Rf {d:2:16:H3} and \Rf {d:C1:16:H2} above.
-This gives
+We are now in a position to bound \m {\VNm {d} _2}, again by \Rf {d:2:dA:C1}, and plugging in \Rf {d:2:16:H3} and \Rf {d:C1:16:H2}, giving
 \DispNum {d:2:42:NH} {
 \NC \VNm {\V {d}} _2
 \leq \NC 3.29 \R {L} \log N_H +4.56 \R {L} \R {\log N_H}^3 \NR
@@ -325,9 +309,7 @@ so that
 \leq \NC \chi \NR
 }
 
-
-
-Furthermore, we discuss the four events of failure, as follows.
+We further investigate the four events of failure, as follows.
 Consider failure probabilities \m {q _{\Rm {iso}, B}}, \m {q _{\Rm {iso}, R}}, \m {q _{\Rm {no}}}, \m {q _{\Rm {sp}}}, respectively for restricted isometry, noise, sparsity.
 If all of them are small, a naive application of union bound suggests
 \DispNum {q:q:2q:ar} {

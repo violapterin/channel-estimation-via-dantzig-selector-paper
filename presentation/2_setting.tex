@@ -1,3 +1,16 @@
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {System Configuration}
+{
+\blank [big]
+\externalfigure [system.png] [factor=fit]
+
+\I Estimation of Multiple-input multiple-output (MIMO) systems results in high complexity, due to a large number of antennae.
+
+\I Problem (a): How to recover the channel with fewer measurements?
+
+\I Problem (b): How to design precoders and combiners?
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Channel Model and Beamformers}
 {
 \I Given channel \m {\M {H} \in \NC \MB {C} ^{N_H \D N_H}} with uniform linear array
@@ -13,15 +26,17 @@
 \I Magnitude constraint \m {\Nm {\M {F}_R \SB {n_H, n_R}} = 1}, \m {\Nm {\M {W}_R \SB {n_R, n_H}} = 1} 
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {System Diagram}
+\Frame {Problem Description}
 {
-\blank [big]
-\externalfigure [system.png] [factor=fit]
+\I We have \m {\M {Y} =\M {W}_B \M {W}_R \RB {\M {H} \M {F}_R \M {F}_B +\M {Z}}}
+%
+\I Problem (a): How to recover \m {\M {H}} with knowledge of \m {\M {Y}}?
 
-\I Problem (a): Recover \m {\M {H}} with knowledge of \\
-\m {\M {Y} :=\M {W}_B \M {W}_R \RB {\M {H} \M {F}_R \M {F}_B +\M {Z}} }?
+\I Can we measure less than \m {N_H} times, but recover successfully for most cases?
 
-\I Problem (b): Design \m {\M {W}_R}, \m {\M {W}_B}, \m {\M {F}_R}, and \m {\M {F}_B}?
+\I Problem (b): How to design \m {\M {W}_R}, \m {\M {W}_B}, \m {\M {F}_R}, and \m {\M {F}_B}?
+
+\I What kind of matrices faciliates our goal?
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Cast to Linear System}
@@ -38,32 +53,62 @@
 := \Rm {vec} \SB {\M {Z}} \NR
 }
 
-\I Then we have a underdetermined linear system:
-\Disp {
-\NC \V {y}
-=\NC \M {P} \V {g} +\V {z} \NR
-}
-
-\I When the signal is sparse, few measurements may be sufficient for the reconstruction
+\I We have an underdetermined system \m {\V {y} =\M {P} \V {g} +\V {z}}
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Terminology}
+\Frame {Compressive Sensing}
 {
-\I \m {\V {g}} is called \Emph {\m {s}-sparse}, if at most \m {s} of its components are nonzero.
+\blank [big]
+\externalfigure [compressive-sensing.png] [factor=fit]
 
-\I We say that \m {\M {P}} satisfies the \Emph {restricted isometry property} (RIP) of sparsity \m {s} with respect to \m {0 < \d_s < 1}, if, for all \m {s}-sparse \m {\V {g}},
-\Disp {
-\NC \RB {1-\d_s} \VNm {\V {g}} _2^2
-\leq \NC \VNm {\m {P} \V {g}} _2^2
-\leq \RB {1+\d_s} \VNm {\V {g}} _2^2
+\I If \m {\V {g}} is sparse, few measurements may suffice for reconstruction.
+
+\I Can we find a basis on which \m {\V {g}} is sparse?
 }
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Literature on Compressive Channel Sensing}
+{
+\I Bajwa, Haupt, Sayeed, and Nowak (2010): MIMO, linear invariant system, using Dantzig Selector (DS)
 
-\I We may think \m {\M {P}} to be almost unitary up to relative error \m {\d_s}.
+\I Alkhateeb, Ayach, Leus, Heath (2014): mm-wave, adaptive training algorithm for given codebook
+
+\I Alkhateeb, Leus, and Heath (2015): single path mm-wave, all-phase-shifter beamformers, using Orthogonal Matching Pursuit (OMP)
+
+\I Lee, Lee, and Yong (2016): MIMO mm-wave, hybrid beamforming, using Orthogonal Matching Pursuit (OMP)
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Question}
+{
+\I Candès and Tao (2007) proposed a performance bound for DS, then can DS do better than OMP?
+
+\I Does convex programming (DS) trade accuracy with greedy algorithms (OMP)?
+
+\I May we verify a revised performance bound in the concrete case?
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Our Contribution}
+{
+\I Consider MIMO mm-wave channel, with hybrid beamforming
+
+\I Use a modified DS (convex programming), instead of OMP (greedy algorithm)
+
+\I Illustrate by experiments that DS has better performance
+
+\I Give an analysis of error norm and successful probability in terms of system parameters
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Design of Beamformers}
+{
+\I We set each entry of \m {\m {F}_B} (resp.\ \m {\m {W}_B}) to be i.i.d.\ complex standard normal, up to a design constant
+
+\I We set each entry of \m {\m {F}_R} (resp.\ \m {\m {W}_R}) be uniformly distributed in argument and unity magnitude, up to a design constant
+
+\I We argue that \m {\M {F} _R ^\Tr}, \m {\M {F} _B ^\Tr}, \m {\M {W} _R}, and \m {\M {W} _B} all have RIP, thus \m {\M {P}} has too.
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Applying Dantzig Selector}
 {
-\I We try to apply Dantzig Selector to our problem:
+\I Fix sparsity \m {s = L \RB {\log N_H}^2} for definiteness.
 
 \I Input \m {\M {P} \in \MB {C} ^{N_Y^2 \D N_H^2}}, \m {\V {y} \in \MB {C} ^{N_H^2}}, \m {\g_{\Ss {DS}} \geq 0}.
 
@@ -77,17 +122,6 @@
 }
 
 \I Output \m {\Hat {\M {H}} \LA \M {K} \Rm {vec}^{-1} \SB {\Hat {g}} \M {K}^\Adj}
-}
-% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Design of Beamformers}
-{
-\I Let us set each entry of \m {\m {F}_B} (resp.\ \m {\m {W}_B}) to be i.i.d.\ complex standard normal, up to a design constant
-
-\I And set each entry of \m {\m {F}_R} (resp.\ \m {\m {W}_R}) be uniformly distributed in argument and unity magnitude, up to a design constant
-
-\I We will argue that \m {\M {F} _R ^\Tr}, \m {\M {F} _B ^\Tr}, \m {\M {W} _R}, and \m {\M {W} _B} all have RIP, thus \m {\M {P}} has too.
-
-\I Fix sparsity \m {s = L \RB {\log N_H}^2} for concreteness
 }
 
 

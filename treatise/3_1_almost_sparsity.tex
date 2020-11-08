@@ -57,11 +57,11 @@ And
 Then observe
 %
 \DispNum {K:H:1N:nH} {
-\NC \RB {\V {b} \SB {\f}} _{\SB {n_H}}
+\NC \V {b} \SB {\f} _{\SB {n_H}}
 =\NC \F {1} {N_H} D \SB {\psi \SB {\f, n_H}} \NR
 }
 
-Now, by the nature of alternating series, for \m {- \pi \leq x < \pi}, it holds that
+By the nature of alternating series, for \m {- \pi \leq x < \pi}, it holds that
 %
 \DispNum {x:6:si:nx} {
 \NC \Nm {x - \F {x^3} {6}}
@@ -94,9 +94,9 @@ Combining \Rf {y':H:f'M:p'p'}, \Rf {K:H:1N:nH}, and \Rf {D:y':si:y'p'} we have
 } _1
 \NR
 }
-%
+
 Note that \m {\Nm {B \SB {\psi'}}} is strictly decreasing in \m {\SB {0,\pi}}.
-We seek to bound the \quotation {rectangulars} with an integral, and we have to split the cases that \m {N_H} is odd and even.
+We seek to bound the rectangles with an integral, and we have to split the cases that \m {N_H} is odd and even.
 Anyway, a moment's reflection shows
 %
 \DispNum {b:1:1N:NH} {
@@ -162,20 +162,13 @@ by triangle inequality, by the property of Frobenius norm,
 \F {1} {L} \sum _{l=0} ^{L-1} \Nm {\a_l} \NR
 }
 %
-The quantity
-\DispNum {1:l:::} {
-\NC \NC \F {1} {L} \sum _{l=0} ^{L-1} \Nm {\a_l} \NR
-}
-is a sample mean, and we may want to use Hoeffding inequality.
-Since it requires that the r.v.\ shall have compact support, we truncate \m {\Nm {\a_l}} on \m {\Nm {\a_l} \leq 2} for simplicity, on which there is 95 percent of the probability mass.
-%
-To do so, observe that
+Then observe that
 %
 \DispNum {E:1:2p':2p'} {
 \NC \MB {E} \SB {\F {1} {L} \sum _{l=0} ^{L-1} \Nm {\a_l}}
 =\NC \F{\R {2}} {\R {\pi}} \NR
 }
-So, by Hoeffding inequality, choose also for simplicity
+By Hoeffding inequality,
 %
 \DispNum {P:p':2e:3p'} {
 \NC \MB {P} \SB {

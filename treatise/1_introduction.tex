@@ -18,14 +18,17 @@ As a result, conventional training-based algorithms lead to large time and space
 \startsection [title={Compressive sensing}]
 
 Indeed, the estimation of MIMO channel amounts to determining all parameters of the channel, which is a big square matrix of dimension \m {N_H}, the number of antennae.
-Fortunately, physical evidence has suggested that mm-wave channel are poor in scattering \cite [ALS14], reducing the number of paths, and that's when a recent developement called compressive sensing may help.
+Fortunately, physical evidence has suggested that mm-wave channel are poor in scattering \cite [ALS14], reducing the number of paths, and that's when a recent development called compressive sensing may help.
 Generally speaking, it is a technique for reconstructing a underdetermined linear system, when the sparsity of solution guarantees successful recovery in most cases.
 
 \blank [big]
 \externalfigure [compressive-sensing.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {
+A generic situation in which a signal is “crowded” in the given basis, but is “sparse” in transformed basis.
+(Retrieved from \goto {\hyphenatedurl {Wikimedia Commons}} [url (commons.wikimedia.org/wiki/File:Orthogonal_Matching_Pursuit.gif)])
+}
+\blank [big]
 
-The figure above shows the generic situation in which a signal is “crowded” in the given basis, but is “sparse” in transformed basis.
-(image taken from Wikimedia Commons, \Uurrll {commons.wikimedia.org/wiki/File:Orthogonal_Matching_Pursuit.gif})
 More measurements are required to recover the signal in the former, while fewer suffice in the latter basis.
 But, even if we are guaranteed latter basis exists, it is still a nontrivial undertaking to construct it.
 
@@ -107,7 +110,7 @@ For fixed \m {s =0, \dots N_p -1}, we say that \m {\M {Q}} satisfies \m {\d_s}-r
 It helps to think that \m {\M {Q}} is almost unitary up to relative error \m {\d_s}.
 
 For concreteness, say \m {\V {z}} is an i.i.d.\ normalized random normal vector.
-If so, a stronger result was established \cite [CaT07] that, with another \m {\ell_1} minimization program called Dantzig Selector (hencefore DS), recovery under the noisy case is again possible.
+If so, a stronger result was established \cite [CaT07] that, with another \m {\ell_1} minimization program called Dantzig Selector (hereafter DS), recovery under the noisy case is again possible.
 
 \Result
 {Algorithm}
@@ -145,13 +148,13 @@ Some scholars have thus applied compressive sensing techniques.
 An early attempt was Bajwa et.\ al.\ \cite [BHS10], where they argued that 
 if the \m {\ell_0}-norm of the channel matrix may be bounded by a constant, DS may be applied to estimate the time-dependent single-antenna channel response.
 The accompanying note by the same group \cite [BHR08] showed that \m {X} is RIP for overwhelming probability, justifying their work.
-And \cite [BHR08], which considered a linear time-invariant channel, showed that if the convolution with channel response can be seen as a linear system, whose sensing matrix has RIP of overwhelmingly probability, and DS is readlily applied.
+And \cite [BHR08], which considered a linear time-invariant channel, showed that if the convolution with channel response can be seen as a linear system, whose sensing matrix has RIP of overwhelmingly probability, and DS is readily applied.
 
 \stopsection
 
 \startsection [title={Orthogonal Matching Pursuit}]
 
-At the same time, Tropp and Gilbert \cite [TrG07b] suggested that a greedy algorithm called Orthogonal Matching Pursuit (OMP), which also makes use of an i.i.d.\ random matrix, may also reconstruct the sparse signal sufficiently well in an overwhemingly probability. 
+At the same time, Tropp and Gilbert \cite [TrG07b] suggested that a greedy algorithm called Orthogonal Matching Pursuit (OMP), which also makes use of an i.i.d.\ random matrix, may also reconstruct the sparse signal sufficiently well in an overwhelmingly probability. 
 In so doing, we still consider \Rf {y:y:Qx:xz}, and pick up the columns of \m {\M {Q}} greedily, hoping to correspond to the nonzero components of \m {\V {x}}.
 
 \Result
@@ -206,7 +209,7 @@ where \m {\VNm {\M {Q} ^\ddagger} _1} denotes the operator norm.
 }
 %
 Here \m {\V {r}} can be thought of as the estimated noise, and \m {S} the number of estimated nonzero components of \m {\V {x}} (here we have slightly abused the usage of subscript).
-From Tropp and Gilbert \cite [TrG07a], the probability that OMP recovers \m {\V {x}} completely is overwhelming, providing a perfomance guarantee.
+From Tropp and Gilbert \cite [TrG07a], the probability that OMP recovers \m {\V {x}} completely is overwhelming, providing a performance guarantee.
 It is instructive to note that the matrix consisting of a collection of columns that likely spans \m {\V {x}} plays the role of the sensing matrix in the previous section.
 
 OMP has since been applied widely in the literature.

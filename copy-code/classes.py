@@ -41,7 +41,6 @@ class Channel:
         gg = kk.conj ().T @ s.hh @ kk
         g = fct.vectorize (gg)
         z = fct.vectorize (zz)
-        #s.y = s.pp @ g
         s.y = s.pp @ g + (s.s_g / np.sqrt(2)) * z
 
 
@@ -57,33 +56,23 @@ class Estimation:
         s.s_g = s_g
         s.g_r_h = np.zeros (2 * (cst.NN_H (s.ver)))
         s.hh_h = np.zeros ((cst.NN_HH (s.ver), cst.NN_HH (s.ver)), dtype = complex)
-        #s.d = 0
         s.rr = 0
 
     def zero (s):
         s.g_r_h = np.zeros (2 * (cst.NN_H (s.ver)))
         s.hh_h = np.zeros ((cst.NN_HH (s.ver), cst.NN_HH (s.ver)), dtype = complex)
-        #s.d = 0
         s.rr = 0
 
     def set_g_r_h (s, g_r_h):
         s.g_r_h = g_r_h
 
     def convert (s):
-        #nor = np.linalg.norm (s.g_r_h, ord = 1)
-        #if (nor > cst.D_MAX (s.ver) * cst.NN_H (s.ver)):
-        #    s.zero ()
         g_h = fct.inv_find_rep_vec (s.g_r_h)
         gg_h = fct.inv_vectorize (g_h, cst.NN_HH (s.ver), cst.NN_HH (s.ver))
         s.hh_h = (fct.get_kk (s.ver) @ gg_h @ fct.get_kk (s.ver).conj().T)
-        #s.d = np.linalg.norm (s.hh_h - s.hh, ord = 'fro')
 
         nor_hh = np.linalg.norm (s.hh, ord = 2)
         nor_ee = np.linalg.norm (s.hh - s.hh_h, ord = 2)
-        hh_tot = (np.sqrt (cst.NN_HH (s.ver))
-            * (s.s_g + 2 * nor_ee * nor_hh / (cst.NN_HH (s.ver) ** (3/2))) ** (-1)
-            * s.hh @ s.hh.conj().T)
-        #s.rr = np.log2 (np.abs (np.linalg.det (np.eye (cst.NN_HH (s.ver)) + hh_tot)))
         s.rr = nor_ee / nor_hh
         
         if (s.rr > cst.MAX_RR (s.ver)):
@@ -93,20 +82,13 @@ class Estimation:
             s.g_r_h = pp_r_inv @ y_r
             nor_hh = np.linalg.norm (s.hh, ord = 2)
             nor_ee = np.linalg.norm (s.hh - s.hh_h, ord = 2)
-            hh_tot = (np.sqrt (cst.NN_HH (s.ver))
-                * (s.s_g + 2 * nor_ee * nor_hh / (cst.NN_HH (s.ver) ** (3/2))) ** (-1)
-                * s.hh @ s.hh.conj().T)
             s.rr = nor_ee / nor_hh
 
     def find_ddss_theory (s, s_g):
         nor_hh = np.linalg.norm (s.hh, ord = 2)
-        nor_ee = 8 * s_g * (cst.LL (s.ver) ** (1/2)) * (np.log (cst.NN_HH (s.ver)) ** (3/2))
-        hh_tot = (np.sqrt (cst.NN_HH (s.ver))
-            * (s.s_g + 2 * nor_ee * nor_hh / (cst.NN_HH (s.ver) ** (3/2))) ** (-1)
-            * s.hh @ s.hh.conj().T)
-        #s.rr = np.log2 (np.abs (np.linalg.det (np.eye (cst.NN_HH (s.ver)) + hh_tot)))
+        nor_ee = (8 * s_g * (cst.LL (s.ver) ** (1/2))
+                * (np.log (cst.NN_HH (s.ver)) ** (3/2)))
         s.rr = nor_ee / nor_hh
-
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
@@ -136,7 +118,8 @@ class Version:
         }
 
         ret = 0
-        ret += 10 * focus_dict [s.focus] + 2 * size_dict [s.size] + ratio_dict [s.ratio]
+        ret += (10 * focus_dict [s.focus]
+                + 2 * size_dict [s.size] + ratio_dict [s.ratio])
         return str(ret).zfill(2)
 
 class Focus (Enum):

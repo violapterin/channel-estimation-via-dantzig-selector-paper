@@ -25,7 +25,7 @@ For \m {\V {x} \in \MB {C} ^{M}}, define the real representation \m {\MS {R} \SB
 = \NC  0, 1, 2, \ldots, M-1 \NR
 }
 %
-The injectivity is obvious, and we may define \m {\MS {R} ^{-1}} so that
+The injection is obvious, and we may define \m {\MS {R} ^{-1}} so that
 %
 \DispNum {R:1:x::x:} {
 \NC \MS {R} ^{-1} \SB {\MS {R} \SB {\V {x}}}
@@ -264,7 +264,7 @@ We also tried another version of DS, in which DS is applied twice in estimated n
 The two-stage method was briefly mentioned \cite [CaT07] but without further justification by numerical experiments.
 To apply the method, we first apply DS as before.
 Then, we extract largest components of the estimated vector, and apply DS again.
-Futhermore, we extract largest components of the second estimated vector, and apply LS.
+Furthermore, we extract largest components of the second estimated vector, and apply LS.
 The final vector's indices has to be scrambled back according to the original index.
 
 \Result
@@ -307,7 +307,7 @@ Suppose the power of mobile phone antenna is 0.25 W,
 the carrier frequency is 5GHz,
 the base station is \m {1.5} km away,
 the noise is \m {–40} dB W.
-The noise-to-signal ratio would be
+If so, the noise-to-signal ratio is
 \DispNum {1:8:02:24} {
 \NC 10^{-4} \F {1} {0.25} \R {\F {5 \D 10^9 \D 4 \pi \D 1500} {3 \D 10^8}}
 =\NC 0.224 \NR
@@ -374,44 +374,58 @@ On the other hand, if they are too big, the steps are so imprecise that the prog
 \startsubsection [title={Assorted Plots}]
 
 In the following, we plot the reciprocal of noise level vs relative error norm, for \m {N_H = 8, 12, 16, 20, 24}, respectively.
-Plots 1 to 5 have \m {N_H = 3 N_Y}, and the plots 6 to 10 has \m {N_H = 2 N_Y}.
+Figures 3 to 6 have \m {N_H = 3 N_Y}, and figures 7 to 10 has \m {N_H = 2 N_Y}.
 
-Assorted, \m {N_H = 3 N_Y, N_H = 12}, error:
 \blank [big]
 \externalfigure [assorted-wide-small-error.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {Assorted methods, \m {N_H = 3 N_Y, N_H = 12}, error.}
+\blank [big]
 %
-Assorted, \m {N_H = 3 N_Y, N_H = 16}, error:
 \blank [big]
 \externalfigure [assorted-wide-medium-error.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {Assorted methods, \m {N_H = 3 N_Y, N_H = 16}, error.}
 %
-Assorted, \m {N_H = 3 N_Y, N_H = 20}, error:
 \blank [big]
 \externalfigure [assorted-wide-big-error.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {Assorted methods, \m {N_H = 3 N_Y, N_H = 20}, error.}
 %
-Assorted, \m {N_H = 3 N_Y, N_H = 24}, error:
 \blank [big]
 \externalfigure [assorted-wide-very-big-error.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {Assorted methods, \m {N_H = 3 N_Y, N_H = 24}, error.}
 %
-Assorted, \m {N_H = 2 N_Y, N_H = 12}, error:
 \blank [big]
 \externalfigure [assorted-narrow-small-error.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {Assorted methods, \m {N_H = 2 N_Y, N_H = 12}, error.}
+\blank [big]
 %
-Assorted, \m {N_H = 2 N_Y, N_H = 16}, error:
 \blank [big]
 \externalfigure [assorted-narrow-medium-error.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {Assorted methods, \m {N_H = 2 N_Y, N_H = 16}, error.}
+\blank [big]
 %
-Assorted, \m {N_H = 2 N_Y, N_H = 20}, error:
 \blank [big]
 \externalfigure [assorted-narrow-big-error.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {Assorted methods, \m {N_H = 2 N_Y, N_H = 20}, error.}
+\blank [big]
 %
-Assorted, \m {N_H = 2 N_Y, N_H = 24}, error:
 \blank [big]
 \externalfigure [assorted-narrow-very-big-error.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {Assorted methods, \m {N_H = 2 N_Y, N_H = 24}, error.}
+\blank [big]
 
 As for the plot of time taken in minutes, we give only one example of \m {N_H = 16}.
 %
 \blank [big]
 \externalfigure [assorted-medium-time.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {Assorted methods, \m {N_H = 3 N_Y, N_H = 16}, time.}
+\blank [big]
+
+We give one additional plot for extreme low signal level, in order to observe the trend of curves.
+\blank [big]
+\externalfigure [assorted-medium-low-signal-error.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {Assorted methods, \m {N_H = 3 N_Y, N_H = 16}, low signal level, error.}
+\blank [big]
+
 
 \stopsubsection
 
@@ -420,26 +434,32 @@ As for the plot of time taken in minutes, we give only one example of \m {N_H = 
 Again, we plot the reciprocal of noise level vs relative error norm, for \m {N_H = 8, 12, 16, 20, 24}, respectively, and \m {N_H = 3 N_Y} for each of them.
 Here, \m {\T {\chi}} is shown too.
 %
-Assorted, \m {N_H = 3 N_Y, N_H = 12}, error:
 \blank [big]
 \externalfigure [ddss-small-error.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {DS, \m {N_H = 3 N_Y, N_H = 12}, error.}
+\blank [big]
 %
-Assorted, \m {N_H = 3 N_Y, N_H = 16}, error:
 \blank [big]
 \externalfigure [ddss-medium-error.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {DS, \m {N_H = 3 N_Y, N_H = 16}, error.}
+\blank [big]
 %
-Assorted, \m {N_H = 3 N_Y, N_H = 20}, error:
 \blank [big]
 \externalfigure [ddss-big-error.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {DS, \m {N_H = 3 N_Y, N_H = 20}, error.}
+\blank [big]
 %
-Assorted, \m {N_H = 3 N_Y, N_H = 24}, error:
 \blank [big]
 \externalfigure [ddss-very-big-error.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {DS, \m {N_H = 3 N_Y, N_H = 24}, error.}
+\blank [big]
 %
 As for the plot of time taken in minutes, we give only one example of \m {N_H = 16}.
 %
 \blank [big]
 \externalfigure [ddss-medium-time.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {DS, \m {N_H = 3 N_Y, N_H = 16}, time.}
+\blank [big]
 
 \stopsubsection
 
@@ -448,38 +468,49 @@ As for the plot of time taken in minutes, we give only one example of \m {N_H = 
 Again, we plot the reciprocal of noise level vs relative error norm, for \m {N_H = 8, 12, 16, 20, 24}, respectively, and \m {N_H = 3 N_Y} for each of them.
 
 %
-Assorted, \m {N_H = 3 N_Y, N_H = 24}, error:
 \blank [big]
 \externalfigure [oommpp-small-error.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {OMP, \m {N_H = 3 N_Y, N_H = 12}, error.}
+\blank [big]
 %
-Assorted, \m {N_H = 3 N_Y, N_H = 24}, error:
 \blank [big]
 \externalfigure [oommpp-medium-error.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {OMP, \m {N_H = 3 N_Y, N_H = 16}, error.}
+\blank [big]
 %
-Assorted, \m {N_H = 3 N_Y, N_H = 24}, error:
 \blank [big]
 \externalfigure [oommpp-big-error.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {OMP, \m {N_H = 3 N_Y, N_H = 20}, error.}
+\blank [big]
 %
-Assorted, \m {N_H = 3 N_Y, N_H = 24}, error:
 \blank [big]
 \externalfigure [oommpp-very-big-error.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {OMP, \m {N_H = 3 N_Y, N_H = 24}, error.}
+\blank [big]
 %
 As for the plot of time taken in minutes, we give only one example of \m {N_H = 16}.
 %
 \blank [big]
 \externalfigure [oommpp-medium-time.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {OMP, \m {N_H = 3 N_Y, N_H = 16}, time.}
+\blank [big]
 
 \stopsubsection
 
 \startsubsection [title={Discussion}]
 
-In the assorted plots, DS steadily outperforms other methods, and LS is worse than DS, and Lasso still worse, and OMP still worse.
+In the assorted plots, DS steadily outperforms other methods.
+From lowest to highest error, it usually goes like this: DS, LS, Lasso, OMP.
+Though the result is encouraging for our purpose, we wonder why OMP is so bad.
+If OMP is even worse than LS, why was it adopted at all, in (say) Lee, Gil, and Lee \cite [LGL16]?
+But our configuration may not be comparable to theirs, due to different design of beamformers, so it remains to see how do OMP and DS compare under their settings.
+
 However, it is not clear how higher \m {\s} (dimensionless noise level) corresponds to lower \m {\T {\chi}} (simulated error).
 It seems when \m {\s} is further increased (leftmost of the figures), the error might also increase rapidly, but more parameters have to be simulated for a conclusion.
 
 Varying thresholds of DS (namely \m {\g_{\Rm {DS}}}) and OMP (namely \m {\h_{\Rm {OMP}}}) appears not to affect the estimation significantly.
 Nevertheless, it seems \m {\g_{\Rm {DS}}} is usually best chosen in the order of magnitude of \m {\s}, which is reasonable.
-Sometimes the iteration stablizes much earlier than is constrained by maximum iteration number.
+Sometimes the iteration stabilizes much earlier than is constrained by maximum iteration number.
 
 Sadly, we remark that CVXPY sometimes gives overflowing outputs, some of them as large as \m {10^11}.
 This indicates perhaps some typical-looking output may in fact be unreliable.
@@ -491,18 +522,20 @@ As shown above, the \m {\chi} is very constant around 1, thus \m {\T {\chi}} is 
 A possible explanation is that the non-sparsity of \m {\V {g}} undermines the analysis in chapter 3, despite our attempts.
 These matters remain to be investigated in the future.
 
+To give some idea of the case that DS works or fails, figures 23 and 24 illustrate either cases.
+In both figures the true values of \m {\M {H}} entries are ordered by magnitude, and corresponding estimated values in the first and second stage are plotted against them.
+When DS fails, the soft thresholding did not rule out smaller entries, thus a second application of DS on the wrong index set failed too.
+When DS succeeded, the soft thresholding gave a reasonable guess of the nonzero components, thus a second application of DS on this index set refined the estimated values.
+
 \blank [big]
 \externalfigure [scatter-ddss-failure.png] [wfactor=300]
-
-To give some idea of the case that DS works or fails, the figure above illustrates a case where DS failed.
-The true values of \m {\M {H}} entries are ordered with respect to their absolute value, and corresponding estimated values in the first and second stage are plotted against the true values.
-We see that the soft thresholding did not rule out smaller entries, so a second application of DS on the wrong index set fails too.
+\FigureCaption {A scatter plot of position versus magnitude for a case in which DS failed.}
+\blank [big]
 
 \blank [big]
 \externalfigure [scatter-ddss-success.png] [wfactor=300]
-
-The figure above illustrates a case where DS succeeded.
-We see that the soft thresholding did rule out smaller entries, and gives a reasonable guess of the nonzero components, so a second application of DS on this smaller index set refines the estimated values.
+\FigureCaption {A scatter plot of position versus magnitude for a case in which DS succeeded.}
+\blank [big]
 
 \stopsection
 
@@ -516,12 +549,12 @@ Boyd and Vandenberghe \cite [BoV04] analyzed complexity of inequality constraine
 In our case, Candès and Romberg \cite [CaR05] pointed out that the complex DS can be cast into an second order cone programming (SOCP), and where self concordance holds.
 Diamond and Boyd (writers of CVXPY) \cite [DiB16] explained that convex programs are usually converted into primal-dual problems.
 The library we called in the simulation is ECOS, where Newton method is used.
-Of course, we are not certain there is no method faster than Newton method, and implmentation details of CVXPY may change the conclusion too.
+Of course, we are not certain there is no method faster than Newton method, and implementation details of CVXPY may change the conclusion too.
 
 We attemp to give a heuristic argument regarding the complexity of Newton steps.
 We say the function being minimized is \m {\VNm {\V {g}}_1}.
 Let \m {\V {g} _0} denote the starting value of \m {\V {g}}, and \m {\V {g} ^{\star}} the the point of convergence.
-Then Boyd and Vandenberghe \cite [BoV04] (p.505, Eqn.\ 9.56) gave a bound of the number of steps.
+Then Boyd and Vandenberghe \cite [BoV04] (p.505, Eqn.9.56) gave a bound of the number of steps.
 If we just take that as the complexity bound for DS, it becomes
 %
 \DispNum {C:S:C0:1e'} {
@@ -531,7 +564,7 @@ If we just take that as the complexity bound for DS, it becomes
 }
 %
 Here \m {C_0} is constant related to implementation of Newton method, and \m {\e} the tolerance of error, and \m {C_{\Rm {step}}} is the complexity of Newton step.
-According to their analysis (eq.9.57), for most cases \m {-\log_2 \log_2 \e} can be bounded by \m {6}.
+According to their analysis (Eqn.9.57), for most cases \m {-\log_2 \log_2 \e} can be bounded by \m {6}.
 Also, \m {C_0} usually assumes the value of about several hundred.
 There was an example they gave in which \m {C_0 =375}, where, with their notation,
 \m {C_0 =(20 -8\a) / (\a \b \RB {1 -2\a}^2}), where \m {\a = 0.1, \b = 0.8, \e =0.01}, and \m {\a, \b} are parameters used in the Backtrack Line Tracing algorithm).
@@ -594,7 +627,7 @@ Then we simply have
 =\NC \MS {O} \SB {N_{H}^6} \NR
 }
 
-On the other hand, Tropp and Gilbert \cite [TrG07a] discussed the complexity of OMP, and the proof of technical lemmata in it can be found in the companion paper \cite [TrG07b].
+On the other hand, Tropp and Gilbert \cite [TrG07a] discussed the complexity of OMP in the companion paper \cite [TrG07b].
 They gave
 %
 \DispNum {C:P:ON:NY} {
@@ -611,7 +644,7 @@ Lastly, since Lasso involves the same target function as DS, the same argument i
 \startsubsection [title={Runtime Statistics}]
 
 Use \m {t_{\Rm {OMP}} \SB {N_H}}, \m {t_{\Rm {Lasso}} \SB {N_H}}, \m {t_{\Rm {DS}} \SB {N_H}} to denote their respective time taken.
-We reproduce the arithmetic average (including different \m {\s}) of simlated values below, in seconds.
+We reproduce the arithmetic average (including different \m {\s}) of simulated values below, in seconds.
 \DispNum {t:2:95:55} {
 \NC t_{\Rm {OMP}} \SB {12} \NC = 0.0119,
 \FourQ t_{\Rm {OMP}} \SB {16} = 0.0297, \NR
@@ -629,13 +662,13 @@ We reproduce the arithmetic average (including different \m {\s}) of simlated va
 \FourQ t_{\Rm {DS}} \SB {24} = 91.5, \NR
 }
 Simulation indeed shows that \m {t_{\Rm {DS}}} grows tremendously with (in our case) \m {N_H}, agreeing the criticism by Friedlander and Saunders \cite [FrS07] on the high complexity of DS.
-It is not suprising, regarding the fact that the convex program has to find the Newton step by calculating (in our case) \m {\M {P}}, a matrix of dimension \m {\M {N}_H^2}.
+It is not surprising, regarding the fact that the convex program has to find the Newton step by calculating (in our case) \m {\M {P}}, a matrix of dimension \m {\M {N}_H^2}.
 The matrix inversion is probably the bottleneck of complexity.
 However, as we noted above, that different tolerance level of and maximal iteration number may result in vastly different computation time.
 
 Meanwhile, \m {t_{\Rm {Lasso}}} and \m {t_{\Rm {OMP}}} are often an order of magnitude lower than \m {t_{\Rm {DS}}}.
 In general, \m {t_{\Rm {DS}} \gg t_{\Rm {Lasso}} \gg t_{\Rm {OMP}}}.
-It is now wonder that, given that OMP is a greedy alrogithm, the time OMP takes is negligibly small.
+It is now wonder that, given that OMP is a greedy algorithm, the time OMP takes is negligibly small.
 But it is also notable that, while Lasso has form similar to DS, it takes much lower time.
 
 Assuming the complexity of each of three methods is polynomial time, we calculate a least square fit for the power of complexity, giving the following estimated values, on which we add a tilde.

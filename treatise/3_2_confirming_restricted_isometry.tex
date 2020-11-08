@@ -5,9 +5,9 @@
 Our plan is setting the four beamformers to be i.i.d.\ random matrix, hoping that the resulting \m {P} has RIP.
 Let us make it simple and set each entry of \m {\M {F} _B} to be i.i.d.\ normal r.v.\ with mean 0, standard deviation \m {1/2}, multiplied by a normalizing constant \m {\l_B >0}.
 We know that the magnitude \m {\RB {\M {F} _B} _{\SB {n_R, n_Y}}} follows Rayleigh distribution.
-\m {\RB {\M {W} _B ^\Tr} _{\SB {n_Y, n_R}}} is set in an entirely analolous manner.
+\m {\RB {\M {W} _B ^\Tr} _{\SB {n_Y, n_R}}} is set in an entirely analogous manner.
 In addition, let \m {\RB {\M {F} _R} _{\SB {n_H, n_R}}} be uniformly distributed on the unit circle on the complex plane.
-\m {\RB {\M {W} _R ^\Tr} _{\SB {n_Y, n_R}}} is set in an entirely analolous manner.
+\m {\RB {\M {W} _R ^\Tr} _{\SB {n_Y, n_R}}} is set in an entirely analogous manner.
 
 It turns out we have results that guarantee that both \m {\M {F} _B ^\Tr} and \m {\M {F} _R ^\Tr} are RIP, and same can be said of \m {\M {W} _B} and \m {\M {W} _R}.
 Consider a sparse \m {\V {u}} or unity norm, then we are sure that \m {\M {F} _R ^\Tr \V {u}} has almost unity norm.
@@ -22,8 +22,8 @@ Can we argue instead that \m {\M {F} _B ^\Tr \M {F} _R ^\Tr \V {u}} has similar 
 
 \startsubsection [title={Operator norm of digital beamformers}]
 
-Use \m {\chi _{i,j}} to denote complex standard normal r.vs., and to simplify notation, let them be independent if they have different indices.
-With this,
+Use \m {\chi _{i,j}} to denote independent complex standard normal r.vs.
+We know
 %
 \DispNum {C':C':WB:j2} {
 \NC \VNm {\M {W} _B \V {u}} _2
@@ -31,7 +31,7 @@ With this,
    \sum _{i=0} ^{N_B-1} \VNm {\sum _{j=0} ^{N_R-1} \F {1} {\R{N_B}} \chi _{i,j} \V {u} _{j}} _2 ^2} \NR
 }
 %
-Essentially, we seek for a large- deviation result for i.i.d.\ sum of chi-square r.vs.\ now.
+We want a large deviation result for i.i.d.\ sum of chi-square r.vs.
 To so so, we may apply Lemma 1 in Laurent and Massart \cite [LaM00] for equal weights.
 By some calculation, we have upper tail inequality, for \m {x > 0},
 %
@@ -52,13 +52,13 @@ With substitution \m {\d_s =16x^2 /N_B^2}, the upper tail can be simplified with
 \Result
 {Proposition}
 {
-For \m {0 <\d_s <1},
+For \m {0 <\d_s <1}, it holds that
 %
 \DispNum {W:1:ds:ds} {
 \NC \Nm {\VNm {\M {W} _B \V {u}} _2 ^2 - 1}
 \geq \NC \d_s \NR
 }
-holds for probability \m {p}, with
+for probability \m {p}, with
 \DispNum {1:p:2e:s4} {
 \NC 1 -p
 \leq \NC 2 \Ss {e} ^{-N_B \R {\d_s} /4} \NR
@@ -69,13 +69,13 @@ holds for probability \m {p}, with
 
 \startsubsection [title={Operator norm of analog beamformers}]
 
-Here, we consult Haviv and Regev, “The restricted isometry property of subsampled Fourier matrices” collected in \cite [KlM17].
+Here, we consult Haviv and Regev, \quotation {The restricted isometry property of subsampled Fourier matrices} collected in \cite [KlM17].
 We need their Thm.\ 4.5; it gives a RIP guarantee w.r.t.\ \m {\d_s}, and probability lower bound, for DFT submatrix.
 The estimation they give involve is expressed in terms of big- \m {\O} and big- \m {O}, and since our methodology is 
 However, it can be seen that their argument allows precise constants, and they just did not spell out, which we briefly explain.
-Roughly, they use Chernoff-Hoeffding bounds, but write the exponent in the form of \m {\Omega}.
-Starting in their Thm.\ 2.2, we may substitute (say) \m {C \leftarrow 1/3} in place of their big- \m {\Omega}.
-The conclusions, their Thm.\ 3.7 and Thm.\ 4.5, may be changed accordingly.
+They use Chernoff-Hoeffding bounds, but write the exponent in the form of \m {\Omega}.
+Starting in their Thm.2.2, we may substitute (say) \m {C \leftarrow 1/3} in place of their big- \m {\Omega}.
+The conclusions, their Thm.3.7 and Thm.4.5, may be changed accordingly.
 If modified with respect to our setting, the condition
 %
 \DispNum {N:R:sd':NH} {
@@ -107,17 +107,17 @@ Then \m {\M {F}_R} (resp.\ \m {\M {W} _R}) has \m {\d_s}-RIP for probability \m 
 
 \startsubsection [title={Confirming the restricted isometry}]
 
-So, how do we relate RIP of \m {\M {F} _R ^\Tr}, \m {\M {F} _B ^\Tr}, \m {\M {W} _R}, and \m {\M {W} _B} to that of \m {\M {P}}?
-Notice, by the nature of operator norm,
+So, how do we relate RIP of \m {\M {F} _R ^\Tr}, \m {\M {F} _B ^\Tr}, \m {\M {W} _R}, and \m {\M {W} _B} to RIP of \m {\M {P}}?
+Notice
 \DispNum {P:2:FB:WR} {
 \NC \VNm {P} _2
 =\NC \VNm {\M {F}_B^\Tr \M {F}_B^\Tr} _2 \VNm {\M {W}_B \M {W}_R} _2 \NR
 }
-Indeed, if it were not for the sparsity constraint, if both \m {\M {F}_B^\Tr \M {F}_B^\Tr} and \m {\M {F}_B^\Tr \M {F}_B^\Tr} are \m {\d_s}-RIP, \m {\M {P}} has approximately \m {2\d_s}-RIP.
+Since both \m {\M {F}_B^\Tr \M {F}_B^\Tr} and \m {\M {F}_B^\Tr \M {F}_B^\Tr} are \m {\d_s}-RIP, it does appear, if we ignore for a moment the sparsity constraint, that \m {\M {P}} has approximately \m {2\d_s}-RIP.
 However, it is doubtful to assume that the Kronecker product of two RIP matrices exhibit RIP.
 
-We suggest the following argument.
-If all angles \m {\th_l, \f_l} are on exactly on the grid, then, with overwhelming probability, it is possible to write
+We try to argue as thus.
+If all angles \m {\th_l, \f_l} are exactly the multiples of \m {2 \pi/N_H}, then
 \DispNum {G:G:Ud:dU} {
 \NC \M {G}
 =\NC \M {U} \Rm {diag} \SB {\V {d}'} \M {U} ^\Adj \NR
@@ -126,11 +126,9 @@ for some \m {S}-sparse \m {\V {d}'} and unitary \m {\M {U}}.
 Clearly,
 \DispNum {G:2:g2:g2} {
 \NC \VNm {\M {G}} _2
-=\NC \VNm {\V {g}} _2 \NR
-%
-\NC =\NC \VNm {\Rm {abs} \SB {\V {g}}} _2 \NR
+\NC =\VNm {\Rm {abs} \SB {\V {g}}} _2 \NR
 }
-where \m {\Rm {abs}} denotes elementwise taking absolute value.
+where \m {\Rm {abs}} denotes entrywise absolute value.
 Then if we notice that \m {\M {W} _B \M {W} _R \M {K} \M {U}} and \m {\M {U} ^\Adj \M {K}^\Adj \M {F} _R^\Adj \M {F} _B^\Adj} has \m {\d_s}-RIP too, we see
 \DispNum {W:2:WB:d's} {
 \NC \NC \VNm {\M {W} _B \M {W} _R \M {H} \M {F} _R \M {F} _B} _2 \NR

@@ -10,6 +10,7 @@
 
 \definemathmatrix[TheMatrix][left={\left[}, right={\right]}]
 \definecounter [NumResult] [start=0, way=bytext, prefix=no]
+\definecounter [NumFigure] [start=0, way=bytext, prefix=no]
 \definefontfeature [default] [default] [onum=yes]
 \definefontfamily [MainFace] [rm] [TeX Gyre Pagella]
 \definefontfamily [MainFace] [ss] [TeX Gyre Heros]
@@ -23,9 +24,9 @@
 \definealternativestyle [AuthorStyle] [\ss\tfb] []
 \definemakeup [titlepage] [align=middle]
 \definereferenceformat [eqnref] [left=(, right=), text=Eqn.] 
-\definetextbackground [framedcode] [frame=off, background=no, rightoffset=0.3cm, location=paragraph]
+\definetextbackground [framedcode] [strut=yes, frame=off, background=no, align=right]
 \definetyping [Code] [
-   numbering=no, bodyfont=small, before={\startframedcode}, after={\stopframedcode}]
+   numbering=no, bodyfont=8.0pt, before={\startframedcode}, after={\stopframedcode}]
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 % General purpose macros
@@ -98,6 +99,10 @@
    #2 \par
    \hfill \m {\blacksquare} \break
 }
+\define [1] {\FigureCaption} {
+   \incrementcounter[NumFigure]
+   \m {\blacktriangle} \Bf {Figure \getnumber [NumFigure]:} \It {#1} \par
+}
 \define [2] {\DispNum} {
    \placeformula [#1]
    \startsplitformula
@@ -106,17 +111,6 @@
    \stopalign
    \stopsplitformula
    \noindent}
-
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-% Ad-hoc macros
-
-\define [0] {\AuthorText} {
-   Author: Tzu-Yu Jeng \\
-   Advisor: Prof.\ H.\ J.\ Su}
-\define [0] {\TitleText} {
-   Dantzig Selector \\
-   Applied on mm-Wave MIMO Channel Estimation \\
-   and Error Analysis}
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 

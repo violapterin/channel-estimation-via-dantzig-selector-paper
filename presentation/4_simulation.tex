@@ -33,25 +33,25 @@
 \Frame {\m {1/\s} vs \m {\chi}, assorted, \m {N_H=24=2N_Y}}
 {
 \blank [big]
+\externalfigure [assorted-narrow-medium-error.png] [width=11cm]
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {\m {1/\s} vs \m {\chi}, assorted, \m {N_H=24=2N_Y}}
+{
+\blank [big]
 \externalfigure [assorted-narrow-very-big-error.png] [width=11cm]
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {\m {1/\s} vs \m {\chi}, assorted, \m {N_H=24=3N_Y}}
 {
 \blank [big]
+\externalfigure [assorted-wide-medium-error.png] [width=11cm]
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {\m {1/\s} vs \m {\chi}, assorted, \m {N_H=24=3N_Y}}
+{
+\blank [big]
 \externalfigure [assorted-wide-very-big-error.png] [width=11cm]
-}
-% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {\m {1/\s} vs \m {\chi}, OMP only, \m {N_H=24=3N_Y}}
-{
-\blank [big]
-\externalfigure [oommpp-medium-error.png] [width=11cm]
-}
-% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {\m {1/\s} vs \m {\chi}, DS only, \m {N_H=24=3N_Y}}
-{
-\blank [big]
-\externalfigure [ddss-medium-error.png] [width=11cm]
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Time, assorted, \m {N_H=16}}
@@ -66,7 +66,7 @@
 
 \I Simulated \m {\chi} does not show trend that estimated \m {\T {\chi}} predicts.
 
-\I The weaker constraint on sparsity might have conpromised DS's performance.
+\I The weaker constraint on sparsity might have compromised DS's performance.
 
 \I DS has complexity much higher than OMP, but similar to Lasso.
 
@@ -78,7 +78,7 @@
 \blank [big]
 \externalfigure [scatter-ddss-success.png] [wfactor=150]
 
-\I When DS succeeds: soft thresholding (green) correctly guesses the true values of non-zero positions (black), and refines the estimated value (orange)
+\I Soft thresholding (green) correctly guesses true nonzero components (black), and refines the estimated value (orange)
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {A Failed Case of Estimation}
@@ -86,7 +86,7 @@
 \blank [big]
 \externalfigure [scatter-ddss-failure.png] [wfactor=150]
 
-\I When DS fails: soft thresholding (green) does not correctly guess the true values of non-zero positions (black), and the estimated value (orange) becomes worse
+\I Soft thresholding (green) guesses wrong nonzero components (black), and the estimated value (orange) deteriorates
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Complexity}

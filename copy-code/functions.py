@@ -11,9 +11,12 @@ import cvxpy as cp
 
 def execute (ver):
     arr_s_g = (cst.S_G_INIT (ver)
-            * cst.VALUE_SPACING_S_G (ver) ** (np.array (range (cst.NUM_S_G (ver)))))
-    lst_h_g = list (cst.VALUE_SPACING_H_G (ver) ** (np.array (range (cst.NUM_H_G (ver)))))
-    lst_g_g = list (cst.VALUE_SPACING_G_G (ver) ** (np.array (range (cst.NUM_G_G (ver)))))
+            * cst.VALUE_SPACING_S_G (ver)
+            ** (np.array (range (cst.NUM_S_G (ver)))))
+    lst_h_g = list (cst.VALUE_SPACING_H_G (ver)
+            ** (np.array (range (cst.NUM_H_G (ver)))))
+    lst_g_g = list (cst.VALUE_SPACING_G_G (ver)
+            ** (np.array (range (cst.NUM_G_G (ver)))))
 
     lst_legend = []
     lst_num_rep_meth = []
@@ -39,7 +42,8 @@ def execute (ver):
 
         # Orthogonal Matching Pursuit: limited l-2 norm
         for h_g in lst_h_g:
-            lst_legend.append ("OMP, $l_2$-norm, $\eta$ = " + '%.2f' % h_g + "$\sigma$")
+            lst_legend.append ("OMP, $l_2$-norm, $\eta$ = "
+                    + '%.2f' % h_g + "$\sigma$")
             lst_num_rep_meth.append (cst.NUM_REP_OOMMPP (ver))
             lst_meth.append (
                 lambda x, y, h_g = h_g:
@@ -47,7 +51,8 @@ def execute (ver):
 
         # Orthogonal Matching Pursuit: limited l-infinity norm
         for h_g in lst_h_g:
-            lst_legend.append ("OMP, $l_\infty$-norm, $\eta$ = " + '%.2f' % h_g + "$\sigma$")
+            lst_legend.append ("OMP, $l_\infty$-norm, $\eta$ = "
+                    + '%.2f' % h_g + "$\sigma$")
             lst_num_rep_meth.append (cst.NUM_REP_OOMMPP (ver))
             lst_meth.append (
                 lambda x, y, h_g = h_g:
@@ -107,7 +112,8 @@ def execute (ver):
                 time_each_stop = time.time ()
 
                 lst_spec_eff [i_meth] += est.rr / num_rep_meth
-                lst_time [i_meth] += np.log (time_each_stop - time_each_start) / (60 * num_rep_meth)
+                lst_time [i_meth] += (time_each_stop - time_each_start)
+                        / (60 * num_rep_meth)
 
             rate_progress = cnt_each / (cst.NUM_S_G (ver) * num_rep_tot)
             time_hold = time.time ()
@@ -115,7 +121,8 @@ def execute (ver):
             print ("    experiment ", cnt_meth, sep = '', flush = True)
             print ("      (", '%.1f' % (100 * rate_progress), "%; ",
                 '%.2f' % (
-                    (time_hold - time_tot_start) * (1 - rate_progress) / (rate_progress * 60)),
+                    (time_hold - time_tot_start) * (1 - rate_progress)
+                    / (rate_progress * 60)),
                 " min. remaining)",
                 sep = '', flush = True)
         lst_lst_spec_eff.append (lst_spec_eff)
@@ -136,7 +143,7 @@ def execute (ver):
         '%.2f' % ((time_tot_stop - time_tot_start) / 60),
         " (min)", flush = True)
 
-    arr_x =-10 * np.log (np.array (arr_s_g))
+    arr_x = -10 * np.log10 (np.array (arr_s_g))
     lst_lst_spec_eff = list (np.array (lst_lst_spec_eff).T) # each method, each s_g
     lst_arr_spec_eff = [np.array (lst) for lst in lst_lst_spec_eff]
     label_x = "Relative signal level (log)"
@@ -149,7 +156,7 @@ def execute (ver):
         label_x, label_y, lst_legend,
         "error", ver)
     
-    arr_x = np.array (np.log (arr_s_g))
+    arr_x = -10 * np.array (np.log10 (arr_s_g))
     lst_lst_time = list (np.array (lst_lst_time).T) # each meth, each s_g
     # Don't plot the DS theory's time usage (this must be plotted last).
     if "DS, theory" in lst_legend:
@@ -377,7 +384,8 @@ def pick_zz (ver):
     return mat_complex_normal (cst.NN_YY (ver), cst.NN_YY (ver))
 
 def pick_mat_bb (ver):
-    return (mat_complex_normal (cst.NN_YY (ver), cst.NN_RR (ver)) / np.sqrt (cst.NN_YY (ver)))
+    return (mat_complex_normal (cst.NN_YY (ver), cst.NN_RR (ver))
+            / np.sqrt (cst.NN_YY (ver)))
 
 def pick_mat_rr (ver):
     kk = np.sqrt (cst.NN_HH (ver)) * get_kk (ver)
@@ -538,7 +546,6 @@ def save_table (arr_x, lst_arr_y, label_x, label_y, lst_legend, title, ver):
                     switcher_focus [ver.focus] + "-" +
                     switcher_size [ver.size] + "-" +
                     title + "-" + ver.iden + ".txt")
-    #full_title = (full_title.replace (" ", "-"))
 
     os.system ("mkdir -p ../dat") # To create new directory only if nonexistent
     path_table_out = (

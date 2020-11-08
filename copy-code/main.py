@@ -6,7 +6,7 @@ import functions as fct
 import classes as cls
 
 # example
-NUM_REP_FIG = 6
+NUM_REP_FIG = 6 # example
 for i in range (NUM_REP_FIG):
     print (
         "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n",
@@ -14,6 +14,7 @@ for i in range (NUM_REP_FIG):
         "~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~\n"
     )
     idx_hold = i + 1
+    # example
     ver = cls.Version (
         cls.Focus.ASSORTED,
         cls.Size.BIG,

@@ -26,46 +26,25 @@
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Background}
 {
-\I Multiple-input multiple-output (MIMO) systems \\ have been suggested in 5G communication.
+\I Estimation of Multiple-input multiple-output (MIMO) systems results in high complexity, due to a large number of antennae.
 
-\I Estimation of MIMO channels results in high complexity, due to a large number of antennae.
-
-\I Meanwhile, millimeter wave (mm-Wave) channels are often sparse due its poor scattering nature
+\I Millimeter wave (mm-Wave) channels are often sparse due its poor scattering nature
 
 \I According to compressive sensing theory, we might exploit the sparsity to reduce complexity of estimation procedure.
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Compressive Sensing}
+\Frame {Terminology}
 {
-\blank [big]
-\externalfigure [compressive-sensing.png] [factor=fit]
+\I \m {\V {g}} is called \Emph {\m {s}-sparse}, if at most \m {s} of its components are nonzero.
 
-\I The signal as shown in is not sparse in the basis on the left, but it is in the basis on the right.
-
-\I Thus, the recovery from just a few components are able to approximate it well.
+\I We say that \m {\M {P}} satisfies the \Emph {restricted isometry property} (RIP) of sparsity \m {s} with respect to \m {0 < \d_s < 1}, if, for all \m {s}-sparse \m {\V {g}},
+\Disp {
+\NC \RB {1-\d_s} \VNm {\V {g}} _2^2
+\leq \NC \VNm {\m {P} \V {g}} _2^2
+\leq \RB {1+\d_s} \VNm {\V {g}} _2^2
 }
-% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Work on Compressive Channel Sensing}
-{
-\I Bajwa, Haupt, Sayeed, and Nowak (2010): MIMO, linear invariant system, using Dantzig Selector (DS)
 
-\I Alkhateeb, Ayach, Leus, Heath (2014): mm-wave channel, adaptive training algorithm for given codebook
-
-\I Alkhateeb, Leus, and Heath (2015): single path mm-wave channel, all-phase-shifter beamformers,
-using Orthogonal Matching Pursuit (OMP)
-
-\I Lee, Lee, and Yong (2016): MIMO mm-wave channel, hybrid beamforming, using Orthogonal Matching Pursuit (OMP)
-}
-% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Our Contribution}
-{
-\I Consider MIMO mm-wave channel, with hybrid beamforming
-
-\I Use a modified DS (convex programming), instead of OMP (greedy algorithm)
-
-\I Illustrate by experiments that DS has better performance
-
-\I Give an analysis of error norm and successful probability in terms of system parameters
+\I We may think \m {\M {P}} to be almost unitary up to relative error \m {\d_s}.
 }
 
 
