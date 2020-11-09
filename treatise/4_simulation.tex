@@ -293,7 +293,7 @@ The final vector's indices has to be scrambled back according to the original in
 
 Unfortunately, the two-stage method does not always appear to be better than the one-stage method, and we did not include the result in the figures.
 It might have something to do with appropriately scaling \m {\g_{\Rm {DS}}} with respect to \m {N_H},
-and it is not clear what is most reasonable choice of \m {N_1, N_1, N_2}.
+and we do not know what most reasonable choice of \m {N_1, N_1, N_2} is.
 
 \stopsubsection
 
@@ -502,8 +502,11 @@ As for the plot of time taken in minutes, we give only one example of \m {N_H = 
 In the assorted plots, DS steadily outperforms other methods.
 From lowest to highest error, it usually goes like this: DS, LS, Lasso, OMP.
 Though the result is encouraging for our purpose, we wonder why OMP is so bad.
-If OMP is even worse than LS, why was it adopted at all, in (say) Lee, Gil, and Lee \cite [LGL16]?
-But our configuration may not be comparable to theirs, due to different design of beamformers, so it remains to see how do OMP and DS compare under their settings.
+Did we make mistakes?
+We do not think so.
+A crucial reason might be that in Lee, Gil, and Lee \cite [LGL16], the angles of departure and arrival is distributed within a cluster of standard deviation 15 degrees, and in ours, they are uniform on the unit circle.
+One is then tempted to say, we suggested a low complexity beamformer and high complexity estimation method, while they suggested a high complexity beamformer and low complexity estimation method, and the low complexity solution does not seem effective in our settings.
+It remains to see, however, how OMP and DS compare, if done exactly under their settings.
 
 However, it is not clear how higher \m {\s} (dimensionless noise level) corresponds to lower \m {\T {\chi}} (simulated error).
 It seems when \m {\s} is further increased (leftmost of the figures), the error might also increase rapidly, but more parameters have to be simulated for a conclusion.
@@ -517,7 +520,7 @@ This indicates perhaps some typical-looking output may in fact be unreliable.
 To rid overflowing values, we discard outputs larger than a given threshold, say \m {10^4}, and simply apply a least square.
 It is open whether there are better methods.
 
-It is not clear, unfortunately, why \m {\T {\chi}} does not agree \m {\chi} (the error bound), and why \m {\chi} does not appear to increase significantly as \m {\s} increases.
+We are not sure either, unfortunately, why \m {\T {\chi}} does not agree \m {\chi} (the error bound), and why \m {\chi} does not appear to increase significantly as \m {\s} increases.
 As shown above, the \m {\chi} is very constant around 1, thus \m {\T {\chi}} is an overestimation when \m {\s} is high and underestimation when \m {\s} is low.
 A possible explanation is that the non-sparsity of \m {\V {g}} undermines the analysis in chapter 3, despite our attempts.
 These matters remain to be investigated in the future.

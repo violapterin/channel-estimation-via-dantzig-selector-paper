@@ -1,3 +1,15 @@
+\blank [big, force]
+
+\Title {\TitleText}
+\blank [big]
+
+\Subtitle {\AuthorText}
+\blank [big]
+
+\Subsubtitle {\InstitutionText}
+\Subsubtitle {November 2020}
+
+\page [yes]
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {System Configuration}
 {
@@ -32,7 +44,7 @@
 %
 \I Problem (a): How to recover \m {\M {H}} with knowledge of \m {\M {Y}}?
 
-\I Can we measure less than \m {N_H} times, but recover successfully for most cases?
+\I Can we measure less than \m {N_H^2} times, but recover successfully for most cases?
 
 \I Problem (b): How to design \m {\M {W}_R}, \m {\M {W}_B}, \m {\M {F}_R}, and \m {\M {F}_B}?
 
@@ -66,7 +78,7 @@
 \I Can we find a basis on which \m {\V {g}} is sparse?
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Literature on Compressive Channel Sensing}
+\Frame {Literature on Compressive Sensing}
 {
 \I Bajwa, Haupt, Sayeed, and Nowak (2010): MIMO, linear invariant system, using Dantzig Selector (DS)
 
@@ -77,24 +89,25 @@
 \I Lee, Lee, and Yong (2016): MIMO mm-wave, hybrid beamforming, using Orthogonal Matching Pursuit (OMP)
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Question}
+\Frame {Questions}
 {
-\I Candès and Tao (2007) proposed a performance bound for DS, then can DS do better than OMP?
+\I How does greedy algorithms (like OMP) trade precision for complexity, and that the opposite is true of convex programs (like DS)?
 
-\I Does convex programming (DS) trade accuracy with greedy algorithms (OMP)?
+\I We consider the hybrid system as in Lee, Lee, and Yong (2016), where they proposed an optimal joint design by a nonconvex program, but made considerable approximation.
+Is the simplified solution still optimal?
 
-\I May we verify a revised performance bound in the concrete case?
+\I Candès and Tao (2007) derived a performance bound for DS.
+Does it prove DS to be better?
+Does it apply to our case?
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Our Contribution}
+\Frame {Contribution}
 {
-\I Consider MIMO mm-wave channel, with hybrid beamforming
+\I We demonstrate that the beamformer may serve as the sensing matrix, so DS can be applied.
 
-\I Use a modified DS (convex programming), instead of OMP (greedy algorithm)
+\I We give a bound (holding for high probability) on expected error norm
 
-\I Illustrate by experiments that DS has better performance
-
-\I Give an analysis of error norm and successful probability in terms of system parameters
+\I Numerical results illustrate that in our configuration DS is superior to OMP among other methods, but is achieved at the cost of higher complexity.
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Design of Beamformers}

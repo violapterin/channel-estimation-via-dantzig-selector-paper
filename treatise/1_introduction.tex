@@ -231,17 +231,21 @@ Cai and Wang \cite [CaW11] extended the study to DS and other convex programs fo
 
 \startsection [title={Contribution}]
 
-From above we note that work on channel estimation seems to favored OMP for its low complexity.
-One notable difficulty in channel estimation is that, in the uniform linear array setting, the quantized angle of arrival and departure, which the sensing matrix is based on, does not necessarily match the true ones \cite [GYG18].
-Also, as the nature of OMP is greedy, and it is not clear whether it achieves optimality, and the assumption that the channel matrix is sparse warrant justification too.
+We saw that the literature on channel estimation seems to favored OMP for its low complexity.
+Then one naturally wonders how greedy algorithms, like OMP, compare to convex programs, like DS.
+Can it be that greedy algorithms trade precision for complexity, and that the opposite is true of convex programs?
 
-In this treatise, we suggest DS as an alternative.
-Chapter 2 shows, the effective beamformer may serve as the sensing matrix with RIP.
-Assuming uniform linear array, the sparsity may be exploited, and a convex program analogous to DS can be used for estimation, which ensures several desirable properties.
-In chapter 3, along the lines of \cite [CaT07], we give a bound on expected square error, expressed in terms of the sparsity and the number of paths.
-We claim that the bound holds for overwhelming probability.
-In chapter 4, we remark that DS can be written as an linear program, for which efficient algorithms are known.
-We present numerical results, which show that DS is often superior to OMP among other methods, which is achieved at the cost of higher complexity.
+We consider a hybrid system with uniform linear array as in Lee, Gil, and Lee \cite [LGL16], and aim to compare their result.
+Their work proposed an optimal beamformer, jointly designed on both ends via a nonconvex optimization problem, and due to its difficulty they have made considerable approximation.
+Is the simplified beamformer still optimal for OMP?
+Or will there be mismatch between the angles of sensing matrix and their true values, compromising the algorithm's accuracy?
+
+In this treatise, we illustrate, by the case of uniformly random angles, that DS may outperform OMP among other methods, and the nature of convex program also guarantees its performance.
+In chapter 2 we shall see that the effective beamformer may serve as the sensing matrix having RIP for high probability.
+The sparsity can be exploited this way, and DS may readily be applied.
+In chapter 3, along the lines of Candès and Tao \cite [CaT07], we give a bound (which holds for high probability) on expected error norm, expressed in terms of the suggested sparsity and the number of paths.
+In chapter 4, we remark that DS can be cast as a linear program, for which efficient algorithms are known.
+Numerical results show that in our configuration DS is superior to OMP among other methods, but is achieved at the cost of higher complexity.
 
 
 \stopsection

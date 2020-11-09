@@ -19,39 +19,47 @@
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Performance Metric}
 {
-\I We call the following quantity \m {\chi} efficiency, which is suggestive of the MIMO channel capacity.
+\I Let the \m {\T {\chi}}, the relative 2-norm error, be the performance metric.
 
-\I Denote \m {\M {E} = \Hat {\M {H}} - \M {H}}.
 \Disp {
-\NC \chi
-= \log \det \SB {\M {I} + \RB {\s + \F {2 \VNm {\M {E}} _2 \VNm {\M {H}} _2} {N_H ^{3/2}}} ^{-1} \M {H} \M {H} ^ \Adj} \NR
+\NC \T {\chi}
+=\NC \RB {
+   \F {\log_2 {\VNm {\V {h} -\Hat {\V {h}}} _2}}
+   {\log_2 {\VNm {\V {h}}_2}}
+} _{\Ss {avg}}, \NR
 }
 
-\I The theoretical efficiency \m {\chi _{\Rm {th}}} is defined by plugging in \m {\V {d}}.
+\I Also define \m {\chi} by plugging in \m {\V {d}} into \m {\T {\chi}}.
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {\m {1/\s} vs \m {\chi}, assorted, \m {N_H=24=2N_Y}}
+\Frame {\m {1/\s} vs \m {\T {\chi}}, assorted, \m {N_H=16=2N_Y}}
 {
 \blank [big]
 \externalfigure [assorted-narrow-medium-error.png] [width=11cm]
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {\m {1/\s} vs \m {\chi}, assorted, \m {N_H=24=2N_Y}}
+\Frame {\m {1/\s} vs \m {\T {\chi}}, assorted, \m {N_H=24=2N_Y}}
 {
 \blank [big]
 \externalfigure [assorted-narrow-very-big-error.png] [width=11cm]
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {\m {1/\s} vs \m {\chi}, assorted, \m {N_H=24=3N_Y}}
+\Frame {\m {1/\s} vs \m {\T {\chi}}, assorted, \m {N_H=16=3N_Y}}
 {
 \blank [big]
 \externalfigure [assorted-wide-medium-error.png] [width=11cm]
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {\m {1/\s} vs \m {\chi}, assorted, \m {N_H=24=3N_Y}}
+\Frame {\m {1/\s} vs \m {\T {\chi}}, assorted, \m {N_H=24=3N_Y}}
 {
 \blank [big]
 \externalfigure [assorted-wide-very-big-error.png] [width=11cm]
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {\It {ibid.}, low signal, assorted, \m {N_H=16=3N_Y}}
+{
+\blank [big]
+\externalfigure [assorted-medium-low-signal-error.png] [width=11cm]
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Time, assorted, \m {N_H=16}}
@@ -62,11 +70,11 @@
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Discussion}
 {
-\I DS wins other method within the range drawn.
+\I DS wins other method in the range drawn.
 
-\I Simulated \m {\chi} does not show trend that estimated \m {\T {\chi}} predicts.
+\I \m {\chi} does not show trend that \m {\T {\chi}} predicts.
 
-\I The weaker constraint on sparsity might have compromised DS's performance.
+\I The relaxed sparsity might compromise DS performance
 
 \I DS has complexity much higher than OMP, but similar to Lasso.
 
@@ -76,7 +84,7 @@
 \Frame {A Successful Case of Estimation}
 {
 \blank [big]
-\externalfigure [scatter-ddss-success.png] [wfactor=150]
+\externalfigure [scatter-ddss-success.png] [wfactor=180]
 
 \I Soft thresholding (green) correctly guesses true nonzero components (black), and refines the estimated value (orange)
 }
@@ -84,21 +92,26 @@
 \Frame {A Failed Case of Estimation}
 {
 \blank [big]
-\externalfigure [scatter-ddss-failure.png] [wfactor=150]
+\externalfigure [scatter-ddss-failure.png] [wfactor=180]
 
 \I Soft thresholding (green) guesses wrong nonzero components (black), and the estimated value (orange) deteriorates
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Complexity}
 {
-\I The number of Newton steps is about \m {\MC {O} \SB {\VNm {\V {g} _0 - \V {g} ^\star} _1}}, where \m {\VNm {\V {g} _0} _1} is the starting value, \m {\V {g} ^\star} the true value.
-Assume that is \m {\MC {O} \SB {\VNm {\M {P} ^\Adj \V {z}} _1}}, or \m {\MC {O} \SB {N_H^2}}.
+\I Let \m {C} denote big-O estimation of complexity, then we argue in the treatise
+\Disp {
+\NC C_{\Rm {OMP}} =\NC \mathcal {O} \SB {N_H^2 \log N_Y} \NR
+\NC C_{\Rm {Lasso}} =\NC \mathcal {O} \SB {N_H^6} \NR
+\NC C_{\Rm {DS}} =\NC \mathcal {O} \SB {N_{H}^6} \NR
+}
 
-\I Every Newton step requires a matrix inversion of dimension \m {2 N_H^2}, with complexity \m {\MC {O} \SB {N_H^4}}, giving overall complexity \m {\MC {O} \SB {N_H^6}}.
-
-\I Complexity of Lasso can be similarly argued to be \m {\MC {O} \SB {N_H^6}}.
-
-\I Clearly, OMP has complexity \m {\MC {O} \SB {N_H^2}}, much smaller than DS.
+\I Fitting runtime statistics one has
+\Disp {
+\NC \T {t}_{\Rm {OMP}} \NC \eqsim \mathcal {O} \SB {N_H^{3.6}} \NR
+\NC \T {t}_{\Rm {Lasso}} \NC \eqsim \mathcal {O} \SB {N_H^{4.8}} \NR
+\NC \T {t}_{\Rm {DS}} \NC \eqsim \mathcal {O} \SB {N_H^{8.3}} \NR
+}
 }
 
 

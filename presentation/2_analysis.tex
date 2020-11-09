@@ -2,23 +2,23 @@
 {
 \I What's the difference of true value \m {\V {h}} and estimated value \m {\Hat {\V {h}}}?
 
-\I Should account for the fact that \m {\V {g}} is not strictly sparse
+\I Should consider that \m {\V {g}} is not strictly sparse
 
-\I Should justify that all four beamformers, \m {\M {F}_B, \M {F}_R, \M {W}_B, \M {W}_R}, have RIP for high probability, thus \m {\m {P}} does too.
+\I Should justify that if beamformers, \m {\M {F}_B, \M {F}_R, \M {W}_B, \M {W}_R}, have RIP for high probability, than \m {\m {P}} does too.
 
-\I Should investigate the Big \m {\MC {O}} of error norm by bounding failure events mentioned above.
+\I Should bound the big \m {\MC {O}} of error norm corresponding to these failure events.
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {The Bound}
 {
-\I In conclusion, it holds for probability \m {p} that
+\I We argue in the treatise that it holds for probability \m {p} that
 \Disp {
 \NC \VNm {\Hat {\V {g}} - \V {g}} _2
 %
 \leq \NC 8 \R {L} \RB {\log N_H} ^{3/2} \NR
 }
 %
-\I For design values
+\I For ideal values
 \Disp {
 \NC N_Y \gtrsim \NC 4 \log N_H, \Q
 N_R \gtrsim 16 L \RB {\log N_H}^2 \NR
@@ -32,5 +32,6 @@ N_R \gtrsim 16 L \RB {\log N_H}^2 \NR
 %
 \I Unfortunately, the values are too big to simulate.
 }
+
 
 
