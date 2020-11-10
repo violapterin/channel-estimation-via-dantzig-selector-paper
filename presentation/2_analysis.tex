@@ -1,12 +1,12 @@
 \Frame {Error Analysis}
 {
-\I What's the difference of true value \m {\V {h}} and estimated value \m {\Hat {\V {h}}}?
+\I Can we bound \m {\VNm {\V {h} -\Hat {\V {h}}} _2}?
 
-\I Should consider that \m {\V {g}} is not strictly sparse
+\I Does it matter that \m {\V {g}} is not strictly sparse?
 
-\I Should justify that if beamformers, \m {\M {F}_B, \M {F}_R, \M {W}_B, \M {W}_R}, have RIP for high probability, than \m {\m {P}} does too.
+\I If \m {\M {F}_B, \M {F}_R, \M {W}_B, \M {W}_R}, all have restricted isometry, does \m {\m {P}} have too?
 
-\I Should bound the big \m {\MC {O}} of error norm corresponding to these failure events.
+\I Big \m {\MC {O}} probability of failure events?
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {The Bound}
@@ -15,19 +15,20 @@
 \Disp {
 \NC \VNm {\Hat {\V {g}} - \V {g}} _2
 %
-\leq \NC 8 \R {L} \RB {\log N_H} ^{3/2} \NR
+\eqsim \NC \MC {O} \SB {\R {L} \RB {\log N_H} ^{3/2}} \NR
 }
 %
 \I For ideal values
 \Disp {
-\NC N_Y \gtrsim \NC 4 \log N_H, \Q
+\NC N_B \gtrsim \NC 4 \log N_H, \Q
 N_R \gtrsim 16 L \RB {\log N_H}^2 \NR
 }
 %
 \I And it holds that
 \Disp {
 \NC 1 - p
-\lesssim \NC 2 N_H ^{-1/3} \NR
+\eqsim \NC \MC {O} \SB {\Ss {e} ^{-N_B /12}}
+ \NR
 }
 %
 \I Unfortunately, the values are too big to simulate.

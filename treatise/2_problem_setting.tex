@@ -56,8 +56,8 @@ to get a simpler form
 
 We consider the hybrid beamforming at both transmitter and receiver end, as shown in the figure.
 That is to say, each end consists of both digital and analog precoders and combiners, as follows.
-In the transmitter end, there are (seeing towards receiver end), digital precoder \m {\M {F} _B \in \MB {C} ^{N_R \D N_Y}} and analog precoder \m {\M {F} _R \in \MB {C} ^{N_H \D  N_R}}.
-Similarly, in the receiver end, there are (seeing towards transmitter end) digital combiner \m {\M {W} _R \in \MB {C} ^{N_R \D N_H}} and analog combiner \m {\M {W} _B \in \MB {C} ^{N_Y \D  N_R}}.
+In the transmitter end, there are (seeing towards receiver end), digital precoder \m {\M {F} _B \in \MB {C} ^{N_R \D N_B}} and analog precoder \m {\M {F} _R \in \MB {C} ^{N_H \D  N_R}}.
+Similarly, in the receiver end, there are (seeing towards transmitter end) digital combiner \m {\M {W} _R \in \MB {C} ^{N_R \D N_H}} and analog combiner \m {\M {W} _B \in \MB {C} ^{N_B \D  N_R}}.
 
 Recall that analog precoder is restricted to have value with magnitude being unity, i.e.,
 %
@@ -80,10 +80,10 @@ And we assume
 \DispNum {N:H:NY:NY} {
 \NC N_H \gg \NC N_R \NR
 %
-\NC N_R \gg \NC N_Y \NR
+\NC N_R \gg \NC N_B \NR
 }
 
-Since we restrict our discussion to a specific snapshot of time, the noise term may be simply taken as a matrix \m {\M {Z} \in \NC \MB {C} ^{N_Y \D N_Y}} with each entry being i.i.d.\ Standard Normal.
+Since we restrict our discussion to a specific snapshot of time, the noise term may be simply taken as a matrix \m {\M {Z} \in \NC \MB {C} ^{N_B \D N_B}} with each entry being i.i.d.\ Standard Normal.
 We may introduce the effective channel
 %
 \DispNum {Y:Y:WB:BZ} {
@@ -94,19 +94,20 @@ We may introduce the effective channel
 Our task, then, is the recovery of \m {\M {H}}, and the design of \m {\M {W} _R}, \m {\M {W} _B}, \m {\M {F} _R}, and \m {\M {F} _B}.
 
 \stopsection
-\startsubsection [title={Vectorization}]
+
+\startsection [title={Vectorization}]
 
 To convert the problem into a linear system recovery problem, we need several definitions.
 %
 \Result
 {Definition}
 {
-Define \m {\Rm {vec} \SB {\M {A}} \in \MB {K} ^{N_1, N_2}} to be the vectorization of \m {\M {A} \in \MB {K} ^{N_1 \D  N_2}}.
+Define \m {\Rm {vec} \SB {\M {A}} \in \MB {K} ^{N_1 \D N_2}} to be the vectorization of \m {\M {A} \in \MB {K} ^{N_1 \D  N_2}}.
 Formally,
 %
 \DispNum {v:1:Am:N1} {
-\NC \RB {\Rm {vec} \SB {\M {A}}} _{\SB {m_1}}
-=\NC \M {A} _{\SB {m_1\; \Rm {Mod}}\; N_1, \Fl {m_1/N_1 }} \NR
+\NC \RB {\Rm {vec} \SB {\M {A}}} _{\SB {m}}
+=\NC \M {A} _{\SB {m\; \Rm {Mod}}\; N_1, \Fl {m/N_1 }} \NR
 }
 %
 The bijection is obvious, and we define \m {\Rm {vec} ^{-1}} so that
@@ -152,15 +153,15 @@ It would seem now appealing to write
 %
 \NC \V {y}
 := \NC \Rm {vec} \SB {\M {Y}}
-\in \MB {C} ^{N_Y^2} \NR
+\in \MB {C} ^{N_B^2} \NR
 %
 \NC \V {z}
 := \NC \Rm {vec} \SB {\M {W} _B \M {W} _R \M {Z}}
-\in \MB {C} ^{N_Y^2} \NR
+\in \MB {C} ^{N_B^2} \NR
 %
 \NC \M {Q}
 := \NC \RB {\M {F} _B^\Tr \M {F} _R^\Tr} \otimes \RB {\M {W} _B \M {W} _R}
-\in \MB {C} ^{N_Y^2 \D N_H^2} \NR
+\in \MB {C} ^{N_B^2 \D N_H^2} \NR
 }
 %
 to formulate our goal as sparse recovery problem of \m {\Rm {vec} \SB {\M {H}}} to be
@@ -174,6 +175,7 @@ As we have motivated in previous sections, we want to use DS by considering spar
 However, there is no guarantee, though, that \m {\V {h}} will be sparse.
 
 \stopsection
+
 \startsection [title={Angular space}]
 
 Introduce the discrete Fourier transform matrix \m {\M {K}} defined to be
@@ -188,7 +190,7 @@ Introduce the discrete Fourier transform matrix \m {\M {K}} defined to be
 = \NC 0, 1, \dots, N_H-1 \NR
 }
 %
-Roman \m {\Ss {e}} and \m {\Ss {i}} denote the natural base and imaginary unit, respectively.
+Sans serif \m {\Ss {e}} and \m {\Ss {i}} denote the natural base and imaginary unit, respectively.
 Here recall that we have
 %
 \DispNum {K:K:I:::I} {
@@ -209,7 +211,7 @@ which has the interpretation as the angular space (i.e., spatial frequency domai
 \NC \M {Y}
 =\NC \M {W} _B \M {W} _R \M {K} \D \M {G} \D \M {K}^\Adj \M {F} _R \M {F} _B
 +\M {W} _B \M {W} _R \M {Z}
-\in \MB {C} ^{N_Y \D N_Y} \NR
+\in \MB {C} ^{N_B \D N_B} \NR
 }
 %
 If at the end of day, \m {\M {G}} is sparse, then we recover \m {\M {G}} instead, and our use of DS is fully justified.
@@ -218,7 +220,7 @@ To simplify notation, set
 \DispNum {P:P:FB:Nh} {
 \NC \M {P}
 :=\NC \RB {\M {F} _B^\Tr \M {F} _R^\Tr \M {K}^\ast} \otimes \RB {\M {W} _B \M {W} _R \M {K}}
-\in \MB {C} ^{N_Y^2 \D N_H^2} \NR
+\in \MB {C} ^{N_B^2 \D N_H^2} \NR
 }
 %
 And accordingly
@@ -246,12 +248,12 @@ If so, our program reads
 {
 \startitemize[n]
 \item Let \m {\g_{\Rm {DS}} \geq 0} be given.
-\item Input \m {\M {F} _B \in \NC \MB {C} ^{N_R \D N_Y}},
+\item Input \m {\M {F} _B \in \NC \MB {C} ^{N_R \D N_B}},
 \m {\M {F} _R \in \NC \MB {C} ^{N_H \D N_R}},
 \m {\M {W} _R \in \NC \MB {C} ^{N_R \D N_H}},
-\m {\M {W} _B \in \NC \MB {C} ^{N_Y \D N_R}},
-and \m {\M {Y} \in \NC \MB {C} ^{N_Y \D N_Y}}.
-\item Find \m {\M {P} \in \MB {C} ^{N_Y^2 \D N_H^2}}, \m {\V {y} \in \MB {C} ^{N_H^2}} as in above.
+\m {\M {W} _B \in \NC \MB {C} ^{N_B \D N_R}},
+and \m {\M {Y} \in \NC \MB {C} ^{N_B \D N_B}}.
+\item Find \m {\M {P} \in \MB {C} ^{N_B^2 \D N_H^2}}, \m {\V {y} \in \MB {C} ^{N_H^2}} as in above.
 \item Calculate
 %
 \DispNum {g:g:mi:DS} {

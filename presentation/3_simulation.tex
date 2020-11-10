@@ -2,19 +2,18 @@
 \Frame {Linear Programming}
 {
 \I DS is equivalent to a linear program, which allows more efficient convex programming methods to be used.
-
-\I Calculate
+(Variables with tilde denote the real representation of complex matrices and vectors.)
 \Disp {
-\NC \Hat {\V {g}}, \Hat {\V {f}}
+\NC \Hat {\T {\V {g}}}, \Hat {\T {\V {f}}}
 \LA \NC \startcases
-   \NC \Min {\V {g}', \V {f}'}  \MC \IP {\V {1}, \V {f}'} \NR
-   \NC \Rm {subject} \; \Rm {to} \MC \V {g}' \leq \V {f}' \NR
-   \NC \MC - \V {g}' \leq \V {f}' \NR
-   \NC \MC \M {P}^\Adj \M {P} \V {g}' \leq \M {P}^\Adj \V {y} + \g_{\Ss {DS}} \V {1} \NR
-   \NC \MC - \M {P}^\Adj \M {P} \V {g}' \leq - \M {P}^\Adj \V {y} + \g_{\Ss {DS}} \V {1} \NR
+   \NC \Min {\T {\V {g}}', \T {\V {f}}'}  \MC \IP {\V {1}, \T {\V {f}}'} \NR
+   \NC \Rm {subject} \; \Rm {to} \MC \T {\V {g}}' \preceq \T {\V {f}}',
+   \quad \MC - \T {\V {g}}' \preceq \T {\V {f}}' \NR
+   \NC \MC \T {\M {P}}^\Adj \T {\M {P}} \T {\V {g}}' \preceq \T {\M {P}}^\Adj \T {\V {y}} + \g_{\Ss {DS}} \V {1} \NR
+   \NC \MC - \T {\M {P}}^\Adj \T {\M {P}} \T {\V {g}}' \preceq - \T {\M {P}}^\Adj \T {\V {y}} + \g_{\Ss {DS}} \V {1} \NR
 \stopcases \NR
 }
-\I Output \m {\Hat {\M {H}} \LA \M {K} \Rm {vec}^{-1} \SB {\Hat {g}} \M {K}^\Adj}
+\I Output \m {\Hat {\M {H}} \LA \M {K} \Rm {vec}^{-1} \SB {\Hat {\T {\V {g}}}} \M {K}^\Adj}
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Performance Metric}
@@ -32,31 +31,31 @@
 \I Also define \m {\chi} by plugging in \m {\V {d}} into \m {\T {\chi}}.
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {\m {1/\s} vs \m {\T {\chi}}, assorted, \m {N_H=16=2N_Y}}
+\Frame {\m {1/\s} vs \m {\T {\chi}}, assorted, \m {N_H=16=2N_B}}
 {
 \blank [big]
 \externalfigure [assorted-narrow-medium-error.png] [width=11cm]
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {\m {1/\s} vs \m {\T {\chi}}, assorted, \m {N_H=24=2N_Y}}
+\Frame {\m {1/\s} vs \m {\T {\chi}}, assorted, \m {N_H=24=2N_B}}
 {
 \blank [big]
 \externalfigure [assorted-narrow-very-big-error.png] [width=11cm]
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {\m {1/\s} vs \m {\T {\chi}}, assorted, \m {N_H=16=3N_Y}}
+\Frame {\m {1/\s} vs \m {\T {\chi}}, assorted, \m {N_H=16=3N_B}}
 {
 \blank [big]
 \externalfigure [assorted-wide-medium-error.png] [width=11cm]
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {\m {1/\s} vs \m {\T {\chi}}, assorted, \m {N_H=24=3N_Y}}
+\Frame {\m {1/\s} vs \m {\T {\chi}}, assorted, \m {N_H=24=3N_B}}
 {
 \blank [big]
 \externalfigure [assorted-wide-very-big-error.png] [width=11cm]
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {\It {ibid.}, low signal, assorted, \m {N_H=16=3N_Y}}
+\Frame {\It {ibid.}, low signal, \m {N_H=16=3N_B}}
 {
 \blank [big]
 \externalfigure [assorted-medium-low-signal-error.png] [width=11cm]
@@ -72,9 +71,9 @@
 {
 \I DS wins other method in the range drawn.
 
-\I \m {\chi} does not show trend that \m {\T {\chi}} predicts.
+\I \m {\chi} does not show the trend that \m {\T {\chi}} predicts.
 
-\I The relaxed sparsity might compromise DS performance
+\I The relaxed condition on sparsity may have compromised performance of DS
 
 \I DS has complexity much higher than OMP, but similar to Lasso.
 
@@ -101,16 +100,16 @@
 {
 \I Let \m {C} denote big-O estimation of complexity, then we argue in the treatise
 \Disp {
-\NC C_{\Rm {OMP}} =\NC \mathcal {O} \SB {N_H^2 \log N_Y} \NR
+\NC C_{\Rm {OMP}} =\NC \mathcal {O} \SB {N_H^2 \log N_B} \NR
 \NC C_{\Rm {Lasso}} =\NC \mathcal {O} \SB {N_H^6} \NR
 \NC C_{\Rm {DS}} =\NC \mathcal {O} \SB {N_{H}^6} \NR
 }
 
 \I Fitting runtime statistics one has
 \Disp {
-\NC \T {t}_{\Rm {OMP}} \NC \eqsim \mathcal {O} \SB {N_H^{3.6}} \NR
-\NC \T {t}_{\Rm {Lasso}} \NC \eqsim \mathcal {O} \SB {N_H^{4.8}} \NR
-\NC \T {t}_{\Rm {DS}} \NC \eqsim \mathcal {O} \SB {N_H^{8.3}} \NR
+\NC \T {C}_{\Rm {OMP}} \NC \eqsim \mathcal {O} \SB {N_H^{3.6}} \NR
+\NC \T {C}_{\Rm {Lasso}} \NC \eqsim \mathcal {O} \SB {N_H^{4.8}} \NR
+\NC \T {C}_{\Rm {DS}} \NC \eqsim \mathcal {O} \SB {N_H^{8.3}} \NR
 }
 }
 

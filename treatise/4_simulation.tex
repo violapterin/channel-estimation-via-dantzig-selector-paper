@@ -1,16 +1,15 @@
 \startchapter [title={Simulation}]
 
-In this chapter we shall verify the bound \m {\T {\chi}} by numerical experiments.
-DS is a convex optimization program, and for present purpose, we choose the Python library CVXPY.
+In this chapter we shall compare \Rf {d:2:OL:H3} with numerical experiments.
+For the convex optimization, we choose the Python library CVXPY.
 For the implementation details, see Diamond and Boyd \cite [DiB16]
-
-A direct implementation of Algorithm [7] exhibits extraordinarily large complexity, but Candès and Romberg \cite [CaR05] showed that DS can be simplified as an linear program (LP) (even though they assumed real vectors, and we consider the complex ones), which we reproduce below.
+A direct implementation of Algorithm [7] leads to extraordinarily large complexity, but Candès and Romberg \cite [CaR05] showed that DS can be cast as a linear program, which we illustrate below.
 
 \startsection [title={Method}]
 
 \startsubsection [title={Some Notation}]
 
-For brevity we shall represent complex vector and matrices by real ones, comprising of its real an imaginary parts.
+For brevity we shall represent complex vector and matrices by real ones, consisting of its real and imaginary parts.
 For \m {\V {x} \in \MB {C} ^{M}}, define the real representation \m {\MS {R} \SB {\V {x}}} of \m {\V {x}} to be
 %
 \DispNum {R:x:R2:M1} {
@@ -53,10 +52,11 @@ For \m {\M {A} \in \MB {C} ^{M_1 \D M_2}}, define real representation \m {\MS {R
 
 With these, we define
 %
-\DispNum {y:::Ry:Ny} {
+
+\DispNum {y:y:Ry:Ny} {
 \NC \T {\V {y}}
 = \NC \MS {R} \SB {\V {y}}
-\in \MB {R} ^{2 N_Y^2} \NR
+\in \MB {R} ^{2 N_B^2} \NR
 %
 \NC \T {\V {g}}
 = \NC \MS {R} \SB {\V {g}}
@@ -64,177 +64,52 @@ With these, we define
 %
 \NC \T {\M {P}}
 = \NC \MS {R} \SB {\M {P}}
-\in \MB {R} ^{2 N_Y^2 \D 2 N_H^2} \NR
+\in \MB {R} ^{2 N_B^2 \D 2 N_H^2} \NR
 %
 \NC \T {\M {P}} ^\Adj
 = \NC \MS {R} \SB {\M {P} ^\Adj}
-\in \MB {R} ^{2 N_Y^2 \D 2 N_H^2} \NR
+\in \MB {R} ^{2 N_B^2 \D 2 N_H^2} \NR
 %
 \NC \T {\V {z}}
 = \NC \MS {R} \SB {\V {z}}
-\in \MB {R} ^{2 N_Y^2} \NR
+\in \MB {R} ^{2 N_B^2} \NR
 }
 %
-such that, by construction,
+so, by construction,
 %
-\DispNum {y:::Pg:gz} {
+\DispNum {y:y:Pg:gz} {
 \NC \V {\T {y}}
 = \NC \M {\T {P}} \V {\T {g}} +\V {\T {z}} \NR
 }
-
-Furthermore, introduce the following matrices to identify the components where we want to take \m {\ell_2}-norm, in the manner similar to an indicator function.
 %
-\DispNum {u:h:RN:h1} {
-\NC {\V {u}}_{n_h}
-\in \NC \MB {R} ^{N_H^2} \NR
-\NC \RB {\V {u}_{n_h}} _{\SB {n_h'}}
-= \NC
-\startcases
-1, \Q \MC n_h' =n_h \NR
-0, \Q \NC \Rm {otherwise} \NR
-\stopcases \NR
-\NC \T {\M {U}}_{n_h} \in \NC \MB {R} ^{2 N_H^2 \D 2 N_H^2} \NR
-\NC \RB {\T {\M {U}}_{n_h}} _{\SB {n_h', n_h''}}
-= \NC
-\startcases
-1, \Q \MC n_h' =2n_h,\; n_h'' =2n_h \NR
-1, \Q \MC n_h' =2n_h +1,\; n_h'' =2n_h +1 \NR
-0, \Q \NC \Rm {otherwise} \NR
-\stopcases \NR
-\NC n_h, n_h', n_h'' 
-= \NC 0, 1, 2, \ldots, N_H^2 -1 \NR
-}
-%
-And denote \m {\V {1}} to be the all-\m{1} vector for short, and \m {\V {0}} the all-\m{0} vector, whose dimension will be specified from context.
-Now, if we introduce vector \m{\V {m}}
-%
-\DispNum {m:::RN:h1} {
-\NC \V {m} \in \NC \MB {R} ^{N_H^2} \NR
-\NC \V {m} _{\SB{n_h}}
-= \NC \Nm{\V {g} _{\SB {n_h}}} \NR
-\NC n_h, n_h', n_h'' 
-= \NC 0, 1, 2, \ldots, N_H^2 -1 \NR
-}
-%
-to denote the entrywise complex modulus of \m{\V {g}}, we see that the convex optimization now takes the form
-%
-\DispNum {g:::mi:h1} {
-\NC \Hat {\T {\V {g}}}
-= \NC \startcases
-\NC \Min {\T {\V {g}}', \V {m}} \Q
-\MC \IP { \V {1}, \V {m} } \NR
-\NC \Rm {subject} \; \Rm {to} \Q
-\MC \VNm { \T {\M {U}}_{n_h} \T {\V {g}}' }_2
-\leq \IP { \V {u}_{n_h}, \V {m} } \NR
-\NC \MC \VNm { \T {\M {U}}_{n_h} \T {\M {P}}^\Adj \RB { \T {\M {P}} \T {\V {g}}' -\T {\V {y}} } }_2
-\leq \g_{\Rm {DS}} \NR
-\stopcases \NR
-\NC n_h 
-= \NC 0, 1, 2, \ldots, N_H^2-1 \NR
-}
+And denote \m {\V {1}} to be the all-\m{1} vector, and \m {\V {0}} the all-\m{0} vector, whose dimension will be inferred from context.
 
 \stopsubsection
 
 \startsubsection [title={A Linear Program}]
 
-We shall see furthermore that the program can be cast into an SOCP.
-To make the point clearer, we rewrite the program just above into an extended block matrix form, by defining auxiliary variables as follows,
-%
-\DispNum {t:t:01:Nh} {
-\NC \V {t}
-= \NC \startTheMatrix
-\NC \V {0} \NR
-\NC \V {1} \NR
-\stopTheMatrix
-\in \MB {R} ^{3 N_H^2} \NR
-%
-\NC \V {x}'
-= \NC \startTheMatrix
-\NC \T {\V {g}}' \NR
-\NC \V {m} \NR
-\stopTheMatrix
-\in \MB {R} ^{3 N_H^2} \NR
-}
-%
-with
-%
-\DispNum {A:i:Ui:21} {
-\NC \M {A}_i
-= \NC \startTheMatrix
-\NC \T {\M {U}}_{i}, \NC \M {0} \NR
-\stopTheMatrix
-\in \MB {R} ^{2 N_H^2 \D 3 N_H^2} \NR
-%
-\NC \V {b}_i
-= \NC \V {0}
-\in \MB {R} ^{2 N_H^2} \NR
-%
-\NC \V {c}_i
-= \NC \startTheMatrix
-\NC \V {0} \NR
-\NC \V {u}_{i} \NR
-\stopTheMatrix
-\in \MB {R} ^{3 N_H^2} \NR
-%
-\NC d_i
-= \NC 0 \NR
-%
-\NC i 
-= \NC 0, 1, 2, \ldots, N_H^2 -1 \NR
-}
-%
-and
-%
-\DispNum {A:i:Ui:21:"} {
-\NC \M {A}_i
-= \NC \startTheMatrix
-\NC -\T {\M {U}}_{i - N_H^2} \T {\M {P}}^\Adj \T {\M {P}}, \NC \M {0} \NR
-\stopTheMatrix
-\in \MB {R} ^{2 N_H^2 \D 3 N_H^2} \NR
-%
-\NC \V {b}_i
-=\NC \T {\M {U}}_{i - N_H^2} \T {\M {P}}^\Adj \T {\V {y}}
-\in \MB {R} ^{2 N_H^2} \NR
-%
-\NC \V {c}_i
-= \NC \V {0}
-\in \MB {R} ^{3 N_H^2} \NR
-%
-\NC d_i
-= \NC \g_{\Rm {DS}} \NR
-%
-\NC i 
-= \NC N_H^2, N_H^2 +1, N_H^2 +2, \ldots, 2 N_H^2 -1 \NR
-}
+We can now see that DS is equivalent to a linear program.
 
 \Result
 {Algorithm}
 {
 \startitemize[n]
-\item Input \m{\M {P} \in \MB {C} ^{ N_Y^2 \D N_H^2}}, \m{\V {y} \in \MB {C} ^{ N_Y^2}}, \m {\g_{\Rm {DS}} > 0}.
-\item Define \m{\V {t}, \V {x}, \M {A}_i, \V {b}_i, \V {c}_i, d_i} according to \Rf {t:t:01:Nh}, \Rf {A:i:Ui:21}, \Rf {A:i:Ui:21:"}.
-
-\item Calculate
+\item Input \m{\M {P} \in \MB {C} ^{ N_B^2 \D N_H^2}}, \m{\V {y} \in \MB {C} ^{ N_B^2}}, \m {\g_{\Rm {DS}} > 0}.
 %
-\DispNum {x:::mi:h1} {
-\NC \Hat {\V {x}}
+\item Define \m {\T {\V {y}}, \T {\V {g}}, \T {\M {P}}, \T {\M {P}} ^\Adj, \T {\V {z}}}, according to \Rf {y:y:Ry:Ny}.
+%
+\item Calculate
+\DispNum {g:f:gf:S1} {
+\NC \Hat {\T {\V {g}}}, \Hat {\T {\V {f}}}
 \LA \NC \startcases
-\NC \Min {\V {x}' \in \MB {C} ^{N_H^2}}
-\MC \IP {\V {t}, \V {x}'} \NR
-\NC \Rm {subject} \; \Rm {to}
-\Q  \MC \VNm {\M {A} _{i} \V {x}' +\V {b} _{i}} _2
-\leq \IP {\V {c}_{i}, \V {x}'} +\V {d}_i \NR
-\NC \MC i 
-=0, 1, 2, \ldots, 2 N_H^2 -1 \NR
+   \NC \Min {\T {\V {g}}', \T {\V {f}}'}  \MC \IP {\V {1}, \T {\V {f}}'} \NR
+   \NC \Rm {subject} \; \Rm {to} \MC \T {\V {g}}' \preceq \T {\V {f}}' \NR
+   \NC \MC - \T {\V {g}}' \preceq \T {\V {f}}' \NR
+   \NC \MC \T {\M {P}}^\Adj \T {\M {P}} \T {\V {g}}' \preceq \T {\M {P}}^\Adj \T {\V {y}} + \g_{\Ss {DS}} \V {1} \NR
+   \NC \MC - \T {\M {P}}^\Adj \T {\M {P}} \T {\V {g}}' \preceq - \T {\M {P}}^\Adj \T {\V {y}} + \g_{\Ss {DS}} \V {1} \NR
 \stopcases \NR
 }
-\item Extract
-%
-\DispNum {g:::x0:h1} {
-\NC \Hat{\T{\V {g}}}
-\LA \NC \Hat{\V {x}} _{\SB {0 : 2 N_H^2-1}} \NR
-}
-\item Convert 
+\item Convert
 %
 \DispNum {g:::R1:1g} {
 \NC \Hat{\V {g}}
@@ -264,8 +139,8 @@ We also tried another version of DS, in which DS is applied twice in estimated n
 The two-stage method was briefly mentioned \cite [CaT07] but without further justification by numerical experiments.
 To apply the method, we first apply DS as before.
 Then, we extract largest components of the estimated vector, and apply DS again.
-Furthermore, we extract largest components of the second estimated vector, and apply LS.
-The final vector's indices has to be scrambled back according to the original index.
+Furthermore, we extract largest components of the second estimated vector, and apply Moore–Penrose inverse.
+The final indices set has to be scrambled back corresponding to the original ones.
 
 \Result
 {Algorithm}
@@ -283,15 +158,15 @@ The final vector's indices has to be scrambled back according to the original in
 =\NC \lfloor \R {N_0 N_2} \rfloor \NR
 }
 
-\item Apply DS to \m {\V {y}, \M {P}} to get \m {\Hat {\V {g}}_0}, call the \m {N_1} largest component of \m {\Hat {\V {g}}_0} and to be \m {\V {g}_1}, and corresponding columns of \m {\M {P}} to be \m {\M {P} _1}.
+\item Apply DS to \m {\V {y}, \M {P}} to get \m {\Hat {\V {g}}_0}, and call the \m {N_1} largest component of \m {\Hat {\V {g}}_0} to be \m {\V {g}_1}, and corresponding columns of \m {\M {P}} to be \m {\M {P} _1}.
 
-\item Apply DS to \m {\V {y}, \M {P}_1} to get \m {\Hat {\V {g}}_1}, call the \m {N_2} largest component of \m {\Hat {\V {g}}_1} and to be \m {\V {g}_2}, and corresponding columns of \m {\M {P}} to be \m {\M {P} _2}.
+\item Apply DS to \m {\V {y}, \M {P}_1} to get \m {\Hat {\V {g}}_1}, and call the \m {N_2} largest component of \m {\Hat {\V {g}}_1} to be \m {\V {g}_2}, and corresponding columns of \m {\M {P}} to be \m {\M {P} _2}.
 
-\item Apply least square to \m {\V {y}, \M {P} _2} to get \m {\Hat {\V {g}}_2}, which corresponds to \m {\Hat {\V {g}}}.
+\item Apply Moore–Penrose inverse to \m {\V {y}, \M {P} _2} to get \m {\Hat {\V {g}}_2}, which corresponds to \m {\Hat {\V {g}}}.
 \stopitemize
 }
 
-Unfortunately, the two-stage method does not always appear to be better than the one-stage method, and we did not include the result in the figures.
+Unfortunately, the two-stage method does not always appear to be better than the one-stage method, and we did not include the method in the plots.
 It might have something to do with appropriately scaling \m {\g_{\Rm {DS}}} with respect to \m {N_H},
 and we do not know what most reasonable choice of \m {N_1, N_1, N_2} is.
 
@@ -300,6 +175,9 @@ and we do not know what most reasonable choice of \m {N_1, N_1, N_2} is.
 \startsection [title={Result}]
 
 \startsubsection [title={Settings}]
+
+Beside DS, we have simulated OMP for three different stop conditions, Lasso, and Moore Penrose pseudoinverse (abbreviated LS for least square).
+For the plot of assorted methods, \m {8} values of \m {\s} are considered; for the plots of only OMP, \m {9} values are considered; for the plots of only OMP, \m {6} values are considered.
 
 To get some idea of the order of magnitude of noise-to-signal level, plug in some actual numbers.
 Consider only path loss in the simplest form according to Friis Law.
@@ -312,15 +190,13 @@ If so, the noise-to-signal ratio is
 \NC 10^{-4} \F {1} {0.25} \R {\F {5 \D 10^9 \D 4 \pi \D 1500} {3 \D 10^8}}
 =\NC 0.224 \NR
 }
-In the following simulation, we use dimensionless noise-to-signal level \m {\s}.
-Its value starts with \m {2^{-4}}, and is increased by being multiplied with 2.
-For the plot of assorted methods, 8 values of \m {\s} are used; for the plots of only OMP, 9 values are used; for the plots of only OMP, 6 values are used.
+In the following simulation, we use dimensionless noise-to-signal levels starting with \m {2^{-4}}, and being multiplied with powers of \m {2}.
 
 We take \m {N_H} to be \m {8, 12, 16, 20, 24}, respectively.
 For assorted plots, two series of plots are simulated.
-One series for \m {N_Y = \lfloor N_H /2 \rfloor}, giving \m {4, 6, 8, 10, 12};
-one series for \m {N_Y = \lfloor N_H /3 \rfloor}, giving \m {3, 4, 5, 7, 8}.
-For OMP and DS only plots, we just choose \m {N_Y = \lfloor N_H /3 \rfloor}.
+One series for \m {N_B = \lfloor N_H /2 \rfloor}, giving \m {4, 6, 8, 10, 12};
+one series for \m {N_B = \lfloor N_H /3 \rfloor}, giving \m {3, 4, 5, 7, 8}.
+For OMP and DS only plots, we only consider \m {N_B = \lfloor N_H /3 \rfloor}.
 On the other hand, \m {N_R} always set to be \m {\lfloor \RB {\log N_H}^2 \rfloor}.
 Unfortunately, this is very far from achieving the design values \Rf {N:B:4l:H2}, and this may be part of the reason the result is not as successful as expected.
 
@@ -328,26 +204,24 @@ Other parameters are fixed in these experiments;
 The number of grid of quantization of analog precoder is \m {16}.
 The number of paths \m {L} is \m {4}.
 The wavelength of carrier \m {\l _{\Rm {ant}}} is set to be \m {0.1}.
-and the antenna spacing \m {d _{\Rm {ant}}} is 0.2.
+and the antenna spacing \m {d _{\Rm {ant}}} is \m {0.2}.
 Only their ratio matters.
 
 For parameters related to the convex optimization algorithm, the tolerance of absolute error in the primal-dual algorithm used in CVXPY is set as \m {10^{-4}}, and the tolerance of relative error, as \m {10^{-3}}.
 The maximal number of iteration of CVXPY is set to be \m {32}.
-On the other hand, the maximal number of iteration of OMP is set to be \m {4 N_Y}.
+On the other hand, the maximal number of iteration of OMP is set to be \m {4 N_B}.
 
 Denote the threshold used in DS program to be \m {\g_{\Rm {DS}}}, and similar threshold of Lasso to be \m {\g_{\Rm {Lasso}}}.
-Different values are tried by multiplying or dividing them by powers of 2.
+Different values are produced by multiplying powers of \m {2}.
 
 In the plots of assorted methods, we set \m {\g_{\Rm {DS}} = 2 \R {\log N_H}} for concreteness, as suggested in \cite [CaT07].
 For sake of comparison, \m {\g_{\Rm {Lasso}} = 2 \R {\log N_H}} too.
-For OMP, suggested values in Cai \& Wang (2011) is illuminating, where they (in their Theorem 7) considered \m {\ell _2}-norm, and (in their Theorem 8), \m {\ell _\infty}-norm.
-We make simplification and set respectively \m {\R {3 N_Y}} and \m {2 \R {\log N_H}}.
-Meanwhile, the threshold used for the remainder norm used in OMP program is suggested in \cite [CaW11].
-We take \m {\h_{\Rm {OMP}} = 2 \R {\log N_H}} for \m {\infty}-norm constraint, \m {\h_{\Rm {OMP}} = \R {3 N_Y}} for 2-norm constraint.
+For OMP, suggested values in Cai and Wang \cite [CaW11] is illuminating, where they (in their Theorem 7) considered \m {\ell _2}-norm, and (in their Theorem 8), \m {\ell _\infty}-norm.
+We simply take \m {\h_{\Rm {OMP}} = 2 \R {\log N_H}} for \m {\infty}-norm constraint, \m {\h_{\Rm {OMP}} = \R {3 N_B}} for 2-norm constraint.
 
 In the plots of DS only or OMP only, we vary the values of \m {\g_{\Rm {DS}}} and \m {\h_{\Rm {OMP}}} to observe the effects of thresholds.
 
-Each data point for DS and Lasso is repeated for 256 times, and taken average.
+Each data point for DS and Lasso is repeated for \m {256} times, and taken average.
 Other methods are repeated for more times: OMP for \m {4 \D 256} times, LS for \m {12 \D 256} times.
 
 For performance metric, we follow Lee, Gil, and Lee \cite [LGL16],
@@ -366,64 +240,64 @@ We set the maximum absolute tolerance to be \m {5 \D 10 ^ {-7}},
 the maximum absolute tolerance to be \m {5 \D 10 ^ {-6}},
 the maximum feasible tolerance to be \m {5 \D 10 ^ {-7}}.
 It remains to be tested what values are most suitable for our purposes.
-If the tolerance parameters are too small, the program often gives overflowing values, perhaps because it cannot find feasible solutions.
-On the other hand, if they are too big, the steps are so imprecise that the program may fail to solve.
+If the tolerance parameters are set too small, the program often gives overflowing values, perhaps because it was not able to find feasible solutions.
+On the other hand, if they are set too big, the Newton steps are so imprecise that the program fails too.
 
 \stopsubsection
 
 \startsubsection [title={Assorted Plots}]
 
 In the following, we plot the reciprocal of noise level vs relative error norm, for \m {N_H = 8, 12, 16, 20, 24}, respectively.
-Figures 3 to 6 have \m {N_H = 3 N_Y}, and figures 7 to 10 has \m {N_H = 2 N_Y}.
+Figures 3 to 6 have \m {N_H = 3 N_B}, and figures 7 to 10 has \m {N_H = 2 N_B}.
 
 \blank [big]
 \externalfigure [assorted-wide-small-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {Assorted methods, \m {N_H = 3 N_Y, N_H = 12}, error.}
+\FigureCaption {Assorted methods, \m {N_H = 3 N_B, N_H = 12}, error.}
 \blank [big]
 %
 \blank [big]
 \externalfigure [assorted-wide-medium-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {Assorted methods, \m {N_H = 3 N_Y, N_H = 16}, error.}
+\FigureCaption {Assorted methods, \m {N_H = 3 N_B, N_H = 16}, error.}
 %
 \blank [big]
 \externalfigure [assorted-wide-big-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {Assorted methods, \m {N_H = 3 N_Y, N_H = 20}, error.}
+\FigureCaption {Assorted methods, \m {N_H = 3 N_B, N_H = 20}, error.}
 %
 \blank [big]
 \externalfigure [assorted-wide-very-big-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {Assorted methods, \m {N_H = 3 N_Y, N_H = 24}, error.}
+\FigureCaption {Assorted methods, \m {N_H = 3 N_B, N_H = 24}, error.}
 %
 \blank [big]
 \externalfigure [assorted-narrow-small-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {Assorted methods, \m {N_H = 2 N_Y, N_H = 12}, error.}
+\FigureCaption {Assorted methods, \m {N_H = 2 N_B, N_H = 12}, error.}
 \blank [big]
 %
 \blank [big]
 \externalfigure [assorted-narrow-medium-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {Assorted methods, \m {N_H = 2 N_Y, N_H = 16}, error.}
+\FigureCaption {Assorted methods, \m {N_H = 2 N_B, N_H = 16}, error.}
 \blank [big]
 %
 \blank [big]
 \externalfigure [assorted-narrow-big-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {Assorted methods, \m {N_H = 2 N_Y, N_H = 20}, error.}
+\FigureCaption {Assorted methods, \m {N_H = 2 N_B, N_H = 20}, error.}
 \blank [big]
 %
 \blank [big]
 \externalfigure [assorted-narrow-very-big-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {Assorted methods, \m {N_H = 2 N_Y, N_H = 24}, error.}
+\FigureCaption {Assorted methods, \m {N_H = 2 N_B, N_H = 24}, error.}
 \blank [big]
 
 As for the plot of time taken in minutes, we give only one example of \m {N_H = 16}.
 %
 \blank [big]
 \externalfigure [assorted-medium-time.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {Assorted methods, \m {N_H = 3 N_Y, N_H = 16}, time.}
+\FigureCaption {Assorted methods, \m {N_H = 3 N_B, N_H = 16}, time.}
 \blank [big]
 
 We give one additional plot for extreme low signal level, in order to observe the trend of curves.
 \blank [big]
 \externalfigure [assorted-medium-low-signal-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {Assorted methods, \m {N_H = 3 N_Y, N_H = 16}, low signal level, error.}
+\FigureCaption {Assorted methods, \m {N_H = 3 N_B, N_H = 16}, low signal level, error.}
 \blank [big]
 
 
@@ -431,68 +305,68 @@ We give one additional plot for extreme low signal level, in order to observe th
 
 \startsubsection [title={Plots of DS only}]
 
-Again, we plot the reciprocal of noise level vs relative error norm, for \m {N_H = 8, 12, 16, 20, 24}, respectively, and \m {N_H = 3 N_Y} for each of them.
+Again, we plot the reciprocal of noise level vs relative error norm, for \m {N_H = 8, 12, 16, 20, 24}, respectively, and \m {N_H = 3 N_B} for each of them.
 Here, \m {\T {\chi}} is shown too.
 %
 \blank [big]
 \externalfigure [ddss-small-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {DS, \m {N_H = 3 N_Y, N_H = 12}, error.}
+\FigureCaption {DS, \m {N_H = 3 N_B, N_H = 12}, error.}
 \blank [big]
 %
 \blank [big]
 \externalfigure [ddss-medium-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {DS, \m {N_H = 3 N_Y, N_H = 16}, error.}
+\FigureCaption {DS, \m {N_H = 3 N_B, N_H = 16}, error.}
 \blank [big]
 %
 \blank [big]
 \externalfigure [ddss-big-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {DS, \m {N_H = 3 N_Y, N_H = 20}, error.}
+\FigureCaption {DS, \m {N_H = 3 N_B, N_H = 20}, error.}
 \blank [big]
 %
 \blank [big]
 \externalfigure [ddss-very-big-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {DS, \m {N_H = 3 N_Y, N_H = 24}, error.}
+\FigureCaption {DS, \m {N_H = 3 N_B, N_H = 24}, error.}
 \blank [big]
 %
 As for the plot of time taken in minutes, we give only one example of \m {N_H = 16}.
 %
 \blank [big]
 \externalfigure [ddss-medium-time.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {DS, \m {N_H = 3 N_Y, N_H = 16}, time.}
+\FigureCaption {DS, \m {N_H = 3 N_B, N_H = 16}, time.}
 \blank [big]
 
 \stopsubsection
 
 \startsubsection [title={Plots of OMP only}]
 
-Again, we plot the reciprocal of noise level vs relative error norm, for \m {N_H = 8, 12, 16, 20, 24}, respectively, and \m {N_H = 3 N_Y} for each of them.
+Again, we plot the reciprocal of noise level vs relative error norm, for \m {N_H = 8, 12, 16, 20, 24}, respectively, and \m {N_H = 3 N_B} for each of them.
 
 %
 \blank [big]
 \externalfigure [oommpp-small-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {OMP, \m {N_H = 3 N_Y, N_H = 12}, error.}
+\FigureCaption {OMP, \m {N_H = 3 N_B, N_H = 12}, error.}
 \blank [big]
 %
 \blank [big]
 \externalfigure [oommpp-medium-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {OMP, \m {N_H = 3 N_Y, N_H = 16}, error.}
+\FigureCaption {OMP, \m {N_H = 3 N_B, N_H = 16}, error.}
 \blank [big]
 %
 \blank [big]
 \externalfigure [oommpp-big-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {OMP, \m {N_H = 3 N_Y, N_H = 20}, error.}
+\FigureCaption {OMP, \m {N_H = 3 N_B, N_H = 20}, error.}
 \blank [big]
 %
 \blank [big]
 \externalfigure [oommpp-very-big-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {OMP, \m {N_H = 3 N_Y, N_H = 24}, error.}
+\FigureCaption {OMP, \m {N_H = 3 N_B, N_H = 24}, error.}
 \blank [big]
 %
 As for the plot of time taken in minutes, we give only one example of \m {N_H = 16}.
 %
 \blank [big]
 \externalfigure [oommpp-medium-time.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {OMP, \m {N_H = 3 N_Y, N_H = 16}, time.}
+\FigureCaption {OMP, \m {N_H = 3 N_B, N_H = 16}, time.}
 \blank [big]
 
 \stopsubsection
@@ -509,23 +383,28 @@ One is then tempted to say, we suggested a low complexity beamformer and high co
 It remains to see, however, how OMP and DS compare, if done exactly under their settings.
 
 However, it is not clear how higher \m {\s} (dimensionless noise level) corresponds to lower \m {\T {\chi}} (simulated error).
-It seems when \m {\s} is further increased (leftmost of the figures), the error might also increase rapidly, but more parameters have to be simulated for a conclusion.
+It seems when \m {\s} is further increased (leftmost of the plots), the error might also increase rapidly, but more parameters have to be simulated for a conclusion.
 
 Varying thresholds of DS (namely \m {\g_{\Rm {DS}}}) and OMP (namely \m {\h_{\Rm {OMP}}}) appears not to affect the estimation significantly.
 Nevertheless, it seems \m {\g_{\Rm {DS}}} is usually best chosen in the order of magnitude of \m {\s}, which is reasonable.
 Sometimes the iteration stabilizes much earlier than is constrained by maximum iteration number.
 
-Sadly, we remark that CVXPY sometimes gives overflowing outputs, some of them as large as \m {10^11}.
+Sadly, we remark that CVXPY sometimes gives overflowing outputs, some of them as large as \m {10^{11}}.
 This indicates perhaps some typical-looking output may in fact be unreliable.
-To rid overflowing values, we discard outputs larger than a given threshold, say \m {10^4}, and simply apply a least square.
-It is open whether there are better methods.
+We thus discard outputs larger than a given threshold, say \m {10^4}, and simply return the answer to be a Moore–Penrose inverse.
+It is unknown whether there are better methods.
 
-We are not sure either, unfortunately, why \m {\T {\chi}} does not agree \m {\chi} (the error bound), and why \m {\chi} does not appear to increase significantly as \m {\s} increases.
-As shown above, the \m {\chi} is very constant around 1, thus \m {\T {\chi}} is an overestimation when \m {\s} is high and underestimation when \m {\s} is low.
-A possible explanation is that the non-sparsity of \m {\V {g}} undermines the analysis in chapter 3, despite our attempts.
+We are not sure either, unfortunately, why \m {\T {\chi}} does not agree \m {\chi}, and why \m {\chi} does not appear to increase significantly as \m {\s} increases.
+As shown above, \m {\chi} is almost constant around \m {1}, thus \m {\T {\chi}} is an overestimation when \m {\s} is high and underestimation when \m {\s} is low.
+A possible explanation is that the non-sparsity of \m {\V {g}} undermines the analysis in chapter 3, despite our attempts to account for that effect.
 These matters remain to be investigated in the future.
 
-To give some idea of the case that DS works or fails, figures 23 and 24 illustrate either cases.
+We include Figure 12 for completeness's sake, where extreme low signal level is considered.
+Starting with \m {-30} dB, error of all methods grow significantly.
+However, the data may not be entirely reliable, since as we said we automatically discard overflowing values when the program blows up.
+All in all, the trend remains to be reproduced perhaps by simulating on a better device.
+
+We end this section by showing two cases where DS works or fails, in figures 23 and 24.
 In both figures the true values of \m {\M {H}} entries are ordered by magnitude, and corresponding estimated values in the first and second stage are plotted against them.
 When DS fails, the soft thresholding did not rule out smaller entries, thus a second application of DS on the wrong index set failed too.
 When DS succeeded, the soft thresholding gave a reasonable guess of the nonzero components, thus a second application of DS on this index set refined the estimated values.
@@ -576,7 +455,7 @@ Every Newton step involves a inversion of \m {\MS {O} \SB {\M {P} ^\Adj \M {P}}}
 Since the dimension of \m {\M {P} ^\Adj \M {P}} is \m {N_H^2}, the cost of inversion may be roughly considered to be \m {\MS {O} \SB {N_H^4}}, as we know from newer results on the complexity of matrix inversion.
 That is, we suppose \m {C_{\Rm {step}} = N_H^4}.
 
-We take some liberty to assume that, at the start the iteration, the least square estimator was taken to be the initial value of \m {\V {g}_0}, namely
+We take some liberty to assume that, at the start the iteration, the Moore–Penrose inverse was taken to be the initial value of \m {\V {g}_0}, namely
 %
 \DispNum {g:0:gL:Py} {
 \NC \V {g}_0
@@ -635,16 +514,21 @@ They gave
 %
 \DispNum {C:P:ON:NY} {
 \NC C_{\Rm {OMP}}
-=\NC \MS {O} \SB {N_H^2 \log N_Y} \NR
+=\NC \MS {O} \SB {N_H^2 \log N_B} \NR
 }
 %
-Here \m {\log N_Y} is small in our experiments, and if we dropped some constants and \m {\log N_Y}, then we may assume \m {\MS {O} \SB {N_H^2}}.
+Here \m {\log N_B} is small in our experiments, and if we dropped some constants and \m {\log N_B}, then we may assume \m {\MS {O} \SB {N_H^2}}.
 
 Lastly, since Lasso involves the same target function as DS, the same argument is valid, giving \m {C_{\Rm {Lasso}} =\MS {O} \SB {N_H^6}}.
 
 \stopsubsection
 
 \startsubsection [title={Runtime Statistics}]
+
+All plots included in this treatise, in total, took probably one month to run.
+Figures 6 and 10 each took about \m {3} days.
+The computer has \m {32} GB RAM, and Intel Core i9 processor.
+Simulation ran on Linux subsystem 2 of Windows 10.
 
 Use \m {t_{\Rm {OMP}} \SB {N_H}}, \m {t_{\Rm {Lasso}} \SB {N_H}}, \m {t_{\Rm {DS}} \SB {N_H}} to denote their respective time taken.
 We reproduce the arithmetic average (including different \m {\s}) of simulated values below, in seconds.

@@ -1,16 +1,14 @@
 
 \startchapter [title={Conclusion}]
 
-This treatise studied the effective estimation of the millimeter wave, multiple-input, multiple-output (mm-wave MIMO) channel.
-We adopts the Dantzig Selector (DS) rather than Orthogonal Matching Pursuit (OMP), which is most commonly used in literature, as the estimation algorithm, therefore exploiting the sparsity of the problem in spacial Fourier domain.
-We bounded the expected square error following the spirit of Candès and Tao \cite [CaT07].
-Towards that end, we characterized the spacial sparsity, confirmed the restricted isometry of measurement matrix \m {\M {P}}, and justified the generalization for complex vectors.
-The bound assumes a fairly general setting, and is expressed in terms of physical parameters, such as the number of path \m {L} and channel dimension \m {N_H}.
-
+This treatise investigates effective estimation of the millimeter wave, multiple-input, multiple-output (mm-wave MIMO) channel.
+We adopt the Dantzig Selector (DS) rather than Orthogonal Matching Pursuit (OMP), which is most commonly used in literature, by exploiting the sparsity of the problem in spacial Fourier domain.
+We bounded the expected error norm following the spirit of Candès and Tao \cite [CaT07].
+To do so, we evaluate the sparsity, confirm the restricted isometry of sensing matrix \m {\M {P}}, and generalize the method for complex vectors.
+Our bound, on a general setting, is characterize in terms of physical parameters, such as the number of path \m {L} and channel dimension \m {N_H}.
 Simulation is done, and DS's performance is compared to OMP, Lasso, and LS.
-DS performs slightly better than others, but gives much higher complexity, agreeing our analysis.
-Put concisely, no algorithm is a universal solution, as they trade off precision for time and space complexity, or conversely, among other things.
-We hope that our inquiry of DS suggests a welcomed alternative added to the present literature of channel estimation.
+DS outperforms others, at the cost of higher complexity, agreeing our analysis.
+Put concisely, DS trades off time and space complexity for precision, and we hope that our inquiry provides a welcome alternative to the present literature.
 
 \stopchapter
 

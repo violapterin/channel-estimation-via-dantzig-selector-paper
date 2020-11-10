@@ -4,16 +4,16 @@
 
 Our plan is setting the four beamformers to be i.i.d.\ random matrix, hoping that the resulting \m {P} has RIP.
 Let us make it simple and set each entry of \m {\M {F} _B} to be i.i.d.\ normal r.v.\ with mean 0, standard deviation \m {1/2}, multiplied by a normalizing constant \m {\l_B >0}.
-We know that the magnitude \m {\RB {\M {F} _B} _{\SB {n_R, n_Y}}} follows Rayleigh distribution.
-\m {\RB {\M {W} _B ^\Tr} _{\SB {n_Y, n_R}}} is set in an entirely analogous manner.
+We know that the magnitude \m {\RB {\M {F} _B} _{\SB {n_R, n_B}}} follows Rayleigh distribution.
+\m {\RB {\M {W} _B ^\Tr} _{\SB {n_B, n_R}}} is set in an entirely analogous manner.
 In addition, let \m {\RB {\M {F} _R} _{\SB {n_H, n_R}}} be uniformly distributed on the unit circle on the complex plane.
-\m {\RB {\M {W} _R ^\Tr} _{\SB {n_Y, n_R}}} is set in an entirely analogous manner.
+\m {\RB {\M {W} _R ^\Tr} _{\SB {n_B, n_R}}} is set in an entirely analogous manner.
 
-It turns out we have results that guarantee that both \m {\M {F} _B ^\Tr} and \m {\M {F} _R ^\Tr} are RIP, and same can be said of \m {\M {W} _B} and \m {\M {W} _R}.
+It turns out we have results that guarantee that both \m {\M {F} _B ^\Tr} and \m {\M {F} _R ^\Tr} have RIP, and same can be said of \m {\M {W} _B} and \m {\M {W} _R}.
 Consider a sparse \m {\V {u}} or unity norm, then we are sure that \m {\M {F} _R ^\Tr \V {u}} has almost unity norm.
 If, furthermore, \m {\M {F} _R ^\Tr \V {u}} is sparse, we see that \m {\M {F} _B ^\Tr \M {F} _R ^\Tr \V {u}} has almost unity norm, and the RIP of \m {\M{P}} also follows by construction.
 
-However, it is not clear that \m {\M {F} _B ^\Tr \M {F} _R ^\Tr}, the product of two RIP matrices, have RIP, nor that, \m {\M {P}}, the result of Kronecker product, is RIP.
+However, it is not clear that \m {\M {F} _B ^\Tr \M {F} _R ^\Tr}, the product of two RIP matrices, have RIP, nor that, \m {\M {P}}, the result of Kronecker product, has RIP.
 In fact, the statement seems to be false in general.
 But all is not lost.
 Can we argue instead that \m {\M {F} _B ^\Tr \M {F} _R ^\Tr \V {u}} has similar norm with \m {\M {F} _R ^\Tr \V {u}}?
@@ -69,8 +69,8 @@ for probability \m {p}, with
 
 \startsubsection [title={Operator norm of analog beamformers}]
 
-Here, we consult Haviv and Regev, \quotation {The restricted isometry property of subsampled Fourier matrices} collected in \cite [KlM17].
-We need their Thm.\ 4.5; it gives a RIP guarantee w.r.t.\ \m {\d_s}, and probability lower bound, for DFT submatrix.
+Here, we consult Haviv and Regev, \quotation {The restricted isometry property of subsampled Fourier matrices} \cite [KlM17].
+We need their Thm.4.5, which guarantees RIP w.r.t.\ \m {\d_s}, and probability lower bound, for DFT submatrix.
 The estimation they give involve is expressed in terms of big- \m {\O} and big- \m {O}, and since our methodology is 
 However, it can be seen that their argument allows precise constants, and they just did not spell out, which we briefly explain.
 They use Chernoff-Hoeffding bounds, but write the exponent in the form of \m {\Omega}.
@@ -96,7 +96,7 @@ Suppose
 \geq \NC \F {s} {\d_s^2} \RB {\log s}^2 \log N_H \NR
 }
 %
-Then \m {\M {F}_R} (resp.\ \m {\M {W} _R}) has \m {\d_s}-RIP for probability \m {p}, with
+Then \m {\M {F}_R} (respectively \m {\M {W} _R}) has \m {\d_s}-RIP for probability \m {p}, with
 \DispNum {1:p:ex:d's} {
 \NC 1 -p
 \leq \NC \RB {\F {\d_s} {N_H s}} ^{1/3} \NR

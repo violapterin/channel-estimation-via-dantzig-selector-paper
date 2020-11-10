@@ -18,24 +18,24 @@
 
 \I Estimation of Multiple-input multiple-output (MIMO) systems results in high complexity, due to a large number of antennae.
 
-\I Problem (a): How to recover the channel with fewer measurements?
+\I Problem (a): How to reconstruct the channel with fewer measurements?
 
 \I Problem (b): How to design precoders and combiners?
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Channel Model and Beamformers}
 {
-\I Given channel \m {\M {H} \in \NC \MB {C} ^{N_H \D N_H}} with uniform linear array
+\I Given MIMO channel representation \m {\M {H} \in \NC \MB {C} ^{N_H \D N_H}} with uniform linear array, having \m {L} paths.
 
-\I Complex standard normal noise \m {\m {Z} \in \NC \MB {C} ^{N_H \D N_H}}
+\I Complex standard normal noise \m {\M {Z} \in \NC \MB {C} ^{N_H \D N_H}}
 
-\I Tx: Digital precoder \m {\M {F}_B \in \NC \MB {C} ^{N_R \D N_Y}}
+\I Tx: Digital precoder \m {\M {F}_B \in \NC \MB {C} ^{N_R \D N_B}}
 \I Tx: Analog precoder \m {\NC \M {F}_R \in \NC \MB {C} ^{N_H \D N_R}}
 
 \I Rx: Digital combiner \m {\M {W}_B \in \NC \MB {C} ^{N_R \D N_H}}
-\I Rx: Analog combiner \m {\M {W}_R \in \NC \MB {C} ^{N_Y \D N_R}}
+\I Rx: Analog combiner \m {\M {W}_R \in \NC \MB {C} ^{N_B \D N_R}}
 
-\I Magnitude constraint \m {\Nm {\M {F}_R \SB {n_H, n_R}} = 1}, \m {\Nm {\M {W}_R \SB {n_R, n_H}} = 1} 
+\I Magnitude constraint \m {{\Nm {\M {F}_R}_{\SB {n_H, n_R}}} = 1}, \m {{\Nm {\M {W}_R}_{\SB {n_R, n_H}}} = 1} 
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Problem Description}
@@ -48,7 +48,7 @@
 
 \I Problem (b): How to design \m {\M {W}_R}, \m {\M {W}_B}, \m {\M {F}_R}, and \m {\M {F}_B}?
 
-\I What kind of matrices faciliates our goal?
+\I What kind of matrices facilitates our goal?
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Cast to Linear System}
@@ -75,14 +75,14 @@
 
 \I If \m {\V {g}} is sparse, few measurements may suffice for reconstruction.
 
-\I Can we find a basis on which \m {\V {g}} is sparse?
+\I Can we find a basis on which \m {\V {g}} is likely to be sparse?
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Literature on Compressive Sensing}
 {
 \I Bajwa, Haupt, Sayeed, and Nowak (2010): MIMO, linear invariant system, using Dantzig Selector (DS)
 
-\I Alkhateeb, Ayach, Leus, Heath (2014): mm-wave, adaptive training algorithm for given codebook
+\I Alkhateeb, Ayach, Leus, Heath (2014): mm-wave, adaptive training algorithm for given sensing matrix
 
 \I Alkhateeb, Leus, and Heath (2015): single path mm-wave, all-phase-shifter beamformers, using Orthogonal Matching Pursuit (OMP)
 
@@ -91,7 +91,7 @@
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Questions}
 {
-\I How does greedy algorithms (like OMP) trade precision for complexity, and that the opposite is true of convex programs (like DS)?
+\I Does greedy algorithms (like OMP) trade precision for complexity, and is the opposite true of convex programs (like DS)?
 
 \I We consider the hybrid system as in Lee, Lee, and Yong (2016), where they proposed an optimal joint design by a nonconvex program, but made considerable approximation.
 Is the simplified solution still optimal?
@@ -105,9 +105,9 @@ Does it apply to our case?
 {
 \I We demonstrate that the beamformer may serve as the sensing matrix, so DS can be applied.
 
-\I We give a bound (holding for high probability) on expected error norm
+\I We give a bound (holding for high probability) on expected error norm.
 
-\I Numerical results illustrate that in our configuration DS is superior to OMP among other methods, but is achieved at the cost of higher complexity.
+\I Numerical results illustrate that in our configuration DS is superior to OMP among other methods, at the cost of higher complexity.
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Design of Beamformers}
@@ -116,14 +116,14 @@ Does it apply to our case?
 
 \I We set each entry of \m {\m {F}_R} (resp.\ \m {\m {W}_R}) be uniformly distributed in argument and unity magnitude, up to a design constant
 
-\I We argue that \m {\M {F} _R ^\Tr}, \m {\M {F} _B ^\Tr}, \m {\M {W} _R}, and \m {\M {W} _B} all have RIP, thus \m {\M {P}} has too.
+\I We argue that \m {\M {F} _R ^\Tr}, \m {\M {F} _B ^\Tr}, \m {\M {W} _R}, and \m {\M {W} _B} all have restricted isometry, thus \m {\M {P}} has too.
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Applying Dantzig Selector}
 {
 \I Fix sparsity \m {s = L \RB {\log N_H}^2} for definiteness.
 
-\I Input \m {\M {P} \in \MB {C} ^{N_Y^2 \D N_H^2}}, \m {\V {y} \in \MB {C} ^{N_H^2}}, \m {\g_{\Ss {DS}} \geq 0}.
+\I Input \m {\M {P} \in \MB {C} ^{N_B^2 \D N_H^2}}, \m {\V {y} \in \MB {C} ^{N_H^2}}, \m {\g_{\Ss {DS}} \geq 0}.
 
 \I Calculate
 \Disp {
