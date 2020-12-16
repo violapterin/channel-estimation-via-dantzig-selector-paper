@@ -4,12 +4,10 @@
 
 We restrict our consideration to the uniform linear array, which can be modeled as
 %
-\DispNum {a:y':VC:nh} {
+\DispNum {a:y':CN:NH} {
 \NC \V {a} \SB {\psi'}
-\in \NC \MB {C} ^ {N_H} \NR
-%
-\NC \V {a} \SB {\psi'}
-= \NC \F {1} {\R {N_H}} \sum_{n_h=0}^{N_H-1} \Ss {e} ^{\Ss {i} n_h \psi'} \V {u} _{n_h} \NR
+= \NC \F {1} {\R {N_H}} \sum_{n_h=0}^{N_H-1} \Ss {e} ^{\Ss {i} n_h \psi'} \V {u} _{n_h}
+\in \MB {C} ^ {N_H} \NR
 }
 %
 where \m {\Ss {e}} is the base of natural logarithm, and \m {\Ss {i}} the imaginary unit.
@@ -62,10 +60,10 @@ Similarly, in the receiver end, there are (seeing towards transmitter end) digit
 Recall that analog precoder is restricted to have value with magnitude being unity, i.e.,
 %
 \DispNum {F:R:1::R1} {
-\NC \Nm {\M {F} _R} _{\SB {n_H, n_R}}
+\NC \Nm {\RB {\M {F} _R} _{\SB {n_H, n_R}}}
 = \NC 1, \NR
 %
-\NC \Nm {\M {W} _R} _{\SB {n_R, n_H}}
+\NC \Nm {\RB {\M {W} _R} _{\SB {n_R, n_H}}}
 = \NC 1, \NR
 %
 \NC n_H
@@ -97,7 +95,7 @@ Our task, then, is the recovery of \m {\M {H}}, and the design of \m {\M {W} _R}
 
 \startsection [title={Vectorization}]
 
-To convert the problem into a linear system recovery problem, we need several definitions.
+We need several definitions.
 %
 \Result
 {Definition}
@@ -164,21 +162,21 @@ It would seem now appealing to write
 \in \MB {C} ^{N_B^2 \D N_H^2} \NR
 }
 %
-to formulate our goal as sparse recovery problem of \m {\Rm {vec} \SB {\M {H}}} to be
+to formulate the problem as a linear system:
 %
 \DispNum {y:y:Qh:hz} {
 \NC \V {y}
 =\NC \M {Q} \V {h} +\V {z} \NR
 }
 %
-As we have motivated in previous sections, we want to use DS by considering sparse vector, and at the same time to get rid of the angle grid quantization problem.
-However, there is no guarantee, though, that \m {\V {h}} will be sparse.
+At this stage we would like to apply DS on sparse vectors, as motivated in chapter 1.
+However, there is no guarantee that \m {\V {h}} is sparse.
 
 \stopsection
 
-\startsection [title={Angular space}]
+\startsection [title={Spacial frequency domain}]
 
-Introduce the discrete Fourier transform matrix \m {\M {K}} defined to be
+Introduce the discrete Fourier transform matrix \m {\M {K}}
 %
 \DispNum {K:K:CN:H1} {
 \NC \M {K} \in  \NC \MB {C} ^{N_H \D N_H} \NR
@@ -205,7 +203,8 @@ Observe that, if we write
 =\NC \M {K}^\Adj \M {H} \M {K} \NR
 }
 %
-which has the interpretation as the angular space (i.e., spatial frequency domain) representation of \m {\M {H}}, then
+it can be interpreted as spatial frequency domain representation of \m {\M {H}}.
+Then
 %
 \DispNum {Y:Y:WB:NY} {
 \NC \M {Y}
@@ -214,7 +213,7 @@ which has the interpretation as the angular space (i.e., spatial frequency domai
 \in \MB {C} ^{N_B \D N_B} \NR
 }
 %
-If at the end of day, \m {\M {G}} is sparse, then we recover \m {\M {G}} instead, and our use of DS is fully justified.
+If it turns out that \m {\M {G}} is sparse, then we may recover \m {\M {G}} instead, justifying the use of DS.
 To simplify notation, set
 %
 \DispNum {P:P:FB:Nh} {
@@ -241,20 +240,24 @@ Then
 \stopsection
 \startsection [title={Proposed method}]
 
-If so, our program reads
+Our plan now looks like:
 
 \Result
 {Algorithm}
 {
 \startitemize[n]
+%
 \item Let \m {\g_{\Rm {DS}} \geq 0} be given.
+%
 \item Input \m {\M {F} _B \in \NC \MB {C} ^{N_R \D N_B}},
 \m {\M {F} _R \in \NC \MB {C} ^{N_H \D N_R}},
 \m {\M {W} _R \in \NC \MB {C} ^{N_R \D N_H}},
 \m {\M {W} _B \in \NC \MB {C} ^{N_B \D N_R}},
 and \m {\M {Y} \in \NC \MB {C} ^{N_B \D N_B}}.
+%
 \item Find \m {\M {P} \in \MB {C} ^{N_B^2 \D N_H^2}}, \m {\V {y} \in \MB {C} ^{N_H^2}} as in above.
-\item Calculate
+%
+\item Compute the convex program
 %
 \DispNum {g:g:mi:DS} {
 \NC \Hat {\V {g}}
@@ -264,19 +267,23 @@ and \m {\M {Y} \in \NC \MB {C} ^{N_B \D N_B}}.
 \NC \Rm {subject} \; \Rm {to} \Q \MC \VNm {\M {P}^\Adj \RB {\V {y} -\M {P} \V {g}'}} _\infty \leq \g_{\Rm {DS}} \NR
 \stopcases \NR
 }
+%
 \item Convert \m {\Hat {\V {g}}} back to the space domain, namely
 %
 \DispNum {G:G:ve:1g} {
 \NC \Hat {G}
 \LA \NC \Rm {vec}^{-1} \SB {\Hat {g}} \NR
 }
+%
 \item Recover the estimated \m {\Hat {\M {H}}}, as
 %
 \DispNum {H:H:KG:GK} {
 \NC \Hat {\M {H}}
 \LA \NC \M {K} \Hat {\M {G}} \M {K}^\Adj \NR
 }
+%
 \item Output \m {\Hat {\M {H}}}.
+%
 \stopitemize
 }
 

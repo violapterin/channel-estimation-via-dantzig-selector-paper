@@ -23,8 +23,8 @@
 \Disp {
 \NC \T {\chi}
 =\NC \RB {
-   \F {\log_2 {\VNm {\V {h} -\Hat {\V {h}}} _2}}
-   {\log_2 {\VNm {\V {h}}_2}}
+   \F {\VNm {\V {h} -\Hat {\V {h}}} _2}
+   {\VNm {\V {h}}_2}
 } _{\Ss {avg}}, \NR
 }
 
@@ -78,22 +78,6 @@
 \I DS has complexity much higher than OMP, but similar to Lasso.
 
 \I As \m {2N_H^2} grows fast, DS becomes less feasible.
-}
-% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {A Successful Case of Estimation}
-{
-\blank [big]
-\externalfigure [scatter-ddss-success.png] [wfactor=180]
-
-\I Soft thresholding (green) correctly guesses true nonzero components (black), and refines the estimated value (orange)
-}
-% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {A Failed Case of Estimation}
-{
-\blank [big]
-\externalfigure [scatter-ddss-failure.png] [wfactor=180]
-
-\I Soft thresholding (green) guesses wrong nonzero components (black), and the estimated value (orange) deteriorates
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Complexity}

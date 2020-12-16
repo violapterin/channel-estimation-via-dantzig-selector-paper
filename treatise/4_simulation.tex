@@ -39,10 +39,10 @@ For \m {\M {A} \in \MB {C} ^{M_1 \D M_2}}, define real representation \m {\MS {R
 \in \NC \MB {R} ^{2M_1 \D 2M_2} \NR
 \NC \MS {R} \SB {\M {A}} _{\SB {m_1,m_2}} =
 \NC \startcases
-\NC \MF {Re} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC (m_1, m_2) = (2m_1', 2m_2') \NR
-\NC \MF {Im} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC (m_1, m_2) = (2m_1'+1, 2m_2') \NR
-\NC -\MF {Im} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC (m_1, m_2) = (2m_1', 2m_2'+1) \NR
-\NC \MF {Re} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC (m_1, m_2) = (2m_1'+1, 2m_2'+1) \NR
+\NC \MF {Re} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC \RB {m_1, m_2} = \RB {2m_1', 2m_2'} \NR
+\NC \MF {Im} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC \RB {m_1, m_2} = \RB {2m_1'+1, 2m_2'} \NR
+\NC -\MF {Im} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC \RB {m_1, m_2} = \RB {2m_1', 2m_2'+1} \NR
+\NC \MF {Re} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC \RB {m_1, m_2} = \RB {2m_1'+1, 2m_2'+1} \NR
 \stopcases \NR
 \NC m_1 
 = \NC 0, 1, 2, \ldots, M_1 -1 \NR
@@ -98,7 +98,7 @@ We can now see that DS is equivalent to a linear program.
 %
 \item Define \m {\T {\V {y}}, \T {\V {g}}, \T {\M {P}}, \T {\M {P}} ^\Adj, \T {\V {z}}}, according to \Rf {y:y:Ry:Ny}.
 %
-\item Calculate
+\item Compute the convex program
 \DispNum {g:f:gf:S1} {
 \NC \Hat {\T {\V {g}}}, \Hat {\T {\V {f}}}
 \LA \NC \startcases
@@ -245,59 +245,56 @@ On the other hand, if they are set too big, the Newton steps are so imprecise th
 
 \stopsubsection
 
-\startsubsection [title={Assorted Plots}]
+\startsubsection [title={Plots of Assorted Methods}]
 
-In the following, we plot the reciprocal of noise level vs relative error norm, for \m {N_H = 8, 12, 16, 20, 24}, respectively.
-Figures 3 to 6 have \m {N_H = 3 N_B}, and figures 7 to 10 has \m {N_H = 2 N_B}.
+In the following, we plot the reciprocal of noise level vs relative error norm, for different values and ratios of \m {N_H} and \m {N_B}.
 
 \blank [big]
-\externalfigure [assorted-wide-small-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {Assorted methods, \m {N_H = 3 N_B, N_H = 12}, error.}
+\externalfigure [assorted-square-small-error.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {Assorted methods, small, \m {N_H = 12, N_B = 12}, error norm.}
 \blank [big]
 %
 \blank [big]
-\externalfigure [assorted-wide-medium-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {Assorted methods, \m {N_H = 3 N_B, N_H = 16}, error.}
+\externalfigure [assorted-square-medium-error.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {Assorted methods, medium, \m {N_H = 18, N_B = 18}, error norm.}
+\blank [big]
 %
 \blank [big]
-\externalfigure [assorted-wide-big-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {Assorted methods, \m {N_H = 3 N_B, N_H = 20}, error.}
-%
+\externalfigure [assorted-square-big-error.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {Assorted methods, big, \m {N_H = 24, N_B = 24}, error norm.}
 \blank [big]
-\externalfigure [assorted-wide-very-big-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {Assorted methods, \m {N_H = 3 N_B, N_H = 24}, error.}
 %
 \blank [big]
 \externalfigure [assorted-narrow-small-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {Assorted methods, \m {N_H = 2 N_B, N_H = 12}, error.}
+\FigureCaption {Assorted methods, small, \m {N_H = 12, N_B = 10}, error norm.}
 \blank [big]
 %
 \blank [big]
 \externalfigure [assorted-narrow-medium-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {Assorted methods, \m {N_H = 2 N_B, N_H = 16}, error.}
+\FigureCaption {Assorted methods, medium, \m {N_H = 18, N_B = 15}, error norm.}
 \blank [big]
 %
 \blank [big]
 \externalfigure [assorted-narrow-big-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {Assorted methods, \m {N_H = 2 N_B, N_H = 20}, error.}
-\blank [big]
+\FigureCaption {Assorted methods, big, \m {N_H = 24, N_B = 20}, error norm.}
 %
 \blank [big]
-\externalfigure [assorted-narrow-very-big-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {Assorted methods, \m {N_H = 2 N_B, N_H = 24}, error.}
+\externalfigure [assorted-wide-small-error.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {Assorted methods, small, \m {N_H = 12, N_B = 8}, error norm.}
+%
 \blank [big]
+\externalfigure [assorted-wide-medium-error.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {Assorted methods, medium, \m {N_H = 18, N_B = 12}, error norm.}
+%
+\blank [big]
+\externalfigure [assorted-wide-big-error.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {Assorted methods, big, \m {N_H = 24, N_B = 16}, error norm.}
 
 As for the plot of time taken in minutes, we give only one example of \m {N_H = 16}.
 %
 \blank [big]
 \externalfigure [assorted-medium-time.png] [wfactor=fit, hfactor=fit]
 \FigureCaption {Assorted methods, \m {N_H = 3 N_B, N_H = 16}, time.}
-\blank [big]
-
-We give one additional plot for extreme low signal level, in order to observe the trend of curves.
-\blank [big]
-\externalfigure [assorted-medium-low-signal-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {Assorted methods, \m {N_H = 3 N_B, N_H = 16}, low signal level, error.}
 \blank [big]
 
 
@@ -309,30 +306,25 @@ Again, we plot the reciprocal of noise level vs relative error norm, for \m {N_H
 Here, \m {\T {\chi}} is shown too.
 %
 \blank [big]
-\externalfigure [ddss-small-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {DS, \m {N_H = 3 N_B, N_H = 12}, error.}
+\externalfigure [ddss-narrow-small-error.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {DS, \m {N_B = 10, N_H = 12}, error.}
 \blank [big]
 %
 \blank [big]
-\externalfigure [ddss-medium-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {DS, \m {N_H = 3 N_B, N_H = 16}, error.}
+\externalfigure [ddss-narrow-medium-error.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {DS, \m {N_B = 15, N_H = 18}, error.}
 \blank [big]
 %
 \blank [big]
-\externalfigure [ddss-big-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {DS, \m {N_H = 3 N_B, N_H = 20}, error.}
+\externalfigure [ddss-narrow-big-error.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {DS, \m {N_B = 20, N_H = 24}, error.}
 \blank [big]
 %
-\blank [big]
-\externalfigure [ddss-very-big-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {DS, \m {N_H = 3 N_B, N_H = 24}, error.}
-\blank [big]
-%
-As for the plot of time taken in minutes, we give only one example of \m {N_H = 16}.
+As for the plot of time taken in minutes, we give only one example of \m {N_H = 18}.
 %
 \blank [big]
-\externalfigure [ddss-medium-time.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {DS, \m {N_H = 3 N_B, N_H = 16}, time.}
+\externalfigure [ddss-narrow-medium-time.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {DS, \m {N_B = 15, N_H = 18}, time.}
 \blank [big]
 
 \stopsubsection
@@ -343,30 +335,25 @@ Again, we plot the reciprocal of noise level vs relative error norm, for \m {N_H
 
 %
 \blank [big]
-\externalfigure [oommpp-small-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {OMP, \m {N_H = 3 N_B, N_H = 12}, error.}
+\externalfigure [oommpp-square-small-error.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {OMP, \m {N_H = N_B = 12}, error.}
 \blank [big]
 %
 \blank [big]
-\externalfigure [oommpp-medium-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {OMP, \m {N_H = 3 N_B, N_H = 16}, error.}
+\externalfigure [oommpp-square-medium-error.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {OMP, \m {N_H = N_B = 18}, error.}
 \blank [big]
 %
 \blank [big]
-\externalfigure [oommpp-big-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {OMP, \m {N_H = 3 N_B, N_H = 20}, error.}
+\externalfigure [oommpp-square-big-error.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {OMP, \m {N_H = N_B = 24}, error.}
 \blank [big]
 %
-\blank [big]
-\externalfigure [oommpp-very-big-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {OMP, \m {N_H = 3 N_B, N_H = 24}, error.}
-\blank [big]
-%
-As for the plot of time taken in minutes, we give only one example of \m {N_H = 16}.
+As for the plot of time taken in minutes, we give only one example of \m {N_H = 18}.
 %
 \blank [big]
-\externalfigure [oommpp-medium-time.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {OMP, \m {N_H = 3 N_B, N_H = 16}, time.}
+\externalfigure [oommpp-square-medium-time.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {OMP, \m {N_H = N_B = 18}, time.}
 \blank [big]
 
 \stopsubsection
@@ -425,9 +412,9 @@ When DS succeeded, the soft thresholding gave a reasonable guess of the nonzero 
 
 \startsubsection [title={Asymtotic Analysis}]
 
-We want to know the complexity of DS and OMP.
+We discuss the complexity of DS and OMP.
 In general, complexity of convex programs is difficult to analyze, in that it is not easily to determine how many iterations were done.
-Boyd and Vandenberghe \cite [BoV04] analyzed complexity of inequality constrained Newton method, in which self-concordance is assumed (p.496ff, also p.531).
+Boyd and Vandenberghe \cite [BoV04] analyzed complexity of inequality constrained Newton method, in which self-concordance is assumed (p.496, also p.531).
 In our case, Candès and Romberg \cite [CaR05] pointed out that the complex DS can be cast into an second order cone programming (SOCP), and where self concordance holds.
 Diamond and Boyd (writers of CVXPY) \cite [DiB16] explained that convex programs are usually converted into primal-dual problems.
 The library we called in the simulation is ECOS, where Newton method is used.

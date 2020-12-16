@@ -25,7 +25,7 @@
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Channel Model and Beamformers}
 {
-\I Given MIMO channel representation \m {\M {H} \in \NC \MB {C} ^{N_H \D N_H}} with uniform linear array, having \m {L} paths.
+\I Given MIMO channel representation \m {\M {H} \in \NC \MB {C} ^{N_H \D N_H}} with uniform linear array, having \m {L} paths, with hybrid beamforming.
 
 \I Complex standard normal noise \m {\M {Z} \in \NC \MB {C} ^{N_H \D N_H}}
 
@@ -35,7 +35,7 @@
 \I Rx: Digital combiner \m {\M {W}_B \in \NC \MB {C} ^{N_R \D N_H}}
 \I Rx: Analog combiner \m {\M {W}_R \in \NC \MB {C} ^{N_B \D N_R}}
 
-\I Magnitude constraint \m {{\Nm {\M {F}_R}_{\SB {n_H, n_R}}} = 1}, \m {{\Nm {\M {W}_R}_{\SB {n_R, n_H}}} = 1} 
+\I Magnitude constraint \m {\Nm {\M {F}_{R,\SB {n_H, n_R}}} = 1}, \m {\Nm {\M {W}_{R,\SB {n_H, n_R}}} = 1}
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Problem Description}
@@ -62,7 +62,7 @@
 \NC \V {g}
 := \NC \Rm {vec} \SB {\M {K}^\Adj \M {H} \M {K}},
 \Q \V {z}
-:= \Rm {vec} \SB {\M {Z}} \NR
+:= \Rm {vec} \SB {\M {W}_B \M {W}_R \M {Z}} \NR
 }
 
 \I We have an underdetermined system \m {\V {y} =\M {P} \V {g} +\V {z}}
@@ -73,7 +73,7 @@
 \blank [big]
 \externalfigure [compressive-sensing.png] [factor=fit]
 
-\I If \m {\V {g}} is sparse, few measurements may suffice for reconstruction.
+\I If \m {\V {g}} is sparse, fewer measurements suffice for reconstruction.
 
 \I Can we find a basis on which \m {\V {g}} is likely to be sparse?
 }
@@ -121,8 +121,6 @@ Does it apply to our case?
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Applying Dantzig Selector}
 {
-\I Fix sparsity \m {s = L \RB {\log N_H}^2} for definiteness.
-
 \I Input \m {\M {P} \in \MB {C} ^{N_B^2 \D N_H^2}}, \m {\V {y} \in \MB {C} ^{N_H^2}}, \m {\g_{\Ss {DS}} \geq 0}.
 
 \I Calculate
