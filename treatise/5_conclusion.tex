@@ -2,18 +2,18 @@
 \startchapter [title={Conclusion}]
 
 The treatise addresses the problem of effective estimation of the millimeter wave channel by exploiting its sparsity.
-Towards that end, we try the Dantzig Selector (DS) rather than Orthogonal Matching Pursuit (OMP), which is a more common choice, as the estimation algorithm.
-We proceed by exploiting the sparsity of spatial frequency domain, rather than 
-the spatial domain itself, and suggested the generalization of DS for complex vectors work in present case.
-Moreover, assuming the virtual channel model according to uniform linear array response, we managed to prove explicitly, following the spirit of Candès and Tao \cite [CaT07], that for overwhelming probability, the expected square error is bounded.
+To do so, we try the Dantzig Selector (DS) for channel estimation, rather than the more commonly used Orthogonal Matching Pursuit (OMP).
+We exploited the sparsity of spatial frequency domain, and generalized DS for complex vectors.
+We then proved explicitly that the expected error is bounded for overwhelming probability.
 
-We also point out that DS may be cast into an LP, and simulation is done.
-DS is steadily more accurate than all other methods, while exhibiting rather high complexity.
-Unfortunately, and it remains to investigate why there is no obvious trend between the signal level and the relative error norm, and why CVXPY sometimes gives overflowing answers.
+We also pointed out that DS may be cast into an linear program, for which simulation is done.
+DS is steadily more accurate than all other methods, while costing higher complexity.
+Moreover, we are not sure about the best value of the threshold, and it remains to prevent CVXPY from giving overflowing answers.
+Meanwhile, OMP and Lasso often fails, and we wonder whether they are really so bad, or we have not used correct parameters.
 
 One must be careful in giving meaningful comparison of existent analytic bounds for compressive sensing algorithms, as they might work in different settings.
-Indeed, DS requires a RIP matrix and performance is guaranteed in noisy observation \cite [CaT07], while RIP is not easily to justify rigorously, and its easy construction is even an open problem.
-OMP, on the other hand, may require only an entrywise i.i.d.\ sensing matrix \cite [TrG07a], but much of its property remains open.
+Indeed, DS requires a RIP linear transformation, and it is said to work in noisy linear systems \cite [CaT07]; here, RIP is not at all easy to justify rigorously, and a more feasible construction is even an ongoing research problem.
+OMP, on the other hand, require only an entrywise i.i.d.\ sensing matrix \cite [TrG07a], but much of its property is yet to be studied.
 On the whole, DS trades off low time and space complexity high precision, and for OMP the opposite is true.
 
 \stopchapter

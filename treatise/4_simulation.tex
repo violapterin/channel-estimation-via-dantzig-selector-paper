@@ -251,50 +251,50 @@ In the following, we plot the reciprocal of noise level vs relative error norm, 
 
 \blank [big]
 \externalfigure [assorted-square-small-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {Assorted methods, small, \m {N_H = 12, N_B = 12}, error norm.}
+\FigureCaption {Assorted methods, small, \m {N_B = 12, N_H = 12}, error norm.}
 \blank [big]
 %
 \blank [big]
 \externalfigure [assorted-square-medium-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {Assorted methods, medium, \m {N_H = 18, N_B = 18}, error norm.}
+\FigureCaption {Assorted methods, medium, \m {N_B = 18, N_H = 18}, error norm.}
 \blank [big]
 %
 \blank [big]
 \externalfigure [assorted-square-big-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {Assorted methods, big, \m {N_H = 24, N_B = 24}, error norm.}
+\FigureCaption {Assorted methods, big, \m {N_B = 24, N_H = 24}, error norm.}
 \blank [big]
 %
 \blank [big]
 \externalfigure [assorted-narrow-small-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {Assorted methods, small, \m {N_H = 12, N_B = 10}, error norm.}
+\FigureCaption {Assorted methods, small, \m {N_B = 10, N_H = 12}, error norm.}
 \blank [big]
 %
 \blank [big]
 \externalfigure [assorted-narrow-medium-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {Assorted methods, medium, \m {N_H = 18, N_B = 15}, error norm.}
+\FigureCaption {Assorted methods, medium, \m {N_B = 15, N_H = 18}, error norm.}
 \blank [big]
 %
 \blank [big]
 \externalfigure [assorted-narrow-big-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {Assorted methods, big, \m {N_H = 24, N_B = 20}, error norm.}
+\FigureCaption {Assorted methods, big, \m {N_B = 20, N_H = 24}, error norm.}
 %
 \blank [big]
 \externalfigure [assorted-wide-small-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {Assorted methods, small, \m {N_H = 12, N_B = 8}, error norm.}
+\FigureCaption {Assorted methods, small, \m {N_B = 8, N_H = 12}, error norm.}
 %
 \blank [big]
 \externalfigure [assorted-wide-medium-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {Assorted methods, medium, \m {N_H = 18, N_B = 12}, error norm.}
+\FigureCaption {Assorted methods, medium, \m {N_B = 12, N_H = 18}, error norm.}
 %
 \blank [big]
 \externalfigure [assorted-wide-big-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {Assorted methods, big, \m {N_H = 24, N_B = 16}, error norm.}
+\FigureCaption {Assorted methods, big, \m {N_B = 16, N_H = 24}, error norm.}
 
 As for the plot of time taken in minutes, we give only one example of \m {N_H = 16}.
 %
 \blank [big]
-\externalfigure [assorted-medium-time.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {Assorted methods, \m {N_H = 3 N_B, N_H = 16}, time.}
+\externalfigure [assorted-narrow-medium-time.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {Assorted methods, \m {N_B = 15, N_H = 18}, time.}
 \blank [big]
 
 
@@ -336,24 +336,24 @@ Again, we plot the reciprocal of noise level vs relative error norm, for \m {N_H
 %
 \blank [big]
 \externalfigure [oommpp-square-small-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {OMP, \m {N_H = N_B = 12}, error.}
+\FigureCaption {OMP, \m {N_H = 12, N_B = 12}, error.}
 \blank [big]
 %
 \blank [big]
 \externalfigure [oommpp-square-medium-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {OMP, \m {N_H = N_B = 18}, error.}
+\FigureCaption {OMP, \m {N_H = 18, N_B = 18}, error.}
 \blank [big]
 %
 \blank [big]
 \externalfigure [oommpp-square-big-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {OMP, \m {N_H = N_B = 24}, error.}
+\FigureCaption {OMP, \m {N_H = 24, N_B = 24}, error.}
 \blank [big]
 %
 As for the plot of time taken in minutes, we give only one example of \m {N_H = 18}.
 %
 \blank [big]
 \externalfigure [oommpp-square-medium-time.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {OMP, \m {N_H = N_B = 18}, time.}
+\FigureCaption {OMP, \m {N_H = 18, N_B = 18}, time.}
 \blank [big]
 
 \stopsubsection
@@ -362,36 +362,29 @@ As for the plot of time taken in minutes, we give only one example of \m {N_H = 
 
 In the assorted plots, DS steadily outperforms other methods.
 From lowest to highest error, it usually goes like this: DS, LS, Lasso, OMP.
-Though the result is encouraging for our purpose, we wonder why OMP is so bad.
-Did we make mistakes?
-We do not think so.
-A crucial reason might be that in Lee, Gil, and Lee \cite [LGL16], the angles of departure and arrival is distributed within a cluster of standard deviation 15 degrees, and in ours, they are uniform on the unit circle.
-One is then tempted to say, we suggested a low complexity beamformer and high complexity estimation method, while they suggested a high complexity beamformer and low complexity estimation method, and the low complexity solution does not seem effective in our settings.
-It remains to see, however, how OMP and DS compare, if done exactly under their settings.
 
-However, it is not clear how higher \m {\s} (dimensionless noise level) corresponds to lower \m {\T {\chi}} (simulated error).
+We wonder why OMP is so bad.
+A crucial reason might be that in Lee, Gil, and Lee \cite [LGL16], they proposed a high-complexity convex program for the beamformers, which they gave approximation, and we have here a low-complexity, randomly-generated beamformers.
+It may also have something to do with the distribution of angles of departure and arrival;
+their distribution lies within a cluster of standard deviation 15 degrees, and in ours, they are uniform on the unit circle.
+It remains to see how OMP and DS compare, if done exactly under their settings.
+
+The trend between \m {\s} (dimensionless noise level) and \m {\T {\chi}} (simulated error) is not clear, especially for OMP and lasso.
 It seems when \m {\s} is further increased (leftmost of the plots), the error might also increase rapidly, but more parameters have to be simulated for a conclusion.
 
-Varying thresholds of DS (namely \m {\g_{\Rm {DS}}}) and OMP (namely \m {\h_{\Rm {OMP}}}) appears not to affect the estimation significantly.
-Nevertheless, it seems \m {\g_{\Rm {DS}}} is usually best chosen in the order of magnitude of \m {\s}, which is reasonable.
-Sometimes the iteration stabilizes much earlier than is constrained by maximum iteration number.
+Varying thresholds of DS (namely \m {\g_{\Rm {DS}}}) and OMP (namely \m {\h_{\Rm {OMP}}}) appears not to affect much.
+It may have been that the iteration stabilizes much earlier than is constrained by maximum iteration number.
+While we choose \m {\g_{\Rm {DS}}} to be in the order of magnitude of \m {\s}, it seems, as signal level is low, a greater value may be better.
 
-Sadly, we remark that CVXPY sometimes gives overflowing outputs, some of them as large as \m {10^{11}}.
+Unfortunately, we report that CVXPY sometimes gives overflowing outputs, some of them as large as \m {10^{11}}.
 This indicates perhaps some typical-looking output may in fact be unreliable.
 We thus discard outputs larger than a given threshold, say \m {10^4}, and simply return the answer to be a Moore–Penrose inverse.
-It is unknown whether there are better methods.
-
-We are not sure either, unfortunately, why \m {\T {\chi}} does not agree \m {\chi}, and why \m {\chi} does not appear to increase significantly as \m {\s} increases.
-As shown above, \m {\chi} is almost constant around \m {1}, thus \m {\T {\chi}} is an overestimation when \m {\s} is high and underestimation when \m {\s} is low.
-A possible explanation is that the non-sparsity of \m {\V {g}} undermines the analysis in chapter 3, despite our attempts to account for that effect.
-These matters remain to be investigated in the future.
-
-We include Figure 12 for completeness's sake, where extreme low signal level is considered.
-Starting with \m {-30} dB, error of all methods grow significantly.
-However, the data may not be entirely reliable, since as we said we automatically discard overflowing values when the program blows up.
 All in all, the trend remains to be reproduced perhaps by simulating on a better device.
 
-We end this section by showing two cases where DS works or fails, in figures 23 and 24.
+We are not sure either why \m {\T {\chi}} is an overestimation of \m {\chi} by several orders of magnitude.
+A possible explanation is that the non-sparsity of \m {\V {g}} undermines the analysis in chapter 3, despite our attempts to account for that effect, which remain to be investigated in the future.
+
+We end this section by showing two cases where DS works or fails, in figures 21 and 22.
 In both figures the true values of \m {\M {H}} entries are ordered by magnitude, and corresponding estimated values in the first and second stage are plotted against them.
 When DS fails, the soft thresholding did not rule out smaller entries, thus a second application of DS on the wrong index set failed too.
 When DS succeeded, the soft thresholding gave a reasonable guess of the nonzero components, thus a second application of DS on this index set refined the estimated values.
