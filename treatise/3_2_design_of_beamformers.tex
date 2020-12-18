@@ -3,7 +3,7 @@
 \startsubsection [title={Design of beamformers}]
 
 Our plan is setting the four beamformers to be i.i.d.\ random matrix, hoping that the resulting \m {P} has RIP.
-Let us make it simple and set each entry of \m {\M {F} _B} to be i.i.d.\ normal r.v.\ with mean 0, standard deviation \m {1/2}, multiplied by a normalizing constant \m {\l_B >0}.
+Let us make it simple and set each entry of \m {\M {F} _B} to be i.i.d.\ normal random variables with mean 0, standard deviation \m {1/2}, multiplied by a normalizing constant \m {\l_B >0}.
 We know that the magnitude \m {\RB {\M {F} _B} _{\SB {n_R, n_B}}} follows Rayleigh distribution.
 \m {\RB {\M {W} _B ^\Tr} _{\SB {n_B, n_R}}} is set in an entirely analogous manner.
 In addition, let \m {\RB {\M {F} _R} _{\SB {n_H, n_R}}} be uniformly distributed on the unit circle on the complex plane.
@@ -31,7 +31,7 @@ We know
    \sum _{i=0} ^{N_B-1} \VNm {\sum _{j=0} ^{N_R-1} \F {1} {\R{N_B}} \chi _{i,j} \V {u} _{j}} _2 ^2} \NR
 }
 %
-We want a large deviation result for i.i.d.\ sum of chi-square r.vs.
+We want a large deviation result for i.i.d.\ sum of chi-square random variables.
 To so so, we may apply Lemma 1 in Laurent and Massart \cite [LaM00] for equal weights.
 By some calculation, we have upper tail inequality, for \m {x > 0},
 %
