@@ -2,7 +2,7 @@
 
 \startsubsection [title={Technical propositions in complex case}]
 
-The third and last part of our task is to plug in the almost-sparsity found in Section 3.1, and the failure probability found in Section 3.2.
+The third and last part of our task is to plug in the almost-sparsity found in Section \m {3.1}, and the failure probability found in Section \m {3.2}.
 Set for short
 %
 \DispNum {d:d:gg:gg} {
@@ -10,16 +10,15 @@ Set for short
 = \NC \Hat {\V {g}} - \V {g} \NR
 }
 %
-And we seek to bound \m {\VNm {\V {d}} _2}.
-To do so, we argue that \m {\V {g}} can be seen as sparse, and for that purpose we generously bound \m {\d_{S}} by \m {1}.
-As shall be seen, it suffices to set
+To bound \m {\VNm {\V {d}} _2}, we illustrate that \m {\V {g}} can be seen as sparse, and for that purpose we generously bound \m {\d_{S}} by \m {1}.
+We shall see below that it suffices to set
 %
 \DispNum {g':g':2N:Nh} {
 \NC \g
 = \NC 2 \R {\log N_H} \NR
 }
 %
-The propositions below are taken from \cite [CaT07] and modified slightly in accordance to our settings, besides the generalization to complex vectors.
+The propositions below are taken from \cite [CaT07] and modified slightly in accordance to our settings, in addition to the generalization to complex vectors.
 %
 \Result
 {Proposition}
@@ -32,7 +31,7 @@ The propositions below are taken from \cite [CaT07] and modified slightly in acc
 }
 }
 
-To show this, apply triangle inequality respectively on \m {\MS {A}} and \m {\MS {C}}, and recall that \m {\V {g} =\V {g} _{\SB{\MS {A}}}},
+To show this, apply triangle inequality respectively on \m {\MS {A}} and \m {\MS {C}}, and recall that \m {\V {g} \eqsim \V {g} _{\SB{\MS {A}}}},
 %
 \DispNum {g:1:gd:g1} {
 \NC \VNm {\V {g}} _1
@@ -56,7 +55,7 @@ as desired.
 \Result
 {Proposition}
 {
-If \m {\M {P}} is \m {\d_S}-RIP, then it holds that
+If \m {\M {P}} has \m {\d_S} RIP, then it holds that
 %
 \DispNum {P:d:4N:Nh} {
 \NC \VNm {\M {P}^\Adj \M {P} \V {d}} _\infty
@@ -114,9 +113,9 @@ By triangle inequality, together with \Rf {Q:h:1N:Nh} and \Rf {P:g:Py:Nh}, we ob
 \NC \simeq \NC 2 \R {2 \log N_H} +2 \R {2 \log N_H} \NR
 }
 
-Lastly, the following two propositions are taken from \cite [CaT07], Lemma 1.
-The generalization from real vector spaces to complex spaces is trivial.
-One of the quoted propositions reads
+Lastly, the following two propositions are taken from \cite [CaT07], Lemma \m {1}.
+The generalization from real vector spaces to complex spaces is obvious.
+The first quoted propositions reads
 %
 \DispNum {d:2:dA:12} {
 \NC \VNm {\V {d}} _2^2
@@ -135,7 +134,7 @@ By Jensen inequality,
 }
 }
 
-The other quoted proposition is
+The second quoted proposition reads
 %
 \DispNum {d:2:11:C1} {
 \NC \VNm {\V {d} _{\SB{\MS {AB}}}} _2
@@ -160,29 +159,12 @@ For all \m {s_1}-sparse \m {\V {x}_1}, for all \m {s_2}-sparse \m {\V {x}_2}, wh
 \NC \T {\d} _{s_1, s_2}
 \leq \NC \d_{s_1+s_2} \NR
 }
-And it remains to relate \m {\d_{2S}} to \m {\d_{S}}.
-By triangle inequality, by Jensen inequality,
-\DispNum {Q:x:Qx:x2} {
-\NC \VNm {Q' \RB {\V {x}_1 + \V {x}_2}}
-%
-\leq \NC \VNm {Q' \V {x}_1}
-+ \VNm {Q' \V {x}_2} \NR
-%
-\NC \leq \NC \RB {1 + \d _{s'}} \RB {\VNm {\V {x}_1} + \VNm {\V {x}_2}} \NR
-%
-\NC \leq \NC \RB {1 + \d _{s'}} \D \R{2} \VNm {\V {x}_1 + \V {x}_2} \NR
-}
-Therefore
-\DispNum {d:s:2s:2s} {
-\NC \d_{2s'}
-\leq \NC \R {2} \d_{s'} \NR
-}
-By the same token,
+We also make the assumption
 %
 \Result
 {Proposition}
 {
-If \m {\M {Q}'} has \m {\d_{s'}}-RIP, then, for \m {M=1,2,3,\dots} so that \m {\d _{Ms'}} is meaningful,
+If \m {\M {Q}'} has \m {\d_{s'}} RIP, then, for \m {M=1,2,3,\dots} for which \m {\d _{Ms'}} is meaningful,
 %
 \DispNum {d:s:Md':d's} {
 \NC \d_{Ms'}
@@ -202,7 +184,7 @@ So \Rf {d:2:11:C1} becomes
 \Result
 {Proposition}
 {
-If \m {\M {P}} is \m {\d_S}-RIP,
+If \m {\M {P}} has \m {\d_S} RIP,
 %
 \DispNum {d:2:11:C1} {
 \NC \VNm {\V {d} _{\SB{\MS {AB}}}} _2
@@ -310,14 +292,14 @@ so that
 \leq \NC \chi \NR
 }
 
-We further investigate the four events of failure, as follows.
+We end this chapter by remarking on the four events of failure, as follows.
 Consider failure probabilities \m {q _{\Rm {iso}, B}}, \m {q _{\Rm {iso}, R}}, \m {q _{\Rm {no}}}, \m {q _{\Rm {sp}}}, respectively for restricted isometry, noise, sparsity.
 If all of them are small, a naive application of union bound suggests
 \DispNum {q:q:2q:ar} {
 \NC q
 \eqsim \NC 2 \RB {q _{\Rm {iso}, B} + q _{\Rm {iso}, R}} +q _{\Rm {no}} +q _{\Rm {sp}} \NR
 }
-Quoting previous results \Rf {1:p:2e:s4}, \Rf {1:p:ex:d's}, \Rf {1:p:ex:d's}, and \Rf {1:p:NH:H2}, we make some approximation and set
+Quoting previous results \Rf {1:p:2e:s4}, \Rf {1:p:ex:d's}, \Rf {d:1:dA:C1}, and \Rf {1:p:NH:H2}, we make some approximation and set
 \DispNum {q:B:2e:Lp'} {
 \NC q _{\Rm {iso}, B}
 \lesssim \NC 2 \Ss {e} ^{-N_B /12} \NR
