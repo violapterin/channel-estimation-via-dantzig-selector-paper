@@ -27,11 +27,11 @@ The propositions below are taken from \cite [CaT07] and modified slightly in acc
 \DispNum {d:1:dA:C1} {
 \NC \VNm {\V {d} _{\SB{\MS {C}}}} _1
 \leq \NC \VNm {\V {d} _{\SB{\MS {A}}}} _1
-+2\VNm {\V {g} _{\SB{\MS {C}}}} _1 \NR
++\VNm {\V {g} _{\SB{\MS {C}}}} _1 \NR
 }
 }
 
-To show this, apply triangle inequality respectively on \m {\MS {A}} and \m {\MS {C}}, and recall that \m {\V {g} \eqsim \V {g} _{\SB{\MS {A}}}},
+To show this, apply triangle inequality respectively on \m {\MS {A}} and \m {\MS {C}},
 %
 \DispNum {g:1:gd:g1} {
 \NC \VNm {\V {g}} _1
@@ -70,7 +70,16 @@ for probability \m {p}, with
 }
 }
 
-To show this, we would like to bound \m {\Nm {\IP {\V {z} , \M {P} _{\SB {:, n_h}}}}}, which observes standard normal.
+To show this, by definition,
+%
+\DispNum {z:y:Pg:ny} {
+\NC \IP {\V {z} - \RB {\V {y} - \M {P} \hat {\V {g}}}, \M {P} _{\SB {:,n_h}}}
+= \NC \IP {\M {P} \hat {\V {g}} - \M {P} \V {g}, \M {P} _{\SB {:,n_h}}} \NR
+%
+\NC = \NC \IP {\M {P} \V {d}, \M {P} _{\SB {:,n_h}}} \NR
+}
+%
+On one hand, \m {\Nm {\IP {\V {z} , \M {P} _{\SB {:, n_h}}}}} observes standard normal.
 Recall the tail bound for \m {Q} function
 %
 \DispNum {Q:x:12:22} {
@@ -85,16 +94,7 @@ Particularly, fix threshold \m {x' =2 \R {\log N_H}}, yielding
 =\NC \F {1} {2 N_H^2}. \NR
 }
 %
-Now, by definition
-%
-\DispNum {z:y:Pg:ny} {
-\NC \IP {\V {z} - \RB {\V {y} - \M {P} \hat {\V {g}}}, \M {P} _{\SB {:,n_h}}}
-= \NC \IP {\M {P} \hat {\V {g}} - \M {P} \V {g}, \M {P} _{\SB {:,n_h}}} \NR
-%
-\NC = \NC \IP {\M {P} \V {d}, \M {P} _{\SB {:,n_h}}} \NR
-}
-%
-By construction
+On the other hand, by construction
 %
 \DispNum {P:g:Py:Nh} {
 \NC \VNm {\M {P} _{\SB {:,n_h}}^\Adj \RB {\V {y} - \M {P} \hat {\V {g}}}} _\infty
@@ -102,12 +102,12 @@ By construction
 %
 \NC \leq \NC 2\R {2 \log N_H} \NR
 }
-%
-By triangle inequality, together with \Rf {Q:h:1N:Nh} and \Rf {P:g:Py:Nh}, we obtain the desired result.
+
+Now, by triangle inequality, together with \Rf {Q:h:1N:Nh} and \Rf {P:g:Py:Nh}, we obtain the desired result.
 %
 \DispNum {P:d:zP:Nh} {
 \NC \VNm {\M {P} _{\SB {:,n_h}}^\Adj \M {P} \V {d}} _\infty
-\leq \NC \VNm {\IP {\V {z}, \M {P} _{\SB {:,n_h}}}} _\infty
+\leq \NC \Nm {\IP {\V {z}, \M {P} _{\SB {:,n_h}}}}
 + \IP {\V {y} - \M {P} \hat {\V {g}}, \M {P} _{\SB {:,n_h}}} \NR
 %
 \NC \simeq \NC 2 \R {2 \log N_H} +2 \R {2 \log N_H} \NR
@@ -159,20 +159,8 @@ For all \m {s_1}-sparse \m {\V {x}_1}, for all \m {s_2}-sparse \m {\V {x}_2}, wh
 \NC \T {\d} _{s_1, s_2}
 \leq \NC \d_{s_1+s_2} \NR
 }
-We also make the assumption
-%
-\Result
-{Proposition}
-{
-If \m {\M {Q}'} has \m {\d_{s'}} RIP, then, for \m {M=1,2,3,\dots} for which \m {\d _{Ms'}} is meaningful,
-%
-\DispNum {d:s:Md':d's} {
-\NC \d_{Ms'}
-\leq \NC \R {M} \d_{s'} \NR
-}
-}
-%
-In particular,
+
+We also make the approximation that
 %
 \DispNum {d':S:Ll:d's} {
 \NC \d_{S}
@@ -229,9 +217,8 @@ for probability \m {p}, with
 \eqsim \NC \MS {O} \SB {\Ss {e} ^{-N_B /12}} \NR
 }
 }
-%
-To show this, simplify the expression of \m {\VNm {\V {d} _{\SB{\MS {AB}}}} _2} in \Rf {d:2:11:C1} and \m {\VNm {\V {d} _{\SB{\MS {C}}}} _1} in \Rf {d:1:dA:C1}, and substitute rough numbers.
-By the definition of truncation, by \m {\ell_p} norm inequality, by \Rf {P:d:4N:Nh},
+
+To show this, by the definition of truncation, by \m {\ell_p} norm inequality, by \Rf {P:d:4N:Nh},
 %
 \DispNum {P:2:PP:NH} {
 \NC \VNm {\M {P} _{\SB {\MS {AB}}}^\Tr \M {P} \V {d}} _2
@@ -254,29 +241,21 @@ By \m {\ell_p}-norm inequality, by the definition of truncation, by \Rf {d:2:11:
 +0.262 \VNm {\V {d} _{\SB{\MS {C}}}} _1 \NR
 }
 %
-And \Rf {a:2:4N:NH} gives, after arrangement,
-%
-\DispNum {d:A1:16:H2} {
-\NC \VNm {\V {d} _{\SB{\MS {A}}}} _1
-%
-\leq \NC 1.64 L \R {\log N_H}^3 +0.951 L \RB {\log N_H}^2 \NR
-}
-%
-Then, substituting \Rf {g:C:4p':NH} and \Rf {d:A1:16:H2} above into \Rf {d:1:dA:C1}, we get
+Then, substituting \Rf {g:C:4p':NH} and \Rf {d:1:Sd:C1} above into \Rf {d:1:dA:C1}, we get
 \DispNum {d:C1:16:H2} {
 \NC \VNm {\V {d} _{\SB{\MS {C}}}} _1
 %
 \leq \NC 1.64 L \R {\log N_H}^3 +3.61 L \RB {\log N_H}^2 \NR
 }
-%
-And \Rf {d:2:11:C1} becomes
+
+Now \Rf {d:2:11:C1} becomes
 %
 \DispNum {d:2:16:H3} {
 \NC \VNm {\V {d} _{\SB{\MS {AB}}}} _2
 %
 \leq \NC 1.64 \R {L} \log N_H +0.951 \R {L} \R {\log N_H}^3 \NR
 }
-We are now in a position to bound \m {\VNm {d} _2}, again by \Rf {d:2:dA:C1}, and plugging in \Rf {d:2:16:H3} and \Rf {d:C1:16:H2}, giving
+and we are ready to estimate \m {\VNm {d} _2}, again by \Rf {d:2:dA:C1}, and plugging in \Rf {d:2:16:H3} and \Rf {d:C1:16:H2}, giving
 \DispNum {d:2:42:NH} {
 \NC \VNm {\V {d}} _2
 \leq \NC 3.29 \R {L} \log N_H +4.56 \R {L} \R {\log N_H}^3 \NR
@@ -299,7 +278,7 @@ If all of them are small, a naive application of union bound suggests
 \NC q
 \eqsim \NC 2 \RB {q _{\Rm {iso}, B} + q _{\Rm {iso}, R}} +q _{\Rm {no}} +q _{\Rm {sp}} \NR
 }
-Quoting previous results \Rf {1:p:2e:s4}, \Rf {1:p:ex:d's}, \Rf {d:1:dA:C1}, and \Rf {1:p:NH:H2}, we make some approximation and set
+Quoting previous results \Rf {1:p:2e:s4}, \Rf {1:p:ex:d's}, \Rf {1:p:NH:H2}, and \Rf {1:p:1N:H3}, we make some approximation and set
 \DispNum {q:B:2e:Lp'} {
 \NC q _{\Rm {iso}, B}
 \lesssim \NC 2 \Ss {e} ^{-N_B /12} \NR
