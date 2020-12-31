@@ -1,0 +1,288 @@
+\startchapter [title={Problem setting}]
+
+\startsection [title={Channel model}]
+
+For simplicity we suppose uniform linear arrays, for which the response be modeled as thus,
+%
+\DispNum {a:y':CN:NH} {
+\NC \V {a} \SB {\psi'}
+= \NC \frac {1} {\R {N_H}} \sum_{n_h=0}^{N_H-1} \mathsf {e} ^{\mathsf {i} n_h \psi'} \V {u} _{n_h}
+\in \mathbb {C} ^ {N_H} \NR
+}
+%
+where \m {\mathsf {e}} is the base of natural logarithm, and \m {\mathsf {i}} the imaginary unit.
+
+And consider the virtual representation of the MIMO channel, as in Akdeniz et.\ al.\ \cite [ALS14],
+%
+\DispNum {H:H:l0:ql} {
+\NC \M {H}
+=\NC \sum_{l=0} ^{L-1}
+\a_l
+\V {a} \SB { 2\pi \frac {d_{\mathrm {arr}}} {\l _{\mathrm {arr}}} \sin \f_l'}
+\V {a} \SB { 2\pi \frac {d_{\mathrm {arr}}} {\l _{\mathrm {arr}}} \sin \th_l'}^\dagger \NR
+}
+%
+The physical meaning of \m {\f_l'} is the \m {l}-th angle of incidence (formed by the ray and the normal line) of departure electronic wave, and \m {\th_l'}, the \m {l}-th angle of arrival wave, and \m {d_{\mathrm {arr}}} is the distance between two adjacent antennae.
+For our purpose, we may absorb the arguments of \m {\V {a}}
+%
+\DispNum {f:l:2p:2p} {
+\NC \f_l
+= \NC 2\pi \frac {d_{\mathrm {arr}}} {\l_{\mathrm {arr}}} \sin \f_l'
+  \; \mathrm {Mod}\; \RB {2\pi} \NR
+%
+\NC \th_l
+= \NC 2\pi \frac {d_{\mathrm {arr}}} {\l_{\mathrm {arr}}} \sin \th_l'
+  \; \mathrm {Mod}\; \RB {2\pi} \NR
+}
+%
+to get a simpler form
+%
+\DispNum {H:H:l0:ql} {
+\NC \M {H}
+=\NC \sum_{l=0} ^{L-1} \a_l \V {a} \SB {\f_l} \V {a} \SB {\th_l}^\Adj
+\in \mathbb {C} ^{N_H \D N_H} \NR
+}
+
+\stopsection
+
+\startsection [title={System model}]
+
+\blank [big]
+\externalfigure [system.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {Schematic diagram of the hybrid beamforming system we consider, based on Akdeniz et.\ al.\ \cite [ALS14].}
+\blank [big]
+
+We consider the hybrid beamforming at both transmitter and receiver ends, as shown in Figure 2.
+Each end consists of both digital and analog precoders and combiners.
+In the transmitter end, there are (seeing towards the receiver end), digital precoder \m {\M {F} _B \in \mathbb {C} ^{N_R \D N_B}} and analog precoder \m {\M {F} _R \in \mathbb {C} ^{N_H \D  N_R}}.
+Similarly, in the receiver end, there are (seeing towards the transmitter end) digital combiner \m {\M {W} _R \in \mathbb {C} ^{N_R \D N_H}} and analog combiner \m {\M {W} _B \in \mathbb {C} ^{N_B \D  N_R}}.
+
+Recall that analog precoders may only have values of unity magnitude,
+%
+\DispNum {F:R:1::R1} {
+\NC \Nm {\RB {\M {F} _R} _{\SB {n_H, n_R}}}
+= \NC 1, \NR
+%
+\NC \Nm {\RB {\M {W} _R} _{\SB {n_R, n_H}}}
+= \NC 1, \NR
+%
+\NC n_H
+= \NC 0, \dots N_H-1, \NR
+%
+\NC n_R
+= \NC 0, \dots N_R-1 \NR
+}
+%
+And we assume
+%
+\DispNum {N:H:NY:NY} {
+\NC N_H \gg \NC N_R \NR
+%
+\NC N_R \gg \NC N_B \NR
+}
+
+Since we restrict our discussion to a short interval of time, the noise term may be simply taken as a matrix \m {\M {Z} \in \NC \mathbb {C} ^{N_B \D N_B}} with each entry being i.i.d.\ standard normal.
+Let us introduce the effective channel
+%
+\DispNum {Y:Y:WB:BZ} {
+\NC \M {Y}
+:=\NC \M {W} _B \M {W} _R \RB {\M {H} \M {F} _R \M {F} _B +\M {Z}} \NR
+}
+%
+Our task then amounts to recovering \m {\M {H}}, and designing \m {\M {W} _R}, \m {\M {W} _B}, \m {\M {F} _R}, and \m {\M {F} _B}.
+
+\stopsection
+
+\startsection [title={Vectorization}]
+
+We need several notations.
+%
+\Result
+{Definition}
+{
+Define \m {\mathrm {vec} \SB {\M {A}} \in \mathbb {K} ^{N_1 \D N_2}} to be the vectorization of \m {\M {A} \in \mathbb {K} ^{N_1 \D  N_2}}.
+Formally,
+%
+\DispNum {v:1:Am:N1} {
+\NC \RB {\mathrm {vec} \SB {\M {A}}} _{\SB {m}}
+=\NC \M {A} _{\SB {m\; \mathrm {Mod}\; N_1, \Fl {m/N_1 }}} \NR
+}
+%
+The bijection is obvious, and we define \m {\mathrm {vec} ^{-1}} so that
+%
+\DispNum {v:x:x::x:} {
+\NC \mathrm {vec} ^{-1} \SB {\mathrm {vec} \SB {x}}
+=\NC x \NR
+}
+}
+
+\Result
+{Definition}
+{
+For \m {\M {A} \in \mathbb {K} ^{N_1 \D  N_2}} and \m {\M {B} \in \mathbb {K} ^{N_3 \D N_4}}, define the Kronecker product \m {\M {A} \otimes \M {B} \in \mathbb {K} ^{N_1 N_3 \D N_2 N_4}} by
+%
+\DispNum {A:2:Am:N4} {
+\NC \NC \RB {\M {A} \otimes \M {B}} _{\SB {m_1, m_2}} \NR
+%
+\NC =\NC \M {A} _{\SB {\Fl {m_1/N_3 }, \Fl {m_2/N_4 }}}
+\M {B} _{\SB {m_1\; \mathrm {Mod}\; N_3, m_2\; \mathrm {Mod}\; N_4}} \NR
+}
+}
+
+The following relation, which is straightforward from definitions, is going be used below.
+\Result
+{Proposition}
+{
+Suppose \m {\M {A} \in \mathbb {K} ^{N_1 \D  N_2}, \M {X} \in \mathbb {K} ^{N_2 \D N_3}, \M {B} \in \mathbb {K} ^{N_3 \D N_4}},
+Then
+%
+\DispNum {v:B:BA:cX} {
+\NC \mathrm {vec} \SB {\M {A}\M {X}\M {B}}
+= \NC \RB {\M {B}^\intercal \otimes \M {A}} \mathrm {vec} \SB {\M {X}} \NR
+}
+}
+
+It is more appealing to write
+%
+\DispNum {h:h:ve:Nh} {
+\NC \V {h}
+:= \NC \mathrm {vec} \SB {\M {H}}
+\in \mathbb {C} ^{N_H^2} \NR
+%
+\NC \V {y}
+:= \NC \mathrm {vec} \SB {\M {Y}}
+\in \mathbb {C} ^{N_B^2} \NR
+%
+\NC \V {z}
+:= \NC \mathrm {vec} \SB {\M {W} _B \M {W} _R \M {Z}}
+\in \mathbb {C} ^{N_B^2} \NR
+%
+\NC \M {Q}
+:= \NC \RB {\M {F} _B^\intercal \M {F} _R^\Tr} \otimes \RB {\M {W} _B \M {W} _R}
+\in \mathbb {C} ^{N_B^2 \D N_H^2} \NR
+}
+%
+to formulate the problem as a linear system:
+%
+\DispNum {y:y:Qh:hz} {
+\NC \V {y}
+=\NC \M {Q} \V {h} +\V {z} \NR
+}
+%
+At this stage, we intend to apply DS, but there is no guarantee that \m {\V {h}} must be sparse.
+
+\stopsection
+
+\startsection [title={Spacial frequency domain}]
+
+Denote the discrete Fourier transform matrix to be \m {\M {K}},
+%
+\DispNum {K:K:CN:H1} {
+\NC \M {K} \in  \NC \mathbb {C} ^{N_H \D N_H} \NR
+%
+\NC \M {K} _{\SB {n_1, n_2}}
+= \NC \frac {1} {\R {N_H}} \mathsf {e}^{2\pi \mathsf {i} n_1 n_2 /N_H}, \NR
+%
+\NC \quad n_1, n_2
+= \NC 0, 1, \dots, N_H-1 \NR
+}
+%
+Recall that we have
+%
+\DispNum {K:K:I:::I} {
+\NC \M {K}^\dagger \M {K}
+= \NC \M {I} \NR
+}
+%
+If we write
+%
+\DispNum {G:G:KH:HK} {
+\NC \M {G}
+=\NC \M {K}^\dagger \M {H} \M {K} \NR
+}
+%
+then \m {\M {G}} can be interpreted as spatial frequency domain representation of \m {\M {H}}.
+%
+\DispNum {Y:Y:WB:NY} {
+\NC \M {Y}
+=\NC \M {W} _B \M {W} _R \M {K} \D \M {G} \D \M {K}^\dagger \M {F} _R \M {F} _B
++\M {W} _B \M {W} _R \M {Z}
+\in \mathbb {C} ^{N_B \D N_B} \NR
+}
+%
+If we are sure that \m {\M {G}} is sparse, then we recover \m {\M {G}} instead.
+Set for brevity
+%
+\DispNum {P:P:FB:Nh} {
+\NC \M {P}
+:=\NC \RB {\M {F} _B^\intercal \M {F} _R^\intercal \M {K}^\ast} \otimes \RB {\M {W} _B \M {W} _R \M {K}}
+\in \mathbb {C} ^{N_B^2 \D N_H^2} \NR
+}
+%
+and
+%
+\DispNum {g:g:ve:Nh} {
+\NC \V {g}
+:= \NC \mathrm {vec} \SB {\M {G}}
+\in \mathbb {C} ^ {N_H \D N_H} \NR
+}
+%
+accordingly
+%
+\DispNum {y:y:Pg:gz} {
+\NC \V {y}
+=\NC \M {P} \V {g} +\V {z} \NR
+}
+
+\stopsection
+\startsection [title={Proposed method}]
+
+Our plan becomes now
+
+\Result
+{Algorithm}
+{
+\startitemize[n]
+%
+\item Let \m {\g_{\mathrm {DS}} \geq 0} be given.
+%
+\item Input \m {\M {F} _B \in \NC \mathbb {C} ^{N_R \D N_B}},
+\m {\M {F} _R \in \NC \mathbb {C} ^{N_H \D N_R}},
+\m {\M {W} _R \in \NC \mathbb {C} ^{N_R \D N_H}},
+\m {\M {W} _B \in \NC \mathbb {C} ^{N_B \D N_R}},
+and \m {\M {Y} \in \NC \mathbb {C} ^{N_B \D N_B}}.
+%
+\item Find \m {\M {P} \in \mathbb {C} ^{N_B^2 \D N_H^2}}, \m {\V {y} \in \mathbb {C} ^{N_H^2}} as in above.
+%
+\item Compute the convex program
+%
+\DispNum {g:g:mi:DS} {
+\NC \hat {\V {g}}
+\leftarrow \NC \startcases
+\NC \Min {\V {g}' \in \mathbb {C} ^{N_H^2}}  \MC \VNm {\V {g}'} _1 \NR
+%
+\NC \mathrm {subject} \; \mathrm {to} \quad \MC \VNm {\M {P}^\dagger \RB {\V {y} -\M {P} \V {g}'}} _\infty \leq \g_{\mathrm {DS}} \NR
+\stopcases \NR
+}
+%
+\item Convert \m {\hat {\V {g}}} back to the space domain, namely
+%
+\DispNum {G:G:ve:1g} {
+\NC \hat {\M {G}}
+\leftarrow \NC \mathrm {vec}^{-1} \SB {\hat {\V {g}}} \NR
+}
+%
+\item Recover the estimated \m {\hat {\M {H}}}, as
+%
+\DispNum {H:H:KG:GK} {
+\NC \hat {\M {H}}
+\leftarrow \NC \M {K} \hat {\M {G}} \M {K}^\dagger \NR
+}
+%
+\item Output \m {\hat {\M {H}}}.
+%
+\stopitemize
+}
+
+\stopsection
+\stopchapter

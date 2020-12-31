@@ -238,12 +238,13 @@ It might be that greedy algorithms trade precision for complexity, and that the 
 
 In this treatise, we consider a hybrid system with uniform linear array as in Lee, Gil, and Lee \cite [LGL16].
 They proposed a beamformer shown to be optimal, jointly designed on both ends by a nonconvex optimization program, and due to its difficulty they have made considerable approximation.
-Is the approximated design still optimal, or do the angles of sensing matrix become less accurate?
+Is the approximated design still optimal, or are the angles of sensing matrix not sufficiently precise?
 
 In chapter 2 we shall see that our proposed effective beamformer has RIP for high probability, which may serve as the sensing matrix for DS.
 In chapter 3, along the lines of Candès and Tao \cite [CaT07], we give a quantitative bound (which holds for high probability) on expected error norm.
 In chapter 4, we remark that DS can be cast as a linear program, for which more efficient algorithms exist.
-Numerical results show that in our problem setting, DS can be superior to other methods, but costs higher complexity.
+Numerical results show that in our problem configuration, DS is superior to other methods.
+Indeed, DS is much more accurate than the least square, and both OMP and Lasso often fails.
 
 
 \stopsection
