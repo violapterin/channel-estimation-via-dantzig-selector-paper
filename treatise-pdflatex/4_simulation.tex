@@ -1,91 +1,91 @@
-\startchapter [title={Simulation}]
+\chapter {Simulation}
 
 In this chapter we shall compare \Rf {d:2:OL:H3} with numerical experiments.
-For the convex optimization, we choose the Python library CVXPY \cite [DiB16].
-While a direct implementation of Algorithm [7] leads to extraordinarily large complexity, Candès and Romberg \cite [CaR05] showed that DS can be cast as a linear program, which we elaborate below.
+For the convex optimization, we choose the Python library CVXPY \cite {DiB16}.
+While a direct implementation of Algorithm [7] leads to extraordinarily large complexity, Candès and Romberg \cite {CaR05} showed that DS can be cast as a linear program, which we elaborate below.
 
-\startsection [title={Method}]
+\section {Method}
 
-\startsubsection [title={Some notation}]
+\subsection {Some notation}
 
 Let us represent complex vector and matrices by real ones, consisting of its real and imaginary parts.
 For \m {\V {x} \in \mathbb {C} ^{M}}, define the real representation \m {\mathscr {R} \SB {\V {x}}} of \m {\V {x}} to be
 %
 \DispNum {R:x:R2:M1} {
-\NC \mathscr {R} \SB {\V {x}}
-\in \NC \mathbb {R} ^{2M} \NR
-\NC \mathscr {R} \SB {\V {x}} _{\SB {m}}
-= \NC \startcases
-\NC \mathfrak {Re} \SB {\V {x} _{\SB {m'}}}, \MC m =2m' \NR
-\NC \mathfrak {Im} \SB {\V {x} _{\SB {m'}}}, \MC m =2m'+1 \NR
+\mathscr {R} \SB {\V {x}}
+\in \mathbb {R} ^{2M} \NR
+\mathscr {R} \SB {\V {x}} _{\SB {m}}
+= \startcases
+\mathfrak {Re} \SB {\V {x} _{\SB {m'}}}, \MC m =2m' \NR
+\mathfrak {Im} \SB {\V {x} _{\SB {m'}}}, \MC m =2m'+1 \NR
 \stopcases \NR
-\NC m' 
-= \NC  0, 1, 2, \ldots, M-1 \NR
+m' 
+=  0, 1, 2, \ldots, M-1 \NR
 }
 %
 The injection is obvious, and we may define \m {\mathscr {R} ^{-1}} so that
 %
 \DispNum {R:1:x::x:} {
-\NC \mathscr {R} ^{-1} \SB {\mathscr {R} \SB {\V {x}}}
-=\NC \V {x} \NR
+\mathscr {R} ^{-1} \SB {\mathscr {R} \SB {\V {x}}}
+=\V {x} \NR
 }
 %
 Accordingly, the following generalization to complex matrices is valid, once we call the ring representation of complex numbers.
 For \m {\M {A} \in \mathbb {C} ^{M_1 \D M_2}}, define real representation \m {\mathscr {R} \SB {\M {A}}} of \m {\M {A}} to be
 %
 \DispNum {R:A:R2:21} {
-\NC \mathscr {R} \SB {\M {A}}
-\in \NC \mathbb {R} ^{2M_1 \D 2M_2} \NR
-\NC \mathscr {R} \SB {\M {A}} _{\SB {m_1,m_2}} =
-\NC \startcases
-\NC \mathfrak {Re} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC \RB {m_1, m_2} = \RB {2m_1', 2m_2'} \NR
-\NC \mathfrak {Im} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC \RB {m_1, m_2} = \RB {2m_1'+1, 2m_2'} \NR
-\NC -\mathfrak {Im} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC \RB {m_1, m_2} = \RB {2m_1', 2m_2'+1} \NR
-\NC \mathfrak {Re} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC \RB {m_1, m_2} = \RB {2m_1'+1, 2m_2'+1} \NR
+\mathscr {R} \SB {\M {A}}
+\in \mathbb {R} ^{2M_1 \D 2M_2} \NR
+\mathscr {R} \SB {\M {A}} _{\SB {m_1,m_2}} =
+\startcases
+\mathfrak {Re} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC \RB {m_1, m_2} = \RB {2m_1', 2m_2'} \NR
+\mathfrak {Im} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC \RB {m_1, m_2} = \RB {2m_1'+1, 2m_2'} \NR
+-\mathfrak {Im} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC \RB {m_1, m_2} = \RB {2m_1', 2m_2'+1} \NR
+\mathfrak {Re} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC \RB {m_1, m_2} = \RB {2m_1'+1, 2m_2'+1} \NR
 \stopcases \NR
-\NC m_1 
-= \NC 0, 1, 2, \ldots, M_1 -1 \NR
-\NC m_2 
-= \NC 0, 1, 2, \ldots, M_2 -1 \NR
+m_1 
+= 0, 1, 2, \ldots, M_1 -1 \NR
+m_2 
+= 0, 1, 2, \ldots, M_2 -1 \NR
 }
 
 With these, we define
 %
 
 \DispNum {y:y:Ry:Ny} {
-\NC \tilde {\V {y}}
-= \NC \mathscr {R} \SB {\V {y}}
+\tilde {\V {y}}
+= \mathscr {R} \SB {\V {y}}
 \in \mathbb {R} ^{2 N_B^2} \NR
 %
-\NC \tilde {\V {g}}
-= \NC \mathscr {R} \SB {\V {g}}
+\tilde {\V {g}}
+= \mathscr {R} \SB {\V {g}}
 \in \mathbb {R} ^{2 N_H^2} \NR
 %
-\NC \tilde {\M {P}}
-= \NC \mathscr {R} \SB {\M {P}}
+\tilde {\M {P}}
+= \mathscr {R} \SB {\M {P}}
 \in \mathbb {R} ^{2 N_B^2 \D 2 N_H^2} \NR
 %
-\NC \tilde {\M {P}} ^\Adj
-= \NC \mathscr {R} \SB {\M {P} ^\Adj}
+\tilde {\M {P}} ^\Adj
+= \mathscr {R} \SB {\M {P} ^\Adj}
 \in \mathbb {R} ^{2 N_B^2 \D 2 N_H^2} \NR
 %
-\NC \tilde {\V {z}}
-= \NC \mathscr {R} \SB {\V {z}}
+\tilde {\V {z}}
+= \mathscr {R} \SB {\V {z}}
 \in \mathbb {R} ^{2 N_B^2} \NR
 }
 %
 so, by construction,
 %
 \DispNum {y:y:Pg:gz} {
-\NC \V {\tilde {y}}
-= \NC \M {\tilde {P}} \V {\tilde {g}} +\V {\tilde {z}} \NR
+\V {\tilde {y}}
+= \M {\tilde {P}} \V {\tilde {g}} +\V {\tilde {z}} \NR
 }
 %
 And denote \m {\V {1}} to be the all-\m{1} vector, and \m {\V {0}} the all-\m{0} vector, whose dimension will be inferred from context.
 
-\stopsubsection
 
-\startsubsection [title={A Linear Program}]
+
+\subsection {A Linear Program}
 
 It is now straightforward to see that DS is equivalent to a linear program.
 
@@ -99,43 +99,43 @@ It is now straightforward to see that DS is equivalent to a linear program.
 %
 \item Compute the convex program
 \DispNum {g:f:gf:S1} {
-\NC \hat {\tilde {\V {g}}}, \hat {\tilde {\V {f}}}
-\leftarrow \NC \startcases
-   \NC \Min {\tilde {\V {g}}', \tilde {\V {f}}'}  \MC \IP {\V {1}, \tilde {\V {f}}'} \NR
-   \NC \mathrm {subject} \; \mathrm {to} \MC \tilde {\V {g}}' \preceq \tilde {\V {f}}' \NR
-   \NC \MC - \tilde {\V {g}}' \preceq \tilde {\V {f}}' \NR
-   \NC \MC \tilde {\M {P}}^\dagger \tilde {\M {P}} \tilde {\V {g}}' \preceq \tilde {\M {P}}^\dagger \tilde {\V {y}} + \g_{\mathsf {DS}} \V {1} \NR
-   \NC \MC - \tilde {\M {P}}^\dagger \tilde {\M {P}} \tilde {\V {g}}' \preceq - \tilde {\M {P}}^\dagger \tilde {\V {y}} + \g_{\mathsf {DS}} \V {1} \NR
+\hat {\tilde {\V {g}}}, \hat {\tilde {\V {f}}}
+\leftarrow \startcases
+   \Min {\tilde {\V {g}}', \tilde {\V {f}}'}  \MC \IP {\V {1}, \tilde {\V {f}}'} \NR
+   \mathrm {subject} \; \mathrm {to} \MC \tilde {\V {g}}' \preceq \tilde {\V {f}}' \NR
+   \MC - \tilde {\V {g}}' \preceq \tilde {\V {f}}' \NR
+   \MC \tilde {\M {P}}^\dagger \tilde {\M {P}} \tilde {\V {g}}' \preceq \tilde {\M {P}}^\dagger \tilde {\V {y}} + \g_{\mathsf {DS}} \V {1} \NR
+   \MC - \tilde {\M {P}}^\dagger \tilde {\M {P}} \tilde {\V {g}}' \preceq - \tilde {\M {P}}^\dagger \tilde {\V {y}} + \g_{\mathsf {DS}} \V {1} \NR
 \stopcases \NR
 }
 \item Convert
 %
 \DispNum {g:::R1:1g} {
-\NC \Hat{\V {g}}
-\leftarrow \NC \mathscr {R} ^{-1} \SB {\Hat{\T{\V {g}}}} \NR
+\Hat{\V {g}}
+\leftarrow \mathscr {R} ^{-1} \SB {\Hat{\T{\V {g}}}} \NR
 }
 \item Calculate
 %
 \DispNum {G:G:ve:1g} {
-\NC \hat {G}
-\leftarrow \NC \mathrm {vec}^{-1} \SB {\hat {g}} \NR
+\hat {G}
+\leftarrow \mathrm {vec}^{-1} \SB {\hat {g}} \NR
 }
 \item Calculate
 %
 \DispNum {H:H:KG:GK} {
-\NC \hat {\M {H}}
-\leftarrow \NC \M {K} \hat {\M {G}} \M {K}^\dagger \NR
+\hat {\M {H}}
+\leftarrow \M {K} \hat {\M {G}} \M {K}^\dagger \NR
 }
 \item Output \m {\hat {\M {H}}}.
 \stopitemize
 }
 
-\stopsubsection
 
-\startsubsection [title={A Two-Stage Version}]
+
+\subsection {A Two-Stage Version}
 
 We also tried another version of DS, in which DS is applied twice in estimated nonzero components.
-The two-stage method was briefly mentioned \cite [CaT07] without further numerical verification.
+The two-stage method was briefly mentioned \cite {CaT07} without further numerical verification.
 It goes as follows:
 We first apply DS as before;
 we extract largest components of the estimated vector, and apply DS again;
@@ -150,12 +150,12 @@ finally, indices set has to be scrambled back corresponding to the original ones
 
 \item Set
 \Disp {
-\NC N_0
-=\NC 2 N_H^2, \NR
-\NC N_2
-=\NC \lfloor 4 \log N_H \rfloor, \NR
-\NC N_1
-=\NC \lfloor \R {N_0 N_2} \rfloor \NR
+N_0
+=2 N_H^2, \NR
+N_2
+=\lfloor 4 \log N_H \rfloor, \NR
+N_1
+=\lfloor \R {N_0 N_2} \rfloor \NR
 }
 
 \item Apply DS to \m {\V {y}, \M {P}} to get \m {\hat {\V {g}}_0}, and call the \m {N_1} largest component of \m {\hat {\V {g}}_0} to be \m {\V {g}_1}, and corresponding columns of \m {\M {P}} to be \m {\M {P} _1}.
@@ -169,11 +169,11 @@ finally, indices set has to be scrambled back corresponding to the original ones
 Unfortunately, the two-stage method is not always more accurate than the one-stage method, so we did not include it in the plots.
 It might have something to do with appropriately scaling \m {\g_{\mathrm {DS}}} with respect to \m {N_H}, and we do not know what the best choice is.
 
-\stopsubsection
 
-\startsection [title={Result}]
 
-\startsubsection [title={Settings}]
+\section {Result}
+
+\subsection {Settings}
 
 In addition to DS, we shall simulate OMP for three different stop conditions, Lasso, and Moore Penrose pseudoinverse (marked as LS which stands for least square).
 
@@ -185,8 +185,8 @@ the base station is \m {1.5} km away,
 the noise is \m {–40} dB W.
 If so, the noise-to-signal ratio is
 \DispNum {1:8:02:24} {
-\NC 10^{-4} \frac {1} {0.25} \R {\frac {5 \D 10^9 \D 4 \pi \D 1500} {3 \D 10^8}}
-=\NC 0.224 \NR
+10^{-4} \frac {1} {0.25} \R {\frac {5 \D 10^9 \D 4 \pi \D 1500} {3 \D 10^8}}
+=0.224 \NR
 }
 
 We use dimensionless noise level \m {\s} which takes value starting with \m {2^{-4}}, and being multiplied by powers of \m {2}.
@@ -209,9 +209,9 @@ The wavelength of carrier \m {\l _{\mathrm {ant}}} is set to be \m {0.1}, and th
 
 
 Denote the threshold for DS to be \m {\g_{\mathrm {DS}}}, and similar threshold of Lasso to be \m {\g_{\mathrm {Lasso}}}.
-In the plots of assorted methods, we set \m {\g_{\mathrm {DS}} = 2 \R {\log N_H}} as suggested in \cite [CaT07].
+In the plots of assorted methods, we set \m {\g_{\mathrm {DS}} = 2 \R {\log N_H}} as suggested in \cite {CaT07}.
 For sake of comparison, \m {\g_{\mathrm {Lasso}} = 2 \R {\log N_H}} too.
-For OMP, suggested values in Cai and Wang \cite [CaW11] is illuminating, where they considered \m {\ell _2}-norm in their Theorem 7, and \m {\ell _\infty}-norm in their Theorem 8.
+For OMP, suggested values in Cai and Wang \cite {CaW11} is illuminating, where they considered \m {\ell _2}-norm in their Theorem 7, and \m {\ell _\infty}-norm in their Theorem 8.
 We simply take \m {\h_{\mathrm {OMP}} = 2 \R {\log N_H}} for \m {\infty}-norm constraint, \m {\h_{\mathrm {OMP}} = \R {3 N_B}} for 2-norm constraint.
 Particularly, in the plots of DS only or OMP only, we vary the values of \m {\g_{\mathrm {DS}}} and \m {\h_{\mathrm {OMP}}} by powers of \m {2}, to observe the effects of thresholds.
 The maximal number of iteration of CVXPY is set to be \m {32}, and that of OMP is set to be \m {4 N_B}.
@@ -219,10 +219,10 @@ The maximal number of iteration of CVXPY is set to be \m {32}, and that of OMP i
 Each data point for DS and Lasso is repeated for \m {256} times, and taken arithmetic average.
 Other methods are repeated for more times: OMP for \m {4 \D 256} times, LS for \m {12 \D 256} times.
 
-For performance metric, we follow Lee, Gil, and Lee \cite [LGL16],
+For performance metric, we follow Lee, Gil, and Lee \cite {LGL16},
 \DispNum {h:h:lo:vg} {
-\NC \tilde {\chi}
-=\NC \RB {
+\tilde {\chi}
+=\RB {
    \frac {\log_2 {\VNm {\V {h} -\hat {\V {h}}} _2}}
    {\log_2 {\VNm {\V {h}}_2}}
 } _{\mathsf {avg}}, \NR
@@ -238,9 +238,9 @@ If the tolerance parameters are set too small, the program often gives overflowi
 And if they are set too big, the Newton steps get imprecise and the performance is poorer.
 More tests are necessary to determine the best choice of parameters.
 
-\stopsubsection
 
-\startsubsection [title={Plots of assorted methods}]
+
+\subsection {Plots of assorted methods}
 
 In the following, we plot the reciprocal of noise level vs relative error norm in log scale, for different values and ratios of \m {N_H} and \m {N_B}.
 
@@ -293,9 +293,9 @@ As for the plot of time taken in minutes, we give only one example of \m {N_H = 
 \blank [big]
 
 
-\stopsubsection
 
-\startsubsection [title={Plots of DS only}]
+
+\subsection {Plots of DS only}
 
 Again, we plot the reciprocal of noise level vs relative error norm in log scale, for \m {N_H = 8, 12, 16, 20, 24}, respectively, and \m {N_H = 3 N_B} for each of them.
 Here, \m {\tilde {\chi}} is shown too.
@@ -322,9 +322,9 @@ As for the plot of time taken in minutes, we give only one example of \m {N_H = 
 \FigureCaption {DS, \m {N_B = 15, N_H = 18}, time.}
 \blank [big]
 
-\stopsubsection
 
-\startsubsection [title={Plots of OMP only}]
+
+\subsection {Plots of OMP only}
 
 Again, we plot the reciprocal of noise level vs relative error norm in log scale, for \m {N_H = 8, 12, 16, 20, 24}, respectively, and \m {N_H = 3 N_B} for each of them.
 
@@ -351,9 +351,9 @@ As for the plot of time taken in minutes, we give only one example of \m {N_H = 
 \FigureCaption {OMP, \m {N_H = 18, N_B = 18}, time.}
 \blank [big]
 
-\stopsubsection
 
-\startsubsection [title={Discussion}]
+
+\subsection {Discussion}
 
 In the assorted plots, DS steadily outperforms other methods.
 From lowest to highest error, it usually goes like this: DS, LS, Lasso, OMP.
@@ -362,7 +362,7 @@ The performance of OMP appears to be poor.
 In most cases, the estimation fails, and we have \m {\tilde {\chi}} close to the unity.
 Varying thresholds of OMP, namely \m {\h_{\mathrm {OMP}}}, does not give different result.
 
-A crucial reason might be that Lee, Gil, and Lee \cite [LGL16] proposed a high-complexity nonconvex program for the beamformers, which they gave approximation, and we have here a low-complexity, randomly-generated beamformers.
+A crucial reason might be that Lee, Gil, and Lee \cite {LGL16} proposed a high-complexity nonconvex program for the beamformers, which they gave approximation, and we have here a low-complexity, randomly-generated beamformers.
 It may also have something to do with the distribution of angles of departure and arrival;
 their distribution lies within a cluster of standard deviation 15 degrees, and in ours, they are uniform on the unit circle.
 It remains to see how OMP and DS compare, if done according to their procedure.
@@ -398,29 +398,29 @@ When DS succeeded, the soft thresholding gave a reasonable guess of the nonzero 
 \FigureCaption {A scatter plot of position versus magnitude for a case in which DS succeeded.}
 \blank [big]
 
-\stopsection
 
-\startsection [title={Complexity}]
 
-\startsubsection [title={Asymtotic analysis}]
+\section {Complexity}
+
+\subsection {Asymtotic analysis}
 
 We discuss the complexity of DS and OMP.
 In general, complexity of convex programs is difficult to analyze, in that it is not easily to determine how many iterations were done.
-Boyd and Vandenberghe \cite [BoV04] analyzed complexity of inequality constrained Newton method, in which self-concordance is assumed (p.496, also p.531).
-In our case, Candès and Romberg \cite [CaR05] pointed out that the complex DS can be cast into an second order cone programming (SOCP), and where self concordance holds.
-Diamond and Boyd (writers of CVXPY) \cite [DiB16] explained that convex programs are usually converted into primal-dual problems.
+Boyd and Vandenberghe \cite {BoV04} analyzed complexity of inequality constrained Newton method, in which self-concordance is assumed (p.496, also p.531).
+In our case, Candès and Romberg \cite {CaR05} pointed out that the complex DS can be cast into an second order cone programming (SOCP), and where self concordance holds.
+Diamond and Boyd (writers of CVXPY) \cite {DiB16} explained that convex programs are usually converted into primal-dual problems.
 The library we called in the simulation is ECOS, where Newton method is used.
 Of course, we are not certain there is no method faster than Newton method, and implementation details of CVXPY may change the conclusion too.
 
 We attemp to give a heuristic argument regarding the complexity of Newton steps.
 We say the function being minimized is \m {\VNm {\V {g}}_1}.
 Let \m {\V {g} _0} denote the starting value of \m {\V {g}}, and \m {\V {g} ^{\star}} the the point of convergence.
-Then Boyd and Vandenberghe \cite [BoV04] (p.505, Eqn.9.56) gave a bound of the number of steps.
+Then Boyd and Vandenberghe \cite {BoV04} (p.505, Eqn.9.56) gave a bound of the number of steps.
 If we just take that as the complexity bound for DS, it becomes
 %
 \DispNum {C:S:C0:1e'} {
-\NC C_{\mathrm {DS}}
-= \NC \RB {C_0 \VNm {\V {g}_0 -\V {g} ^{\star}}_1
+C_{\mathrm {DS}}
+= \RB {C_0 \VNm {\V {g}_0 -\V {g} ^{\star}}_1
 + \log_2 \log_2 \frac {1} {\e}} C_{\mathrm {step}} \NR
 }
 %
@@ -437,72 +437,72 @@ That is, we suppose \m {C_{\mathrm {step}} = N_H^4}.
 We take some liberty to assume that, at the start the iteration, the Moore–Penrose inverse was taken to be the initial value of \m {\V {g}_0}, namely
 %
 \DispNum {g:0:gL:Py} {
-\NC \V {g}_0
-=\NC \V {g}_{\mathrm {LS}} \NR
-\NC = \NC \RB {\M {P} ^\dagger \M {P}} ^{-1} \M {P} ^\dagger \V {y} \NR
+\V {g}_0
+=\V {g}_{\mathrm {LS}} \NR
+= \RB {\M {P} ^\dagger \M {P}} ^{-1} \M {P} ^\dagger \V {y} \NR
 }
 %
 By above, we may write the complexity of DS to be
 %
 \DispNum {C:S:Og:g1} {
-\NC C_{\mathrm {DS}}
-=\NC \mathscr {O} \SB {\VNm {\V {g}_{\mathrm {LS}} -\V {g} ^\star} _1} N_H^4 \NR
+C_{\mathrm {DS}}
+=\mathscr {O} \SB {\VNm {\V {g}_{\mathrm {LS}} -\V {g} ^\star} _1} N_H^4 \NR
 }
 %
 Also assume
 %
 \DispNum {g:g:g;:;g} {
-\NC \V {g} ^\star
-\approx \NC \V {g} \NR
+\V {g} ^\star
+\approx \V {g} \NR
 }
 %
 Indeed, this is the main thesis of our investigation.
 And by restricted isometry, \m {\M {P}} has unity-normed, almost orthogonal columns, so
 %
 \DispNum {P:P:IN:H2} {
-\NC \M {P} ^\dagger \M {P}
-\approx \NC I _{N_{H}^2} \NR
+\M {P} ^\dagger \M {P}
+\approx I _{N_{H}^2} \NR
 }
 %
 Thus, by \Rf {g:0:gL:Py}, \Rf {C:S:Og:g1}, and \Rf {g:g:g;:;g},
 %
 \DispNum {C:S:Og:z1} {
-\NC C_{\mathrm {DS}}
-=\NC \mathscr {O} \SB {
+C_{\mathrm {DS}}
+=\mathscr {O} \SB {
    \VNm {\V {g} +\RB {\M {P} ^\dagger \M {P}} ^{-1} \M {P} ^\dagger \V {z}
    -\V {g}} _1} N_H^4 \NR
-\NC =\NC \mathscr {O} \SB {\VNm {\M {P} ^\dagger \V {z}} _1} N_H^4 \NR
+=\mathscr {O} \SB {\VNm {\M {P} ^\dagger \V {z}} _1} N_H^4 \NR
 }
 
 We see that \m {\RB {\M {P} ^\dagger \V {z}} _{\SB {j}}} observes complex standard normal distribution.
 If we agree that, for high probability,
 %
 \DispNum {O:j:sO:O1} {
-\NC \mathscr {O} \SB {\VNm {\M {P} ^\dagger \V {z}} _{\SB {j}}}
-= \NC \s \mathscr {O} \RB {1} \NR
+\mathscr {O} \SB {\VNm {\M {P} ^\dagger \V {z}} _{\SB {j}}}
+= \s \mathscr {O} \RB {1} \NR
 }
 Then we simply have
 %
 \DispNum {C:S:ON:H6} {
-\NC C_{\mathrm {DS}}
-=\NC \mathscr {O} \SB {N_{H}^6} \NR
+C_{\mathrm {DS}}
+=\mathscr {O} \SB {N_{H}^6} \NR
 }
 
-On the other hand, Tropp and Gilbert \cite [TrG07a] discussed the complexity of OMP in the companion paper \cite [TrG07b].
+On the other hand, Tropp and Gilbert \cite {TrG07a} discussed the complexity of OMP in the companion paper \cite {TrG07b}.
 They gave
 %
 \DispNum {C:P:ON:NY} {
-\NC C_{\mathrm {OMP}}
-=\NC \mathscr {O} \SB {N_H^2 \log N_B} \NR
+C_{\mathrm {OMP}}
+=\mathscr {O} \SB {N_H^2 \log N_B} \NR
 }
 %
 Here \m {\log N_B} is small in our experiments, and if we dropped some constants and \m {\log N_B}, then we may assume \m {\mathscr {O} \SB {N_H^2}}.
 
 Lastly, since Lasso involves the same target function as DS, the same argument is valid, giving \m {C_{\mathrm {Lasso}} =\mathscr {O} \SB {N_H^6}}.
 
-\stopsubsection
 
-\startsubsection [title={Runtime statistics}]
+
+\subsection {Runtime statistics}
 
 All plots included in this treatise, in total, took probably one month to run.
 Figures 6 and 10 each took about \m {3} days.
@@ -512,22 +512,22 @@ Simulation ran on Linux subsystem 2 of Windows 10.
 Use \m {t_{\mathrm {OMP}} \SB {N_H}}, \m {t_{\mathrm {Lasso}} \SB {N_H}}, \m {t_{\mathrm {DS}} \SB {N_H}} to denote their respective time taken.
 We reproduce the arithmetic average (including different \m {\s}) of simulated values below, in seconds.
 \DispNum {t:2:95:55} {
-\NC t_{\mathrm {OMP}} \SB {12} \NC = 0.0119,
+t_{\mathrm {OMP}} \SB {12} = 0.0119,
 t_{\mathrm {OMP}} \SB {16} = 0.0297, \NR
-\NC t_{\mathrm {OMP}} \SB {20} \NC = 0.0600,
+t_{\mathrm {OMP}} \SB {20} = 0.0600,
 t_{\mathrm {OMP}} \SB {24} = 0.155, \NR
 %
-\NC t_{\mathrm {Lasso}} \SB {12} \NC = 0.0436,
+t_{\mathrm {Lasso}} \SB {12} = 0.0436,
 t_{\mathrm {Lasso}} \SB {16} = 0.176, \NR
-\NC t_{\mathrm {Lasso}} \SB {20} \NC = 0.471,
+t_{\mathrm {Lasso}} \SB {20} = 0.471,
 t_{\mathrm {Lasso}} \SB {24} = 1.26, \NR
 %
-\NC t_{\mathrm {DS}} \SB {12} \NC = 0.357,
+t_{\mathrm {DS}} \SB {12} = 0.357,
 t_{\mathrm {DS}} \SB {16} = 2.07, \NR
-\NC t_{\mathrm {DS}} \SB {20} \NC = 29.8,
+t_{\mathrm {DS}} \SB {20} = 29.8,
 t_{\mathrm {DS}} \SB {24} = 91.5, \NR
 }
-Simulation indeed shows that \m {t_{\mathrm {DS}}} grows tremendously with (in our case) \m {N_H}, agreeing the criticism by Friedlander and Saunders \cite [FrS07] on the high complexity of DS.
+Simulation indeed shows that \m {t_{\mathrm {DS}}} grows tremendously with (in our case) \m {N_H}, agreeing the criticism by Friedlander and Saunders \cite {FrS07} on the high complexity of DS.
 It is not surprising, regarding the fact that the convex program has to find the Newton step by calculating (in our case) \m {\M {P}}, a matrix of dimension \m {\M {N}_H^2}.
 The matrix inversion is probably the bottleneck of complexity.
 However, as we noted above, that different tolerance level of and maximal iteration number may result in vastly different computation time.
@@ -540,21 +540,21 @@ But it is also notable that, while Lasso has form similar to DS, it takes much l
 Assuming the complexity of each of three methods is polynomial time, we calculate a least square fit for the power of complexity, giving the following estimated values, on which we add a tilde.
 
 \DispNum {t:P:NH:83} {
-\NC \tilde {t}_{\mathrm {OMP}} \NC \eqsim \mathscr {O} \SB {N_H^{3.6}} \NR
-\NC \tilde {t}_{\mathrm {Lasso}} \NC \eqsim \mathscr {O} \SB {N_H^{4.8}} \NR
-\NC \tilde {t}_{\mathrm {DS}} \NC \eqsim \mathscr {O} \SB {N_H^{8.3}} \NR
+\tilde {t}_{\mathrm {OMP}} \eqsim \mathscr {O} \SB {N_H^{3.6}} \NR
+\tilde {t}_{\mathrm {Lasso}} \eqsim \mathscr {O} \SB {N_H^{4.8}} \NR
+\tilde {t}_{\mathrm {DS}} \eqsim \mathscr {O} \SB {N_H^{8.3}} \NR
 }
 
 However, note that we must be careful in giving meaningful comparison between compressive sensing algorithms, as they might work in different settings.
-DS requires a RIP linear transformation, and it works for noisy linear systems \cite [CaT07].
+DS requires a RIP linear transformation, and it works for noisy linear systems \cite {CaT07}.
 Here, it is not easy to justify RIP rigorously, and a more feasible construction is even a research problem.
-OMP, on the other hand, requires only an entrywise i.i.d.\ sensing matrix \cite [TrG07a], of which much is yet to be studied.
+OMP, on the other hand, requires only an entrywise i.i.d.\ sensing matrix \cite {TrG07a}, of which much is yet to be studied.
 All in all, we might say that on the whole, DS trades off low time- and space-complexity for high precision, and for OMP the opposite is true.
 
 
-\stopsubsection
 
-\stopsection
 
-\stopchapter
+
+
+
 

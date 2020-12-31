@@ -1,6 +1,6 @@
-\startsection [title={Sparsity of channel}]
+\section {Sparsity of channel}
 
-\startsubsection [title={Norm of array response}]
+\subsection {Norm of array response}
 
 Let \m {\hat {\V {g}}} be the Dantzig Selector, and let the sparsity level \m {S} be fixed.
 Split \m {\V {g}} into two parts: \m {\V {g} _{\SB{\mathscr {A}}}}, the largest-magnitude \m {s} components of \m {\V {g}}, \m {\V {g} _{\SB{\mathscr {B}}}} the next \m {s} largest-magnitude components of \m {\V {g}}, and \m {\V {g} _{\SB{\mathscr {C}}}} are the components complement to \m {\V {g} _{\SB{\mathscr {A}}}}.
@@ -16,16 +16,16 @@ If \m {N_H} is large, we may forget for a moment that \m {s} is an integer.
 First, we investigate
 %
 \DispNum {a:2:Ka:22} {
-\NC \VNm {\V {a} \SB {\f} _{\SB{\mathscr {C}}}} _2 ^2
-=\NC \VNm {\RB {\M {K}^\dagger \V {a} \SB {\f}} _{\SB{\mathscr {C}}}} _2 ^2 \NR
+\VNm {\V {a} \SB {\f} _{\SB{\mathscr {C}}}} _2 ^2
+=\VNm {\RB {\M {K}^\dagger \V {a} \SB {\f}} _{\SB{\mathscr {C}}}} _2 ^2 \NR
 }
 %
 Let \m {\f} be fixed.
 Towards that end, introduce
 %
 \DispNum {y':H:f'M:p'p'} {
-\NC \psi \SB {\f, n_H}
-:=\NC \RB {
+\psi \SB {\f, n_H}
+:=\RB {
    \f \; \mathrm {Mod}\; \frac {2\pi} {N_H}
    + \RB {\frac {2 n_H} {N_H} + 1} \pi
 } \;
@@ -36,55 +36,55 @@ Towards that end, introduce
 Note that by construction
 %
 \DispNum {y':H:p'::p':} {
-\NC \Nm {\psi \SB {\f, n_H}}
-\leq \NC \pi \NR
+\Nm {\psi \SB {\f, n_H}}
+\leq \pi \NR
 }
 %
 And set for short
 %
 \DispNum {D:y':nH:Hy'} {
-\NC D \SB {\psi'}
-:= \NC \sum_{n_H=0}^{N_H-1} \mathsf {e}^{i n_H \psi'} \NR
+D \SB {\psi'}
+:= \sum_{n_H=0}^{N_H-1} \mathsf {e}^{i n_H \psi'} \NR
 }
 %
 And
 %
 \DispNum {b:f':Ka:af'} {
-\NC \V {b} \SB {\f}
-=\NC \M {K}^\dagger \V {a} \SB {\f} \NR
+\V {b} \SB {\f}
+=\M {K}^\dagger \V {a} \SB {\f} \NR
 }
 %
 Then observe
 %
 \DispNum {K:H:1N:nH} {
-\NC \V {b} \SB {\f} _{\SB {n_H}}
-=\NC \frac {1} {N_H} D \SB {\psi \SB {\f, n_H}} \NR
+\V {b} \SB {\f} _{\SB {n_H}}
+=\frac {1} {N_H} D \SB {\psi \SB {\f, n_H}} \NR
 }
 
 By the nature of alternating series, for \m {- \pi \leq x < \pi}, it holds that
 %
 \DispNum {x:6:si:nx} {
-\NC \Nm {x - \frac {x^3} {6}}
-\leq \NC \Nm {\sin x}. \NR
+\Nm {x - \frac {x^3} {6}}
+\leq \Nm {\sin x}. \NR
 }
 Therefore,
 %
 \DispNum {D:y':si:y'p'} {
-\NC \Nm {D \SB {\psi'}}
-= \NC \frac {\Nm {\sin \SB {N_H \psi'/2}}} {\Nm {\sin \SB {\psi' /2}}} \NR
+\Nm {D \SB {\psi'}}
+= \frac {\Nm {\sin \SB {N_H \psi'/2}}} {\Nm {\sin \SB {\psi' /2}}} \NR
 %
-\NC \leq \NC B \SB {\psi'} \NR
+\leq B \SB {\psi'} \NR
 %
-\NC := \NC \frac {48} {\Nm {\psi'^2 -24} \Nm {\psi'}}, \NR
+:= \frac {48} {\Nm {\psi'^2 -24} \Nm {\psi'}}, \NR
 %
-\NC - \pi \leq \NC \psi' < \pi. \NR
+- \pi \leq \psi' < \pi. \NR
 }
 %
 Combining \Rf {y':H:f'M:p'p'}, \Rf {K:H:1N:nH}, and \Rf {D:y':si:y'p'} we have
 %
 \DispNum {b:1:1N:C1} {
-\NC \VNm {\V {b} \SB {\f} _{\SB{\mathscr {C}}}} _1
-\leq \NC \frac {1} {N_H}
+\VNm {\V {b} \SB {\f} _{\SB{\mathscr {C}}}} _1
+\leq \frac {1} {N_H}
 \VNm {
 \RB {
    \sum_{n_H' =0}^{N_H -1}
@@ -99,24 +99,24 @@ Note that \m {\Nm {B \SB {\psi'}}} is strictly decreasing in \m {\SB {0,\pi}}.
 We are going to bound the rectangles by an integral, where we have to split the cases that \m {N_H} is odd and even.
 %
 \DispNum {b:1:1N:NH} {
-\NC \VNm {\V {b} \SB {\f} _{\SB{\mathscr {C}}}} _1
-\leq \NC \frac {1} {N_H} \D \frac {N_H} {2\pi} \D 2 \int_{\pi s/N_H}^{\pi} B \SB {\psi'} ^2 d \psi' \NR
+\VNm {\V {b} \SB {\f} _{\SB{\mathscr {C}}}} _1
+\leq \frac {1} {N_H} \D \frac {N_H} {2\pi} \D 2 \int_{\pi s/N_H}^{\pi} B \SB {\psi'} ^2 d \psi' \NR
 %
-\NC = \NC \frac {48} {N_H \pi^3}
+= \frac {48} {N_H \pi^3}
 \int _{s /N_H} ^1 \frac {1} {\RB {24/\pi^2 -x'^2} ^2 x'^2} dx' \NR
 %
-\NC =\NC \frac {1} {\pi} \log \frac {N_H^2 /s^2 - \pi^2 /24} {1 - \pi^2 /24} \NR
+=\frac {1} {\pi} \log \frac {N_H^2 /s^2 - \pi^2 /24} {1 - \pi^2 /24} \NR
 %
-\NC \eqsim \NC \frac {2} {\pi} \RB {\log N_H - \log s} \NR
+\eqsim \frac {2} {\pi} \RB {\log N_H - \log s} \NR
 %
-\NC \leq \NC \frac {2} {\pi} \log N_H \NR
+\leq \frac {2} {\pi} \log N_H \NR
 }
 %
 Since the value of \m {s} is at our disposal, we choose
 %
 \DispNum {s:s:lo:NH} {
-\NC s
-=\NC \R {\log N_H} \NR
+s
+=\R {\log N_H} \NR
 }
 %
 so that, by \m {\ell_p}-norm inequality, we have the following estimation.
@@ -128,35 +128,35 @@ Let \m {\f } be given, and linear array response in spacial frequency domain \m 
 Then, for any random instance of \m {\f},
 %
 \DispNum {a:2:4N:NH} {
-\NC \VNm {\V {b} \SB {\f} _{\SB{\mathscr {C}}}} _1
-\leq \NC \frac {2} {\pi} \log N_H \NR
+\VNm {\V {b} \SB {\f} _{\SB{\mathscr {C}}}} _1
+\leq \frac {2} {\pi} \log N_H \NR
 }
 }
 
-\stopsubsection
 
-\startsubsection [title={Norm of angular channel response}]
+
+\subsection {Norm of angular channel response}
 
 If we further choose that
 \DispNum {S:S:Ls:s2} {
-\NC S
-=\NC L s^2 \NR
+S
+=L s^2 \NR
 }
 by triangle inequality, by the property of Frobenius norm,
 %
 \DispNum {g:1:l0:a'1} {
-\NC \VNm {\V {g} _{\SB{\mathscr {C}}}} _1
+\VNm {\V {g} _{\SB{\mathscr {C}}}} _1
 \leq \NC
 \sum _{l=0} ^{L-1} \Nm {\a_l}
 \VNm {\V {b} \SB {\f_l} _{\SB{\mathscr {C}}}} _1
 \VNm {\V {b} \SB {\th_l} _{\SB{\mathscr {C}}}} _1 \NR
 %
-\NC \leq \NC
+\leq \NC
 \VNm {\V {b} \SB {\f_l} _{\SB{\mathscr {C}}}} _1
 \VNm {\V {b} \SB {\th_l} _{\SB{\mathscr {C}}}} _1
 \sum _{l=0} ^{L-1} \Nm {\a_l} \NR
 %
-\NC \leq \NC
+\leq \NC
 \frac {4} {\pi^2} L \RB {\log N_H}^2 \D
 \frac {1} {L} \sum _{l=0} ^{L-1} \Nm {\a_l} \NR
 }
@@ -164,23 +164,23 @@ by triangle inequality, by the property of Frobenius norm,
 Then observe that
 %
 \DispNum {E:1:2p':2p'} {
-\NC \mathbb {E} \SB {\frac {1} {L} \sum _{l=0} ^{L-1} \Nm {\a_l}}
-=\NC \F{\R {2}} {\R {\pi}} \NR
+\mathbb {E} \SB {\frac {1} {L} \sum _{l=0} ^{L-1} \Nm {\a_l}}
+=\F{\R {2}} {\R {\pi}} \NR
 }
 By Hoeffding inequality,
 %
 \DispNum {P:p':2e:3p'} {
-\NC \mathbb {P} \SB {
+\mathbb {P} \SB {
    \frac {1} {L} \sum _{l=0} ^{L-1} \Nm {\a_l}
    \geq \frac {4 \R{2}} {\R {\pi}}
 }
-\leq \NC 2 \exp \SB {- \frac {9L} {\pi}} \NR
+\leq 2 \exp \SB {- \frac {9L} {\pi}} \NR
 }
 %
 Now we have
 \DispNum {g:2:12:43} {
-\NC \frac {\VNm {\M {g} _{\SB{\mathscr {C}}}} _1} {\RB {\log N_H}^2}
-\leq \NC \frac {12 \R{2}} {\pi ^{5/2}}
+\frac {\VNm {\M {g} _{\SB{\mathscr {C}}}} _1} {\RB {\log N_H}^2}
+\leq \frac {12 \R{2}} {\pi ^{5/2}}
 \leq \frac {4} {3}. \NR
 }
 %
@@ -191,18 +191,18 @@ Let \m {\V {g} \in \mathbb {C} ^{N_H^2}} be defined as in \Rf {g:g:ve:Nh}.
 Then the bound
 %
 \DispNum {g:C:4p':NH} {
-\NC \VNm {\M {g} _{\SB{\mathscr {C}}}} _1
-\leq \NC \frac {4} {3} \RB {\log N_H}^2 \NR
+\VNm {\M {g} _{\SB{\mathscr {C}}}} _1
+\leq \frac {4} {3} \RB {\log N_H}^2 \NR
 }
 %
 holds for probability \m {p}, with
 %
 \DispNum {1:p:1N:H3} {
-\NC 1 -p
-\leq \NC 2 \exp \SB {- \frac {9L} {\pi}} \NR
+1 -p
+\leq 2 \exp \SB {- \frac {9L} {\pi}} \NR
 }
 }
 
-\stopsubsection
-\stopsection
+
+
 

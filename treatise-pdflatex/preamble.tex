@@ -1,68 +1,42 @@
-% TODO:
-% Larger font (e.g. 14pt), Larger line spacing
-% Chinese font? Font mixing mechanism?
-% `\notag` equivalent: A wrapper class?
-% Table of contents: wider vertical spacing? Font?
-% Book title: wider line spacing?
-% Table width
 
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+\usepackage{float}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\usepackage{hyperref}
 
-\definemathmatrix[TheMatrix][left={\left[}, right={\right]}]
-\definecounter [NumResult] [start=0, way=bytext, prefix=no]
-\definecounter [NumFigure] [start=0, way=bytext, prefix=no]
-\definefontfeature [default] [default] [onum=yes]
-\definefontfamily [MainFace] [rm] [TeX Gyre Pagella]
-\definefontfamily [MainFace] [ss] [TeX Gyre Heros]
-\definefontfamily [MainFace] [tt] [TeX Gyre Cursor] [features=none]
-\definefallbackfamily [MainFace] [mm] [TeX Gyre Dejavu Math] [force=yes,range=uppercasescript]
-\definefallbackfamily [MainFace] [mm] [TeX Gyre Dejavu Math] [force=yes,range=lowercasescript]
-\definefontfamily [MainFace] [mm] [TeX Gyre Pagella Math]
-\definemeasure [pointoneline] [1.5\baselineskip]
-\definecolor [headingcolor] [r=0.2, g=0.25, b=0.5]
-\definealternativestyle [TitleStyle] [\ss\bfd] []
-\definealternativestyle [AuthorStyle] [\ss\tfb] []
-\definemakeup [titlepage] [align=middle]
-\definereferenceformat [eqnref] [left=(, right=), text=Eqn.] 
-\definetextbackground [framedcode] [strut=yes, frame=off, background=no, align=right]
-\definetyping [Code] [
-   numbering=line, bodyfont=8.2pt, before={\startframedcode}, after={\stopframedcode}]
 
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-% General purpose macros
+\newcommand {\a} {\alpha}
+\newcommand {\b} {\beta}
+\newcommand {\g} {\gamma}
+\newcommand {\G} {\Gamma}
+\newcommand {\h} {\eta}
+\newcommand {\d} {\delta}
+\newcommand {\e} {\varepsilon}
+\newcommand {\f} {\varphi}
+\newcommand {\l} {\lambda}
+\newcommand {\s} {\sigma}
+\newcommand {\i} {\iota}
+\newcommand {\th} {\vartheta}
+\newcommand {\z} {\zeta}
+\newcommand {\O} {\Omega}
+\newcommand {\o} {\omega}
+\newcommand {\D} {\cdot}
 
-\define [0] {\a} {\alpha}
-\define [0] {\b} {\beta}
-\define [0] {\g} {\gamma}
-\define [0] {\G} {\Gamma}
-\define [0] {\h} {\eta}
-\define [0] {\d} {\delta}
-\define [0] {\e} {\varepsilon}
-\define [0] {\f} {\varphi}
-\define [0] {\l} {\lambda}
-\define [0] {\s} {\sigma}
-\define [0] {\i} {\iota}
-\define [0] {\th} {\vartheta}
-\define [0] {\z} {\zeta}
-\define [0] {\O} {\Omega}
-\define [0] {\o} {\omega}
-\define [0] {\D} {\cdot}
-
-\define [1] {\RB} {\left( #1 \right)}
-\define [1] {\SB} {\left[ #1 \right]}
-\define [1] {\CB} {\left { #1 \right}}
-\define [1] {\DB} {\left[ \! \left[ #1 \right] \! \right]}
-\define [1] {\Fl} {\left \lfloor #1 \right \rfloor}
-\define [1] {\Cl} {\left \lfloor #1 \right \rfloor}
-\define [1] {\Nm} {\left \vert #1 \right \vert}
-\define [1] {\VNm} {\left \Vert #1 \right \Vert}
-\define [1] {\R} {\sqrt {#1}}
-\define [1] {\Min} {\underset {#1} {\mathrm {min}}\;}
-\define [1] {\IP} {\left \langle #1 \right \rangle}
-\define [1] {\Stack} {\startsubstack #1 \stopsubstack}
-\define [1] {\Rf} {\eqnref [#1]}
-\define [1] {\Uurrll} {
-   \goto {\mono {\hyphenatedurl {#1}}} [url (#1)]}
+\newcommand {\RB} [1] {\left( #1 \right)}
+\newcommand {\SB} [1] {\left[ #1 \right]}
+\newcommand {\CB} [1] {\left { #1 \right}}
+\newcommand {\DB} [1] {\left[ \! \left[ #1 \right] \! \right]}
+\newcommand {\Fl} [1] {\left \lfloor #1 \right \rfloor}
+\newcommand {\Cl} [1] {\left \lfloor #1 \right \rfloor}
+\newcommand {\Nm} [1] {\left \vert #1 \right \vert}
+\newcommand {\VNm} [1] {\left \Vert #1 \right \Vert}
+\newcommand {\R} [1] {\sqrt {#1}}
+\newcommand {\Min} [1] {\underset {#1} {\mathrm {min}}\;}
+\newcommand {\IP} [1] {\left \langle #1 \right \rangle}
+\newcommand {\Stack} [1] {\startsubstack #1 \stopsubstack}
+\newcommand {\Rf} [1] {\eqnref [#1]}
 \define [1] {\Disp} {
    \startsplitformula
    \startalign
