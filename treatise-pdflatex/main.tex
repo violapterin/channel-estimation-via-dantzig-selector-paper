@@ -1,21 +1,7 @@
-\documentclass[a4paper, 12pt, twoside, openright]{mythesis}
 
-\renewcommand{\baselinestretch}{1.5}
+\documentclass [a4paper, 12pt, twoside, openright] {book}
 
-\textwidth      = 137.0mm
-\textheight     = 224.0mm
-\topmargin      =  -3.0mm
-\headheight     =   7.0mm
-\headsep        =  10.0mm
-\footskip       =   8.0mm
-\oddsidemargin  =  10.6mm
-\evensidemargin =  10.6mm
-\hoffset = -0.2cm
-
-\pagenumbering{roman}
-\setcounter{page}{1}
-
-
+\input {preamble.tex}
 
 \begin{document}
 \title{
@@ -38,6 +24,7 @@
 
 \frontmatter
 \input {abstract.tex}
+\input {foreword.tex}
 \tableofcontents
 \listoffigures
 \listoftables
@@ -45,13 +32,12 @@
 
 \mainmatter
 
-\input {foreword.tex}
-\input {1_introduction.tex}
-\input {2_problem_setting.tex}
-\input {3_error_analysis.tex}
-\input {4_simulation.tex}
+%\input {1_introduction.tex}
+%\input {2_problem_setting.tex}
+%\input {3_error_analysis.tex}
+%\input {4_simulation.tex}
 \input {5_conclusion.tex}
-\input {source_code.tex}
+%\input {source_code.tex}
 \input {references.tex}
 
 \end{document}

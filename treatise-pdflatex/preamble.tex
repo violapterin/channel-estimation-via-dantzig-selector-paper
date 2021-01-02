@@ -1,32 +1,56 @@
 
-\usepackage{float}
-\usepackage{amssymb}
-\usepackage{amsmath}
-\usepackage{amsfonts}
-\usepackage{mathtools}
-\usepackage{hyperref}
+\renewcommand{\baselinestretch}{1.5}
 
+\textwidth      = 137.0mm
+\textheight     = 224.0mm
+\topmargin      =  -3.0mm
+\headheight     =   7.0mm
+\headsep        =  10.0mm
+\footskip       =   8.0mm
+\oddsidemargin  =  10.6mm
+\evensidemargin =  10.6mm
+\hoffset = -0.2cm
 
-\newcommand {\a} {\alpha}
-\newcommand {\b} {\beta}
+\pagenumbering{roman}
+\setcounter{page}{1}
+
+\usepackage [utf8] {inputenc}
+\usepackage [english] {babel}
+\usepackage {graphicx}
+\usepackage {biblatex}
+\usepackage {csquotes}
+\usepackage {amssymb}
+\usepackage {amsmath}
+\usepackage {amsfonts}
+\usepackage {mathtools}
+\usepackage {float}
+\usepackage {hyperref}
+
+\addbibresource {references.bib}
+
+\renewcommand {\a} {\alpha}
+\renewcommand {\b} {\beta}
 \newcommand {\g} {\gamma}
 \newcommand {\G} {\Gamma}
 \newcommand {\h} {\eta}
-\newcommand {\d} {\delta}
+\renewcommand {\d} {\delta}
 \newcommand {\e} {\varepsilon}
 \newcommand {\f} {\varphi}
-\newcommand {\l} {\lambda}
+\renewcommand {\l} {\lambda}
 \newcommand {\s} {\sigma}
-\newcommand {\i} {\iota}
-\newcommand {\th} {\vartheta}
+\renewcommand {\i} {\iota}
+\renewcommand {\th} {\vartheta}
 \newcommand {\z} {\zeta}
-\newcommand {\O} {\Omega}
-\newcommand {\o} {\omega}
+\renewcommand {\O} {\Omega}
+\renewcommand {\o} {\omega}
 \newcommand {\D} {\cdot}
 
+\newcommand {\m} [1] {\( #1 \)}
+\newcommand {\V} [1] {\underline {#1}}
+\newcommand {\M} [1] {\underline {\underline {#1}}}
 \newcommand {\RB} [1] {\left( #1 \right)}
 \newcommand {\SB} [1] {\left[ #1 \right]}
-\newcommand {\CB} [1] {\left { #1 \right}}
+\newcommand {\CB} [1] {\left\{ #1 \right\}}
 \newcommand {\DB} [1] {\left[ \! \left[ #1 \right] \! \right]}
 \newcommand {\Fl} [1] {\left \lfloor #1 \right \rfloor}
 \newcommand {\Cl} [1] {\left \lfloor #1 \right \rfloor}
@@ -36,70 +60,29 @@
 \newcommand {\Min} [1] {\underset {#1} {\mathrm {min}}\;}
 \newcommand {\IP} [1] {\left \langle #1 \right \rangle}
 \newcommand {\Stack} [1] {\startsubstack #1 \stopsubstack}
-\newcommand {\Rf} [1] {\eqnref [#1]}
-\define [1] {\Disp} {
-   \startsplitformula
-   \startalign
+\newcommand {\DispNum} [2] {
+   \label {#1}
+   \begin {gather}
+      #2
+   \end {gather}
+}
+\newcommand {\Disp} [1] {
+   \begin {gather*}
       #1
-   \stopalign
-   \stopsplitformula
-   \noindent}
-
-\define [2] {\Result} {
-   \incrementcounter[NumResult]
+   \end {gather*}
+}
+\newcounter {result}
+\newcommand {\Result} [2] {
    \bigskip
-   \noindent \Bf {\getnumber [NumResult] \; #1} \par
+   \refstepcounter {result} #1 \par
    #2 \par
-   \hfill \m {\blacksquare} \break
+   \hfill $\blacksquare$ \bigskip
 }
-\define [1] {\FigureCaption} {
-   \incrementcounter[NumFigure]
-   \m {\blacktriangle} \Bf {Figure \getnumber [NumFigure]:} \it {#1} \par
+
+\hypersetup {
+   colorlinks=true,
+   linkcolor=blue,
+   citecolor=blue,
+   filecolor=blue,
+   urlcolor=blue
 }
-\define [2] {\DispNum} {
-   \placeformula [#1]
-   \startsplitformula
-   \startalign
-      #2 [+]
-   \stopalign
-   \stopsplitformula
-   \noindent}
-
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-
-\setupparagraphs [n=3, before={\blank}, after={\blank}]
-\setupbodyfont [MainFace, 12pt]
-\setupinteraction [state=start]
-\setupcolors [state=start]
-\setuppapersize [A4] [A4]
-\setuppagenumbering [location={footer,middle}, style=slanted]
-\setuphead [chapter, section, subsection] [color=headingcolor]
-\setuphead [chapter] [style={\ss\bfd}]
-\setuphead [section] [style={\ss\tfc}]
-\setuphead [subsection] [style={\ss\itb}]
-\setuphead[title] [incrementnumber=list, number=no]
-\setuphead[subject] [incrementnumber=list, number=no]
-\setuphead[subsubject] [incrementnumber=list, number=no]
-\setuplist[chapter] [width=2cm]
-\setuplist[section] [width=2cm]
-\setuplist[subject] [width=2cm]
-\setupitemize [inbetween={}, style=bold]
-\setuptype [lines=hyphenated]
-\setupindenting[big,always]
-\setupwhitespace[medium]
-\setupcombinedlist [content] [list={chapter, title, section, subject, subsection, subsubject}]
-\setuplayout [
-   leftmargin=12mm,
-   rightmargin=12mm,
-   top=16mm,
-   header=6mm,
-   footer=6mm,
-   bottom=12mm]
-\setupformulae [spacebefore=2mm, spaceafter=2mm, indentnext=no]
-
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-
-\usebtxdataset [references.bib]
-\setupbtx [alternative=num]
-
-

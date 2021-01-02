@@ -21,13 +21,16 @@ If we consider a slow varying MIMO channel for simplicity, in terms of a channel
 We shall see it amounts to invert a linear system whose dimension is the number of antennae, which is not very effective.
 Fortunately, physical evidence has suggested that mm-wave channel are poor in scattering \cite {ALS14}, which reduces the number of paths, and it is now that a recent development called compressive sensing may help.
 
-\blank [big]
-\externalfigure [compressive-sensing.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {
+\bigskip
+\begin {figure} [hbt]
+\centering
+\includegraphics [width = \textwidth] {compressive-sensing.png}
+\caption {
 A conceptual illustration of compressive sensing.
-(Retrieved from \goto {\hyphenatedurl {Wikimedia Commons}} [url (commons.wikimedia.org/wiki/File:Orthogonal_Matching_Pursuit.gif)])
+(Retrieved from \href {commons.wikimedia.org/wiki/File:Orthogonal_Matching_Pursuit.gif} {Wikimedia Commons})
 }
-\blank [big]
+\end {figure}
+\bigskip
 
 Figure 1 shows a generic situation in which a signal is crowded in the given basis, but is sparse in transformed basis.
 The black line on the left is the original signal, and the yellow line is the reconstruct signal.
@@ -40,14 +43,14 @@ But, even if we are sure that the sparse basis exists, its construction is anoth
 Let us say the number of model parameters \m {N_p \in \mathbb {N}} is much larger than the number of measurements \m {N_m \in \mathbb {N}}, that is,
 %
 \DispNum {N:p:Nm:Nm} {
-N_p \gg N_m \NR
+N_p \gg N_m \\
 }
 %
 To start, consider \m {\V {x}, \V {x}' \in \mathbb {K} ^{N_p}} and \m {\M {Q} \in \mathbb {K} ^{N_m \D  N_p}}, and the linear system
 %
 \DispNum {y:y:Qx:Qx} {
 \V {y}
-=\M {Q} \V {x} \NR
+=\M {Q} \V {x} \\
 }
 Certainly, if \m {\M {Q} \RB {\V {x}_1 - \V {x}_2} = 0}, then \m {\V {x}_1, \V {x}_2} are indistinguishable.
 But if \m {\V {x}} is sparse, can we rule out some of the possibilities?
@@ -57,13 +60,13 @@ That is, if there is some \m {\mathscr {A} \subseteq \CB {0, \dots, N_p-1}} such
 %
 \DispNum {x:A:x::x:} {
 \V {x} _{\SB {\mathscr {A}}}
-=\V {x} \NR
+=\V {x} \\
 }
 %
 with
 %
 \DispNum {A:A:s::s:} {
-\Nm {\mathscr {A}} \leq s. \NR
+\Nm {\mathscr {A}} \leq s. \\
 }
 
 Candès and Tao \cite {Can05}, one of the earlier investigations on compressive sensing, showed that, in the noiseless case, a \m {\ell_1}-minimization program recovers the \m {N_m}-dimensional signal, with \m {N_p} measurements, under overwhelming probability.
@@ -80,7 +83,7 @@ If the linear system is moreover subject to noise \m {z},
 %
 \DispNum {y:y:Qx:xz} {
 \V {y}
-=\M {Q} \V {x} + \V {z} \NR
+=\M {Q} \V {x} + \V {z} \\
 }
 is it still possible to recover \m {\V {x}}?
 
@@ -89,10 +92,10 @@ For \m {\mathscr {A} \subseteq \CB {0, \dots, N_p-1}}, denote
 %
 \Disp {
 \V {x}  _{\SB {\mathscr {A}}}
-=\sum _{i \in \mathscr {A}} \V {v} \V {u} _{i} \NR
+=\sum _{i \in \mathscr {A}} \V {v} \V {u} _{i} \\
 %
 \M {Q}  _{\SB {\mathscr {A}}}
-=\sum _{i \in \mathscr {A}} \M {Q} _{\SB {:,i}} \NR
+=\sum _{i \in \mathscr {A}} \M {Q} _{\SB {:,i}} \\
 }
 %
 That is, respectively, the components of \m {\V {x}}, and the columns of \m {\M {A}}, that have indices in \m {\mathscr {A}}.
@@ -105,9 +108,9 @@ For fixed \m {s =0, \dots N_p -1}, we say that \m {\M {Q}} satisfies \m {\d_s}-r
 %
 \DispNum {1:2:Qx:22} {
 \RB {1-\d_s} \VNm {\V {x}} _2 ^2
-\leq \VNm {\M {Q} \V {x}} _2 ^2 \NR
+\leq \VNm {\M {Q} \V {x}} _2 ^2 \\
 %
-\leq \RB {1+\d_s} \VNm {\V {x}} _2 ^2 \NR
+\leq \RB {1+\d_s} \VNm {\V {x}} _2 ^2 \\
 }
 }
 %
@@ -127,10 +130,10 @@ If so, a stronger result was established \cite {CaT07} that, with another \m {\e
 \DispNum {h:h:mi:yg'} {
 \hat {\V {h}}
 \leftarrow \startcases
-\Min {\V {h}'} \MC \VNm {\V {h}'} _1 \NR
+\Min {\V {h}'} \MC \VNm {\V {h}'} _1 \\
 %
-\mathrm {subject} \; \mathrm {to} \quad \MC \VNm {\M {Q}^\dagger \RB {\M {Q} \V {h}' -\V {y}}} _\infty \leq \g \NR
-\stopcases \NR
+\mathrm {subject} \; \mathrm {to} \quad \MC \VNm {\M {Q}^\dagger \RB {\M {Q} \V {h}' -\V {y}}} _\infty \leq \g \\
+\stopcases \\
 }
 \item Output \m {\hat {\V {h}}}.
 \stopitemize
@@ -152,7 +155,7 @@ The accompanying note by the same researchers \cite {BHR08} showed that \m {X} h
 \section {Orthogonal Matching Pursuit}
 
 At the same time, Tropp and Gilbert \cite {TrG07b} suggested likewise that a greedy algorithm called orthogonal matching pursuit (OMP) which also aims to reconstruct a sparse signal in an underdetermined system.
-Again consider the situation of \Rf {y:y:Qx:xz}.
+Again consider the situation of \ref {y:y:Qx:xz}.
 
 \Result
 {Algorithm}
@@ -165,10 +168,10 @@ Again consider the situation of \Rf {y:y:Qx:xz}.
 %
 \Disp {
 \V {r}
-\leftarrow \V {y} \NR
+\leftarrow \V {y} \\
 %
 S
-\leftarrow \varnothing \NR
+\leftarrow \varnothing \\
 }
 %
 \item Start the loop with counter \m {i \leftarrow 1}.
@@ -178,7 +181,7 @@ S
 \DispNum {n:n:n0:nr} {
 n
 \leftarrow \underset {n' =0, \dots, N_p-1} {\mathrm {argmax}}
-\Nm {\M {Q} _{\SB {:,n'}} \V {r}} \NR
+\Nm {\M {Q} _{\SB {:,n'}} \V {r}} \\
 }
 %
 and append \m {S \leftarrow S \cup {n}}.
@@ -187,17 +190,17 @@ and append \m {S \leftarrow S \cup {n}}.
 %
 \DispNum {Q:Q:QS:Qy} {
 \M {Q} ^\ddagger
-\leftarrow \RB {\M {Q} _{\SB {S}} ^\dagger \M {Q} _{\SB {S}}} ^{-1} \M {Q} _{\SB {S}} ^\dagger \NR
+\leftarrow \RB {\M {Q} _{\SB {S}} ^\dagger \M {Q} _{\SB {S}}} ^{-1} \M {Q} _{\SB {S}} ^\dagger \\
 %
 \V {r}
-\leftarrow \V {y} -\M {Q} _{\SB {S}} ^\dagger \M {Q} ^\ddagger \V {y} \NR
+\leftarrow \V {y} -\M {Q} _{\SB {S}} ^\dagger \M {Q} ^\ddagger \V {y} \\
 }
 %
 \item Break if
 %
 \DispNum {r:2:h':h'} {
 \VNm {\V {r}} _2
-<\eta \NR
+<\eta \\
 }
 %
 otherwise, go to step 4.
@@ -206,7 +209,7 @@ otherwise, go to step 4.
 %
 \DispNum {g:g:Qy:Qy} {
 \hat {\V {g}}
-\leftarrow \M {Q} ^\ddagger \V {y} \NR
+\leftarrow \M {Q} ^\ddagger \V {y} \\
 }
 \stopitemize
 }

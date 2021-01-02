@@ -13,21 +13,21 @@ For \m {\V {x} \in \mathbb {C} ^{M}}, define the real representation \m {\mathsc
 %
 \DispNum {R:x:R2:M1} {
 \mathscr {R} \SB {\V {x}}
-\in \mathbb {R} ^{2M} \NR
+\in \mathbb {R} ^{2M} \\
 \mathscr {R} \SB {\V {x}} _{\SB {m}}
 = \startcases
-\mathfrak {Re} \SB {\V {x} _{\SB {m'}}}, \MC m =2m' \NR
-\mathfrak {Im} \SB {\V {x} _{\SB {m'}}}, \MC m =2m'+1 \NR
-\stopcases \NR
+\mathfrak {Re} \SB {\V {x} _{\SB {m'}}}, \MC m =2m' \\
+\mathfrak {Im} \SB {\V {x} _{\SB {m'}}}, \MC m =2m'+1 \\
+\stopcases \\
 m' 
-=  0, 1, 2, \ldots, M-1 \NR
+=  0, 1, 2, \ldots, M-1 \\
 }
 %
 The injection is obvious, and we may define \m {\mathscr {R} ^{-1}} so that
 %
 \DispNum {R:1:x::x:} {
 \mathscr {R} ^{-1} \SB {\mathscr {R} \SB {\V {x}}}
-=\V {x} \NR
+=\V {x} \\
 }
 %
 Accordingly, the following generalization to complex matrices is valid, once we call the ring representation of complex numbers.
@@ -35,18 +35,18 @@ For \m {\M {A} \in \mathbb {C} ^{M_1 \D M_2}}, define real representation \m {\m
 %
 \DispNum {R:A:R2:21} {
 \mathscr {R} \SB {\M {A}}
-\in \mathbb {R} ^{2M_1 \D 2M_2} \NR
+\in \mathbb {R} ^{2M_1 \D 2M_2} \\
 \mathscr {R} \SB {\M {A}} _{\SB {m_1,m_2}} =
 \startcases
-\mathfrak {Re} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC \RB {m_1, m_2} = \RB {2m_1', 2m_2'} \NR
-\mathfrak {Im} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC \RB {m_1, m_2} = \RB {2m_1'+1, 2m_2'} \NR
--\mathfrak {Im} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC \RB {m_1, m_2} = \RB {2m_1', 2m_2'+1} \NR
-\mathfrak {Re} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC \RB {m_1, m_2} = \RB {2m_1'+1, 2m_2'+1} \NR
-\stopcases \NR
+\mathfrak {Re} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC \RB {m_1, m_2} = \RB {2m_1', 2m_2'} \\
+\mathfrak {Im} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC \RB {m_1, m_2} = \RB {2m_1'+1, 2m_2'} \\
+-\mathfrak {Im} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC \RB {m_1, m_2} = \RB {2m_1', 2m_2'+1} \\
+\mathfrak {Re} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC \RB {m_1, m_2} = \RB {2m_1'+1, 2m_2'+1} \\
+\stopcases \\
 m_1 
-= 0, 1, 2, \ldots, M_1 -1 \NR
+= 0, 1, 2, \ldots, M_1 -1 \\
 m_2 
-= 0, 1, 2, \ldots, M_2 -1 \NR
+= 0, 1, 2, \ldots, M_2 -1 \\
 }
 
 With these, we define
@@ -55,30 +55,30 @@ With these, we define
 \DispNum {y:y:Ry:Ny} {
 \tilde {\V {y}}
 = \mathscr {R} \SB {\V {y}}
-\in \mathbb {R} ^{2 N_B^2} \NR
+\in \mathbb {R} ^{2 N_B^2} \\
 %
 \tilde {\V {g}}
 = \mathscr {R} \SB {\V {g}}
-\in \mathbb {R} ^{2 N_H^2} \NR
+\in \mathbb {R} ^{2 N_H^2} \\
 %
 \tilde {\M {P}}
 = \mathscr {R} \SB {\M {P}}
-\in \mathbb {R} ^{2 N_B^2 \D 2 N_H^2} \NR
+\in \mathbb {R} ^{2 N_B^2 \D 2 N_H^2} \\
 %
 \tilde {\M {P}} ^\Adj
 = \mathscr {R} \SB {\M {P} ^\Adj}
-\in \mathbb {R} ^{2 N_B^2 \D 2 N_H^2} \NR
+\in \mathbb {R} ^{2 N_B^2 \D 2 N_H^2} \\
 %
 \tilde {\V {z}}
 = \mathscr {R} \SB {\V {z}}
-\in \mathbb {R} ^{2 N_B^2} \NR
+\in \mathbb {R} ^{2 N_B^2} \\
 }
 %
 so, by construction,
 %
 \DispNum {y:y:Pg:gz} {
 \V {\tilde {y}}
-= \M {\tilde {P}} \V {\tilde {g}} +\V {\tilde {z}} \NR
+= \M {\tilde {P}} \V {\tilde {g}} +\V {\tilde {z}} \\
 }
 %
 And denote \m {\V {1}} to be the all-\m{1} vector, and \m {\V {0}} the all-\m{0} vector, whose dimension will be inferred from context.
@@ -101,30 +101,30 @@ It is now straightforward to see that DS is equivalent to a linear program.
 \DispNum {g:f:gf:S1} {
 \hat {\tilde {\V {g}}}, \hat {\tilde {\V {f}}}
 \leftarrow \startcases
-   \Min {\tilde {\V {g}}', \tilde {\V {f}}'}  \MC \IP {\V {1}, \tilde {\V {f}}'} \NR
-   \mathrm {subject} \; \mathrm {to} \MC \tilde {\V {g}}' \preceq \tilde {\V {f}}' \NR
-   \MC - \tilde {\V {g}}' \preceq \tilde {\V {f}}' \NR
-   \MC \tilde {\M {P}}^\dagger \tilde {\M {P}} \tilde {\V {g}}' \preceq \tilde {\M {P}}^\dagger \tilde {\V {y}} + \g_{\mathsf {DS}} \V {1} \NR
-   \MC - \tilde {\M {P}}^\dagger \tilde {\M {P}} \tilde {\V {g}}' \preceq - \tilde {\M {P}}^\dagger \tilde {\V {y}} + \g_{\mathsf {DS}} \V {1} \NR
-\stopcases \NR
+   \Min {\tilde {\V {g}}', \tilde {\V {f}}'}  \MC \IP {\V {1}, \tilde {\V {f}}'} \\
+   \mathrm {subject} \; \mathrm {to} \MC \tilde {\V {g}}' \preceq \tilde {\V {f}}' \\
+   \MC - \tilde {\V {g}}' \preceq \tilde {\V {f}}' \\
+   \MC \tilde {\M {P}}^\dagger \tilde {\M {P}} \tilde {\V {g}}' \preceq \tilde {\M {P}}^\dagger \tilde {\V {y}} + \g_{\mathsf {DS}} \V {1} \\
+   \MC - \tilde {\M {P}}^\dagger \tilde {\M {P}} \tilde {\V {g}}' \preceq - \tilde {\M {P}}^\dagger \tilde {\V {y}} + \g_{\mathsf {DS}} \V {1} \\
+\stopcases \\
 }
 \item Convert
 %
 \DispNum {g:::R1:1g} {
 \Hat{\V {g}}
-\leftarrow \mathscr {R} ^{-1} \SB {\Hat{\T{\V {g}}}} \NR
+\leftarrow \mathscr {R} ^{-1} \SB {\Hat{\T{\V {g}}}} \\
 }
 \item Calculate
 %
 \DispNum {G:G:ve:1g} {
 \hat {G}
-\leftarrow \mathrm {vec}^{-1} \SB {\hat {g}} \NR
+\leftarrow \mathrm {vec}^{-1} \SB {\hat {g}} \\
 }
 \item Calculate
 %
 \DispNum {H:H:KG:GK} {
 \hat {\M {H}}
-\leftarrow \M {K} \hat {\M {G}} \M {K}^\dagger \NR
+\leftarrow \M {K} \hat {\M {G}} \M {K}^\dagger \\
 }
 \item Output \m {\hat {\M {H}}}.
 \stopitemize
@@ -151,11 +151,11 @@ finally, indices set has to be scrambled back corresponding to the original ones
 \item Set
 \Disp {
 N_0
-=2 N_H^2, \NR
+=2 N_H^2, \\
 N_2
-=\lfloor 4 \log N_H \rfloor, \NR
+=\lfloor 4 \log N_H \rfloor, \\
 N_1
-=\lfloor \R {N_0 N_2} \rfloor \NR
+=\lfloor \R {N_0 N_2} \rfloor \\
 }
 
 \item Apply DS to \m {\V {y}, \M {P}} to get \m {\hat {\V {g}}_0}, and call the \m {N_1} largest component of \m {\hat {\V {g}}_0} to be \m {\V {g}_1}, and corresponding columns of \m {\M {P}} to be \m {\M {P} _1}.
@@ -186,7 +186,7 @@ the noise is \m {–40} dB W.
 If so, the noise-to-signal ratio is
 \DispNum {1:8:02:24} {
 10^{-4} \frac {1} {0.25} \R {\frac {5 \D 10^9 \D 4 \pi \D 1500} {3 \D 10^8}}
-=0.224 \NR
+=0.224 \\
 }
 
 We use dimensionless noise level \m {\s} which takes value starting with \m {2^{-4}}, and being multiplied by powers of \m {2}.
@@ -225,7 +225,7 @@ For performance metric, we follow Lee, Gil, and Lee \cite {LGL16},
 =\RB {
    \frac {\log_2 {\VNm {\V {h} -\hat {\V {h}}} _2}}
    {\log_2 {\VNm {\V {h}}_2}}
-} _{\mathsf {avg}}, \NR
+} _{\mathsf {avg}}, \\
 }
 However, we note that when \m {\VNm {\V {h}}_2} is small, this can blow up.
 We do not know either whether \m {\tilde {\chi}} is a good indicator of channel capacity; it seems to be, but actually we did not consider a definite a channel model in this treatise.
@@ -246,50 +246,50 @@ In the following, we plot the reciprocal of noise level vs relative error norm i
 
 \blank [big]
 \externalfigure [assorted-square-small-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {Assorted methods, \m {N_B = 12, N_H = 12}, error norm.}
+\caption {Assorted methods, \m {N_B = 12, N_H = 12}, error norm.}
 \blank [big]
 %
 \blank [big]
 \externalfigure [assorted-square-medium-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {Assorted methods, \m {N_B = 18, N_H = 18}, error norm.}
+\caption {Assorted methods, \m {N_B = 18, N_H = 18}, error norm.}
 \blank [big]
 %
 \blank [big]
 \externalfigure [assorted-square-big-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {Assorted methods, \m {N_B = 24, N_H = 24}, error norm.}
+\caption {Assorted methods, \m {N_B = 24, N_H = 24}, error norm.}
 \blank [big]
 %
 \blank [big]
 \externalfigure [assorted-narrow-small-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {Assorted methods, \m {N_B = 10, N_H = 12}, error norm.}
+\caption {Assorted methods, \m {N_B = 10, N_H = 12}, error norm.}
 \blank [big]
 %
 \blank [big]
 \externalfigure [assorted-narrow-medium-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {Assorted methods, \m {N_B = 15, N_H = 18}, error norm.}
+\caption {Assorted methods, \m {N_B = 15, N_H = 18}, error norm.}
 \blank [big]
 %
 \blank [big]
 \externalfigure [assorted-narrow-big-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {Assorted methods, \m {N_B = 20, N_H = 24}, error norm.}
+\caption {Assorted methods, \m {N_B = 20, N_H = 24}, error norm.}
 %
 \blank [big]
 \externalfigure [assorted-wide-small-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {Assorted methods, \m {N_B = 8, N_H = 12}, error norm.}
+\caption {Assorted methods, \m {N_B = 8, N_H = 12}, error norm.}
 %
 \blank [big]
 \externalfigure [assorted-wide-medium-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {Assorted methods, \m {N_B = 12, N_H = 18}, error norm.}
+\caption {Assorted methods, \m {N_B = 12, N_H = 18}, error norm.}
 %
 \blank [big]
 \externalfigure [assorted-wide-big-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {Assorted methods, \m {N_B = 16, N_H = 24}, error norm.}
+\caption {Assorted methods, \m {N_B = 16, N_H = 24}, error norm.}
 
 As for the plot of time taken in minutes, we give only one example of \m {N_H = 16}.
 %
 \blank [big]
 \externalfigure [assorted-narrow-medium-time.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {Assorted methods, \m {N_B = 15, N_H = 18}, time.}
+\caption {Assorted methods, \m {N_B = 15, N_H = 18}, time.}
 \blank [big]
 
 
@@ -302,24 +302,24 @@ Here, \m {\tilde {\chi}} is shown too.
 %
 \blank [big]
 \externalfigure [ddss-narrow-small-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {DS, \m {N_B = 10, N_H = 12}, error.}
+\caption {DS, \m {N_B = 10, N_H = 12}, error.}
 \blank [big]
 %
 \blank [big]
 \externalfigure [ddss-narrow-medium-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {DS, \m {N_B = 15, N_H = 18}, error.}
+\caption {DS, \m {N_B = 15, N_H = 18}, error.}
 \blank [big]
 %
 \blank [big]
 \externalfigure [ddss-narrow-big-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {DS, \m {N_B = 20, N_H = 24}, error.}
+\caption {DS, \m {N_B = 20, N_H = 24}, error.}
 \blank [big]
 %
 As for the plot of time taken in minutes, we give only one example of \m {N_H = 18}.
 %
 \blank [big]
 \externalfigure [ddss-narrow-medium-time.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {DS, \m {N_B = 15, N_H = 18}, time.}
+\caption {DS, \m {N_B = 15, N_H = 18}, time.}
 \blank [big]
 
 
@@ -331,24 +331,24 @@ Again, we plot the reciprocal of noise level vs relative error norm in log scale
 %
 \blank [big]
 \externalfigure [oommpp-square-small-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {OMP, \m {N_H = 12, N_B = 12}, error.}
+\caption {OMP, \m {N_H = 12, N_B = 12}, error.}
 \blank [big]
 %
 \blank [big]
 \externalfigure [oommpp-square-medium-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {OMP, \m {N_H = 18, N_B = 18}, error.}
+\caption {OMP, \m {N_H = 18, N_B = 18}, error.}
 \blank [big]
 %
 \blank [big]
 \externalfigure [oommpp-square-big-error.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {OMP, \m {N_H = 24, N_B = 24}, error.}
+\caption {OMP, \m {N_H = 24, N_B = 24}, error.}
 \blank [big]
 %
 As for the plot of time taken in minutes, we give only one example of \m {N_H = 18}.
 %
 \blank [big]
 \externalfigure [oommpp-square-medium-time.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {OMP, \m {N_H = 18, N_B = 18}, time.}
+\caption {OMP, \m {N_H = 18, N_B = 18}, time.}
 \blank [big]
 
 
@@ -390,12 +390,12 @@ When DS succeeded, the soft thresholding gave a reasonable guess of the nonzero 
 
 \blank [big]
 \externalfigure [scatter-ddss-failure.png] [wfactor=300]
-\FigureCaption {A scatter plot of position versus magnitude for a case in which DS failed.}
+\caption {A scatter plot of position versus magnitude for a case in which DS failed.}
 \blank [big]
 
 \blank [big]
 \externalfigure [scatter-ddss-success.png] [wfactor=300]
-\FigureCaption {A scatter plot of position versus magnitude for a case in which DS succeeded.}
+\caption {A scatter plot of position versus magnitude for a case in which DS succeeded.}
 \blank [big]
 
 
@@ -421,7 +421,7 @@ If we just take that as the complexity bound for DS, it becomes
 \DispNum {C:S:C0:1e'} {
 C_{\mathrm {DS}}
 = \RB {C_0 \VNm {\V {g}_0 -\V {g} ^{\star}}_1
-+ \log_2 \log_2 \frac {1} {\e}} C_{\mathrm {step}} \NR
++ \log_2 \log_2 \frac {1} {\e}} C_{\mathrm {step}} \\
 }
 %
 Here \m {C_0} is constant related to implementation of Newton method, and \m {\e} the tolerance of error, and \m {C_{\mathrm {step}}} is the complexity of Newton step.
@@ -438,22 +438,22 @@ We take some liberty to assume that, at the start the iteration, the Moore–Pen
 %
 \DispNum {g:0:gL:Py} {
 \V {g}_0
-=\V {g}_{\mathrm {LS}} \NR
-= \RB {\M {P} ^\dagger \M {P}} ^{-1} \M {P} ^\dagger \V {y} \NR
+=\V {g}_{\mathrm {LS}} \\
+= \RB {\M {P} ^\dagger \M {P}} ^{-1} \M {P} ^\dagger \V {y} \\
 }
 %
 By above, we may write the complexity of DS to be
 %
 \DispNum {C:S:Og:g1} {
 C_{\mathrm {DS}}
-=\mathscr {O} \SB {\VNm {\V {g}_{\mathrm {LS}} -\V {g} ^\star} _1} N_H^4 \NR
+=\mathscr {O} \SB {\VNm {\V {g}_{\mathrm {LS}} -\V {g} ^\star} _1} N_H^4 \\
 }
 %
 Also assume
 %
 \DispNum {g:g:g;:;g} {
 \V {g} ^\star
-\approx \V {g} \NR
+\approx \V {g} \\
 }
 %
 Indeed, this is the main thesis of our investigation.
@@ -461,7 +461,7 @@ And by restricted isometry, \m {\M {P}} has unity-normed, almost orthogonal colu
 %
 \DispNum {P:P:IN:H2} {
 \M {P} ^\dagger \M {P}
-\approx I _{N_{H}^2} \NR
+\approx I _{N_{H}^2} \\
 }
 %
 Thus, by \Rf {g:0:gL:Py}, \Rf {C:S:Og:g1}, and \Rf {g:g:g;:;g},
@@ -470,8 +470,8 @@ Thus, by \Rf {g:0:gL:Py}, \Rf {C:S:Og:g1}, and \Rf {g:g:g;:;g},
 C_{\mathrm {DS}}
 =\mathscr {O} \SB {
    \VNm {\V {g} +\RB {\M {P} ^\dagger \M {P}} ^{-1} \M {P} ^\dagger \V {z}
-   -\V {g}} _1} N_H^4 \NR
-=\mathscr {O} \SB {\VNm {\M {P} ^\dagger \V {z}} _1} N_H^4 \NR
+   -\V {g}} _1} N_H^4 \\
+=\mathscr {O} \SB {\VNm {\M {P} ^\dagger \V {z}} _1} N_H^4 \\
 }
 
 We see that \m {\RB {\M {P} ^\dagger \V {z}} _{\SB {j}}} observes complex standard normal distribution.
@@ -479,13 +479,13 @@ If we agree that, for high probability,
 %
 \DispNum {O:j:sO:O1} {
 \mathscr {O} \SB {\VNm {\M {P} ^\dagger \V {z}} _{\SB {j}}}
-= \s \mathscr {O} \RB {1} \NR
+= \s \mathscr {O} \RB {1} \\
 }
 Then we simply have
 %
 \DispNum {C:S:ON:H6} {
 C_{\mathrm {DS}}
-=\mathscr {O} \SB {N_{H}^6} \NR
+=\mathscr {O} \SB {N_{H}^6} \\
 }
 
 On the other hand, Tropp and Gilbert \cite {TrG07a} discussed the complexity of OMP in the companion paper \cite {TrG07b}.
@@ -493,7 +493,7 @@ They gave
 %
 \DispNum {C:P:ON:NY} {
 C_{\mathrm {OMP}}
-=\mathscr {O} \SB {N_H^2 \log N_B} \NR
+=\mathscr {O} \SB {N_H^2 \log N_B} \\
 }
 %
 Here \m {\log N_B} is small in our experiments, and if we dropped some constants and \m {\log N_B}, then we may assume \m {\mathscr {O} \SB {N_H^2}}.
@@ -513,19 +513,19 @@ Use \m {t_{\mathrm {OMP}} \SB {N_H}}, \m {t_{\mathrm {Lasso}} \SB {N_H}}, \m {t_
 We reproduce the arithmetic average (including different \m {\s}) of simulated values below, in seconds.
 \DispNum {t:2:95:55} {
 t_{\mathrm {OMP}} \SB {12} = 0.0119,
-t_{\mathrm {OMP}} \SB {16} = 0.0297, \NR
+t_{\mathrm {OMP}} \SB {16} = 0.0297, \\
 t_{\mathrm {OMP}} \SB {20} = 0.0600,
-t_{\mathrm {OMP}} \SB {24} = 0.155, \NR
+t_{\mathrm {OMP}} \SB {24} = 0.155, \\
 %
 t_{\mathrm {Lasso}} \SB {12} = 0.0436,
-t_{\mathrm {Lasso}} \SB {16} = 0.176, \NR
+t_{\mathrm {Lasso}} \SB {16} = 0.176, \\
 t_{\mathrm {Lasso}} \SB {20} = 0.471,
-t_{\mathrm {Lasso}} \SB {24} = 1.26, \NR
+t_{\mathrm {Lasso}} \SB {24} = 1.26, \\
 %
 t_{\mathrm {DS}} \SB {12} = 0.357,
-t_{\mathrm {DS}} \SB {16} = 2.07, \NR
+t_{\mathrm {DS}} \SB {16} = 2.07, \\
 t_{\mathrm {DS}} \SB {20} = 29.8,
-t_{\mathrm {DS}} \SB {24} = 91.5, \NR
+t_{\mathrm {DS}} \SB {24} = 91.5, \\
 }
 Simulation indeed shows that \m {t_{\mathrm {DS}}} grows tremendously with (in our case) \m {N_H}, agreeing the criticism by Friedlander and Saunders \cite {FrS07} on the high complexity of DS.
 It is not surprising, regarding the fact that the convex program has to find the Newton step by calculating (in our case) \m {\M {P}}, a matrix of dimension \m {\M {N}_H^2}.
@@ -540,9 +540,9 @@ But it is also notable that, while Lasso has form similar to DS, it takes much l
 Assuming the complexity of each of three methods is polynomial time, we calculate a least square fit for the power of complexity, giving the following estimated values, on which we add a tilde.
 
 \DispNum {t:P:NH:83} {
-\tilde {t}_{\mathrm {OMP}} \eqsim \mathscr {O} \SB {N_H^{3.6}} \NR
-\tilde {t}_{\mathrm {Lasso}} \eqsim \mathscr {O} \SB {N_H^{4.8}} \NR
-\tilde {t}_{\mathrm {DS}} \eqsim \mathscr {O} \SB {N_H^{8.3}} \NR
+\tilde {t}_{\mathrm {OMP}} \eqsim \mathscr {O} \SB {N_H^{3.6}} \\
+\tilde {t}_{\mathrm {Lasso}} \eqsim \mathscr {O} \SB {N_H^{4.8}} \\
+\tilde {t}_{\mathrm {DS}} \eqsim \mathscr {O} \SB {N_H^{8.3}} \\
 }
 
 However, note that we must be careful in giving meaningful comparison between compressive sensing algorithms, as they might work in different settings.
