@@ -37,7 +37,7 @@ For our purpose, we may absorb the arguments of \m {\V {a}}
 %
 to get a simpler form
 %
-\DispNum {H:H:l0:ql} {
+\DispNum {H:H:l0:NH} {
 \M {H}
 =\sum_{l=0} ^{L-1} \a_l \V {a} \SB {\f_l} \V {a} \SB {\th_l}^\Adj
 \in \mathbb {C} ^{N_H \D N_H} \\
@@ -47,10 +47,14 @@ to get a simpler form
 
 \section {System model}
 
-\blank [big]
-\externalfigure [system.png] [wfactor=fit, hfactor=fit]
+\bigskip
+\begin {figure} [hbt]
+\centering
+\includegraphics [width = \textwidth] {system.png}
 \caption {Schematic diagram of the hybrid beamforming system we consider, based on Akdeniz et.\ al.\ \cite {ALS14}.}
-\blank [big]
+\end {figure}
+\bigskip
+
 
 We consider the hybrid beamforming at both transmitter and receiver ends, as shown in Figure 2.
 Each end consists of both digital and analog precoders and combiners.
@@ -242,7 +246,7 @@ Our plan becomes now
 \Result
 {Algorithm}
 {
-\startitemize[n]
+\begin {itemize}
 %
 \item Let \m {\g_{\mathrm {DS}} \geq 0} be given.
 %
@@ -258,11 +262,11 @@ and \m {\M {Y} \in \mathbb {C} ^{N_B \D N_B}}.
 %
 \DispNum {g:g:mi:DS} {
 \hat {\V {g}}
-\leftarrow \startcases
-\Min {\V {g}' \in \mathbb {C} ^{N_H^2}}  \MC \VNm {\V {g}'} _1 \\
+\leftarrow \begin {cases}
+\Min {\V {g}' \in \mathbb {C} ^{N_H^2}} & \VNm {\V {g}'} _1 \\
 %
-\mathrm {subject} \; \mathrm {to} \quad \MC \VNm {\M {P}^\dagger \RB {\V {y} -\M {P} \V {g}'}} _\infty \leq \g_{\mathrm {DS}} \\
-\stopcases \\
+\mathrm {subject} \; \mathrm {to} \quad & \VNm {\M {P}^\dagger \RB {\V {y} -\M {P} \V {g}'}} _\infty \leq \g_{\mathrm {DS}} \\
+\end {cases} \\
 }
 %
 \item Convert \m {\hat {\V {g}}} back to the space domain, namely
@@ -281,7 +285,7 @@ and \m {\M {Y} \in \mathbb {C} ^{N_B \D N_B}}.
 %
 \item Output \m {\hat {\M {H}}}.
 %
-\stopitemize
+\end {itemize}
 }
 
 

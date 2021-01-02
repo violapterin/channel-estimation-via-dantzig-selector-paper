@@ -1,5 +1,0 @@
-[0] Config.pm:304> INFO - This is Biber 2.14 (beta)
-[0] Config.pm:307> INFO - Logfile is 'reference.bib.blg'
-[81] biber:322> INFO - === Sun Jan  3, 2021, 00:48:11
-[95] Utils.pm:309> ERROR - Cannot find 'reference.bib.bcf'!
-[96] Biber.pm:132> INFO - ERRORS: 1

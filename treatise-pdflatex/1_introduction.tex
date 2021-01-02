@@ -122,21 +122,21 @@ If so, a stronger result was established \cite {CaT07} that, with another \m {\e
 \Result
 {Algorithm}
 {
-\startitemize[n]
+\begin {itemize}
 \item Input \m {\M {Q} \in \mathbb {R} ^{N_m \D N_p}} and \m {\V {y} \in \mathbb {R} ^{N_m}}.
 %
 \item Compute the convex program
 %
 \DispNum {h:h:mi:yg'} {
 \hat {\V {h}}
-\leftarrow \startcases
-\Min {\V {h}'} \MC \VNm {\V {h}'} _1 \\
+\leftarrow \begin {cases}
+\Min {\V {h}'} & \VNm {\V {h}'} _1 \\
 %
-\mathrm {subject} \; \mathrm {to} \quad \MC \VNm {\M {Q}^\dagger \RB {\M {Q} \V {h}' -\V {y}}} _\infty \leq \g \\
-\stopcases \\
+\mathrm {subject} \; \mathrm {to} \quad & \VNm {\M {Q}^\dagger \RB {\M {Q} \V {h}' -\V {y}}} _\infty \leq \g \\
+\end {cases} \\
 }
 \item Output \m {\hat {\V {h}}}.
-\stopitemize
+\end {itemize}
 }
 
 Algorithm [2] recovers \m {\V {x}} with the expected error norm bounded with overwhelming probability.
@@ -160,7 +160,7 @@ Again consider the situation of \ref {y:y:Qx:xz}.
 \Result
 {Algorithm}
 {
-\startitemize[n]
+\begin {itemize}
 %
 \item Input \m {\M {Q} \in \mathbb {R} ^{N_m \D N_p}} and \m {\V {y} \in \mathbb {R} ^{N_m}}, \m {\eta >0}.
 %
@@ -211,7 +211,7 @@ otherwise, go to step 4.
 \hat {\V {g}}
 \leftarrow \M {Q} ^\ddagger \V {y} \\
 }
-\stopitemize
+\end {itemize}
 }
 %
 The columns of \m {\M {Q}} are chosen greedily, and we expect its columns to span \m {\V {x}}, playing a role similar to the sensing matrix in the case of DS.

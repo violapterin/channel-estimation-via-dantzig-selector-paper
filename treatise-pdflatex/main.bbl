@@ -16,5 +16,69 @@
   {}
 \endgroup
 
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global}
+    \entry{ALS14}{article}{}
+      \name{author}{7}{}{%
+        {{hash=803368b0661536edbaabd8e4c51411c1}{%
+           family={Akdeniz},
+           familyi={A\bibinitperiod},
+           given={Mustafa\bibnamedelima Riza},
+           giveni={M\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+        {{hash=158afc73fb87b2b64d6e151a8eddd5c6}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Yuanpeng},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=cf20278267d31dbd93831c79b3e4f948}{%
+           family={Samimi},
+           familyi={S\bibinitperiod},
+           given={Mathew\bibnamedelima K},
+           giveni={M\bibinitperiod\bibinitdelim K\bibinitperiod}}}%
+        {{hash=c2a0c49bd9d099501105c03bdf94d282}{%
+           family={Sun},
+           familyi={S\bibinitperiod},
+           given={Shu},
+           giveni={S\bibinitperiod}}}%
+        {{hash=b621c90fd8ff65098cdf52ff3b99f105}{%
+           family={Rangan},
+           familyi={R\bibinitperiod},
+           given={Sundeep},
+           giveni={S\bibinitperiod}}}%
+        {{hash=80e9f8fd303858ab30a541b6816ddfe8}{%
+           family={Rappaport},
+           familyi={R\bibinitperiod},
+           given={Theodore\bibnamedelima S},
+           giveni={T\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=44011527521cf5f0d63bcd33f73f783b}{%
+           family={Erkip},
+           familyi={E\bibinitperiod},
+           given={Elza},
+           giveni={E\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {IEEE}%
+      }
+      \strng{namehash}{50d4bc2171c752c5127cf79e6fea1fd2}
+      \strng{fullhash}{9595f39dc5fd75af7cf18546b57c2c6f}
+      \strng{bibnamehash}{50d4bc2171c752c5127cf79e6fea1fd2}
+      \strng{authorbibnamehash}{50d4bc2171c752c5127cf79e6fea1fd2}
+      \strng{authornamehash}{50d4bc2171c752c5127cf79e6fea1fd2}
+      \strng{authorfullhash}{9595f39dc5fd75af7cf18546b57c2c6f}
+      \field{sortinit}{A}
+      \field{sortinithash}{a3dcedd53b04d1adfd5ac303ecd5e6fa}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{IEEE journal on selected areas in communications}
+      \field{number}{6}
+      \field{title}{Millimeter wave channel modeling and cellular capacity evaluation}
+      \field{volume}{32}
+      \field{year}{2014}
+      \field{pages}{1164\bibrangedash 1179}
+      \range{pages}{16}
+    \endentry
+  \enddatalist
+\endrefsection
 \endinput
 
