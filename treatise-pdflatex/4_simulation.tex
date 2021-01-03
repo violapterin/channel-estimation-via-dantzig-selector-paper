@@ -9,12 +9,12 @@ While a direct implementation of Algorithm [7] leads to extraordinarily large co
 \subsection {Some notation}
 
 Let us represent complex vector and matrices by real ones, consisting of its real and imaginary parts.
-For \m {\V {x} \in \mathbb {C} ^{M}}, define the real representation \m {\mathscr {R} \SB {\V {x}}} of \m {\V {x}} to be
+For \m {\V {x} \in \mathbb {C} ^{M}}, define the real representation \m {\mathcal {R} \SB {\V {x}}} of \m {\V {x}} to be
 %
 \DispNum {R:x:R2:M1} {
-\mathscr {R} \SB {\V {x}}
+\mathcal {R} \SB {\V {x}}
 \in \mathbb {R} ^{2M} \\
-\mathscr {R} \SB {\V {x}} _{\SB {m}}
+\mathcal {R} \SB {\V {x}} _{\SB {m}}
 = \startcases
 \mathfrak {Re} \SB {\V {x} _{\SB {m'}}}, \MC m =2m' \\
 \mathfrak {Im} \SB {\V {x} _{\SB {m'}}}, \MC m =2m'+1 \\
@@ -23,20 +23,20 @@ m'
 =  0, 1, 2, \ldots, M-1 \\
 }
 %
-The injection is obvious, and we may define \m {\mathscr {R} ^{-1}} so that
+The injection is obvious, and we may define \m {\mathcal {R} ^{-1}} so that
 %
 \DispNum {R:1:x::x:} {
-\mathscr {R} ^{-1} \SB {\mathscr {R} \SB {\V {x}}}
+\mathcal {R} ^{-1} \SB {\mathcal {R} \SB {\V {x}}}
 =\V {x} \\
 }
 %
 Accordingly, the following generalization to complex matrices is valid, once we call the ring representation of complex numbers.
-For \m {\M {A} \in \mathbb {C} ^{M_1 \D M_2}}, define real representation \m {\mathscr {R} \SB {\M {A}}} of \m {\M {A}} to be
+For \m {\M {A} \in \mathbb {C} ^{M_1 \D M_2}}, define real representation \m {\mathcal {R} \SB {\M {A}}} of \m {\M {A}} to be
 %
 \DispNum {R:A:R2:21} {
-\mathscr {R} \SB {\M {A}}
+\mathcal {R} \SB {\M {A}}
 \in \mathbb {R} ^{2M_1 \D 2M_2} \\
-\mathscr {R} \SB {\M {A}} _{\SB {m_1,m_2}} =
+\mathcal {R} \SB {\M {A}} _{\SB {m_1,m_2}} =
 \startcases
 \mathfrak {Re} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC \RB {m_1, m_2} = \RB {2m_1', 2m_2'} \\
 \mathfrak {Im} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC \RB {m_1, m_2} = \RB {2m_1'+1, 2m_2'} \\
@@ -54,23 +54,23 @@ With these, we define
 
 \DispNum {y:y:Ry:Ny} {
 \tilde {\V {y}}
-= \mathscr {R} \SB {\V {y}}
+= \mathcal {R} \SB {\V {y}}
 \in \mathbb {R} ^{2 N_B^2} \\
 %
 \tilde {\V {g}}
-= \mathscr {R} \SB {\V {g}}
+= \mathcal {R} \SB {\V {g}}
 \in \mathbb {R} ^{2 N_H^2} \\
 %
 \tilde {\M {P}}
-= \mathscr {R} \SB {\M {P}}
+= \mathcal {R} \SB {\M {P}}
 \in \mathbb {R} ^{2 N_B^2 \D 2 N_H^2} \\
 %
 \tilde {\M {P}} ^\Adj
-= \mathscr {R} \SB {\M {P} ^\Adj}
+= \mathcal {R} \SB {\M {P} ^\Adj}
 \in \mathbb {R} ^{2 N_B^2 \D 2 N_H^2} \\
 %
 \tilde {\V {z}}
-= \mathscr {R} \SB {\V {z}}
+= \mathcal {R} \SB {\V {z}}
 \in \mathbb {R} ^{2 N_B^2} \\
 }
 %
@@ -112,7 +112,7 @@ It is now straightforward to see that DS is equivalent to a linear program.
 %
 \DispNum {g:::R1:1g} {
 \Hat{\V {g}}
-\leftarrow \mathscr {R} ^{-1} \SB {\Hat{\T{\V {g}}}} \\
+\leftarrow \mathcal {R} ^{-1} \SB {\Hat{\T{\V {g}}}} \\
 }
 \item Calculate
 %
@@ -430,8 +430,8 @@ Also, \m {C_0} usually assumes the value of about several hundred.
 There was an example they gave in which \m {C_0 =375}, where, with their notation,
 \m {C_0 =(20 -8\a) / (\a \b \RB {1 -2\a}^2}), where \m {\a = 0.1, \b = 0.8, \e =0.01}, and \m {\a, \b} are parameters used in the Backtrack Line Tracing algorithm).
 
-Every Newton step involves a inversion of \m {\mathscr {O} \SB {\M {P} ^\dagger \M {P}}}, having the same order of magnitude to the time needed for matrix multiplication.
-Since the dimension of \m {\M {P} ^\dagger \M {P}} is \m {N_H^2}, the cost of inversion may be roughly considered to be \m {\mathscr {O} \SB {N_H^4}}, as we know from newer results on the complexity of matrix inversion.
+Every Newton step involves a inversion of \m {\mathcal {O} \SB {\M {P} ^\dagger \M {P}}}, having the same order of magnitude to the time needed for matrix multiplication.
+Since the dimension of \m {\M {P} ^\dagger \M {P}} is \m {N_H^2}, the cost of inversion may be roughly considered to be \m {\mathcal {O} \SB {N_H^4}}, as we know from newer results on the complexity of matrix inversion.
 That is, we suppose \m {C_{\mathrm {step}} = N_H^4}.
 
 We take some liberty to assume that, at the start the iteration, the Moore–Penrose inverse was taken to be the initial value of \m {\V {g}_0}, namely
@@ -446,7 +446,7 @@ By above, we may write the complexity of DS to be
 %
 \DispNum {C:S:Og:g1} {
 C_{\mathrm {DS}}
-=\mathscr {O} \SB {\VNm {\V {g}_{\mathrm {LS}} -\V {g} ^\star} _1} N_H^4 \\
+=\mathcal {O} \SB {\VNm {\V {g}_{\mathrm {LS}} -\V {g} ^\star} _1} N_H^4 \\
 }
 %
 Also assume
@@ -468,24 +468,24 @@ Thus, by \Rf {g:0:gL:Py}, \Rf {C:S:Og:g1}, and \Rf {g:g:g;:;g},
 %
 \DispNum {C:S:Og:z1} {
 C_{\mathrm {DS}}
-=\mathscr {O} \SB {
+=\mathcal {O} \SB {
    \VNm {\V {g} +\RB {\M {P} ^\dagger \M {P}} ^{-1} \M {P} ^\dagger \V {z}
    -\V {g}} _1} N_H^4 \\
-=\mathscr {O} \SB {\VNm {\M {P} ^\dagger \V {z}} _1} N_H^4 \\
+=\mathcal {O} \SB {\VNm {\M {P} ^\dagger \V {z}} _1} N_H^4 \\
 }
 
 We see that \m {\RB {\M {P} ^\dagger \V {z}} _{\SB {j}}} observes complex standard normal distribution.
 If we agree that, for high probability,
 %
 \DispNum {O:j:sO:O1} {
-\mathscr {O} \SB {\VNm {\M {P} ^\dagger \V {z}} _{\SB {j}}}
-= \s \mathscr {O} \RB {1} \\
+\mathcal {O} \SB {\VNm {\M {P} ^\dagger \V {z}} _{\SB {j}}}
+= \s \mathcal {O} \RB {1} \\
 }
 Then we simply have
 %
 \DispNum {C:S:ON:H6} {
 C_{\mathrm {DS}}
-=\mathscr {O} \SB {N_{H}^6} \\
+=\mathcal {O} \SB {N_{H}^6} \\
 }
 
 On the other hand, Tropp and Gilbert \cite {TrG07a} discussed the complexity of OMP in the companion paper \cite {TrG07b}.
@@ -493,12 +493,12 @@ They gave
 %
 \DispNum {C:P:ON:NY} {
 C_{\mathrm {OMP}}
-=\mathscr {O} \SB {N_H^2 \log N_B} \\
+=\mathcal {O} \SB {N_H^2 \log N_B} \\
 }
 %
-Here \m {\log N_B} is small in our experiments, and if we dropped some constants and \m {\log N_B}, then we may assume \m {\mathscr {O} \SB {N_H^2}}.
+Here \m {\log N_B} is small in our experiments, and if we dropped some constants and \m {\log N_B}, then we may assume \m {\mathcal {O} \SB {N_H^2}}.
 
-Lastly, since Lasso involves the same target function as DS, the same argument is valid, giving \m {C_{\mathrm {Lasso}} =\mathscr {O} \SB {N_H^6}}.
+Lastly, since Lasso involves the same target function as DS, the same argument is valid, giving \m {C_{\mathrm {Lasso}} =\mathcal {O} \SB {N_H^6}}.
 
 
 
@@ -540,9 +540,9 @@ But it is also notable that, while Lasso has form similar to DS, it takes much l
 Assuming the complexity of each of three methods is polynomial time, we calculate a least square fit for the power of complexity, giving the following estimated values, on which we add a tilde.
 
 \DispNum {t:P:NH:83} {
-\tilde {t}_{\mathrm {OMP}} \eqsim \mathscr {O} \SB {N_H^{3.6}} \\
-\tilde {t}_{\mathrm {Lasso}} \eqsim \mathscr {O} \SB {N_H^{4.8}} \\
-\tilde {t}_{\mathrm {DS}} \eqsim \mathscr {O} \SB {N_H^{8.3}} \\
+\tilde {t}_{\mathrm {OMP}} \eqsim \mathcal {O} \SB {N_H^{3.6}} \\
+\tilde {t}_{\mathrm {Lasso}} \eqsim \mathcal {O} \SB {N_H^{4.8}} \\
+\tilde {t}_{\mathrm {DS}} \eqsim \mathcal {O} \SB {N_H^{8.3}} \\
 }
 
 However, note that we must be careful in giving meaningful comparison between compressive sensing algorithms, as they might work in different settings.

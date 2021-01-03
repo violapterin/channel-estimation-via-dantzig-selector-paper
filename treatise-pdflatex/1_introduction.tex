@@ -56,17 +56,17 @@ Certainly, if \m {\M {Q} \RB {\V {x}_1 - \V {x}_2} = 0}, then \m {\V {x}_1, \V {
 But if \m {\V {x}} is sparse, can we rule out some of the possibilities?
 
 To be precise, we say \m {\V {x}} is \m {s}-sparse, if only at most \m {s} components of \m {x} is nonzero.
-That is, if there is some \m {\mathscr {A} \subseteq \CB {0, \dots, N_p-1}} such that
+That is, if there is some \m {\mathcal {A} \subseteq \CB {0, \dots, N_p-1}} such that
 %
 \DispNum {x:A:x::x:} {
-\V {x} _{\SB {\mathscr {A}}}
+\V {x} _{\SB {\mathcal {A}}}
 =\V {x} \\
 }
 %
 with
 %
 \DispNum {A:A:s::s:} {
-\Nm {\mathscr {A}} \leq s. \\
+\Nm {\mathcal {A}} \leq s. \\
 }
 
 Candès and Tao \cite {Can05}, one of the earlier investigations on compressive sensing, showed that, in the noiseless case, a \m {\ell_1}-minimization program recovers the \m {N_m}-dimensional signal, with \m {N_p} measurements, under overwhelming probability.
@@ -88,17 +88,17 @@ If the linear system is moreover subject to noise \m {z},
 is it still possible to recover \m {\V {x}}?
 
 We introduce some conventions.
-For \m {\mathscr {A} \subseteq \CB {0, \dots, N_p-1}}, denote
+For \m {\mathcal {A} \subseteq \CB {0, \dots, N_p-1}}, denote
 %
 \Disp {
-\V {x}  _{\SB {\mathscr {A}}}
-=\sum _{i \in \mathscr {A}} \V {v} \V {u} _{i} \\
+\V {x}  _{\SB {\mathcal {A}}}
+=\sum _{i \in \mathcal {A}} \V {v} \V {u} _{i} \\
 %
-\M {Q}  _{\SB {\mathscr {A}}}
-=\sum _{i \in \mathscr {A}} \M {Q} _{\SB {:,i}} \\
+\M {Q}  _{\SB {\mathcal {A}}}
+=\sum _{i \in \mathcal {A}} \M {Q} _{\SB {:,i}} \\
 }
 %
-That is, respectively, the components of \m {\V {x}}, and the columns of \m {\M {A}}, that have indices in \m {\mathscr {A}}.
+That is, respectively, the components of \m {\V {x}}, and the columns of \m {\M {A}}, that have indices in \m {\mathcal {A}}.
 
 
 \Result

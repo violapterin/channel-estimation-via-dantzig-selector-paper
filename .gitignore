@@ -1,4 +1,6 @@
+*.txt
 *.pdf
+
 *.aux
 *.log
 *.out
@@ -6,8 +8,15 @@
 *.nav
 *.toc
 *.tuc
+
+*.bbl
+*.bcf
+*.blg
+*.lof
+*.lot
+*.run.xml
+
 *.o
 *.pyc
-*.txt
 
 __pycache__/

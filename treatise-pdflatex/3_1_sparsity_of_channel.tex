@@ -3,21 +3,21 @@
 \subsection {Norm of array response}
 
 Let \m {\hat {\V {g}}} be the Dantzig Selector, and let the sparsity level \m {S} be fixed.
-Split \m {\V {g}} into two parts: \m {\V {g} _{\SB{\mathscr {A}}}}, the largest-magnitude \m {s} components of \m {\V {g}}, \m {\V {g} _{\SB{\mathscr {B}}}} the next \m {s} largest-magnitude components of \m {\V {g}}, and \m {\V {g} _{\SB{\mathscr {C}}}} are the components complement to \m {\V {g} _{\SB{\mathscr {A}}}}.
-For example, if \m {\V {g} =\IP {-1,3,-4,2,8}}, and \m {S=2}, then \m {\V {g} _{\SB{\mathscr {A}}} =\IP {0,0,-4,0,8}}, \m {\V {g} _{\SB{\mathscr {B}}} =\IP {0,3,0,2,0}}, and \m {\V {g} _{\SB{\mathscr {C}}} =\IP {-1,3,0,2,0}}.
-In this section, the subscripts \m {\mathscr {A}, \mathscr {B}, \mathscr {C}} will bear analogous meaning.
+Split \m {\V {g}} into two parts: \m {\V {g} _{\SB{\mathcal {A}}}}, the largest-magnitude \m {s} components of \m {\V {g}}, \m {\V {g} _{\SB{\mathcal {B}}}} the next \m {s} largest-magnitude components of \m {\V {g}}, and \m {\V {g} _{\SB{\mathcal {C}}}} are the components complement to \m {\V {g} _{\SB{\mathcal {A}}}}.
+For example, if \m {\V {g} =\IP {-1,3,-4,2,8}}, and \m {S=2}, then \m {\V {g} _{\SB{\mathcal {A}}} =\IP {0,0,-4,0,8}}, \m {\V {g} _{\SB{\mathcal {B}}} =\IP {0,3,0,2,0}}, and \m {\V {g} _{\SB{\mathcal {C}}} =\IP {-1,3,0,2,0}}.
+In this section, the subscripts \m {\mathcal {A}, \mathcal {B}, \mathcal {C}} will bear analogous meaning.
 
-We hope that \m {\VNm {\V {g} _{\SB{\mathscr {C}}}} _1} is small.
+We hope that \m {\VNm {\V {g} _{\SB{\mathcal {C}}}} _1} is small.
 If so, we shall substitute the quantity into the expected square error of DS, thus generalizing to the almost-sparse case.
 Recall that \m {\M {G}} is just the vectorization of \m {\V {g}}, and is the function of \m {\V {a}}, so we seek to establish that \m {\V {a}} is almost sparse.
-We define, similarly, \m {\V {a} _{\SB{\mathscr {A}}}} and \m {\V {a} _{\SB{\mathscr {C}}}}, with sparsity level \m {s} different from \m {S}.
+We define, similarly, \m {\V {a} _{\SB{\mathcal {A}}}} and \m {\V {a} _{\SB{\mathcal {C}}}}, with sparsity level \m {s} different from \m {S}.
 If \m {N_H} is large, we may forget for a moment that \m {s} is an integer.
 
 First, we investigate
 %
 \DispNum {a:2:Ka:22} {
-\VNm {\V {a} \SB {\f} _{\SB{\mathscr {C}}}} _2 ^2
-=\VNm {\RB {\M {K}^\dagger \V {a} \SB {\f}} _{\SB{\mathscr {C}}}} _2 ^2 \\
+\VNm {\V {a} \SB {\f} _{\SB{\mathcal {C}}}} _2 ^2
+=\VNm {\RB {\M {K}^\dagger \V {a} \SB {\f}} _{\SB{\mathcal {C}}}} _2 ^2 \\
 }
 %
 Let \m {\f} be fixed.
@@ -83,14 +83,14 @@ Therefore,
 Combining \Rf {y':H:f'M:p'p'}, \Rf {K:H:1N:nH}, and \Rf {D:y':si:y'p'} we have
 %
 \DispNum {b:1:1N:C1} {
-\VNm {\V {b} \SB {\f} _{\SB{\mathscr {C}}}} _1
+\VNm {\V {b} \SB {\f} _{\SB{\mathcal {C}}}} _1
 \leq \frac {1} {N_H}
 \VNm {
 \RB {
    \sum_{n_H' =0}^{N_H -1}
       B \SB {\psi \SB {\f, n_H'}}
       \V {u} _{n_H'}
-} _{\SB{\mathscr {C}}}
+} _{\SB{\mathcal {C}}}
 } _1
 \\
 }
@@ -99,7 +99,7 @@ Note that \m {\Nm {B \SB {\psi'}}} is strictly decreasing in \m {\SB {0,\pi}}.
 We are going to bound the rectangles by an integral, where we have to split the cases that \m {N_H} is odd and even.
 %
 \DispNum {b:1:1N:NH} {
-\VNm {\V {b} \SB {\f} _{\SB{\mathscr {C}}}} _1
+\VNm {\V {b} \SB {\f} _{\SB{\mathcal {C}}}} _1
 \leq \frac {1} {N_H} \D \frac {N_H} {2\pi} \D 2 \int_{\pi s/N_H}^{\pi} B \SB {\psi'} ^2 d \psi' \\
 %
 = \frac {48} {N_H \pi^3}
@@ -128,7 +128,7 @@ Let \m {\f } be given, and linear array response in spacial frequency domain \m 
 Then, for any random instance of \m {\f},
 %
 \DispNum {a:2:4N:NH} {
-\VNm {\V {b} \SB {\f} _{\SB{\mathscr {C}}}} _1
+\VNm {\V {b} \SB {\f} _{\SB{\mathcal {C}}}} _1
 \leq \frac {2} {\pi} \log N_H \\
 }
 }
@@ -145,15 +145,15 @@ S
 by triangle inequality, by the property of Frobenius norm,
 %
 \DispNum {g:1:l0:a'1} {
-\VNm {\V {g} _{\SB{\mathscr {C}}}} _1
+\VNm {\V {g} _{\SB{\mathcal {C}}}} _1
 \leq \NC
 \sum _{l=0} ^{L-1} \Nm {\a_l}
-\VNm {\V {b} \SB {\f_l} _{\SB{\mathscr {C}}}} _1
-\VNm {\V {b} \SB {\th_l} _{\SB{\mathscr {C}}}} _1 \\
+\VNm {\V {b} \SB {\f_l} _{\SB{\mathcal {C}}}} _1
+\VNm {\V {b} \SB {\th_l} _{\SB{\mathcal {C}}}} _1 \\
 %
 \leq \NC
-\VNm {\V {b} \SB {\f_l} _{\SB{\mathscr {C}}}} _1
-\VNm {\V {b} \SB {\th_l} _{\SB{\mathscr {C}}}} _1
+\VNm {\V {b} \SB {\f_l} _{\SB{\mathcal {C}}}} _1
+\VNm {\V {b} \SB {\th_l} _{\SB{\mathcal {C}}}} _1
 \sum _{l=0} ^{L-1} \Nm {\a_l} \\
 %
 \leq \NC
@@ -179,7 +179,7 @@ By Hoeffding inequality,
 %
 Now we have
 \DispNum {g:2:12:43} {
-\frac {\VNm {\M {g} _{\SB{\mathscr {C}}}} _1} {\RB {\log N_H}^2}
+\frac {\VNm {\M {g} _{\SB{\mathcal {C}}}} _1} {\RB {\log N_H}^2}
 \leq \frac {12 \R{2}} {\pi ^{5/2}}
 \leq \frac {4} {3}. \\
 }
@@ -191,7 +191,7 @@ Let \m {\V {g} \in \mathbb {C} ^{N_H^2}} be defined as in \Rf {g:g:ve:Nh}.
 Then the bound
 %
 \DispNum {g:C:4p':NH} {
-\VNm {\M {g} _{\SB{\mathscr {C}}}} _1
+\VNm {\M {g} _{\SB{\mathcal {C}}}} _1
 \leq \frac {4} {3} \RB {\log N_H}^2 \\
 }
 %

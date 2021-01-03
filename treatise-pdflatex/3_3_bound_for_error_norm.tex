@@ -25,19 +25,19 @@ The propositions below are taken from \cite {CaT07} and modified slightly in acc
 {
 %
 \DispNum {d:1:dA:C1} {
-\VNm {\V {d} _{\SB{\mathscr {C}}}} _1
-\leq \VNm {\V {d} _{\SB{\mathscr {A}}}} _1
-+\VNm {\V {g} _{\SB{\mathscr {C}}}} _1 \\
+\VNm {\V {d} _{\SB{\mathcal {C}}}} _1
+\leq \VNm {\V {d} _{\SB{\mathcal {A}}}} _1
++\VNm {\V {g} _{\SB{\mathcal {C}}}} _1 \\
 }
 }
 
-To show this, apply triangle inequality respectively on \m {\mathscr {A}} and \m {\mathscr {C}},
+To show this, apply triangle inequality respectively on \m {\mathcal {A}} and \m {\mathcal {C}},
 %
 \DispNum {g:1:gd:g1} {
 \VNm {\V {g}} _1
-- \VNm {\V {d} _{\SB{\mathscr {A}}}} _1
-+ \VNm {\V {d} _{\SB{\mathscr {C}}}} _1
-- \VNm {\V {g} _{\SB{\mathscr {C}}}} _1
+- \VNm {\V {d} _{\SB{\mathcal {A}}}} _1
++ \VNm {\V {d} _{\SB{\mathcal {C}}}} _1
+- \VNm {\V {g} _{\SB{\mathcal {C}}}} _1
 \leq \VNm {\V {g} + \V {d}} _1 \\
 %
 =\VNm {\hat {\V {g}}} _1 \\
@@ -119,7 +119,7 @@ The first quoted propositions reads
 %
 \DispNum {d:2:dA:12} {
 \VNm {\V {d}} _2^2
-\leq \VNm {\V {d} _{\SB {\mathscr {AB}}}} _2^2 + \frac {1} {S} \VNm {\V {d} _{\SB{\mathscr {C}}}} _1^2 \\
+\leq \VNm {\V {d} _{\SB {\mathcal {AB}}}} _2^2 + \frac {1} {S} \VNm {\V {d} _{\SB{\mathcal {C}}}} _1^2 \\
 }
 %
 By Jensen inequality,
@@ -130,16 +130,16 @@ By Jensen inequality,
 %
 \DispNum {d:2:dA:C1} {
 \VNm {\V {d}} _2
-\leq \VNm {\V {d} _{\SB {\mathscr {AB}}}} _2 + \frac {1} {\R {S}} \VNm {\V {d} _{\SB{\mathscr {C}}}} _1 \\
+\leq \VNm {\V {d} _{\SB {\mathcal {AB}}}} _2 + \frac {1} {\R {S}} \VNm {\V {d} _{\SB{\mathcal {C}}}} _1 \\
 }
 }
 
 The second quoted proposition reads
 %
 \DispNum {d:2:11:C1} {
-\VNm {\V {d} _{\SB{\mathscr {AB}}}} _2
-\leq \frac {1} {1- \d_{2S}} \VNm {P _{\SB {\mathscr {AB}}}^\intercal P d} _2
-+ \frac {\tilde {\d}_{S, 2S}} {\RB {1- \d_{2S}} \R {S}} \VNm {d_{\SB{\mathscr {C}}}} _1 \\
+\VNm {\V {d} _{\SB{\mathcal {AB}}}} _2
+\leq \frac {1} {1- \d_{2S}} \VNm {P _{\SB {\mathcal {AB}}}^\intercal P d} _2
++ \frac {\tilde {\d}_{S, 2S}} {\RB {1- \d_{2S}} \R {S}} \VNm {d_{\SB{\mathcal {C}}}} _1 \\
 }
 %
 Here \m {\tilde {\d} _{s_1, s_2}} denotes the \m {s_1,s_2}-restricted isometry constant, and is defined in \cite {Can05} (which uses \m {\th}), as follows.
@@ -175,9 +175,9 @@ So \Rf {d:2:11:C1} becomes
 If \m {\M {P}} has \m {\d_S} RIP,
 %
 \DispNum {d:2:11:C1} {
-\VNm {\V {d} _{\SB{\mathscr {AB}}}} _2
-\leq \frac {1} {1- \R{2} \d_{S}} \VNm {P _{\SB {\mathscr {AB}}}^\intercal P d} _2
-+ \frac {\R{3} \d_{S}} {\RB {1- \R{2} \d_{S}} \R {S}} \VNm {d_{\SB{\mathscr {C}}}} _1 \\
+\VNm {\V {d} _{\SB{\mathcal {AB}}}} _2
+\leq \frac {1} {1- \R{2} \d_{S}} \VNm {P _{\SB {\mathcal {AB}}}^\intercal P d} _2
++ \frac {\R{3} \d_{S}} {\RB {1- \R{2} \d_{S}} \R {S}} \VNm {d_{\SB{\mathcal {C}}}} _1 \\
 }
 }
 
@@ -207,21 +207,21 @@ Then it holds that
 %
 \DispNum {d:2:OL:H3} {
 \VNm {\V {d}} _2
-\eqsim \mathscr {O} \SB {\R {L} \R {\log N_H}^3} \\
+\eqsim \mathcal {O} \SB {\R {L} \R {\log N_H}^3} \\
 }
 %
 for probability \m {p}, with
 %
 \DispNum {1:p:ON:13} {
 1 -p
-\eqsim \mathscr {O} \SB {\mathsf {e} ^{-N_B /12}} \\
+\eqsim \mathcal {O} \SB {\mathsf {e} ^{-N_B /12}} \\
 }
 }
 
 To show this, by the definition of truncation, by \m {\ell_p} norm inequality, by \Rf {P:d:4N:Nh},
 %
 \DispNum {P:2:PP:NH} {
-\VNm {\M {P} _{\SB {\mathscr {AB}}}^\intercal \M {P} \V {d}} _2
+\VNm {\M {P} _{\SB {\mathcal {AB}}}^\intercal \M {P} \V {d}} _2
 \leq \VNm {\M {P}^\intercal \M {P} \V {d}} _2 \\
 %
 \leq \R {S} \VNm {\M {P}^\intercal \M {P} \V {d}} _\infty \\
@@ -232,18 +232,18 @@ To show this, by the definition of truncation, by \m {\ell_p} norm inequality, b
 By \m {\ell_p}-norm inequality, by the definition of truncation, by \Rf {d:2:11:C1}, and by \Rf {P:2:PP:NH} just above,
 %
 \DispNum {d:1:Sd:C1} {
-\VNm {\V {d} _{\SB{\mathscr {A}}}} _1
-\leq \R {S} \VNm {\V {d} _{\SB{\mathscr {A}}}} _2 \\
+\VNm {\V {d} _{\SB{\mathcal {A}}}} _1
+\leq \R {S} \VNm {\V {d} _{\SB{\mathcal {A}}}} _2 \\
 %
-\leq \R {S} \VNm {\V {d} _{\SB{\mathscr {AB}}}} _2 \\
+\leq \R {S} \VNm {\V {d} _{\SB{\mathcal {AB}}}} _2 \\
 %
 \leq 1.21 L \R {\log N_H}^3
-+0.262 \VNm {\V {d} _{\SB{\mathscr {C}}}} _1 \\
++0.262 \VNm {\V {d} _{\SB{\mathcal {C}}}} _1 \\
 }
 %
 Then, substituting \Rf {g:C:4p':NH} and \Rf {d:1:Sd:C1} above into \Rf {d:1:dA:C1}, we get
 \DispNum {d:C1:16:H2} {
-\VNm {\V {d} _{\SB{\mathscr {C}}}} _1
+\VNm {\V {d} _{\SB{\mathcal {C}}}} _1
 %
 \leq 1.64 L \R {\log N_H}^3 +3.61 L \RB {\log N_H}^2 \\
 }
@@ -251,7 +251,7 @@ Then, substituting \Rf {g:C:4p':NH} and \Rf {d:1:Sd:C1} above into \Rf {d:1:dA:C
 Now \Rf {d:2:11:C1} becomes
 %
 \DispNum {d:2:16:H3} {
-\VNm {\V {d} _{\SB{\mathscr {AB}}}} _2
+\VNm {\V {d} _{\SB{\mathcal {AB}}}} _2
 %
 \leq 1.64 \R {L} \log N_H +0.951 \R {L} \R {\log N_H}^3 \\
 }
