@@ -28,7 +28,7 @@ It follows that
 \DispNum {C':C':WB:j2} {
 \VNm {\M {W} _B \V {u}} _2
 =\R {
-   \sum _{i=0} ^{N_B-1} \VNm {\sum _{j=0} ^{N_R-1} \frac {1} {\R{N_B}} \chi _{i,j} \V {u} _{j}} _2 ^2} \\
+   \sum _{i=0} ^{N_B-1} \VNm {\sum _{j=0} ^{N_R-1} \frac {1} {\R{N_B}} \chi _{i,j} \V {u} _{j}} _2 ^2} 
 }
 %
 We need a large deviation result for i.i.d.\ sum of chi-square random variables.
@@ -37,14 +37,14 @@ By some calculation, we have the upper tail inequality
 %
 \DispNum {P:x:ex:ex} {
 \mathbb {P} \SB {\VNm {\M {W} _B \V {u}} _2 ^2 \geq 1 + 2 \R {\frac {x} {N_B}} + \frac {2x} {N_B}}
-\leq \mathsf {e} ^{-x} \\
+\leq \mathsf {e} ^{-x} 
 }
 %
 and the lower tail inequality
 %
 \DispNum {P:x:ex:ex!} {
 \mathbb {P} \SB {\VNm {\M {W} _B \V {u}} _2 ^2 \leq 1 - 2 \R {\frac {x} {N_B}}}
-\leq \mathsf {e} ^{-x} \\
+\leq \mathsf {e} ^{-x} 
 }
 %
 With substitution \m {\d_s =16x^2 /N_B^2}, the upper tail can be simplified with \m {x <N_B}, and we get the following bound for overall failure probability.
@@ -56,12 +56,12 @@ For \m {0 <\d_s <1}, it holds that
 %
 \DispNum {W:1:ds:ds} {
 \Nm {\VNm {\M {W} _B \V {u}} _2 ^2 - 1}
-\geq \d_s \\
+\geq \d_s 
 }
 for probability \m {p}, with
 \DispNum {1:p:2e:s4} {
 1 -p
-\leq 2 \mathsf {e} ^{-N_B \R {\d_s} /4} \\
+\leq 2 \mathsf {e} ^{-N_B \R {\d_s} /4} 
 }
 }
 
@@ -76,10 +76,10 @@ Their Theorem \m {3.7} and Theorem \m {4.5} may be changed accordingly, so that 
 %
 \DispNum {N:R:sd':NH} {
 N_R
-\geq \frac {s} {\d_s^2} \RB {\log \F{1}{\d_s}}^2 \RB {\log \F{s}{\d_s}}^2 \log N_H \\
+\geq \frac {s} {\d_s^2} \RB {\log \frac{1}{\d_s}}^2 \RB {\log \frac{s}{\d_s}}^2 \log N_H 
 }
 %
-Drop \m {\log \SB {1 /\d_s}^2} and the denominator \m {\d_s} in \m {\log \SB {s /\d_s}^2} in \Rf {N:R:sd':NH}, to get the statement below.
+Drop \m {\log \SB {1 /\d_s}^2} and the denominator \m {\d_s} in \m {\log \SB {s /\d_s}^2} in \eqref {N:R:sd':NH}, to get the statement below.
 
 \Result
 {Theorem}
@@ -88,13 +88,13 @@ Suppose
 %
 \DispNum {N:R:sd'NH} {
 N_R
-\geq \frac {s} {\d_s^2} \RB {\log s}^2 \log N_H \\
+\geq \frac {s} {\d_s^2} \RB {\log s}^2 \log N_H 
 }
 %
 Then \m {\M {F}_R} (respectively \m {\M {W} _R}) has \m {\d_s} RIP for probability \m {p}, with
 \DispNum {1:p:ex:d's} {
 1 -p
-\leq \RB {\frac {\d_s} {N_H s}} ^{1/3} \\
+\leq \RB {\frac {\d_s} {N_H s}} ^{1/3} 
 }
 }
 
@@ -106,7 +106,7 @@ So, how do we relate RIP of \m {\M {F} _R ^\Tr}, \m {\M {F} _B ^\Tr}, \m {\M {W}
 Notice
 \DispNum {P:2:FB:WR} {
 \VNm {P} _2
-=\VNm {\M {F}_B^\intercal \M {F}_B^\Tr} _2 \VNm {\M {W}_B \M {W}_R} _2 \\
+=\VNm {\M {F}_B^\intercal \M {F}_B^\Tr} _2 \VNm {\M {W}_B \M {W}_R} _2 
 }
 Since both \m {\M {F}_B^\intercal \M {F}_B^\Tr} and \m {\M {F}_B^\intercal \M {F}_B^\Tr} are \m {\d_s} RIP, it does appear, if we ignore for a moment the sparsity constraint, that \m {\M {P}} has approximately \m {2\d_s} RIP.
 However, it is doubtful to assume that their Kronecker product still has RIP.
@@ -115,13 +115,13 @@ We argue as follows.
 If all angles \m {\th_l, \f_l} are exactly the multiples of \m {2 \pi/N_H}, then
 \DispNum {G:G:Ud:dU} {
 \M {G}
-=\M {U} \mathrm {diag} \SB {\V {d}'} \M {U} ^\dagger \\
+=\M {U} \mathrm {diag} \SB {\V {d}'} \M {U} ^\dagger 
 }
 for some \m {S}-sparse \m {\V {d}'} and unitary \m {\M {U}}.
 Clearly,
 \DispNum {G:2:g2:g2} {
 \VNm {\M {G}} _2
-=\VNm {\mathrm {abs} \SB {\V {g}}} _2 \\
+=\VNm {\mathrm {abs} \SB {\V {g}}} _2 
 }
 where \m {\mathrm {abs}} denotes entrywise absolute value.
 Then if we notice that \m {\M {W} _B \M {W} _R \M {K} \M {U}} and \m {\M {U} ^\dagger \M {K}^\dagger \M {F} _R^\dagger \M {F} _B^\Adj} has \m {\d_s} RIP too, we see
@@ -145,9 +145,9 @@ Then if we notice that \m {\M {W} _B \M {W} _R \M {K} \M {U}} and \m {\M {U} ^\d
    \VNm {\M {F} _B ^\dagger \M {F} _R ^\dagger \M {K} \M {U}
    \R {\mathrm {abs} \SB {\V {d}'}}} _2 \\
 %
-\eqsim \VNm {\M {G}} _2 \RB {1 +2\d_s} \\
+\eqsim \VNm {\M {G}} _2 \RB {1 +2\d_s} 
 }
-Thus, even we cannot make sure that \m {\M {P}} is \m {\d_s} RIP with respect to all possible \m {\V {g}}'s, at least \m {\M {P}} has RIP with respect to relevant values of \m {\V {g}} according to the form \Rf {H:H:l0:ql}.
+Thus, even we cannot make sure that \m {\M {P}} is \m {\d_s} RIP with respect to all possible \m {\V {g}}'s, at least \m {\M {P}} has RIP with respect to relevant values of \m {\V {g}} according to the form \eqref {H:H:l0:ql}.
 
 
 

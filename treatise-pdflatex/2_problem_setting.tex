@@ -7,7 +7,7 @@ For simplicity we suppose uniform linear arrays, for which the response be model
 \DispNum {a:y':CN:NH} {
 \V {a} \SB {\psi'}
 = \frac {1} {\R {N_H}} \sum_{n_h=0}^{N_H-1} \mathsf {e} ^{\mathsf {i} n_h \psi'} \V {u} _{n_h}
-\in \mathbb {C} ^ {N_H} \\
+\in \mathbb {C} ^ {N_H} 
 }
 %
 where \m {\mathsf {e}} is the base of natural logarithm, and \m {\mathsf {i}} the imaginary unit.
@@ -19,7 +19,7 @@ And consider the virtual representation of the MIMO channel, as in Akdeniz et.\ 
 =\sum_{l=0} ^{L-1}
 \a_l
 \V {a} \SB { 2\pi \frac {d_{\mathrm {arr}}} {\l _{\mathrm {arr}}} \sin \f_l'}
-\V {a} \SB { 2\pi \frac {d_{\mathrm {arr}}} {\l _{\mathrm {arr}}} \sin \th_l'}^\dagger \\
+\V {a} \SB { 2\pi \frac {d_{\mathrm {arr}}} {\l _{\mathrm {arr}}} \sin \th_l'}^\dagger 
 }
 %
 The physical meaning of \m {\f_l'} is the \m {l}-th angle of incidence (formed by the ray and the normal line) of departure electronic wave, and \m {\th_l'}, the \m {l}-th angle of arrival wave, and \m {d_{\mathrm {arr}}} is the distance between two adjacent antennae.
@@ -32,7 +32,7 @@ For our purpose, we may absorb the arguments of \m {\V {a}}
 %
 \th_l
 = 2\pi \frac {d_{\mathrm {arr}}} {\l_{\mathrm {arr}}} \sin \th_l'
-  \; \mathrm {Mod}\; \RB {2\pi} \\
+  \; \mathrm {Mod}\; \RB {2\pi} 
 }
 %
 to get a simpler form
@@ -40,21 +40,17 @@ to get a simpler form
 \DispNum {H:H:l0:NH} {
 \M {H}
 =\sum_{l=0} ^{L-1} \a_l \V {a} \SB {\f_l} \V {a} \SB {\th_l}^\Adj
-\in \mathbb {C} ^{N_H \D N_H} \\
+\in \mathbb {C} ^{N_H \D N_H} 
 }
-
 
 
 \section {System model}
 
-\bigskip
 \begin {figure} [hbt]
 \centering
 \includegraphics [width = \textwidth] {system.png}
 \caption {Schematic diagram of the hybrid beamforming system we consider, based on Akdeniz et.\ al.\ \cite {ALS14}.}
 \end {figure}
-\bigskip
-
 
 We consider the hybrid beamforming at both transmitter and receiver ends, as shown in Figure 2.
 Each end consists of both digital and analog precoders and combiners.
@@ -74,7 +70,7 @@ n_H
 = 0, \dots N_H-1, \\
 %
 n_R
-= 0, \dots N_R-1 \\
+= 0, \dots N_R-1 
 }
 %
 And we assume
@@ -82,7 +78,7 @@ And we assume
 \DispNum {N:H:NY:NY} {
 N_H \gg N_R \\
 %
-N_R \gg N_B \\
+N_R \gg N_B 
 }
 
 Since we restrict our discussion to a short interval of time, the noise term may be simply taken as a matrix \m {\M {Z} \in \mathbb {C} ^{N_B \D N_B}} with each entry being i.i.d.\ standard normal.
@@ -90,11 +86,10 @@ Let us introduce the effective channel
 %
 \DispNum {Y:Y:WB:BZ} {
 \M {Y}
-:=\M {W} _B \M {W} _R \RB {\M {H} \M {F} _R \M {F} _B +\M {Z}} \\
+:=\M {W} _B \M {W} _R \RB {\M {H} \M {F} _R \M {F} _B +\M {Z}} 
 }
 %
 Our task then amounts to recovering \m {\M {H}}, and designing \m {\M {W} _R}, \m {\M {W} _B}, \m {\M {F} _R}, and \m {\M {F} _B}.
-
 
 
 \section {Vectorization}
@@ -109,14 +104,14 @@ Formally,
 %
 \DispNum {v:1:Am:N1} {
 \RB {\mathrm {vec} \SB {\M {A}}} _{\SB {m}}
-=\M {A} _{\SB {m\; \mathrm {Mod}\; N_1, \Fl {m/N_1 }}} \\
+=\M {A} _{\SB {m\; \mathrm {Mod}\; N_1, \Fl {m/N_1 }}} 
 }
 %
 The bijection is obvious, and we define \m {\mathrm {vec} ^{-1}} so that
 %
 \DispNum {v:x:x::x:} {
 \mathrm {vec} ^{-1} \SB {\mathrm {vec} \SB {x}}
-=x \\
+=x 
 }
 }
 
@@ -129,7 +124,7 @@ For \m {\M {A} \in \mathbb {K} ^{N_1 \D  N_2}} and \m {\M {B} \in \mathbb {K} ^{
 \RB {\M {A} \otimes \M {B}} _{\SB {m_1, m_2}} \\
 %
 =\M {A} _{\SB {\Fl {m_1/N_3 }, \Fl {m_2/N_4 }}}
-\M {B} _{\SB {m_1\; \mathrm {Mod}\; N_3, m_2\; \mathrm {Mod}\; N_4}} \\
+\M {B} _{\SB {m_1\; \mathrm {Mod}\; N_3, m_2\; \mathrm {Mod}\; N_4}} 
 }
 }
 
@@ -142,7 +137,7 @@ Then
 %
 \DispNum {v:B:BA:cX} {
 \mathrm {vec} \SB {\M {A}\M {X}\M {B}}
-= \RB {\M {B}^\intercal \otimes \M {A}} \mathrm {vec} \SB {\M {X}} \\
+= \RB {\M {B}^\intercal \otimes \M {A}} \mathrm {vec} \SB {\M {X}} 
 }
 }
 
@@ -163,18 +158,17 @@ It is more appealing to write
 %
 \M {Q}
 := \RB {\M {F} _B^\intercal \M {F} _R^\Tr} \otimes \RB {\M {W} _B \M {W} _R}
-\in \mathbb {C} ^{N_B^2 \D N_H^2} \\
+\in \mathbb {C} ^{N_B^2 \D N_H^2} 
 }
 %
 to formulate the problem as a linear system:
 %
 \DispNum {y:y:Qh:hz} {
 \V {y}
-=\M {Q} \V {h} +\V {z} \\
+=\M {Q} \V {h} +\V {z} 
 }
 %
 At this stage, we intend to apply DS, but there is no guarantee that \m {\V {h}} must be sparse.
-
 
 
 \section {Spacial frequency domain}
@@ -188,21 +182,21 @@ Denote the discrete Fourier transform matrix to be \m {\M {K}},
 = \frac {1} {\R {N_H}} \mathsf {e}^{2\pi \mathsf {i} n_1 n_2 /N_H}, \\
 %
 \quad n_1, n_2
-= 0, 1, \dots, N_H-1 \\
+= 0, 1, \dots, N_H-1 
 }
 %
 Recall that we have
 %
 \DispNum {K:K:I:::I} {
 \M {K}^\dagger \M {K}
-= \M {I} \\
+= \M {I} 
 }
 %
 If we write
 %
 \DispNum {G:G:KH:HK} {
 \M {G}
-=\M {K}^\dagger \M {H} \M {K} \\
+=\M {K}^\dagger \M {H} \M {K} 
 }
 %
 then \m {\M {G}} can be interpreted as spatial frequency domain representation of \m {\M {H}}.
@@ -211,7 +205,7 @@ then \m {\M {G}} can be interpreted as spatial frequency domain representation o
 \M {Y}
 =\M {W} _B \M {W} _R \M {K} \D \M {G} \D \M {K}^\dagger \M {F} _R \M {F} _B
 +\M {W} _B \M {W} _R \M {Z}
-\in \mathbb {C} ^{N_B \D N_B} \\
+\in \mathbb {C} ^{N_B \D N_B} 
 }
 %
 If we are sure that \m {\M {G}} is sparse, then we recover \m {\M {G}} instead.
@@ -220,7 +214,7 @@ Set for brevity
 \DispNum {P:P:FB:Nh} {
 \M {P}
 :=\RB {\M {F} _B^\intercal \M {F} _R^\intercal \M {K}^\ast} \otimes \RB {\M {W} _B \M {W} _R \M {K}}
-\in \mathbb {C} ^{N_B^2 \D N_H^2} \\
+\in \mathbb {C} ^{N_B^2 \D N_H^2} 
 }
 %
 and
@@ -228,16 +222,15 @@ and
 \DispNum {g:g:ve:Nh} {
 \V {g}
 := \mathrm {vec} \SB {\M {G}}
-\in \mathbb {C} ^ {N_H \D N_H} \\
+\in \mathbb {C} ^ {N_H \D N_H} 
 }
 %
 accordingly
 %
 \DispNum {y:y:Pg:gz} {
 \V {y}
-=\M {P} \V {g} +\V {z} \\
+=\M {P} \V {g} +\V {z} 
 }
-
 
 \section {Proposed method}
 
@@ -266,27 +259,26 @@ and \m {\M {Y} \in \mathbb {C} ^{N_B \D N_B}}.
 \Min {\V {g}' \in \mathbb {C} ^{N_H^2}} & \VNm {\V {g}'} _1 \\
 %
 \mathrm {subject} \; \mathrm {to} \quad & \VNm {\M {P}^\dagger \RB {\V {y} -\M {P} \V {g}'}} _\infty \leq \g_{\mathrm {DS}} \\
-\end {cases} \\
+\end {cases} 
 }
 %
 \item Convert \m {\hat {\V {g}}} back to the space domain, namely
 %
-\DispNum {G:G:ve:1g} {
+\Disp {
 \hat {\M {G}}
-\leftarrow \mathrm {vec}^{-1} \SB {\hat {\V {g}}} \\
+\leftarrow \mathrm {vec}^{-1} \SB {\hat {\V {g}}} 
 }
 %
 \item Recover the estimated \m {\hat {\M {H}}}, as
 %
-\DispNum {H:H:KG:GK} {
+\Disp {
 \hat {\M {H}}
-\leftarrow \M {K} \hat {\M {G}} \M {K}^\dagger \\
+\leftarrow \M {K} \hat {\M {G}} \M {K}^\dagger 
 }
 %
 \item Output \m {\hat {\M {H}}}.
 %
 \end {itemize}
 }
-
 
 

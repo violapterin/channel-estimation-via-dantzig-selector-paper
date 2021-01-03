@@ -81,8 +81,8 @@
       \strng{authorbibnamehash}{1ad60336a50c59b7de2cada458f43f82}
       \strng{authornamehash}{d8b42250fa605dc5211c36e49cefb204}
       \strng{authorfullhash}{1ad60336a50c59b7de2cada458f43f82}
-      \field{sortinit}{1}
-      \field{sortinithash}{50c6687d7fc80f50136d75228e3c59ba}
+      \field{sortinit}{2}
+      \field{sortinithash}{ed39bb39cf854d5250e95b1c1f94f4ed}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{IEEE access}
@@ -139,8 +139,8 @@
       \strng{authorbibnamehash}{9595f39dc5fd75af7cf18546b57c2c6f}
       \strng{authornamehash}{bf37eea299eec07ec54c11df6731d917}
       \strng{authorfullhash}{9595f39dc5fd75af7cf18546b57c2c6f}
-      \field{sortinit}{2}
-      \field{sortinithash}{ed39bb39cf854d5250e95b1c1f94f4ed}
+      \field{sortinit}{3}
+      \field{sortinithash}{a37a8ef248a93c322189792c34fc68c9}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{IEEE journal on selected areas in communications}
@@ -171,8 +171,8 @@
       \strng{authornamehash}{1d4b6756ec9d3e6ec5d4787b0486c6fd}
       \strng{authorfullhash}{1d4b6756ec9d3e6ec5d4787b0486c6fd}
       \field{extraname}{1}
-      \field{sortinit}{3}
-      \field{sortinithash}{a37a8ef248a93c322189792c34fc68c9}
+      \field{sortinit}{4}
+      \field{sortinithash}{e071e0bcb44634fab398d68ad04e69f4}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{IEEE Transactions on Information Theory}
@@ -206,8 +206,8 @@
       \strng{authornamehash}{d5f920351e0142ec5fb53fe38f3e000d}
       \strng{authorfullhash}{d5f920351e0142ec5fb53fe38f3e000d}
       \field{extraname}{2}
-      \field{sortinit}{4}
-      \field{sortinithash}{e071e0bcb44634fab398d68ad04e69f4}
+      \field{sortinit}{5}
+      \field{sortinithash}{5dd416adbafacc8226114bc0202d5fdd}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{The annals of Statistics}
@@ -240,8 +240,8 @@
       \strng{authorbibnamehash}{5d7d93c78974659b43ed94aea81ad2a3}
       \strng{authornamehash}{5d7d93c78974659b43ed94aea81ad2a3}
       \strng{authorfullhash}{5d7d93c78974659b43ed94aea81ad2a3}
-      \field{sortinit}{6}
-      \field{sortinithash}{7851c86048328b027313775d8fbd2131}
+      \field{sortinit}{7}
+      \field{sortinithash}{f615fb9c6fba11c6f962fb3fd599810e}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{\m {\ell_1}-magic: Recovery of sparse signals via convex programming}
@@ -279,8 +279,8 @@
       \strng{authorbibnamehash}{f58e9969c06c305a276f81793324b0db}
       \strng{authornamehash}{12929001f8988ea22329751b9b12b5e2}
       \strng{authorfullhash}{f58e9969c06c305a276f81793324b0db}
-      \field{sortinit}{7}
-      \field{sortinithash}{f615fb9c6fba11c6f962fb3fd599810e}
+      \field{sortinit}{8}
+      \field{sortinithash}{1b24cab5087933ef0826a7cd3b99e994}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Constructive Approximation}
@@ -323,8 +323,8 @@
       \strng{authorbibnamehash}{ea9a1f288b255f33b48f8df3e87a5eb1}
       \strng{authornamehash}{8c1f300782786333830263130e681b6b}
       \strng{authorfullhash}{ea9a1f288b255f33b48f8df3e87a5eb1}
-      \field{sortinit}{8}
-      \field{sortinithash}{1b24cab5087933ef0826a7cd3b99e994}
+      \field{sortinit}{9}
+      \field{sortinithash}{54047ffb55bdefa0694bbd554c1b11a0}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Proceedings of the IEEE}
@@ -367,8 +367,8 @@
       \strng{authorbibnamehash}{e74e5cd1690366e4e34548053ec9880b}
       \strng{authornamehash}{e12a30ca1ab4a0358a5300ca2b64fccf}
       \strng{authorfullhash}{e74e5cd1690366e4e34548053ec9880b}
-      \field{sortinit}{9}
-      \field{sortinithash}{54047ffb55bdefa0694bbd554c1b11a0}
+      \field{sortinit}{1}
+      \field{sortinithash}{50c6687d7fc80f50136d75228e3c59ba}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{2008 42nd Annual Conference on Information Sciences and Systems}
@@ -751,8 +751,8 @@
       \strng{authorbibnamehash}{80f6a472c5d72afd80420463361c4d4d}
       \strng{authornamehash}{1d6e58011c530e1a4854bbec6939aae5}
       \strng{authorfullhash}{80f6a472c5d72afd80420463361c4d4d}
-      \field{sortinit}{1}
-      \field{sortinithash}{50c6687d7fc80f50136d75228e3c59ba}
+      \field{sortinit}{2}
+      \field{sortinithash}{ed39bb39cf854d5250e95b1c1f94f4ed}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{IEEE Transactions on Signal Processing}
@@ -870,6 +870,161 @@
       \field{year}{2010}
       \field{pages}{5030\bibrangedash 5043}
       \range{pages}{14}
+    \endentry
+    \entry{LaM00}{article}{}
+      \name{author}{2}{}{%
+        {{hash=d36fbd2fa613212b2404bd90e1603e39}{%
+           family={Laurent},
+           familyi={L\bibinitperiod},
+           given={Beatrice},
+           giveni={B\bibinitperiod}}}%
+        {{hash=3fdc73538980b7e7479a1d199d366e08}{%
+           family={Massart},
+           familyi={M\bibinitperiod},
+           given={Pascal},
+           giveni={P\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {JSTOR}%
+      }
+      \strng{namehash}{8259a0730ad2ccdd859c70a0f4b937da}
+      \strng{fullhash}{8259a0730ad2ccdd859c70a0f4b937da}
+      \strng{bibnamehash}{8259a0730ad2ccdd859c70a0f4b937da}
+      \strng{authorbibnamehash}{8259a0730ad2ccdd859c70a0f4b937da}
+      \strng{authornamehash}{8259a0730ad2ccdd859c70a0f4b937da}
+      \strng{authorfullhash}{8259a0730ad2ccdd859c70a0f4b937da}
+      \field{sortinit}{2}
+      \field{sortinithash}{ed39bb39cf854d5250e95b1c1f94f4ed}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Annals of Statistics}
+      \field{title}{Adaptive estimation of a quadratic functional by model selection}
+      \field{year}{2000}
+      \field{pages}{1302\bibrangedash 1338}
+      \range{pages}{37}
+    \endentry
+    \entry{KlM17}{book}{}
+      \name{author}{2}{}{%
+        {{hash=202aef16f4e1adf69882c9b1c03ff024}{%
+           family={Klartag},
+           familyi={K\bibinitperiod},
+           given={Bo'az},
+           giveni={B\bibinitperiod}}}%
+        {{hash=e024b17d04c5191efbc5fd0dba8fdaa7}{%
+           family={Milman},
+           familyi={M\bibinitperiod},
+           given={Emanuel},
+           giveni={E\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{5e69d12d822bcc1f1cb82befe6ec18db}
+      \strng{fullhash}{5e69d12d822bcc1f1cb82befe6ec18db}
+      \strng{bibnamehash}{5e69d12d822bcc1f1cb82befe6ec18db}
+      \strng{authorbibnamehash}{5e69d12d822bcc1f1cb82befe6ec18db}
+      \strng{authornamehash}{5e69d12d822bcc1f1cb82befe6ec18db}
+      \strng{authorfullhash}{5e69d12d822bcc1f1cb82befe6ec18db}
+      \field{sortinit}{3}
+      \field{sortinithash}{a37a8ef248a93c322189792c34fc68c9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Geometric Aspects of Functional Analysis}
+      \field{year}{2017}
+    \endentry
+    \entry{DiB16}{article}{}
+      \name{author}{2}{}{%
+        {{hash=d50bdcda78beb231a5057a4372dac2fd}{%
+           family={Diamond},
+           familyi={D\bibinitperiod},
+           given={Steven},
+           giveni={S\bibinitperiod}}}%
+        {{hash=ec94d94cc487dd71939a90cbeaaf47d0}{%
+           family={Boyd},
+           familyi={B\bibinitperiod},
+           given={Stephen},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{7cce040882870150496852f2140da7fb}
+      \strng{fullhash}{7cce040882870150496852f2140da7fb}
+      \strng{bibnamehash}{7cce040882870150496852f2140da7fb}
+      \strng{authorbibnamehash}{7cce040882870150496852f2140da7fb}
+      \strng{authornamehash}{7cce040882870150496852f2140da7fb}
+      \strng{authorfullhash}{7cce040882870150496852f2140da7fb}
+      \field{sortinit}{3}
+      \field{sortinithash}{a37a8ef248a93c322189792c34fc68c9}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Machine Learning Research}
+      \field{number}{83}
+      \field{title}{CVXPY: A Python-Embedded Modeling Language for Convex Optimization}
+      \field{volume}{17}
+      \field{year}{2016}
+      \field{pages}{1\bibrangedash 5}
+      \range{pages}{5}
+    \endentry
+    \entry{BoV04}{book}{}
+      \name{author}{2}{}{%
+        {{hash=ec94d94cc487dd71939a90cbeaaf47d0}{%
+           family={Boyd},
+           familyi={B\bibinitperiod},
+           given={Stephen},
+           giveni={S\bibinitperiod}}}%
+        {{hash=2608d599a0bc2a784c301329a8da5f7b}{%
+           family={Vandenberghe},
+           familyi={V\bibinitperiod},
+           given={Lieven},
+           giveni={L\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge U.\ press}%
+      }
+      \strng{namehash}{436abed3bce8d1b1d30640d4e5ff3d58}
+      \strng{fullhash}{436abed3bce8d1b1d30640d4e5ff3d58}
+      \strng{bibnamehash}{436abed3bce8d1b1d30640d4e5ff3d58}
+      \strng{authorbibnamehash}{436abed3bce8d1b1d30640d4e5ff3d58}
+      \strng{authornamehash}{436abed3bce8d1b1d30640d4e5ff3d58}
+      \strng{authorfullhash}{436abed3bce8d1b1d30640d4e5ff3d58}
+      \field{sortinit}{4}
+      \field{sortinithash}{e071e0bcb44634fab398d68ad04e69f4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Convex optimization}
+      \field{year}{2004}
+    \endentry
+    \entry{FrS07}{article}{}
+      \name{author}{2}{}{%
+        {{hash=25c5f180f08cdf05154572a99918f48a}{%
+           family={Friedlander},
+           familyi={F\bibinitperiod},
+           given={Michael\bibnamedelima P},
+           giveni={M\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+        {{hash=a93c1ce8ca06c149de3fef394c5112d2}{%
+           family={Saunders},
+           familyi={S\bibinitperiod},
+           given={Michael\bibnamedelima A},
+           giveni={M\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {JSTOR}%
+      }
+      \strng{namehash}{88c7d71767dab15add40c3e23ed8b186}
+      \strng{fullhash}{88c7d71767dab15add40c3e23ed8b186}
+      \strng{bibnamehash}{88c7d71767dab15add40c3e23ed8b186}
+      \strng{authorbibnamehash}{88c7d71767dab15add40c3e23ed8b186}
+      \strng{authornamehash}{88c7d71767dab15add40c3e23ed8b186}
+      \strng{authorfullhash}{88c7d71767dab15add40c3e23ed8b186}
+      \field{sortinit}{4}
+      \field{sortinithash}{e071e0bcb44634fab398d68ad04e69f4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{The Annals of Statistics}
+      \field{number}{6}
+      \field{title}{Discussion: the Dantzig selector: statistical estimation when p is much larger than n}
+      \field{volume}{35}
+      \field{year}{2007}
+      \field{pages}{2385\bibrangedash 2391}
+      \range{pages}{7}
     \endentry
   \enddatalist
 \endrefsection

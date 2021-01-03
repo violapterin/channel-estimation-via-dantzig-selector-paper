@@ -3,7 +3,7 @@
 NAME=main
 
 clear
-rm ${NAME}.out ${NAME}.log ${NAME}.bcf ${NAME}.aux ${NAME}.run.xml
+#rm ${NAME}.out ${NAME}.log ${NAME}.bcf ${NAME}.aux ${NAME}.run.xml
 pdflatex -halt-on-error ${NAME}
 biber ${NAME}
 pdflatex -halt-on-error ${NAME}

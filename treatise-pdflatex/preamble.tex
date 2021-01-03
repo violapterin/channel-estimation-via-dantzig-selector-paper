@@ -26,6 +26,7 @@
 \usepackage {mathtools}
 \usepackage {float}
 \usepackage {hyperref}
+\usepackage {listingsutf8}
 
 \addbibresource {references.bib}
 
@@ -51,6 +52,7 @@
 \newcommand {\m} [1] {\( #1 \)}
 \newcommand {\V} [1] {\underline {#1}}
 \newcommand {\M} [1] {\underline {\underline {#1}}}
+\newcommand {\T} [1] {\tilde {#1}}
 \newcommand {\RB} [1] {\left( #1 \right)}
 \newcommand {\SB} [1] {\left[ #1 \right]}
 \newcommand {\CB} [1] {\left\{ #1 \right\}}
@@ -89,3 +91,6 @@
    filecolor=blue,
    urlcolor=blue
 }
+
+\newtagform {brackets} {[} {]}
+\usetagform {brackets}

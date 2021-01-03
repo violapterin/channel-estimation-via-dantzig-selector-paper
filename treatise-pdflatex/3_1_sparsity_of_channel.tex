@@ -17,7 +17,7 @@ First, we investigate
 %
 \DispNum {a:2:Ka:22} {
 \VNm {\V {a} \SB {\f} _{\SB{\mathcal {C}}}} _2 ^2
-=\VNm {\RB {\M {K}^\dagger \V {a} \SB {\f}} _{\SB{\mathcal {C}}}} _2 ^2 \\
+=\VNm {\RB {\M {K}^\dagger \V {a} \SB {\f}} _{\SB{\mathcal {C}}}} _2 ^2 
 }
 %
 Let \m {\f} be fixed.
@@ -30,42 +30,42 @@ Towards that end, introduce
    + \RB {\frac {2 n_H} {N_H} + 1} \pi
 } \;
 \mathrm {Mod}\; \RB {2\pi}
-- \pi \\
+- \pi 
 }
 %
 Note that by construction
 %
 \DispNum {y':H:p'::p':} {
 \Nm {\psi \SB {\f, n_H}}
-\leq \pi \\
+\leq \pi 
 }
 %
 And set for short
 %
 \DispNum {D:y':nH:Hy'} {
 D \SB {\psi'}
-:= \sum_{n_H=0}^{N_H-1} \mathsf {e}^{i n_H \psi'} \\
+:= \sum_{n_H=0}^{N_H-1} \mathsf {e}^{i n_H \psi'} 
 }
 %
 And
 %
 \DispNum {b:f':Ka:af'} {
 \V {b} \SB {\f}
-=\M {K}^\dagger \V {a} \SB {\f} \\
+=\M {K}^\dagger \V {a} \SB {\f} 
 }
 %
 Then observe
 %
 \DispNum {K:H:1N:nH} {
 \V {b} \SB {\f} _{\SB {n_H}}
-=\frac {1} {N_H} D \SB {\psi \SB {\f, n_H}} \\
+=\frac {1} {N_H} D \SB {\psi \SB {\f, n_H}} 
 }
 
 By the nature of alternating series, for \m {- \pi \leq x < \pi}, it holds that
 %
 \DispNum {x:6:si:nx} {
 \Nm {x - \frac {x^3} {6}}
-\leq \Nm {\sin x}. \\
+\leq \Nm {\sin x}. 
 }
 Therefore,
 %
@@ -77,10 +77,10 @@ Therefore,
 %
 := \frac {48} {\Nm {\psi'^2 -24} \Nm {\psi'}}, \\
 %
-- \pi \leq \psi' < \pi. \\
+- \pi \leq \psi' < \pi. 
 }
 %
-Combining \Rf {y':H:f'M:p'p'}, \Rf {K:H:1N:nH}, and \Rf {D:y':si:y'p'} we have
+Combining \eqref {y':H:f'M:p'p'}, \eqref {K:H:1N:nH}, and \eqref {D:y':si:y'p'} we have
 %
 \DispNum {b:1:1N:C1} {
 \VNm {\V {b} \SB {\f} _{\SB{\mathcal {C}}}} _1
@@ -92,7 +92,6 @@ Combining \Rf {y':H:f'M:p'p'}, \Rf {K:H:1N:nH}, and \Rf {D:y':si:y'p'} we have
       \V {u} _{n_H'}
 } _{\SB{\mathcal {C}}}
 } _1
-\\
 }
 
 Note that \m {\Nm {B \SB {\psi'}}} is strictly decreasing in \m {\SB {0,\pi}}.
@@ -109,14 +108,14 @@ We are going to bound the rectangles by an integral, where we have to split the 
 %
 \eqsim \frac {2} {\pi} \RB {\log N_H - \log s} \\
 %
-\leq \frac {2} {\pi} \log N_H \\
+\leq \frac {2} {\pi} \log N_H 
 }
 %
 Since the value of \m {s} is at our disposal, we choose
 %
 \DispNum {s:s:lo:NH} {
 s
-=\R {\log N_H} \\
+=\R {\log N_H} 
 }
 %
 so that, by \m {\ell_p}-norm inequality, we have the following estimation.
@@ -124,12 +123,12 @@ so that, by \m {\ell_p}-norm inequality, we have the following estimation.
 \Result
 {Proposition}
 {
-Let \m {\f } be given, and linear array response in spacial frequency domain \m {\V {b} \SB {\f}} defined in \Rf {b:f':Ka:af'}.
+Let \m {\f } be given, and linear array response in spacial frequency domain \m {\V {b} \SB {\f}} defined in \eqref {b:f':Ka:af'}.
 Then, for any random instance of \m {\f},
 %
 \DispNum {a:2:4N:NH} {
 \VNm {\V {b} \SB {\f} _{\SB{\mathcal {C}}}} _1
-\leq \frac {2} {\pi} \log N_H \\
+\leq \frac {2} {\pi} \log N_H 
 }
 }
 
@@ -140,32 +139,32 @@ Then, for any random instance of \m {\f},
 If we further choose that
 \DispNum {S:S:Ls:s2} {
 S
-=L s^2 \\
+=L s^2 
 }
 by triangle inequality, by the property of Frobenius norm,
 %
 \DispNum {g:1:l0:a'1} {
 \VNm {\V {g} _{\SB{\mathcal {C}}}} _1
-\leq \NC
+\leq 
 \sum _{l=0} ^{L-1} \Nm {\a_l}
 \VNm {\V {b} \SB {\f_l} _{\SB{\mathcal {C}}}} _1
 \VNm {\V {b} \SB {\th_l} _{\SB{\mathcal {C}}}} _1 \\
 %
-\leq \NC
+\leq 
 \VNm {\V {b} \SB {\f_l} _{\SB{\mathcal {C}}}} _1
 \VNm {\V {b} \SB {\th_l} _{\SB{\mathcal {C}}}} _1
 \sum _{l=0} ^{L-1} \Nm {\a_l} \\
 %
-\leq \NC
+\leq 
 \frac {4} {\pi^2} L \RB {\log N_H}^2 \D
-\frac {1} {L} \sum _{l=0} ^{L-1} \Nm {\a_l} \\
+\frac {1} {L} \sum _{l=0} ^{L-1} \Nm {\a_l} 
 }
 %
 Then observe that
 %
 \DispNum {E:1:2p':2p'} {
 \mathbb {E} \SB {\frac {1} {L} \sum _{l=0} ^{L-1} \Nm {\a_l}}
-=\F{\R {2}} {\R {\pi}} \\
+=\frac{\R {2}} {\R {\pi}} 
 }
 By Hoeffding inequality,
 %
@@ -174,32 +173,32 @@ By Hoeffding inequality,
    \frac {1} {L} \sum _{l=0} ^{L-1} \Nm {\a_l}
    \geq \frac {4 \R{2}} {\R {\pi}}
 }
-\leq 2 \exp \SB {- \frac {9L} {\pi}} \\
+\leq 2 \exp \SB {- \frac {9L} {\pi}} 
 }
 %
 Now we have
 \DispNum {g:2:12:43} {
 \frac {\VNm {\M {g} _{\SB{\mathcal {C}}}} _1} {\RB {\log N_H}^2}
 \leq \frac {12 \R{2}} {\pi ^{5/2}}
-\leq \frac {4} {3}. \\
+\leq \frac {4} {3}. 
 }
 %
 \Result
 {Proposition}
 {
-Let \m {\V {g} \in \mathbb {C} ^{N_H^2}} be defined as in \Rf {g:g:ve:Nh}.
+Let \m {\V {g} \in \mathbb {C} ^{N_H^2}} be defined as in \eqref {g:g:ve:Nh}.
 Then the bound
 %
 \DispNum {g:C:4p':NH} {
 \VNm {\M {g} _{\SB{\mathcal {C}}}} _1
-\leq \frac {4} {3} \RB {\log N_H}^2 \\
+\leq \frac {4} {3} \RB {\log N_H}^2 
 }
 %
 holds for probability \m {p}, with
 %
 \DispNum {1:p:1N:H3} {
 1 -p
-\leq 2 \exp \SB {- \frac {9L} {\pi}} \\
+\leq 2 \exp \SB {- \frac {9L} {\pi}} 
 }
 }
 
