@@ -2,23 +2,21 @@
 
 \startsection [title={Estimation of MIMO channel}]
 
-Multiple-input multiple-output (MIMO) communication system will be part of the 5G specification \cite [RSM13].
-With a large number of antennae on both transmitter and receiver ends, MIMO is expected to provide a large signal gain.
-The appeal of MIMO includes multiplexing gain (parallel transmission of data), diversity gain (redundant transmission with space-time coding), and antenna gain (suitable beamforming to improve the signal level).
-Besides, the millimeter wave (mm-wave) is suggested, since its smaller wavelength (and thus higher frequency) makes wider bands available.
-Moreover the antennae may be closer-spaced, allowing us to increase their number.
+Multiple-input multiple-output (MIMO) communication system will be part of the 5G specification.
+With a large number of antennae on both transmitter and receiver ends, MIMO is expected to provide a large signal gain, by virtue of either parallel transmission of data, redundant transmission, or beamforming which improves the signal level.
+Besides, the millimeter wave (mm-wave) is adopted, since its smaller wavelength (and thus higher frequency) makes wider bands available.
+Moreover the antennae may be closer-spaced, allowing us to increase their number \cite [RSM13].
+However, also because of the larger antennae array, and larger noise corruption in higher frequency, estimation of MIMO channel state information gives rise to higher complexity, and hence higher hardware overhead and power consumption.
+Indeed, RF chains are more expensive and power consuming, so there is a growing attention on hybrid beamforming, where there are not fewer RF chain than the antennae.
 
-However, MIMO also gives rise to higher complexity, hence higher hardware overhead and power consumption.
-To obtain channel state information (so that channel capacity can be known for instance), new algorithms have to address these issues.
-Not only is the channel estimation difficult, due to a large antennae array, but the transmission in higher frequency is subject to noise corruption too.
-As a result, conventional training-based algorithms lead to considerable time and space complexity.
+If we consider a slow varying MIMO channel for simplicity, in terms of a channel representation, to estimate the channel is to determine the parameters of the representation.
+It amounts to invert a linear system whose dimension is the number of antennae, as we shall see in chapter 2 in more detail.
+In this case, it is pointed out that conventional training based algorithms are not very effective.
 
 \stopsection
 
 \startsection [title={Compressive sensing}]
 
-If we consider a slow varying MIMO channel for simplicity, in terms of a channel representation, to estimate the channel is to determine the parameters of the representation.
-We shall see it amounts to invert a linear system whose dimension is the number of antennae, which is not very effective.
 Fortunately, physical evidence has suggested that mm-wave channel are poor in scattering \cite [ALS14], which reduces the number of paths, and it is now that a recent development called compressive sensing may help.
 
 \blank [big]
@@ -36,6 +34,14 @@ If the signal is sparse on certain new basis, as shown in the right, then for a 
 Generally speaking, compressive sensing aims to reconstruct a underdetermined linear system, when the sparsity of solution guarantees successful recovery for most cases.
 More measurements are required to recover the signal in the nonsparse basis, while fewer suffice in the sparse basis.
 But, even if we are sure that the sparse basis exists, its construction is another undertaking.
+In our settings, it is not trivially obvious that hybrid beamforming structure fits the compressive sensing problem, and a method to generating the sensing matrix and pilot vectors in the estimation stage has to be devised and justified.
+
+Compressive sensing approaches can be divided into two categories, the convex programming approach, and greedy approach \cite [RDD18].
+We will discuss one from each in more details: Dantzig Selector and Orthogonal Matching Pursuit.
+
+\stopsection
+
+\startsection [title={The Dantzig Selector}]
 
 Let us say the number of model parameters \m {N_p \in \MB {N}} is much larger than the number of measurements \m {N_m \in \MB {N}}, that is,
 %
@@ -66,15 +72,11 @@ with
 \NC \Nm {\MS {A}} \leq \NC s. \NR
 }
 
-Candès and Tao \cite [Can05], one of the earlier investigations on compressive sensing, showed that, in the noiseless case, a \m {\ell_1}-minimization program recovers the \m {N_m}-dimensional signal, with \m {N_p} measurements, under overwhelming probability.
+Candès and Tao \cite [Can05] showed that, in the noiseless case, a \m {\ell_1}-minimization program recovers the \m {N_m}-dimensional signal, with \m {N_p} measurements, under overwhelming probability.
 
 As an application, it often occurs that a camera takes a high definition photo, and compresses the image later.
 But it may be desirable that a camera equipped with fewer sensors shall take a lower resolution photo to save storage, and shall recover the image later.
 Such advantage can be useful in medical imaging, since it is not only expensive, but also harmful, to take too many images, while the accuracy is critical to the diagnosis too \cite [CaT07].
-
-\stopsection
-
-\startsection [title={The Dantzig Selector}]
 
 If the linear system is moreover subject to noise \m {z},
 %
@@ -114,7 +116,7 @@ For fixed \m {s =0, \dots N_p -1}, we say that \m {\M {Q}} satisfies \m {\d_s}-r
 It helps to think that \m {\M {Q}} is almost unitary up to relative error \m {\d_s}.
 
 For concreteness, say \m {\V {z}} is an i.i.d.\ normalized random normal vector.
-If so, a stronger result was established \cite [CaT07] that, with another \m {\ell_1} minimization program called Dantzig selector (hereafter DS), recovery under the noisy case is again possible under high probability.
+If so, a stronger result was established \cite [CaT07] that, with another \m {\ell_1} minimization program called Dantzig selector (DS), recovery under the noisy case is again possible under high probability.
 
 \Result
 {Algorithm}
@@ -143,15 +145,22 @@ This allows techniques from convex optimization to be used, and Candès and Romb
 Here the constant \m {\d_s} in Definition [1] is significant, since we can't just take \m {\M {Q}} to be any unitary matrix, for which \m {\d_s =0}.
 A common approach is choosing i.i.d.\ entries of \m {\M {Q}}, and it was established by Baraniuk et.\ al.\ \cite [BDD08] that if \m {\VNm {\M {Q} \V {x}}} concentrates sharply, \m {\M {Q}} has RIP for overwhelming probability, but it remains to conceive an algorithm that efficiently generates RIP matrices.
 
-Back at the ranch, recall that the channel estimation has been considered infeasible in the MIMO setting, but luckily, physical evidences suggest that mm-wave channels are sparse in the number of paths.
-An early attempt to apply compressive sensing was Bajwa et.\ al.\ \cite [BHS10], where they argued that if the \m {\ell_0}-norm of the channel matrix may be bounded by a constant, DS may be applied to estimate the time-dependent single-antenna channel response.
+Back to our problem of MIMO channel estimation, recall that, luckily, physical evidences suggest that mm-wave channels are sparse in the number of paths.
+Bajwa et.\ al.\ \cite [BHS10] used DS, where they argued that if the \m {\ell_0}-norm of the channel matrix may be bounded by a constant, DS may be applied to estimate the time-dependent single-antenna channel response.
 The accompanying note by the same researchers \cite [BHR08] showed that \m {X} has RIP for overwhelming probability, justifying their work.
+
+Some instead applied least absolute shrinkage and selection operator (Lasso).
+Indeed, it can be shown that Lasso and DS have similar behavior \cite [AsR10].
+
+Lian, Liu and Lau applied Lasso on MIMO with an analog combiner \cite [LLL17].
+Destino, Juntti, and Nagaraj used an adaptive Lasso \cite [DJN15], in which they jointly optimize the sensing matrix and pilot vectors.
+Vlachos, Alexandropoulos, and Thompson \cite [VAT19] used Lasso on hybrid beamforming with an additional random spatial sampling device.
 
 \stopsection
 
 \startsection [title={Orthogonal Matching Pursuit}]
 
-At the same time, Tropp and Gilbert \cite [TrG07b] suggested likewise that a greedy algorithm called orthogonal matching pursuit (OMP) which also aims to reconstruct a sparse signal in an underdetermined system.
+In addition to convex programming approaches, Tropp and Gilbert \cite [TrG07b] suggested likewise that a greedy algorithm called orthogonal matching pursuit (OMP) which also aims to reconstruct a sparse signal in an underdetermined system.
 Again consider the situation of \Rf {y:y:Qx:xz}.
 
 \Result
@@ -215,15 +224,12 @@ The columns of \m {\M {Q}} are chosen greedily, and we expect its columns to spa
 In each step, we estimate the noise \m {\V {r}}, and find a new column most correlated with it, to refine the estimation for \m {\V {x}}.
 From Tropp and Gilbert \cite [TrG07a], the probability that OMP recovers \m {\V {x}} completely is overwhelming.
 
-OMP has since been pervasively used for channel sensing.
+OMP has since been commonly used for channel estimation.
 Alkhateeb et.\ al.\ \cite [AEL14] proposed an adaptive algorithm with a beam codebook for quantized angles.
 Alkhateeb, Leus, and Heath Jr.\ \cite [ALH15] examined the trade-off between number of measurement and accuracy for an all-phase-shifter beamformers based on nonuniform fixed set of angles.
-Gao et.\ al.\ \cite [LGC16] proposed a jointly reconstruction, with a modified OMP, of several high-dimensional sparse signals.
 Hu, Wang, and He \cite [HWH13] applied OMP to estimate quantized path delay of OFDM subcarriers of stationary channel gain.
 Lee, Gil, and Lee \cite [LGL16] considered a hybrid system, where the effective beamformer serves as sensing matrix, based on a designed set of angles.
-Manoj and Kannu \cite [MaK17] studied the sparse condition on submatrices of the signal for successful reconstruction.
-Gurbuz, Yapici, and Guvenc \cite [GYG18] introduced perturbation on the angles which the sensing matrix based on.
-Panayirci et.\ al.\ \cite [PAU19] proposed a concatenation of max-likelihood estimation of model parameters, and maximum-a-posteriori estimation of channel gains, by virtue of OMP.
+Gao, Dai, and Wang proposed a variant which we have the assumption of spatially common sparsity \cite [GDW15].
 
 Performance guarantee of OMP is also studied on various conditions.
 Cai, Wang, and Xu \cite [CWX10], gave a new bound on performance of OMP under assumption of low coherence of columns of matrices, instead of almost unitarity.
@@ -233,18 +239,20 @@ Cai and Wang \cite [CaW11] extended the study to DS and other convex programs fo
 
 \startsection [title={Contribution}]
 
-The literature on channel estimation favors OMP for its low complexity, but we wonder how greedy algorithms, such as OMP, compare to convex programs, such as DS.
-It might be that greedy algorithms trade precision for complexity, and that the opposite is true of convex programs.
-
-In this treatise, we consider a hybrid system with uniform linear array as in Lee, Gil, and Lee \cite [LGL16].
+Do greedy algorithms trade precision for complexity, and is the opposite true of convex programs?
+In this treatise, we consider a hybrid structure with uniform linear array as in Lee, Gil, and Lee \cite [LGL16].
 They proposed a beamformer shown to be optimal, jointly designed on both ends by a nonconvex optimization program, and due to its difficulty they have made considerable approximation.
-Is the approximated design still optimal, or are the angles of sensing matrix not sufficiently precise?
+Still, it is not clear whether the approximated scheme is optimal.
 
+We illustrate that, with randomly generated beamformers, DS estimates the channel with better accuracy than other methods.
+The setting is more general than \cite [LLL17] and more simple than \cite [VAT19], and the beamformer generation less complicated than \cite [DJN15].
 In chapter 2 we shall see that our proposed effective beamformer has RIP for high probability, which may serve as the sensing matrix for DS.
 In chapter 3, along the lines of Candès and Tao \cite [CaT07], we give a quantitative bound (which holds for high probability) on expected error norm.
 In chapter 4, we remark that DS can be cast as a linear program, for which more efficient algorithms exist.
 Numerical results show that in our problem configuration, DS is superior to other methods.
-Indeed, DS is much more accurate than the least square, and both OMP and Lasso often fails.
+
+Since DS is more accurate than the least square, OMP, and Lasso, it may be used when precision is crucial, possibly in combination of these lower-complexity methods.
+It shall be useful when the ratio of the antenna and RF chain is larger, or when there does not allow many stage of estimation, that is, when the observable data is less sufficient.
 
 
 \stopsection
