@@ -54,8 +54,8 @@ to get a simpler form
 
 We consider the hybrid beamforming at both transmitter and receiver ends, as shown in Figure 2.
 Each end consists of both digital and analog precoders and combiners.
-In the transmitter end, there are (seeing towards the receiver end), digital precoder \m {\M {F} _B \in \MB {C} ^{N_R \D N_B}} and analog precoder \m {\M {F} _R \in \MB {C} ^{N_H \D  N_R}}.
-Similarly, in the receiver end, there are (seeing towards the transmitter end) digital combiner \m {\M {W} _R \in \MB {C} ^{N_R \D N_H}} and analog combiner \m {\M {W} _B \in \MB {C} ^{N_B \D  N_R}}.
+In the transmitter end, there are (seeing towards the receiver end), digital precoder \m {\M {F} _B \in \MB {C} ^{N_{B,t} \D N_{B,t}}} and analog precoder \m {\M {F} _R \in \MB {C} ^{N_H \D  N_{B,t}}}.
+Similarly, in the receiver end, there are (seeing towards the transmitter end) digital combiner \m {\M {W} _R \in \MB {C} ^{N_{B,r} \D N_H}} and analog combiner \m {\M {W} _B \in \MB {C} ^{N_{B,r} \D  N_{B,r}}}.
 
 Recall that analog precoders may only have values of unity magnitude,
 %
@@ -69,16 +69,19 @@ Recall that analog precoders may only have values of unity magnitude,
 \NC n_H
 = \NC 0, \dots N_H-1, \NR
 %
-\NC n_R
-= \NC 0, \dots N_R-1 \NR
+\NC n_{B,t}
+= \NC 0, \dots N_{B,t}-1 \NR
+%
+\NC n_{B,r}
+= \NC 0, \dots N_{B,r}-1 \NR
 }
 %
 And we assume
 %
 \DispNum {N:H:NY:NY} {
-\NC N_H \gg \NC N_R \NR
+\NC N_H \gg \NC N_{B,t}, N_{R,t} \NR
 %
-\NC N_R \gg \NC N_B \NR
+\NC N_{B,t}, N_{R,t} \gg \NC N_B \NR
 }
 
 Since we restrict our discussion to a short interval of time, the noise term may be simply taken as a matrix \m {\M {Z} \in \NC \MB {C} ^{N_B \D N_B}} with each entry being i.i.d.\ standard normal.
@@ -246,13 +249,13 @@ Our plan becomes now
 %
 \item Let \m {\g_{\Rm {DS}} \geq 0} be given.
 %
-\item Input \m {\M {F} _B \in \NC \MB {C} ^{N_R \D N_B}},
-\m {\M {F} _R \in \NC \MB {C} ^{N_H \D N_R}},
-\m {\M {W} _R \in \NC \MB {C} ^{N_R \D N_H}},
-\m {\M {W} _B \in \NC \MB {C} ^{N_B \D N_R}},
-and \m {\M {Y} \in \NC \MB {C} ^{N_B \D N_B}}.
+\item Input \m {\M {F} _B \in \NC \MB {C} ^{N_{B,t} \D N_{B,t}}},
+\m {\M {F} _R \in \NC \MB {C} ^{N_H \D N_{B,t}}},
+\m {\M {W} _R \in \NC \MB {C} ^{N_{B,r} \D N_H}},
+\m {\M {W} _B \in \NC \MB {C} ^{N_{B,r} \D N_{B,r}}},
+and \m {\M {Y} \in \NC \MB {C} ^{N_{B,r} \D N_{B,t}}}.
 %
-\item Find \m {\M {P} \in \MB {C} ^{N_B^2 \D N_H^2}}, \m {\V {y} \in \MB {C} ^{N_H^2}} as in above.
+\item Find \m {\M {P} \in \MB {C} ^{N_{B,t} N_{B,r} \D N_H^2}}, \m {\V {y} \in \MB {C} ^{N_H^2}} as in above.
 %
 \item Compute the convex program
 %

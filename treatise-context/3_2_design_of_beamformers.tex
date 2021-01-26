@@ -1,6 +1,6 @@
-\startsection [title={Design of beamformers}]
+\startsection [title={Generation of beamformers}]
 
-\startsubsection [title={Design of beamformers}]
+\startsubsection [title={Generation of beamformers}]
 
 We want to set the four beamformers to be i.i.d.\ random matrix, hoping that the resulting \m {P} has RIP.
 Let us simply set each entry of \m {\M {F} _B} to be i.i.d.\ normal random variables with mean \m {0}, standard deviation \m {1/2}, multiplied by a normalizing constant \m {\l_B >0}.
@@ -23,12 +23,12 @@ Can we argue instead that \m {\M {F} _B ^\Tr \M {F} _R ^\Tr \V {u}} has similar 
 \startsubsection [title={Operator norm of digital beamformers}]
 
 Use \m {\chi _{i,j}} to denote independent complex standard normal random variables.
-It follows that
+It follows that (respectively for \m {N_{B,r}})
 %
 \DispNum {C':C':WB:j2} {
 \NC \VNm {\M {W} _B \V {u}} _2
 =\NC \R {
-   \sum _{i=0} ^{N_B-1} \VNm {\sum _{j=0} ^{N_R-1} \F {1} {\R{N_B}} \chi _{i,j} \V {u} _{j}} _2 ^2} \NR
+   \sum _{i=0} ^{N_{B,t}-1} \VNm {\sum _{j=0} ^{N_{B,t}-1} \F {1} {\R{N_{B,t}}} \chi _{i,j} \V {u} _{j}} _2 ^2} \NR
 }
 %
 We need a large deviation result for i.i.d.\ sum of chi-square random variables.
@@ -36,18 +36,18 @@ To do so, we apply Lemma \m {1} in Laurent and Massart \cite [LaM00] for equal w
 By some calculation, we have the upper tail inequality
 %
 \DispNum {P:x:ex:ex} {
-\NC \MB {P} \SB {\VNm {\M {W} _B \V {u}} _2 ^2 \geq 1 + 2 \R {\F {x} {N_B}} + \F {2x} {N_B}}
+\NC \MB {P} \SB {\VNm {\M {W} _B \V {u}} _2 ^2 \geq 1 + 2 \R {\F {x} {N_{B,t}}} + \F {2x} {N_{B,t}}}
 \leq \NC \Ss {e} ^{-x} \NR
 }
 %
 and the lower tail inequality
 %
 \DispNum {P:x:ex:ex!} {
-\NC \MB {P} \SB {\VNm {\M {W} _B \V {u}} _2 ^2 \leq 1 - 2 \R {\F {x} {N_B}}}
+\NC \MB {P} \SB {\VNm {\M {W} _B \V {u}} _2 ^2 \leq 1 - 2 \R {\F {x} {N_{B,t}}}}
 \leq \NC \Ss {e} ^{-x} \NR
 }
 %
-With substitution \m {\d_s =16x^2 /N_B^2}, the upper tail can be simplified with \m {x <N_B}, and we get the following bound for overall failure probability.
+With substitution \m {\d_s =16x^2 /N_{B,t}^2}, the upper tail can be simplified with \m {x <N_{B,t}}, and we get the following bound for overall failure probability.
 
 \Result
 {Proposition}
@@ -61,7 +61,7 @@ For \m {0 <\d_s <1}, it holds that
 for probability \m {p}, with
 \DispNum {1:p:2e:s4} {
 \NC 1 -p
-\leq \NC 2 \Ss {e} ^{-N_B \R {\d_s} /4} \NR
+\leq \NC 2 \Ss {e} ^{-N_{B,t} \R {\d_s} /4} \NR
 }
 }
 
@@ -71,11 +71,11 @@ for probability \m {p}, with
 
 In Haviv and Regev, \quotation {The restricted isometry property of subsampled Fourier matrices} \cite [KlM17], Theorem \m {4.5} states a DFT submatrix has \m {\d_s} RIP with failure probability lower than a certain Big-O bound.
 We argue that their argument can be refined to give precise constants, by Chernoff-Hoeffding bounds and their theorem \m {2.2} with (say) \m {C \leftarrow 1/3}.
-The conclusions, 
-Their Theorem \m {3.7} and Theorem \m {4.5} may be changed accordingly, so that the relation below gives a bound for failure probability for \m {\d_s /N_H s} RIP.
+Their Theorem \m {3.7} and Theorem \m {4.5} may be changed accordingly, so that the relation below gives a bound for failure probability for \m {\d_s /N_H s} RIP .
+In conclusion, (respectively for \m {N_{B,r}})
 %
 \DispNum {N:R:sd':NH} {
-\NC N_R
+\NC N_{B,t}
 \geq \NC \F {s} {\d_s^2} \RB {\log \F{1}{\d_s}}^2 \RB {\log \F{s}{\d_s}}^2 \log N_H \NR
 }
 %
@@ -87,7 +87,7 @@ Drop \m {\log \SB {1 /\d_s}^2} and the denominator \m {\d_s} in \m {\log \SB {s 
 Suppose
 %
 \DispNum {N:R:sd'NH} {
-\NC N_R
+\NC N_{B,t}
 \geq \NC \F {s} {\d_s^2} \RB {\log s}^2 \log N_H \NR
 }
 %

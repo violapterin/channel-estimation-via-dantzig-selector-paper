@@ -193,13 +193,10 @@ We use dimensionless noise level \m {\s} which takes value starting with \m {2^{
 For the plots of assorted methods, \m {7} values of \m {\s} are considered; for the plots of DS or OMP only, \m {9} values are considered.
 
 We take \m {N_H} to be \m {12, 18, 24}, respectively.
-For assorted plots, two series of plots are simulated.
-The first series for \m {N_B = N_H}, giving \m {12, 18, 24}.
-The second series for \m {N_B = \lfloor 5 N_H /6 \rfloor}, giving \m {10, 15, 20}.
-The third series for \m {N_B = \lfloor 2 N_H /3 \rfloor}, giving \m {8, 12, 16}.
-For plots of OMP only, we consider \m {N_B = \lfloor N_H \rfloor}.
-For plots of DS only, we consider \m {N_B = \lfloor 5 N_H /6 \rfloor}.
-On the other hand, \m {N_R} always set to be \m {\lfloor \RB {\log N_H}^2 \rfloor}.
+For assorted plots, three series of plots are simulated.
+The first series for \m {N_{B,t} = N_H/3} and \m {N_{B,r} = N_H/4}.
+The second series for \m {N_{B,t} = N_H/4} and \m {N_{B,r} = N_H/3}.
+The third series for \m {N_{B,t} = N_H/3} and \m {N_{B,r} = N_H/3}.
 Unfortunately, this is very far from achieving the ideal values \Rf {N:B:4l:H2}, and this may be part of the reason the result is not as successful as expected.
 
 Other parameters are fixed in these experiments.
