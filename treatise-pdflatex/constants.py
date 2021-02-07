@@ -2,139 +2,128 @@ import numpy as np
 import classes as cls
 
 def NN_HH (ver):
-    switcher = {
-        cls.Size.VERY_SMALL : 8,
-        cls.Size.SMALL : 12,
-        cls.Size.MEDIUM : 16,
-        cls.Size.BIG : 20,
-        cls.Size.VERY_BIG : 24
-        }
-    return switcher [ver.size]
-
-def NN_YY (ver):
-    switcher = {
-        cls.Ratio.NARROW : 2,
-        cls.Ratio.WIDE : 3,
-        }
-    return int (NN_HH (ver) / switcher [ver.ratio])
-
-def NN_RR (ver):
-    return int (np.sqrt (NN_HH (ver) * NN_YY (ver)))
-
-def NN_Y (ver):
-    return NN_YY (ver) ** 2
+   switcher = {
+      cls.Size.SMALL : 6,
+      cls.Size.MEDIUM : 12,
+      cls.Size.BIG : 18,
+      }
+   return switcher [ver.size]
 
 def NN_H (ver):
-    return NN_HH (ver) ** 2
+   return NN_HH (ver) ** 2
 
-def SS_supp_est (ver):
-    return NN_YY (ver)
+def NN_YY_t (ver):
+   switcher = {
+      cls.Ratio.TALL : int (NN_HH (ver) /3),
+      cls.Ratio.WIDE : int (NN_HH (ver) /2),
+      cls.Ratio.SQUARE : int (NN_HH (ver) /2),
+      }
+   return switcher [ver.ratio]
 
-def D_MAX (ver):
-    return 4
+def NN_YY_r (ver):
+   switcher = {
+      cls.Ratio.TALL : int (NN_HH (ver) /2),
+      cls.Ratio.WIDE : int (NN_HH (ver) /3),
+      cls.Ratio.SQUARE : int (NN_HH (ver) /2),
+      }
+   return switcher [ver.ratio]
+
+def NN_Y_t (ver):
+   return NN_Y_t (ver) ** 2
+
+def NN_Y_r (ver):
+   return NN_Y_r (ver) ** 2
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-
-def NUM_GRID_PHASE (ver):
-    return 16
 
 def LAMBDA_ANT (ver):
-    return 1
+   return 1
 
 def DIST_ANT (ver):
-    return 3
+   return 3
 
 def LL (ver):
-    return 3
+   return NN_HH (ver)
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
-def NUM_S_G (ver):
-    return 6
+def NUM_MET ():
+    return 5
 
-def NUM_REP_LLSS (ver):
-    return 12
+def NUM_STAGE (ver):
+   switcher = {
+      cls.Stage.ONE: 1,
+      cls.Stage.TWO: 2,
+      cls.Stage.FOUR: 4}
+   return switcher [ver.stage]
 
-def NUM_REP_LASSO (ver):
-    return 1
+def NUM_CHAN_BASIC ():
+   return 128
 
-def NUM_REP_DDSS (ver):
-    return 1
+def NUM_CHAN_MET (met):
+   switcher = {
+      cls.Method.LLSS : 8,
+      cls.Method.OOMMPP_TWO : 4,
+      cls.Method.OOMMPP_INFTY : 4,
+      cls.Method.LASSO : 2,
+      cls.Method.DDSS : 1,
+      }
+   return switcher [met] * NUM_CHAN_BASIC ()
 
-def NUM_REP_OOMMPP (ver):
-    return 4
+def S_G_INIT ():
+   return 2 ** (-3)
 
-def NUM_REP_HH (ver):
-    return 256
+def NUM_S_G ():
+   return 6
 
-def S_G_INIT (ver):
-    return 2 ** (-5)
+def SCALE_S_G ():
+   return 2
 
-def VALUE_SPACING_S_G (ver):
-    return 2
+def LST_MET ():
+   return [cls.Method.DDSS,
+         cls.Method.LASSO,
+         cls.Method.OOMMPP_TWO,
+         cls.Method.OOMMPP_INFTY,
+         cls.Method.LLSS]
+
+def LEGEND ():
+   return ["Dantzig Selector",
+         "Lasso",
+         "OMP, two norm",
+         "OMP, infinity norm",
+         "least square"]
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-
-def VALUE_SPACING_G_G (ver):
-    return 3
-
-def NUM_G_G (ver): # DS
-    if (ver.focus == cls.Focus.DDSS):
-        return 3
-    elif (ver.focus == cls.Focus.ASSORTED):
-        return 1
-    else: # cls.Focus.OOMMPP
-        return 0
 
 def G_G_DDSS (ver):
-    return 2 * np.sqrt (np.log (NN_HH (ver)))
+   return 2 * np.sqrt (np.log (NN_HH (ver)))
 
 def G_G_LASSO (ver):
-    return NN_YY (ver) / 8
+   return 2 * np.sqrt (np.log (NN_HH (ver)))
 
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+def H_G_OOMMPP_TWO (ver):
+   return np.sqrt (3) * (NN_YY_t (ver) * NN_YY_r (ver)) ** (1/4)
 
-def VALUE_SPACING_H_G (ver):
-    return 3
-
-def NUM_H_G (ver): # OMP
-    if (ver.focus == cls.Focus.OOMMPP):
-        return 3
-    elif (ver.focus == cls.Focus.ASSORTED):
-        return 1
-    else: # cls.Focus.DDSS
-        return 0
-
-def H_G_OOMMPP_2_NORM (ver):
-    return np.sqrt (3 * NN_YY (ver))
-
-def H_G_OOMMPP_INFTY_NORM (ver):
-    return 2 * np.sqrt (np.log (NN_HH (ver)))
+def H_G_OOMMPP_INFTY (ver):
+   return 2 * np.sqrt (np.log (NN_HH (ver)))
 
 def ITER_MAX_OOMMPP (ver):
-    return 2 * NN_YY (ver)
+   return 2 * NN_H (ver)
 
-def D_G_PRECISION (ver):
-    return 1e-8
-
-def MAX_RR (ver):
-    return 1e4
+def MAX_NORM (ver):
+   return 4 * NN_H (ver)
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 def CVX_ITER_MAX (ver):
-    return 32
-    # default: 100
+   return 32 # default: 100
 
 def CVX_TOL_ABS (ver):
-    return 5e-7
-    # default: 1e-7
+   return 5e-7 # default: 1e-7
 
 def CVX_TOL_REL (ver):
-    return 5e-6
-    # default: 1e-6
+   return 5e-6 # default: 1e-6
 
 def CVX_TOL_FEAS (ver):
-    return 5e-7
-    # default: 1e-7
+   return 5e-7 # default: 1e-7
 
