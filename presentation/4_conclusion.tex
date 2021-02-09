@@ -6,21 +6,21 @@
 
 \I We analyze the error norm of DS in terms of \m {N_H}, \m {N_B}, and \m{L}, and approximate the asymptotic failure probability.
 
-\I Simulation shows that DS appears to be superior to other methods.
+\I We suggest several ways of reducing the complexity, and illustrate in simulation that DS often outperforms other methods.
 
-\I DS trades off low time and space complexity for high precision, but for OMP, the opposite is true.
+\I We suspect that in cases of higher noise, less sample, or less sparsity, DS is more suitable, so it may be used in combination to other methods.
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {References (1/2)}
 {
 {\tfx
-\I A Alkhateeb, O E Ayach, G Leus, R W Heath, \Quote {Channel Estimation and Hybrid Precoding for Millimeter Wave Cellular Systems}, \It {IEEE Journal of Selected Topics in Signal Processing} 8(5), 2014
-
 \I A Alkhateeb, G Leus, and R W Heath, \Quote {Compressed sensing based multi-user millimeter wave systems: How many measurements are needed?}, in \It {2015 IEEE International Conference on Acoustics, Speech and Signal Processing}.
 
-\I W U Bajwa, J Haupt, A M Sayeed, and R Nowak, \Quote {Compressed channel sensing: A new approach to estimating sparse multipath channels}, \It {Proceedings of the IEEE}, 98(6), 2010
+\I W U Bajwa, J Haupt, A M Sayeed, and R Nowak, \Quote {Compressed channel sensing: A new approach to estimating sparse multipath channels}, \It {Proceedings of the IEEE}, 2010
 
 \I S Boyd and L Vandenberghe, \It {Convex optimization}, Cambridge U Press, 2004.
+
+\I Destino, Juntti, and Nagaraj (2015): \Quote {Leveraging sparsity into massive MIMO channel estimation with the adaptive-LASSO}, in \It {IEEE Global Conference on Signal and Information Processing}
 }
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
@@ -29,12 +29,12 @@
 {\tfx
 \I E Candès and J Romberg, \Quote {\m {\ell_1}-magic: Recovery of Sparse Signals via Convex Programming}, retrieved online, 2005.
 
-\I E Candès and T Tao, \Quote {The Dantzig Selector: Statistical estimation when \It {p} is much larger than \It {n}}, \It {The Annals of Statistics} 35(6), 2007.
+\I E Candès and T Tao, \Quote {The Dantzig Selector: Statistical estimation when \It {p} is much larger than \It {n}}, \It {The Annals of Statistics}, 2007.
 
-\I M P Friedlander and M A Saunders, \Quote {Discussion: the Dantzig selector: statistical estimation when \It {p} is much larger than \It {n}}, \It {The Annals of Statistics}, 35(6), 2007.
+\I E Vlachos, G C Alexandropoulos, and J Thompson (2019): \Quote {Wideband MIMO channel estimation for hybrid beamforming millimeter wave systems via random spatial sampling}, \It {IEEE Journal of Selected Topics in Signal Processing}, 2019
 
-\I J Lee, G-T Gil, and Y H Lee, \Quote {Channel estimation via orthogonal matching pursuit for hybrid MIMO systems in millimeter wave communications}, \It {IEEE Transactions on Communications}, 64(6), 2016.
+\I J Lee, G-T Gil, and Y H Lee, \Quote {Channel estimation via orthogonal matching pursuit for hybrid MIMO systems in millimeter wave communications}, \It {IEEE Transactions on Communications}, 2016.
 
-\I J A Tropp and A C Gilbert, \Quote {Signal recovery from random measurements via orthogonal matching pursuit}, \It {IEEE Transactions on information theory}, 53(12), 2007.
+\I J A Tropp and A C Gilbert, \Quote {Signal recovery from random measurements via orthogonal matching pursuit}, \It {IEEE Transactions on information theory}, 2007.
 }
 }

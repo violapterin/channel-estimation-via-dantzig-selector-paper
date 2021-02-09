@@ -1,19 +1,11 @@
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Linear Programming}
+\Frame {Reducing the complexity}
 {
-\I DS is equivalent to a linear program, which allows more efficient convex programming methods to be used.
-(Variables with tilde denote the real representation of complex matrices and vectors.)
-\Disp {
-\NC \Hat {\T {\V {g}}}, \Hat {\T {\V {f}}}
-\LA \NC \startcases
-   \NC \Min {\T {\V {g}}', \T {\V {f}}'}  \MC \IP {\V {1}, \T {\V {f}}'} \NR
-   \NC \Rm {subject} \; \Rm {to} \MC \T {\V {g}}' \preceq \T {\V {f}}',
-   \quad \MC - \T {\V {g}}' \preceq \T {\V {f}}' \NR
-   \NC \MC \T {\M {P}}^\Adj \T {\M {P}} \T {\V {g}}' \preceq \T {\M {P}}^\Adj \T {\V {y}} + \g_{\Ss {DS}} \V {1} \NR
-   \NC \MC - \T {\M {P}}^\Adj \T {\M {P}} \T {\V {g}}' \preceq - \T {\M {P}}^\Adj \T {\V {y}} + \g_{\Ss {DS}} \V {1} \NR
-\stopcases \NR
-}
-\I Output \m {\Hat {\M {H}} \LA \M {K} \Rm {vec}^{-1} \SB {\Hat {\T {\V {g}}}} \M {K}^\Adj}
+\I Casting to a linear program
+
+\I A successive estimation of the nonzero components (not used in the final set of figures)
+
+\I Use the basis pursuit denoising form
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Performance Metric}
@@ -31,59 +23,53 @@
 \I Also define \m {\chi} by plugging in \m {\V {d}} into \m {\T {\chi}}.
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {\m {1/\s} vs \m {\T {\chi}}, assorted, \m {N_H=12,N_B=12}}
+\Frame {Error norm (2 stages), \m {N_H=6, N_{B,t}=3, N_{B,t}=2}}
 {
 \blank [big]
-\externalfigure [assorted-square-small-error.png] [width=11cm]
+\externalfigure [error-small-wide-two.png] [width=11cm]
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {\m {1/\s} vs \m {\T {\chi}}, assorted, \m {N_H=24,N_B=24}}
+\Frame {Error norm (2 stages), \m {N_H=6, N_{B,t}=2, N_{B,t}=3}}
 {
 \blank [big]
-\externalfigure [assorted-square-big-error.png] [width=11cm]
+\externalfigure [error-small-tall-two.png] [width=11cm]
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {\m {1/\s} vs \m {\T {\chi}}, assorted, \m {N_H=12,N_B=10}}
+\Frame {Error norm (2 stages), \m {N_H=12, N_{B,t}=6, N_{B,t}=4}}
 {
 \blank [big]
-\externalfigure [assorted-narrow-small-error.png] [width=11cm]
+\externalfigure [error-small-wide-two.png] [width=11cm]
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {\m {1/\s} vs \m {\T {\chi}}, assorted, \m {N_H=24,N_B=20}}
+\Frame {Error norm (2 stages), \m {N_H=12, N_{B,t}=4, N_{B,t}=6}}
 {
 \blank [big]
-\externalfigure [assorted-narrow-big-error.png] [width=11cm]
+\externalfigure [error-small-tall-two.png] [width=11cm]
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {\m {1/\s} vs \m {\T {\chi}}, assorted, \m {N_H=12,N_B=8}}
+\Frame {Error norm (2 stages), \m {N_H=18, N_{B,t}=9, N_{B,t}=6}}
 {
 \blank [big]
-\externalfigure [assorted-wide-small-error.png] [width=11cm]
+\externalfigure [error-small-wide-two.png] [width=11cm]
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {\m {1/\s} vs \m {\T {\chi}}, assorted, \m {N_H=24,N_B=16}}
+\Frame {Error norm (2 stages), \m {N_H=18, N_{B,t}=6, N_{B,t}=9}}
 {
 \blank [big]
-\externalfigure [assorted-wide-big-error.png] [width=11cm]
-}
-% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {\m {1/\s} vs time, assorted, \m {N_H=18,N_B=15}}
-{
-\blank [big]
-\externalfigure [assorted-narrow-medium-time.png] [width=11cm]
+\externalfigure [error-small-tall-two.png] [width=11cm]
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Discussion}
 {
-\I DS outperforms other methods under our settings.
+\I DS outperforms other methods in the high noise case
+
+\I DS requires less sampling to recover for given channel instance.
+
+\I The relaxed sparsity may have compromised effectiveness of DS.
+
+\I DS has complexity much higher than OMP, and somewhat higher than Lasso.
 
 \I \m {\T {\chi}} and \m {\chi} differ by some orders of magnitude.
-
-\I The relaxed sparsity may have compromised effectiveness of DS
-
-\I DS has complexity much higher than OMP, but similar to Lasso.
-
-\I \m {2N_H^2} grows fast, and DS can becomes less feasible.
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Complexity}
@@ -95,12 +81,9 @@
 \NC C_{\Rm {DS}} =\NC \mathcal {O} \SB {N_{H}^6} \NR
 }
 
-\I Fitting runtime statistics one has
-\Disp {
-\NC \T {C}_{\Rm {OMP}} \NC \eqsim \mathcal {O} \SB {N_H^{3.6}} \NR
-\NC \T {C}_{\Rm {Lasso}} \NC \eqsim \mathcal {O} \SB {N_H^{4.8}} \NR
-\NC \T {C}_{\Rm {DS}} \NC \eqsim \mathcal {O} \SB {N_H^{8.3}} \NR
-}
+\I Fitting the exponent of runtime statistics roughly agrees these result.
+
+\I In certain conditions it is pointed out Lasso and DS are equivalent.
 }
 
 

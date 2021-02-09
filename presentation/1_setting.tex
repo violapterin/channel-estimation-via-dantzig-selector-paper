@@ -20,10 +20,10 @@
 
 \I Problem (a): How to reconstruct the channel with fewer measurements?
 
-\I Problem (b): How to design precoders and combiners?
+\I Problem (b): How to generate precoders and combiners?
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Channel Model and Beamformers}
+\Frame {Channel model and beamforming matrices}
 {
 \I Given MIMO channel representation \m {\M {H} \in \NC \MB {C} ^{N_H \D N_H}} with uniform linear array, having \m {L} paths, with hybrid beamforming.
 
@@ -46,7 +46,7 @@
 
 \I Can we measure less than \m {N_H^2} times, but recover successfully for most cases?
 
-\I Problem (b): How to design \m {\M {W}_R}, \m {\M {W}_B}, \m {\M {F}_R}, and \m {\M {F}_B}?
+\I Problem (b): How to generate \m {\M {W}_R}, \m {\M {W}_B}, \m {\M {F}_R}, and \m {\M {F}_B}?
 
 \I What kind of matrices facilitates our goal?
 }
@@ -68,7 +68,7 @@
 \I We have an underdetermined system \m {\V {y} =\M {P} \V {g} +\V {z}}
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Compressive Sensing}
+\Frame {Compressive sensing}
 {
 \blank [big]
 \externalfigure [compressive-sensing.png] [factor=fit]
@@ -78,36 +78,28 @@
 \I Can we find a basis on which \m {\V {g}} is likely to be sparse?
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Literature on Compressive Sensing}
+\Frame {Literature review}
 {
 \I Bajwa, Haupt, Sayeed, and Nowak (2010): MIMO, linear invariant system, using Dantzig Selector (DS)
 
-\I Alkhateeb, Ayach, Leus, Heath (2014): mm-wave, adaptive training algorithm for given sensing matrix
+\I Destino, Juntti, and Nagaraj (2015): MIMO, digital beamforming, using Lasso
 
-\I Alkhateeb, Leus, and Heath (2015): single path mm-wave, all-phase-shifter beamformers, using Orthogonal Matching Pursuit (OMP)
+\I Vlachos, Alexandropoulos, and Thompson (2019): MIMO, hybrid beamforming, mm wave, using Lasso
 
-\I Lee, Lee, and Yong (2016): MIMO mm-wave, hybrid beamforming, using Orthogonal Matching Pursuit (OMP)
-}
-% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Questions}
-{
-\I Does greedy algorithms (like OMP) trade precision for complexity, and is the opposite true of convex programs (like DS)?
+\I Alkhateeb, Leus, and Heath (2015): single path mm wave, all phase shifter beamforming, using Orthogonal Matching Pursuit (OMP)
 
-\I We consider the hybrid system as in Lee, Lee, and Yong (2016), where they proposed an optimal joint design by a nonconvex program, but made considerable approximation.
-Is the simplified solution still optimal?
-
-\I Candès and Tao (2007) derived a performance bound for DS.
-Does it prove DS to be better?
-Does it apply to our case?
+\I Lee, Lee, and Yong (2016): MIMO mm wave, hybrid beamforming, using Orthogonal Matching Pursuit (OMP)
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Contribution}
 {
-\I We demonstrate that the beamformer may serve as the sensing matrix, so DS can be applied.
+\I Due to the constraint of hybrid beamforming, designs for pure digital beamforming on sensing matrix might not work.
 
-\I We give a bound (holding for high probability) on expected error norm.
+\I We claim that DS is superior in higher noise and fewer samples than OMP.
 
-\I Numerical results illustrate that in our configuration DS is superior to OMP among other methods, at the cost of higher complexity.
+\I We propose a low complexity random generation of beamforming matrices, and justify that it may serve as the sensing matrix.
+
+\I We give a asymptotic bound on expected error norm.
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Design of Beamformers}
