@@ -1,13 +1,3 @@
-% TODO:
-% Larger font (e.g. 14pt), Larger line spacing
-% Chinese font? Font mixing mechanism?
-% `\notag` equivalent: A wrapper class?
-% Table of contents: wider vertical spacing? Font?
-% Book title: wider line spacing?
-% Chapter 0
-% Table width
-
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
 \definemathmatrix[TheMatrix][left={\left[}, right={\right]}]
 \definecounter [NumResult] [start=0, way=bytext, prefix=no]
@@ -183,11 +173,9 @@ National Taiwan University}
    {\ss\itx #1}
    \stopalignment}
 \define [1] {\Frametitle} {
-   {\ss\bfb \color [lightskyblue]{#1}}}
-   %{\ss\bfb #1}} % Comment out if white background is desired
+   {\ss\bfb #1}} % Comment out if white background is desired
 \define [1] {\Emph} {
-   \color [middlegreen] {{\bf{#1}}}}
-   %{\bf{#1}}} % Comment out if white background is desired
+   {\bf{#1}}} % Comment out if white background is desired
 
 \define [2] {\Frame} {
    \Frametitle {#1}
@@ -195,7 +183,7 @@ National Taiwan University}
    \page [yes]}
 
 \setuppapersize[S4][S4]
-\setupbackgrounds [page] [background=color, backgroundcolor=midnightblue] % Comment out if white background is desired
+% \setupbackgrounds [page] [background=color, backgroundcolor=midnightblue] % Comment out if white background is desired
 \setuplayout [
    backspace=9mm,
    margin=0mm,
@@ -213,4 +201,4 @@ National Taiwan University}
 
 \usecolors[xwi]
 
-\startcolor[white] % Comment out if white background is desired
+% \startcolor[white] % Comment out if white background is desired

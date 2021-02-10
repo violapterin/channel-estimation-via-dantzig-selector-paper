@@ -149,8 +149,8 @@ Back to our problem of MIMO channel estimation, recall that, luckily, physical e
 Bajwa et.\ al.\ \cite [BHS10] used DS, where they argued that if the \m {\ell_0}-norm of the channel matrix may be bounded by a constant, DS may be applied to estimate the time-dependent single-antenna channel response.
 The accompanying note by the same researchers \cite [BHR08] showed that \m {X} has RIP for overwhelming probability, justifying their work.
 
-Some instead applied least absolute shrinkage and selection operator (Lasso).
-Indeed, it can be shown that Lasso and DS have similar behavior \cite [AsR10].
+Some scholars applied least absolute shrinkage and selection operator (Lasso) instead.
+In fact, it can be shown that Lasso and DS have similar behavior \cite [AsR10].
 
 Lian, Liu and Lau applied Lasso on MIMO with an analog combiner \cite [LLL17].
 Destino, Juntti, and Nagaraj used an adaptive Lasso \cite [DJN15], in which they jointly optimize the sensing matrix and pilot vectors.
@@ -226,10 +226,10 @@ From Tropp and Gilbert \cite [TrG07a], the probability that OMP recovers \m {\V 
 
 OMP has since been commonly used for channel estimation.
 Alkhateeb et.\ al.\ \cite [AEL14] proposed an adaptive algorithm with a beam codebook for quantized angles.
-Alkhateeb, Leus, and Heath Jr.\ \cite [ALH15] examined the trade-off between number of measurement and accuracy for an all-phase-shifter beamformers based on nonuniform fixed set of angles.
+Alkhateeb, Leus, and Heath Jr.\ \cite [ALH15] examined the trade-off between number of measurement and accuracy for an all-phase-shifter beamforming matrix based on nonuniform fixed set of angles.
 Hu, Wang, and He \cite [HWH13] applied OMP to estimate quantized path delay of OFDM subcarriers of stationary channel gain.
-Lee, Gil, and Lee \cite [LGL16] considered a hybrid system, where the effective beamformer serves as sensing matrix, based on a designed set of angles.
-Gao, Dai, and Wang proposed a variant which we have the assumption of spatially common sparsity \cite [GDW15].
+Lee, Gil, and Lee \cite [LGL16] considered a hybrid system, where the sensing matrix serves as sensing matrix, based on a designed set of angles.
+Gao, Dai, and Wang proposed a variant which there is the assumption of spatially common sparsity \cite [GDW15].
 
 Performance guarantee of OMP is also studied on various conditions.
 Cai, Wang, and Xu \cite [CWX10], gave a new bound on performance of OMP under assumption of low coherence of columns of matrices, instead of almost unitarity.
@@ -239,17 +239,29 @@ Cai and Wang \cite [CaW11] extended the study to DS and other convex programs fo
 
 \startsection [title={Contribution}]
 
-Do greedy algorithms trade precision for complexity, and is the opposite true of convex programs?
-In this treatise, we consider a hybrid structure with uniform linear array as in Lee, Gil, and Lee \cite [LGL16].
-They proposed a beamformer shown to be optimal, jointly designed on both ends by a nonconvex optimization program, and due to its difficulty they have made considerable approximation.
-Still, it is not clear whether the approximated scheme is optimal.
+Because the limit of hybrid structure, the designs which use a fully digital beamforming is not directly usable, and the designs which use only analog beamforming might not be optimal, which we have to investigate.
+Moreover, we demonstrate that convex programming outperforms greedy methods, and may be necessary in less ideal situations.
 
-We illustrate that, with randomly generated beamformers, DS estimates the channel with better accuracy than other methods.
-The setting is more general than \cite [LLL17] and more simple than \cite [VAT19], and the beamformer generation less complicated than \cite [DJN15].
-In chapter 2 we shall see that our proposed effective beamformer has RIP for high probability, which may serve as the sensing matrix for DS.
-In chapter 3, along the lines of Candès and Tao \cite [CaT07], we give a quantitative bound (which holds for high probability) on expected error norm.
-In chapter 4, we remark that DS can be cast as a linear program, for which more efficient algorithms exist.
-Numerical results show that in our problem configuration, DS is superior to other methods.
+In this treatise, we consider a hybrid structure with uniform linear array.
+We generate random beamforming matrices, and use DS to estimate the channel in the space frequency domain.
+In chapter 2 we shall see that our proposed sensing matrix has RIP for high probability, which may serve as the sensing matrix for DS.
+In chapter 3, we give a quantitative bound (which holds for high probability) on expected error norm.
+In chapter 4, numerical results show that in our problem configuration, DS is superior to other methods.
+Considering its higher complexity, we remark that it can be cast as a linear program, and basis pursuit denoising form may be used.
+
+We claim that, for given number of sampling, DS recovers more successfully than OMP.
+Moreover, our setting is more general than Alkhateeb, Leus, and Heath Jr.\ \cite [ALH15] with only analog combiner,
+our random generation of sensing matrix is simpler than Lee, Gil, and Lee \cite [LGL16],
+and we do not rely on additional assumption on spatially as in Gao, Dai, and Wang \cite [GDW15].
+
+It is different from Bajwa et.\ al.\ \cite [BHS10], and while they require a series of random pilot vectors and the sensing stage take considerable time, we require only random sensing matrices and take just a few time frames.
+
+In addition, we claim that with the same threshold, DS is better than Lasso.
+Again, the proposed method is more general than Lian, Liu and Lau \cite [LLL17] with only analog combiner,
+and our sensing matrix is generated more simply than in Destino, Juntti, and Nagaraj \cite [DJN15],
+and we do not require special device as in Vlachos, Alexandropoulos, and Thompson \cite [VAT19].
+
+
 
 
 \stopsection

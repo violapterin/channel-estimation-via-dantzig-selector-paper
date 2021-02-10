@@ -54,8 +54,8 @@ to get a simpler form
 
 We consider the hybrid beamforming at both transmitter and receiver ends, as shown in Figure 2.
 Each end consists of both digital and analog precoders and combiners.
-In the transmitter end, there are (seeing towards the receiver end), digital precoder \m {\M {F} _B \in \mathbb {C} ^{N_R \D N_B}} and analog precoder \m {\M {F} _R \in \mathbb {C} ^{N_H \D  N_R}}.
-Similarly, in the receiver end, there are (seeing towards the transmitter end) digital combiner \m {\M {W} _R \in \mathbb {C} ^{N_R \D N_H}} and analog combiner \m {\M {W} _B \in \mathbb {C} ^{N_B \D  N_R}}.
+In the transmitter end, there are (seeing towards the receiver end), digital precoder \m {\M {F} _B \in \mathbb {C} ^{N_R \D N_{B,t}}} and analog precoder \m {\M {F} _R \in \mathbb {C} ^{N_H \D  N_R}}.
+Similarly, in the receiver end, there are (seeing towards the transmitter end) digital combiner \m {\M {W} _R \in \mathbb {C} ^{N_R \D N_H}} and analog combiner \m {\M {W} _B \in \mathbb {C} ^{N_{B,r} \D  N_R}}.
 
 Recall that analog precoders may only have values of unity magnitude,
 %
@@ -78,10 +78,10 @@ And we assume
 \DispNum {N:H:NY:NY} {
 N_H \gg N_R \\
 %
-N_R \gg N_B 
+N_R \gg N_{B,r}, N_{B,r}
 }
 
-Since we restrict our discussion to a short interval of time, the noise term may be simply taken as a matrix \m {\M {Z} \in \mathbb {C} ^{N_B \D N_B}} with each entry being i.i.d.\ standard normal.
+Since we restrict our discussion to a short interval of time, the noise term may be simply taken as a matrix \m {\M {Z} \in \mathbb {C} ^{N_{B,r} \D N_{B,r}}} with each entry being i.i.d.\ standard normal.
 Let us introduce the effective channel
 %
 \DispNum {Y:Y:WB:BZ} {
@@ -150,15 +150,15 @@ It is more appealing to write
 %
 \V {y}
 := \mathrm {vec} \SB {\M {Y}}
-\in \mathbb {C} ^{N_B^2} \\
+\in \mathbb {C} ^{N_{B,t} N_{B,r}} \\
 %
 \V {z}
 := \mathrm {vec} \SB {\M {W} _B \M {W} _R \M {Z}}
-\in \mathbb {C} ^{N_B^2} \\
+\in \mathbb {C} ^{N_{B,t} N_{B,r}} \\
 %
 \M {Q}
 := \RB {\M {F} _B^\intercal \M {F} _R^\Tr} \otimes \RB {\M {W} _B \M {W} _R}
-\in \mathbb {C} ^{N_B^2 \D N_H^2} 
+\in \mathbb {C} ^{N_{B,t} N_{B,r} \D N_H^2} 
 }
 %
 to formulate the problem as a linear system:
@@ -205,7 +205,7 @@ then \m {\M {G}} can be interpreted as spatial frequency domain representation o
 \M {Y}
 =\M {W} _B \M {W} _R \M {K} \D \M {G} \D \M {K}^\dagger \M {F} _R \M {F} _B
 +\M {W} _B \M {W} _R \M {Z}
-\in \mathbb {C} ^{N_B \D N_B} 
+\in \mathbb {C} ^{N_{B,t} \D N_{B,r}} 
 }
 %
 If we are sure that \m {\M {G}} is sparse, then we recover \m {\M {G}} instead.
@@ -214,7 +214,7 @@ Set for brevity
 \DispNum {P:P:FB:Nh} {
 \M {P}
 :=\RB {\M {F} _B^\intercal \M {F} _R^\intercal \M {K}^\ast} \otimes \RB {\M {W} _B \M {W} _R \M {K}}
-\in \mathbb {C} ^{N_B^2 \D N_H^2} 
+\in \mathbb {C} ^{N_{B,t} \D N_{B,r} \D N_H^2} 
 }
 %
 and
@@ -243,13 +243,13 @@ Our plan becomes now
 %
 \item Let \m {\g_{\mathrm {DS}} \geq 0} be given.
 %
-\item Input \m {\M {F} _B \in \mathbb {C} ^{N_R \D N_B}},
+\item Input \m {\M {F} _B \in \mathbb {C} ^{N_R \D N_{B,t}}},
 \m {\M {F} _R \in \mathbb {C} ^{N_H \D N_R}},
 \m {\M {W} _R \in \mathbb {C} ^{N_R \D N_H}},
-\m {\M {W} _B \in \mathbb {C} ^{N_B \D N_R}},
-and \m {\M {Y} \in \mathbb {C} ^{N_B \D N_B}}.
+\m {\M {W} _B \in \mathbb {C} ^{N_{B,r} \D N_R}},
+and \m {\M {Y} \in \mathbb {C} ^{N_{B,r} \D N_{B,t}}}.
 %
-\item Find \m {\M {P} \in \mathbb {C} ^{N_B^2 \D N_H^2}}, \m {\V {y} \in \mathbb {C} ^{N_H^2}} as in above.
+\item Find \m {\M {P} \in \mathbb {C} ^{N_{B,r} N_{B,t} \D N_H^2}}, \m {\V {y} \in \mathbb {C} ^{N_H^2}} as in above.
 %
 \item Compute the convex program
 %

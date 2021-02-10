@@ -23,36 +23,24 @@
 \I Problem (b): How to generate precoders and combiners?
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Channel model and beamforming matrices}
+\Frame {Channel model and beamforming}
 {
 \I Given MIMO channel representation \m {\M {H} \in \NC \MB {C} ^{N_H \D N_H}} with uniform linear array, having \m {L} paths, with hybrid beamforming.
 
 \I Complex standard normal noise \m {\M {Z} \in \NC \MB {C} ^{N_H \D N_H}}
 
-\I Tx: Digital precoder \m {\M {F}_B \in \NC \MB {C} ^{N_R \D N_B}}
+\I Tx: Digital precoder \m {\M {F}_B \in \NC \MB {C} ^{N_R \D N_{B,t}}}
 \I Tx: Analog precoder \m {\NC \M {F}_R \in \NC \MB {C} ^{N_H \D N_R}}
 
 \I Rx: Digital combiner \m {\M {W}_B \in \NC \MB {C} ^{N_R \D N_H}}
-\I Rx: Analog combiner \m {\M {W}_R \in \NC \MB {C} ^{N_B \D N_R}}
+\I Rx: Analog combiner \m {\M {W}_R \in \NC \MB {C} ^{N_{B,r} \D N_R}}
 
 \I Magnitude constraint \m {\Nm {\M {F}_{R,\SB {n_H, n_R}}} = 1}, \m {\Nm {\M {W}_{R,\SB {n_H, n_R}}} = 1}
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Problem Description}
-{
-\I We have \m {\M {Y} =\M {W}_B \M {W}_R \RB {\M {H} \M {F}_R \M {F}_B +\M {Z}}}
-%
-\I Problem (a): How to recover \m {\M {H}} with knowledge of \m {\M {Y}}?
-
-\I Can we measure less than \m {N_H^2} times, but recover successfully for most cases?
-
-\I Problem (b): How to generate \m {\M {W}_R}, \m {\M {W}_B}, \m {\M {F}_R}, and \m {\M {F}_B}?
-
-\I What kind of matrices facilitates our goal?
-}
-% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Cast to Linear System}
 {
+\I We have \m {\M {Y} =\M {W}_B \M {W}_R \RB {\M {H} \M {F}_R \M {F}_B +\M {Z}}}
 \I Introduce the DFT matrix \m {\M {K} \in \NC \MB {C} ^{N_H \D N_H}}, and write
 \Disp {
 \NC \V {y}
@@ -64,8 +52,18 @@
 \Q \V {z}
 := \Rm {vec} \SB {\M {W}_B \M {W}_R \M {Z}} \NR
 }
-
 \I We have an underdetermined system \m {\V {y} =\M {P} \V {g} +\V {z}}
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Problem Description}
+{
+\I Problem (a): How to recover \m {\M {H}} with knowledge of \m {\M {Y}}?
+
+Can we measure less than \m {N_H^2} times, but recover successfully for most cases?
+
+\I Problem (b): How to generate \m {\M {W}_R}, \m {\M {W}_B}, \m {\M {F}_R}, and \m {\M {F}_B}?
+
+What kind of matrices facilitates our goal?
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Compressive sensing}
@@ -93,12 +91,11 @@
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Contribution}
 {
-\I Due to the constraint of hybrid beamforming, designs for pure digital beamforming on sensing matrix might not work.
+\I Due to the constraint of hybrid beamforming, designs for fully digital beamforming on sensing matrix might not directly work.
+
+\I We propose a low complexity random generation of beamforming matrices, and justify that it may serve as the sensing matrix for DS.
 
 \I We claim that DS is superior in higher noise and fewer samples than OMP.
-
-\I We propose a low complexity random generation of beamforming matrices, and justify that it may serve as the sensing matrix.
-
 \I We give a asymptotic bound on expected error norm.
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
@@ -113,7 +110,7 @@
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Applying Dantzig Selector}
 {
-\I Input \m {\M {P} \in \MB {C} ^{N_B^2 \D N_H^2}}, \m {\V {y} \in \MB {C} ^{N_H^2}}, \m {\g_{\Ss {DS}} \geq 0}.
+\I Input \m {\M {P} \in \MB {C} ^{N_{B,t} N_{B,r} \D N_H^2}}, \m {\V {y} \in \MB {C} ^{N_H^2}}, \m {\g_{\Ss {DS}} \geq 0}.
 
 \I Calculate
 \Disp {

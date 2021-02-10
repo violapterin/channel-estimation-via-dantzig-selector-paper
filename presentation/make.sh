@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
 clear
-context main.tex
-cp -f main.pdf main_1.pdf
-cp -f main.pdf main_2.pdf
+context main-a.tex
+context main-b.tex

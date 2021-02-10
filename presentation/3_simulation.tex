@@ -23,40 +23,46 @@
 \I Also define \m {\chi} by plugging in \m {\V {d}} into \m {\T {\chi}}.
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Error norm (2 stages), \m {N_H=6, N_{B,t}=3, N_{B,t}=2}}
+\Frame {Error norm (1/6)}
 {
+\I \m {N_H=6, N_{B,t}=3, N_{B,r}=2}, 2 stages
 \blank [big]
 \externalfigure [error-small-wide-two.png] [width=11cm]
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Error norm (2 stages), \m {N_H=6, N_{B,t}=2, N_{B,t}=3}}
+\Frame {Error norm (2/6)}
 {
+\I \m {N_H=6, N_{B,t}=2, N_{B,r}=3}, 2 stages
 \blank [big]
 \externalfigure [error-small-tall-two.png] [width=11cm]
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Error norm (2 stages), \m {N_H=12, N_{B,t}=6, N_{B,t}=4}}
+\Frame {Error norm (3/6)}
 {
+\I \m {N_H=12, N_{B,t}=6, N_{B,r}=4}, 2 stages
 \blank [big]
-\externalfigure [error-small-wide-two.png] [width=11cm]
+\externalfigure [error-medium-wide-two.png] [width=11cm]
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Error norm (2 stages), \m {N_H=12, N_{B,t}=4, N_{B,t}=6}}
+\Frame {Error norm (4/6)}
 {
+\I \m {N_H=12, N_{B,t}=4, N_{B,r}=6}, 2 stages
 \blank [big]
-\externalfigure [error-small-tall-two.png] [width=11cm]
+\externalfigure [error-medium-tall-two.png] [width=11cm]
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Error norm (2 stages), \m {N_H=18, N_{B,t}=9, N_{B,t}=6}}
+\Frame {Error norm (5/6)}
 {
+\I \m {N_H=18, N_{B,t}=9, N_{B,r}=6}, 2 stages
 \blank [big]
-\externalfigure [error-small-wide-two.png] [width=11cm]
+\externalfigure [error-big-wide-two.png] [width=11cm]
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Error norm (2 stages), \m {N_H=18, N_{B,t}=6, N_{B,t}=9}}
+\Frame {Error norm (6/6)}
 {
+\I \m {N_H=18, N_{B,t}=6, N_{B,r}=9}, 2 stages
 \blank [big]
-\externalfigure [error-small-tall-two.png] [width=11cm]
+\externalfigure [error-big-tall-two.png] [width=11cm]
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Discussion}
@@ -74,9 +80,9 @@
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Complexity}
 {
-\I Let \m {C} denote big-O estimation of complexity, then we argue in the treatise
+\I Let \m {C} denote big-O estimation of complexity, then
 \Disp {
-\NC C_{\Rm {OMP}} =\NC \mathcal {O} \SB {N_H^2 \log N_B} \NR
+\NC C_{\Rm {OMP}} =\NC \mathcal {O} \SB {N_H^2 \log \R {N_{B,t} N_{B,r}}} \NR
 \NC C_{\Rm {Lasso}} =\NC \mathcal {O} \SB {N_H^6} \NR
 \NC C_{\Rm {DS}} =\NC \mathcal {O} \SB {N_{H}^6} \NR
 }

@@ -55,7 +55,7 @@ With these, we define
 \DispNum {y:y:Ry:Ny} {
 \tilde {\V {y}}
 = \mathcal {R} \SB {\V {y}}
-\in \mathbb {R} ^{2 N_B^2} \\
+\in \mathbb {R} ^{2 N_{B,t} N_{B,r}} \\
 %
 \tilde {\V {g}}
 = \mathcal {R} \SB {\V {g}}
@@ -63,15 +63,15 @@ With these, we define
 %
 \tilde {\M {P}}
 = \mathcal {R} \SB {\M {P}}
-\in \mathbb {R} ^{2 N_B^2 \D 2 N_H^2} \\
+\in \mathbb {R} ^{2 N_{B,t} N_{B,r} \D 2 N_H^2} \\
 %
 \tilde {\M {P}} ^\Adj
 = \mathcal {R} \SB {\M {P} ^\Adj}
-\in \mathbb {R} ^{2 N_B^2 \D 2 N_H^2} \\
+\in \mathbb {R} ^{2 N_{B,t} N_{B,r} \D 2 N_H^2} \\
 %
 \tilde {\V {z}}
 = \mathcal {R} \SB {\V {z}}
-\in \mathbb {R} ^{2 N_B^2} 
+\in \mathbb {R} ^{2 N_{B,t} N_{B,r}} 
 }
 %
 so, by construction,
@@ -231,115 +231,124 @@ If the tolerance parameters are set too small, the program often gives overflowi
 And if they are set too big, the Newton steps get imprecise and the performance is poorer.
 More tests are necessary to determine the best choice of parameters.
 
-\subsection {Plots of assorted methods}
-
-In the following, we plot the reciprocal of noise level vs relative error norm in log scale, for different values and ratios of \m {N_H} and \m {N_B}.
+\subsection {Plots of \m {N_H = 6}}
 
 \begin {figure} [hbt]
-\includegraphics [width = \textwidth] {assorted-square-small-error.png}
-\caption {Assorted methods, \m {N_B = 12, N_H = 12}, error norm.}
-\end {figure}
-%
-\begin {figure} [hbt]
-\includegraphics [width = \textwidth] {assorted-square-medium-error.png}
-\caption {Assorted methods, \m {N_B = 18, N_H = 18}, error norm.}
-\end {figure}
-%
-\begin {figure} [hbt]
-\includegraphics [width = \textwidth] {assorted-square-big-error.png}
-\caption {Assorted methods, \m {N_B = 24, N_H = 24}, error norm.}
-\end {figure}
-%
-\begin {figure} [hbt]
-\includegraphics [width = \textwidth] {assorted-narrow-small-error.png}
-\caption {Assorted methods, \m {N_B = 10, N_H = 12}, error norm.}
-\end {figure}
-%
-\begin {figure} [hbt]
-\includegraphics [width = \textwidth] {assorted-narrow-medium-error.png}
-\caption {Assorted methods, \m {N_B = 15, N_H = 18}, error norm.}
-\end {figure}
-%
-\begin {figure} [hbt]
-\includegraphics [width = \textwidth] {assorted-narrow-big-error.png}
-\caption {Assorted methods, \m {N_B = 20, N_H = 24}, error norm.}
-\end {figure}
-%
-\begin {figure} [hbt]
-\includegraphics [width = \textwidth] {assorted-wide-small-error.png}
-\caption {Assorted methods, \m {N_B = 8, N_H = 12}, error norm.}
-\end {figure}
-%
-\begin {figure} [hbt]
-\includegraphics [width = \textwidth] {assorted-wide-medium-error.png}
-\caption {Assorted methods, \m {N_B = 12, N_H = 18}, error norm.}
-\end {figure}
-%
-\begin {figure} [hbt]
-\includegraphics [width = \textwidth] {assorted-wide-big-error.png}
-\caption {Assorted methods, \m {N_B = 16, N_H = 24}, error norm.}
+\includegraphics [width = \textwidth] {error-small-square-two.png}
+\caption {\m {N_{B,t} = 3, N_{B,r} = 3, N_H = 6}, with \m {2} stages, error.}
 \end {figure}
 
-As for the plot of time taken in minutes, we give only one example of \m {N_H = 16}.
-%
 \begin {figure} [hbt]
-\includegraphics [width = \textwidth] {assorted-narrow-medium-time.png}
-\caption {Assorted methods, \m {N_B = 15, N_H = 18}, time.}
+\includegraphics [width = \textwidth] {error-small-tall-two.png}
+\caption {\m {N_{B,t} = 2, N_{B,r} = 3, N_H = 6}, with \m {2} stages, error.}
 \end {figure}
 
-\subsection {Plots of DS only}
-
-Again, we plot the reciprocal of noise level vs relative error norm in log scale, for \m {N_H = 8, 12, 16, 20, 24}, respectively, and \m {N_H = 3 N_B} for each of them.
-Here, \m {\tilde {\chi}} is shown too.
-%
 \begin {figure} [hbt]
-\includegraphics [width = \textwidth] {ddss-narrow-small-error.png}
-\caption {DS, \m {N_B = 10, N_H = 12}, error.}
-\end {figure}
-%
-\begin {figure} [hbt]
-\includegraphics [width = \textwidth] {ddss-narrow-medium-error.png}
-\caption {DS, \m {N_B = 15, N_H = 18}, error.}
-\end {figure}
-%
-\begin {figure} [hbt]
-\includegraphics [width = \textwidth] {ddss-narrow-big-error.png}
-\caption {DS, \m {N_B = 20, N_H = 24}, error.}
-\end {figure}
-%
-As for the plot of time taken in minutes, we give only one example of \m {N_H = 18}.
-%
-\begin {figure} [hbt]
-\includegraphics [width = \textwidth] {ddss-narrow-medium-time.png}
-\caption {DS, \m {N_B = 15, N_H = 18}, time.}
+\includegraphics [width = \textwidth] {error-small-wide-two.png}
+\caption {\m {N_{B,t} = 3, N_{B,r} = 2, N_H = 6}, with \m {2} stages, error.}
 \end {figure}
 
-\subsection {Plots of OMP only}
+\begin {figure} [hbt]
+\includegraphics [width = \textwidth] {error-small-square-four.png}
+\caption {\m {N_{B,t} = 3, N_{B,r} = 3, N_H = 6}, with \m {4} stages, error.}
+\end {figure}
 
-Again, we plot the reciprocal of noise level vs relative error norm in log scale, for \m {N_H = 8, 12, 16, 20, 24}, respectively, and \m {N_H = 3 N_B} for each of them.
+\begin {figure} [hbt]
+\includegraphics [width = \textwidth] {error-small-tall-four.png}
+\caption {\m {N_{B,t} = 2, N_{B,r} = 3, N_H = 6}, with \m {4} stages, error.}
+\end {figure}
 
-%
 \begin {figure} [hbt]
-\includegraphics [width = \textwidth] {oommpp-square-small-error.png}
-\caption {OMP, \m {N_H = 12, N_B = 12}, error.}
+\includegraphics [width = \textwidth] {error-small-wide-four.png}
+\caption {\m {N_{B,t} = 3, N_{B,r} = 2, N_H = 6}, with \m {4} stages, error.}
 \end {figure}
-%
+
+\subsection {Plots of \m {N_H = 12}}
+
 \begin {figure} [hbt]
-\includegraphics [width = \textwidth] {oommpp-square-medium-error.png}
-\caption {OMP, \m {N_H = 18, N_B = 18}, error.}
+\includegraphics [width = \textwidth] {error-medium-square-two.png}
+\caption {\m {N_{B,t} = 6, N_{B,r} = 6, N_H = 12}, with \m {2} stages, error.}
 \end {figure}
-%
+
 \begin {figure} [hbt]
-\includegraphics [width = \textwidth] {oommpp-square-big-error.png}
-\caption {OMP, \m {N_H = 24, N_B = 24}, error.}
+\includegraphics [width = \textwidth] {error-medium-tall-two.png}
+\caption {\m {N_{B,t} = 4, N_{B,r} = 6, N_H = 12}, with \m {2} stages, error.}
 \end {figure}
-%
-As for the plot of time taken in minutes, we give only one example of \m {N_H = 18}.
-%
+
 \begin {figure} [hbt]
-\includegraphics [width = \textwidth] {oommpp-square-medium-time.png}
-\caption {OMP, \m {N_H = 18, N_B = 18}, time.}
+\includegraphics [width = \textwidth] {error-medium-wide-two.png}
+\caption {\m {N_{B,t} = 6, N_{B,r} = 4, N_H = 12}, with \m {2} stages, error.}
 \end {figure}
+
+\begin {figure} [hbt]
+\includegraphics [width = \textwidth] {error-medium-square-four.png}
+\caption {\m {N_{B,t} = 6, N_{B,r} = 6, N_H = 12}, with \m {4} stages, error.}
+\end {figure}
+
+\begin {figure} [hbt]
+\includegraphics [width = \textwidth] {error-medium-tall-four.png}
+\caption {\m {N_{B,t} = 4, N_{B,r} = 6, N_H = 12}, with \m {4} stages, error.}
+\end {figure}
+
+\begin {figure} [hbt]
+\includegraphics [width = \textwidth] {error-medium-wide-four.png}
+\caption {\m {N_{B,t} = 3, N_{B,r} = 2, N_H = 12}, with \m {4} stages, error.}
+\end {figure}
+
+
+\subsection {Plots of \m {N_H = 18}}
+
+\begin {figure} [hbt]
+\includegraphics [width = \textwidth] {error-small-square-two.png}
+\caption {\m {N_{B,t} = 12, N_{B,r} = 12, N_H = 18}, with \m {2} stages, error.}
+\end {figure}
+
+\begin {figure} [hbt]
+\includegraphics [width = \textwidth] {error-small-tall-two.png}
+\caption {\m {N_{B,t} = 8, N_{B,r} = 12, N_H = 18}, with \m {2} stages, error.}
+\end {figure}
+
+\begin {figure} [hbt]
+\includegraphics [width = \textwidth] {error-small-wide-two.png}
+\caption {\m {N_{B,t} = 12, N_{B,r} = 8, N_H = 18}, with \m {2} stages, error.}
+\end {figure}
+
+\begin {figure} [hbt]
+\includegraphics [width = \textwidth] {error-small-square-two.png}
+\caption {\m {N_{B,t} = 12, N_{B,r} = 12, N_H = 18}, with \m {4} stages, error.}
+\end {figure}
+
+\begin {figure} [hbt]
+\includegraphics [width = \textwidth] {error-small-tall-two.png}
+\caption {\m {N_{B,t} = 8, N_{B,r} = 12, N_H = 18}, with \m {4} stages, error.}
+\end {figure}
+
+\begin {figure} [hbt]
+\includegraphics [width = \textwidth] {error-small-wide-two.png}
+\caption {\m {N_{B,t} = 12, N_{B,r} = 8, N_H = 18}, with \m {4} stages, error.}
+\end {figure}
+
+
+\subsection {Plots of runtime}
+
+\begin {figure} [hbt]
+\includegraphics [width = \textwidth] {error-small-square-two.png}
+\caption {\m {N_{B,t} = 3, N_{B,r} = 3, N_H = 6}, with \m {4} stages, time.}
+\end {figure}
+
+
+\begin {figure} [hbt]
+\includegraphics [width = \textwidth] {error-medium-square-two.png}
+\caption {\m {N_{B,t} = 6, N_{B,r} = 6, N_H = 12}, with \m {4} stages, time.}
+\end {figure}
+
+
+\begin {figure} [hbt]
+\includegraphics [width = \textwidth] {error-big-square-two.png}
+\caption {\m {N_{B,t} = 9, N_{B,r} = 9, N_H = 18}, with \m {4} stages, time.}
+\end {figure}
+
+
 
 \subsection {Discussion}
 
@@ -481,10 +490,10 @@ They gave
 %
 \DispNum {C:P:ON:NY} {
 C_{\mathrm {OMP}}
-=\mathcal {O} \SB {N_H^2 \log N_B} 
+=\mathcal {O} \SB {N_H^2 \log \R {N_{B,t} N_{B,r}}} 
 }
 %
-Here \m {\log N_B} is small in our experiments, and if we dropped some constants and \m {\log N_B}, then we may assume \m {\mathcal {O} \SB {N_H^2}}.
+Here \m {\log N_{B,t}, \log N_{B,r}} are small in our experiments, and if we drop them we may assume \m {\mathcal {O} \SB {N_H^2}}.
 
 Lastly, since Lasso involves the same target function as DS, the same argument is valid, giving \m {C_{\mathrm {Lasso}} =\mathcal {O} \SB {N_H^6}}.
 

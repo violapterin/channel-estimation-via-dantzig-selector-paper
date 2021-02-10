@@ -174,7 +174,7 @@ It is not impossible to run it for three or more times, but we are not sure that
 
 From our observation, it is not obvious whether the successive estimation method is more accurate.
 It might have something to do with appropriately scaling \m {\g_{\Rm {DS}}} with respect to \m {N_H}, and it is not obvious what the best choice is.
-We do not use this method in the plots included here.
+We have not used this method in the plots included here.
 
 \stopsubsection
 
@@ -188,8 +188,8 @@ It is known that DS is equivalent to the basis pursuit denoising form below, for
 \RB {\VNm {\V {g}'} _1 + \l \VNm {\M {P}^\Adj \RB {\V {y} -\M {P} \V {g}'}} _\infty} \NR
 }
 
-However, there is not simple way to determine the value of \m {\l}.
-We try \m {\l = N_H^2 / \g_{\Rm {DS}}} in the simulation.
+However, there is not simple way to determine the value of \m {\l} in advance.
+We have tried \m {\l = N_H^2 / \g_{\Rm {DS}}} in the simulation.
 
 \stopsubsection
 
@@ -197,7 +197,7 @@ We try \m {\l = N_H^2 / \g_{\Rm {DS}}} in the simulation.
 
 \startsubsection [title={Settings}]
 
-In addition to DS, we shall simulate OMP for three different stop conditions, Lasso, and Moore Penrose pseudoinverse (marked as LS which stands for least square).
+In addition to DS, we shall simulate OMP for two different stop conditions, Lasso, and Moore Penrose pseudoinverse (marked as LS which stands for least square).
 
 To get some idea on the order of magnitude of noise-to-signal level, plug in some actual numbers.
 Consider only path loss in the simplest form according to Friis Law.
@@ -214,31 +214,30 @@ If so, the noise-to-signal ratio is
 We use dimensionless noise level \m {\s} which takes value starting with \m {2^{-4}}, and being multiplied by powers of \m {2}.
 For the plots of assorted methods, \m {7} values of \m {\s} are considered; for the plots of DS or OMP only, \m {9} values are considered.
 
-We take \m {N_H} to be \m {12, 18, 24}, respectively.
+We take \m {N_H} to be \m {6, 12, 18}, respectively.
 For assorted plots, three series of plots are simulated.
-The first series for \m {N_{B,t} = N_H/3} and \m {N_{B,r} = N_H/4}.
-The second series for \m {N_{B,t} = N_H/4} and \m {N_{B,r} = N_H/3}.
-The third series for \m {N_{B,t} = N_H/3} and \m {N_{B,r} = N_H/3}.
+The first series for \m {N_{B,t} = N_H/2} and \m {N_{B,r} = N_H/3}.
+The second series for \m {N_{B,t} = N_H/3} and \m {N_{B,r} = N_H/2}.
+The third series for \m {N_{B,t} = N_H/2} and \m {N_{B,r} = N_H/2}.
 Unfortunately, this is very far from achieving the ideal values \Rf {N:B:4l:H2}, and this may be part of the reason the result is not as successful as expected.
 
 Other parameters are fixed in these experiments.
-The number of grid of quantization of analog beamformers is \m {16}.
-The number of paths \m {L} is \m {4}.
-The wavelength of carrier \m {\l _{\Rm {ant}}} is set to be \m {0.1}, and the antenna spacing \m {d _{\Rm {ant}}} is \m {0.2}; only their ratio matters.
-
+The number of grid of quantization of phase shifters is \m {16}.
+The number of paths \m {L = NN_HH /2}.
+The ratio of the wavelength of carrier over the antenna spacing, \m {\l _{\Rm {ant}} / d _{\Rm {ant}} = 1 / 2}.
 
 Denote the threshold for DS to be \m {\g_{\Rm {DS}}}, and similar threshold of Lasso to be \m {\g_{\Rm {Lasso}}}.
-In the plots of assorted methods, we set \m {\g_{\Rm {DS}} = 2 \R {\log N_H}} as suggested in \cite [CaT07].
+We set \m {\g_{\Rm {DS}} = 2 \R {\log N_H}} as suggested in \cite [CaT07].
 For sake of comparison, \m {\g_{\Rm {Lasso}} = 2 \R {\log N_H}} too.
-For OMP, suggested values in Cai and Wang \cite [CaW11] is illuminating, where they considered \m {\ell _2}-norm in their Theorem 7, and \m {\ell _\infty}-norm in their Theorem 8.
-We simply take \m {\h_{\Rm {OMP}} = 2 \R {\log N_H}} for \m {\infty}-norm constraint, \m {\h_{\Rm {OMP}} = \R {3 \R {N_{B,r} N_{B,t}}}} for 2-norm constraint.
+For OMP, we consult Cai and Wang \cite [CaW11] for \m {\ell _2}-norm condition in their Theorem 7, and \m {\ell _\infty}-norm condition in their Theorem 8.
+We take \m {\h_{\Rm {OMP}} = 2 \R {\log N_H}} for \m {\infty}-norm condition, \m {\h_{\Rm {OMP}} = \R {3 \R {N_{B,r} N_{B,t}}}} for 2-norm condition.
 Particularly, in the plots of DS only or OMP only, we vary the values of \m {\g_{\Rm {DS}}} and \m {\h_{\Rm {OMP}}} by powers of \m {2}, to observe the effects of thresholds.
 The maximal number of iteration of CVXPY is set to be \m {32}, and that of OMP is set to be \m {4 \R {N_{B,r} N_{B,t}}}.
 
 Each data point for DS and Lasso is repeated for \m {256} times, and taken arithmetic average.
-Other methods are repeated for more times: OMP for \m {4 \D 256} times, LS for \m {12 \D 256} times.
+Other methods are repeated for more times: OMP for \m {4 \D 256} times, LS for \m {8 \D 256} times.
 
-For performance metric, we follow Lee, Gil, and Lee \cite [LGL16],
+For performance metric, we follow Lee, Gil, and Lee \cite [LGL16] to use
 \DispNum {h:h:lo:vg} {
 \NC \T {\chi}
 =\NC \RB {
@@ -246,8 +245,8 @@ For performance metric, we follow Lee, Gil, and Lee \cite [LGL16],
    {\log_2 {\VNm {\V {h}}_2}}
 } _{\Ss {avg}}, \NR
 }
-However, we note that when \m {\VNm {\V {h}}_2} is small, this can blow up.
-We do not know either whether \m {\T {\chi}} is a good indicator of channel capacity; it seems to be, but actually we did not consider a definite a channel model in this treatise.
+However, we remark that when \m {\VNm {\V {h}}_2} is small, this can blow up.
+Indeed, since we did not consider a definite a channel model in this treatise, \m {\T {\chi}} may not necessarily be proportional to the channel capacity
 
 The parameters related to precision of the Newton step may be adjusted from CVXPY's class methods.
 We set the maximum absolute tolerance to be \m {5 \D 10 ^ {-7}},
@@ -255,7 +254,7 @@ the maximum relative tolerance to be \m {5 \D 10 ^ {-6}},
 the maximum feasible tolerance to be \m {5 \D 10 ^ {-7}}.
 If the tolerance parameters are set too small, the program often gives overflowing values, perhaps because it was not able to find feasible solutions.
 And if they are set too big, the Newton steps get imprecise and the performance is poorer.
-More tests are necessary to determine the best choice of parameters.
+It remains to determine the best choice of parameters.
 
 \stopsubsection
 
@@ -382,7 +381,7 @@ It is intuitive that when \m {N_{B,t} /N_{B,r}} is smaller, \m {\T {\chi}} is sm
 As \m {N_{B,t} /N_{B,r}} increase for given \m {\s}, the DS line improves more significantly, and \m {\T {\chi}} falls nearly always below \m {0} dB for \m {N_{B,t} > N_{B,r}} case.
 
 The design of sample matrix seems to have a lot to do with the performance of OMP.
-In Lee, Gil, and Lee \cite [LGL16], a high-complexity nonconvex program is used to design the beamformers, while we have here a low-complexity, random generation of beamformers.
+In Lee, Gil, and Lee \cite [LGL16], a high-complexity nonconvex program is used to design the sensing matrix, while we have here a low-complexity, random generation of beamforming matrices.
 It may also have something to do with the distribution of angles of departure and arrival.
 
 The performance of Lasso also fails mostly for low noise.
