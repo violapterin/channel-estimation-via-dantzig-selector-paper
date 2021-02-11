@@ -23,7 +23,7 @@ def execute (ver):
    time_tot_start = time.time ()
    for i_s_g in range (cst.NUM_S_G ()):
       s_g = cst.S_G_INIT () * (cst.SCALE_S_G () ** i_s_g)
-      print ("σ = ", '%.2f' % s_g, " :", sep = '')
+      print ("noise: ", '%.2f' % s_g, " :", sep = '')
       lst_err = [0] * cst.NUM_MET ()
       lst_time = [0] * cst.NUM_MET ()
       for j_met in range (cst.NUM_MET ()):

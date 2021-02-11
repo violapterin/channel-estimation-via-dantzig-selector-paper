@@ -1,13 +1,15 @@
 
 \chapter* {Abstract}
 
-Multiple-input-multiple-output (MIMO) is the future of wireless communication, but the large number of antennae makes it difficult to estimate its channel state information.
-Since millimeter wave (mm-Wave) band, which is often used together with MIMO, is known to exhibit sparsity, results on compressive sensing suggest that, on mm-Wave band, fewer channel measurements shall suffice.
-Current literature prefers orthogonal matching pursuit (OMP) due to its lower complexity.
-It is interesting to note that Dantzig Selector (DS), claimed to have various performance guarantee, has seldom been examined.
+Multiple-input multiple-output communication system in millimeter wave band is gradually being adopted.
+However, channel estimation becomes considerably difficult, due to the larger antennae array, and greedy algorithms such as Orthogonal Matching Pursuit are sometimes used reduce the complexity.
+Meanwhile, hybrid beamforming is often used to reduce the number of RF chains, and with such constraint, fully digital designs cannot be directly applied, and fully analog designs might not be optimal.
 
-In this treatise, we consider a mm-Wave MIMO channel, and a hybrid beamforming structure at both the transmitter and receiver end.
-We demonstrate that DS can be applied on a entrywise i.i.d.\ random beamformers, and give a bound for its expected error norm, which holds for high probability.
-DS is cast as a linear program, and simulation is done, showing that, in our problem setting, DS is superior in terms of relative error norm.
+We consider a hybrid structure with uniform linear array with both precoders and combiners on each side.
+We generate random beamforming matrices, and use Dantzig Selector to estimate the channel in the space frequency domain, and we give a quantitative bound (which holds for high probability) on expected error norm.
+
+To reduce the complexity, we cast it as a linear program, and also suggest the basis pursuit denoising form.
+Numerical results show that DS is superior, especially when the sample is less sufficient and the noise level is higher.
+We therefore propose that DS may be used as the number of RF chains is more limited, or when fewer stages of estimation is possible.
 
 

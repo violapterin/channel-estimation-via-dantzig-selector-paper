@@ -138,12 +138,12 @@ We remark some possible variants of DS, either to enhance the accuracy, or to re
 
 \startsubsection [title={Successive estimation of nonzero components}]
 
-We may applied DS more than once to better estimate the nonzero components, which let us call the successive estimation method.
-We apply DS for the first time.
-Then we extract largest components of the estimated vector, and apply DS again.
-Then we extract largest components of the second estimated vector, and apply Moore–Penrose inverse.
-Finally, the resulting indices set has to be scrambled back corresponding to the original ones.
-The idea is mentioned \cite [CaT07] without further numerical verification.
+We can apply DS more than once to better estimate the nonzero components;
+let us call it the successive estimation \cite [CaT07].
+We apply DS for the first time, and we extract largest components of the estimated vector.
+Then and apply DS again, and we extract largest components of the second estimated vector.
+Finally, we apply Moore–Penrose inverse as the solution.
+The resulting indices set has to be scrambled back according to the original indices.
 
 \Result
 {Algorithm}
@@ -169,11 +169,11 @@ The idea is mentioned \cite [CaT07] without further numerical verification.
 \stopitemize
 }
 
-If more than one stage of estimation is possible, that is, there are more than one data set, the second step may be run on the second dataset, and so on.
-It is not impossible to run it for three or more times, but we are not sure that is helpful.
+If more than one stage of estimation is possible, that is, there are more than one data sets, the second stage may be run on the second dataset, and so on.
+It is possible in theory to run it for three or more times.
 
-From our observation, it is not obvious whether the successive estimation method is more accurate.
-It might have something to do with appropriately scaling \m {\g_{\Rm {DS}}} with respect to \m {N_H}, and it is not obvious what the best choice is.
+From our observation, it is not conclusive whether the successive estimation method is more accurate, and whether a third or more stage is helpful.
+It might have something to do with appropriately scaling \m {\g_{\Rm {DS}}} with respect to \m {N_H}.
 We have not used this method in the plots included here.
 
 \stopsubsection
@@ -189,7 +189,9 @@ It is known that DS is equivalent to the basis pursuit denoising form below, for
 }
 
 However, there is not simple way to determine the value of \m {\l} in advance.
-We have tried \m {\l = N_H^2 / \g_{\Rm {DS}}} in the simulation.
+We have tried basis pursuit denoising, with \m {\l = N_H^2 / \g_{\Rm {DS}}} in the simulation.
+
+
 
 \stopsubsection
 
@@ -211,9 +213,7 @@ If so, the noise-to-signal ratio is
 =\NC 0.224 \NR
 }
 
-We use dimensionless noise level \m {\s} which takes value starting with \m {2^{-4}}, and being multiplied by powers of \m {2}.
-For the plots of assorted methods, \m {7} values of \m {\s} are considered; for the plots of DS or OMP only, \m {9} values are considered.
-
+We use dimensionless noise level \m {\s} which takes value starting with \m {2^{-4}}, and being multiplied by powers of \m {2}, for \m {6} values.
 We take \m {N_H} to be \m {6, 12, 18}, respectively.
 For assorted plots, three series of plots are simulated.
 The first series for \m {N_{B,t} = N_H/2} and \m {N_{B,r} = N_H/3}.
@@ -223,19 +223,27 @@ Unfortunately, this is very far from achieving the ideal values \Rf {N:B:4l:H2},
 
 Other parameters are fixed in these experiments.
 The number of grid of quantization of phase shifters is \m {16}.
-The number of paths \m {L = NN_HH /2}.
+The number of paths \m {L = N_H /2}.
 The ratio of the wavelength of carrier over the antenna spacing, \m {\l _{\Rm {ant}} / d _{\Rm {ant}} = 1 / 2}.
 
 Denote the threshold for DS to be \m {\g_{\Rm {DS}}}, and similar threshold of Lasso to be \m {\g_{\Rm {Lasso}}}.
 We set \m {\g_{\Rm {DS}} = 2 \R {\log N_H}} as suggested in \cite [CaT07].
 For sake of comparison, \m {\g_{\Rm {Lasso}} = 2 \R {\log N_H}} too.
 For OMP, we consult Cai and Wang \cite [CaW11] for \m {\ell _2}-norm condition in their Theorem 7, and \m {\ell _\infty}-norm condition in their Theorem 8.
-We take \m {\h_{\Rm {OMP}} = 2 \R {\log N_H}} for \m {\infty}-norm condition, \m {\h_{\Rm {OMP}} = \R {3 \R {N_{B,r} N_{B,t}}}} for 2-norm condition.
+We take \m {\h_{\Rm {OMP}} = 2 \R {\log N_H}} for \m {\infty}-norm condition, \m {\h_{\Rm {OMP}} = \R {3} \SB {N_{B,r} N_{B,t}} ^ {1/4}} for 2-norm condition.
 Particularly, in the plots of DS only or OMP only, we vary the values of \m {\g_{\Rm {DS}}} and \m {\h_{\Rm {OMP}}} by powers of \m {2}, to observe the effects of thresholds.
 The maximal number of iteration of CVXPY is set to be \m {32}, and that of OMP is set to be \m {4 \R {N_{B,r} N_{B,t}}}.
 
 Each data point for DS and Lasso is repeated for \m {256} times, and taken arithmetic average.
 Other methods are repeated for more times: OMP for \m {4 \D 256} times, LS for \m {8 \D 256} times.
+
+The parameters related to precision of the Newton step may be adjusted from CVXPY's class methods.
+We set the maximum absolute tolerance to be \m {5 \D 10 ^ {-7}},
+the maximum relative tolerance to be \m {5 \D 10 ^ {-6}},
+the maximum feasible tolerance to be \m {5 \D 10 ^ {-7}}.
+If the tolerance parameters are set too small, the program often gives overflowing values, perhaps because it was not able to find feasible solutions.
+And if they are set too big, the Newton steps get imprecise and the performance is poorer.
+It remains to determine the best choice of parameters.
 
 For performance metric, we follow Lee, Gil, and Lee \cite [LGL16] to use
 \DispNum {h:h:lo:vg} {
@@ -246,15 +254,7 @@ For performance metric, we follow Lee, Gil, and Lee \cite [LGL16] to use
 } _{\Ss {avg}}, \NR
 }
 However, we remark that when \m {\VNm {\V {h}}_2} is small, this can blow up.
-Indeed, since we did not consider a definite a channel model in this treatise, \m {\T {\chi}} may not necessarily be proportional to the channel capacity
-
-The parameters related to precision of the Newton step may be adjusted from CVXPY's class methods.
-We set the maximum absolute tolerance to be \m {5 \D 10 ^ {-7}},
-the maximum relative tolerance to be \m {5 \D 10 ^ {-6}},
-the maximum feasible tolerance to be \m {5 \D 10 ^ {-7}}.
-If the tolerance parameters are set too small, the program often gives overflowing values, perhaps because it was not able to find feasible solutions.
-And if they are set too big, the Newton steps get imprecise and the performance is poorer.
-It remains to determine the best choice of parameters.
+Indeed, since we did not consider a definite a channel model in this treatise, \m {\T {\chi}} may not necessarily be proportional to the channel capacity.
 
 \stopsubsection
 
@@ -428,14 +428,13 @@ We discuss the complexity of DS, Lasso, and OMP.
 
 \stopsubsection
 
-\stopsubsection
-
-
-In general, complexity of convex programs is difficult to analyze, in that it is not easily to determine how many steps were calculated.
 Suppose a linear program has \m {N} dimension variable and \m {M} inequality constraints, then the complexity is \m {\MS {O} \SB {N^2 M}}, assuming the Dantzig simplex method is used (\cite [BoV04], p.6).
 For our case, that would be \m {\MS {O} \SB {4 N_H ^4 \D 8 N_H^2} = \MS {O} \SB {N_H^6}}.
+But other algorithms exist, where, in general, complexity of convex programs is difficult to analyze, as it is not easily to determine how many steps were calculated.
 
-Alternatively, suppose Newton method is used, and we have self-concordance for linear program.
+Alternatively, suppose Newton method is used.
+Here, we have self-concordance for linear program.
+Let \m {\V {g} _0} denote the starting value of \m {\V {g}'}, and \m {\V {g} ^{\star}} the the point of convergence.
 Then the number of Newton steps is bounded \cite [BoV04] by
 %
 \Disp {
@@ -444,9 +443,7 @@ Then the number of Newton steps is bounded \cite [BoV04] by
 + \log_2 \log_2 \F {1} {\e}} \NR
 }
 %
-Let \m {\V {g} _0} denote the starting value of \m {\V {g}'}, and \m {\V {g} ^{\star}} the the point of convergence.
-Then Boyd and Vandenberghe \cite [BoV04] (p.505, Eqn.9.56) gave a bound of the number of steps.
-If we just take that as the complexity bound for DS, it becomes
+If we just take that as the complexity bound for DS,
 %
 \DispNum {C:S:C0:1e'} {
 \NC C_{\Rm {DS}}
@@ -532,8 +529,9 @@ Here \m {\log \RB {N_{B,r} N_{B,t}}} is small in our experiments, and if we drop
 
 \startsubsection [title={Lasso}]
 
-Lasso is equivalent to a QCQP, and there is not always a closed form for its complexity.
-However, Lasso and DS are equivalent in certain conditions \cite [AsR10], and we may suppose here they have the same complexity.
+Lasso is equivalent to a quadratically constrained quadratic program, and there is not always a closed form for its complexity.
+However, Lasso and DS are equivalent in certain conditions \cite [AsR10], and we may suppose here they have the same complexity, \m {\MS {O} \SB {N_H^6}}.
+
 Alternatively, an argument similar to the above one for DS is valid for Lasso.
 
 Therefore we take
@@ -546,13 +544,13 @@ Therefore we take
 
 \startsubsection [title={Runtime statistics}]
 
-All plots included in this treatise, in total, took probably one month to run.
-Figures 6 and 10 each took about \m {3} days.
+All plots included in this treatise, in total, took about one month to run.
+Figures for \m {N_H = 18} each took about \m {3} days.
 The computer has \m {32} GB RAM, and Intel Core i9 processor.
-Simulation ran on Linux subsystem 2 of Windows 10.
+Simulation was run on Linux subsystem 2 of Windows 10.
 
 Use \m {t_{\Rm {OMP}} \SB {N_H}}, \m {t_{\Rm {Lasso}} \SB {N_H}}, \m {t_{\Rm {DS}} \SB {N_H}} to denote their respective time taken.
-We reproduce the arithmetic average (including different \m {\s}) of simulated values below, in seconds.
+We here copy the arithmetic average (including different \m {\s}) of simulated values below, in seconds.
 They are: \m {
  t_{\Rm {OMP}} \SB {12}  = 0.0119,
  t_{\Rm {OMP}} \SB {16} = 0.0297, 
@@ -570,14 +568,14 @@ They are: \m {
  t_{\Rm {DS}} \SB {24} = 91.5
 }.
 
-Simulation illustrates that \m {t_{\Rm {DS}}} grows tremendously with (in our case) \m {N_H}, agreeing the criticism by Friedlander and Saunders \cite [FrS07] on the high complexity of DS.
-It is not surprising, regarding the fact that the convex program has to find the Newton step by calculating (in our case) \m {\M {P}}, a matrix of dimension \m {\M {N}_H^2}.
+Simulation illustrates that \m {t_{\Rm {DS}}} grows tremendously with \m {N_H}, agreeing the criticism by Friedlander and Saunders \cite [FrS07] on the high complexity of DS.
+It is not surprising, regarding the fact that the convex program has to find the Newton step by calculating \m {\M {P}}, a matrix of dimension \m {\M {N}_H^2}.
 The matrix inversion is probably the bottleneck of complexity.
 However, as we noted above, that different tolerance level of and maximal iteration number may result in vastly different computation time.
 
 Meanwhile, \m {t_{\Rm {Lasso}}} and \m {t_{\Rm {OMP}}} are often an order of magnitude lower than \m {t_{\Rm {DS}}}.
 In general, \m {t_{\Rm {DS}} \gg t_{\Rm {Lasso}} \gg t_{\Rm {OMP}}}.
-It is now wonder that, given that OMP is a greedy algorithm, the time OMP takes is negligibly small.
+It is not surprising that, given that OMP is a greedy algorithm, the time OMP takes is negligibly small.
 But it is also notable that, while Lasso has form similar to DS, it takes much lower time.
 
 Assuming the complexity of each of three methods is polynomial time, we calculate a least square fit for the power of complexity, giving the following estimated values, on which we add a tilde.

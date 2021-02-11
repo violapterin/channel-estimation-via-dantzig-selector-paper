@@ -128,15 +128,18 @@ It is now straightforward to see that DS is equivalent to a linear program.
 \end {itemize}
 }
 
-\subsection {A Two-Stage Version}
+\section {Variants}
 
-We also tried another version of DS, in which DS is applied twice in estimated nonzero components.
-The two-stage method was briefly mentioned \cite {CaT07} without further numerical verification.
-It goes as follows:
-We first apply DS as before;
-we extract largest components of the estimated vector, and apply DS again;
-we extract largest components of the second estimated vector, and apply Moore–Penrose inverse;
-finally, indices set has to be scrambled back corresponding to the original ones.
+We remark some possible variants of DS, either to enhance the accuracy, or to reduce the complexity, or both.
+
+\subsection {Successive estimation of nonzero components}
+
+We can apply DS more than once to better estimate the nonzero components;
+let us call it the successive estimation \cite [CaT07].
+We apply DS for the first time, and we extract largest components of the estimated vector.
+Then and apply DS again, and we extract largest components of the second estimated vector.
+Finally, we apply Moore–Penrose inverse as the solution.
+The resulting indices set has to be scrambled back according to the original indices.
 
 \Result
 {Algorithm}
@@ -162,8 +165,25 @@ N_1
 \end {itemize}
 }
 
-Unfortunately, the two-stage method is not always more accurate than the one-stage method, so we did not include it in the plots.
-It might have something to do with appropriately scaling \m {\g_{\mathrm {DS}}} with respect to \m {N_H}, and we do not know what the best choice is.
+If more than one stage of estimation is possible, that is, there are more than one data sets, the second stage may be run on the second dataset, and so on.
+It is possible in theory to run it for three or more times.
+
+From our observation, it is not conclusive whether the successive estimation method is more accurate, and whether a third or more stage is helpful.
+It might have something to do with appropriately scaling \m {\g_{\mathrm {DS}}} with respect to \m {N_H}.
+We have not used this method in the plots included here.
+
+\subsection {Basis pursuit denoising}
+
+It is known that DS is equivalent to the basis pursuit denoising form below, for suitable \m {\l} (\cite {BoV04}, p.334).
+
+\Disp {
+\Hat {\V {g}}
+\leftarrow \Min {\V {g}' \in \mathbb {C} ^{N_H^2}}
+\RB {\VNm {\V {g}'} _1 + \l \VNm {\M {P}^\Adj \RB {\V {y} -\M {P} \V {g}'}} _\infty}
+}
+
+However, there is not simple way to determine the value of \m {\l} in advance.
+We have tried basis pursuit denoising, with \m {\l = N_H^2 / \g_{\mathrm {DS}}} in the simulation.
 
 \section {Result}
 
@@ -183,45 +203,29 @@ If so, the noise-to-signal ratio is
 =0.224 
 }
 
-We use dimensionless noise level \m {\s} which takes value starting with \m {2^{-4}}, and being multiplied by powers of \m {2}.
-For the plots of assorted methods, \m {7} values of \m {\s} are considered; for the plots of DS or OMP only, \m {9} values are considered.
-
-We take \m {N_H} to be \m {12, 18, 24}, respectively.
-For assorted plots, two series of plots are simulated.
-The first series for \m {N_B = N_H}, giving \m {12, 18, 24}.
-The second series for \m {N_B = \lfloor 5 N_H /6 \rfloor}, giving \m {10, 15, 20}.
-The third series for \m {N_B = \lfloor 2 N_H /3 \rfloor}, giving \m {8, 12, 16}.
-For plots of OMP only, we consider \m {N_B = \lfloor N_H \rfloor}.
-For plots of DS only, we consider \m {N_B = \lfloor 5 N_H /6 \rfloor}.
-On the other hand, \m {N_R} always set to be \m {\lfloor \RB {\log N_H}^2 \rfloor}.
+We use dimensionless noise level \m {\s} which takes value starting with \m {2^{-4}}, and being multiplied by powers of \m {2}, for \m {6} values.
+We take \m {N_H} to be \m {6, 12, 18}, respectively.
+For assorted plots, three series of plots are simulated.
+The first series for \m {N_{B,t} = N_H/2} and \m {N_{B,r} = N_H/3}.
+The second series for \m {N_{B,t} = N_H/3} and \m {N_{B,r} = N_H/2}.
+The third series for \m {N_{B,t} = N_H/2} and \m {N_{B,r} = N_H/2}.
 Unfortunately, this is very far from achieving the ideal values \eqref {N:B:4l:H2}, and this may be part of the reason the result is not as successful as expected.
 
 Other parameters are fixed in these experiments.
-The number of grid of quantization of analog beamformers is \m {16}.
-The number of paths \m {L} is \m {4}.
-The wavelength of carrier \m {\l _{\mathrm {ant}}} is set to be \m {0.1}, and the antenna spacing \m {d _{\mathrm {ant}}} is \m {0.2}; only their ratio matters.
+The number of grid of quantization of phase shifters is \m {16}.
+The number of paths \m {L = N_H /2}.
+The ratio of the wavelength of carrier over the antenna spacing, \m {\l _{\mathrm {ant}} / d _{\mathrm {ant}} = 1 / 2}.
 
 Denote the threshold for DS to be \m {\g_{\mathrm {DS}}}, and similar threshold of Lasso to be \m {\g_{\mathrm {Lasso}}}.
-In the plots of assorted methods, we set \m {\g_{\mathrm {DS}} = 2 \R {\log N_H}} as suggested in \cite {CaT07}.
+We set \m {\g_{\mathrm {DS}} = 2 \R {\log N_H}} as suggested in \cite {CaT07}.
 For sake of comparison, \m {\g_{\mathrm {Lasso}} = 2 \R {\log N_H}} too.
-For OMP, suggested values in Cai and Wang \cite {CaW11} is illuminating, where they considered \m {\ell _2}-norm in their Theorem 7, and \m {\ell _\infty}-norm in their Theorem 8.
-We simply take \m {\h_{\mathrm {OMP}} = 2 \R {\log N_H}} for \m {\infty}-norm constraint, \m {\h_{\mathrm {OMP}} = \R {3 N_B}} for 2-norm constraint.
+For OMP, we consult Cai and Wang \cite {CaW11} for \m {\ell _2}-norm condition in their Theorem 7, and \m {\ell _\infty}-norm condition in their Theorem 8.
+We take \m {\h_{\mathrm {OMP}} = 2 \R {\log N_H}} for \m {\infty}-norm condition, \m {\h_{\mathrm {OMP}} = \R {3} \SB {N_{B,r} N_{B,t}} ^ {1/4}} for 2-norm condition.
 Particularly, in the plots of DS only or OMP only, we vary the values of \m {\g_{\mathrm {DS}}} and \m {\h_{\mathrm {OMP}}} by powers of \m {2}, to observe the effects of thresholds.
-The maximal number of iteration of CVXPY is set to be \m {32}, and that of OMP is set to be \m {4 N_B}.
+The maximal number of iteration of CVXPY is set to be \m {32}, and that of OMP is set to be \m {4 \R {N_{B,r} N_{B,t}}}.
 
 Each data point for DS and Lasso is repeated for \m {256} times, and taken arithmetic average.
 Other methods are repeated for more times: OMP for \m {4 \D 256} times, LS for \m {12 \D 256} times.
-
-For performance metric, we follow Lee, Gil, and Lee \cite {LGL16},
-\DispNum {h:h:lo:vg} {
-\tilde {\chi}
-=\RB {
-   \frac {\log_2 {\VNm {\V {h} -\hat {\V {h}}} _2}}
-   {\log_2 {\VNm {\V {h}}_2}}
-} _{\mathsf {avg}}, 
-}
-However, we note that when \m {\VNm {\V {h}}_2} is small, this can blow up.
-We do not know either whether \m {\tilde {\chi}} is a good indicator of channel capacity; it seems to be, but actually we did not consider a definite a channel model in this treatise.
 
 The parameters related to precision of the Newton step may be adjusted from CVXPY's class methods.
 We set the maximum absolute tolerance to be \m {5 \D 10 ^ {-7}},
@@ -229,125 +233,143 @@ the maximum relative tolerance to be \m {5 \D 10 ^ {-6}},
 the maximum feasible tolerance to be \m {5 \D 10 ^ {-7}}.
 If the tolerance parameters are set too small, the program often gives overflowing values, perhaps because it was not able to find feasible solutions.
 And if they are set too big, the Newton steps get imprecise and the performance is poorer.
-More tests are necessary to determine the best choice of parameters.
+It remains to determine the best choice of parameters.
+
+For performance metric, we follow Lee, Gil, and Lee \cite [LGL16] to use
+\DispNum {h:h:lo:vg} {
+\tilde {\chi}
+=\RB {
+   \frac {\log_2 {\VNm {\V {h} -\hat {\V {h}}} _2}}
+   {\log_2 {\VNm {\V {h}}_2}}
+} _{\mathsf {avg}}, 
+}
+However, we remark that when \m {\VNm {\V {h}}_2} is small, this can blow up.
+Indeed, since we did not consider a definite a channel model in this treatise, \m {\T {\chi}} may not necessarily be proportional to the channel capacity.
 
 \subsection {Plots of \m {N_H = 6}}
 
-\begin {figure} [hbt]
+In the following, we plot the reciprocal of noise level vs relative error norm in log scale, for different values and ratios of \m {N_H = 6} over \m {N_{B,t}} and \m {N_{B,t}}.
+
+\begin {figure} [H]
 \includegraphics [width = \textwidth] {error-small-square-two.png}
 \caption {\m {N_{B,t} = 3, N_{B,r} = 3, N_H = 6}, with \m {2} stages, error.}
 \end {figure}
 
-\begin {figure} [hbt]
+\begin {figure} [H]
 \includegraphics [width = \textwidth] {error-small-tall-two.png}
 \caption {\m {N_{B,t} = 2, N_{B,r} = 3, N_H = 6}, with \m {2} stages, error.}
 \end {figure}
 
-\begin {figure} [hbt]
+\begin {figure} [H]
 \includegraphics [width = \textwidth] {error-small-wide-two.png}
 \caption {\m {N_{B,t} = 3, N_{B,r} = 2, N_H = 6}, with \m {2} stages, error.}
 \end {figure}
 
-\begin {figure} [hbt]
+\begin {figure} [H]
 \includegraphics [width = \textwidth] {error-small-square-four.png}
 \caption {\m {N_{B,t} = 3, N_{B,r} = 3, N_H = 6}, with \m {4} stages, error.}
 \end {figure}
 
-\begin {figure} [hbt]
+\begin {figure} [H]
 \includegraphics [width = \textwidth] {error-small-tall-four.png}
 \caption {\m {N_{B,t} = 2, N_{B,r} = 3, N_H = 6}, with \m {4} stages, error.}
 \end {figure}
 
-\begin {figure} [hbt]
+\begin {figure} [H]
 \includegraphics [width = \textwidth] {error-small-wide-four.png}
 \caption {\m {N_{B,t} = 3, N_{B,r} = 2, N_H = 6}, with \m {4} stages, error.}
 \end {figure}
 
 \subsection {Plots of \m {N_H = 12}}
 
-\begin {figure} [hbt]
+In the following, we plot the reciprocal of noise level vs relative error norm in log scale, for different values and ratios of \m {N_H = 12} over \m {N_{B,t}} and \m {N_{B,t}}.
+
+\begin {figure} [H]
 \includegraphics [width = \textwidth] {error-medium-square-two.png}
 \caption {\m {N_{B,t} = 6, N_{B,r} = 6, N_H = 12}, with \m {2} stages, error.}
 \end {figure}
 
-\begin {figure} [hbt]
+\begin {figure} [H]
 \includegraphics [width = \textwidth] {error-medium-tall-two.png}
 \caption {\m {N_{B,t} = 4, N_{B,r} = 6, N_H = 12}, with \m {2} stages, error.}
 \end {figure}
 
-\begin {figure} [hbt]
+\begin {figure} [H]
 \includegraphics [width = \textwidth] {error-medium-wide-two.png}
 \caption {\m {N_{B,t} = 6, N_{B,r} = 4, N_H = 12}, with \m {2} stages, error.}
 \end {figure}
 
-\begin {figure} [hbt]
+\begin {figure} [H]
 \includegraphics [width = \textwidth] {error-medium-square-four.png}
 \caption {\m {N_{B,t} = 6, N_{B,r} = 6, N_H = 12}, with \m {4} stages, error.}
 \end {figure}
 
-\begin {figure} [hbt]
+\begin {figure} [H]
 \includegraphics [width = \textwidth] {error-medium-tall-four.png}
 \caption {\m {N_{B,t} = 4, N_{B,r} = 6, N_H = 12}, with \m {4} stages, error.}
 \end {figure}
 
-\begin {figure} [hbt]
+\begin {figure} [H]
 \includegraphics [width = \textwidth] {error-medium-wide-four.png}
-\caption {\m {N_{B,t} = 3, N_{B,r} = 2, N_H = 12}, with \m {4} stages, error.}
+\caption {\m {N_{B,t} = 6, N_{B,r} = 4, N_H = 12}, with \m {4} stages, error.}
 \end {figure}
 
 
 \subsection {Plots of \m {N_H = 18}}
 
-\begin {figure} [hbt]
-\includegraphics [width = \textwidth] {error-small-square-two.png}
+In the following, we plot the reciprocal of noise level vs relative error norm in log scale, for different values and ratios of \m {N_H = 18} over \m {N_{B,t}} and \m {N_{B,t}}.
+
+\begin {figure} [H]
+\includegraphics [width = \textwidth] {error-big-square-two.png}
 \caption {\m {N_{B,t} = 12, N_{B,r} = 12, N_H = 18}, with \m {2} stages, error.}
 \end {figure}
 
-\begin {figure} [hbt]
-\includegraphics [width = \textwidth] {error-small-tall-two.png}
+\begin {figure} [H]
+\includegraphics [width = \textwidth] {error-big-tall-two.png}
 \caption {\m {N_{B,t} = 8, N_{B,r} = 12, N_H = 18}, with \m {2} stages, error.}
 \end {figure}
 
-\begin {figure} [hbt]
-\includegraphics [width = \textwidth] {error-small-wide-two.png}
+\begin {figure} [H]
+\includegraphics [width = \textwidth] {error-big-wide-two.png}
 \caption {\m {N_{B,t} = 12, N_{B,r} = 8, N_H = 18}, with \m {2} stages, error.}
 \end {figure}
 
-\begin {figure} [hbt]
-\includegraphics [width = \textwidth] {error-small-square-two.png}
+\begin {figure} [H]
+\includegraphics [width = \textwidth] {error-big-square-four.png}
 \caption {\m {N_{B,t} = 12, N_{B,r} = 12, N_H = 18}, with \m {4} stages, error.}
 \end {figure}
 
-\begin {figure} [hbt]
-\includegraphics [width = \textwidth] {error-small-tall-two.png}
+\begin {figure} [H]
+\includegraphics [width = \textwidth] {error-big-tall-four.png}
 \caption {\m {N_{B,t} = 8, N_{B,r} = 12, N_H = 18}, with \m {4} stages, error.}
 \end {figure}
 
-\begin {figure} [hbt]
-\includegraphics [width = \textwidth] {error-small-wide-two.png}
+\begin {figure} [H]
+\includegraphics [width = \textwidth] {error-big-wide-four.png}
 \caption {\m {N_{B,t} = 12, N_{B,r} = 8, N_H = 18}, with \m {4} stages, error.}
 \end {figure}
 
 
 \subsection {Plots of runtime}
 
-\begin {figure} [hbt]
-\includegraphics [width = \textwidth] {error-small-square-two.png}
+Regarding runtime statistics, we only plot the case where \m {N_{B,t} = N_{B,r} = N_H /2} with \m {2} stages.
+
+\begin {figure} [H]
+\includegraphics [width = \textwidth] {time-small-square-two.png}
 \caption {\m {N_{B,t} = 3, N_{B,r} = 3, N_H = 6}, with \m {4} stages, time.}
 \end {figure}
 
 
-\begin {figure} [hbt]
-\includegraphics [width = \textwidth] {error-medium-square-two.png}
+\begin {figure} [H]
+\includegraphics [width = \textwidth] {time-medium-square-two.png}
 \caption {\m {N_{B,t} = 6, N_{B,r} = 6, N_H = 12}, with \m {4} stages, time.}
 \end {figure}
 
 
-\begin {figure} [hbt]
-\includegraphics [width = \textwidth] {error-big-square-two.png}
+\begin {figure} [H]
+\includegraphics [width = \textwidth] {time-big-square-two.png}
 \caption {\m {N_{B,t} = 9, N_{B,r} = 9, N_H = 18}, with \m {4} stages, time.}
 \end {figure}
-
 
 
 \subsection {Discussion}
@@ -380,52 +402,53 @@ Therefore we have discarded outputs larger than a given threshold, for instance 
 We are not sure either why \m {\tilde {\chi}} is an overestimation of \m {\chi} by several orders of magnitude.
 A possible explanation is that the non-sparsity of \m {\V {g}} undermines the analysis in chapter 3, despite our attempts to account for that effect.
 
-In figures 21 and 22, we reproduce two cases of success and failure of DS.
+In figures 24 and 25, we reproduce two cases of success and failure of DS.
 In both figures the true values of \m {\M {H}} entries are ordered by magnitude, and corresponding estimated values in the first and second stage are plotted against them.
 When DS fails, the soft thresholding did not rule out smaller entries, thus a second application of DS on the wrong index set failed too.
 When DS succeeded, the soft thresholding gave a reasonable guess of the nonzero components, thus a second application of DS on this index set refined the estimated values.
 
 \bigskip
-\begin {figure} [hbt]
-\includegraphics [width = \textwidth] {scatter-ddss-failure.png}
+\begin {figure} [H]
+\includegraphics [width = 0.8 \textwidth] {scatter-ddss-failure.png}
 \caption {A scatter plot of position versus magnitude for a case in which DS failed.}
 \end {figure}
 %
-\begin {figure} [hbt]
+\begin {figure} [H]
+\includegraphics [width = 0.8 \textwidth] {scatter-ddss-success.png}
 \caption {A scatter plot of position versus magnitude for a case in which DS succeeded.}
-\includegraphics [width = \textwidth] {scatter-ddss-success.png}
 \end {figure}
 \bigskip
 
 \section {Complexity}
 
-\subsection {Asymtotic analysis}
+We discuss the complexity of DS, Lasso, and OMP.
 
-We discuss the complexity of DS and OMP.
-In general, complexity of convex programs is difficult to analyze, in that it is not easily to determine how many iterations were done.
-Boyd and Vandenberghe \cite {BoV04} analyzed complexity of inequality constrained Newton method, in which self-concordance is assumed (p.496, also p.531).
-In our case, Candès and Romberg \cite {CaR05} pointed out that the complex DS can be cast into an second order cone programming (SOCP), and where self concordance holds.
-Diamond and Boyd (writers of CVXPY) \cite {DiB16} explained that convex programs are usually converted into primal-dual problems.
-The library we called in the simulation is ECOS, where Newton method is used.
-Of course, we are not certain there is no method faster than Newton method, and implementation details of CVXPY may change the conclusion too.
+\subsection {Dantzig Selector}
 
-We attemp to give a heuristic argument regarding the complexity of Newton steps.
-We say the function being minimized is \m {\VNm {\V {g}}_1}.
-Let \m {\V {g} _0} denote the starting value of \m {\V {g}}, and \m {\V {g} ^{\star}} the the point of convergence.
-Then Boyd and Vandenberghe \cite {BoV04} (p.505, Eqn.9.56) gave a bound of the number of steps.
-If we just take that as the complexity bound for DS, it becomes
+Suppose a linear program has \m {N} dimension variable and \m {M} inequality constraints, then the complexity is \m {\mathcal {O} \SB {N^2 M}}, assuming the Dantzig simplex method is used (\cite {BoV04}, p.6).
+For our case, that would be \m {\mathcal {O} \SB {4 N_H ^4 \D 8 N_H^2} = \mathcal {O} \SB {N_H^6}}.
+But other algorithms exist, where, in general, complexity of convex programs is difficult to analyze, as it is not easily to determine how many steps were calculated.
+
+Alternatively, suppose Newton method is used.
+Here, we have self-concordance for linear program.
+Let \m {\V {g} _0} denote the starting value of \m {\V {g}'}, and \m {\V {g} ^{\star}} the the point of convergence.
+Then the number of Newton steps is bounded \cite {BoV04} by
+%
+\Disp {
+C_{\mathrm {Newton}}
+= \RB {C_0 \VNm {\V {g}_0 -\V {g} ^{\star}}_1
++ \log_2 \log_2 \frac {1} {\e}}
+}
+%
+If we just take that as the complexity bound for DS,
 %
 \DispNum {C:S:C0:1e'} {
 C_{\mathrm {DS}}
 = \RB {C_0 \VNm {\V {g}_0 -\V {g} ^{\star}}_1
-+ \log_2 \log_2 \frac {1} {\e}} C_{\mathrm {step}} 
++ \log_2 \log_2 \frac {1} {\e}} C_{\mathrm {step}}
 }
 %
 Here \m {C_0} is constant related to implementation of Newton method, and \m {\e} the tolerance of error, and \m {C_{\mathrm {step}}} is the complexity of Newton step.
-According to their analysis (Eqn.9.57), for most cases \m {-\log_2 \log_2 \e} can be bounded by \m {6}.
-Also, \m {C_0} usually assumes the value of about several hundred.
-There was an example they gave in which \m {C_0 =375}, where, with their notation,
-\m {C_0 =(20 -8\a) / (\a \b \RB {1 -2\a}^2}), where \m {\a = 0.1, \b = 0.8, \e =0.01}, and \m {\a, \b} are parameters used in the Backtrack Line Tracing algorithm).
 
 Every Newton step involves a inversion of \m {\mathcal {O} \SB {\M {P} ^\dagger \M {P}}}, having the same order of magnitude to the time needed for matrix multiplication.
 Since the dimension of \m {\M {P} ^\dagger \M {P}} is \m {N_H^2}, the cost of inversion may be roughly considered to be \m {\mathcal {O} \SB {N_H^4}}, as we know from newer results on the complexity of matrix inversion.
@@ -485,45 +508,61 @@ C_{\mathrm {DS}}
 =\mathcal {O} \SB {N_{H}^6} 
 }
 
-On the other hand, Tropp and Gilbert \cite {TrG07a} discussed the complexity of OMP in the companion paper \cite {TrG07b}.
-They gave
+\subsection {Orthogonal matching pursuit}
+
+Tropp and Gilbert \cite {TrG07a} discussed the complexity of OMP in the companion paper \cite {TrG07b}, giving
 %
 \DispNum {C:P:ON:NY} {
 C_{\mathrm {OMP}}
-=\mathcal {O} \SB {N_H^2 \log \R {N_{B,t} N_{B,r}}} 
+=\mathcal {O} \SB {N_H^2 \log \RB {N_{B,r} N_{B,t}}}
 }
 %
-Here \m {\log N_{B,t}, \log N_{B,r}} are small in our experiments, and if we drop them we may assume \m {\mathcal {O} \SB {N_H^2}}.
+Here \m {\log \RB {N_{B,r} N_{B,t}}} is small in our experiments, and if we dropped it, we may take
+\DispNum {C:P:ON:H2} {
+C_{\mathrm {OMP}}
+=\mathcal {O} \SB {N_H^2}
+}
 
-Lastly, since Lasso involves the same target function as DS, the same argument is valid, giving \m {C_{\mathrm {Lasso}} =\mathcal {O} \SB {N_H^6}}.
+\subsection {Lasso}
+
+Lasso is equivalent to a quadratically constrained quadratic program, and there is not always a closed form for its complexity.
+However, Lasso and DS are equivalent in certain conditions \cite {AsR10}, and we may suppose here they have the same complexity, \m {\mathcal {O} \SB {N_H^6}}.
+
+Alternatively, an argument similar to the above one for DS is valid for Lasso.
+
+Therefore we take
+\DispNum {C:o:ON:H6} {
+C_{\mathrm {Lasso}}
+=\mathcal {O} \SB {N_H^6}
+}
 
 \subsection {Runtime statistics}
 
-All plots included in this treatise, in total, took probably one month to run.
-Figures 6 and 10 each took about \m {3} days.
+All plots included in this treatise, in total, took about one month to run.
+Figures for \m {N_H = 18} each took about \m {3} days.
 The computer has \m {32} GB RAM, and Intel Core i9 processor.
-Simulation ran on Linux subsystem 2 of Windows 10.
+Simulation was run on Linux subsystem 2 of Windows 10.
 
 Use \m {t_{\mathrm {OMP}} \SB {N_H}}, \m {t_{\mathrm {Lasso}} \SB {N_H}}, \m {t_{\mathrm {DS}} \SB {N_H}} to denote their respective time taken.
-We reproduce the arithmetic average (including different \m {\s}) of simulated values below, in seconds.
-\DispNum {t:2:95:55} {
-t_{\mathrm {OMP}} \SB {12} = 0.0119,
-t_{\mathrm {OMP}} \SB {16} = 0.0297, \\
-t_{\mathrm {OMP}} \SB {20} = 0.0600,
-t_{\mathrm {OMP}} \SB {24} = 0.155, \\
+We here copy the arithmetic average (including different \m {\s}) of simulated values below, in seconds.
+They are:
+\m {t_{\mathrm {OMP}} \SB {12}  = 0.0119,}
+\m {t_{\mathrm {OMP}} \SB {16} = 0.0297, }
+\m {t_{\mathrm {OMP}} \SB {20}  = 0.0600,}
+\m {t_{\mathrm {OMP}} \SB {24} = 0.155, }
 %
-t_{\mathrm {Lasso}} \SB {12} = 0.0436,
-t_{\mathrm {Lasso}} \SB {16} = 0.176, \\
-t_{\mathrm {Lasso}} \SB {20} = 0.471,
-t_{\mathrm {Lasso}} \SB {24} = 1.26, \\
+\m { t_{\mathrm {Lasso}} \SB {12}  = 0.0436,}
+\m { t_{\mathrm {Lasso}} \SB {16} = 0.176, }
+\m { t_{\mathrm {Lasso}} \SB {20}  = 0.471,}
+\m { t_{\mathrm {Lasso}} \SB {24} = 1.26, }
 %
-t_{\mathrm {DS}} \SB {12} = 0.357,
-t_{\mathrm {DS}} \SB {16} = 2.07, \\
-t_{\mathrm {DS}} \SB {20} = 29.8,
-t_{\mathrm {DS}} \SB {24} = 91.5, 
-}
-Simulation indeed shows that \m {t_{\mathrm {DS}}} grows tremendously with (in our case) \m {N_H}, agreeing the criticism by Friedlander and Saunders \cite {FrS07} on the high complexity of DS.
-It is not surprising, regarding the fact that the convex program has to find the Newton step by calculating (in our case) \m {\M {P}}, a matrix of dimension \m {\M {N}_H^2}.
+\m { t_{\mathrm {DS}} \SB {12}  = 0.357,}
+\m { t_{\mathrm {DS}} \SB {16} = 2.07, }
+\m { t_{\mathrm {DS}} \SB {20}  = 29.8,}
+\m { t_{\mathrm {DS}} \SB {24} = 91.5}
+
+Simulation illustrates that \m {t_{\mathrm {DS}}} grows tremendously with \m {N_H}, agreeing the criticism by Friedlander and Saunders \cite {FrS07} on the high complexity of DS.
+It is not surprising, regarding the fact that the convex program has to find the Newton step by calculating \m {\M {P}}, a matrix of dimension \m {\M {N}_H^2}.
 The matrix inversion is probably the bottleneck of complexity.
 However, as we noted above, that different tolerance level of and maximal iteration number may result in vastly different computation time.
 

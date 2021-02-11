@@ -232,7 +232,7 @@
            giveni={J\bibinitperiod}}}%
       }
       \list{publisher}{1}{%
-        {retrieved from \href {www.acm.caltech.edu/l1magic/downloads/l1magic.pdf}}%
+        {retrieved from \href{www.acm.caltech.edu/l1magic/downloads/l1magic.pdf}}%
       }
       \strng{namehash}{5d7d93c78974659b43ed94aea81ad2a3}
       \strng{fullhash}{5d7d93c78974659b43ed94aea81ad2a3}
@@ -520,58 +520,6 @@
       \field{pages}{2909\bibrangedash 2913}
       \range{pages}{5}
     \endentry
-    \entry{LGC16}{article}{}
-      \name{author}{6}{}{%
-        {{hash=9b1528d0b6c9bc88bfd8c569f290bcec}{%
-           family={Li},
-           familyi={L\bibinitperiod},
-           given={Hui},
-           giveni={H\bibinitperiod}}}%
-        {{hash=bb4cf443de38c2f265d2088a56c91da5}{%
-           family={Gao},
-           familyi={G\bibinitperiod},
-           given={Qiubin},
-           giveni={Q\bibinitperiod}}}%
-        {{hash=7fdf418935e9b450c7cf21fa87ceba28}{%
-           family={Chen},
-           familyi={C\bibinitperiod},
-           given={Runhua},
-           giveni={R\bibinitperiod}}}%
-        {{hash=3c59f99b541edd742269b8c1b649d739}{%
-           family={Tamrakar},
-           familyi={T\bibinitperiod},
-           given={Rakesh},
-           giveni={R\bibinitperiod}}}%
-        {{hash=c2cd600ca5c20c6c0d1affb9c1869c3c}{%
-           family={Sun},
-           familyi={S\bibinitperiod},
-           given={Shaohui},
-           giveni={S\bibinitperiod}}}%
-        {{hash=30479ea0f8a60d59ee719644d5cb6a1d}{%
-           family={Chen},
-           familyi={C\bibinitperiod},
-           given={Wenhong},
-           giveni={W\bibinitperiod}}}%
-      }
-      \list{publisher}{1}{%
-        {IEEE}%
-      }
-      \strng{namehash}{630fecaf4e87554c1ae366c2dfcd55b7}
-      \strng{fullhash}{395c71421b3fdf37ee9debbd48f0964c}
-      \strng{bibnamehash}{395c71421b3fdf37ee9debbd48f0964c}
-      \strng{authorbibnamehash}{395c71421b3fdf37ee9debbd48f0964c}
-      \strng{authornamehash}{630fecaf4e87554c1ae366c2dfcd55b7}
-      \strng{authorfullhash}{395c71421b3fdf37ee9debbd48f0964c}
-      \field{sortinit}{1}
-      \field{sortinithash}{50c6687d7fc80f50136d75228e3c59ba}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{2016 IEEE 83rd Vehicular Technology Conference (VTC Spring)}
-      \field{title}{Codebook design for massive MIMO systems in LTE}
-      \field{year}{2016}
-      \field{pages}{1\bibrangedash 5}
-      \range{pages}{5}
-    \endentry
     \entry{HWH13}{article}{}
       \name{author}{3}{}{%
         {{hash=a49e8a1fac1666a706db3a52f555ead2}{%
@@ -649,119 +597,6 @@
       \field{year}{2016}
       \field{pages}{2370\bibrangedash 2386}
       \range{pages}{17}
-    \endentry
-    \entry{MaK17}{article}{}
-      \name{author}{2}{}{%
-        {{hash=8bf98034fde961d77bff798ae8288529}{%
-           family={Manoj},
-           familyi={M\bibinitperiod},
-           given={A},
-           giveni={A\bibinitperiod}}}%
-        {{hash=c4d75597f0372b0e16a15c36fd8ff3c7}{%
-           family={Kannu},
-           familyi={K\bibinitperiod},
-           given={Arun\bibnamedelima Pachai},
-           giveni={A\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
-      }
-      \list{organization}{1}{%
-        {IEEE}%
-      }
-      \strng{namehash}{c1646db72b7e1024ea1aba60574095f7}
-      \strng{fullhash}{c1646db72b7e1024ea1aba60574095f7}
-      \strng{bibnamehash}{c1646db72b7e1024ea1aba60574095f7}
-      \strng{authorbibnamehash}{c1646db72b7e1024ea1aba60574095f7}
-      \strng{authornamehash}{c1646db72b7e1024ea1aba60574095f7}
-      \strng{authorfullhash}{c1646db72b7e1024ea1aba60574095f7}
-      \field{sortinit}{1}
-      \field{sortinithash}{50c6687d7fc80f50136d75228e3c59ba}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{booktitle}{2017 IEEE 18th International Workshop on Signal Processing Advances in Wireless Communications (SPAWC)}
-      \field{title}{Multi-user millimeter wave channel estimation using generalized block OMP algorithm}
-      \field{year}{2017}
-      \field{pages}{1\bibrangedash 5}
-      \range{pages}{5}
-    \endentry
-    \entry{GYG18}{article}{}
-      \name{author}{3}{}{%
-        {{hash=542b6f0071a560ab4e75d0633ff9a27c}{%
-           family={Gurbuz},
-           familyi={G\bibinitperiod},
-           given={Ali\bibnamedelima Cafer},
-           giveni={A\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
-        {{hash=0d467a9fcb80b6b1325fc0d9ebd82a8d}{%
-           family={Yapici},
-           familyi={Y\bibinitperiod},
-           given={Yavuz},
-           giveni={Y\bibinitperiod}}}%
-        {{hash=b4739da2466470d1714d580c584669be}{%
-           family={Guvenc},
-           familyi={G\bibinitperiod},
-           given={Ismail},
-           giveni={I\bibinitperiod}}}%
-      }
-      \list{publisher}{1}{%
-        {IEEE}%
-      }
-      \strng{namehash}{71e2019eec1d949a73a2d91d25d5ec9f}
-      \strng{fullhash}{71e2019eec1d949a73a2d91d25d5ec9f}
-      \strng{bibnamehash}{71e2019eec1d949a73a2d91d25d5ec9f}
-      \strng{authorbibnamehash}{71e2019eec1d949a73a2d91d25d5ec9f}
-      \strng{authornamehash}{71e2019eec1d949a73a2d91d25d5ec9f}
-      \strng{authorfullhash}{71e2019eec1d949a73a2d91d25d5ec9f}
-      \field{sortinit}{1}
-      \field{sortinithash}{50c6687d7fc80f50136d75228e3c59ba}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{2018 IEEE International Conference on Communications Workshops (ICC Workshops)}
-      \field{title}{Sparse channel estimation in millimeter-wave communications via parameter perturbed OMP}
-      \field{year}{2018}
-      \field{pages}{1\bibrangedash 6}
-      \range{pages}{6}
-    \endentry
-    \entry{PAU19}{article}{}
-      \name{author}{4}{}{%
-        {{hash=a28c633016439a078b78d6ce5ac9c647}{%
-           family={Panayirci},
-           familyi={P\bibinitperiod},
-           given={Erdal},
-           giveni={E\bibinitperiod}}}%
-        {{hash=6946eb81d5e96edabbc60b6f84da3397}{%
-           family={Altabbaa},
-           familyi={A\bibinitperiod},
-           given={Mhd\bibnamedelima Tahssin},
-           giveni={M\bibinitperiod\bibinitdelim T\bibinitperiod}}}%
-        {{hash=eb3f9e43b5b779009f8e99c9293624a5}{%
-           family={Uysal},
-           familyi={U\bibinitperiod},
-           given={Murat},
-           giveni={M\bibinitperiod}}}%
-        {{hash=de7b0e512fcdd087f5750837f7c7cb9f}{%
-           family={Poor},
-           familyi={P\bibinitperiod},
-           given={H\bibnamedelima Vincent},
-           giveni={H\bibinitperiod\bibinitdelim V\bibinitperiod}}}%
-      }
-      \list{publisher}{1}{%
-        {IEEE}%
-      }
-      \strng{namehash}{1d6e58011c530e1a4854bbec6939aae5}
-      \strng{fullhash}{80f6a472c5d72afd80420463361c4d4d}
-      \strng{bibnamehash}{80f6a472c5d72afd80420463361c4d4d}
-      \strng{authorbibnamehash}{80f6a472c5d72afd80420463361c4d4d}
-      \strng{authornamehash}{1d6e58011c530e1a4854bbec6939aae5}
-      \strng{authorfullhash}{80f6a472c5d72afd80420463361c4d4d}
-      \field{sortinit}{2}
-      \field{sortinithash}{ed39bb39cf854d5250e95b1c1f94f4ed}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{IEEE Transactions on Signal Processing}
-      \field{number}{6}
-      \field{title}{Sparse Channel Estimation for OFDM-Based Underwater Acoustic Systems in Rician Fading With a New OMP-MAP Algorithm}
-      \field{volume}{67}
-      \field{year}{2019}
-      \field{pages}{1550\bibrangedash 1565}
-      \range{pages}{16}
     \endentry
     \entry{CWX10}{article}{}
       \name{author}{3}{}{%
@@ -932,37 +767,6 @@
       \field{title}{Geometric Aspects of Functional Analysis}
       \field{year}{2017}
     \endentry
-    \entry{DiB16}{article}{}
-      \name{author}{2}{}{%
-        {{hash=d50bdcda78beb231a5057a4372dac2fd}{%
-           family={Diamond},
-           familyi={D\bibinitperiod},
-           given={Steven},
-           giveni={S\bibinitperiod}}}%
-        {{hash=ec94d94cc487dd71939a90cbeaaf47d0}{%
-           family={Boyd},
-           familyi={B\bibinitperiod},
-           given={Stephen},
-           giveni={S\bibinitperiod}}}%
-      }
-      \strng{namehash}{7cce040882870150496852f2140da7fb}
-      \strng{fullhash}{7cce040882870150496852f2140da7fb}
-      \strng{bibnamehash}{7cce040882870150496852f2140da7fb}
-      \strng{authorbibnamehash}{7cce040882870150496852f2140da7fb}
-      \strng{authornamehash}{7cce040882870150496852f2140da7fb}
-      \strng{authorfullhash}{7cce040882870150496852f2140da7fb}
-      \field{sortinit}{3}
-      \field{sortinithash}{a37a8ef248a93c322189792c34fc68c9}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Journal of Machine Learning Research}
-      \field{number}{83}
-      \field{title}{CVXPY: A Python-Embedded Modeling Language for Convex Optimization}
-      \field{volume}{17}
-      \field{year}{2016}
-      \field{pages}{1\bibrangedash 5}
-      \range{pages}{5}
-    \endentry
     \entry{BoV04}{book}{}
       \name{author}{2}{}{%
         {{hash=ec94d94cc487dd71939a90cbeaaf47d0}{%
@@ -985,12 +789,44 @@
       \strng{authorbibnamehash}{436abed3bce8d1b1d30640d4e5ff3d58}
       \strng{authornamehash}{436abed3bce8d1b1d30640d4e5ff3d58}
       \strng{authorfullhash}{436abed3bce8d1b1d30640d4e5ff3d58}
-      \field{sortinit}{4}
-      \field{sortinithash}{e071e0bcb44634fab398d68ad04e69f4}
+      \field{sortinit}{3}
+      \field{sortinithash}{a37a8ef248a93c322189792c34fc68c9}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{Convex optimization}
       \field{year}{2004}
+    \endentry
+    \entry{AsR10}{article}{}
+      \name{author}{2}{}{%
+        {{hash=84aa60c7805d0464f1fe0f3e77c7c065}{%
+           family={Asif},
+           familyi={A\bibinitperiod},
+           given={M\bibnamedelima Salman},
+           giveni={M\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=bd93993b7081b0ad3e27e77036b7483e}{%
+           family={Romberg},
+           familyi={R\bibinitperiod},
+           given={Justin},
+           giveni={J\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {IEEE}%
+      }
+      \strng{namehash}{6efeead7550ccfdcfb42bac2a3d48ee3}
+      \strng{fullhash}{6efeead7550ccfdcfb42bac2a3d48ee3}
+      \strng{bibnamehash}{6efeead7550ccfdcfb42bac2a3d48ee3}
+      \strng{authorbibnamehash}{6efeead7550ccfdcfb42bac2a3d48ee3}
+      \strng{authornamehash}{6efeead7550ccfdcfb42bac2a3d48ee3}
+      \strng{authorfullhash}{6efeead7550ccfdcfb42bac2a3d48ee3}
+      \field{sortinit}{4}
+      \field{sortinithash}{e071e0bcb44634fab398d68ad04e69f4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{2010 44th Annual Conference on Information Sciences and Systems (CISS)}
+      \field{title}{On the lasso and dantzig selector equivalence}
+      \field{year}{2010}
+      \field{pages}{1\bibrangedash 6}
+      \range{pages}{6}
     \endentry
     \entry{FrS07}{article}{}
       \name{author}{2}{}{%
@@ -1027,6 +863,13 @@
       \range{pages}{7}
     \endentry
   \enddatalist
+  \missing{.}
+  \missing{DiB16}
+  \missing{GYG18}
+  \missing{LGC16}
+  \missing{MaK17}
+  \missing{PAU19}
+  \missing{t}
 \endrefsection
 \endinput
 

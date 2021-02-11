@@ -154,15 +154,15 @@ It is more appealing to write
 %
 \NC \V {y}
 := \NC \Rm {vec} \SB {\M {Y}}
-\in \MB {C} ^{N_B^2} \NR
+\in \MB {C} ^{N_{B,t} N_{B,r}} \NR
 %
 \NC \V {z}
 := \NC \Rm {vec} \SB {\M {W} _B \M {W} _R \M {Z}}
-\in \MB {C} ^{N_B^2} \NR
+\in \MB {C} ^{N_{B,t} N_{B,r}} \NR
 %
 \NC \M {Q}
 := \NC \RB {\M {F} _B^\Tr \M {F} _R^\Tr} \otimes \RB {\M {W} _B \M {W} _R}
-\in \MB {C} ^{N_B^2 \D N_H^2} \NR
+\in \MB {C} ^{N_{B,t} N_{B,r} \D N_H^2} \NR
 }
 %
 to formulate the problem as a linear system:
@@ -210,7 +210,7 @@ then \m {\M {G}} can be interpreted as spatial frequency domain representation o
 \NC \M {Y}
 =\NC \M {W} _B \M {W} _R \M {K} \D \M {G} \D \M {K}^\Adj \M {F} _R \M {F} _B
 +\M {W} _B \M {W} _R \M {Z}
-\in \MB {C} ^{N_B \D N_B} \NR
+\in \MB {C} ^{N_{B,t} \D N_{B,r}} \NR
 }
 %
 If we are sure that \m {\M {G}} is sparse, then we recover \m {\M {G}} instead.
@@ -219,7 +219,7 @@ Set for brevity
 \DispNum {P:P:FB:Nh} {
 \NC \M {P}
 :=\NC \RB {\M {F} _B^\Tr \M {F} _R^\Tr \M {K}^\ast} \otimes \RB {\M {W} _B \M {W} _R \M {K}}
-\in \MB {C} ^{N_B^2 \D N_H^2} \NR
+\in \MB {C} ^{N_{B,t} N_{B,r} \D N_H^2} \NR
 }
 %
 and
