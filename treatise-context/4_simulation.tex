@@ -374,26 +374,21 @@ Regarding runtime statistics, we only plot the case where \m {N_{B,t} = N_{B,r} 
 \startsubsection [title={Discussion}]
 
 From the simulation, DS outperforms other methods in most of the datasets.
-In the scenario of low noise, \m {\T {\chi}} values of OMP and Lasso are close to DS.
-But in the scenario of high noise, \m {\T {\chi}} values of OMP and Lasso blow up quickly.
+With low noise, \m {\T {\chi} _{\Rm {DS}} \approx \T {\chi} _{\Rm {OMP}} \approx \T {\chi} _{\Rm {Lasso}} \approx \T {\chi} _{\Rm {LS}}}.
+But with high noise, \m {\T {\chi} _{\Rm {OMP}}, \T {\chi} _{\Rm {Lasso}}, \T {\chi} _{\Rm {LS}}} blow up quickly,
+and it is usually true that \m {\T {\chi} _{\Rm {DS}} \leq \T {\chi} _{\Rm {OMP}} \leq \T {\chi} _{\Rm {Lasso}} \leq \T {\chi} _{\Rm {LS}}}.
 
-It is intuitive that when \m {N_{B,t} /N_{B,r}} is smaller, \m {\T {\chi}} is smaller, because we have a higher sample rate.
-As \m {N_{B,t} /N_{B,r}} increase for given \m {\s}, the DS line improves more significantly, and \m {\T {\chi}} falls nearly always below \m {0} dB for \m {N_{B,t} > N_{B,r}} case.
+For OMP, in Lee, Gil, and Lee \cite [LGL16], a high-complexity nonconvex program is used to design the sensing matrix, while we have here a low-complexity, random generation of beamforming matrices.
+We keep in mind that a different design of sensing matrix, or a distribution of angles, will affect the performance of OMP.
 
-The design of sample matrix seems to have a lot to do with the performance of OMP.
-In Lee, Gil, and Lee \cite [LGL16], a high-complexity nonconvex program is used to design the sensing matrix, while we have here a low-complexity, random generation of beamforming matrices.
-It may also have something to do with the distribution of angles of departure and arrival.
-
-The performance of Lasso also fails mostly for low noise.
-Recall from above that \m {\g} (or \m {\l}) is crucial to the performance, but cannot be obtained in advance.
+For Lasso, \m {\g} (or \m {\l}) is also crucial to the performance, but cannot be obtained in advance.
 Thus, for sake of comparison, we set the same threshold (and BPDN) for Lasso and DS.
-We should not however there may be other values of \m {\g} (or \m {\l}) for which DS and Lasso are both better.
+Still, there may be other values of \m {\g} (or \m {\l}) for which DS and Lasso are both better.
 
-For Moore Penrose pseudoinverse, \m {\T {\chi}} increases tremendously as \m {\s} decreases, and the trend is steady and may serve as a upper bound.
-
-For DS itself, \m {\T {\chi}} decreases as \m {\s} increases, which is expected, but \m {\T {\chi}} does not go down indefinitely.
-The values of threshold of DS \m {\g_{\Rm {DS}}} are chosen within the order of magnitude of \m {\s}.
-It may have been that the iteration stabilizes much earlier than is constrained by maximum iteration number.
+For DS itself, first, \m {\T {\chi} _{\Rm {DS}}} certainly decreases as \m {\s} increases, but it does not decrease indefinitely.
+Second, \m {\T {\chi} _{\Rm {DS}}} decreases as \m {N_H} increases.
+Third, when \m {N_{B,t} /N_{B,r}} is smaller, \m {\T {\chi} _{\Rm {DS}}} is smaller, because we have a higher sample rate.
+As \m {N_{B,t} /N_{B,r}} increase for given \m {\s}, \m {\T {\chi} _{\Rm {DS}}} improves more significantly.
 
 Unfortunately, we report that CVXPY sometimes gives overflowing values, some of them as large as \m {10^{11}}.
 This probably indicates some typical-looking output may in fact be unreliable.
@@ -502,7 +497,7 @@ If we agree that, for high probability,
 %
 \DispNum {O:j:sO:O1} {
 \NC \MS {O} \SB {\VNm {\M {P} ^\Adj \V {z}} _{\SB {j}}}
-= \NC \s \MS {O} \RB {1} \NR
+= \NC \s N_H^2 \MS {O} \RB {1} \NR
 }
 Then we have
 %

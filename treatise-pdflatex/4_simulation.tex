@@ -374,38 +374,36 @@ Regarding runtime statistics, we only plot the case where \m {N_{B,t} = N_{B,r} 
 
 \subsection {Discussion}
 
-In the assorted plots, DS steadily outperforms other methods.
-From lowest to highest error, it usually goes like this: DS, LS, Lasso, OMP.
+From the simulation, DS outperforms other methods in most of the datasets.
+With low noise, \m {\tilde {\chi} _{\mathrm {DS}} \approx \tilde {\chi} _{\mathrm {OMP}} \approx \tilde {\chi} _{\mathrm {Lasso}} \approx \tilde {\chi} _{\mathrm {LS}}}.
+But with high noise, \m {\tilde {\chi} _{\mathrm {OMP}}, \tilde {\chi} _{\mathrm {Lasso}}, \tilde {\chi} _{\mathrm {LS}}} blow up quickly,
+and it is usually true that \m {\tilde {\chi} _{\mathrm {DS}} \leq \tilde {\chi} _{\mathrm {OMP}} \leq \tilde {\chi} _{\mathrm {Lasso}} \leq \tilde {\chi} _{\mathrm {LS}}}.
 
-The performance of OMP appears to be poor.
-In most cases, the estimation fails, and we have \m {\tilde {\chi}} close to the unity.
-Varying thresholds of OMP, namely \m {\h_{\mathrm {OMP}}}, does not give different result.
+For OMP, in Lee, Gil, and Lee \cite [LGL16], a high-complexity nonconvex program is used to design the sensing matrix, while we have here a low-complexity, random generation of beamforming matrices.
+We keep in mind that a different design of sensing matrix, or a distribution of angles, will affect the performance of OMP.
 
-A crucial reason might be that Lee, Gil, and Lee \cite {LGL16} proposed a high-complexity nonconvex program for the beamformers, which they gave approximation, and we have here a low-complexity, randomly-generated beamformers.
-It may also have something to do with the distribution of angles of departure and arrival;
-their distribution lies within a cluster of standard deviation 15 degrees, and in ours, they are uniform on the unit circle.
-It remains to see how OMP and DS compare, if done according to their procedure.
+For Lasso, \m {\g} (or \m {\l}) is also crucial to the performance, but cannot be obtained in advance.
+Thus, for sake of comparison, we set the same threshold (and BPDN) for Lasso and DS.
+Still, there may be other values of \m {\g} (or \m {\l}) for which DS and Lasso are both better.
 
-The performance of Lasso also fails mostly, and \m {\tilde {\chi}} even increase as \m {\s} decreases, which is strange.
-
-For Moore Penrose pseudoinverse, \m {\tilde {\chi}} decreases steadily as \m {\s} decreases.
-
-For DS itself, \m {\tilde {\chi}} decreases as \m {\s} increases, which is expected, but \m {\tilde {\chi}} does not go down indefinitely, even for very low \m {\s}.
-The values of threshold of DS \m {\g_{\mathrm {DS}}} are chosen within the order of magnitude of \m {\s}.
-For high signal level, \m {\g_{\mathrm {DS}}} does not affect much, but for low signal level a greater value may be more effective.
-It may have been that the iteration stabilizes much earlier than is constrained by maximum iteration number.
+For DS itself, first, \m {\tilde {\chi} _{\mathrm {DS}}} certainly decreases as \m {\s} increases, but it does not decrease indefinitely.
+Second, \m {\tilde {\chi} _{\mathrm {DS}}} decreases as \m {N_H} increases.
+Third, when \m {N_{B,t} /N_{B,r}} is smaller, \m {\tilde {\chi} _{\mathrm {DS}}} is smaller, because we have a higher sample rate.
+As \m {N_{B,t} /N_{B,r}} increase for given \m {\s}, \m {\tilde {\chi} _{\mathrm {DS}}} improves more significantly.
 
 Unfortunately, we report that CVXPY sometimes gives overflowing values, some of them as large as \m {10^{11}}.
 This probably indicates some typical-looking output may in fact be unreliable.
 Therefore we have discarded outputs larger than a given threshold, for instance \m {10^4}, and simply return the answer to be a Moore–Penrose inverse.
 
-We are not sure either why \m {\tilde {\chi}} is an overestimation of \m {\chi} by several orders of magnitude.
-A possible explanation is that the non-sparsity of \m {\V {g}} undermines the analysis in chapter 3, despite our attempts to account for that effect.
+\m {\tilde {\chi}} is not shown in the figure, because the big O bound is much larger than \m {\chi}.
+It is possible that the nonsparsity of \m {\V {g}} undermines the analysis in chapter 3, despite our attempts to account for that effect.
+It is curious to see whether for very large \m {N_H}, whether \m {\tilde {\chi}} and \m {\tilde {\chi}} will be asymptotically close.
 
 In figures 24 and 25, we reproduce two cases of success and failure of DS.
 In both figures the true values of \m {\M {H}} entries are ordered by magnitude, and corresponding estimated values in the first and second stage are plotted against them.
 When DS fails, the soft thresholding did not rule out smaller entries, thus a second application of DS on the wrong index set failed too.
 When DS succeeded, the soft thresholding gave a reasonable guess of the nonzero components, thus a second application of DS on this index set refined the estimated values.
+
 
 \bigskip
 \begin {figure} [H]
@@ -499,7 +497,7 @@ If we agree that, for high probability,
 %
 \DispNum {O:j:sO:O1} {
 \mathcal {O} \SB {\VNm {\M {P} ^\dagger \V {z}} _{\SB {j}}}
-= \s \mathcal {O} \RB {1} 
+= \s N_H^2 \mathcal {O} \RB {1} 
 }
 Then we simply have
 %
