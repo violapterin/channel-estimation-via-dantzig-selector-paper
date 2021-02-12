@@ -142,7 +142,7 @@ Algorithm [2] recovers \m {\V {x}} with the expected error norm bounded with ove
 The \m {\ell_1}-minimization problem with \m {\ell_\infty}-constraint may be recast as a linear Program, rendering convex programming technique applicable.
 This allows techniques from convex optimization to be used, and Candès and Romberg provided an implementation on their website \cite [CaR05].
 
-Here the constant \m {\d_s} in Definition [1] is significant, since we can't just take \m {\M {Q}} to be any unitary matrix, for which \m {\d_s =0}.
+Here the constant \m {\d_s} is significant, since we can't just take \m {\M {Q}} to be any unitary matrix, for which \m {\d_s =0}.
 A common approach is choosing i.i.d.\ entries of \m {\M {Q}}, and it was established by Baraniuk et.\ al.\ \cite [BDD08] that if \m {\VNm {\M {Q} \V {x}}} concentrates sharply, \m {\M {Q}} has RIP for overwhelming probability, but it remains to conceive an algorithm that efficiently generates RIP matrices.
 
 Back to our problem of MIMO channel estimation, recall that, luckily, physical evidences suggest that mm-wave channels are sparse in the number of paths.
@@ -151,7 +151,6 @@ The accompanying note by the same researchers \cite [BHR08] showed that \m {X} h
 
 Some scholars applied least absolute shrinkage and selection operator (Lasso) instead.
 In fact, it can be shown that Lasso and DS have similar behavior \cite [AsR10].
-
 Lian, Liu and Lau applied Lasso on MIMO with an analog combiner \cite [LLL17].
 Destino, Juntti, and Nagaraj used an adaptive Lasso \cite [DJN15], in which they jointly optimize the sensing matrix and pilot vectors.
 Vlachos, Alexandropoulos, and Thompson \cite [VAT19] used Lasso on hybrid beamforming with an additional random spatial sampling device.

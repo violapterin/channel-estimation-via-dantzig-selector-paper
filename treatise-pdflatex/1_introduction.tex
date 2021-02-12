@@ -138,12 +138,18 @@ Algorithm [2] recovers \m {\V {x}} with the expected error norm bounded with ove
 The \m {\ell_1}-minimization problem with \m {\ell_\infty}-constraint may be recast as a linear Program, rendering convex programming technique applicable.
 This allows techniques from convex optimization to be used, and Candès and Romberg provided an implementation on their website \cite {CaR05}.
 
-Here the constant \m {\d_s} in Definition [1] is significant, since we can't just take \m {\M {Q}} to be any unitary matrix, for which \m {\d_s =0}.
+Here the constant \m {\d_s} is significant, since we can't just take \m {\M {Q}} to be any unitary matrix, for which \m {\d_s =0}.
 A common approach is choosing i.i.d.\ entries of \m {\M {Q}}, and it was established by Baraniuk et.\ al.\ \cite {BDD08} that if \m {\VNm {\M {Q} \V {x}}} concentrates sharply, \m {\M {Q}} has RIP for overwhelming probability, but it remains to conceive an algorithm that efficiently generates RIP matrices.
 
-Back at the ranch, recall that the channel estimation has been considered infeasible in the MIMO setting, but luckily, physical evidences suggest that mm-wave channels are sparse in the number of paths.
-An early attempt to apply compressive sensing was Bajwa et.\ al.\ \cite {BHS10}, where they argued that if the \m {\ell_0}-norm of the channel matrix may be bounded by a constant, DS may be applied to estimate the time-dependent single-antenna channel response.
+Back to our problem of MIMO channel estimation, recall that, luckily, physical evidences suggest that mm-wave channels are sparse in the number of paths.
+Bajwa et.\ al.\ \cite {BHS10} used DS, where they argued that if the \m {\ell_0}-norm of the channel matrix may be bounded by a constant, DS may be applied to estimate the time-dependent single-antenna channel response.
 The accompanying note by the same researchers \cite {BHR08} showed that \m {X} has RIP for overwhelming probability, justifying their work.
+
+Some scholars applied least absolute shrinkage and selection operator (Lasso) instead.
+In fact, it can be shown that Lasso and DS have similar behavior \cite {AsR10}.
+Lian, Liu and Lau applied Lasso on MIMO with an analog combiner \cite {LLL17}.
+Destino, Juntti, and Nagaraj used an adaptive Lasso \cite {DJN15}, in which they jointly optimize the sensing matrix and pilot vectors.
+Vlachos, Alexandropoulos, and Thompson \cite {VAT19} used Lasso on hybrid beamforming with an additional random spatial sampling device.
 
 
 \section {Orthogonal Matching Pursuit}
@@ -212,20 +218,16 @@ The columns of \m {\M {Q}} are chosen greedily, and we expect its columns to spa
 In each step, we estimate the noise \m {\V {r}}, and find a new column most correlated with it, to refine the estimation for \m {\V {x}}.
 From Tropp and Gilbert \cite {TrG07a}, the probability that OMP recovers \m {\V {x}} completely is overwhelming.
 
-OMP has since been pervasively used for channel sensing.
+OMP has since been commonly used for channel estimation.
 Alkhateeb et.\ al.\ \cite {AEL14} proposed an adaptive algorithm with a beam codebook for quantized angles.
-Alkhateeb, Leus, and Heath Jr.\ \cite {ALH15} examined the trade-off between number of measurement and accuracy for an all-phase-shifter beamformers based on nonuniform fixed set of angles.
-Gao et.\ al.\ \cite {LGC16} proposed a jointly reconstruction, with a modified OMP, of several high-dimensional sparse signals.
+Alkhateeb, Leus, and Heath Jr.\ \cite {ALH15} examined the trade-off between number of measurement and accuracy for an all-phase-shifter beamforming matrix based on nonuniform fixed set of angles.
 Hu, Wang, and He \cite {HWH13} applied OMP to estimate quantized path delay of OFDM subcarriers of stationary channel gain.
-Lee, Gil, and Lee \cite {LGL16} considered a hybrid system, where the effective beamformer serves as sensing matrix, based on a designed set of angles.
-Manoj and Kannu \cite {MaK17} studied the sparse condition on submatrices of the signal for successful reconstruction.
-Gurbuz, Yapici, and Guvenc \cite {GYG18} introduced perturbation on the angles which the sensing matrix based on.
-Panayirci et.\ al.\ \cite {PAU19} proposed a concatenation of max-likelihood estimation of model parameters, and maximum-a-posteriori estimation of channel gains, by virtue of OMP.
+Lee, Gil, and Lee \cite {LGL16} considered a hybrid system, where the sensing matrix serves as sensing matrix, based on a designed set of angles.
+Gao, Dai, and Wang proposed a variant which there is the assumption of spatially common sparsity \cite {GDW15}.
 
 Performance guarantee of OMP is also studied on various conditions.
 Cai, Wang, and Xu \cite {CWX10}, gave a new bound on performance of OMP under assumption of low coherence of columns of matrices, instead of almost unitarity.
 Cai and Wang \cite {CaW11} extended the study to DS and other convex programs for sparse recovery, and Ben-Haim et.\ al.\ \cite {BEE10} followed up and refined their bounds, concluding that OMP is better for low SNR scenario, and DS is better for high SNR.
-
 
 \section {Contribution}
 
