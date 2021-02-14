@@ -38,7 +38,7 @@ To show this, apply triangle inequality respectively on \m {\mathcal {A}} and \m
 - \VNm {\V {d} _{\SB{\mathcal {A}}}} _1
 + \VNm {\V {d} _{\SB{\mathcal {C}}}} _1
 - \VNm {\V {g} _{\SB{\mathcal {C}}}} _1
-\leq \VNm {\V {g} + \V {d}} _1 \\
+\leq \VNm {\V {g} + \V {d}} _1 \notag \\
 %
 =\VNm {\hat {\V {g}}} _1 
 }
@@ -74,9 +74,9 @@ To show this, by definition,
 %
 \DispNum {z:y:Pg:ny} {
 \IP {\V {z} - \RB {\V {y} - \M {P} \hat {\V {g}}}, \M {P} _{\SB {:,n_h}}}
-= \IP {\M {P} \hat {\V {g}} - \M {P} \V {g}, \M {P} _{\SB {:,n_h}}} \\
+= &\IP {\M {P} \hat {\V {g}} - \M {P} \V {g}, \M {P} _{\SB {:,n_h}}} \notag \\
 %
-= \IP {\M {P} \V {d}, \M {P} _{\SB {:,n_h}}} 
+= &\IP {\M {P} \V {d}, \M {P} _{\SB {:,n_h}}} 
 }
 %
 On one hand, \m {\Nm {\IP {\V {z} , \M {P} _{\SB {:, n_h}}}}} observes standard normal.
@@ -98,19 +98,19 @@ On the other hand, by construction
 %
 \DispNum {P:g:Py:Nh} {
 \VNm {\M {P} _{\SB {:,n_h}}^\dagger \RB {\V {y} - \M {P} \hat {\V {g}}}} _\infty
-\leq \VNm {\M {P}^\dagger \RB {\V {y} - \M {P} \hat {\V {g}}}} _\infty \\
+\leq &\VNm {\M {P}^\dagger \RB {\V {y} - \M {P} \hat {\V {g}}}} _\infty \notag \\
 %
-\leq 2\R {2 \log N_H} 
+\leq &2\R {2 \log N_H} 
 }
 
 Now, by triangle inequality, together with \eqref {Q:h:1N:Nh} and \eqref {P:g:Py:Nh}, we obtain the desired result.
 %
 \DispNum {P:d:zP:Nh} {
 \VNm {\M {P} _{\SB {:,n_h}}^\dagger \M {P} \V {d}} _\infty
-\leq \Nm {\IP {\V {z}, \M {P} _{\SB {:,n_h}}}}
-+ \IP {\V {y} - \M {P} \hat {\V {g}}, \M {P} _{\SB {:,n_h}}} \\
+\leq &\Nm {\IP {\V {z}, \M {P} _{\SB {:,n_h}}}}
++ \IP {\V {y} - \M {P} \hat {\V {g}}, \M {P} _{\SB {:,n_h}}} \notag \\
 %
-\simeq 2 \R {2 \log N_H} +2 \R {2 \log N_H} 
+\simeq &2 \R {2 \log N_H} +2 \R {2 \log N_H} 
 }
 
 Lastly, the following two propositions are taken from \cite {CaT07}, Lemma \m {1}.
@@ -222,22 +222,22 @@ To show this, by the definition of truncation, by \m {\ell_p} norm inequality, b
 %
 \DispNum {P:2:PP:NH} {
 \VNm {\M {P} _{\SB {\mathcal {AB}}}^\intercal \M {P} \V {d}} _2
-\leq \VNm {\M {P}^\intercal \M {P} \V {d}} _2 \\
+\leq &\VNm {\M {P}^\intercal \M {P} \V {d}} _2 \notag \\
 %
-\leq \R {S} \VNm {\M {P}^\intercal \M {P} \V {d}} _\infty \\
+\leq &\R {S} \VNm {\M {P}^\intercal \M {P} \V {d}} _\infty \notag \\
 %
-\leq 5.65 \R {\log N_H} 
+\leq &5.65 \R {\log N_H} 
 }
 %
 By \m {\ell_p}-norm inequality, by the definition of truncation, by \eqref {d:2:11:C1}, and by \eqref {P:2:PP:NH} just above,
 %
 \DispNum {d:1:Sd:C1} {
 \VNm {\V {d} _{\SB{\mathcal {A}}}} _1
-\leq \R {S} \VNm {\V {d} _{\SB{\mathcal {A}}}} _2 \\
+\leq &\R {S} \VNm {\V {d} _{\SB{\mathcal {A}}}} _2 \notag \\
 %
-\leq \R {S} \VNm {\V {d} _{\SB{\mathcal {AB}}}} _2 \\
+\leq &\R {S} \VNm {\V {d} _{\SB{\mathcal {AB}}}} _2 \notag \\
 %
-\leq 1.21 L \R {\log N_H}^3
+\leq &1.21 L \R {\log N_H}^3
 +0.262 \VNm {\V {d} _{\SB{\mathcal {C}}}} _1 
 }
 %
@@ -281,35 +281,32 @@ q
 Quoting previous results \eqref {1:p:2e:s4}, \eqref {1:p:ex:d's}, \eqref {1:p:NH:H2}, and \eqref {1:p:1N:H3}, we make some approximation and set
 \DispNum {q:B:2e:Lp'} {
 q _{\mathrm {iso}, B}
-\lesssim 2 \mathsf {e} ^{-\max \SB {N_{B,r}, N_{B,t}} /12} \\
+\lesssim &2 \mathsf {e} ^{-\max \SB {N_{B,r}, N_{B,t}} /12} \notag \\
 %
 q _{\mathrm {iso}, R}
-\lesssim 2 N_H ^{-1/3} \RB {\log N_H} ^{-1/6} \\
+\lesssim &2 N_H ^{-1/3} \RB {\log N_H} ^{-1/6} \notag \\
 %
 q _{\mathrm {no}}
-\lesssim N_H ^{-2} \\
+\lesssim &N_H ^{-2} \notag \\
 %
 q _{\mathrm {sp}}
-\lesssim 2 \mathsf {e} ^{-9L/\pi} 
+\lesssim &2 \mathsf {e} ^{-9L/\pi} 
 }
 %
 If we provide the ideal values
 \DispNum {N:B:4l:H2} {
 N_{B,r}, N_{B,t}
-\gtrsim 4 \log N_H \\
-%
-N_R
 \gtrsim 16 L \RB {\log N_H}^2 
 }
 %
 It can be seen that
 \DispNum {q:p:qn:oR} {
 q _{\mathrm {sp}}
-\lesssim q _{\mathrm {no}} \\
+\lesssim q _{\mathrm {no}}
 %
-\lesssim q _{\mathrm {iso}, R} \\
+\lesssim q _{\mathrm {iso}, R}
 %
-\eqsim q _{\mathrm {iso}, B} 
+\eqsim q _{\mathrm {iso}, B}
 }
 %
 then we get the estimation

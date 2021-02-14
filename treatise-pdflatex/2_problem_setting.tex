@@ -27,11 +27,11 @@ For our purpose, we may absorb the arguments of \m {\V {a}}
 %
 \DispNum {f:l:2p:2p} {
 \f_l
-= 2\pi \frac {d_{\mathrm {arr}}} {\l_{\mathrm {arr}}} \sin \f_l'
+= &2\pi \frac {d_{\mathrm {arr}}} {\l_{\mathrm {arr}}} \sin \f_l'
   \; \mathrm {Mod}\; \RB {2\pi} \\
 %
 \th_l
-= 2\pi \frac {d_{\mathrm {arr}}} {\l_{\mathrm {arr}}} \sin \th_l'
+= &2\pi \frac {d_{\mathrm {arr}}} {\l_{\mathrm {arr}}} \sin \th_l'
   \; \mathrm {Mod}\; \RB {2\pi} 
 }
 %
@@ -54,34 +54,35 @@ to get a simpler form
 
 We consider the hybrid beamforming at both transmitter and receiver ends, as shown in Figure 2.
 Each end consists of both digital and analog precoders and combiners.
-In the transmitter end, there are (seeing towards the receiver end), digital precoder \m {\M {F} _B \in \mathbb {C} ^{N_R \D N_{B,t}}} and analog precoder \m {\M {F} _R \in \mathbb {C} ^{N_H \D  N_R}}.
-Similarly, in the receiver end, there are (seeing towards the transmitter end) digital combiner \m {\M {W} _R \in \mathbb {C} ^{N_R \D N_H}} and analog combiner \m {\M {W} _B \in \mathbb {C} ^{N_{B,r} \D  N_R}}.
+In the transmitter end, there are (seeing towards the receiver end), digital precoder \m {\M {F} _B \in \mathbb {C} ^{N_{B,t} \D N_{B,t}}} and analog precoder \m {\M {F} _R \in \mathbb {C} ^{N_H \D N_{B,t}}}.
+Similarly, in the receiver end, there are (seeing towards the transmitter end) digital combiner \m {\M {W} _R \in \mathbb {C} ^{N_{B,r} \D N_H}} and analog combiner \m {\M {W} _B \in \mathbb {C} ^{N_{B,r} \D N_{B,r}}}.
 
 Recall that analog precoders may only have values of unity magnitude,
 %
 \DispNum {F:R:1::R1} {
-\Nm {\RB {\M {F} _R} _{\SB {n_H, n_R}}}
-= 1, \\
+\Nm {\RB {\M {F} _R} _{\SB {n_H, n_{R,t}}}}
+= &1, \\
 %
-\Nm {\RB {\M {W} _R} _{\SB {n_R, n_H}}}
-= 1, \\
+\Nm {\RB {\M {W} _R} _{\SB {n_{R,r}, n_H}}}
+= &1, \\
 %
 n_H
-= 0, \dots N_H-1, \\
+= &0, \dots N_H-1, \\
 %
-n_R
-= 0, \dots N_R-1 
+n_{R,t}
+= &0, \dots N_{B,t}-1  \\
+%
+n_{R,r}
+= &0, \dots N_{B,r}-1 
 }
 %
 And we assume
 %
 \DispNum {N:H:NY:NY} {
-N_H \gg N_R \\
-%
-N_R \gg N_{B,r}, N_{B,r}
+N_H \gg N_{B,t}, N_{B,r}
 }
 
-Since we restrict our discussion to a short interval of time, the noise term may be simply taken as a matrix \m {\M {Z} \in \mathbb {C} ^{N_{B,r} \D N_{B,r}}} with each entry being i.i.d.\ standard normal.
+Since we restrict our discussion to a short interval of time, the noise term may be simply taken as a matrix \m {\M {Z} \in \mathbb {C} ^{N_H \D N_{B,t}}} with each entry being i.i.d.\ standard normal.
 Let us introduce the effective channel
 %
 \DispNum {Y:Y:WB:BZ} {
@@ -89,7 +90,7 @@ Let us introduce the effective channel
 :=\M {W} _B \M {W} _R \RB {\M {H} \M {F} _R \M {F} _B +\M {Z}} 
 }
 %
-Our task then amounts to recovering \m {\M {H}}, and designing \m {\M {W} _R}, \m {\M {W} _B}, \m {\M {F} _R}, and \m {\M {F} _B}.
+Our task then amounts to recovering \m {\M {H}}, and generating \m {\M {W} _R}, \m {\M {W} _B}, \m {\M {F} _R}, and \m {\M {F} _B}.
 
 
 \section {Vectorization}
@@ -121,9 +122,9 @@ The bijection is obvious, and we define \m {\mathrm {vec} ^{-1}} so that
 For \m {\M {A} \in \mathbb {K} ^{N_1 \D  N_2}} and \m {\M {B} \in \mathbb {K} ^{N_3 \D N_4}}, define the Kronecker product \m {\M {A} \otimes \M {B} \in \mathbb {K} ^{N_1 N_3 \D N_2 N_4}} by
 %
 \DispNum {A:2:Am:N4} {
-\RB {\M {A} \otimes \M {B}} _{\SB {m_1, m_2}} \\
+&\RB {\M {A} \otimes \M {B}} _{\SB {m_1, m_2}} \notag \\
 %
-=\M {A} _{\SB {\Fl {m_1/N_3 }, \Fl {m_2/N_4 }}}
+= &\M {A} _{\SB {\Fl {m_1/N_3 }, \Fl {m_2/N_4 }}}
 \M {B} _{\SB {m_1\; \mathrm {Mod}\; N_3, m_2\; \mathrm {Mod}\; N_4}} 
 }
 }
@@ -145,19 +146,19 @@ It is more appealing to write
 %
 \DispNum {h:h:ve:Nh} {
 \V {h}
-:= \mathrm {vec} \SB {\M {H}}
+:= &\mathrm {vec} \SB {\M {H}}
 \in \mathbb {C} ^{N_H^2} \\
 %
 \V {y}
-:= \mathrm {vec} \SB {\M {Y}}
+:= &\mathrm {vec} \SB {\M {Y}}
 \in \mathbb {C} ^{N_{B,t} N_{B,r}} \\
 %
 \V {z}
-:= \mathrm {vec} \SB {\M {W} _B \M {W} _R \M {Z}}
+:= &\mathrm {vec} \SB {\M {W} _B \M {W} _R \M {Z}}
 \in \mathbb {C} ^{N_{B,t} N_{B,r}} \\
 %
 \M {Q}
-:= \RB {\M {F} _B^\intercal \M {F} _R^\Tr} \otimes \RB {\M {W} _B \M {W} _R}
+:= &\RB {\M {F} _B^\intercal \M {F} _R^\Tr} \otimes \RB {\M {W} _B \M {W} _R}
 \in \mathbb {C} ^{N_{B,t} N_{B,r} \D N_H^2} 
 }
 %
@@ -176,13 +177,13 @@ At this stage, we intend to apply DS, but there is no guarantee that \m {\V {h}}
 Denote the discrete Fourier transform matrix to be \m {\M {K}},
 %
 \DispNum {K:K:CN:H1} {
-\M {K} \in  \mathbb {C} ^{N_H \D N_H} \\
+\M {K} \in &\mathbb {C} ^{N_H \D N_H} \notag \\
 %
 \M {K} _{\SB {n_1, n_2}}
-= \frac {1} {\R {N_H}} \mathsf {e}^{2\pi \mathsf {i} n_1 n_2 /N_H}, \\
+= &\frac {1} {\R {N_H}} \mathsf {e}^{2\pi \mathsf {i} n_1 n_2 /N_H}, \notag \\
 %
 \quad n_1, n_2
-= 0, 1, \dots, N_H-1 
+= &0, 1, \dots, N_H-1 
 }
 %
 Recall that we have

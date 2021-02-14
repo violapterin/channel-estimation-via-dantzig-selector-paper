@@ -1,8 +1,8 @@
-\startsection [title={Generation of beamformers}]
+\startsection [title={Generating beamforming matrices}]
 
-\startsubsection [title={Generation of beamformers}]
+\startsubsection [title={The plan}]
 
-We want to set the four beamformers to be i.i.d.\ random matrix, hoping that the resulting \m {P} has RIP.
+We want to set the four beamforming matrices to be i.i.d.\ random matrix, hoping that the resulting \m {\M {P}} has RIP.
 Let us simply set each entry of \m {\M {F} _B} to be i.i.d.\ normal random variables with mean \m {0}, standard deviation \m {1/2}, multiplied by a normalizing constant \m {\l_B >0}.
 We know that the magnitude \m {\RB {\M {F} _B} _{\SB {n_R, n_B}}} follows Rayleigh distribution.
 \m {\RB {\M {W} _B ^\Tr} _{\SB {n_B, n_R}}} is set similarly.
@@ -20,7 +20,7 @@ Can we argue instead that \m {\M {F} _B ^\Tr \M {F} _R ^\Tr \V {u}} has similar 
 
 \stopsubsection
 
-\startsubsection [title={Operator norm of digital beamformers}]
+\startsubsection [title={Operator norm of digital beamforming matrices}]
 
 Use \m {\chi _{i,j}} to denote independent complex standard normal random variables.
 It follows that (respectively for \m {N_{B,r}})
@@ -67,7 +67,7 @@ for probability \m {p}, with
 
 \stopsubsection
 
-\startsubsection [title={Operator norm of analog beamformers}]
+\startsubsection [title={Operator norm of analog beamforming matrices}]
 
 In Haviv and Regev, \quotation {The restricted isometry property of subsampled Fourier matrices} \cite [KlM17], Theorem \m {4.5} states a DFT submatrix has \m {\d_s} RIP with failure probability lower than a certain Big-O bound.
 We argue that their argument can be refined to give precise constants, by Chernoff-Hoeffding bounds and their theorem \m {2.2} with (say) \m {C \leftarrow 1/3}.

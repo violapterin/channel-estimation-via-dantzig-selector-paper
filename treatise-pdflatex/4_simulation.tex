@@ -13,14 +13,14 @@ For \m {\V {x} \in \mathbb {C} ^{M}}, define the real representation \m {\mathca
 %
 \DispNum {R:x:R2:M1} {
 \mathcal {R} \SB {\V {x}}
-\in \mathbb {R} ^{2M} \\
+\in &\mathbb {R} ^{2M} \\
 \mathcal {R} \SB {\V {x}} _{\SB {m}}
-= \begin {cases}
+= &\begin {cases}
 \mathfrak {Re} \SB {\V {x} _{\SB {m'}}}, & m =2m' \\
 \mathfrak {Im} \SB {\V {x} _{\SB {m'}}}, & m =2m'+1 \\
 \end {cases} \\
 m' 
-=  0, 1, 2, \ldots, M-1 
+= &0, 1, 2, \ldots, M-1 
 }
 %
 The injection is obvious, and we may define \m {\mathcal {R} ^{-1}} so that
@@ -35,42 +35,41 @@ For \m {\M {A} \in \mathbb {C} ^{M_1 \D M_2}}, define real representation \m {\m
 %
 \DispNum {R:A:R2:21} {
 \mathcal {R} \SB {\M {A}}
-\in \mathbb {R} ^{2M_1 \D 2M_2} \\
-\mathcal {R} \SB {\M {A}} _{\SB {m_1,m_2}} =
-\begin {cases}
+\in &\mathbb {R} ^{2M_1 \D 2M_2} \\
+\mathcal {R} \SB {\M {A}} _{\SB {m_1,m_2}}
+= &\begin {cases}
 \mathfrak {Re} \SB {\M {A} _{\SB {m_1',m_2'}}}, & \RB {m_1, m_2} = \RB {2m_1', 2m_2'} \\
 \mathfrak {Im} \SB {\M {A} _{\SB {m_1',m_2'}}}, & \RB {m_1, m_2} = \RB {2m_1'+1, 2m_2'} \\
 -\mathfrak {Im} \SB {\M {A} _{\SB {m_1',m_2'}}}, & \RB {m_1, m_2} = \RB {2m_1', 2m_2'+1} \\
 \mathfrak {Re} \SB {\M {A} _{\SB {m_1',m_2'}}}, & \RB {m_1, m_2} = \RB {2m_1'+1, 2m_2'+1} \\
 \end {cases} \\
 m_1 
-= 0, 1, 2, \ldots, M_1 -1 \\
+= &0, 1, 2, \ldots, M_1 -1 \\
 m_2 
-= 0, 1, 2, \ldots, M_2 -1 
+= &0, 1, 2, \ldots, M_2 -1 
 }
 
 With these, we define
-%
 
 \DispNum {y:y:Ry:Ny} {
 \tilde {\V {y}}
-= \mathcal {R} \SB {\V {y}}
+= &\mathcal {R} \SB {\V {y}}
 \in \mathbb {R} ^{2 N_{B,t} N_{B,r}} \\
 %
 \tilde {\V {g}}
-= \mathcal {R} \SB {\V {g}}
+= &\mathcal {R} \SB {\V {g}}
 \in \mathbb {R} ^{2 N_H^2} \\
 %
 \tilde {\M {P}}
-= \mathcal {R} \SB {\M {P}}
+= &\mathcal {R} \SB {\M {P}}
 \in \mathbb {R} ^{2 N_{B,t} N_{B,r} \D 2 N_H^2} \\
 %
 \tilde {\M {P}} ^\Adj
-= \mathcal {R} \SB {\M {P} ^\Adj}
+= &\mathcal {R} \SB {\M {P} ^\Adj}
 \in \mathbb {R} ^{2 N_{B,t} N_{B,r} \D 2 N_H^2} \\
 %
 \tilde {\V {z}}
-= \mathcal {R} \SB {\V {z}}
+= &\mathcal {R} \SB {\V {z}}
 \in \mathbb {R} ^{2 N_{B,t} N_{B,r}} 
 }
 %
@@ -150,11 +149,11 @@ The resulting indices set has to be scrambled back according to the original ind
 \item Set
 \Disp {
 N_0
-=2 N_H^2, \\
+= &2 N_H^2, \\
 N_2
-=\lfloor 4 \log N_H \rfloor, \\
+= &\lfloor 4 \log N_H \rfloor, \\
 N_1
-=\lfloor \R {N_0 N_2} \rfloor 
+= &\lfloor \R {N_0 N_2} \rfloor 
 }
 
 \item Apply DS to \m {\V {y}, \M {P}} to get \m {\hat {\V {g}}_0}, and call the \m {N_1} largest component of \m {\hat {\V {g}}_0} to be \m {\V {g}_1}, and corresponding columns of \m {\M {P}} to be \m {\M {P} _1}.
@@ -456,7 +455,7 @@ We take some liberty to assume that, at the start the iteration, the Moore–Pen
 %
 \DispNum {g:0:gL:Py} {
 \V {g}_0
-=\V {g}_{\mathrm {LS}} \\
+=\V {g}_{\mathrm {LS}}
 = \RB {\M {P} ^\dagger \M {P}} ^{-1} \M {P} ^\dagger \V {y} 
 }
 %
@@ -488,7 +487,7 @@ Thus, by \eqref {g:0:gL:Py}, \eqref {C:S:Og:g1}, and \eqref {g:g:g;:;g},
 C_{\mathrm {DS}}
 =\mathcal {O} \SB {
    \VNm {\V {g} +\RB {\M {P} ^\dagger \M {P}} ^{-1} \M {P} ^\dagger \V {z}
-   -\V {g}} _1} N_H^4 \\
+   -\V {g}} _1} N_H^4
 =\mathcal {O} \SB {\VNm {\M {P} ^\dagger \V {z}} _1} N_H^4 
 }
 
@@ -572,9 +571,9 @@ But it is also notable that, while Lasso has form similar to DS, it takes much l
 Assuming the complexity of each of three methods is polynomial time, we calculate a least square fit for the power of complexity, giving the following estimated values, on which we add a tilde.
 
 \DispNum {t:P:NH:83} {
-\tilde {t}_{\mathrm {OMP}} \eqsim \mathcal {O} \SB {N_H^{3.6}} \\
-\tilde {t}_{\mathrm {Lasso}} \eqsim \mathcal {O} \SB {N_H^{4.8}} \\
-\tilde {t}_{\mathrm {DS}} \eqsim \mathcal {O} \SB {N_H^{8.3}} 
+\tilde {t}_{\mathrm {OMP}} \eqsim &\mathcal {O} \SB {N_H^{3.6}} \\
+\tilde {t}_{\mathrm {Lasso}} \eqsim &\mathcal {O} \SB {N_H^{4.8}} \\
+\tilde {t}_{\mathrm {DS}} \eqsim &\mathcal {O} \SB {N_H^{8.3}} 
 }
 
 However, note that we must be careful in giving meaningful comparison between compressive sensing algorithms, as they might work in different settings.

@@ -1,8 +1,8 @@
-\section {Design of beamformers}
+\section {Generating beamforming matrices}
 
-\subsection {Design of beamformers}
+\subsection {The plan}
 
-We want to set the four beamformers to be i.i.d.\ random matrix, hoping that the resulting \m {P} has RIP.
+We want to set the four beamforming matrices to be i.i.d.\ random matrix, hoping that the resulting \m {\M {P}} has RIP.
 Let us simply set each entry of \m {\M {F} _B} to be i.i.d.\ normal random variables with mean \m {0}, standard deviation \m {1/2}, multiplied by a normalizing constant \m {\l_B >0}.
 We know that the magnitude \m {\RB {\M {F} _B} _{\SB {n_R, n_B}}} follows Rayleigh distribution.
 \m {\RB {\M {W} _B ^\Tr} _{\SB {n_B, n_R}}} is set similarly.
@@ -18,7 +18,7 @@ In fact, the statement seems to be false in general.
 What now?
 Can we argue instead that \m {\M {F} _B ^\intercal \M {F} _R ^\intercal \V {u}} has similar norm with \m {\M {F} _R ^\intercal \V {u}}?
 
-\subsection {Operator norm of digital beamformers}
+\subsection {Operator norm of digital beamforming matrices}
 
 Use \m {\chi _{i,j}} to denote independent complex standard normal random variables.
 It follows that (respectively for \m {N_{B,r}})
@@ -63,11 +63,10 @@ for probability \m {p}, with
 }
 }
 
-\subsection {Operator norm of analog beamformers}
+\subsection {Operator norm of analog beamforming matrices}
 
-In Haviv and Regev, \quotation {The restricted isometry property of subsampled Fourier matrices} \cite {KlM17}, Theorem \m {4.5} states a DFT submatrix has \m {\d_s} RIP with failure probability lower than a certain Big-O bound.
+In Haviv and Regev, ``The restricted isometry property of subsampled Fourier matrices'' \cite {KlM17}, Theorem \m {4.5} states a DFT submatrix has \m {\d_s} RIP with failure probability lower than a certain Big-O bound.
 We argue that their argument can be refined to give precise constants, by Chernoff-Hoeffding bounds and their theorem \m {2.2} with (say) \m {C \leftarrow 1/3}.
-The conclusions, 
 Their Theorem \m {3.7} and Theorem \m {4.5} may be changed accordingly, so that the relation below gives a bound for failure probability for \m {\d_s /N_H s} RIP.
 %
 \DispNum {N:R:sd':NH} {
@@ -122,26 +121,26 @@ Clearly,
 where \m {\mathrm {abs}} denotes entrywise absolute value.
 Then if we notice that \m {\M {W} _B \M {W} _R \M {K} \M {U}} and \m {\M {U} ^\dagger \M {K}^\dagger \M {F} _R^\dagger \M {F} _B^\Adj} has \m {\d_s} RIP too, we see
 \DispNum {W:2:WB:d's} {
-\VNm {\M {W} _B \M {W} _R \M {H} \M {F} _R \M {F} _B} _2 \\
+&\VNm {\M {W} _B \M {W} _R \M {H} \M {F} _R \M {F} _B} _2 \notag \\
 %
-=\VNm {
+= &\VNm {
    \M {W} _B \M {W} _R \M {K} \M {U} \D
    \mathrm {diag} \SB {\mathrm {abs} \SB {\V {d}'}} \D
-   \M {U} ^\dagger \M {K} ^\dagger \M {F} _R \M {F} _B} _2 \\
+   \M {U} ^\dagger \M {K} ^\dagger \M {F} _R \M {F} _B} _2 \notag \\
 %
-=\VNm {
+= &\VNm {
    \M {W} _B \M {W} _R \M {K} \M {U}
    \R {\mathrm {abs} \SB {\V {d}'}} \D
    \R {\mathrm {abs} \SB {\V {d}'}}
-   \M {U} ^\dagger \M {K} ^\dagger \M {F} _R \M {F} _B} _2 \\
+   \M {U} ^\dagger \M {K} ^\dagger \M {F} _R \M {F} _B} _2 \notag \\
 %
-=\VNm {
+= &\VNm {
    \M {W} _B \M {W} _R \M {K} \M {U}
    \R {\mathrm {abs} \SB {\V {d}'}}} _2 \D
    \VNm {\M {F} _B ^\dagger \M {F} _R ^\dagger \M {K} \M {U}
-   \R {\mathrm {abs} \SB {\V {d}'}}} _2 \\
+   \R {\mathrm {abs} \SB {\V {d}'}}} _2 \notag \\
 %
-\eqsim \VNm {\M {G}} _2 \RB {1 +2\d_s} 
+\eqsim &\VNm {\M {G}} _2 \RB {1 +2\d_s} 
 }
 Thus, even we cannot make sure that \m {\M {P}} is \m {\d_s} RIP with respect to all possible \m {\V {g}}'s, at least \m {\M {P}} has RIP with respect to relevant values of \m {\V {g}} according to the form \eqref {H:H:l0:ql}.
 
