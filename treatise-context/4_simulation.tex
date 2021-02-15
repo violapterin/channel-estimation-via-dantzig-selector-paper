@@ -1,14 +1,13 @@
 \startchapter [title={Simulation}]
 
-In this chapter we shall compare \Rf {d:2:OL:H3} with numerical experiments.
-For the convex optimization, we choose the Python library CVXPY \cite [DiB16].
+To do convex optimization, we choose the Python library CVXPY.
 While a direct implementation of Algorithm [7] leads to extraordinarily large complexity, Candès and Romberg \cite [CaR05] showed that DS can be cast as a linear program, which we elaborate below.
 
 \startsection [title={Method}]
 
 \startsubsection [title={Some notation}]
 
-Let us represent complex vector and matrices by real ones, consisting of its real and imaginary parts.
+Let us represent complex vector and matrices by real vector and matrices.
 For \m {\V {x} \in \MB {C} ^{M}}, define the real representation \m {\MS {R} \SB {\V {x}}} of \m {\V {x}} to be
 %
 \DispNum {R:x:R2:M1} {
