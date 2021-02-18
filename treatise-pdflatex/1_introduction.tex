@@ -66,7 +66,7 @@ with
 \Nm {\mathcal {A}} \leq s. 
 }
 
-Candès and Tao \cite {Can05}, one of the earlier investigations on compressive sensing, showed that, in the noiseless case, a \m {\ell_1}-minimization program recovers the \m {N_m}-dimensional signal, with \m {N_p} measurements, under overwhelming probability.
+It is shown that in the noiseless case, a \m {\ell_1}-minimization program recovers the \m {N_p}-dimensional signal, with \m {N_m} measurements, under overwhelming probability \cite {Can05}.
 
 As an application, it often occurs that a camera takes a high definition photo, and compresses the image later.
 But it may be desirable that a camera equipped with fewer sensors shall take a lower resolution photo to save storage, and shall recover the image later.
@@ -111,8 +111,8 @@ For fixed \m {s =0, \dots N_p -1}, we say that \m {\M {Q}} satisfies \m {\d_s}-r
 %
 It helps to think that \m {\M {Q}} is almost unitary up to relative error \m {\d_s}.
 
-For concreteness, say \m {\V {z}} is an i.i.d.\ normalized random normal vector.
-If so, a stronger result was established \cite {CaT07} that, with another \m {\ell_1} minimization program called Dantzig selector (hereafter DS), recovery under the noisy case is again possible under high probability.
+For concreteness, say \m {\V {z}} is an i.i.d.\ random normal vector.
+If so, a stronger result was established \cite {CaT07} that, with another \m {\ell_1} minimization program called Dantzig selector (hereafter DS), recovery under the noisy case is again possible.
 
 \Result
 {Algorithm}
@@ -135,11 +135,10 @@ If so, a stronger result was established \cite {CaT07} that, with another \m {\e
 }
 
 Algorithm [2] recovers \m {\V {x}} with the expected error norm bounded with overwhelming probability.
-The \m {\ell_1}-minimization problem with \m {\ell_\infty}-constraint may be recast as a linear Program, rendering convex programming technique applicable.
-This allows techniques from convex optimization to be used, and Candès and Romberg provided an implementation on their website \cite {CaR05}.
+The \m {\ell_1}-minimization problem with \m {\ell_\infty}-constraint may be recast as a linear program, for which techniques from convex optimization may be used, and Candès and Romberg provided an implementation on their website \cite {CaR05}.
 
 Here the constant \m {\d_s} is significant, since we can't just take \m {\M {Q}} to be any unitary matrix, for which \m {\d_s =0}.
-A common approach is choosing i.i.d.\ entries of \m {\M {Q}}, and it was established by Baraniuk et.\ al.\ \cite {BDD08} that if \m {\VNm {\M {Q} \V {x}} _2} concentrates sharply, \m {\M {Q}} has RIP for overwhelming probability, but it remains to conceive an algorithm that efficiently generates RIP matrices.
+A common approach is choosing i.i.d.\ entries of \m {\M {Q}}, and it was established \cite {BDD08} that if \m {\VNm {\M {Q} \V {x}} _2} concentrates sharply, \m {\M {Q}} has RIP for overwhelming probability, but it remains to conceive an algorithm that efficiently generates RIP matrices.
 
 Back to our problem of MIMO channel estimation, recall that, luckily, physical evidences suggest that mm-wave channels are sparse in the number of paths.
 Bajwa et.\ al.\ \cite {BHS10} used DS, where they argued that if the \m {\ell_0}-norm of the channel matrix may be bounded by a constant, DS may be applied to estimate the time-dependent single-antenna channel response,
@@ -150,7 +149,6 @@ In fact, it can be shown that Lasso and DS have similar behavior \cite {AsR10}.
 Lian, Liu and Lau applied Lasso on MIMO with an analog combiner \cite {LLL17}.
 Destino, Juntti, and Nagaraj used an adaptive Lasso \cite {DJN15}, in which they jointly optimize the sensing matrix and pilot vectors.
 Vlachos, Alexandropoulos, and Thompson \cite {VAT19} used Lasso on hybrid beamforming with an additional random spatial sampling device.
-
 
 \section {Orthogonal Matching Pursuit}
 
@@ -219,14 +217,13 @@ In each step, we estimate the noise \m {\V {r}}, and find a new column most corr
 It is shown that the probability that OMP recovers \m {\V {x}} completely is overwhelming \cite {TrG07a}.
 
 OMP has since been commonly used for channel estimation.
-Alkhateeb et.\ al.\ \cite {AEL14} proposed an adaptive algorithm with a beam codebook for quantized angles.
 Alkhateeb, Leus, and Heath Jr.\ \cite {ALH15} examined the trade-off between number of measurement and accuracy for an all-phase-shifter beamforming matrix based on nonuniform fixed set of angles.
-Hu, Wang, and He \cite {HWH13} applied OMP to estimate quantized path delay of OFDM subcarriers of stationary channel gain.
-Lee, Gil, and Lee \cite {LGL16} considered a hybrid system, where the sensing matrix serves as sensing matrix, based on a designed set of angles.
-Gao, Dai, and Wang proposed a variant which there is the assumption of spatially common sparsity \cite {GDW15}.
+Hu, Wang, and He \cite {HWH13} applied OMP to estimate path delay of OFDM subcarriers.
+Lee, Gil, and Lee \cite {LGL16} considered a hybrid system, where the hybrid beamforming matrix serves as sensing matrix.
+Gao, Dai, and Wang proposed a variant of OMP which there is the assumption of spatially common sparsity \cite {GDW15}.
 
 Performance guarantee of OMP is also studied on various conditions.
-Cai, Wang, and Xu \cite {CWX10}, gave a new bound on performance of OMP under assumption of low coherence of columns of matrices, instead of almost unitarity.
+Cai, Wang, and Xu \cite {CWX10} gave a new bound on performance of OMP under assumption of low coherence of columns.
 Cai and Wang \cite {CaW11} extended the study to DS and other convex programs for sparse recovery, and Ben-Haim et.\ al.\ \cite {BEE10} followed up and refined their bounds, concluding that OMP is better for low SNR scenario, and DS is better for high SNR.
 
 \section {Contribution}
@@ -248,6 +245,7 @@ and we do not rely on additional assumption on sparsity as in Gao, Dai, and Wang
 
 It also is different from Bajwa et.\ al.\ \cite {BHS10};
 while they require a series of random pilot vectors and consequently the sensing stage take considerable time, we require only i.i.d.\ random sensing matrices and take just a few time frames.
+Also, their constraint on \m {\ell_0} norm may not hold, and they restrict to single antenna case.
 
 In addition, it seems that with the same threshold, DS is better than Lasso.
 Again, our proposed method is more general than Lian, Liu and Lau \cite {LLL17} with only analog combiner,

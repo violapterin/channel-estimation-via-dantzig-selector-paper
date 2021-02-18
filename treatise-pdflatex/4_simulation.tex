@@ -135,8 +135,8 @@ We remark some possible variants of DS, either to enhance the accuracy, or to re
 We can apply DS more than once to better estimate the nonzero components;
 let us call it the successive estimation \cite [CaT07].
 We apply DS for the first time, and we extract largest components of the estimated vector.
-Then and apply DS again, and we extract largest components of the second estimated vector.
-Finally, we apply Moore–Penrose inverse as the solution.
+Then we apply DS again, and we extract largest components of the second estimated vector.
+Finally, we apply Moore–Penrose inverse to get the returned solution.
 The resulting indices set has to be scrambled back according to the original indices.
 
 \Result
@@ -167,7 +167,7 @@ If more than one stage of estimation is possible, that is, there are more than o
 It is possible in theory to run it for three or more times.
 
 From our observation, it is not conclusive whether the successive estimation method is more accurate, and whether a third or more stage is helpful.
-It might have something to do with appropriately scaling \m {\g_{\mathrm {DS}}} with respect to \m {N_H}.
+It might have something to do with appropriately scaling \m {N_1, N_2} with respect to \m {N_H}.
 We have not used this method in the plots included here.
 
 \subsection {Basis pursuit denoising}
@@ -386,14 +386,13 @@ Still, there may be other values of \m {\g} (or \m {\l}) for which DS and Lasso 
 
 For DS itself, first, \m {\tilde {\chi} _{\mathrm {DS}}} certainly decreases as \m {\s} increases, but it does not decrease indefinitely.
 Second, \m {\tilde {\chi} _{\mathrm {DS}}} decreases as \m {N_H} increases.
-Third, when \m {N_{B,t} /N_{B,r}} is smaller, \m {\tilde {\chi} _{\mathrm {DS}}} is smaller, because we have a higher sample rate.
-As \m {N_{B,t} /N_{B,r}} increase for given \m {\s}, \m {\tilde {\chi} _{\mathrm {DS}}} improves more significantly.
+Third, when \m {N_{B,t} /N_{B,r}} is smaller, \m {\tilde {\chi} _{\mathrm {DS}}} is also smaller, because we have a higher sample rate.
 
 Unfortunately, we report that CVXPY sometimes gives overflowing values, some of them as large as \m {10^{11}}.
 This probably indicates some typical-looking output may in fact be unreliable.
 Therefore we have discarded outputs larger than a given threshold, for instance \m {10^4}, and simply return the answer to be a Moore–Penrose inverse.
 
-\m {\tilde {\chi}} is not shown in the figure, because the big O bound is much larger than \m {\chi}.
+\m {\chi} is not shown in the figure, because the big O bound is much larger than \m {\tilde {\chi}}.
 It is possible that the nonsparsity of \m {\V {g}} undermines the analysis in chapter 3, despite our attempts to account for that effect.
 It is curious to see whether for very large \m {N_H}, whether \m {\tilde {\chi}} and \m {\tilde {\chi}} will be asymptotically close.
 
@@ -494,7 +493,7 @@ We see that \m {\RB {\M {P} ^\dagger \V {z}} _{\SB {j}}} observes complex standa
 If we agree that, for high probability,
 %
 \DispNum {O:j:sO:O1} {
-\mathcal {O} \SB {\VNm {\M {P} ^\dagger \V {z}} _{\SB {j}}}
+\mathcal {O} \SB {\VNm {\M {P} ^\dagger \V {z}}}
 = \s N_H^2 \mathcal {O} \RB {1} 
 }
 Then we simply have
