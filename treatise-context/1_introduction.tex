@@ -2,22 +2,23 @@
 
 \startsection [title={Estimation of MIMO channel}]
 
-Multiple-input multiple-output (MIMO) communication system will be part of the 5G specification.
-With a large number of antennae on both transmitter and receiver ends, MIMO is expected to provide a large signal gain, by virtue of either parallel transmission of data, redundant transmission, or beamforming which improves the signal level.
-Besides, the millimeter wave (mm-wave) is adopted, since its smaller wavelength (and thus higher frequency) makes wider bands available.
+Multiple-input multiple-output (MIMO) communication systems will be part of the 5G specification.
+With a large number of antennae on both transmitter and receiver ends, MIMO is expected to provide a large signal gain.
+Parallel and redundant transmission of data improves the error-correcting ability, and beamforming improves the signal level.
+The millimeter wave (mm-wave) is adopted, since its smaller wavelength (and thus higher frequency) makes wider bands available.
 Moreover the antennae may be closer-spaced, allowing us to increase their number \cite [RSM13].
-However, also because of the larger antennae array, and larger noise corruption in higher frequency, estimation of MIMO channel state information gives rise to higher complexity, and hence higher hardware overhead and power consumption.
-Indeed, RF chains are more expensive and power consuming, so there is a growing attention on hybrid beamforming, where there are not fewer RF chain than the antennae.
+However, because of a larger antennae array and of larger noise corruption in higher frequency, estimation of MIMO channel state information gives rise to higher complexity, and hence higher hardware overhead and power consumption.
+Indeed, RF chains are more expensive and power-consuming, so there is growing attention on hybrid beamforming, where there are not fewer RF chain than the antennae.
 
 If we consider a slow varying MIMO channel for simplicity, in terms of a channel representation, to estimate the channel is to determine the parameters of the representation.
 It amounts to invert a linear system whose dimension is the number of antennae, as we shall see in chapter 2 in more detail.
-In this case, it is pointed out that conventional training based algorithms are not very effective.
+In this case, it is pointed out that conventional training-based algorithms are not very effective.
 
 \stopsection
 
 \startsection [title={Compressive sensing}]
 
-Fortunately, physical evidence has suggested that mm-wave channel are poor in scattering \cite [ALS14], which reduces the number of paths, and it is now that a recent development called compressive sensing may help.
+Fortunately, physical evidence has suggested that mm-wave channels are poor in scattering \cite [ALS14], which reduces the number of paths, and it is now that a recent development called compressive sensing may help.
 
 \blank [big]
 \externalfigure [compressive-sensing.png] [wfactor=fit, hfactor=fit]
@@ -27,17 +28,17 @@ A conceptual illustration of compressive sensing.
 }
 \blank [big]
 
-Figure 1 shows a generic situation in which a signal is crowded in the given basis, but is sparse in transformed basis.
+Figure 1 shows a generic situation in which a signal is crowded in the given basis, but sparse in the transformed basis.
 The black line on the left is the original signal, and the yellow line is the reconstruct signal.
-If the signal is sparse on certain new basis, as shown in the right, then for a good approximation, we may take only the largest components for reconstruction.
+If the signal is sparse on a certain new basis, as shown in the right, then for a good approximation, we may take only the largest components for reconstruction.
 
-Generally speaking, compressive sensing aims to reconstruct a underdetermined linear system, when the sparsity of solution guarantees successful recovery for most cases.
+Generally speaking, compressive sensing aims to reconstruct an underdetermined linear system, when the sparsity of solution guarantees successful recovery for most cases.
 More measurements are required to recover the signal in the nonsparse basis, while fewer suffice in the sparse basis.
 But, even if we are sure that the sparse basis exists, its construction is another undertaking.
-In our settings, it is not trivially obvious that hybrid beamforming structure fits the compressive sensing problem, and a method to generating the sensing matrix and pilot vectors in the estimation stage has to be devised and justified.
+In our settings for hybrid beamforming structure, a way of generating the sensing matrix and pilot vectors in the estimation stage has to be devised and justified.
 
-Compressive sensing approaches can be divided into two categories, the convex programming approach, and greedy approach \cite [RDD18].
-We will discuss one from each in more details: Dantzig Selector and Orthogonal Matching Pursuit.
+Compressive sensing approaches can be divided into two categories, the convex programming approach and the greedy approach \cite [RDD18].
+We will discuss one from each in more detail: Dantzig Selector and Orthogonal Matching Pursuit.
 
 \stopsection
 
@@ -75,9 +76,9 @@ with
 
 It is shown that in the noiseless case, a \m {\ell_1}-minimization program recovers the \m {N_p}-dimensional signal, with \m {N_m} measurements, under overwhelming probability \cite [Can05].
 
-As an application, it often occurs that a camera takes a high definition photo, and compresses the image later.
-But it may be desirable that a camera equipped with fewer sensors shall take a lower resolution photo to save storage, and shall recover the image later.
-Such advantage can be useful in medical imaging, since it is not only expensive, but also harmful, to take too many images, while the accuracy is critical to the diagnosis too \cite [CaT07].
+As an application, it often occurs that a camera takes a high definition photo and compresses the image later.
+But it may be desirable that a camera equipped with fewer sensors shall take a lower resolution photo to save storage, and recover the image later.
+Such advantage can be useful in medical imaging, since it is not only expensive, but also harmful, to take too many images, and the accuracy is critical to the diagnosis too \cite [CaT07].
 
 If the linear system is moreover subject to noise \m {z},
 %
@@ -238,32 +239,32 @@ Cai and Wang \cite [CaW11] extended the study to DS and other convex programs fo
 
 \startsection [title={Contribution}]
 
-Due to the constraint of hybrid structure, the designs which use a fully digital beamforming cannot be directly applied, and the designs which use only analog beamforming might not be optimal.
-Indeed, if DS is shown to be optimal \cite [CaT07], then if we can overcome the problem of complexity among other difficulties, it may turn out to outperform greedy methods, and is even necessary in less ideal situations.
+Due to the constraint of hybrid structure, the designs which use fully digital beamforming cannot be directly applied, and the designs which use only analog beamforming might not be optimal.
+Indeed, if DS is shown to be optimal \cite [CaT07], then if we can overcome the problem of complexity among other difficulties, it may turn out to outperform greedy methods, and is even necessary for less ideal situations.
 
-In this treatise, we consider a hybrid structure with uniform linear array with both precoders and combiners on each side.
+In this treatise, we consider a hybrid structure with a uniform linear array with both precoders and combiners on each side.
 In chapter 2, we plan to generate random beamforming matrices, and use DS to estimate the channel in the space frequency domain.
 Because of the hybrid structure, here it is not possible to generate the sensing matrix by i.i.d.\ entries, which requires a fully digital structure.
 But in chapter 3, we shall see that in our proposal, the effective sensing matrix has RIP for high probability, which may serve as the sensing matrix for DS,
-and we give a quantitative bound (which holds for high probability) on expected error norm.
+and we give a quantitative bound (which holds for high probability) on the expected error norm.
 In chapter 4, numerical results show that DS is superior to other methods for our problem.
 Since DS is more accurate, it can be used when the sample is less sufficient and the noise level is higher, where it might be the case that only DS can recover successfully.
-Considering its higher complexity, we remark that it can be cast as a linear program, and basis pursuit denoising form may be used.
+Considering its higher complexity, we remark that it can be cast as a linear program, and the basis pursuit denoising form may be used.
 
-It appears that, for given number of sampling, DS recovers more successfully than OMP.
-Moreover, our setting is more general than Alkhateeb, Leus, and Heath Jr.\ \cite [ALH15] with only analog combiner,
+It appears that, for a given number of sampling, DS recovers more successfully than OMP.
+Moreover, our setting is more general than Alkhateeb, Leus, and Heath Jr.\ \cite [ALH15] with only an analog combiner,
 and our random generation of sensing matrix is simpler than Lee, Gil, and Lee \cite [LGL16],
-and we do not rely on additional assumption on sparsity as in Gao, Dai, and Wang \cite [GDW15].
+and we do not rely on additional assumptions on sparsity as in Gao, Dai, and Wang \cite [GDW15].
 
 Our work is also an improvement to Bajwa et.\ al.\ \cite [BHS10].
-First, their method takes many time slices, but, since we consider a time independent channel matrix, a few time slices suffice.
-Second, with the further constraint of hybrid beamforming, it is not clear whether their guarantee theorem for recovery is still valid.
+First, while their method takes many time slices, for our case a few time slices suffice, since the channel is time independent.
+Second, with the further constraint of hybrid beamforming, it is unclear whether their guarantee theorem for recovery is still valid.
 Third, generating random sequences can lead to high complexity \cite [LGL16].
 
 In addition, it seems that with the same threshold, DS is better than Lasso.
-Again, our proposed method is more general than Lian, Liu and Lau \cite [LLL17] with only analog combiner,
+Again, our proposed method is more general than Lian, Liu and Lau \cite [LLL17] with only an analog combiner,
 and our sensing matrix is generated more simply than in Destino, Juntti, and Nagaraj \cite [DJN15],
-and we do not require special device as in Vlachos, Alexandropoulos, and Thompson \cite [VAT19].
+and we do not require special devices as in Vlachos, Alexandropoulos, and Thompson \cite [VAT19].
 
 
 \stopsection

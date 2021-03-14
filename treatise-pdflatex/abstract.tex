@@ -1,15 +1,16 @@
 
 \chapter* {Abstract}
 
-Multiple-input multiple-output communication system in millimeter wave band is gradually being adopted.
-However, channel estimation becomes considerably difficult, due to the larger antennae array, and greedy algorithms such as Orthogonal Matching Pursuit are sometimes used reduce the complexity.
-Meanwhile, hybrid beamforming is often used to reduce the number of RF chains, and with such constraint, fully digital designs cannot be directly applied, and fully analog designs might not be optimal.
+Multiple-input multiple-output communication systems in the millimeter-wave band are gradually being adopted.
+A larger antennae array makes channel estimation more difficult.
+Meanwhile, hybrid beamforming, which utilizes fewer RF chains, is applied too, so that new estimation methods have to be designed.
+This can be seen as a compressive sensing problem, for which Orthogonal Matching Pursuit is usually used.
 
-We consider a hybrid structure with uniform linear array with both precoders and combiners on each side.
-We generate random beamforming matrices, and use Dantzig Selector to estimate the channel in the space frequency domain, and we give a quantitative bound (which holds for high probability) on expected error norm.
-
-To reduce the complexity, we cast it as a linear program, and also suggest the basis pursuit denoising form.
+We consider a hybrid structure with a uniform linear array with both precoders and combiners on each side.
+We generate random beamforming matrices and use Dantzig Selector to estimate the channel in the space frequency domain.
+Then, we give a quantitative bound (which holds for high probability) on the expected error norm.
+To reduce the complexity, we cast it as a linear program, and suggest the basis pursuit denoising form.
 Numerical results show that DS is superior, especially when the sample is less sufficient and the noise level is higher.
-We therefore propose that DS may be used as the number of RF chains is more limited, or when fewer stages of estimation is possible.
+We therefore propose that DS may be used, when the number of RF chains is more limited or when fewer stages of estimation are possible.
 
 
