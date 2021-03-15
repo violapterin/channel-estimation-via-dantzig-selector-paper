@@ -7,7 +7,7 @@ While a direct implementation of Algorithm [7] leads to extraordinarily large co
 
 \startsubsection [title={Some notation}]
 
-Let us represent complex vector and matrices by real vector and matrices.
+Let us represent complex vectors and matrices by real vectors and matrices.
 For \m {\V {x} \in \MB {C} ^{M}}, define the real representation \m {\MS {R} \SB {\V {x}}} of \m {\V {x}} to be
 %
 \DispNum {R:x:R2:M1} {
@@ -168,7 +168,7 @@ The resulting indices set has to be scrambled back according to the original ind
 \stopitemize
 }
 
-If more than one stage of estimation is possible, that is, there are more than one data sets, the second stage may be run on the second dataset, and so on.
+If more than one stage of estimation is possible, that is, there are more than one dataset, the second stage may be run on the second dataset, and so on.
 It is possible in theory to run it for three or more times.
 
 From our observation, it is not conclusive whether the successive estimation method is more accurate, and whether a third or more stage is helpful.
@@ -187,7 +187,7 @@ It is known that DS is equivalent to the basis pursuit denoising form below, for
 \RB {\VNm {\V {g}'} _1 + \l \VNm {\M {P}^\Adj \RB {\V {y} -\M {P} \V {g}'}} _\infty} \NR
 }
 
-However, there is not simple way to determine the value of \m {\l} in advance.
+However, there is no simple way to determine the value of \m {\l} in advance.
 We have tried basis pursuit denoising, with \m {\l = N_H^2 / \g_{\Rm {DS}}} in the simulation.
 
 \stopsubsection
@@ -227,8 +227,7 @@ Denote the threshold for DS to be \m {\g_{\Rm {DS}}}, and similar threshold of L
 We set \m {\g_{\Rm {DS}} = 2 \R {\log N_H}} as suggested in \cite [CaT07].
 For sake of comparison, \m {\g_{\Rm {Lasso}} = 2 \R {\log N_H}} too.
 For OMP, we consult Cai and Wang \cite [CaW11] for \m {\ell _2}-norm condition in their Theorem 7, and \m {\ell _\infty}-norm condition in their Theorem 8.
-We take \m {\h_{\Rm {OMP}} = 2 \R {\log N_H}} for \m {\infty}-norm condition, \m {\h_{\Rm {OMP}} = \R {3} \SB {N_{B,r} N_{B,t}} ^ {1/4}} for 2-norm condition.
-Particularly, in the plots of DS only or OMP only, we vary the values of \m {\g_{\Rm {DS}}} and \m {\h_{\Rm {OMP}}} by powers of \m {2}, to observe the effects of thresholds.
+We take \m {\h_{\Rm {OMP}} = 2 \R {\log N_H}} for \m {\infty}-norm condition, \m {\h_{\Rm {OMP}} = \R {3} \RB {N_{B,r} N_{B,t}} ^ {1/4}} for 2-norm condition.
 The maximal number of iteration of CVXPY is set to be \m {32}, and that of OMP is set to be \m {4 \R {N_{B,r} N_{B,t}}}.
 
 Each data point for DS and Lasso is repeated for \m {256} times, and taken arithmetic average.
@@ -257,7 +256,7 @@ Indeed, since we did not consider a definite a channel model in this treatise, \
 
 \startsubsection [title={Plots of \m {N_H = 6}}]
 
-In the following, we plot the reciprocal of noise level vs relative error norm in log scale, for different values and ratios of \m {N_H = 6} over \m {N_{B,t}} and \m {N_{B,t}}.
+In the following, we plot the reciprocal of noise level vs relative error norm in log scale, for different values and ratios of \m {N_H = 6} over \m {N_{B,t}} and \m {N_{B,r}}.
 %
 \blank [big]
 \externalfigure [error-small-square-two.png] [wfactor=fit, hfactor=fit]
@@ -288,7 +287,7 @@ In the following, we plot the reciprocal of noise level vs relative error norm i
 
 \startsubsection [title={Plots of \m {N_H = 12}}]
 
-In the following, we plot the reciprocal of noise level vs relative error norm in log scale, for different values and ratios of \m {N_H = 12} over \m {N_{B,t}} and \m {N_{B,t}}.
+In the following, we plot the reciprocal of noise level vs relative error norm in log scale, for different values and ratios of \m {N_H = 12} over \m {N_{B,t}} and \m {N_{B,r}}.
 %
 \blank [big]
 \externalfigure [error-medium-square-two.png] [wfactor=fit, hfactor=fit]
@@ -316,7 +315,7 @@ In the following, we plot the reciprocal of noise level vs relative error norm i
 
 \startsubsection [title={Plots of \m {N_H = 18}}]
 
-In the following, we plot the reciprocal of noise level vs relative error norm in log scale, for different values and ratios of \m {N_H = 18} over \m {N_{B,t}} and \m {N_{B,t}}.
+In the following, we plot the reciprocal of noise level vs relative error norm in log scale, for different values and ratios of \m {N_H = 18} over \m {N_{B,t}} and \m {N_{B,r}}.
 %
 \blank [big]
 \externalfigure [error-big-square-two.png] [wfactor=fit, hfactor=fit]
@@ -342,7 +341,6 @@ In the following, we plot the reciprocal of noise level vs relative error norm i
 \externalfigure [error-big-wide-four.png] [wfactor=fit, hfactor=fit]
 \FigureCaption {\m {N_{B,t} = 9, N_{B,r} = 6, N_H = 18}, with \m {4} stages, error.}
 
-
 \stopsubsection
 
 \startsubsection [title={Plots of runtime}]
@@ -354,12 +352,10 @@ Regarding runtime statistics, we only plot the case where \m {N_{B,t} = N_{B,r} 
 \FigureCaption {\m {N_{B,t} = 3, N_{B,r} = 3, N_H = 6}, error.}
 \blank [big]
 
-
 \blank [big]
 \externalfigure [time-medium-square-two.png] [wfactor=fit, hfactor=fit]
 \FigureCaption {\m {N_{B,t} = 6, N_{B,r} = 6, N_H = 12}, error.}
 \blank [big]
-
 
 \blank [big]
 \externalfigure [time-big-square-two.png] [wfactor=fit, hfactor=fit]
@@ -419,7 +415,7 @@ We discuss the complexity of DS, Lasso, and OMP.
 
 \stopsubsection
 
-Suppose a linear program has \m {N} dimension variable and \m {M} inequality constraints, then the complexity is \m {\MS {O} \SB {N^2 M}}, assuming the Dantzig simplex method is used (\cite [BoV04], p.6).
+Suppose a linear program has an \m {N} dimensional variable and \m {M} inequality constraints, then its complexity is \m {\MS {O} \SB {N^2 M}}, assuming the Dantzig simplex method is used (\cite [BoV04], p.6).
 For our case, that would be \m {\MS {O} \SB {4 N_H ^4 \D 8 N_H^2} = \MS {O} \SB {N_H^6}}.
 But other algorithms exist, where, in general, complexity of convex programs is difficult to analyze, as it is not easily to determine how many steps were calculated.
 
@@ -559,10 +555,9 @@ They are: \m {
  t_{\Rm {DS}} \SB {24} = 91.5
 }.
 
-Simulation illustrates that \m {t_{\Rm {DS}}} grows tremendously with \m {N_H}, agreeing the criticism by Friedlander and Saunders \cite [FrS07] on the high complexity of DS.
-It is not surprising, regarding the fact that the convex program has to find the Newton step by calculating \m {\M {P}}, a matrix of dimension \m {\M {N}_H^2}.
-The matrix inversion is probably the bottleneck of complexity.
-However, as we noted above, that different tolerance level of and maximal iteration number may result in vastly different computation time.
+Simulation illustrates that \m {t_{\Rm {DS}}} grows tremendously with \m {N_H}, agreeing Friedlander and Saunders \cite {FrS07} who noted the high complexity of DS.
+This is not surprising, since the inversion of \m {\M {P} \M {P} ^\Adj} is probably the bottleneck of complexity, which has dimension \m {\M {N}_H^2}.
+By the way, different tolerance levels and maximal iteration numbers may result in vastly different computation time.
 
 Meanwhile, \m {t_{\Rm {Lasso}}} and \m {t_{\Rm {OMP}}} are often an order of magnitude lower than \m {t_{\Rm {DS}}}.
 In general, \m {t_{\Rm {DS}} \gg t_{\Rm {Lasso}} \gg t_{\Rm {OMP}}}.

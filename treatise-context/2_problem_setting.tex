@@ -52,10 +52,10 @@ to get a simpler form
 \FigureCaption {Schematic diagram of the hybrid beamforming system we consider.}
 \blank [big]
 
-We consider the hybrid beamforming at both transmitter and receiver ends, as shown in Figure 2.
+We consider hybrid beamforming at both the transmitter and receiver ends, as shown in Figure 2.
 Each end consists of both digital and analog precoders and combiners.
-In the transmitter end, there are (seeing towards the receiver end), digital precoder \m {\M {F} _B \in \MB {C} ^{N_{B,t} \D N_{B,t}}} and analog precoder \m {\M {F} _R \in \MB {C} ^{N_H \D  N_{B,t}}}.
-Similarly, in the receiver end, there are (seeing towards the transmitter end) digital combiner \m {\M {W} _R \in \MB {C} ^{N_{B,r} \D N_H}} and analog combiner \m {\M {W} _B \in \MB {C} ^{N_{B,r} \D  N_{B,r}}}.
+In the transmitter end, there are (seeing towards the receiver end), the digital precoder \m {\M {F} _B \in \MB {C} ^{N_{B,t} \D N_{B,t}}} and the analog precoder \m {\M {F} _R \in \MB {C} ^{N_H \D  N_{B,t}}}.
+Similarly, in the receiver end, there are (seeing towards the transmitter end) the digital combiner \m {\M {W} _B \in \MB {C} ^{N_{B,r} \D  N_{B,r}}} and the analog combiner \m {\M {W} _R \in \MB {C} ^{N_{B,r} \D N_H}}.
 
 Recall that analog precoders may only have values of unity magnitude,
 %
@@ -79,7 +79,7 @@ Recall that analog precoders may only have values of unity magnitude,
 And we assume
 %
 \DispNum {N:H:NY:NY} {
-\NC N_H \gg \NC N_{B,t}, N_{R,t} \NR
+\NC N_H \gg \NC N_{B,t}, N_{B,r} \NR
 }
 
 Since we restrict our discussion to a short interval of time, the noise term may be simply taken as a matrix \m {\M {Z} \in \NC \MB {C} ^{N_H \D N_{B,t}}} with each entry being i.i.d.\ standard normal.
