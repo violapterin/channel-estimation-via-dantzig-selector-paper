@@ -152,8 +152,8 @@ However, there seems to be no work by now which addresses the constraint of hybr
 Some scholars applied least absolute shrinkage and selection operator (Lasso) instead.
 In fact, it can be shown that Lasso and DS have similar behavior \cite {AsR10}.
 Lian, Liu and Lau applied Lasso on MIMO with an analog combiner \cite {LLL17}.
-Destino, Juntti, and Nagaraj used an adaptive Lasso \cite {DJN15}, in which they jointly optimize the sensing matrix and pilot vectors.
-Vlachos, Alexandropoulos, and Thompson \cite {VAT19} used Lasso on hybrid beamforming with an additional random spatial sampling device.
+Destino, Juntti, and Nagaraj used an adaptive Lasso \cite {DJN15}, and Vlachos, Alexandropoulos, and Thompson \cite {VAT19} used Lasso on hybrid beamforming with an additional random spatial sampling device.
+Both Destino et al and Vlachos et al optimize formulate an algorithm to jointly find the channel and the sensing matrix, which can result in high complexity.
 
 \section {Orthogonal Matching Pursuit}
 
@@ -224,7 +224,8 @@ It is shown that the probability that OMP recovers \m {\V {x}} completely is ove
 OMP has since been commonly used for channel estimation.
 Alkhateeb, Leus, and Heath Jr.\ \cite {ALH15} examined the trade-off between number of measurement and accuracy for an all-phase-shifter beamforming matrix based on nonuniform fixed set of angles.
 Hu, Wang, and He \cite {HWH13} applied OMP to estimate path delay of OFDM subcarriers.
-Lee, Gil, and Lee \cite {LGL16} considered a hybrid system, where the hybrid beamforming matrix serves as sensing matrix.
+Lee, Gil, and Lee \cite {LGL16} considered a hybrid system, where the hybrid beamforming matrix serves as sensing matrix;
+the analog stage is a Fourier matrix, and the digital stage consists of a collection of columns vectors of a unitary matrix.
 Gao, Dai, and Wang proposed a variant of OMP which there is the assumption of spatially common sparsity \cite {GDW15}.
 
 Performance guarantee of OMP is also studied on various conditions.
@@ -238,8 +239,8 @@ Indeed, if DS is shown to be optimal \cite {CaT07}, then if we can overcome the 
 
 In this treatise, we consider a hybrid structure with a uniform linear array with both precoders and combiners on each side.
 In chapter 2, we plan to generate random beamforming matrices, and use DS to estimate the channel in the space frequency domain.
-Because of the hybrid structure, here it is not possible to generate the sensing matrix by i.i.d.\ entries, which requires a fully digital structure.
-But in chapter 3, we shall see that in our proposal, the effective sensing matrix has RIP for high probability, which may serve as the sensing matrix for DS,
+To the best of our knowledge, the sensing matrix with i.i.d.\ entries in both analog and digital stages has not been discussed on the literature.
+In chapter 3, we shall see that in our proposal, the effective sensing matrix has RIP for high probability, which may serve as the sensing matrix for DS,
 and we give a quantitative bound (which holds for high probability) on the expected error norm.
 In chapter 4, numerical results show that DS is superior to other methods for our problem.
 Since DS is more accurate, it can be used when the sample is less sufficient and the noise level is higher, where it might be the case that only DS can recover successfully.
@@ -252,8 +253,8 @@ and we do not rely on additional assumptions on sparsity as in Gao, Dai, and Wan
 
 Our work is also an improvement to Bajwa et.\ al.\ \cite {BHS10}.
 First, while their method takes many time slices, for our case a few time slices suffice, since the channel is time independent.
-Second, with the further constraint of hybrid beamforming, it is unclear whether their guarantee theorem for recovery is still valid.
-Third, generating random sequences can lead to high complexity \cite {LGL16}.
+Second, with the further constraint of hybrid beamforming, the channel matrix is downsampled, it is unclear whether their guarantee for successful signal recovery is still valid.
+Third, generating random sequences can lead to high complexity \cite {LGL16}, and we instead use random beamforming matrices.
 
 In addition, it seems that with the same threshold, DS is better than Lasso.
 Again, our proposed method is more general than Lian, Liu and Lau \cite {LLL17} with only an analog combiner,

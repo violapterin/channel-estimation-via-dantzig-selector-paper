@@ -16,11 +16,11 @@
 \blank [big]
 \externalfigure [system.png] [factor=fit]
 
-\I Estimation of Multiple-input multiple-output (MIMO) systems results in high complexity, due to a large number of antennae.
+\I Consider a multiple-input multiple-output (MIMO) system with hybrid structure, so we have fewer RF chains than the antennas
 
-\I Problem (a): How to reconstruct the channel with fewer measurements?
+\I Problem (a): Can we estimate the channel with fewer measurements?
 
-\I Problem (b): How to generate precoders and combiners?
+\I Problem (b): What precoders and combiners help the estimation?
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Channel model and beamforming}
@@ -78,22 +78,22 @@ What kind of matrices facilitates our goal?
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Literature review}
 {
-\I Bajwa, Haupt, Sayeed, and Nowak (2010): MIMO, linear invariant system, using Dantzig Selector (DS)
+\I Bajwa, Haupt, Sayeed, and Nowak (2010): MIMO, no beamforming, linear invariant system, using Dantzig Selector (DS)
 
 \I Destino, Juntti, and Nagaraj (2015): MIMO, digital beamforming, using Lasso
 
 \I Vlachos, Alexandropoulos, and Thompson (2019): MIMO, hybrid beamforming, mm wave, using Lasso
 
-\I Alkhateeb, Leus, and Heath (2015): single path mm wave, all phase shifter beamforming, using Orthogonal Matching Pursuit (OMP)
+\I Alkhateeb, Leus, and Heath (2015): single path mm wave, analog beamforming, using Orthogonal Matching Pursuit (OMP)
 
 \I Lee, Lee, and Yong (2016): MIMO mm wave, hybrid beamforming, using Orthogonal Matching Pursuit (OMP)
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Contribution}
 {
-\I Due to the constraint of hybrid beamforming, designs for fully digital beamforming on sensing matrix might not directly work.
+\I Due to the constraint of hybrid beamforming, sensing matrix designs for fully digital beamforming does not directly work.
 
-\I We propose a low complexity random generation of beamforming matrices, and justify that it may serve as the sensing matrix for DS.
+\I We propose a low complexity, i.i.d.\ random beamforming matrices, and justify that it may serve as the sensing matrix for DS.
 
 \I We claim that DS is superior in higher noise and fewer samples than OMP.
 \I We give a asymptotic bound on expected error norm.

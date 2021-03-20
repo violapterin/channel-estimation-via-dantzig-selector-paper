@@ -8,21 +8,6 @@
 \I Use the basis pursuit denoising form
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
-\Frame {Performance Metric}
-{
-\I Let the \m {\T {\chi}}, the relative 2-norm error, be the performance metric.
-
-\Disp {
-\NC \T {\chi}
-=\NC \RB {
-   \F {\VNm {\V {h} -\Hat {\V {h}}} _2}
-   {\VNm {\V {h}}_2}
-} _{\Ss {avg}}, \NR
-}
-
-\I Also define \m {\chi} by plugging in \m {\V {d}} into \m {\T {\chi}}.
-}
-% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Error norm (1/6)}
 {
 \I \m {N_H=6, N_{B,t}=3, N_{B,r}=2}, 2 stages
@@ -82,7 +67,7 @@
 {
 \I Let \m {C} denote big-O estimation of complexity, then
 \Disp {
-\NC C_{\Rm {OMP}} =\NC \mathcal {O} \SB {N_H^2 \log \R {N_{B,t} N_{B,r}}} \NR
+\NC C_{\Rm {OMP}} =\NC \mathcal {O} \SB {N_H^2 \log N_{B,t} N_{B,r}} \NR
 \NC C_{\Rm {Lasso}} =\NC \mathcal {O} \SB {N_H^6} \NR
 \NC C_{\Rm {DS}} =\NC \mathcal {O} \SB {N_{H}^6} \NR
 }
