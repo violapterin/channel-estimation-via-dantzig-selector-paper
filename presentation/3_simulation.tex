@@ -1,11 +1,20 @@
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Reducing the complexity}
 {
-\I Casting to a linear program
+\I Casting to a linear program (not used now)
 
-\I A successive estimation of the nonzero components (not used in the final set of figures)
+\I Successively estimate the nonzero components (not used now)
 
 \I Use the basis pursuit denoising form
+
+\Disp {
+\NC \Hat {\V {g}}
+\LA \NC \Min {\V {g}'} 
+\CB {
+\VNm {\V {g}'} _1 
++ \l_{\Ss {DS}} \VNm {\M {P}^\Adj \RB {\V {y} -\M {P} \V {g}'}} _\infty
+} \NR
+}
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Error norm (1/6)}
@@ -52,15 +61,13 @@
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Discussion}
 {
-\I DS outperforms other methods in the high noise case
+\I DS outperforms other methods in the high noise case and less measurement
 
-\I DS requires less sampling to recover for given channel instance.
-
-\I The relaxed sparsity may have compromised effectiveness of DS.
+\I The relaxed sparsity may have compromised its effectiveness.
 
 \I DS has complexity much higher than OMP, and somewhat higher than Lasso.
 
-\I \m {\T {\chi}} and \m {\chi} differ by some orders of magnitude.
+\I Unfortunately, the values are too small to verify the asymptotic bound.
 }
 % XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
 \Frame {Complexity}
