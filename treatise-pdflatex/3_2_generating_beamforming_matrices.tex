@@ -24,28 +24,28 @@ Use \m {\chi _{i,j}} to denote independent complex standard normal random variab
 It follows that (respectively for \m {N_{B,r}})
 %
 \DispNum {C':C':WB:j2} {
-\VNm {\M {W} _B \V {u}} _2
+\VNm {\M {F} _B \V {u}} _2
 =\R {
-   \sum _{i=0} ^{N_{B,t}-1} \VNm {\sum _{j=0} ^{N_R-1} \frac {1} {\R{N_{B,t}}} \chi _{i,j} \V {u} _{j}} _2 ^2} 
+   \sum _{i=0} ^{N_{R,t}-1} \VNm {\sum _{j=0} ^{N_B-1} \frac {1} {\R{N_B}} \chi _{i,j} \V {u} _{j}} _2 ^2} 
 }
 %
 We need a large deviation result for i.i.d.\ sum of chi-square random variables.
 To do so, we apply Lemma \m {1} in Laurent and Massart \cite {LaM00} for equal weights, with \m {x > 0} below.
-By some calculation, we have the upper tail inequality
+By some calculation, we have the upper tail inequality (respectively for \m {N_{R,r}})
 %
 \DispNum {P:x:ex:ex} {
-\mathbb {P} \SB {\VNm {\M {W} _B \V {u}} _2 ^2 \geq 1 + 2 \R {\frac {x} {N_{B,t}}} + \frac {2x} {N_{B,t}}}
+\mathbb {P} \SB {\VNm {\M {F} _B \V {u}} _2 ^2 \geq 1 + 2 \R {\frac {x} {N_{R,t}}} + \frac {2x} {N_{R,t}}}
 \leq \mathsf {e} ^{-x} 
 }
 %
 and the lower tail inequality
 %
 \DispNum {P:x:ex:ex!} {
-\mathbb {P} \SB {\VNm {\M {W} _B \V {u}} _2 ^2 \leq 1 - 2 \R {\frac {x} {N_{B,t}}}}
+\mathbb {P} \SB {\VNm {\M {F} _B \V {u}} _2 ^2 \leq 1 - 2 \R {\frac {x} {N_{R,t}}}}
 \leq \mathsf {e} ^{-x} 
 }
 %
-With substitution \m {\d_s =16x^2 /N_{B,t}^2}, the upper tail can be simplified with \m {x <N_{B,t}}, and we get the following bound for overall failure probability.
+With substitution \m {\d_s =16x^2 /N_B^2}, the upper tail can be simplified with \m {x <N_B}, and we get the following bound for overall failure probability.
 
 \Result
 {Proposition}
@@ -53,13 +53,13 @@ With substitution \m {\d_s =16x^2 /N_{B,t}^2}, the upper tail can be simplified 
 For \m {0 <\d_s <1}, it holds that
 %
 \DispNum {W:1:ds:ds} {
-\Nm {\VNm {\M {W} _B \V {u}} _2 ^2 - 1}
+\Nm {\VNm {\M {F} _B \V {u}} _2 ^2 - 1}
 \geq \d_s 
 }
 for probability \m {p}, with
 \DispNum {1:p:2e:s4} {
 1 -p
-\leq 2 \mathsf {e} ^{-N_{B,t} \R {\d_s} /4} 
+\leq 2 \mathsf {e} ^{-N_{R,t} \R {\d_s} /4} 
 }
 }
 
@@ -71,7 +71,7 @@ Their Theorem \m {3.7} and Theorem \m {4.5} may be changed accordingly, so that 
 In conclusion, (respectively for \m {N_{B,r}})
 %
 \DispNum {N:R:sd':NH} {
-N_R
+N_{R,t}
 \geq \frac {s} {\d_s^2} \RB {\log \frac{1}{\d_s}}^2 \RB {\log \frac{s}{\d_s}}^2 \log N_H 
 }
 %
@@ -83,7 +83,7 @@ Drop \m {\log \SB {1 /\d_s}^2} and the denominator \m {\d_s} in \m {\log \SB {s 
 Suppose
 %
 \DispNum {N:R:sd'NH} {
-N_R
+N_{R,t}
 \geq \frac {s} {\d_s^2} \RB {\log s}^2 \log N_H 
 }
 %
