@@ -54,23 +54,23 @@ With these, we define
 \DispNum {y:y:Ry:Ny} {
 \NC \T {\V {y}}
 = \NC \MS {R} \SB {\V {y}}
-\in \MB {R} ^{2 N_{B,r} N_{B,t}} \NR
+\in \MB {R} ^{2 N_B ^2} \NR
 %
 \NC \T {\V {g}}
 = \NC \MS {R} \SB {\V {g}}
-\in \MB {R} ^{2 N_H^2} \NR
+\in \MB {R} ^{2 N_{H,t} N_{H,r}} \NR
 %
 \NC \T {\M {P}}
 = \NC \MS {R} \SB {\M {P}}
-\in \MB {R} ^{2 N_{B,r} N_{B,t} \D 2 N_H^2} \NR
+\in \MB {R} ^{2 N_B ^2 \D 2 N_{H,t} N_{H,r}} \NR
 %
 \NC \T {\M {P}} ^\Adj
 = \NC \MS {R} \SB {\M {P} ^\Adj}
-\in \MB {R} ^{2 N_{B,r} N_{B,t} \D 2 N_H^2} \NR
+\in \MB {R} ^{2 N_B ^2 \D 2 N_{H,t} N_{H,r}} \NR
 %
 \NC \T {\V {z}}
 = \NC \MS {R} \SB {\V {z}}
-\in \MB {R} ^{2 N_{B,r} N_{B,t}} \NR
+\in \MB {R} ^{2 N_B ^2} \NR
 }
 %
 so, by construction,
@@ -92,7 +92,7 @@ It is now straightforward to see that DS is equivalent to a linear program.
 {Algorithm}
 {
 \startitemize[n]
-\item Input \m{\M {P} \in \MB {C} ^{N_{B,r} N_{B,t} \D N_H^2}}, \m{\V {y} \in \MB {C} ^{N_{B,r} N_{B,t}}}, \m {\g_{\Rm {DS}} > 0}.
+\item Input \m{\M {P} \in \MB {C} ^{N_{B,r} N_{B,t} \D N_{H,t} N_{H,r}}}, \m{\V {y} \in \MB {C} ^{N_{B,r} N_{B,t}}}, \m {\g_{\Rm {DS}} > 0}.
 %
 \item Define \m {\T {\V {y}}, \T {\V {g}}, \T {\M {P}}, \T {\M {P}} ^\Adj, \T {\V {z}}}, according to \Rf {y:y:Ry:Ny}.
 %
@@ -153,9 +153,9 @@ The resulting indices set has to be scrambled back according to the original ind
 \item Set
 \Disp {
 \NC N_0
-=\NC 2 N_H^2, \NR
+=\NC 2 N_{H,t} N_{H,r}, \NR
 \NC N_2
-=\NC \lfloor 4 \log N_H \rfloor, \NR
+=\NC \lfloor 4 \log \log N_{H,t} + \log N_{H,r} \rfloor, \NR
 \NC N_1
 =\NC \lfloor \R {N_0 N_2} \rfloor \NR
 }
@@ -172,7 +172,7 @@ If more than one stage of estimation is possible, that is, there are more than o
 It is possible in theory to run it for three or more times.
 
 From our observation, it is not conclusive whether the successive estimation method is more accurate, and whether a third or more stage is helpful.
-It might have something to do with appropriately scaling \m {N_1, N_2} with respect to \m {N_H}.
+It might have something to do with appropriately scaling \m {N_1, N_2} with respect to \m {N_{H,t}, N_{H,r}}.
 We have not used this method in the plots included here.
 
 \stopsubsection
@@ -183,12 +183,12 @@ It is known that DS is equivalent to the basis pursuit denoising form below, for
 
 \Disp {
 \NC \Hat {\V {g}}
-\LA \NC \Min {\V {g}' \in \MB {C} ^{N_H^2}}
+\LA \NC \Min {\V {g}' \in \MB {C} ^{N_{H,t} N_{H,r}}}
 \RB {\VNm {\V {g}'} _1 + \l \VNm {\M {P}^\Adj \RB {\V {y} -\M {P} \V {g}'}} _\infty} \NR
 }
 
 However, there is no simple way to determine the value of \m {\l} in advance.
-We have tried basis pursuit denoising, with \m {\l = N_H^2 / \g_{\Rm {DS}}} in the simulation.
+We have tried basis pursuit denoising, with \m {\l = N_{H,t} N_{H,r} / \g_{\Rm {DS}}} in the simulation.
 
 \stopsubsection
 
@@ -211,24 +211,24 @@ If so, the noise-to-signal ratio is
 }
 
 We use dimensionless noise level \m {\s} which takes value starting with \m {2^{-4}}, and being multiplied by powers of \m {2}, for \m {6} values.
-We take \m {N_H} to be \m {6, 12, 18}, respectively.
-For assorted plots, three series of plots are simulated.
-The first series for \m {N_{B,t} = N_H/2} and \m {N_{B,r} = N_H/3}.
-The second series for \m {N_{B,t} = N_H/3} and \m {N_{B,r} = N_H/2}.
-The third series for \m {N_{B,t} = N_H/2} and \m {N_{B,r} = N_H/2}.
+We take \m {N_Y} to be \m {4, 6, 8}, respectively.
+Three series of plots are simulated.
+The first series for \m {N_{H,t} = 2 N_B} and \m {N_{H,r} = 2 N_B}.
+The second series for \m {N_{H,t} = 2 N_B} and \m {N_{H,r} = 3 N_B}.
+The third series for \m {N_{H,t} = 3 N_B} and \m {N_{H,r} = 2 N_B}.
 Unfortunately, this is very far from achieving the ideal values \Rf {N:B:4l:H2}, and this may be part of the reason the result is not as successful as expected.
 
 Other parameters are fixed in these experiments.
 The number of grid of quantization of phase shifters is \m {16}.
-The number of paths \m {L = N_H /2}.
+The number of paths \m {L = \R {N_{H,t} N_{H,r}}}.
 The ratio of the wavelength of carrier over the antenna spacing, \m {\l _{\Rm {ant}} / d _{\Rm {ant}} = 1 / 2}.
 
 Denote the threshold for DS to be \m {\g_{\Rm {DS}}}, and similar threshold of Lasso to be \m {\g_{\Rm {Lasso}}}.
-We set \m {\g_{\Rm {DS}} = 2 \R {\log N_H}} as suggested in \cite [CaT07].
-For sake of comparison, \m {\g_{\Rm {Lasso}} = 2 \R {\log N_H}} too.
+We set \m {\g_{\Rm {DS}} = \R {2 \log \RB {N_{H,t} N_{H,r}}}} as suggested in \cite [CaT07].
+For sake of comparison, \m {\g_{\Rm {Lasso}} = \R {2 \log \RB {N_{H,t} N_{H,r}}}} too.
 For OMP, we consult Cai and Wang \cite [CaW11] for \m {\ell _2}-norm condition in their Theorem 7, and \m {\ell _\infty}-norm condition in their Theorem 8.
-We take \m {\h_{\Rm {OMP}} = 2 \R {\log N_H}} for \m {\infty}-norm condition, \m {\h_{\Rm {OMP}} = \R {3} \RB {N_{B,r} N_{B,t}} ^ {1/4}} for 2-norm condition.
-The maximal number of iteration of CVXPY is set to be \m {32}, and that of OMP is set to be \m {4 \R {N_{B,r} N_{B,t}}}.
+We take \m {\h_{\Rm {OMP}} = \R {2 \log \RB {N_{H,t} N_{H,r}}}} for \m {\infty}-norm condition, \m {\h_{\Rm {OMP}} = \R {3 N_B}} for 2-norm condition.
+The maximal number of iteration of CVXPY is set to be \m {32}, and that of OMP is set to be \m {4 N_B}.
 
 Each data point for DS and Lasso is repeated for \m {256} times, and taken arithmetic average.
 Other methods are repeated for more times: OMP for \m {4 \D 256} times, LS for \m {8 \D 256} times.
@@ -374,7 +374,7 @@ and it is usually true that \m {\T {\chi} _{\Rm {DS}} \leq \T {\chi} _{\Rm {OMP}
 For OMP, in Lee, Gil, and Lee \cite [LGL16], a high-complexity nonconvex program is used to design the sensing matrix, while we have here a low-complexity, random generation of beamforming matrices.
 We keep in mind that a different design of sensing matrix, or a distribution of angles, will affect the performance of OMP.
 
-For Lasso, \m {\g} (or \m {\l}) is also crucial to the performance, but cannot be obtained in advance.
+For Lasso, \m {\g _{\Rm {Lasso}}} (or \m {\l _{\Rm {Lasso}}}) is also crucial to the performance, but cannot be obtained in advance.
 Thus, for sake of comparison, we set the same threshold for Lasso and DS.
 Still, there may be other values of \m {\g} (or \m {\l}) for which DS and Lasso are both better.
 
@@ -416,7 +416,7 @@ We discuss the complexity of DS, Lasso, and OMP.
 \stopsubsection
 
 Suppose a linear program has an \m {N} dimensional variable and \m {M} inequality constraints, then its complexity is \m {\MS {O} \SB {N^2 M}}, assuming the Dantzig simplex method is used (\cite [BoV04], p.6).
-For our case, that would be \m {\MS {O} \SB {4 N_H ^4 \D 8 N_H^2} = \MS {O} \SB {N_H^6}}.
+For our case, that would be \m {\MS {O} \SB {4 N_{H,t} ^2 N_{H,r} ^2 \D 8 N_{H,t} N_{H,r}} = \MS {O} \SB {N_{H,t} ^3 N_{H,r} ^3}}.
 But other algorithms exist, where, in general, complexity of convex programs is difficult to analyze, as it is not easily to determine how many steps were calculated.
 
 Alternatively, suppose Newton method is used.
@@ -441,8 +441,8 @@ If we just take that as the complexity bound for DS,
 Here \m {C_0} is constant related to implementation of Newton method, and \m {\e} the tolerance of error, and \m {C_{\Rm {step}}} is the complexity of Newton step.
 
 Every Newton step involves a inversion of \m {\MS {O} \SB {\M {P} ^\Adj \M {P}}}, having the same order of magnitude to the time needed for matrix multiplication.
-Since the dimension of \m {\M {P} ^\Adj \M {P}} is \m {N_H^2}, the cost of inversion may be roughly considered to be \m {\MS {O} \SB {N_H^4}}, as we know from newer results on the complexity of matrix inversion.
-That is, we suppose \m {C_{\Rm {step}} = N_H^4}.
+Since the dimension of \m {\M {P} ^\Adj \M {P}} is \m {N_{H,t} N_{H,r}}, the cost of inversion may be roughly considered to be \m {\MS {O} \SB {N_{H,t} ^2 N_{H,r} ^2}}, as we know from newer results on the complexity of matrix inversion.
+That is, we suppose \m {C_{\Rm {step}} = N_{H,t} ^2 N_{H,r} ^2}.
 
 We therefore assume that, at the start the iteration, the Moore–Penrose inverse was taken to be the initial value of \m {\V {g}_0}, namely
 %
@@ -471,7 +471,7 @@ And by restricted isometry, \m {\M {P}} has unity-normed, almost orthogonal colu
 %
 \DispNum {P:P:IN:H2} {
 \NC \M {P} ^\Adj \M {P}
-\approx \NC I _{N_{H}^2} \NR
+\approx \NC I _{N_{H,t} N_{H,r}} \NR
 }
 %
 Thus, by \Rf {g:0:gL:Py}, \Rf {C:S:Og:g1}, and \Rf {g:g:g;:;g},
@@ -480,8 +480,8 @@ Thus, by \Rf {g:0:gL:Py}, \Rf {C:S:Og:g1}, and \Rf {g:g:g;:;g},
 \NC C_{\Rm {DS}}
 =\NC \MS {O} \SB {
    \VNm {\V {g} +\RB {\M {P} ^\Adj \M {P}} ^{-1} \M {P} ^\Adj \V {z}
-   -\V {g}} _1} N_H^4 \NR
-\NC =\NC \MS {O} \SB {\VNm {\M {P} ^\Adj \V {z}} _1} N_H^4 \NR
+   -\V {g}} _1} N_{H,t} ^2 N_{H,r} ^2 \NR
+\NC =\NC \MS {O} \SB {\VNm {\M {P} ^\Adj \V {z}} _1} N_{H,t} ^2 N_{H,r} ^2 \NR
 }
 
 We see that \m {\RB {\M {P} ^\Adj \V {z}} _{\SB {j}}} follows complex standard normal distribution.
@@ -489,13 +489,13 @@ If we agree that, for high probability,
 %
 \DispNum {O:j:sO:O1} {
 \NC \MS {O} \SB {\VNm {\M {P} ^\Adj \V {z}}}
-= \NC \s N_H^2 \MS {O} \RB {1} \NR
+= \NC \s N_{H,t} N_{H,r} \MS {O} \RB {1} \NR
 }
 Then we simply have
 %
 \DispNum {C:S:ON:H6} {
 \NC C_{\Rm {DS}}
-=\NC \MS {O} \SB {N_{H}^6} \NR
+=\NC \MS {O} \SB {N_{H,t} ^3 N_{H,r} ^3} \NR
 }
 
 
@@ -505,26 +505,26 @@ Tropp and Gilbert \cite [TrG07a] discussed the complexity of OMP in the companio
 %
 \DispNum {C:P:ON:NY} {
 \NC C_{\Rm {OMP}}
-=\NC \MS {O} \SB {N_H^2 \log \RB {N_{B,r} N_{B,t}}} \NR
+=\NC \MS {O} \SB {N_{H,t} N_{H,r} \log N_B} \NR
 }
 %
-Here \m {\log \RB {N_{B,r} N_{B,t}}} is small in our experiments, and if we dropped it, we may take
+Here \m {\log N_B} is small in our experiments, and if we dropped it, we may take
 \DispNum {C:P:ON:H2} {
 \NC C_{\Rm {OMP}}
-=\NC \MS {O} \SB {N_H^2} \NR
+=\NC \MS {O} \SB {N_{H,t} N_{H,r}} \NR
 }
 
 \startsubsection [title={Lasso}]
 
 Lasso is equivalent to a quadratically constrained quadratic program, and there is not always a closed form for its complexity.
-However, Lasso and DS are equivalent in certain conditions \cite [AsR10], and we may suppose here they have the same complexity, \m {\MS {O} \SB {N_H^6}}.
+However, Lasso and DS are equivalent in certain conditions \cite [AsR10], and we may suppose here they have the same complexity, \m {\MS {O} \SB {N_{H,t} ^3 N_{H,r} ^3}}.
 
 Alternatively, an argument similar to the above one for DS is valid for Lasso.
 
 Therefore we take
 \DispNum {C:o:ON:H6} {
 \NC C_{\Rm {Lasso}}
-=\NC \MS {O} \SB {N_H^6} \NR
+=\NC \MS {O} \SB {N_{H,t} ^3 N_{H,r} ^3} \NR
 }
 
 \stopsubsection
@@ -532,11 +532,12 @@ Therefore we take
 \startsubsection [title={Runtime statistics}]
 
 All plots included in this treatise, in total, took about one month to run.
-Figures for \m {N_H = 18} each took about \m {3} days.
+Figures for \m {N_{H,t}, N_{H,r} \geq 24} each took about \m {3} days.
 The computer has \m {32} GB RAM, and Intel Core i9 processor.
 Simulation was run on Linux subsystem 2 of Windows 10.
 
-Use \m {t_{\Rm {OMP}} \SB {N_H}}, \m {t_{\Rm {Lasso}} \SB {N_H}}, \m {t_{\Rm {DS}} \SB {N_H}} to denote their respective time taken.
+Abbreviate \m {N_h = N_{H,t} \D N_{H,r}} as in the last chapter.
+Use \m {t_{\Rm {OMP}} \SB {N_h}}, \m {t_{\Rm {Lasso}} \SB {N_h}}, \m {t_{\Rm {DS}} \SB {N_h}} to denote their respective time taken.
 We here copy the arithmetic average (including different \m {\s}) of simulated values below, in seconds.
 They are: \m {
  t_{\Rm {OMP}} \SB {12}  = 0.0119,
@@ -555,7 +556,7 @@ They are: \m {
  t_{\Rm {DS}} \SB {24} = 91.5
 }.
 
-Simulation illustrates that \m {t_{\Rm {DS}}} grows tremendously with \m {N_H}, agreeing Friedlander and Saunders \cite {FrS07} who noted the high complexity of DS.
+Simulation illustrates that \m {t_{\Rm {DS}}} grows tremendously with \m {N_h}, agreeing Friedlander and Saunders \cite {FrS07} who noted the high complexity of DS.
 This is not surprising, since the inversion of \m {\M {P} \M {P} ^\Adj} is probably the bottleneck of complexity, which has dimension \m {\M {N}_H^2}.
 By the way, different tolerance levels and maximal iteration numbers may result in vastly different computation time.
 
@@ -567,9 +568,9 @@ But it is also notable that, while Lasso has form similar to DS, it takes much l
 Assuming the complexity of each of three methods is polynomial time, we calculate a least square fit for the power of complexity, giving the following estimated values, on which we add a tilde.
 
 \DispNum {t:P:NH:83} {
-\NC \T {t}_{\Rm {OMP}} \NC \eqsim \MS {O} \SB {N_H^{3.6}} \NR
-\NC \T {t}_{\Rm {Lasso}} \NC \eqsim \MS {O} \SB {N_H^{4.8}} \NR
-\NC \T {t}_{\Rm {DS}} \NC \eqsim \MS {O} \SB {N_H^{8.3}} \NR
+\NC \T {t}_{\Rm {OMP}} \NC \eqsim \MS {O} \SB {N_h^{3.6}} \NR
+\NC \T {t}_{\Rm {Lasso}} \NC \eqsim \MS {O} \SB {N_h^{4.8}} \NR
+\NC \T {t}_{\Rm {DS}} \NC \eqsim \MS {O} \SB {N_h^{8.3}} \NR
 }
 
 However, note that we must be careful in giving meaningful comparison between compressive sensing algorithms, as they might work in different settings.

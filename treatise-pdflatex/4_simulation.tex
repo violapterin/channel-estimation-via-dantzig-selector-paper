@@ -176,12 +176,12 @@ It is known that DS is equivalent to the basis pursuit denoising form below, for
 
 \Disp {
 \Hat {\V {g}}
-\leftarrow \Min {\V {g}' \in \mathbb {C} ^{N_H^2}}
+\leftarrow \Min {\V {g}' \in \mathbb {C} ^{N_{H,t} N_{H,r}}}
 \RB {\VNm {\V {g}'} _1 + \l \VNm {\M {P}^\Adj \RB {\V {y} -\M {P} \V {g}'}} _\infty}
 }
 
 However, there is no simple way to determine the value of \m {\l} in advance.
-We have tried basis pursuit denoising, with \m {\l = N_H^2 / \g_{\mathrm {DS}}} in the simulation.
+We have tried basis pursuit denoising, with \m {\l = N_{H,t} N_{H,r} / \g_{\mathrm {DS}}} in the simulation.
 
 \section {Result}
 
@@ -202,11 +202,11 @@ If so, the noise-to-signal ratio is
 }
 
 We use dimensionless noise level \m {\s} which takes value starting with \m {2^{-4}}, and being multiplied by powers of \m {2}, for \m {6} values.
-We take \m {N_H} to be \m {6, 12, 18}, respectively.
-For assorted plots, three series of plots are simulated.
+We take \m {N_Y} to be \m {4, 6, 8}, respectively.
+Three series of plots are simulated.
 The first series for \m {N_{H,t} = 2 N_B} and \m {N_{H,r} = 2 N_B}.
-The second series for \m {N_{H,t} = 2 N_H} and \m {N_{H,r} = 3 N_H}.
-The third series for \m {N_{H,t} = 3 N_H} and \m {N_{H,r} = 2 N_H}.
+The second series for \m {N_{H,t} = 2 N_B} and \m {N_{H,r} = 3 N_B}.
+The third series for \m {N_{H,t} = 3 N_B} and \m {N_{H,r} = 2 N_B}.
 Unfortunately, this is very far from achieving the ideal values \eqref {N:B:4l:H2}, and this may be part of the reason the result is not as successful as expected.
 
 Other parameters are fixed in these experiments.
@@ -379,7 +379,7 @@ and it is usually true that \m {\tilde {\chi} _{\mathrm {DS}} \leq \tilde {\chi}
 For OMP, in Lee, Gil, and Lee \cite [LGL16], a high-complexity nonconvex program is used to design the sensing matrix, while we have here a low-complexity, random generation of beamforming matrices.
 We keep in mind that a different design of sensing matrix, or a distribution of angles, will affect the performance of OMP.
 
-For Lasso, \m {\g} (or \m {\l}) is also crucial to the performance, but cannot be obtained in advance.
+For Lasso, \m {\g _{\mathrm {Lasso}}} (or \m {\l _{\mathrm {Lasso}}}) is also crucial to the performance, but cannot be obtained in advance.
 Thus, for sake of comparison, we set the same threshold for Lasso and DS.
 Still, there may be other values of \m {\g} (or \m {\l}) for which DS and Lasso are both better.
 
@@ -493,13 +493,13 @@ If we agree that, for high probability,
 %
 \DispNum {O:j:sO:O1} {
 \mathcal {O} \SB {\VNm {\M {P} ^\dagger \V {z}}}
-= \s N_H^2 \mathcal {O} \RB {1} 
+= \s N_{H,t} N_{H,r} \mathcal {O} \RB {1} 
 }
 Then we simply have
 %
 \DispNum {C:S:ON:H6} {
 C_{\mathrm {DS}}
-=\mathcal {O} \SB {N_{H}^6} 
+=\mathcal {O} \SB {N_{H,t} ^3 N_{H,r} ^3} 
 }
 
 \subsection {Orthogonal matching pursuit}
@@ -508,36 +508,37 @@ Tropp and Gilbert \cite {TrG07a} discussed the complexity of OMP in the companio
 %
 \DispNum {C:P:ON:NY} {
 C_{\mathrm {OMP}}
-=\mathcal {O} \SB {N_H^2 \log \RB {N_{B,r} N_{B,t}}}
+=\mathcal {O} \SB {N_{H,t} N_{H,r} \log N_B} 
 }
 %
 Here \m {\log \RB {N_{B,r} N_{B,t}}} is small in our experiments, and if we dropped it, we may take
 \DispNum {C:P:ON:H2} {
 C_{\mathrm {OMP}}
-=\mathcal {O} \SB {N_H^2}
+=\mathcal {O} \SB {N_{H,t} N_{H,r}}
 }
 
 \subsection {Lasso}
 
 Lasso is equivalent to a quadratically constrained quadratic program, and there is not always a closed form for its complexity.
-However, Lasso and DS are equivalent in certain conditions \cite {AsR10}, and we may suppose here they have the same complexity, \m {\mathcal {O} \SB {N_H^6}}.
+However, Lasso and DS are equivalent in certain conditions \cite {AsR10}, and we may suppose here they have the same complexity, \m {\mathcal {O} \SB {N_{H,t} ^3 N_{H,r} ^3}}.
 
 Alternatively, an argument similar to the above one for DS is valid for Lasso.
 
 Therefore we take
 \DispNum {C:o:ON:H6} {
 C_{\mathrm {Lasso}}
-=\mathcal {O} \SB {N_H^6}
+=\mathcal {O} \SB {N_{H,t} ^3 N_{H,r} ^3}
 }
 
 \subsection {Runtime statistics}
 
 All plots included in this treatise, in total, took about one month to run.
-Figures for \m {N_H = 18} each took about \m {3} days.
+Figures for \m {N_{H,t}, N_{H,r} \geq 24} each took about \m {3} days.
 The computer has \m {32} GB RAM, and Intel Core i9 processor.
 Simulation was run on Linux subsystem 2 of Windows 10.
 
-Use \m {t_{\mathrm {OMP}} \SB {N_H}}, \m {t_{\mathrm {Lasso}} \SB {N_H}}, \m {t_{\mathrm {DS}} \SB {N_H}} to denote their respective time taken.
+Abbreviate \m {N_h = N_{H,t} \D N_{H,r}} as in the last chapter.
+Use \m {t_{\mathrm {OMP}} \SB {N_h}}, \m {t_{\mathrm {Lasso}} \SB {N_h}}, \m {t_{\mathrm {DS}} \SB {N_h}} to denote their respective time taken.
 We here copy the arithmetic average (including different \m {\s}) of simulated values below, in seconds.
 They are:
 \m {t_{\mathrm {OMP}} \SB {12}  = 0.0119,}
@@ -555,7 +556,7 @@ They are:
 \m { t_{\mathrm {DS}} \SB {20}  = 29.8,}
 \m { t_{\mathrm {DS}} \SB {24} = 91.5}
 
-Simulation illustrates that \m {t_{\mathrm {DS}}} grows tremendously with \m {N_H}, agreeing Friedlander and Saunders \cite {FrS07} who noted the high complexity of DS.
+Simulation illustrates that \m {t_{\mathrm {DS}}} grows tremendously with \m {N_h}, agreeing Friedlander and Saunders \cite {FrS07} who noted the high complexity of DS.
 This is not surprising, since the inversion of \m {\M {P} \M {P} ^\Adj} is probably the bottleneck of complexity, which has dimension \m {\M {N}_H^2}.
 By the way, different tolerance levels and maximal iteration numbers may result in vastly different computation time.
 
@@ -567,9 +568,9 @@ But it is also notable that, while Lasso has form similar to DS, it takes much l
 Assuming the complexity of each of three methods is polynomial time, we calculate a least square fit for the power of complexity, giving the following estimated values, on which we add a tilde.
 
 \DispNum {t:P:NH:83} {
-\tilde {t}_{\mathrm {OMP}} \eqsim &\mathcal {O} \SB {N_H^{3.6}} \\
-\tilde {t}_{\mathrm {Lasso}} \eqsim &\mathcal {O} \SB {N_H^{4.8}} \\
-\tilde {t}_{\mathrm {DS}} \eqsim &\mathcal {O} \SB {N_H^{8.3}} 
+\tilde {t}_{\mathrm {OMP}} \eqsim &\mathcal {O} \SB {N_h^{3.6}} \\
+\tilde {t}_{\mathrm {Lasso}} \eqsim &\mathcal {O} \SB {N_h^{4.8}} \\
+\tilde {t}_{\mathrm {DS}} \eqsim &\mathcal {O} \SB {N_h^{8.3}} 
 }
 
 However, note that we must be careful in giving meaningful comparison between compressive sensing algorithms, as they might work in different settings.

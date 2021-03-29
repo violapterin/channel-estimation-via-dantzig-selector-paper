@@ -73,7 +73,7 @@ for probability \m {p}, with
 %
 \DispNum {1:p:NH:H2} {
 1 -p
-\leq N_h.
+\leq N_h^{-1}.
 }
 }
 
@@ -291,7 +291,7 @@ q _{\mathrm {iso}, B}
 \lesssim &2 \mathsf {e} ^{-N_B /12} \notag \\
 %
 q _{\mathrm {iso}, R}
-\lesssim &2 N_h ^{-1/3} \RB {\log N_h} ^{-1/6} \notag \\
+\lesssim &2 N_h ^{-1/6} \RB {\log N_h} ^{-1/6} \notag \\
 %
 q _{\mathrm {no}}
 \lesssim &N_h ^{-1} \notag \\
@@ -303,7 +303,10 @@ q _{\mathrm {sp}}
 If we provide the ideal values
 \DispNum {N:B:4l:H2} {
 N_B
-\gtrsim 16 L \RB {\log N_h}^2 
+\gtrsim &2 \log N_h \\
+%
+N_R
+\gtrsim &4 L \RB {\log N_h}^2
 }
 %
 It can be seen that

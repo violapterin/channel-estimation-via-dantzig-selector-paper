@@ -10,12 +10,18 @@ Set for short
 = \NC \Hat {\V {g}} - \V {g} \NR
 }
 %
+And for convenience, let
+\Disp {
+\NC N_h
+= \NC N_{H,t} N_{H,r} \NR
+}
+%
 To bound \m {\VNm {\V {d}} _2}, we illustrate that \m {\V {g}} can be seen as sparse, and for that purpose we generously bound \m {\d_{S}} by \m {1}.
 We shall see below that it suffices to set
 %
 \DispNum {g':g':2N:Nh} {
 \NC \g
-= \NC 2 \R {\log N_H} \NR
+= \NC \R {\log N_h} \NR
 }
 %
 The propositions below are taken from \cite [CaT07] and modified slightly in accordance to our settings, in addition to the generalization to complex vectors.
@@ -59,14 +65,14 @@ If \m {\M {P}} has \m {\d_S} RIP, then it holds that
 %
 \DispNum {P:d:4N:Nh} {
 \NC \VNm {\M {P}^\Adj \M {P} \V {d}} _\infty
-\leq \NC  4 \R {2 \log N_H} \NR
+\leq \NC 2 \R {2 \log N_h} \NR
 }
 %
 for probability \m {p}, with
 %
 \DispNum {1:p:NH:H2} {
 \NC 1 -p
-\leq \NC N_H^{-2}. \NR
+\leq \NC N_h^{-1}. \NR
 }
 }
 
@@ -87,11 +93,11 @@ Recall the tail bound for \m {Q} function
 \leq \NC \F {1} {2} \Ss {e}^{-x'^2 /2} \NR
 }
 %
-Particularly, fix threshold \m {x' =2 \R {\log N_H}}, yielding
+Particularly, fix threshold \m {x' =\R {2 \log N_h}}, yielding
 %
 \DispNum {Q:h:1N:Nh} {
-\NC Q\SB {2 \R {\log N_H}}
-=\NC \F {1} {2 N_H^2}. \NR
+\NC Q\SB {\R {2 \log N_h}}
+=\NC \F {1} {2 N_h}. \NR
 }
 %
 On the other hand, by construction
@@ -100,7 +106,7 @@ On the other hand, by construction
 \NC \VNm {\M {P} _{\SB {:,n_h}}^\Adj \RB {\V {y} - \M {P} \hat {\V {g}}}} _\infty
 \leq \NC \VNm {\M {P}^\Adj \RB {\V {y} - \M {P} \hat {\V {g}}}} _\infty \NR
 %
-\NC \leq \NC 2\R {2 \log N_H} \NR
+\NC \leq \NC 2\R {\log N_h} \NR
 }
 
 Now, by triangle inequality, together with \Rf {Q:h:1N:Nh} and \Rf {P:g:Py:Nh}, we obtain the desired result.
@@ -110,7 +116,7 @@ Now, by triangle inequality, together with \Rf {Q:h:1N:Nh} and \Rf {P:g:Py:Nh}, 
 \leq \NC \Nm {\IP {\V {z}, \M {P} _{\SB {:,n_h}}}}
 + \IP {\V {y} - \M {P} \hat {\V {g}}, \M {P} _{\SB {:,n_h}}} \NR
 %
-\NC \simeq \NC 2 \R {2 \log N_H} +2 \R {2 \log N_H} \NR
+\NC \simeq \NC \R {2 \log N_h} + \R {2 \log N_h} \NR
 }
 
 Lastly, the following two propositions are taken from \cite [CaT07], Lemma \m {1}.
@@ -164,7 +170,7 @@ We also make the approximation that
 %
 \DispNum {d':S:Ll:d's} {
 \NC \d_{S}
-\leq \NC \R {L} \RB {\log N_H} ^{1/4} \d_{s} \NR
+\leq \NC \R {L} \RB {\log N_h} ^{1/4} \d_{s} \NR
 }
 %
 So we have
@@ -189,7 +195,7 @@ For simplicity, set \m {S = Ls^2}, thus
 %
 \DispNum {S:S:4N:NH} {
 \NC S
-=\NC L \log N_H \NR
+=\NC L \log N_h \NR
 }
 %
 And, for concreteness,
@@ -207,14 +213,14 @@ Then it holds that
 %
 \DispNum {d:2:OL:H3} {
 \NC \VNm {\V {d}} _2
-\eqsim \NC \MS {O} \SB {\R {L} \R {\log N_H}^3} \NR
+\eqsim \NC \MS {O} \SB {\R {L} \R {\log N_h}^3} \NR
 }
 %
 for probability \m {p}, with
 %
 \DispNum {1:p:ON:13} {
 \NC 1 -p
-\eqsim \NC \MS {O} \SB {\Ss {e} ^{-\min \SB {N_{B,t}, N_{B,r}} /12}} \NR
+\eqsim \NC \MS {O} \SB {\Ss {e} ^{-N_B /12}} \NR
 }
 }
 
@@ -226,7 +232,7 @@ To show this, by the definition of truncation, by \m {\ell_p} norm inequality, b
 %
 \NC \leq \NC \R {S} \VNm {\M {P}^\Tr \M {P} \V {d}} _\infty \NR
 %
-\NC \leq \NC 5.65 \R {\log N_H} \NR
+\NC \leq \NC 2.83 \R {\log N_h} \NR
 }
 %
 By \m {\ell_p}-norm inequality, by the definition of truncation, by \Rf {d:2:11:C1}, and by \Rf {P:2:PP:NH} just above,
@@ -237,7 +243,7 @@ By \m {\ell_p}-norm inequality, by the definition of truncation, by \Rf {d:2:11:
 %
 \NC \leq \NC \R {S} \VNm {\V {d} _{\SB{\MS {AB}}}} _2 \NR
 %
-\NC \leq \NC 1.21 L \R {\log N_H}^3
+\NC \leq \NC 3.44 L \R {\log N_h}^3
 +0.262 \VNm {\V {d} _{\SB{\MS {C}}}} _1 \NR
 }
 %
@@ -245,7 +251,7 @@ Then, substituting \Rf {g:C:4p':NH} and \Rf {d:1:Sd:C1} above into \Rf {d:1:dA:C
 \DispNum {d:C1:16:H2} {
 \NC \VNm {\V {d} _{\SB{\MS {C}}}} _1
 %
-\leq \NC 1.64 L \R {\log N_H}^3 +3.61 L \RB {\log N_H}^2 \NR
+\leq \NC 5.12 L \RB {\log N_h}^2 \NR
 }
 
 Now \Rf {d:2:11:C1} becomes
@@ -253,17 +259,17 @@ Now \Rf {d:2:11:C1} becomes
 \DispNum {d:2:16:H3} {
 \NC \VNm {\V {d} _{\SB{\MS {AB}}}} _2
 %
-\leq \NC 1.64 \R {L} \log N_H +0.951 \R {L} \R {\log N_H}^3 \NR
+\leq \NC 3.44 \R {L} \log N_h +1.35 \R {L} \R {\log N_h}^3 \NR
 }
 and we are ready to estimate \m {\VNm {d} _2}, again by \Rf {d:2:dA:C1}, and plugging in \Rf {d:2:16:H3} and \Rf {d:C1:16:H2}, giving
 \DispNum {d:2:42:NH} {
 \NC \VNm {\V {d}} _2
-\leq \NC 3.29 \R {L} \log N_H +4.56 \R {L} \R {\log N_H}^3 \NR
+\leq \NC 4.79 \R {L} \R {\log N_h}^3 \NR
 }
 Therefore, we set
 \DispNum {c':c':8L:H3} {
 \NC \chi
-= \NC 8 \R {L} \R {\log N_H}^3 \NR
+= \NC \R {L} \R {\log N_h}^3 \NR
 }
 so that
 \DispNum {d:d:c'-:c'-} {
@@ -281,13 +287,13 @@ If all of them are small, a naive application of union bound suggests
 Quoting previous results \Rf {1:p:2e:s4}, \Rf {1:p:ex:d's}, \Rf {1:p:NH:H2}, and \Rf {1:p:1N:H3}, we make some approximation and set
 \DispNum {q:B:2e:Lp'} {
 \NC q _{\Rm {iso}, B}
-\lesssim \NC 2 \Ss {e} ^{-\min \SB {N_{B,t}, N_{B,r}} /12} \NR
+\lesssim \NC 2 \Ss {e} ^{-N_B /12} \NR
 %
 \NC q _{\Rm {iso}, R}
-\lesssim \NC 2 N_H ^{-1/3} \RB {\log N_H} ^{-1/6} \NR
+\lesssim \NC 2 N_h ^{-1/3} \RB {\log N_h} ^{-1/6} \NR
 %
 \NC q _{\Rm {no}}
-\lesssim \NC N_H ^{-2} \NR
+\lesssim \NC N_h ^{-1} \NR
 %
 \NC q _{\Rm {sp}}
 \lesssim \NC 2 \Ss {e} ^{-9L/\pi} \NR
@@ -295,11 +301,11 @@ Quoting previous results \Rf {1:p:2e:s4}, \Rf {1:p:ex:d's}, \Rf {1:p:NH:H2}, and
 %
 If we provide the ideal values
 \DispNum {N:B:4l:H2} {
-\NC N_{B,t}, N_{B,t}
-\gtrsim \NC 4 \log N_H \NR
+\NC N_B
+\gtrsim \NC 2 \log N_h \NR
 %
 \NC N_R
-\gtrsim \NC 16 L \RB {\log N_H}^2 \NR
+\gtrsim \NC 4 L \RB {\log N_h}^2 \NR
 }
 %
 It can be seen that
@@ -315,7 +321,7 @@ It can be seen that
 then we get the estimation
 \DispNum {q:q:ON:13} {
 \NC q
-\eqsim \NC 2 \Ss {e} ^{-\min \SB {N_{B,t}, N_{B,r}} /12} \NR
+\eqsim \NC 2 \Ss {e} ^{-N_B /12} \NR
 }
 
 \stopsubsection

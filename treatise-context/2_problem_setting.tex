@@ -6,8 +6,8 @@ For simplicity we suppose uniform linear arrays, for which the response would be
 %
 \DispNum {a:y':CN:NH} {
 \NC \V {a} \SB {\psi'}
-= \NC \F {1} {\R {N_H}} \sum_{n_h=0}^{N_H-1} \Ss {e} ^{\Ss {i} n_h \psi'} \V {u} _{n_h}
-\in \MB {C} ^ {N_H} \NR
+= \NC \F {1} {\R {N}} \sum_{n_h=0}^{N-1} \Ss {e} ^{\Ss {i} n_h \psi'} \V {u} _{n_h}
+\in \MB {C} ^ {N} \NR
 }
 %
 where \m {\Ss {e}} is the base of natural logarithm, and \m {\Ss {i}} the imaginary unit.
@@ -18,8 +18,8 @@ And consider the virtual representation of the MIMO channel, as in Akdeniz et.\ 
 \NC \M {H}
 =\NC \sum_{l=0} ^{L-1}
 \a_l
-\V {a} \SB { 2\pi \F {d_{\Rm {arr}}} {\l _{\Rm {arr}}} \sin \f_l'}
-\V {a} \SB { 2\pi \F {d_{\Rm {arr}}} {\l _{\Rm {arr}}} \sin \th_l'}^\Adj \NR
+\V {a} \SB {2\pi \F {d_{\Rm {arr}}} {\l _{\Rm {arr}}} \sin \f_l'}
+\V {a} \SB {2\pi \F {d_{\Rm {arr}}} {\l _{\Rm {arr}}} \sin \th_l'}^\Adj \NR
 }
 %
 The physical meaning of \m {\f_l'} is the \m {l}-th angle of incidence (formed by the ray and the normal line) of departure electronic wave, and \m {\th_l'}, the \m {l}-th angle of arrival wave, and \m {d_{\Rm {arr}}} is the distance between two adjacent antennae.
@@ -40,7 +40,7 @@ to get a simpler form
 \DispNum {H:H:l0:NH} {
 \NC \M {H}
 =\NC \sum_{l=0} ^{L-1} \a_l \V {a} \SB {\f_l} \V {a} \SB {\th_l}^\Adj
-\in \MB {C} ^{N_H \D N_H} \NR
+\in \MB {C} ^{N_{H,r} \D N_{H,t}} \NR
 }
 
 \stopsection
@@ -54,8 +54,8 @@ to get a simpler form
 
 We consider hybrid beamforming at both the transmitter and receiver ends, as shown in Figure 2.
 Each end consists of both digital and analog precoders and combiners.
-In the transmitter end, there are (seeing towards the receiver end), the digital precoder \m {\M {F} _B \in \MB {C} ^{N_{B,t} \D N_{B,t}}} and the analog precoder \m {\M {F} _R \in \MB {C} ^{N_H \D  N_{B,t}}}.
-Similarly, in the receiver end, there are (seeing towards the transmitter end) the digital combiner \m {\M {W} _B \in \MB {C} ^{N_{B,r} \D  N_{B,r}}} and the analog combiner \m {\M {W} _R \in \MB {C} ^{N_{B,r} \D N_H}}.
+In the transmitter end, there are (seeing towards the receiver end), the digital precoder \m {\M {F} _B \in \MB {C} ^{N_B \D N_B}} and the analog precoder \m {\M {F} _R \in \MB {C} ^{N_{H,t} \D N_B}}.
+Similarly, in the receiver end, there are (seeing towards the transmitter end) the digital combiner \m {\M {W} _B \in \MB {C} ^{N_B \D N_B}} and the analog combiner \m {\M {W} _R \in \MB {C} ^{N_B \D N_{H,r}}}.
 
 Recall that analog precoders may only have values of unity magnitude,
 %
@@ -66,23 +66,23 @@ Recall that analog precoders may only have values of unity magnitude,
 \NC \Nm {\RB {\M {W} _R} _{\SB {n_{R,r}, n_H}}}
 = \NC 1, \NR
 %
-\NC n_H
-= \NC 0, \dots N_H-1, \NR
+\NC n_{H,t}
+= \NC 0, \dots N_{H,t}-1, \NR
 %
-\NC n_{R,t}
-= \NC 0, \dots N_{B,t}-1 \NR
+\NC n_{H,r}
+= \NC 0, \dots N_{H,r}-1 \NR
 %
-\NC n_{R,r}
-= \NC 0, \dots N_{B,r}-1 \NR
+\NC n_{R,t}, n_{R,r}
+= \NC 0, \dots N_R-1 \NR
 }
 %
 And we assume
 %
 \DispNum {N:H:NY:NY} {
-\NC N_H \gg \NC N_{B,t}, N_{B,r} \NR
+\NC N_{H,t}, N_{H,r} \gg N_B \NR
 }
 
-Since we restrict our discussion to a short interval of time, the noise term may be simply taken as a matrix \m {\M {Z} \in \NC \MB {C} ^{N_H \D N_{B,t}}} with each entry being i.i.d.\ standard normal.
+Since we restrict our discussion to a short interval of time, the noise term may be simply taken as a matrix \m {\M {Z} \in \NC \MB {C} ^{N_B \D N_B}} with each entry being i.i.d.\ standard normal.
 Let us introduce the effective channel
 %
 \DispNum {Y:Y:WB:BZ} {
@@ -148,19 +148,19 @@ It is more appealing to write
 \DispNum {h:h:ve:Nh} {
 \NC \V {h}
 := \NC \Rm {vec} \SB {\M {H}}
-\in \MB {C} ^{N_H^2} \NR
+\in \MB {C} ^{N_{H,t} N_{H,r}} \NR
 %
 \NC \V {y}
 := \NC \Rm {vec} \SB {\M {Y}}
-\in \MB {C} ^{N_{B,t} N_{B,r}} \NR
+\in \MB {C} ^{N_B ^2} \NR
 %
 \NC \V {z}
 := \NC \Rm {vec} \SB {\M {W} _B \M {W} _R \M {Z}}
-\in \MB {C} ^{N_{B,t} N_{B,r}} \NR
+\in \MB {C} ^{N_B ^2} \NR
 %
 \NC \M {Q}
 := \NC \RB {\M {F} _B^\Tr \M {F} _R^\Tr} \otimes \RB {\M {W} _B \M {W} _R}
-\in \MB {C} ^{N_{B,t} N_{B,r} \D N_H^2} \NR
+\in \MB {C} ^{N_B ^2 \D N_{H,t} N_{H,r}} \NR
 }
 %
 to formulate the problem as a linear system:
@@ -179,13 +179,13 @@ At this stage, we intend to apply DS, but there is no guarantee that \m {\V {h}}
 Denote the discrete Fourier transform matrix to be \m {\M {K}},
 %
 \DispNum {K:K:CN:H1} {
-\NC \M {K} \in  \NC \MB {C} ^{N_H \D N_H} \NR
+\NC \M {K} = \NC \M {K} \SB {N} \in \MB {C} ^{N \D N} \NR
 %
 \NC \M {K} _{\SB {n_1, n_2}}
-= \NC \F {1} {\R {N_H}} \Ss {e}^{2\pi \Ss {i} n_1 n_2 /N_H}, \NR
+= \NC \F {1} {\R {N}} \Ss {e}^{2\pi \Ss {i} n_1 n_2 /N}, \NR
 %
 \NC \Q n_1, n_2
-= \NC 0, 1, \dots, N_H-1 \NR
+= \NC 0, 1, \dots, N-1 \NR
 }
 %
 Recall that we have
@@ -217,7 +217,7 @@ Set for brevity
 \DispNum {P:P:FB:Nh} {
 \NC \M {P}
 :=\NC \RB {\M {F} _B^\Tr \M {F} _R^\Tr \M {K}^\ast} \otimes \RB {\M {W} _B \M {W} _R \M {K}}
-\in \MB {C} ^{N_{B,t} N_{B,r} \D N_H^2} \NR
+\in \MB {C} ^{N_B^2 \D N_{H,t} N_{H,r}} \NR
 }
 %
 and
@@ -225,7 +225,7 @@ and
 \DispNum {g:g:ve:Nh} {
 \NC \V {g}
 := \NC \Rm {vec} \SB {\M {G}}
-\in \MB {C} ^ {N_H \D N_H} \NR
+\in \MB {C} ^ {N_{H,t} \D N_{H,r}} \NR
 }
 %
 accordingly
@@ -247,20 +247,20 @@ Our plan becomes now
 %
 \item Let \m {\g_{\Rm {DS}} \geq 0} be given.
 %
-\item Input \m {\M {F} _B \in \NC \MB {C} ^{N_{B,t} \D N_{B,t}}},
-\m {\M {F} _R \in \NC \MB {C} ^{N_H \D N_{B,t}}},
-\m {\M {W} _R \in \NC \MB {C} ^{N_{B,r} \D N_H}},
-\m {\M {W} _B \in \NC \MB {C} ^{N_{B,r} \D N_{B,r}}},
-and \m {\M {Y} \in \NC \MB {C} ^{N_{B,r} \D N_{B,t}}}.
+\item Input \m {\M {F} _B \in \NC \MB {C} ^{N_R \D N_B}},
+\m {\M {F} _R \in \NC \MB {C} ^{N_{H,t} \D N_R}},
+\m {\M {W} _R \in \NC \MB {C} ^{N_R \D N_{H,r}}},
+\m {\M {W} _B \in \NC \MB {C} ^{N_B \D N_R}},
+and \m {\M {Y} \in \NC \MB {C} ^{N_B \D N_B}}.
 %
-\item Find \m {\M {P} \in \MB {C} ^{N_{B,t} N_{B,r} \D N_H^2}}, \m {\V {y} \in \MB {C} ^{N_H^2}} as in above.
+\item Find \m {\M {P} \in \MB {C} ^{N_{B,t} N_{B,r} \D N_{H,t} N_{H,r}}}, \m {\V {y} \in \MB {C} ^{N_B^2}} as in above.
 %
 \item Compute the convex program
 %
 \DispNum {g:g:mi:DS} {
 \NC \Hat {\V {g}}
 \LA \NC \startcases
-\NC \Min {\V {g}' \in \MB {C} ^{N_H^2}}  \MC \VNm {\V {g}'} _1 \NR
+\NC \Min {\V {g}' \in \MB {C} ^{N_{H,t} N_{H,r}}}  \MC \VNm {\V {g}'} _1 \NR
 %
 \NC \Rm {subject} \; \Rm {to} \Q \MC \VNm {\M {P}^\Adj \RB {\V {y} -\M {P} \V {g}'}} _\infty \leq \g_{\Rm {DS}} \NR
 \stopcases \NR

@@ -84,13 +84,13 @@ Suppose
 %
 \DispNum {N:R:sd'NH} {
 N_R
-\geq \frac {s} {\d_s^2} \RB {\log s}^2 \log N_H 
+\geq \frac {s} {\d_s^2} \RB {\log s}^2 \log N_{H,t}
 }
 %
 Then \m {\M {F}_R} (respectively \m {\M {W} _R}) has \m {\d_s} RIP for probability \m {p}, with
 \DispNum {1:p:ex:d's} {
 1 -p
-\leq \RB {\frac {\d_s} {N_H s}} ^{1/3} 
+\leq \RB {\frac {\d_s} {N_{H,t} s}} ^{1/3} 
 }
 }
 
@@ -108,7 +108,7 @@ Since both \m {\M {F}_B^\intercal \M {F}_B^\Tr} and \m {\M {F}_B^\intercal \M {F
 However, it is doubtful to assume that their Kronecker product still has RIP.
 
 We argue as follows.
-If all angles \m {\th_l, \f_l} are exactly the multiples of \m {2 \pi/N_H}, then
+If angles \m {\th_l} (respectively \m {\f_l}) are exactly the multiples of \m {2 \pi / N_{H,t}} (respectively \m {2 \pi / N_{H,t}}), then
 \DispNum {G:G:Ud:dU} {
 \M {G}
 =\M {U} \mathrm {diag} \SB {\V {d}'} \M {U} ^\dagger 
@@ -144,7 +144,4 @@ Then if we notice that \m {\M {W} _B \M {W} _R \M {K} \M {U}} and \m {\M {U} ^\d
 \eqsim &\VNm {\M {G}} _2 \RB {1 +2\d_s} 
 }
 Thus, even we cannot make sure that \m {\M {P}} is \m {\d_s} RIP with respect to all possible \m {\V {g}}'s, at least \m {\M {P}} has RIP with respect to relevant values of \m {\V {g}} according to the form \eqref {H:H:l0:ql}.
-
-
-
 
