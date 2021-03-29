@@ -19,7 +19,7 @@ And consider the virtual representation of the MIMO channel, as in Akdeniz et.\ 
 =\sum_{l=0} ^{L-1}
 \a_l
 \V {a} \SB { 2\pi \frac {d_{\mathrm {arr}}} {\l _{\mathrm {arr}}} \sin \f_l', N_{H,r}}
-\V {a} \SB { 2\pi \frac {d_{\mathrm {arr}}} {\l _{\mathrm {arr}}} \sin \th_l', N_{H,r}}^\dagger 
+\V {a} \SB { 2\pi \frac {d_{\mathrm {arr}}} {\l _{\mathrm {arr}}} \sin \th_l', N_{H,t}}^\dagger 
 }
 %
 The physical meaning of \m {\f_l'} is the \m {l}-th angle of incidence (formed by the ray and the normal line) of departure electronic wave, and \m {\th_l'}, the \m {l}-th angle of arrival wave, and \m {d_{\mathrm {arr}}} is the distance between two adjacent antennae.
@@ -72,17 +72,14 @@ n_{H,t}
 n_{H,r}
 = &0, \dots N_{H,r}-1, \\
 %
-n_{R,t}
-= &0, \dots N_B-1  \\
-%
-n_{R,r}
-= &0, \dots N_B-1 
+n_{R,t}, n_{R,r}
+= &0, \dots N_R-1
 }
 %
 And we assume
 %
 \DispNum {N:H:NY:NY} {
-N_{H,t}, N_{H,t} \gg N_B, N_B
+N_{H,t}, N_{H,r} \gg N_B
 }
 
 Since we restrict our discussion to a short interval of time, the noise term may be simply taken as a matrix \m {\M {Z} \in \mathbb {C} ^{N_B \D N_B}} with each entry being i.i.d.\ standard normal.
@@ -154,15 +151,15 @@ It is more appealing to write
 %
 \V {y}
 := &\mathrm {vec} \SB {\M {Y}}
-\in \mathbb {C} ^{N_B N_B} \\
+\in \mathbb {C} ^{N_B ^2} \\
 %
 \V {z}
 := &\mathrm {vec} \SB {\M {W} _B \M {W} _R \M {Z}}
-\in \mathbb {C} ^{N_B N_B} \\
+\in \mathbb {C} ^{N_B ^2} \\
 %
 \M {Q}
 := &\RB {\M {F} _B^\intercal \M {F} _R^\Tr} \otimes \RB {\M {W} _B \M {W} _R}
-\in \mathbb {C} ^{N_B N_B \D N_{H,t} N_{H,r}} 
+\in \mathbb {C} ^{N_B ^2 \D N_{H,t} N_{H,r}} 
 }
 %
 to formulate the problem as a linear system:
@@ -180,9 +177,9 @@ At this stage, we intend to apply DS, but there is no guarantee that \m {\V {h}}
 Denote the discrete Fourier transform matrix to be \m {\M {K}},
 %
 \DispNum {K:K:CN:H1} {
-\M {K} \in &\mathbb {C} ^{N_{H,t} \D N_{H,r}} \notag \\
+\M {K} = \M {K} \SB {N} \in &\mathbb {C} ^{N \D N} \notag \\
 %
-\M {K} _{\SB {n_1, n_2}} \SB {N}
+\M {K} _{\SB {n_1, n_2}}
 = &\frac {1} {\R {N}} \mathsf {e}^{2\pi \mathsf {i} n_1 n_2 /N}, \notag \\
 %
 \quad n_1, n_2
@@ -200,7 +197,7 @@ If we write
 %
 \DispNum {G:G:KH:HK} {
 \M {G}
-=\M {K}^\dagger \M {H} \M {K} 
+=\M {K}^\dagger \SB {N_{H,r}} \M {H} \M {K} \SB {N_{H,t}}
 }
 %
 then \m {\M {G}} can be interpreted as spatial frequency domain representation of \m {\M {H}}.
@@ -218,7 +215,7 @@ Set for brevity
 \DispNum {P:P:FB:Nh} {
 \M {P}
 :=\RB {\M {F} _B^\intercal \M {F} _R^\intercal \M {K}^\ast} \otimes \RB {\M {W} _B \M {W} _R \M {K}}
-\in \mathbb {C} ^{N_B N_B \D N_{H,t} N_{H,r}} 
+\in \mathbb {C} ^{N_B^2 \D N_{H,t} N_{H,r}} 
 }
 %
 and
@@ -247,13 +244,13 @@ Our plan becomes now
 %
 \item Let \m {\g_{\mathrm {DS}} \geq 0} be given.
 %
-\item Input \m {\M {F} _B \in \mathbb {C} ^{N_{R,t} \D N_B}},
+\item Input \m {\M {F} _B \in \mathbb {C} ^{N_R \D N_B}},
 \m {\M {F} _R \in \mathbb {C} ^{N_{H,t} \D N_R}},
-\m {\M {W} _R \in \mathbb {C} ^{N_{R,r} \D N_{H,r}}},
-\m {\M {W} _B \in \mathbb {C} ^{N_B \D N_{R,r}}},
+\m {\M {W} _R \in \mathbb {C} ^{N_R \D N_{H,r}}},
+\m {\M {W} _B \in \mathbb {C} ^{N_B \D N_R}},
 and \m {\M {Y} \in \mathbb {C} ^{N_B \D N_B}}.
 %
-\item Find \m {\M {P} \in \mathbb {C} ^{N_B N_B \D N_{H,t} N_{H,r}}}, \m {\V {y} \in \mathbb {C} ^{N_{H,t} N_{H,r}}} as in above.
+\item Find \m {\M {P} \in \mathbb {C} ^{N_B ^2 \D N_{H,t} N_{H,r}}}, \m {\V {y} \in \mathbb {C} ^{N_B ^2}} as in above.
 %
 \item Compute the convex program
 %

@@ -53,23 +53,23 @@ With these, we define
 \DispNum {y:y:Ry:Ny} {
 \tilde {\V {y}}
 = &\mathcal {R} \SB {\V {y}}
-\in \mathbb {R} ^{2 N_{B,t} N_{B,r}} \notag \\
+\in \mathbb {R} ^{2 N_B ^2} \notag \\
 %
 \tilde {\V {g}}
 = &\mathcal {R} \SB {\V {g}}
-\in \mathbb {R} ^{2 N_H^2} \notag \\
+\in \mathbb {R} ^{2 N_{H,t} N_{H,r}} \notag \\
 %
 \tilde {\M {P}}
 = &\mathcal {R} \SB {\M {P}}
-\in \mathbb {R} ^{2 N_{B,t} N_{B,r} \D 2 N_H^2} \notag \\
+\in \mathbb {R} ^{2 N_B ^2 \D 2 N_{H,t} N_{H,r}} \notag \\
 %
 \tilde {\M {P}} ^\Adj
 = &\mathcal {R} \SB {\M {P} ^\Adj}
-\in \mathbb {R} ^{2 N_{B,t} N_{B,r} \D 2 N_H^2} \notag \\
+\in \mathbb {R} ^{2 N_B ^2 \D 2 N_{H,t} N_{H,r}} \notag \\
 %
 \tilde {\V {z}}
 = &\mathcal {R} \SB {\V {z}}
-\in \mathbb {R} ^{2 N_{B,t} N_{B,r}} 
+\in \mathbb {R} ^{2 N_B ^2} 
 }
 %
 so, by construction,
@@ -89,7 +89,7 @@ It is now straightforward to see that DS is equivalent to a linear program.
 {Algorithm}
 {
 \begin {itemize}
-\item Input \m{\M {P} \in \mathbb {C} ^{ N_B^2 \D N_H^2}}, \m{\V {y} \in \mathbb {C} ^{ N_B^2}}, \m {\g_{\mathrm {DS}} > 0}.
+\item Input \m {\M {P} \in \mathbb {C} ^{N_B^2 \D N_{H,t} N_{H,r}}}, \m {\V {y} \in \mathbb {C} ^{N_B^2}}, \m {\g_{\mathrm {DS}} > 0}.
 %
 \item Define \m {\tilde {\V {y}}, \tilde {\V {g}}, \tilde {\M {P}}, \tilde {\M {P}} ^\Adj, \tilde {\V {z}}}, according to \eqref {y:y:Ry:Ny}.
 %
@@ -148,9 +148,9 @@ The resulting indices set has to be scrambled back according to the original ind
 \item Set
 \Disp {
 N_0
-= &2 N_H^2, \\
+= &2 N_{H,t} N_{H,r}, \\
 N_2
-= &\lfloor 4 \log N_H \rfloor, \\
+= &4 \lfloor \log N_{H,t} + \log N_{H,r} \rfloor, \\
 N_1
 = &\lfloor \R {N_0 N_2} \rfloor 
 }
@@ -167,7 +167,7 @@ If more than one stage of estimation is possible, that is, there are more than o
 It is possible in theory to run it for three or more times.
 
 From our observation, it is not conclusive whether the successive estimation method is more accurate, and whether a third or more stage is helpful.
-It might have something to do with appropriately scaling \m {N_1, N_2} with respect to \m {N_H}.
+It might have something to do with appropriately scaling \m {N_1, N_2} with respect to \m {N_{H,t}, N_{H,r}}.
 We have not used this method in the plots included here.
 
 \subsection {Basis pursuit denoising}
@@ -204,22 +204,22 @@ If so, the noise-to-signal ratio is
 We use dimensionless noise level \m {\s} which takes value starting with \m {2^{-4}}, and being multiplied by powers of \m {2}, for \m {6} values.
 We take \m {N_H} to be \m {6, 12, 18}, respectively.
 For assorted plots, three series of plots are simulated.
-The first series for \m {N_{B,t} = N_H/2} and \m {N_{B,r} = N_H/3}.
-The second series for \m {N_{B,t} = N_H/3} and \m {N_{B,r} = N_H/2}.
-The third series for \m {N_{B,t} = N_H/2} and \m {N_{B,r} = N_H/2}.
+The first series for \m {N_{H,t} = 2 N_B} and \m {N_{H,r} = 2 N_B}.
+The second series for \m {N_{H,t} = 2 N_H} and \m {N_{H,r} = 3 N_H}.
+The third series for \m {N_{H,t} = 3 N_H} and \m {N_{H,r} = 2 N_H}.
 Unfortunately, this is very far from achieving the ideal values \eqref {N:B:4l:H2}, and this may be part of the reason the result is not as successful as expected.
 
 Other parameters are fixed in these experiments.
 The number of grid of quantization of phase shifters is \m {16}.
-The number of paths \m {L = N_H /2}.
+The number of paths \m {L = \R {N_{H,t} N_{H,r}}}.
 The ratio of the wavelength of carrier over the antenna spacing, \m {\l _{\mathrm {ant}} / d _{\mathrm {ant}} = 1 / 2}.
 
 Denote the threshold for DS to be \m {\g_{\mathrm {DS}}}, and similar threshold of Lasso to be \m {\g_{\mathrm {Lasso}}}.
-We set \m {\g_{\mathrm {DS}} = 2 \R {\log N_H}} as suggested in \cite {CaT07}.
-For sake of comparison, \m {\g_{\mathrm {Lasso}} = 2 \R {\log N_H}} too.
+We set \m {\g_{\mathrm {DS}} = \R {2 \log \RB {N_{H,t} N_{H,r}}}} as suggested in \cite {CaT07}.
+For sake of comparison, \m {\g_{\mathrm {Lasso}} = \R {2 \log \RB {N_{H,t} N_{H,r}}}} too.
 For OMP, we consult Cai and Wang \cite {CaW11} for \m {\ell _2}-norm condition in their Theorem 7, and \m {\ell _\infty}-norm condition in their Theorem 8.
-We take \m {\h_{\mathrm {OMP}} = 2 \R {\log N_H}} for \m {\infty}-norm condition, \m {\h_{\mathrm {OMP}} = \R {3} \RB {N_{B,r} N_{B,t}} ^ {1/4}} for 2-norm condition.
-The maximal number of iteration of CVXPY is set to be \m {32}, and that of OMP is set to be \m {4 \R {N_{B,r} N_{B,t}}}.
+We take \m {\h_{\mathrm {OMP}} = \R {2 \log \RB {N_{H,t} N_{H,r}}}} for \m {\infty}-norm condition, \m {\h_{\mathrm {OMP}} = \R {3 N_B}} for 2-norm condition.
+The maximal number of iteration of CVXPY is set to be \m {32}, and that of OMP is set to be \m {4 N_B}.
 
 Each data point for DS and Lasso is repeated for \m {256} times, and taken arithmetic average.
 Other methods are repeated for more times: OMP for \m {4 \D 256} times, LS for \m {12 \D 256} times.
