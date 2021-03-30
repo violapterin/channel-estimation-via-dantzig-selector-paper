@@ -5,7 +5,7 @@
 For simplicity we suppose uniform linear arrays, for which the response would be,
 %
 \DispNum {a:y':CN:NH} {
-\NC \V {a} \SB {\psi'}
+\NC \V {a} \SB {\psi', N}
 = \NC \F {1} {\R {N}} \sum_{n_h=0}^{N-1} \Ss {e} ^{\Ss {i} n_h \psi'} \V {u} _{n_h}
 \in \MB {C} ^ {N} \NR
 }
@@ -18,8 +18,8 @@ And consider the virtual representation of the MIMO channel, as in Akdeniz et.\ 
 \NC \M {H}
 =\NC \sum_{l=0} ^{L-1}
 \a_l
-\V {a} \SB {2\pi \F {d_{\Rm {arr}}} {\l _{\Rm {arr}}} \sin \f_l'}
-\V {a} \SB {2\pi \F {d_{\Rm {arr}}} {\l _{\Rm {arr}}} \sin \th_l'}^\Adj \NR
+\V {a} \SB {2\pi \F {d_{\Rm {arr}}} {\l _{\Rm {arr}}} \sin \f_l', N_{H,r}}
+\V {a} \SB {2\pi \F {d_{\Rm {arr}}} {\l _{\Rm {arr}}} \sin \th_l', N_{H,t}}^\Adj \NR
 }
 %
 The physical meaning of \m {\f_l'} is the \m {l}-th angle of incidence (formed by the ray and the normal line) of departure electronic wave, and \m {\th_l'}, the \m {l}-th angle of arrival wave, and \m {d_{\Rm {arr}}} is the distance between two adjacent antennae.
@@ -79,7 +79,7 @@ Recall that analog precoders may only have values of unity magnitude,
 And we assume
 %
 \DispNum {N:H:NY:NY} {
-\NC N_{H,t}, N_{H,r} \gg N_B \NR
+\NC N_{H,t}, N_{H,r} \gg \NC N_B \NR
 }
 
 Since we restrict our discussion to a short interval of time, the noise term may be simply taken as a matrix \m {\M {Z} \in \NC \MB {C} ^{N_B \D N_B}} with each entry being i.i.d.\ standard normal.
@@ -208,7 +208,7 @@ then \m {\M {G}} can be interpreted as spatial frequency domain representation o
 \NC \M {Y}
 =\NC \M {W} _B \M {W} _R \M {K} \D \M {G} \D \M {K}^\Adj \M {F} _R \M {F} _B
 +\M {W} _B \M {W} _R \M {Z}
-\in \MB {C} ^{N_{B,r} \D N_{B,t}} \NR
+\in \MB {C} ^{N_B \D N_B} \NR
 }
 %
 If we are sure that \m {\M {G}} is sparse, then we recover \m {\M {G}} instead.
@@ -253,7 +253,7 @@ Our plan becomes now
 \m {\M {W} _B \in \NC \MB {C} ^{N_B \D N_R}},
 and \m {\M {Y} \in \NC \MB {C} ^{N_B \D N_B}}.
 %
-\item Find \m {\M {P} \in \MB {C} ^{N_{B,t} N_{B,r} \D N_{H,t} N_{H,r}}}, \m {\V {y} \in \MB {C} ^{N_B^2}} as in above.
+\item Find \m {\M {P} \in \MB {C} ^{N_B ^2 \D N_{H,t} N_{H,r}}}, \m {\V {y} \in \MB {C} ^{N_B^2}} as in above.
 %
 \item Compute the convex program
 %

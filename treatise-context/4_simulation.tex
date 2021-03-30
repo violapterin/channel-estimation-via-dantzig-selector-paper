@@ -92,7 +92,7 @@ It is now straightforward to see that DS is equivalent to a linear program.
 {Algorithm}
 {
 \startitemize[n]
-\item Input \m{\M {P} \in \MB {C} ^{N_{B,r} N_{B,t} \D N_{H,t} N_{H,r}}}, \m{\V {y} \in \MB {C} ^{N_{B,r} N_{B,t}}}, \m {\g_{\Rm {DS}} > 0}.
+\item Input \m{\M {P} \in \MB {C} ^{N_B^2 \D N_{H,t} N_{H,r}}}, \m{\V {y} \in \MB {C} ^{N_B ^2}}, \m {\g_{\Rm {DS}} > 0}.
 %
 \item Define \m {\T {\V {y}}, \T {\V {g}}, \T {\M {P}}, \T {\M {P}} ^\Adj, \T {\V {z}}}, according to \Rf {y:y:Ry:Ny}.
 %
@@ -155,7 +155,7 @@ The resulting indices set has to be scrambled back according to the original ind
 \NC N_0
 =\NC 2 N_{H,t} N_{H,r}, \NR
 \NC N_2
-=\NC \lfloor 4 \log \log N_{H,t} + \log N_{H,r} \rfloor, \NR
+=\NC 4 \lfloor \log N_{H,t} + \log N_{H,r} \rfloor, \NR
 \NC N_1
 =\NC \lfloor \R {N_0 N_2} \rfloor \NR
 }
@@ -211,7 +211,7 @@ If so, the noise-to-signal ratio is
 }
 
 We use dimensionless noise level \m {\s} which takes value starting with \m {2^{-4}}, and being multiplied by powers of \m {2}, for \m {6} values.
-We take \m {N_Y} to be \m {4, 6, 8}, respectively.
+We take \m {N_B} to be \m {4, 6, 8}, respectively.
 Three series of plots are simulated.
 The first series for \m {N_{H,t} = 2 N_B} and \m {N_{H,r} = 2 N_B}.
 The second series for \m {N_{H,t} = 2 N_B} and \m {N_{H,r} = 3 N_B}.
@@ -380,7 +380,6 @@ Still, there may be other values of \m {\g} (or \m {\l}) for which DS and Lasso 
 
 For DS itself, first, \m {\T {\chi} _{\Rm {DS}}} certainly decreases as \m {\s} increases, but it does not decrease indefinitely.
 Second, \m {\T {\chi} _{\Rm {DS}}} decreases as \m {N_H} increases.
-Third, when \m {N_{B,t} /N_{B,r}} is smaller, \m {\T {\chi} _{\Rm {DS}}} is also smaller, because we have a higher sample rate.
 
 Unfortunately, we report that CVXPY sometimes gives overflowing values, some of them as large as \m {10^{11}}.
 This probably indicates some typical-looking output may in fact be unreliable.
@@ -388,9 +387,9 @@ Therefore we have discarded outputs larger than a given threshold, for instance 
 
 \m {\chi} is not shown in the figure, because the big O bound is much larger than \m {\T {\chi}}.
 It is possible that the nonsparsity of \m {\V {g}} undermines the analysis in chapter 3, despite our attempts to account for that effect.
-It is curious to see whether for very large \m {N_H}, whether \m {\T {\chi}} and \m {\T {\chi}} will be asymptotically close.
+It is curious to see whether for very large \m {N_H}, whether \m {\T {\chi}} and \m {\chi} will be asymptotically close.
 
-In figures 24 and 25, we reproduce two cases of success and failure of DS.
+In the below, we reproduce two cases of success and failure of DS.
 In both figures the true values of \m {\M {H}} entries are ordered by magnitude, and corresponding estimated values in the first and second stage are plotted against them.
 When DS fails, the soft thresholding did not rule out smaller entries, thus a second application of DS on the wrong index set failed too.
 When DS succeeded, the soft thresholding gave a reasonable guess of the nonzero components, thus a second application of DS on this index set refined the estimated values.
@@ -410,13 +409,14 @@ When DS succeeded, the soft thresholding gave a reasonable guess of the nonzero 
 \startsection [title={Complexity}]
 
 We discuss the complexity of DS, Lasso, and OMP.
+Abbreviate \m {N_h = N_{H,t} N_{H,r}} as in the last chapter.
 
 \startsubsection [title={Dantzig selector}]
 
 \stopsubsection
 
 Suppose a linear program has an \m {N} dimensional variable and \m {M} inequality constraints, then its complexity is \m {\MS {O} \SB {N^2 M}}, assuming the Dantzig simplex method is used (\cite [BoV04], p.6).
-For our case, that would be \m {\MS {O} \SB {4 N_{H,t} ^2 N_{H,r} ^2 \D 8 N_{H,t} N_{H,r}} = \MS {O} \SB {N_{H,t} ^3 N_{H,r} ^3}}.
+For our case, that would be \m {\MS {O} \SB {4 N_h ^2 \D 8 N_h} = \MS {O} \SB {N_h ^3}}.
 But other algorithms exist, where, in general, complexity of convex programs is difficult to analyze, as it is not easily to determine how many steps were calculated.
 
 Alternatively, suppose Newton method is used.
@@ -441,8 +441,8 @@ If we just take that as the complexity bound for DS,
 Here \m {C_0} is constant related to implementation of Newton method, and \m {\e} the tolerance of error, and \m {C_{\Rm {step}}} is the complexity of Newton step.
 
 Every Newton step involves a inversion of \m {\MS {O} \SB {\M {P} ^\Adj \M {P}}}, having the same order of magnitude to the time needed for matrix multiplication.
-Since the dimension of \m {\M {P} ^\Adj \M {P}} is \m {N_{H,t} N_{H,r}}, the cost of inversion may be roughly considered to be \m {\MS {O} \SB {N_{H,t} ^2 N_{H,r} ^2}}, as we know from newer results on the complexity of matrix inversion.
-That is, we suppose \m {C_{\Rm {step}} = N_{H,t} ^2 N_{H,r} ^2}.
+Since the dimension of \m {\M {P} ^\Adj \M {P}} is \m {N_h \D N_h}, the cost of inversion may be roughly considered to be \m {\MS {O} \SB {N_h ^2}}, as we know from newer results on the complexity of matrix inversion.
+That is, we suppose \m {C_{\Rm {step}} = N_h ^2}.
 
 We therefore assume that, at the start the iteration, the Moore–Penrose inverse was taken to be the initial value of \m {\V {g}_0}, namely
 %
@@ -456,7 +456,7 @@ By above, we may write the complexity of DS to be
 %
 \DispNum {C:S:Og:g1} {
 \NC C_{\Rm {DS}}
-=\NC \MS {O} \SB {\VNm {\V {g}_{\Rm {LS}} -\V {g} ^\star} _1} N_H^4 \NR
+=\NC \MS {O} \SB {\VNm {\V {g}_{\Rm {LS}} -\V {g} ^\star} _1} N_h^2 \NR
 }
 %
 Also assume
@@ -471,7 +471,7 @@ And by restricted isometry, \m {\M {P}} has unity-normed, almost orthogonal colu
 %
 \DispNum {P:P:IN:H2} {
 \NC \M {P} ^\Adj \M {P}
-\approx \NC I _{N_{H,t} N_{H,r}} \NR
+\approx \NC I _{N_h} \NR
 }
 %
 Thus, by \Rf {g:0:gL:Py}, \Rf {C:S:Og:g1}, and \Rf {g:g:g;:;g},
@@ -480,8 +480,8 @@ Thus, by \Rf {g:0:gL:Py}, \Rf {C:S:Og:g1}, and \Rf {g:g:g;:;g},
 \NC C_{\Rm {DS}}
 =\NC \MS {O} \SB {
    \VNm {\V {g} +\RB {\M {P} ^\Adj \M {P}} ^{-1} \M {P} ^\Adj \V {z}
-   -\V {g}} _1} N_{H,t} ^2 N_{H,r} ^2 \NR
-\NC =\NC \MS {O} \SB {\VNm {\M {P} ^\Adj \V {z}} _1} N_{H,t} ^2 N_{H,r} ^2 \NR
+   -\V {g}} _1} N_h ^2 \NR
+\NC =\NC \MS {O} \SB {\VNm {\M {P} ^\Adj \V {z}} _1} N_h ^2 \NR
 }
 
 We see that \m {\RB {\M {P} ^\Adj \V {z}} _{\SB {j}}} follows complex standard normal distribution.
@@ -489,13 +489,13 @@ If we agree that, for high probability,
 %
 \DispNum {O:j:sO:O1} {
 \NC \MS {O} \SB {\VNm {\M {P} ^\Adj \V {z}}}
-= \NC \s N_{H,t} N_{H,r} \MS {O} \RB {1} \NR
+= \NC \s N_h \MS {O} \RB {1} \NR
 }
 Then we simply have
 %
 \DispNum {C:S:ON:H6} {
 \NC C_{\Rm {DS}}
-=\NC \MS {O} \SB {N_{H,t} ^3 N_{H,r} ^3} \NR
+=\NC \MS {O} \SB {N_h ^3} \NR
 }
 
 
@@ -505,26 +505,20 @@ Tropp and Gilbert \cite [TrG07a] discussed the complexity of OMP in the companio
 %
 \DispNum {C:P:ON:NY} {
 \NC C_{\Rm {OMP}}
-=\NC \MS {O} \SB {N_{H,t} N_{H,r} \log N_B} \NR
-}
-%
-Here \m {\log N_B} is small in our experiments, and if we dropped it, we may take
-\DispNum {C:P:ON:H2} {
-\NC C_{\Rm {OMP}}
-=\NC \MS {O} \SB {N_{H,t} N_{H,r}} \NR
+=\NC \MS {O} \SB {L \RB {\log N_h} ^2} \NR
 }
 
 \startsubsection [title={Lasso}]
 
 Lasso is equivalent to a quadratically constrained quadratic program, and there is not always a closed form for its complexity.
-However, Lasso and DS are equivalent in certain conditions \cite [AsR10], and we may suppose here they have the same complexity, \m {\MS {O} \SB {N_{H,t} ^3 N_{H,r} ^3}}.
+However, Lasso and DS are equivalent in certain conditions \cite [AsR10], and we may suppose here they have the same complexity, \m {\MS {O} \SB {N_h ^3}}.
 
 Alternatively, an argument similar to the above one for DS is valid for Lasso.
 
 Therefore we take
 \DispNum {C:o:ON:H6} {
 \NC C_{\Rm {Lasso}}
-=\NC \MS {O} \SB {N_{H,t} ^3 N_{H,r} ^3} \NR
+=\NC \MS {O} \SB {N_h ^3} \NR
 }
 
 \stopsubsection
@@ -536,28 +530,8 @@ Figures for \m {N_{H,t}, N_{H,r} \geq 24} each took about \m {3} days.
 The computer has \m {32} GB RAM, and Intel Core i9 processor.
 Simulation was run on Linux subsystem 2 of Windows 10.
 
-Abbreviate \m {N_h = N_{H,t} \D N_{H,r}} as in the last chapter.
-Use \m {t_{\Rm {OMP}} \SB {N_h}}, \m {t_{\Rm {Lasso}} \SB {N_h}}, \m {t_{\Rm {DS}} \SB {N_h}} to denote their respective time taken.
-We here copy the arithmetic average (including different \m {\s}) of simulated values below, in seconds.
-They are: \m {
- t_{\Rm {OMP}} \SB {12}  = 0.0119,
- t_{\Rm {OMP}} \SB {16} = 0.0297, 
- t_{\Rm {OMP}} \SB {20}  = 0.0600,
- t_{\Rm {OMP}} \SB {24} = 0.155, 
-%
- t_{\Rm {Lasso}} \SB {12}  = 0.0436,
- t_{\Rm {Lasso}} \SB {16} = 0.176, 
- t_{\Rm {Lasso}} \SB {20}  = 0.471,
- t_{\Rm {Lasso}} \SB {24} = 1.26, 
-%
- t_{\Rm {DS}} \SB {12}  = 0.357,
- t_{\Rm {DS}} \SB {16} = 2.07, 
- t_{\Rm {DS}} \SB {20}  = 29.8,
- t_{\Rm {DS}} \SB {24} = 91.5
-}.
-
 Simulation illustrates that \m {t_{\Rm {DS}}} grows tremendously with \m {N_h}, agreeing Friedlander and Saunders \cite {FrS07} who noted the high complexity of DS.
-This is not surprising, since the inversion of \m {\M {P} \M {P} ^\Adj} is probably the bottleneck of complexity, which has dimension \m {\M {N}_H^2}.
+This is not surprising, since the inversion of \m {\M {P} \M {P} ^\Adj} is probably the bottleneck of complexity, which has dimension \m {N_h}.
 By the way, different tolerance levels and maximal iteration numbers may result in vastly different computation time.
 
 Meanwhile, \m {t_{\Rm {Lasso}}} and \m {t_{\Rm {OMP}}} are often an order of magnitude lower than \m {t_{\Rm {DS}}}.
@@ -568,9 +542,9 @@ But it is also notable that, while Lasso has form similar to DS, it takes much l
 Assuming the complexity of each of three methods is polynomial time, we calculate a least square fit for the power of complexity, giving the following estimated values, on which we add a tilde.
 
 \DispNum {t:P:NH:83} {
-\NC \T {t}_{\Rm {OMP}} \NC \eqsim \MS {O} \SB {N_h^{3.6}} \NR
-\NC \T {t}_{\Rm {Lasso}} \NC \eqsim \MS {O} \SB {N_h^{4.8}} \NR
-\NC \T {t}_{\Rm {DS}} \NC \eqsim \MS {O} \SB {N_h^{8.3}} \NR
+\NC \T {t}_{\Rm {OMP}} \NC \eqsim \MS {O} \SB {N_h^{1.8}} \NR
+\NC \T {t}_{\Rm {Lasso}} \NC \eqsim \MS {O} \SB {N_h^{2.4}} \NR
+\NC \T {t}_{\Rm {DS}} \NC \eqsim \MS {O} \SB {N_h^{4.2}} \NR
 }
 
 However, note that we must be careful in giving meaningful comparison between compressive sensing algorithms, as they might work in different settings.
