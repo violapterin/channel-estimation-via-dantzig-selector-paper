@@ -217,12 +217,17 @@ The ratio of the wavelength of carrier over the antenna spacing, \m {\l _{\mathr
 Denote the threshold for DS to be \m {\g_{\mathrm {DS}}}, and similar threshold of Lasso to be \m {\g_{\mathrm {Lasso}}}.
 We set \m {\g_{\mathrm {DS}} = \R {2 \log \RB {N_{H,t} N_{H,r}}}} as suggested in \cite {CaT07}.
 For sake of comparison, \m {\g_{\mathrm {Lasso}} = \R {2 \log \RB {N_{H,t} N_{H,r}}}} too.
+
 For OMP, we consult Cai and Wang \cite {CaW11} for \m {\ell _2}-norm condition in their Theorem 7, and \m {\ell _\infty}-norm condition in their Theorem 8.
 We take \m {\h_{\mathrm {OMP}} = \R {2 \log \RB {N_{H,t} N_{H,r}}}} for \m {\infty}-norm condition, \m {\h_{\mathrm {OMP}} = \R {3 N_B}} for 2-norm condition.
-The maximal number of iteration of CVXPY is set to be \m {32}, and that of OMP is set to be \m {4 N_B}.
 
-Each data point for DS and Lasso is repeated for \m {256} times, and taken arithmetic average.
-Other methods are repeated for more times: OMP for \m {4 \D 256} times, LS for \m {12 \D 256} times.
+However, one must keep in mind that for OMP, in Lee, Gil, and Lee \cite [LGL16], a high-complexity nonconvex program is used to design the sensing matrix.
+Since we have here a low-complexity, random generation of beamforming matrices, a different design of sensing matrix may affect the performance of OMP.
+
+For Lasso, \m {\g _{\mathrm {Lasso}}} (or \m {\l _{\mathrm {Lasso}}}) is also crucial to the performance, but cannot be obtained in advance.
+Thus, for sake of comparison, we set the same threshold for Lasso and DS.
+In view of the fact that \m {\VNm {g} _1 \leq 2 N_{H,t} N_{H,r} \VNm {g} _\infty}, we tentatively set \m {\l _{\mathrm {DS}} =  2 N_{H,t} N_{H,r} / \g _{\mathrm {DS}}} and \m {\l _{\mathrm {Lasso}} =  1 / \g _{\mathrm {Lasso}}}.
+Still, there may be other values of \m {\g} (or \m {\l}) for which DS and Lasso are both better.
 
 The parameters related to precision of the Newton step may be adjusted from CVXPY's class methods.
 We set the maximum absolute tolerance to be \m {5 \D 10 ^ {-7}},
@@ -231,6 +236,10 @@ the maximum feasible tolerance to be \m {5 \D 10 ^ {-7}}.
 If the tolerance parameters are set too small, the program often gives overflowing values, perhaps because it was not able to find feasible solutions.
 And if they are set too big, the Newton steps get imprecise and the performance is poorer.
 It remains to determine the best choice of parameters.
+
+The maximal number of iteration of CVXPY is set to be \m {32}, and that of OMP is set to be \m {4 N_B}.
+Each data point for DS and Lasso is repeated for \m {256} times, and taken arithmetic average.
+Other methods are repeated for more times: OMP for \m {4 \D 256} times, LS for \m {12 \D 256} times.
 
 For performance metric, we follow Lee, Gil, and Lee \cite [LGL16] to use
 \DispNum {h:h:lo:vg} {
@@ -277,114 +286,171 @@ In the following, we plot the reciprocal of noise level vs relative error norm i
 \caption {\m {N_{B,t} = 3, N_{B,r} = 2, N_H = 6}, with \m {4} stages, error.}
 \end {figure}
 
-\subsection {Plots of \m {N_H = 12}}
+\subsection {Plots of assorted methods}
 
-In the following, we plot the reciprocal of noise level vs relative error norm in log scale, for different values and ratios of \m {N_H = 12} over \m {N_{B,t}} and \m {N_{B,r}}.
-
+In the following, we plot for different values and ratios of \m {N_B, N_{H,t}, N_{H,r}}.
+%
 \begin {figure} [H]
-\includegraphics [width = \textwidth] {error-medium-square-two.png}
-\caption {\m {N_{B,t} = 6, N_{B,r} = 6, N_H = 12}, with \m {2} stages, error.}
+\includegraphics [width = \textwidth] {error-medium-square-six-usual.png}
+\caption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {6} stages, error.}
+\end {figure}
+%
+\begin {figure} [H]
+\includegraphics [width = \textwidth] {error-medium-wide-six-usual.png}
+\caption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {6} stages, error.}
+\end {figure}
+%
+\begin {figure} [H]
+\includegraphics [width = \textwidth] {error-medium-tall-six-usual.png}
+\caption {\m {N_B = 4, N_{H,t} = 12, N_{H,r} = 16}, with \m {6} stages, error.}
+\end {figure}
+%
+\begin {figure} [H]
+\includegraphics [width = \textwidth] {error-small-square-six-usual.png}
+\caption {\m {N_B = 2, N_{H,t} = 6, N_{H,r} = 6}, with \m {6} stages, error.}
+\end {figure}
+%
+\begin {figure} [H]
+\includegraphics [width = \textwidth] {error-small-wide-six-usual.png}
+\caption {\m {N_B = 2, N_{H,t} = 8, N_{H,r} = 6}, with \m {6} stages, error.}
+\end {figure}
+%
+\begin {figure} [H]
+\includegraphics [width = \textwidth] {error-small-tall-six-usual.png}
+\caption {\m {N_B = 2, N_{H,t} = 6, N_{H,r} = 8}, with \m {6} stages, error.}
+\end {figure}
+%
+\begin {figure} [H]
+\includegraphics [width = \textwidth] {error-big-square-six-usual.png}
+\caption {\m {N_B = 6, N_{H,t} = 18, N_{H,r} = 18}, with \m {6} stages, error.}
+\end {figure}
+%
+\begin {figure} [H]
+\includegraphics [width = \textwidth] {error-big-wide-six-usual.png}
+\caption {\m {N_B = 6, N_{H,t} = 24, N_{H,r} = 18}, with \m {6} stages, error.}
+\end {figure}
+%
+\begin {figure} [H]
+\includegraphics [width = \textwidth] {error-big-tall-six-usual.png}
+\caption {\m {N_B = 6, N_{H,t} = 18, N_{H,r} = 24}, with \m {6} stages, error.}
 \end {figure}
 
+\subsection {Plots of different number of stages}
+
+In the following, we plot for \m {N_B = 4}, for different number of stages.
+%
 \begin {figure} [H]
-\includegraphics [width = \textwidth] {error-medium-tall-two.png}
-\caption {\m {N_{B,t} = 4, N_{B,r} = 6, N_H = 12}, with \m {2} stages, error.}
+\includegraphics [width = \textwidth] {error-medium-square-three-usual.png}
+\caption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {3} stages, error.}
 \end {figure}
-
+%
 \begin {figure} [H]
-\includegraphics [width = \textwidth] {error-medium-wide-two.png}
-\caption {\m {N_{B,t} = 6, N_{B,r} = 4, N_H = 12}, with \m {2} stages, error.}
+\includegraphics [width = \textwidth] {error-medium-wide-three-usual.png}
+\caption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {3} stages, error.}
 \end {figure}
-
+%
 \begin {figure} [H]
-\includegraphics [width = \textwidth] {error-medium-square-four.png}
-\caption {\m {N_{B,t} = 6, N_{B,r} = 6, N_H = 12}, with \m {4} stages, error.}
+\includegraphics [width = \textwidth] {error-medium-tall-three-usual.png}
+\caption {\m {N_B = 4, N_{H,t} = 12, N_{H,r} = 16}, with \m {3} stages, error.}
 \end {figure}
-
+%
 \begin {figure} [H]
-\includegraphics [width = \textwidth] {error-medium-tall-four.png}
-\caption {\m {N_{B,t} = 4, N_{B,r} = 6, N_H = 12}, with \m {4} stages, error.}
+\includegraphics [width = \textwidth] {error-medium-square-three-usual.png}
+\caption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {9} stages, error.}
 \end {figure}
-
+%
 \begin {figure} [H]
-\includegraphics [width = \textwidth] {error-medium-wide-four.png}
-\caption {\m {N_{B,t} = 6, N_{B,r} = 4, N_H = 12}, with \m {4} stages, error.}
+\includegraphics [width = \textwidth] {error-medium-wide-three-usual.png}
+\caption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {9} stages, error.}
 \end {figure}
-
-
-\subsection {Plots of \m {N_H = 18}}
-
-In the following, we plot the reciprocal of noise level vs relative error norm in log scale, for different values and ratios of \m {N_H = 18} over \m {N_{B,t}} and \m {N_{B,r}}.
-
+%
 \begin {figure} [H]
-\includegraphics [width = \textwidth] {error-big-square-two.png}
-\caption {\m {N_{B,t} = 12, N_{B,r} = 12, N_H = 18}, with \m {2} stages, error.}
-\end {figure}
+\includegraphics [width = \textwidth] {error-medium-tall-three-usual.png}
+\caption {\m {N_B = 4, N_{H,t} = 12, N_{H,r} = 16}, with \m {9} stages, error.}
 
+\subsection {Plots of different thresholds}
+
+In the following, we plot for different values of threshold, focusing on each of OMP, Lasso, DS.
+%
 \begin {figure} [H]
-\includegraphics [width = \textwidth] {error-big-tall-two.png}
-\caption {\m {N_{B,t} = 8, N_{B,r} = 12, N_H = 18}, with \m {2} stages, error.}
+\includegraphics [width = \textwidth] {error-medium-square-six-oommpp.png}
+\caption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {6} stages, different thresholds of OMP, error.}
 \end {figure}
-
+%
 \begin {figure} [H]
-\includegraphics [width = \textwidth] {error-big-wide-two.png}
-\caption {\m {N_{B,t} = 12, N_{B,r} = 8, N_H = 18}, with \m {2} stages, error.}
+\includegraphics [width = \textwidth] {error-medium-wide-six-oommpp.png}
+\caption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {6} stages, different thresholds of OMP, error.}
 \end {figure}
-
+%
 \begin {figure} [H]
-\includegraphics [width = \textwidth] {error-big-square-four.png}
-\caption {\m {N_{B,t} = 12, N_{B,r} = 12, N_H = 18}, with \m {4} stages, error.}
+\includegraphics [width = \textwidth] {error-medium-tall-six-oommpp.png}
+\caption {\m {N_B = 4, N_{H,t} = 12, N_{H,r} = 16}, with \m {6} stages, different thresholds of OMP, error.}
 \end {figure}
-
+%
 \begin {figure} [H]
-\includegraphics [width = \textwidth] {error-big-tall-four.png}
-\caption {\m {N_{B,t} = 8, N_{B,r} = 12, N_H = 18}, with \m {4} stages, error.}
+\includegraphics [width = \textwidth] {error-medium-square-six-lasso.png}
+\caption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {6} stages, different thresholds of Lasso, error.}
 \end {figure}
-
+%
 \begin {figure} [H]
-\includegraphics [width = \textwidth] {error-big-wide-four.png}
-\caption {\m {N_{B,t} = 12, N_{B,r} = 8, N_H = 18}, with \m {4} stages, error.}
+\includegraphics [width = \textwidth] {error-medium-wide-six-lasso.png}
+\caption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {6} stages, different thresholds of Lasso, error.}
 \end {figure}
-
+%
+\begin {figure} [H]
+\includegraphics [width = \textwidth] {error-medium-tall-six-lasso.png}
+\caption {\m {N_B = 4, N_{H,t} = 12, N_{H,r} = 16}, with \m {6} stages, different thresholds of Lasso, error.}
+\end {figure}
+%
+\begin {figure} [H]
+\includegraphics [width = \textwidth] {error-medium-square-six-ddss.png}
+\caption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {6} stages, different thresholds of DS, error.}
+\end {figure}
+%
+\begin {figure} [H]
+\includegraphics [width = \textwidth] {error-medium-wide-six-ddss.png}
+\caption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {6} stages, different thresholds of DS, error.}
+\end {figure}
+%
+\begin {figure} [H]
+\includegraphics [width = \textwidth] {error-medium-tall-six-ddss.png}
+\caption {\m {N_B = 4, N_{H,t} = 12, N_{H,r} = 16}, with \m {6} stages, different thresholds of DS, error.}
+\end {figure}
 
 \subsection {Plots of runtime}
 
-Regarding runtime statistics, we only plot the case where \m {N_{B,t} = N_{B,r} = N_H /2} with \m {2} stages.
-
+When plotting runtime statistics, we only consider the cases where \m {N_{H,t} = N_{H,r} = 3 N_B} with \m {6} stages.
+%
 \begin {figure} [H]
-\includegraphics [width = \textwidth] {time-small-square-two.png}
-\caption {\m {N_{B,t} = 3, N_{B,r} = 3, N_H = 6}, with \m {4} stages, time.}
+\includegraphics [width = \textwidth] {time-medium-square-six-usual.png}
+\caption {\m {N_B = 4, N_{H,t} = 12, N_{H,r} = 12}, with \m {6} stages, error.}
+\end {figure}
+%
+\begin {figure} [H]
+\includegraphics [width = \textwidth] {time-small-square-six-usual.png}
+\caption {\m {N_B = 2, N_{H,t} = 6, N_{H,r} = 6}, with \m {6} stages, error.}
+\end {figure}
+%
+\begin {figure} [H]
+\includegraphics [width = \textwidth] {time-big-square-six-usual.png}
+\caption {\m {N_B = 6, N_{H,t} = 18, N_{H,r} = 18}, with \m {6} stages, error.}
 \end {figure}
 
-
-\begin {figure} [H]
-\includegraphics [width = \textwidth] {time-medium-square-two.png}
-\caption {\m {N_{B,t} = 6, N_{B,r} = 6, N_H = 12}, with \m {4} stages, time.}
-\end {figure}
-
-
-\begin {figure} [H]
-\includegraphics [width = \textwidth] {time-big-square-two.png}
-\caption {\m {N_{B,t} = 9, N_{B,r} = 9, N_H = 18}, with \m {4} stages, time.}
-\end {figure}
-
+\stopsubsection
 
 \subsection {Discussion}
 
 From the simulation, DS outperforms other methods in most of the datasets.
-With low noise, \m {\tilde {\chi} _{\mathrm {DS}} \approx \tilde {\chi} _{\mathrm {OMP}} \approx \tilde {\chi} _{\mathrm {Lasso}} \approx \tilde {\chi} _{\mathrm {LS}}}.
-But with high noise, \m {\tilde {\chi} _{\mathrm {OMP}}, \tilde {\chi} _{\mathrm {Lasso}}, \tilde {\chi} _{\mathrm {LS}}} blow up quickly,
-and it is usually true that \m {\tilde {\chi} _{\mathrm {DS}} \leq \tilde {\chi} _{\mathrm {OMP}} \leq \tilde {\chi} _{\mathrm {Lasso}} \leq \tilde {\chi} _{\mathrm {LS}}}.
+With low noise, \m {\tilde {\chi} _{\mathrm {DS}} \approx \tilde {\chi} _{\mathrm {OMP}} \leq \tilde {\chi} _{\mathrm {Lasso}} \leq \tilde {\chi} _{\mathrm {LS}}},
+although sometimes \m {\tilde {\chi} _{\mathrm {DS}} \geq \tilde {\chi} _{\mathrm {OMP}}}.
+With high noise, \m {\tilde {\chi} _{\mathrm {DS}} \approx \tilde {\chi} _{\mathrm {Lasso}} \leq \tilde {\chi} _{\mathrm {OMP}} \leq \tilde {\chi} _{\mathrm {LS}}}.
+although sometimes \m {\tilde {\chi} _{\mathrm {DS}} \geq \tilde {\chi} _{\mathrm {Lasso}}}.
+LS is so much poorer that it is not a main contender.
+In general, we can say that DS gives a ideal regularization for both low noise and high noise, and in between, DS is even better than both of them.
 
-For OMP, in Lee, Gil, and Lee \cite [LGL16], a high-complexity nonconvex program is used to design the sensing matrix, while we have here a low-complexity, random generation of beamforming matrices.
-We keep in mind that a different design of sensing matrix, or a distribution of angles, will affect the performance of OMP.
-
-For Lasso, \m {\g _{\mathrm {Lasso}}} (or \m {\l _{\mathrm {Lasso}}}) is also crucial to the performance, but cannot be obtained in advance.
-Thus, for sake of comparison, we set the same threshold for Lasso and DS.
-Still, there may be other values of \m {\g} (or \m {\l}) for which DS and Lasso are both better.
-
-For DS itself, first, \m {\tilde {\chi} _{\mathrm {DS}}} certainly decreases as \m {\s} increases, but it does not decrease indefinitely.
-Second, \m {\tilde {\chi} _{\mathrm {DS}}} decreases as \m {N_H} increases.
+Differing thresholds does not to seem have much effect on OMP and DS.
+But for Lasso, a tighter threshold may result in a better estimation, but it may also blow up for high signal cases.
+Increasing the number of stages obviously improves the estimation for all methods, and the main observation still applies.
 
 Unfortunately, we report that CVXPY sometimes gives overflowing values, some of them as large as \m {10^{11}}.
 This probably indicates some typical-looking output may in fact be unreliable.
