@@ -252,87 +252,72 @@ For performance metric, we follow Lee, Gil, and Lee \cite [LGL16] to use
 However, we remark that when \m {\VNm {\V {h}}_2} is small, this can blow up.
 Indeed, since we did not consider a definite a channel model in this treatise, \m {\T {\chi}} may not necessarily be proportional to the channel capacity.
 
-\subsection {Plots of \m {N_H = 6}}
-
-In the following, we plot the reciprocal of noise level vs relative error norm in log scale, for different values and ratios of \m {N_H = 6} over \m {N_{B,t}} and \m {N_{B,r}}.
-
-\begin {figure} [H]
-\includegraphics [width = \textwidth] {error-small-square-two.png}
-\caption {\m {N_{B,t} = 3, N_{B,r} = 3, N_H = 6}, with \m {2} stages, error.}
-\end {figure}
-
-\begin {figure} [H]
-\includegraphics [width = \textwidth] {error-small-tall-two.png}
-\caption {\m {N_{B,t} = 2, N_{B,r} = 3, N_H = 6}, with \m {2} stages, error.}
-\end {figure}
-
-\begin {figure} [H]
-\includegraphics [width = \textwidth] {error-small-wide-two.png}
-\caption {\m {N_{B,t} = 3, N_{B,r} = 2, N_H = 6}, with \m {2} stages, error.}
-\end {figure}
-
-\begin {figure} [H]
-\includegraphics [width = \textwidth] {error-small-square-four.png}
-\caption {\m {N_{B,t} = 3, N_{B,r} = 3, N_H = 6}, with \m {4} stages, error.}
-\end {figure}
-
-\begin {figure} [H]
-\includegraphics [width = \textwidth] {error-small-tall-four.png}
-\caption {\m {N_{B,t} = 2, N_{B,r} = 3, N_H = 6}, with \m {4} stages, error.}
-\end {figure}
-
-\begin {figure} [H]
-\includegraphics [width = \textwidth] {error-small-wide-four.png}
-\caption {\m {N_{B,t} = 3, N_{B,r} = 2, N_H = 6}, with \m {4} stages, error.}
-\end {figure}
-
 \subsection {Plots of assorted methods}
 
 In the following, we plot for different values and ratios of \m {N_B, N_{H,t}, N_{H,r}}.
 %
 \begin {figure} [H]
-\includegraphics [width = \textwidth] {error-medium-square-six-usual.png}
+\includegraphics [width = \textwidth] {error-medium-more-square-six-usual.png}
 \caption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {6} stages, error.}
 \end {figure}
 %
 \begin {figure} [H]
-\includegraphics [width = \textwidth] {error-medium-wide-six-usual.png}
+\includegraphics [width = \textwidth] {error-medium-more-wide-six-usual.png}
 \caption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {6} stages, error.}
 \end {figure}
 %
 \begin {figure} [H]
-\includegraphics [width = \textwidth] {error-medium-tall-six-usual.png}
+\includegraphics [width = \textwidth] {error-medium-more-tall-six-usual.png}
 \caption {\m {N_B = 4, N_{H,t} = 12, N_{H,r} = 16}, with \m {6} stages, error.}
 \end {figure}
 %
 \begin {figure} [H]
-\includegraphics [width = \textwidth] {error-small-square-six-usual.png}
+\includegraphics [width = \textwidth] {error-small-more-square-six-usual.png}
 \caption {\m {N_B = 2, N_{H,t} = 6, N_{H,r} = 6}, with \m {6} stages, error.}
 \end {figure}
 %
 \begin {figure} [H]
-\includegraphics [width = \textwidth] {error-small-wide-six-usual.png}
+\includegraphics [width = \textwidth] {error-small-more-wide-six-usual.png}
 \caption {\m {N_B = 2, N_{H,t} = 8, N_{H,r} = 6}, with \m {6} stages, error.}
 \end {figure}
 %
 \begin {figure} [H]
-\includegraphics [width = \textwidth] {error-small-tall-six-usual.png}
+\includegraphics [width = \textwidth] {error-small-more-tall-six-usual.png}
 \caption {\m {N_B = 2, N_{H,t} = 6, N_{H,r} = 8}, with \m {6} stages, error.}
 \end {figure}
 %
 \begin {figure} [H]
-\includegraphics [width = \textwidth] {error-big-square-six-usual.png}
+\includegraphics [width = \textwidth] {error-big-more-square-six-usual.png}
 \caption {\m {N_B = 6, N_{H,t} = 18, N_{H,r} = 18}, with \m {6} stages, error.}
 \end {figure}
 %
 \begin {figure} [H]
-\includegraphics [width = \textwidth] {error-big-wide-six-usual.png}
+\includegraphics [width = \textwidth] {error-big-more-wide-six-usual.png}
 \caption {\m {N_B = 6, N_{H,t} = 24, N_{H,r} = 18}, with \m {6} stages, error.}
 \end {figure}
 %
 \begin {figure} [H]
-\includegraphics [width = \textwidth] {error-big-tall-six-usual.png}
+\includegraphics [width = \textwidth] {error-big-more-tall-six-usual.png}
 \caption {\m {N_B = 6, N_{H,t} = 18, N_{H,r} = 24}, with \m {6} stages, error.}
+\end {figure}
+
+\subsection {Plots of \m {N_Y = N_R}}
+
+In the following, we plot for \m {N_Y = N_R = 4}, for different ratios of \m {N_{H,t}, N_{H,r}}.
+%
+\begin {figure} [H]
+\includegraphics {error-medium-equal-square-six-usual.png}
+\caption {\m {N_B = 4, N_R = 4, N_{H,t} = 8, N_{H,r} = 8}, with \m {6} stages, error.}
+\end {figure}
+%
+\begin {figure} [H]
+\includegraphics {error-medium-equal-tall-six-usual.png}
+\caption {\m {N_B = 4, N_R = 4, N_{H,t} = 12, N_{H,r} = 16}, with \m {6} stages, error.}
+\end {figure}externalfigure
+%
+\begin {figure} [H]
+\includegraphics {error-medium-equal-wide-six-usual.png}
+\caption {\m {N_B = 4, N_R = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {6} stages, error.}
 \end {figure}
 
 \subsection {Plots of different number of stages}
@@ -340,80 +325,81 @@ In the following, we plot for different values and ratios of \m {N_B, N_{H,t}, N
 In the following, we plot for \m {N_B = 4}, for different number of stages.
 %
 \begin {figure} [H]
-\includegraphics [width = \textwidth] {error-medium-square-three-usual.png}
+\includegraphics [width = \textwidth] {error-medium-more-square-three-usual.png}
 \caption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {3} stages, error.}
 \end {figure}
 %
 \begin {figure} [H]
-\includegraphics [width = \textwidth] {error-medium-wide-three-usual.png}
+\includegraphics [width = \textwidth] {error-medium-more-wide-three-usual.png}
 \caption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {3} stages, error.}
 \end {figure}
 %
 \begin {figure} [H]
-\includegraphics [width = \textwidth] {error-medium-tall-three-usual.png}
+\includegraphics [width = \textwidth] {error-medium-more-tall-three-usual.png}
 \caption {\m {N_B = 4, N_{H,t} = 12, N_{H,r} = 16}, with \m {3} stages, error.}
 \end {figure}
 %
 \begin {figure} [H]
-\includegraphics [width = \textwidth] {error-medium-square-three-usual.png}
+\includegraphics [width = \textwidth] {error-medium-more-square-nine-usual.png}
 \caption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {9} stages, error.}
 \end {figure}
 %
 \begin {figure} [H]
-\includegraphics [width = \textwidth] {error-medium-wide-three-usual.png}
+\includegraphics [width = \textwidth] {error-medium-more-wide-nine-usual.png}
 \caption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {9} stages, error.}
 \end {figure}
 %
 \begin {figure} [H]
-\includegraphics [width = \textwidth] {error-medium-tall-three-usual.png}
+\includegraphics [width = \textwidth] {error-medium-more-tall-nine-usual.png}
 \caption {\m {N_B = 4, N_{H,t} = 12, N_{H,r} = 16}, with \m {9} stages, error.}
+\end {figure}
 
 \subsection {Plots of different thresholds}
 
 In the following, we plot for different values of threshold, focusing on each of OMP, Lasso, DS.
 %
 \begin {figure} [H]
-\includegraphics [width = \textwidth] {error-medium-square-six-oommpp.png}
+\includegraphics [width = \textwidth] {error-medium-more-square-six-oommpp.png}
 \caption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {6} stages, different thresholds of OMP, error.}
 \end {figure}
 %
 \begin {figure} [H]
-\includegraphics [width = \textwidth] {error-medium-wide-six-oommpp.png}
+\includegraphics [width = \textwidth] {error-medium-more-wide-six-oommpp.png}
 \caption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {6} stages, different thresholds of OMP, error.}
 \end {figure}
 %
 \begin {figure} [H]
-\includegraphics [width = \textwidth] {error-medium-tall-six-oommpp.png}
+\includegraphics [width = \textwidth] {error-medium-more-tall-six-oommpp.png}
 \caption {\m {N_B = 4, N_{H,t} = 12, N_{H,r} = 16}, with \m {6} stages, different thresholds of OMP, error.}
 \end {figure}
 %
 \begin {figure} [H]
-\includegraphics [width = \textwidth] {error-medium-square-six-lasso.png}
+\includegraphics [width = \textwidth] {error-medium-more-square-six-lasso.png}
 \caption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {6} stages, different thresholds of Lasso, error.}
 \end {figure}
 %
 \begin {figure} [H]
-\includegraphics [width = \textwidth] {error-medium-wide-six-lasso.png}
+\includegraphics [width = \textwidth] {error-medium-more-wide-six-lasso.png}
 \caption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {6} stages, different thresholds of Lasso, error.}
 \end {figure}
 %
 \begin {figure} [H]
-\includegraphics [width = \textwidth] {error-medium-tall-six-lasso.png}
+\includegraphics [width = \textwidth] {error-medium-more-tall-six-lasso.png}
 \caption {\m {N_B = 4, N_{H,t} = 12, N_{H,r} = 16}, with \m {6} stages, different thresholds of Lasso, error.}
 \end {figure}
 %
 \begin {figure} [H]
-\includegraphics [width = \textwidth] {error-medium-square-six-ddss.png}
+\includegraphics [width = \textwidth] {error-medium-more-square-six-ddss.png}
 \caption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {6} stages, different thresholds of DS, error.}
 \end {figure}
 %
 \begin {figure} [H]
-\includegraphics [width = \textwidth] {error-medium-wide-six-ddss.png}
+\includegraphics [width = \textwidth] {error-medium-more-wide-six-ddss.png}
 \caption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {6} stages, different thresholds of DS, error.}
 \end {figure}
 %
 \begin {figure} [H]
-\includegraphics [width = \textwidth] {error-medium-tall-six-ddss.png}
+\includegraphics [width = \textwidth] {error-medium-more-tall-six-ddss.png}
 \caption {\m {N_B = 4, N_{H,t} = 12, N_{H,r} = 16}, with \m {6} stages, different thresholds of DS, error.}
 \end {figure}
 
@@ -422,21 +408,19 @@ In the following, we plot for different values of threshold, focusing on each of
 When plotting runtime statistics, we only consider the cases where \m {N_{H,t} = N_{H,r} = 3 N_B} with \m {6} stages.
 %
 \begin {figure} [H]
-\includegraphics [width = \textwidth] {time-medium-square-six-usual.png}
+\includegraphics [width = \textwidth] {time-medium-more-square-six-usual.png}
 \caption {\m {N_B = 4, N_{H,t} = 12, N_{H,r} = 12}, with \m {6} stages, error.}
 \end {figure}
 %
 \begin {figure} [H]
-\includegraphics [width = \textwidth] {time-small-square-six-usual.png}
+\includegraphics [width = \textwidth] {time-small-more-square-six-usual.png}
 \caption {\m {N_B = 2, N_{H,t} = 6, N_{H,r} = 6}, with \m {6} stages, error.}
 \end {figure}
 %
 \begin {figure} [H]
-\includegraphics [width = \textwidth] {time-big-square-six-usual.png}
+\includegraphics [width = \textwidth] {time-big-more-square-six-usual.png}
 \caption {\m {N_B = 6, N_{H,t} = 18, N_{H,r} = 18}, with \m {6} stages, error.}
 \end {figure}
-
-\stopsubsection
 
 \subsection {Discussion}
 
