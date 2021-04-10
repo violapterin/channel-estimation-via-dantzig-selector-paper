@@ -92,10 +92,10 @@ def SCALE_S_G ():
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 def G_G_DDSS (ver):
-   return 2 * np.sqrt (np.log (np.sqrt (NN_HH_t (ver) * NN_HH_r (ver))))
+   return 2 * np.sqrt (2 * np.log (NN_HH_t (ver) * NN_HH_r (ver)))
 
 def G_G_LASSO (ver):
-   return 2 * np.sqrt (np.log (np.sqrt (NN_HH_t (ver) * NN_HH_r (ver))))
+   return 2 * np.sqrt (2 * np.log (NN_HH_t (ver) * NN_HH_r (ver)))
 
 def H_G_OOMMPP_TWO (ver):
    return np.sqrt (3) * np.sqrt (NN_YY (ver))

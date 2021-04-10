@@ -210,22 +210,22 @@ If so, the noise-to-signal ratio is
 =\NC 0.224 \NR
 }
 
-We use dimensionless noise level \m {\s} which takes value starting with \m {2^{-4}}, and being multiplied by powers of \m {2}, for \m {6} values.
-We take \m {N_B} to be \m {4, 6, 8}, respectively.
+We use dimensionless noise level \m {\s} which takes value starting with \m {2^{-2}}, and being multiplied by powers of \m {\R {2}}, for \m {6} values.
+We take \m {N_B} to be \m {2, 4, 6}, respectively.
 Three series of plots are simulated.
-The first series for \m {N_{H,t} = 2 N_B} and \m {N_{H,r} = 2 N_B}.
-The second series for \m {N_{H,t} = 2 N_B} and \m {N_{H,r} = 3 N_B}.
-The third series for \m {N_{H,t} = 3 N_B} and \m {N_{H,r} = 2 N_B}.
+The first series for \m {N_{H,t} = 3 N_B} and \m {N_{H,r} = 3 N_B}.
+The second series for \m {N_{H,t} = 3 N_B} and \m {N_{H,r} = 4 N_B}.
+The third series for \m {N_{H,t} = 4 N_B} and \m {N_{H,r} = 3 N_B}.
 Unfortunately, this is very far from achieving the ideal values \Rf {N:B:4l:H2}, and this may be part of the reason the result is not as successful as expected.
 
 Other parameters are fixed in these experiments.
 The number of grid of quantization of phase shifters is \m {16}.
-The number of paths \m {L = \R {N_{H,t} N_{H,r}}}.
+The number of paths \m {L = \lfloor \R {N_{H,t} N_{H,r}} / 2 \rfloor}.
 The ratio of the wavelength of carrier over the antenna spacing, \m {\l _{\Rm {ant}} / d _{\Rm {ant}} = 1 / 2}.
 
 Denote the threshold for DS to be \m {\g_{\Rm {DS}}}, and similar threshold of Lasso to be \m {\g_{\Rm {Lasso}}}.
 We set \m {\g_{\Rm {DS}} = \R {2 \log \RB {N_{H,t} N_{H,r}}}} as suggested in \cite [CaT07].
-For sake of comparison, \m {\g_{\Rm {Lasso}} = \R {2 \log \RB {N_{H,t} N_{H,r}}}} too.
+For sake of comparison, \m {\g_{\Rm {Lasso}} = \g_{\Rm {DS}}} too.
 For OMP, we consult Cai and Wang \cite [CaW11] for \m {\ell _2}-norm condition in their Theorem 7, and \m {\ell _\infty}-norm condition in their Theorem 8.
 We take \m {\h_{\Rm {OMP}} = \R {2 \log \RB {N_{H,t} N_{H,r}}}} for \m {\infty}-norm condition, \m {\h_{\Rm {OMP}} = \R {3 N_B}} for 2-norm condition.
 
@@ -233,7 +233,7 @@ We take \m {\h_{\Rm {OMP}} = \R {2 \log \RB {N_{H,t} N_{H,r}}}} for \m {\infty}-
 However, one must keep in mind that for OMP, in Lee, Gil, and Lee \cite [LGL16], a high-complexity nonconvex program is used to design the sensing matrix.
 Since we have here a low-complexity, random generation of beamforming matrices, a different design of sensing matrix may affect the performance of OMP.
 
-For Lasso, \m {\g _{\Rm {Lasso}}} (or \m {\l _{\Rm {Lasso}}}) is also crucial to the performance, but cannot be obtained in advance.
+For Lasso, \m {\l _{\Rm {Lasso}}} is also crucial to the performance, but cannot be obtained in advance.
 Thus, for sake of comparison, we set the same threshold for Lasso and DS.
 In view of the fact that \m {\VNm {g} _1 \leq 2 N_{H,t} N_{H,r} \VNm {g} _\infty}, we tentatively set \m {\l _{\Rm {DS}} =  2 N_{H,t} N_{H,r} / \g _{\Rm {DS}}} and \m {\l _{\Rm {Lasso}} =  1 / \g _{\Rm {Lasso}}}.
 Still, there may be other values of \m {\g} (or \m {\l}) for which DS and Lasso are both better.
@@ -266,6 +266,7 @@ Indeed, since we did not consider a definite a channel model in this treatise, \
 \startsubsection [title={Plots of assorted methods}]
 
 In the following, we plot for different values and ratios of \m {N_B, N_{H,t}, N_{H,r}}.
+We fix \m {N_R = \RB {3/2} N_B}.
 %
 \blank [big]
 \externalfigure [error-medium-more-square-six-usual.png] [wfactor=fit, hfactor=fit]
@@ -323,7 +324,6 @@ In the following, we plot for \m {N_Y = N_R}, for different ratios of \m {N_{H,t
 
 \stopsubsection
 
-
 \startsubsection [title={Plots of different number of stages}]
 
 In the following, we plot for \m {N_B = 4}, for different number of stages.
@@ -354,7 +354,7 @@ In the following, we plot for \m {N_B = 4}, for different number of stages.
 
 \startsubsection [title={Plots of different thresholds}]
 
-In the following, we plot for different values of threshold, focusing on each of OMP, Lasso, DS.
+In the following, we plot for different thresholds, for \m {N_B = 4}, focusing on each of OMP, Lasso, DS.
 %
 \blank [big]
 \externalfigure [error-medium-more-square-six-oommpp.png] [wfactor=fit, hfactor=fit]
@@ -396,7 +396,7 @@ In the following, we plot for different values of threshold, focusing on each of
 
 \startsubsection [title={Plots of runtime}]
 
-When plotting runtime statistics, we only consider the cases where \m {N_{H,t} = N_{H,r} = 3 N_B} with \m {6} stages.
+When plotting runtime statistics, we only consider the cases where \m {N_{H,t} = N_{H,r} = 3 N_B}.
 %
 \blank [big]
 \externalfigure [time-medium-more-square-six-usual.png] [wfactor=fit, hfactor=fit]
@@ -420,7 +420,8 @@ although sometimes \m {\T {\chi} _{\Rm {DS}} \geq \T {\chi} _{\Rm {OMP}}}.
 With high noise, \m {\T {\chi} _{\Rm {DS}} \approx \T {\chi} _{\Rm {Lasso}} \leq \T {\chi} _{\Rm {OMP}} \leq \T {\chi} _{\Rm {LS}}}.
 although sometimes \m {\T {\chi} _{\Rm {DS}} \geq \T {\chi} _{\Rm {Lasso}}}.
 LS is so much poorer that it is not a main contender.
-In general, we can say that DS gives a ideal regularization for both low noise and high noise, and in between, DS is even better than both of them.
+These trends is true with different number of stages, and with the case \m {N_B = N_R}.
+In general, we can say that overall, DS gives a better regularization for both low noise and high noise scenario, and in most cases, DS is even better than both of them.
 
 Differing thresholds does not to seem have much effect on OMP and DS.
 But for Lasso, a tighter threshold may result in a better estimation, but it may also blow up for high signal cases.

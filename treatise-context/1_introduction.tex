@@ -252,7 +252,7 @@ In chapter 4, numerical results show that DS is superior to other methods for ou
 Since DS is more accurate, it can be used when the sample is less sufficient and the noise level is higher, where it might be the case that only DS can recover successfully.
 Considering its higher complexity, we remark that it can be cast as a linear program, and the basis pursuit denoising form may be used.
 
-It appears that, for a given number of sampling, DS recovers more successfully than OMP.
+It appears that, for a given number of sampling, DS recovers better than OMP, except perhaps in high noise scenario.
 Moreover, our setting is more general than Alkhateeb, Leus, and Heath Jr.\ \cite [ALH15] with only an analog combiner,
 and our random generation of sensing matrix is simpler than Lee, Gil, and Lee \cite [LGL16],
 and we do not rely on additional assumptions on sparsity as in Gao, Dai, and Wang \cite [GDW15].
@@ -262,10 +262,11 @@ First, while their method takes many time slices, for our case a few time slices
 Second, with the further constraint of hybrid beamforming, the channel matrix is downsampled, it is unclear whether their guarantee for successful signal recovery is still valid.
 Third, generating random sequences can lead to high complexity \cite [LGL16], and we instead use random beamforming matrices.
 
-In addition, it seems that with the same threshold, DS is better than Lasso.
+In addition, it seems that with the same threshold, DS recovers better than Lasso, except perhaps in low noise scenario.
 Again, our proposed method is more general than Lian, Liu and Lau \cite [LLL17] with only an analog combiner,
 and our sensing matrix is generated more simply than in Destino, Juntti, and Nagaraj \cite [DJN15],
 and we do not require special devices as in Vlachos, Alexandropoulos, and Thompson \cite [VAT19].
+Overall, it is clear that DS leads to a relatively better regularization than OMP and Lasso.
 
 
 \stopsection

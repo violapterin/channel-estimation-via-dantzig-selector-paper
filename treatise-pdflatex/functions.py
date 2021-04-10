@@ -170,7 +170,7 @@ def lasso (pp_r, y_r, g_g, ver):
    k = - 2 * pp_r.T @ y_r
    qq = pp_r.T @ pp_r
    g_r = cp.Variable ((nn))
-   l_g = 2 * np.sqrt (cst.NN_HH_t (ver) * cst.NN_HH_r (ver)) / g_g
+   l_g = 1 / g_g
 
    prob = cp.Problem (
          cp.Minimize (
@@ -193,7 +193,7 @@ def ddss (pp_r, y_r, g_g, ver):
    k = pp_r.T @ y_r
    qq = pp_r.T @ pp_r
    c = np.ones ((nn))
-   l_g = 2 * np.sqrt (cst.NN_HH_t (ver) * cst.NN_HH_r (ver)) / g_g
+   l_g = cst.NN_HH_t (ver) * cst.NN_HH_r (ver) / g_g
 
    prob = cp.Problem (
          cp.Minimize (
