@@ -123,7 +123,7 @@ It is now straightforward to see that DS is equivalent to a linear program.
 %
 \DispNum {H:H:KG:GK} {
 \NC \Hat {\M {H}}
-\LA \NC \M {K} \Hat {\M {G}} \M {K}^\Adj \NR
+\LA \NC \M {K} _r \Hat {\M {G}} \M {K}^\Adj _t \NR
 }
 \item Output \m {\Hat {\M {H}}}.
 \stopitemize
@@ -229,13 +229,12 @@ For sake of comparison, \m {\g_{\Rm {Lasso}} = \g_{\Rm {DS}}} too.
 For OMP, we consult Cai and Wang \cite [CaW11] for \m {\ell _2}-norm condition in their Theorem 7, and \m {\ell _\infty}-norm condition in their Theorem 8.
 We take \m {\h_{\Rm {OMP}} = \R {2 \log \RB {N_{H,t} N_{H,r}}}} for \m {\infty}-norm condition, \m {\h_{\Rm {OMP}} = \R {3 N_B}} for 2-norm condition.
 
-
 However, one must keep in mind that for OMP, in Lee, Gil, and Lee \cite [LGL16], a high-complexity nonconvex program is used to design the sensing matrix.
 Since we have here a low-complexity, random generation of beamforming matrices, a different design of sensing matrix may affect the performance of OMP.
 
 For Lasso, \m {\l _{\Rm {Lasso}}} is also crucial to the performance, but cannot be obtained in advance.
 Thus, for sake of comparison, we set the same threshold for Lasso and DS.
-In view of the fact that \m {\VNm {g} _1 \leq 2 N_{H,t} N_{H,r} \VNm {g} _\infty}, we tentatively set \m {\l _{\Rm {DS}} =  2 N_{H,t} N_{H,r} / \g _{\Rm {DS}}} and \m {\l _{\Rm {Lasso}} =  1 / \g _{\Rm {Lasso}}}.
+In view of the fact that \m {\VNm {g} _1 \leq 2 N_{H,t} N_{H,r} \VNm {g} _\infty}, we tentatively set \m {\l _{\Rm {DS}} =  N_{H,t} N_{H,r} / \g _{\Rm {DS}}} and \m {\l _{\Rm {Lasso}} =  1 / \g _{\Rm {Lasso}}}.
 Still, there may be other values of \m {\g} (or \m {\l}) for which DS and Lasso are both better.
 
 The parameters related to precision of the Newton step may be adjusted from CVXPY's class methods.
@@ -269,18 +268,6 @@ In the following, we plot for different values and ratios of \m {N_B, N_{H,t}, N
 We fix \m {N_R = \RB {3/2} N_B}.
 %
 \blank [big]
-\externalfigure [error-medium-more-square-six-usual.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {6} stages, error.}
-%
-\blank [big]
-\externalfigure [error-medium-more-wide-six-usual.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {6} stages, error.}
-%
-\blank [big]
-\externalfigure [error-medium-more-tall-six-usual.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {\m {N_B = 4, N_{H,t} = 12, N_{H,r} = 16}, with \m {6} stages, error.}
-%
-\blank [big]
 \externalfigure [error-small-more-square-six-usual.png] [wfactor=fit, hfactor=fit]
 \FigureCaption {\m {N_B = 2, N_{H,t} = 6, N_{H,r} = 6}, with \m {6} stages, error.}
 %
@@ -291,6 +278,18 @@ We fix \m {N_R = \RB {3/2} N_B}.
 \blank [big]
 \externalfigure [error-small-more-tall-six-usual.png] [wfactor=fit, hfactor=fit]
 \FigureCaption {\m {N_B = 2, N_{H,t} = 6, N_{H,r} = 8}, with \m {6} stages, error.}
+%
+\blank [big]
+\externalfigure [error-medium-more-square-six-usual.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {\m {N_B = 4, N_{H,t} = 12, N_{H,r} = 12}, with \m {6} stages, error.}
+%
+\blank [big]
+\externalfigure [error-medium-more-wide-six-usual.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {6} stages, error.}
+%
+\blank [big]
+\externalfigure [error-medium-more-tall-six-usual.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {\m {N_B = 4, N_{H,t} = 12, N_{H,r} = 16}, with \m {6} stages, error.}
 %
 \blank [big]
 \externalfigure [error-big-more-square-six-usual.png] [wfactor=fit, hfactor=fit]
@@ -315,18 +314,19 @@ In the following, we plot for \m {N_Y = N_R}, for different ratios of \m {N_{H,t
 \FigureCaption {\m {N_B = 4, N_R = 4, N_{H,t} = 12, N_{H,r} = 12}, with \m {6} stages, error.}
 %
 \blank [big]
-\externalfigure [error-medium-equal-tall-six-usual.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {\m {N_B = 4, N_R = 4, N_{H,t} = 12, N_{H,r} = 16}, with \m {6} stages, error.}
-%
-\blank [big]
 \externalfigure [error-medium-equal-wide-six-usual.png] [wfactor=fit, hfactor=fit]
 \FigureCaption {\m {N_B = 4, N_R = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {6} stages, error.}
+%
+\blank [big]
+\externalfigure [error-medium-equal-tall-six-usual.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {\m {N_B = 4, N_R = 4, N_{H,t} = 12, N_{H,r} = 16}, with \m {6} stages, error.}
 
 \stopsubsection
 
 \startsubsection [title={Plots of different number of stages}]
 
-In the following, we plot for \m {N_B = 4}, for different number of stages.
+In the following, we plot for \m {N_B = 4}, for different number of stages \m {3} and \m {9}.
+We fix \m {N_R = \RB {3/2} N_B} with \m {6} stages again and in the below.
 %
 \blank [big]
 \externalfigure [error-medium-more-square-three-usual.png] [wfactor=fit, hfactor=fit]
@@ -358,7 +358,7 @@ In the following, we plot for different thresholds, for \m {N_B = 4}, focusing o
 %
 \blank [big]
 \externalfigure [error-medium-more-square-six-oommpp.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {6} stages, different thresholds of OMP, error.}
+\FigureCaption {\m {N_B = 4, N_{H,t} = 12, N_{H,r} = 12}, with \m {6} stages, different thresholds of OMP, error.}
 %
 \blank [big]
 \externalfigure [error-medium-more-wide-six-oommpp.png] [wfactor=fit, hfactor=fit]
@@ -370,7 +370,7 @@ In the following, we plot for different thresholds, for \m {N_B = 4}, focusing o
 %
 \blank [big]
 \externalfigure [error-medium-more-square-six-lasso.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {6} stages, different thresholds of Lasso, error.}
+\FigureCaption {\m {N_B = 4, N_{H,t} = 12, N_{H,r} = 12}, with \m {6} stages, different thresholds of Lasso, error.}
 %
 \blank [big]
 \externalfigure [error-medium-more-wide-six-lasso.png] [wfactor=fit, hfactor=fit]
@@ -382,7 +382,7 @@ In the following, we plot for different thresholds, for \m {N_B = 4}, focusing o
 %
 \blank [big]
 \externalfigure [error-medium-more-square-six-ddss.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {6} stages, different thresholds of DS, error.}
+\FigureCaption {\m {N_B = 4, N_{H,t} = 12, N_{H,r} = 12}, with \m {6} stages, different thresholds of DS, error.}
 %
 \blank [big]
 \externalfigure [error-medium-more-wide-six-ddss.png] [wfactor=fit, hfactor=fit]
@@ -399,12 +399,12 @@ In the following, we plot for different thresholds, for \m {N_B = 4}, focusing o
 When plotting runtime statistics, we only consider the cases where \m {N_{H,t} = N_{H,r} = 3 N_B}.
 %
 \blank [big]
-\externalfigure [time-medium-more-square-six-usual.png] [wfactor=fit, hfactor=fit]
-\FigureCaption {\m {N_B = 4, N_{H,t} = 12, N_{H,r} = 12}, with \m {6} stages, error.}
-%
-\blank [big]
 \externalfigure [time-small-more-square-six-usual.png] [wfactor=fit, hfactor=fit]
 \FigureCaption {\m {N_B = 2, N_{H,t} = 6, N_{H,r} = 6}, with \m {6} stages, error.}
+%
+\blank [big]
+\externalfigure [time-medium-more-square-six-usual.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {\m {N_B = 4, N_{H,t} = 12, N_{H,r} = 12}, with \m {6} stages, error.}
 %
 \blank [big]
 \externalfigure [time-big-more-square-six-usual.png] [wfactor=fit, hfactor=fit]
@@ -424,7 +424,7 @@ These trends is true with different number of stages, and with the case \m {N_B 
 In general, we can say that overall, DS gives a better regularization for both low noise and high noise scenario, and in most cases, DS is even better than both of them.
 
 Differing thresholds does not to seem have much effect on OMP and DS.
-But for Lasso, a tighter threshold may result in a better estimation, but it may also blow up for high signal cases.
+Except for Lasso, where a tighter threshold may improve the accuracy, but a overtly tight threshold may also result in a blow up for high signal cases.
 Increasing the number of stages obviously improves the estimation for all methods, and the main observation still applies.
 
 Unfortunately, we report that CVXPY sometimes gives overflowing values, some of them as large as \m {10^{11}}.

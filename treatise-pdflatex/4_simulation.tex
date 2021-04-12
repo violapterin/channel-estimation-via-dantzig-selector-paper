@@ -120,7 +120,7 @@ It is now straightforward to see that DS is equivalent to a linear program.
 %
 \DispNum {H:H:KG:GK} {
 \hat {\M {H}}
-\leftarrow \M {K} \hat {\M {G}} \M {K}^\dagger 
+\leftarrow \M {K} _r \hat {\M {G}} \M {K}^\dagger _t
 }
 \item Output \m {\hat {\M {H}}}.
 \end {itemize}
@@ -215,7 +215,7 @@ The number of paths \m {L = \lfloor \R {N_{H,t} N_{H,r}} / 2 \rfloor}.
 The ratio of the wavelength of carrier over the antenna spacing, \m {\l _{\mathrm {ant}} / d _{\mathrm {ant}} = 1 / 2}.
 
 Denote the threshold for DS to be \m {\g_{\mathrm {DS}}}, and similar threshold of Lasso to be \m {\g_{\mathrm {Lasso}}}.
-We set \m {\g_{\mathrm {DS}} = 2 \R {2 \log \RB {N_{H,t} N_{H,r}}}} as suggested in \cite {CaT07}.
+We set \m {\g_{\mathrm {DS}} = 2 \log \RB {N_{H,t} N_{H,r}}} as suggested in \cite {CaT07}.
 For sake of comparison, \m {\g_{\mathrm {Lasso}} = \g_{\mathrm {DS}}}.
 
 For OMP, we consult Cai and Wang \cite {CaW11} for \m {\ell _2}-norm condition in their Theorem 7, and \m {\ell _\infty}-norm condition in their Theorem 8.
@@ -258,21 +258,6 @@ In the following, we plot for different values and ratios of \m {N_B, N_{H,t}, N
 We fix \m {N_R = \RB {3/2} N_B}.
 %
 \begin {figure} [H]
-\includegraphics [width = \textwidth] {error-medium-more-square-six-usual.png}
-\caption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {6} stages, error.}
-\end {figure}
-%
-\begin {figure} [H]
-\includegraphics [width = \textwidth] {error-medium-more-wide-six-usual.png}
-\caption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {6} stages, error.}
-\end {figure}
-%
-\begin {figure} [H]
-\includegraphics [width = \textwidth] {error-medium-more-tall-six-usual.png}
-\caption {\m {N_B = 4, N_{H,t} = 12, N_{H,r} = 16}, with \m {6} stages, error.}
-\end {figure}
-%
-\begin {figure} [H]
 \includegraphics [width = \textwidth] {error-small-more-square-six-usual.png}
 \caption {\m {N_B = 2, N_{H,t} = 6, N_{H,r} = 6}, with \m {6} stages, error.}
 \end {figure}
@@ -285,6 +270,21 @@ We fix \m {N_R = \RB {3/2} N_B}.
 \begin {figure} [H]
 \includegraphics [width = \textwidth] {error-small-more-tall-six-usual.png}
 \caption {\m {N_B = 2, N_{H,t} = 6, N_{H,r} = 8}, with \m {6} stages, error.}
+\end {figure}
+%
+\begin {figure} [H]
+\includegraphics [width = \textwidth] {error-medium-more-square-six-usual.png}
+\caption {\m {N_B = 4, N_{H,t} = 12, N_{H,r} = 12}, with \m {6} stages, error.}
+\end {figure}
+%
+\begin {figure} [H]
+\includegraphics [width = \textwidth] {error-medium-more-wide-six-usual.png}
+\caption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {6} stages, error.}
+\end {figure}
+%
+\begin {figure} [H]
+\includegraphics [width = \textwidth] {error-medium-more-tall-six-usual.png}
+\caption {\m {N_B = 4, N_{H,t} = 12, N_{H,r} = 16}, with \m {6} stages, error.}
 \end {figure}
 %
 \begin {figure} [H]
@@ -312,22 +312,23 @@ In the following, we plot for \m {N_Y = N_R = 4}, for different ratios of \m {N_
 \end {figure}
 %
 \begin {figure} [H]
-\includegraphics {error-medium-equal-tall-six-usual.png}
-\caption {\m {N_B = 4, N_R = 4, N_{H,t} = 12, N_{H,r} = 16}, with \m {6} stages, error.}
-\end {figure}externalfigure
-%
-\begin {figure} [H]
 \includegraphics {error-medium-equal-wide-six-usual.png}
 \caption {\m {N_B = 4, N_R = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {6} stages, error.}
 \end {figure}
+%
+\begin {figure} [H]
+\includegraphics {error-medium-equal-tall-six-usual.png}
+\caption {\m {N_B = 4, N_R = 4, N_{H,t} = 12, N_{H,r} = 16}, with \m {6} stages, error.}
+\end {figure}externalfigure
 
 \subsection {Plots of different number of stages}
 
-In the following, we plot for \m {N_B = 4}, for different number of stages.
+In the following, we plot for \m {N_B = 4}, for different number of stages \m {3} and \m {9}.
+We fix \m {N_R = \RB {3/2} N_B} with \m {6} stages again and in the below.
 %
 \begin {figure} [H]
 \includegraphics [width = \textwidth] {error-medium-more-square-three-usual.png}
-\caption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {3} stages, error.}
+\caption {\m {N_B = 4, N_{H,t} = 12, N_{H,r} = 12}, with \m {3} stages, error.}
 \end {figure}
 %
 \begin {figure} [H]
@@ -342,7 +343,7 @@ In the following, we plot for \m {N_B = 4}, for different number of stages.
 %
 \begin {figure} [H]
 \includegraphics [width = \textwidth] {error-medium-more-square-nine-usual.png}
-\caption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {9} stages, error.}
+\caption {\m {N_B = 4, N_{H,t} = 12, N_{H,r} = 12}, with \m {9} stages, error.}
 \end {figure}
 %
 \begin {figure} [H]
@@ -361,7 +362,7 @@ In the following, we plot for different thresholds, for \m {N_B = 4}, focusing o
 %
 \begin {figure} [H]
 \includegraphics [width = \textwidth] {error-medium-more-square-six-oommpp.png}
-\caption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {6} stages, different thresholds of OMP, error.}
+\caption {\m {N_B = 4, N_{H,t} = 12, N_{H,r} = 12}, with \m {6} stages, different thresholds of OMP, error.}
 \end {figure}
 %
 \begin {figure} [H]
@@ -376,7 +377,7 @@ In the following, we plot for different thresholds, for \m {N_B = 4}, focusing o
 %
 \begin {figure} [H]
 \includegraphics [width = \textwidth] {error-medium-more-square-six-lasso.png}
-\caption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {6} stages, different thresholds of Lasso, error.}
+\caption {\m {N_B = 4, N_{H,t} = 12, N_{H,r} = 12}, with \m {6} stages, different thresholds of Lasso, error.}
 \end {figure}
 %
 \begin {figure} [H]
@@ -391,7 +392,7 @@ In the following, we plot for different thresholds, for \m {N_B = 4}, focusing o
 %
 \begin {figure} [H]
 \includegraphics [width = \textwidth] {error-medium-more-square-six-ddss.png}
-\caption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {6} stages, different thresholds of DS, error.}
+\caption {\m {N_B = 4, N_{H,t} = 12, N_{H,r} = 12}, with \m {6} stages, different thresholds of DS, error.}
 \end {figure}
 %
 \begin {figure} [H]
@@ -409,13 +410,13 @@ In the following, we plot for different thresholds, for \m {N_B = 4}, focusing o
 When plotting runtime statistics, we only consider the cases where \m {N_{H,t} = N_{H,r} = 3 N_B} with \m {6} stages.
 %
 \begin {figure} [H]
-\includegraphics [width = \textwidth] {time-medium-more-square-six-usual.png}
-\caption {\m {N_B = 4, N_{H,t} = 12, N_{H,r} = 12}, with \m {6} stages, error.}
+\includegraphics [width = \textwidth] {time-small-more-square-six-usual.png}
+\caption {\m {N_B = 2, N_{H,t} = 6, N_{H,r} = 6}, with \m {6} stages, error.}
 \end {figure}
 %
 \begin {figure} [H]
-\includegraphics [width = \textwidth] {time-small-more-square-six-usual.png}
-\caption {\m {N_B = 2, N_{H,t} = 6, N_{H,r} = 6}, with \m {6} stages, error.}
+\includegraphics [width = \textwidth] {time-medium-more-square-six-usual.png}
+\caption {\m {N_B = 4, N_{H,t} = 12, N_{H,r} = 12}, with \m {6} stages, error.}
 \end {figure}
 %
 \begin {figure} [H]
@@ -435,7 +436,7 @@ These trends is true with different number of stages, and with the case \m {N_B 
 In general, we can say that overall, DS gives a better regularization for both low noise and high noise scenario, and in most cases, DS is even better than both of them.
 
 Differing thresholds does not to seem have much effect on OMP and DS.
-But for Lasso, a tighter threshold may result in a better estimation, but it may also blow up for high signal cases.
+Except for Lasso, where a tighter threshold may improve the accuracy, but a overtly tight threshold may also result in a blow up for high signal cases.
 Increasing the number of stages obviously improves the estimation for all methods, and the main observation still applies.
 
 Unfortunately, we report that CVXPY sometimes gives overflowing values, some of them as large as \m {10^{11}}.

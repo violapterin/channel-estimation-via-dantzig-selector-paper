@@ -199,14 +199,14 @@ If we write
 %
 \DispNum {G:G:KH:HK} {
 \NC \M {G}
-=\NC \M {K}^\Adj \M {H} \M {K} \NR
+=\NC \M {K} _r ^\Adj \M {H} \M {K} _t \NR
 }
 %
 then \m {\M {G}} can be interpreted as spatial frequency domain representation of \m {\M {H}}.
 %
 \DispNum {Y:Y:WB:NY} {
 \NC \M {Y}
-=\NC \M {W} _B \M {W} _R \M {K} \D \M {G} \D \M {K}^\Adj \M {F} _R \M {F} _B
+=\NC \M {W} _B \M {W} _R \M {K} _r \D \M {G} \D \M {K} _t ^\Adj \M {F} _R \M {F} _B
 +\M {W} _B \M {W} _R \M {Z}
 \in \MB {C} ^{N_B \D N_B} \NR
 }
@@ -216,7 +216,7 @@ Set for brevity
 %
 \DispNum {P:P:FB:Nh} {
 \NC \M {P}
-:=\NC \RB {\M {F} _B^\Tr \M {F} _R^\Tr \M {K}^\ast} \otimes \RB {\M {W} _B \M {W} _R \M {K}}
+:=\NC \RB {\M {F} _B^\Tr \M {F} _R^\Tr \M {K} _t ^\ast} \otimes \RB {\M {W} _B \M {W} _R \M {K} _r}
 \in \MB {C} ^{N_B^2 \D N_{H,t} N_{H,r}} \NR
 }
 %
@@ -277,7 +277,7 @@ and \m {\M {Y} \in \NC \MB {C} ^{N_B \D N_B}}.
 %
 \Disp {
 \NC \Hat {\M {H}}
-\LA \NC \M {K} \Hat {\M {G}} \M {K}^\Adj \NR
+\LA \NC \M {K} _r \Hat {\M {G}} \M {K}^\Adj _t \NR
 }
 %
 \item Output \m {\Hat {\M {H}}}.

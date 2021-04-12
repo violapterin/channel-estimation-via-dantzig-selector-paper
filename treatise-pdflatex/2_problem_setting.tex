@@ -197,14 +197,14 @@ If we write
 %
 \DispNum {G:G:KH:HK} {
 \M {G}
-=\M {K}^\dagger \SB {N_{H,r}} \M {H} \M {K} \SB {N_{H,t}}
+=\M {K}^\dagger _r \M {H} \M {K} _t
 }
 %
 then \m {\M {G}} can be interpreted as spatial frequency domain representation of \m {\M {H}}.
 %
 \DispNum {Y:Y:WB:NY} {
 \M {Y}
-=\M {W} _B \M {W} _R \M {K} \D \M {G} \D \M {K}^\dagger \M {F} _R \M {F} _B
+=\M {W} _B \M {W} _R \M {K} _r \D \M {G} \D \M {K}^\dagger _t \M {F} _R \M {F} _B
 +\M {W} _B \M {W} _R \M {Z}
 \in \mathbb {C} ^{N_B \D N_B} 
 }
@@ -214,7 +214,7 @@ Set for brevity
 %
 \DispNum {P:P:FB:Nh} {
 \M {P}
-:=\RB {\M {F} _B^\intercal \M {F} _R^\intercal \M {K}^\ast} \otimes \RB {\M {W} _B \M {W} _R \M {K}}
+:=\RB {\M {F} _B^\intercal \M {F} _R^\intercal \M {K}^\ast _t} \otimes \RB {\M {W} _B \M {W} _R \M {K} _r}
 \in \mathbb {C} ^{N_B^2 \D N_{H,t} N_{H,r}} 
 }
 %
@@ -274,7 +274,7 @@ and \m {\M {Y} \in \mathbb {C} ^{N_B \D N_B}}.
 %
 \Disp {
 \hat {\M {H}}
-\leftarrow \M {K} \hat {\M {G}} \M {K}^\dagger 
+\leftarrow \M {K} _r \hat {\M {G}} \M {K}^\dagger _t
 }
 %
 \item Output \m {\hat {\M {H}}}.
