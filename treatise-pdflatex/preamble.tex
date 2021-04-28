@@ -1,0 +1,98 @@
+
+\renewcommand{\baselinestretch}{1.5}
+
+\textwidth      = 137.0mm
+\textheight     = 224.0mm
+\topmargin      =  -3.0mm
+\headheight     =   7.0mm
+\headsep        =  10.0mm
+\footskip       =   8.0mm
+\oddsidemargin  =  10.6mm
+\evensidemargin =  10.6mm
+\hoffset = -0.2cm
+
+\pagenumbering{roman}
+\setcounter{page}{1}
+
+\usepackage [utf8] {inputenc}
+\usepackage [english] {babel}
+\usepackage [final] {microtype}
+\usepackage [style = ieee] {biblatex}
+\usepackage {graphicx}
+\usepackage {csquotes}
+\usepackage {amssymb}
+\usepackage {amsmath}
+\usepackage {amsfonts}
+\usepackage {mathtools}
+\usepackage {float}
+\usepackage {hyperref}
+\usepackage {listingsutf8}
+\usepackage{chngcntr}
+
+\counterwithout{figure}{chapter}
+\counterwithout{table}{chapter}
+
+\addbibresource {references.bib}
+
+\renewcommand {\a} {\alpha}
+\renewcommand {\b} {\beta}
+\newcommand {\g} {\gamma}
+\newcommand {\G} {\Gamma}
+\newcommand {\h} {\eta}
+\renewcommand {\d} {\delta}
+\newcommand {\e} {\varepsilon}
+\newcommand {\f} {\varphi}
+\renewcommand {\l} {\lambda}
+\newcommand {\s} {\sigma}
+\renewcommand {\i} {\iota}
+\renewcommand {\th} {\vartheta}
+\newcommand {\z} {\zeta}
+\renewcommand {\O} {\Omega}
+\renewcommand {\o} {\omega}
+\newcommand {\D} {\cdot}
+\newcommand {\Adj} {\dagger}
+\newcommand {\Tr} {\intercal}
+
+\newcommand {\m} [1] {\( #1 \)}
+\newcommand {\V} [1] {\underline {#1}}
+\newcommand {\M} [1] {\underline {\underline {#1}}}
+\newcommand {\T} [1] {\tilde {#1}}
+\newcommand {\RB} [1] {\left( #1 \right)}
+\newcommand {\SB} [1] {\left[ #1 \right]}
+\newcommand {\CB} [1] {\left\{ #1 \right\}}
+\newcommand {\DB} [1] {\left[ \! \left[ #1 \right] \! \right]}
+\newcommand {\Fl} [1] {\left \lfloor #1 \right \rfloor}
+\newcommand {\Cl} [1] {\left \lfloor #1 \right \rfloor}
+\newcommand {\Nm} [1] {\left \vert #1 \right \vert}
+\newcommand {\VNm} [1] {\left \Vert #1 \right \Vert}
+\newcommand {\R} [1] {\sqrt {#1}}
+\newcommand {\Min} [1] {\underset {#1} {\mathrm {min}}\;}
+\newcommand {\IP} [1] {\left \langle #1 \right \rangle}
+\newcommand {\Stack} [1] {\startsubstack #1 \stopsubstack}
+\newcommand {\DispNum} [2] {
+   \begin {align}
+      \label {#1}
+      #2
+   \end {align}
+}
+\newcommand {\Disp} [1] {
+   \begin {align*}
+      #1
+   \end {align*}
+}
+\newcounter {result}
+\newcommand {\Result} [2] {
+   \par
+   \refstepcounter {result}
+   \textbf {\theresult \; #1} \par
+   #2 \par
+   \hfill $\blacksquare$ \par
+}
+
+\hypersetup {
+   colorlinks=true,
+   linkcolor=blue,
+   citecolor=blue,
+   filecolor=blue,
+   urlcolor=blue
+}

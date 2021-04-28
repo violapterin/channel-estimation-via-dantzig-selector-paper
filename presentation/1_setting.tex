@@ -1,0 +1,127 @@
+\blank [big, force]
+
+\Title {\TitleText}
+\blank [big]
+
+\Subtitle {\AuthorText}
+\blank [big]
+
+\Subsubtitle {\InstitutionText}
+\Subsubtitle {March 2021}
+
+\page [yes]
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {System Configuration}
+{
+\blank [big]
+\externalfigure [system.png] [factor=fit]
+
+\I Consider a multiple-input multiple-output (MIMO) system with hybrid structure, so we have fewer RF chains than the antennas
+
+\I Problem (a): Can we estimate the channel with fewer measurements?
+
+\I Problem (b): What precoders and combiners help the estimation?
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Channel model and beamforming}
+{
+\I Given MIMO channel representation \m {\M {H} \in \NC \MB {C} ^{N_H \D N_H}} with uniform linear array, having \m {L} paths, with hybrid beamforming.
+
+\I Complex standard normal noise \m {\M {Z} \in \NC \MB {C} ^{N_H \D N_H}}
+
+\I Tx: Digital precoder \m {\M {F}_B \in \NC \MB {C} ^{N_{B,t} \D N_{B,t}}}
+\I Tx: Analog precoder \m {\NC \M {F}_R \in \NC \MB {C} ^{N_H \D N_{B,t}}}
+
+\I Rx: Digital combiner \m {\M {W}_B \in \NC \MB {C} ^{N_{B,r} \D N_H}}
+\I Rx: Analog combiner \m {\M {W}_R \in \NC \MB {C} ^{N_{B,r} \D N_{B,r}}}
+
+\I Magnitude constraint \m {\Nm {\M {F}_{R,\SB {n_H, n_{R,t}}}} = 1}, \m {\Nm {\M {W}_{R,\SB {n_H, n_{R,r}}}} = 1}
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Cast to Linear System}
+{
+\I We have \m {\M {Y} =\M {W}_B \M {W}_R \RB {\M {H} \M {F}_R \M {F}_B +\M {Z}}}
+\I Introduce the DFT matrix \m {\M {K} \in \NC \MB {C} ^{N_H \D N_H}}, and write
+\Disp {
+\NC \V {y}
+:= \NC \Rm {vec} \SB {\M {Y}},
+\Q \M {P}
+:= \RB {\M {F}_B^\Tr \M {F}_R^\Tr \m {K}^\ast} \otimes \RB {\M {W}_B \M {W}_R \M {K}}, \NR
+\NC \V {g}
+:= \NC \Rm {vec} \SB {\M {K}^\Adj \M {H} \M {K}},
+\Q \V {z}
+:= \Rm {vec} \SB {\M {W}_B \M {W}_R \M {Z}} \NR
+}
+\I We have an underdetermined system \m {\V {y} =\M {P} \V {g} +\V {z}}
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Problem Description}
+{
+\I Problem (a): How to recover \m {\M {H}} with knowledge of \m {\M {Y}}?
+
+Can we measure less than \m {N_H^2} times, but recover successfully for most cases?
+
+\I Problem (b): How to generate \m {\M {W}_R}, \m {\M {W}_B}, \m {\M {F}_R}, and \m {\M {F}_B}?
+
+What kind of matrices facilitates our goal?
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Compressive sensing}
+{
+\blank [big]
+\externalfigure [compressive-sensing.png] [factor=fit]
+
+\I If \m {\V {g}} is sparse, fewer measurements suffice for reconstruction.
+
+\I Can we find a basis on which \m {\V {g}} is likely to be sparse?
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Literature review}
+{
+\I Bajwa, Haupt, Sayeed, and Nowak (2010): MIMO, no beamforming, linear invariant system, using Dantzig Selector (DS)
+
+\I Destino, Juntti, and Nagaraj (2015): MIMO, digital beamforming, using Lasso
+
+\I Vlachos, Alexandropoulos, and Thompson (2019): MIMO, hybrid beamforming, mm wave, using Lasso
+
+\I Alkhateeb, Leus, and Heath (2015): single path mm wave, analog beamforming, using Orthogonal Matching Pursuit (OMP)
+
+\I Lee, Lee, and Yong (2016): MIMO mm wave, hybrid beamforming, using Orthogonal Matching Pursuit (OMP)
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Contribution}
+{
+\I Due to the constraint of hybrid beamforming, sensing matrix designs for fully digital beamforming does not directly work.
+
+\I We propose a low complexity, i.i.d.\ random beamforming matrices, and justify that it may serve as the sensing matrix for DS.
+
+\I We claim that DS is superior to OMP in situation with higher noise and fewer samples.
+\I We give a asymptotic bound on expected error norm.
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Generating beamforming matrices}
+{
+\I We set each entry of \m {\m {F}_B} (resp.\ \m {\m {W}_B}) to be i.i.d.\ complex standard normal, up to a design constant
+
+\I We set each entry of \m {\m {F}_R} (resp.\ \m {\m {W}_R}) be i.i.d.\ uniformly distributed in argument and unity magnitude, up to a design constant
+
+\I We argue that \m {\M {F} _R ^\Tr}, \m {\M {F} _B ^\Tr}, \m {\M {W} _R}, and \m {\M {W} _B} all have restricted isometry, thus \m {\M {P}} has too.
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Applying Dantzig Selector}
+{
+\I Input \m {\M {P} \in \MB {C} ^{N_{B,t} N_{B,r} \D N_H^2}}, \m {\V {y} \in \MB {C} ^{N_H^2}}, \m {\g_{\Ss {DS}} \geq 0}.
+
+\I Calculate
+\Disp {
+\NC \Hat {\V {g}}
+\LA \NC \startcases
+\NC \Min {\V {g}'}  \MC \VNm {\V {g}'} _1 \NR
+\NC \Rm {subject} \; \Rm {to} \Q \MC \VNm {\M {P}^\Adj \RB {\V {y} -\M {P} \V {g}'}} _\infty \leq \g_{\Ss {DS}} \NR
+\stopcases \NR
+}
+
+\I Output \m {\Hat {\M {H}} \LA \M {K} \Rm {vec}^{-1} \SB {\Hat {g}} \M {K}^\Adj}
+}
+
+

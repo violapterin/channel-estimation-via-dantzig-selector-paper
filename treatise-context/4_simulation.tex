@@ -1,0 +1,608 @@
+\startchapter [title={Simulation}]
+
+To do convex optimization, we choose the Python library CVXPY.
+While a direct implementation of Algorithm [7] leads to extraordinarily large complexity, Candès and Romberg \cite [CaR05] showed that DS can be cast as a linear program, which we elaborate below.
+
+\startsection [title={Method}]
+
+\startsubsection [title={Some notation}]
+
+Let us represent complex vectors and matrices by real vectors and matrices.
+For \m {\V {x} \in \MB {C} ^{M}}, define the real representation \m {\MS {R} \SB {\V {x}}} of \m {\V {x}} to be
+%
+\DispNum {R:x:R2:M1} {
+\NC \MS {R} \SB {\V {x}}
+\in \NC \MB {R} ^{2M} \NR
+\NC \MS {R} \SB {\V {x}} _{\SB {m}}
+= \NC \startcases
+\NC \MF {Re} \SB {\V {x} _{\SB {m'}}}, \MC m =2m' \NR
+\NC \MF {Im} \SB {\V {x} _{\SB {m'}}}, \MC m =2m'+1 \NR
+\stopcases \NR
+\NC m' 
+= \NC  0, 1, 2, \ldots, M-1 \NR
+}
+%
+The injection is obvious, and we may define \m {\MS {R} ^{-1}} so that
+%
+\DispNum {R:1:x::x:} {
+\NC \MS {R} ^{-1} \SB {\MS {R} \SB {\V {x}}}
+=\NC \V {x} \NR
+}
+%
+Accordingly, the following generalization to complex matrices is valid, once we call the ring representation of complex numbers.
+For \m {\M {A} \in \MB {C} ^{M_1 \D M_2}}, define real representation \m {\MS {R} \SB {\M {A}}} of \m {\M {A}} to be
+%
+\DispNum {R:A:R2:21} {
+\NC \MS {R} \SB {\M {A}}
+\in \NC \MB {R} ^{2M_1 \D 2M_2} \NR
+\NC \MS {R} \SB {\M {A}} _{\SB {m_1,m_2}} =
+\NC \startcases
+\NC \MF {Re} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC \RB {m_1, m_2} = \RB {2m_1', 2m_2'} \NR
+\NC \MF {Im} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC \RB {m_1, m_2} = \RB {2m_1'+1, 2m_2'} \NR
+\NC -\MF {Im} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC \RB {m_1, m_2} = \RB {2m_1', 2m_2'+1} \NR
+\NC \MF {Re} \SB {\M {A} _{\SB {m_1',m_2'}}}, \MC \RB {m_1, m_2} = \RB {2m_1'+1, 2m_2'+1} \NR
+\stopcases \NR
+\NC m_1 
+= \NC 0, 1, 2, \ldots, M_1 -1 \NR
+\NC m_2 
+= \NC 0, 1, 2, \ldots, M_2 -1 \NR
+}
+
+With these, we define
+%
+
+\DispNum {y:y:Ry:Ny} {
+\NC \T {\V {y}}
+= \NC \MS {R} \SB {\V {y}}
+\in \MB {R} ^{2 N_B ^2} \NR
+%
+\NC \T {\V {g}}
+= \NC \MS {R} \SB {\V {g}}
+\in \MB {R} ^{2 N_{H,t} N_{H,r}} \NR
+%
+\NC \T {\M {P}}
+= \NC \MS {R} \SB {\M {P}}
+\in \MB {R} ^{2 N_B ^2 \D 2 N_{H,t} N_{H,r}} \NR
+%
+\NC \T {\M {P}} ^\Adj
+= \NC \MS {R} \SB {\M {P} ^\Adj}
+\in \MB {R} ^{2 N_B ^2 \D 2 N_{H,t} N_{H,r}} \NR
+%
+\NC \T {\V {z}}
+= \NC \MS {R} \SB {\V {z}}
+\in \MB {R} ^{2 N_B ^2} \NR
+}
+%
+so, by construction,
+%
+\Disp {
+\NC \V {\T {y}}
+= \NC \M {\T {P}} \V {\T {g}} +\V {\T {z}} \NR
+}
+%
+And denote \m {\V {1}} to be the all-\m{1} vector, and \m {\V {0}} the all-\m{0} vector, whose dimension will be inferred from context.
+
+\stopsubsection
+
+\startsubsection [title={Linear Program}]
+
+It is now straightforward to see that DS is equivalent to a linear program.
+
+\Result
+{Algorithm}
+{
+\startitemize[n]
+\item Input \m{\M {P} \in \MB {C} ^{N_B^2 \D N_{H,t} N_{H,r}}}, \m{\V {y} \in \MB {C} ^{N_B ^2}}, \m {\g_{\Rm {DS}} > 0}.
+%
+\item Define \m {\T {\V {y}}, \T {\V {g}}, \T {\M {P}}, \T {\M {P}} ^\Adj, \T {\V {z}}}, according to \Rf {y:y:Ry:Ny}.
+%
+\item Compute the convex program
+\DispNum {g:f:gf:S1} {
+\NC \Hat {\T {\V {g}}}, \Hat {\T {\V {f}}}
+\LA \NC \startcases
+   \NC \Min {\T {\V {g}}', \T {\V {f}}'}  \MC \IP {\V {1}, \T {\V {f}}'} \NR
+   \NC \Rm {subject} \; \Rm {to} \MC \T {\V {g}}' \preceq \T {\V {f}}' \NR
+   \NC \MC - \T {\V {g}}' \preceq \T {\V {f}}' \NR
+   \NC \MC \T {\M {P}}^\Adj \T {\M {P}} \T {\V {g}}' \preceq \T {\M {P}}^\Adj \T {\V {y}} + \g_{\Ss {DS}} \V {1} \NR
+   \NC \MC - \T {\M {P}}^\Adj \T {\M {P}} \T {\V {g}}' \preceq - \T {\M {P}}^\Adj \T {\V {y}} + \g_{\Ss {DS}} \V {1} \NR
+\stopcases \NR
+}
+\item Convert
+%
+\DispNum {g:::R1:1g} {
+\NC \Hat{\V {g}}
+\LA \NC \MS {R} ^{-1} \SB {\Hat{\T{\V {g}}}} \NR
+}
+\item Calculate
+%
+\DispNum {G:G:ve:1g} {
+\NC \Hat {G}
+\LA \NC \Rm {vec}^{-1} \SB {\Hat {g}} \NR
+}
+\item Calculate
+%
+\DispNum {H:H:KG:GK} {
+\NC \Hat {\M {H}}
+\LA \NC \M {K} _r \Hat {\M {G}} \M {K}^\Adj _t \NR
+}
+\item Output \m {\Hat {\M {H}}}.
+\stopitemize
+}
+
+\stopsubsection
+
+\startsection [title={Variants}]
+
+We remark some possible variants of DS, either to enhance the accuracy, or to reduce the complexity, or both.
+
+\startsubsection [title={Successive estimation of nonzero components}]
+
+We can apply DS more than once to better estimate the nonzero components;
+let us call it the successive estimation \cite {CaT07}.
+We apply DS for the first time, and we extract largest components of the estimated vector.
+Then we apply DS again, and we extract largest components of the second estimated vector.
+Finally, we apply Moore–Penrose inverse to get the returned solution.
+The resulting indices set has to be scrambled back according to the original indices.
+
+\Result
+{Algorithm}
+{
+\startitemize[n]
+\item Let \m {\g_{\Rm {DS}} \geq 0} be given, and \m {\M {P}}
+
+\item Set
+\Disp {
+\NC N_0
+=\NC 2 N_{H,t} N_{H,r}, \NR
+\NC N_2
+=\NC 4 \lfloor \log N_{H,t} + \log N_{H,r} \rfloor, \NR
+\NC N_1
+=\NC \lfloor \R {N_0 N_2} \rfloor \NR
+}
+
+\item Apply DS to \m {\V {y}, \M {P}} to get \m {\Hat {\V {g}}_0}, and call the \m {N_1} largest component of \m {\Hat {\V {g}}_0} to be \m {\V {g}_1}, and corresponding columns of \m {\M {P}} to be \m {\M {P} _1}.
+
+\item Apply DS to \m {\V {y}, \M {P}_1} to get \m {\Hat {\V {g}}_1}, and call the \m {N_2} largest component of \m {\Hat {\V {g}}_1} to be \m {\V {g}_2}, and corresponding columns of \m {\M {P}} to be \m {\M {P} _2}.
+
+\item Apply Moore–Penrose inverse to \m {\V {y}, \M {P} _2} to get \m {\Hat {\V {g}}_2}, which corresponds to \m {\Hat {\V {g}}}.
+\stopitemize
+}
+
+If more than one stage of estimation is possible, that is, there are more than one dataset, the second stage may be run on the second dataset, and so on.
+It is possible in theory to run it for three or more times.
+
+From our observation, it is not conclusive whether the successive estimation method is more accurate, and whether a third or more stage is helpful.
+It might have something to do with appropriately scaling \m {N_1, N_2} with respect to \m {N_{H,t}, N_{H,r}}.
+We have not used this method in the plots included here.
+
+\stopsubsection
+
+\startsubsection [title={Basis pursuit denoising}]
+
+It is known that DS is equivalent to the basis pursuit denoising form below, for suitable \m {\l} (\cite [BoV04], p.334).
+
+\Disp {
+\NC \Hat {\V {g}}
+\LA \NC \Min {\V {g}' \in \MB {C} ^{N_{H,t} N_{H,r}}}
+\RB {\VNm {\V {g}'} _1 + \l \VNm {\M {P}^\Adj \RB {\V {y} -\M {P} \V {g}'}} _\infty} \NR
+}
+
+However, there is no simple way to determine the value of \m {\l} in advance.
+We have tried basis pursuit denoising, with \m {\l = N_{H,t} N_{H,r} / \g_{\Rm {DS}}} in the simulation.
+
+\stopsubsection
+
+\startsection [title={Result}]
+
+\startsubsection [title={Settings}]
+
+In addition to DS, we shall simulate OMP for two different stop conditions, Lasso, and Moore Penrose pseudoinverse (marked as LS which stands for least square).
+
+To get some idea on the order of magnitude of noise-to-signal level, plug in some actual numbers.
+Consider only path loss in the simplest form according to Friis Law.
+Suppose the power of mobile phone antenna is \m {0.25} W,
+the carrier frequency is \m {5} GHz,
+the base station is \m {1.5} km away,
+the noise is \m {–40} dB W.
+If so, the noise-to-signal ratio is
+\DispNum {1:8:02:24} {
+\NC 10^{-4} \F {1} {0.25} \R {\F {5 \D 10^9 \D 4 \pi \D 1500} {3 \D 10^8}}
+=\NC 0.224 \NR
+}
+
+We use dimensionless noise level \m {\s} which takes value starting with \m {2^{-2}}, and being multiplied by powers of \m {\R {2}}, for \m {6} values.
+We take \m {N_B} to be \m {2, 4, 6}, respectively.
+Three series of plots are simulated.
+The first series for \m {N_{H,t} = 3 N_B} and \m {N_{H,r} = 3 N_B}.
+The second series for \m {N_{H,t} = 3 N_B} and \m {N_{H,r} = 4 N_B}.
+The third series for \m {N_{H,t} = 4 N_B} and \m {N_{H,r} = 3 N_B}.
+Unfortunately, this is very far from achieving the ideal values \Rf {N:B:4l:H2}, and this may be part of the reason the result is not as successful as expected.
+
+Other parameters are fixed in these experiments.
+The number of grid of quantization of phase shifters is \m {16}.
+The number of paths \m {L = \lfloor \R {N_{H,t} N_{H,r}} / 2 \rfloor}.
+The ratio of the wavelength of carrier over the antenna spacing, \m {\l _{\Rm {ant}} / d _{\Rm {ant}} = 1 / 2}.
+
+Denote the threshold for DS to be \m {\g_{\Rm {DS}}}, and similar threshold of Lasso to be \m {\g_{\Rm {Lasso}}}.
+We set \m {\g_{\Rm {DS}} = \R {2 \log \RB {N_{H,t} N_{H,r}}}} as suggested in \cite [CaT07].
+For sake of comparison, \m {\g_{\Rm {Lasso}} = \g_{\Rm {DS}}} too.
+For OMP, we consult Cai and Wang \cite [CaW11] for \m {\ell _2}-norm condition in their Theorem 7, and \m {\ell _\infty}-norm condition in their Theorem 8.
+We take \m {\h_{\Rm {OMP}} = \R {2 \log \RB {N_{H,t} N_{H,r}}}} for \m {\infty}-norm condition, \m {\h_{\Rm {OMP}} = \R {3 N_B}} for 2-norm condition.
+
+However, one must keep in mind that for OMP, in Lee, Gil, and Lee \cite [LGL16], a high-complexity nonconvex program is used to design the sensing matrix.
+Since we have here a low-complexity, random generation of beamforming matrices, a different design of sensing matrix may affect the performance of OMP.
+
+For Lasso, \m {\l _{\Rm {Lasso}}} is also crucial to the performance, but cannot be obtained in advance.
+Thus, for sake of comparison, we set the same threshold for Lasso and DS.
+In view of the fact that \m {\VNm {g} _1 \leq 2 N_{H,t} N_{H,r} \VNm {g} _\infty}, we tentatively set \m {\l _{\Rm {DS}} =  N_{H,t} N_{H,r} / \g _{\Rm {DS}}} and \m {\l _{\Rm {Lasso}} =  1 / \g _{\Rm {Lasso}}}.
+Still, there may be other values of \m {\g} (or \m {\l}) for which DS and Lasso are both better.
+
+The parameters related to precision of the Newton step may be adjusted from CVXPY's class methods.
+We set the maximum absolute tolerance to be \m {5 \D 10 ^ {-7}},
+the maximum relative tolerance to be \m {5 \D 10 ^ {-6}},
+the maximum feasible tolerance to be \m {5 \D 10 ^ {-7}}.
+If the tolerance parameters are set too small, the program often gives overflowing values, perhaps because it was not able to find feasible solutions.
+And if they are set too big, the Newton steps get imprecise and the performance is poorer.
+It remains to determine the best choice of parameters.
+
+The maximal number of iteration of CVXPY is set to be \m {32}, and that of OMP is set to be \m {4 N_B}.
+Each data point for DS and Lasso is repeated for \m {256} times, and taken arithmetic average.
+Other methods are repeated for more times: OMP for \m {4 \D 256} times, LS for \m {8 \D 256} times.
+
+For performance metric, we follow Lee, Gil, and Lee \cite [LGL16] to use
+\DispNum {h:h:lo:vg} {
+\NC \T {\chi}
+=\NC \RB {
+   \F {\log_2 {\VNm {\V {h} -\Hat {\V {h}}} _2}}
+   {\log_2 {\VNm {\V {h}}_2}}
+} _{\Ss {avg}}, \NR
+}
+However, we remark that when \m {\VNm {\V {h}}_2} is small, this can blow up.
+Indeed, since we did not consider a definite a channel model in this treatise, \m {\T {\chi}} may not necessarily be proportional to the channel capacity.
+
+\stopsubsection
+
+\startsubsection [title={Plots of assorted methods}]
+
+In the following, we plot for different values and ratios of \m {N_B, N_{H,t}, N_{H,r}}.
+We fix \m {N_R = \RB {3/2} N_B}.
+%
+\blank [big]
+\externalfigure [error-small-more-square-six-usual.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {\m {N_B = 2, N_{H,t} = 6, N_{H,r} = 6}, with \m {6} stages, error.}
+%
+\blank [big]
+\externalfigure [error-small-more-wide-six-usual.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {\m {N_B = 2, N_{H,t} = 8, N_{H,r} = 6}, with \m {6} stages, error.}
+%
+\blank [big]
+\externalfigure [error-small-more-tall-six-usual.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {\m {N_B = 2, N_{H,t} = 6, N_{H,r} = 8}, with \m {6} stages, error.}
+%
+\blank [big]
+\externalfigure [error-medium-more-square-six-usual.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {\m {N_B = 4, N_{H,t} = 12, N_{H,r} = 12}, with \m {6} stages, error.}
+%
+\blank [big]
+\externalfigure [error-medium-more-wide-six-usual.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {6} stages, error.}
+%
+\blank [big]
+\externalfigure [error-medium-more-tall-six-usual.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {\m {N_B = 4, N_{H,t} = 12, N_{H,r} = 16}, with \m {6} stages, error.}
+%
+\blank [big]
+\externalfigure [error-big-more-square-six-usual.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {\m {N_B = 6, N_{H,t} = 18, N_{H,r} = 18}, with \m {6} stages, error.}
+%
+\blank [big]
+\externalfigure [error-big-more-wide-six-usual.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {\m {N_B = 6, N_{H,t} = 24, N_{H,r} = 18}, with \m {6} stages, error.}
+%
+\blank [big]
+\externalfigure [error-big-more-tall-six-usual.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {\m {N_B = 6, N_{H,t} = 18, N_{H,r} = 24}, with \m {6} stages, error.}
+
+\stopsubsection
+
+\startsubsection [title={Plots of \m {N_Y = N_R}}]
+
+In the following, we plot for \m {N_Y = N_R}, for different ratios of \m {N_{H,t}, N_{H,r}}.
+%
+\blank [big]
+\externalfigure [error-medium-equal-square-six-usual.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {\m {N_B = 4, N_R = 4, N_{H,t} = 12, N_{H,r} = 12}, with \m {6} stages, error.}
+%
+\blank [big]
+\externalfigure [error-medium-equal-wide-six-usual.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {\m {N_B = 4, N_R = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {6} stages, error.}
+%
+\blank [big]
+\externalfigure [error-medium-equal-tall-six-usual.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {\m {N_B = 4, N_R = 4, N_{H,t} = 12, N_{H,r} = 16}, with \m {6} stages, error.}
+
+\stopsubsection
+
+\startsubsection [title={Plots of different number of stages}]
+
+In the following, we plot for \m {N_B = 4}, for different number of stages \m {3} and \m {9}.
+We fix \m {N_R = \RB {3/2} N_B} with \m {6} stages again and in the below.
+%
+\blank [big]
+\externalfigure [error-medium-more-square-three-usual.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {3} stages, error.}
+%
+\blank [big]
+\externalfigure [error-medium-more-wide-three-usual.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {3} stages, error.}
+%
+\blank [big]
+\externalfigure [error-medium-more-tall-three-usual.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {\m {N_B = 4, N_{H,t} = 12, N_{H,r} = 16}, with \m {3} stages, error.}
+%
+\blank [big]
+\externalfigure [error-medium-more-square-nine-usual.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {9} stages, error.}
+%
+\blank [big]
+\externalfigure [error-medium-more-wide-nine-usual.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {9} stages, error.}
+%
+\blank [big]
+\externalfigure [error-medium-more-tall-three-usual.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {\m {N_B = 4, N_{H,t} = 12, N_{H,r} = 16}, with \m {9} stages, error.}
+
+\startsubsection [title={Plots of different thresholds}]
+
+In the following, we plot for different thresholds, for \m {N_B = 4}, focusing on each of OMP, Lasso, DS.
+%
+\blank [big]
+\externalfigure [error-medium-more-square-six-oommpp.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {\m {N_B = 4, N_{H,t} = 12, N_{H,r} = 12}, with \m {6} stages, different thresholds of OMP, error.}
+%
+\blank [big]
+\externalfigure [error-medium-more-wide-six-oommpp.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {6} stages, different thresholds of OMP, error.}
+%
+\blank [big]
+\externalfigure [error-medium-more-tall-six-oommpp.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {\m {N_B = 4, N_{H,t} = 12, N_{H,r} = 16}, with \m {6} stages, different thresholds of OMP, error.}
+%
+\blank [big]
+\externalfigure [error-medium-more-square-six-lasso.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {\m {N_B = 4, N_{H,t} = 12, N_{H,r} = 12}, with \m {6} stages, different thresholds of Lasso, error.}
+%
+\blank [big]
+\externalfigure [error-medium-more-wide-six-lasso.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {6} stages, different thresholds of Lasso, error.}
+%
+\blank [big]
+\externalfigure [error-medium-more-tall-six-lasso.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {\m {N_B = 4, N_{H,t} = 12, N_{H,r} = 16}, with \m {6} stages, different thresholds of Lasso, error.}
+%
+\blank [big]
+\externalfigure [error-medium-more-square-six-ddss.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {\m {N_B = 4, N_{H,t} = 12, N_{H,r} = 12}, with \m {6} stages, different thresholds of DS, error.}
+%
+\blank [big]
+\externalfigure [error-medium-more-wide-six-ddss.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, with \m {6} stages, different thresholds of DS, error.}
+%
+\blank [big]
+\externalfigure [error-medium-more-tall-six-ddss.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {\m {N_B = 4, N_{H,t} = 12, N_{H,r} = 16}, with \m {6} stages, different thresholds of DS, error.}
+
+\stopsubsection
+
+\startsubsection [title={Plots of runtime}]
+
+When plotting runtime statistics, we only consider the cases where \m {N_{H,t} = N_{H,r} = 3 N_B}.
+%
+\blank [big]
+\externalfigure [time-small-more-square-six-usual.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {\m {N_B = 2, N_{H,t} = 6, N_{H,r} = 6}, with \m {6} stages, error.}
+%
+\blank [big]
+\externalfigure [time-medium-more-square-six-usual.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {\m {N_B = 4, N_{H,t} = 12, N_{H,r} = 12}, with \m {6} stages, error.}
+%
+\blank [big]
+\externalfigure [time-big-more-square-six-usual.png] [wfactor=fit, hfactor=fit]
+\FigureCaption {\m {N_B = 6, N_{H,t} = 18, N_{H,r} = 18}, with \m {6} stages, error.}
+
+\stopsubsection
+
+\startsubsection [title={Discussion}]
+
+From the simulation, DS outperforms other methods in most of the datasets.
+With low noise, \m {\T {\chi} _{\Rm {DS}} \approx \T {\chi} _{\Rm {OMP}} \leq \T {\chi} _{\Rm {Lasso}} \leq \T {\chi} _{\Rm {LS}}},
+although sometimes \m {\T {\chi} _{\Rm {DS}} \geq \T {\chi} _{\Rm {OMP}}}.
+With high noise, \m {\T {\chi} _{\Rm {DS}} \approx \T {\chi} _{\Rm {Lasso}} \leq \T {\chi} _{\Rm {OMP}} \leq \T {\chi} _{\Rm {LS}}}.
+although sometimes \m {\T {\chi} _{\Rm {DS}} \geq \T {\chi} _{\Rm {Lasso}}}.
+LS is so much poorer that it is not a main contender.
+These trends is true with different number of stages, and with the case \m {N_B = N_R}.
+In general, we can say that overall, DS gives a better regularization for both low noise and high noise scenario, and in most cases, DS is even better than both of them.
+
+Differing thresholds does not to seem have much effect on OMP and DS.
+Except for Lasso, where a tighter threshold may improve the accuracy, but a overtly tight threshold may also result in a blow up for high signal cases.
+Increasing the number of stages obviously improves the estimation for all methods, and the main observation still applies.
+
+Unfortunately, we report that CVXPY sometimes gives overflowing values, some of them as large as \m {10^{11}}.
+This probably indicates some typical-looking output may in fact be unreliable.
+Therefore we have discarded outputs larger than a given threshold, for instance \m {10^4}, and simply return the answer to be a Moore–Penrose inverse.
+
+\m {\chi} is not shown in the figure, because the big O bound is much larger than \m {\T {\chi}}.
+It is possible that the nonsparsity of \m {\V {g}} undermines the analysis in chapter 3, despite our attempts to account for that effect.
+It is curious to see whether for very large \m {N_H}, whether \m {\T {\chi}} and \m {\chi} will be asymptotically close.
+
+In the below, we reproduce two cases of success and failure of DS.
+In both figures the true values of \m {\M {H}} entries are ordered by magnitude, and corresponding estimated values in the first and second stage are plotted against them.
+When DS fails, the soft thresholding did not rule out smaller entries, thus a second application of DS on the wrong index set failed too.
+When DS succeeded, the soft thresholding gave a reasonable guess of the nonzero components, thus a second application of DS on this index set refined the estimated values.
+
+\blank [big]
+\externalfigure [scatter-ddss-failure.png] [wfactor=300]
+\FigureCaption {A scatter plot of position versus magnitude for a case in which DS failed.}
+\blank [big]
+
+\blank [big]
+\externalfigure [scatter-ddss-success.png] [wfactor=300]
+\FigureCaption {A scatter plot of position versus magnitude for a case in which DS succeeded.}
+\blank [big]
+
+\stopsection
+
+\startsection [title={Complexity}]
+
+We discuss the complexity of DS, Lasso, and OMP.
+Abbreviate \m {N_h = N_{H,t} N_{H,r}} as in the last chapter.
+
+\startsubsection [title={Dantzig selector}]
+
+\stopsubsection
+
+Suppose a linear program has an \m {N} dimensional variable and \m {M} inequality constraints, then its complexity is \m {\MS {O} \SB {N^2 M}}, assuming the Dantzig simplex method is used (\cite [BoV04], p.6).
+For our case, that would be \m {\MS {O} \SB {4 N_h ^2 \D 8 N_h} = \MS {O} \SB {N_h ^3}}.
+But other algorithms exist, where, in general, complexity of convex programs is difficult to analyze, as it is not easily to determine how many steps were calculated.
+
+Alternatively, suppose Newton method is used.
+Here, we have self-concordance for linear program.
+Let \m {\V {g} _0} denote the starting value of \m {\V {g}'}, and \m {\V {g} ^{\star}} the the point of convergence.
+Then the number of Newton steps is bounded \cite [BoV04] by
+%
+\Disp {
+\NC C_{\Rm {Newton}}
+= \NC \RB {C_0 \VNm {\V {g}_0 -\V {g} ^{\star}}_1
++ \log_2 \log_2 \F {1} {\e}} \NR
+}
+%
+If we just take that as the complexity bound for DS,
+%
+\DispNum {C:S:C0:1e'} {
+\NC C_{\Rm {DS}}
+= \NC \RB {C_0 \VNm {\V {g}_0 -\V {g} ^{\star}}_1
++ \log_2 \log_2 \F {1} {\e}} C_{\Rm {step}} \NR
+}
+%
+Here \m {C_0} is constant related to implementation of Newton method, and \m {\e} the tolerance of error, and \m {C_{\Rm {step}}} is the complexity of Newton step.
+
+Every Newton step involves a inversion of \m {\MS {O} \SB {\M {P} ^\Adj \M {P}}}, having the same order of magnitude to the time needed for matrix multiplication.
+Since the dimension of \m {\M {P} ^\Adj \M {P}} is \m {N_h \D N_h}, the cost of inversion may be roughly considered to be \m {\MS {O} \SB {N_h ^2}}, as we know from newer results on the complexity of matrix inversion.
+That is, we suppose \m {C_{\Rm {step}} = N_h ^2}.
+
+We therefore assume that, at the start the iteration, the Moore–Penrose inverse was taken to be the initial value of \m {\V {g}_0}, namely
+%
+\DispNum {g:0:gL:Py} {
+\NC \V {g}_0
+=\NC \V {g}_{\Rm {LS}} \NR
+\NC = \NC \RB {\M {P} ^\Adj \M {P}} ^{-1} \M {P} ^\Adj \V {y} \NR
+}
+%
+By above, we may write the complexity of DS to be
+%
+\DispNum {C:S:Og:g1} {
+\NC C_{\Rm {DS}}
+=\NC \MS {O} \SB {\VNm {\V {g}_{\Rm {LS}} -\V {g} ^\star} _1} N_h^2 \NR
+}
+%
+Also assume
+%
+\DispNum {g:g:g;:;g} {
+\NC \V {g} ^\star
+\approx \NC \V {g} \NR
+}
+%
+Indeed, this is the main thesis of our investigation.
+And by restricted isometry, \m {\M {P}} has unity-normed, almost orthogonal columns, so
+%
+\DispNum {P:P:IN:H2} {
+\NC \M {P} ^\Adj \M {P}
+\approx \NC I _{N_h} \NR
+}
+%
+Thus, by \Rf {g:0:gL:Py}, \Rf {C:S:Og:g1}, and \Rf {g:g:g;:;g},
+%
+\DispNum {C:S:Og:z1} {
+\NC C_{\Rm {DS}}
+=\NC \MS {O} \SB {
+   \VNm {\V {g} +\RB {\M {P} ^\Adj \M {P}} ^{-1} \M {P} ^\Adj \V {z}
+   -\V {g}} _1} N_h ^2 \NR
+\NC =\NC \MS {O} \SB {\VNm {\M {P} ^\Adj \V {z}} _1} N_h ^2 \NR
+}
+
+We see that \m {\RB {\M {P} ^\Adj \V {z}} _{\SB {j}}} follows complex standard normal distribution.
+If we agree that, for high probability,
+%
+\DispNum {O:j:sO:O1} {
+\NC \MS {O} \SB {\VNm {\M {P} ^\Adj \V {z}}}
+= \NC \s N_h \MS {O} \RB {1} \NR
+}
+Then we simply have
+%
+\DispNum {C:S:ON:H6} {
+\NC C_{\Rm {DS}}
+=\NC \MS {O} \SB {N_h ^3} \NR
+}
+
+
+\startsubsection [title={Orthogonal matching pursuit}]
+
+Tropp and Gilbert \cite [TrG07a] discussed the complexity of OMP in the companion paper \cite [TrG07b], giving
+%
+\DispNum {C:P:ON:NY} {
+\NC C_{\Rm {OMP}}
+=\NC \MS {O} \SB {L \RB {\log N_h} ^2} \NR
+}
+
+\startsubsection [title={Lasso}]
+
+Lasso is equivalent to a quadratically constrained quadratic program, and there is not always a closed form for its complexity.
+However, Lasso and DS are equivalent in certain conditions \cite [AsR10], and we may suppose here they have the same complexity, \m {\MS {O} \SB {N_h ^3}}.
+
+Alternatively, an argument similar to the above one for DS is valid for Lasso.
+
+Therefore we take
+\DispNum {C:o:ON:H6} {
+\NC C_{\Rm {Lasso}}
+=\NC \MS {O} \SB {N_h ^3} \NR
+}
+
+\stopsubsection
+
+\startsubsection [title={Runtime statistics}]
+
+All plots included in this treatise, in total, took about one month to run.
+Figures for \m {N_{H,t}, N_{H,r} \geq 24} each took about \m {3} days.
+The computer has \m {32} GB RAM, and Intel Core i9 processor.
+Simulation was run on Linux subsystem 2 of Windows 10.
+
+Simulation illustrates that \m {t_{\Rm {DS}}} grows tremendously with \m {N_h}, agreeing Friedlander and Saunders \cite {FrS07} who noted the high complexity of DS.
+This is not surprising, since the inversion of \m {\M {P} \M {P} ^\Adj} is probably the bottleneck of complexity, which has dimension \m {N_h}.
+By the way, different tolerance levels and maximal iteration numbers may result in vastly different computation time.
+
+Meanwhile, \m {t_{\Rm {Lasso}}} and \m {t_{\Rm {OMP}}} are often an order of magnitude lower than \m {t_{\Rm {DS}}}.
+In general, \m {t_{\Rm {DS}} \gg t_{\Rm {Lasso}} \gg t_{\Rm {OMP}}}.
+It is not surprising that, given that OMP is a greedy algorithm, the time OMP takes is negligibly small.
+But it is also notable that, while Lasso has form similar to DS, it takes much lower time.
+
+Assuming the complexity of each of three methods is polynomial time, we calculate a least square fit for the power of complexity, giving the following estimated values, on which we add a tilde.
+
+\DispNum {t:P:NH:83} {
+\NC \T {t}_{\Rm {OMP}} \NC \eqsim \MS {O} \SB {N_h^{1.8}} \NR
+\NC \T {t}_{\Rm {Lasso}} \NC \eqsim \MS {O} \SB {N_h^{2.4}} \NR
+\NC \T {t}_{\Rm {DS}} \NC \eqsim \MS {O} \SB {N_h^{4.2}} \NR
+}
+
+However, note that we must be careful in giving meaningful comparison between compressive sensing algorithms, as they might work in different settings.
+DS requires a RIP linear transformation, and it works for noisy linear systems \cite [CaT07].
+Here, it is not easy to justify RIP rigorously, and a more feasible construction is even a research problem.
+OMP, on the other hand, requires only an entrywise i.i.d.\ sensing matrix \cite [TrG07a], of which much is yet to be studied.
+All in all, we might say that on the whole, DS trades off low time- and space-complexity for high precision, and for OMP the opposite is true.
+
+
+\stopsubsection
+
+\stopsection
+
+\stopchapter
+

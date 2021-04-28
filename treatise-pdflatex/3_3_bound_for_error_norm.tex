@@ -1,0 +1,326 @@
+\section {Bound for expected error norm}
+
+\subsection {Technical propositions in complex case}
+
+The third and last part of our task is to plug in the almost-sparsity found in Section \m {3.1}, and the failure probability found in Section \m {3.2}.
+Set for short
+%
+\DispNum {d:d:gg:gg} {
+\V {d} 
+= \hat {\V {g}} - \V {g} 
+}
+%
+And for convenience, let
+\Disp {
+N_h
+= N_{H,t} N_{H,r}
+}
+
+%
+To bound \m {\VNm {\V {d}} _2}, we illustrate that \m {\V {g}} can be seen as sparse, and for that purpose we generously bound \m {\d_{S}} by \m {1}.
+We shall see below that it suffices to set
+%
+\DispNum {g':g':2N:Nh} {
+\g
+= \R {2 \log N_h} 
+}
+%
+The propositions below are taken from \cite {CaT07} and modified slightly in accordance to our settings, in addition to the generalization to complex vectors.
+%
+\Result
+{Proposition}
+{
+%
+\DispNum {d:1:dA:C1} {
+\VNm {\V {d} _{\SB{\mathcal {C}}}} _1
+\leq \VNm {\V {d} _{\SB{\mathcal {A}}}} _1
++\VNm {\V {g} _{\SB{\mathcal {C}}}} _1 
+}
+}
+
+To show this, apply triangle inequality respectively on \m {\mathcal {A}} and \m {\mathcal {C}},
+%
+\DispNum {g:1:gd:g1} {
+\VNm {\V {g}} _1
+- \VNm {\V {d} _{\SB{\mathcal {A}}}} _1
++ \VNm {\V {d} _{\SB{\mathcal {C}}}} _1
+- \VNm {\V {g} _{\SB{\mathcal {C}}}} _1
+\leq \VNm {\V {g} + \V {d}} _1
+%
+=\VNm {\hat {\V {g}}} _1 
+}
+%
+Also, by construction that \m {\hat {g}} minimizes the \m {\ell_1}-norm,
+%
+\DispNum {g:1:g1:g1} {
+\VNm {\hat {\V {g}}} _1
+\leq \VNm {\V {g}} _1 
+}
+as desired.
+
+%
+\Result
+{Proposition}
+{
+If \m {\M {P}} has \m {\d_S} RIP, then it holds that
+%
+\DispNum {P:d:4N:Nh} {
+\VNm {\M {P}^\dagger \M {P} \V {d}} _\infty
+\leq  2 \R {2 \log N_h} 
+}
+%
+for probability \m {p}, with
+%
+\DispNum {1:p:NH:H2} {
+1 -p
+\leq N_h^{-1}.
+}
+}
+
+To show this, by definition,
+%
+\DispNum {z:y:Pg:ny} {
+\IP {\V {z} - \RB {\V {y} - \M {P} \hat {\V {g}}}, \M {P} _{\SB {:,n_h}}}
+= &\IP {\M {P} \hat {\V {g}} - \M {P} \V {g}, \M {P} _{\SB {:,n_h}}} \notag \\
+%
+= &\IP {\M {P} \V {d}, \M {P} _{\SB {:,n_h}}} 
+}
+%
+On one hand, \m {\Nm {\IP {\V {z} , \M {P} _{\SB {:, n_h}}}}} observes standard normal.
+Recall the tail bound for \m {Q} function
+%
+\DispNum {Q:x:12:22} {
+Q\SB {x'}
+\leq \frac {1} {2} \mathsf {e}^{-x'^2 /2} 
+}
+%
+Particularly, fix threshold \m {x' =\R {2 \log N_h}}, yielding
+%
+\DispNum {Q:h:1N:Nh} {
+Q\SB {\R {2 \log N_h}}
+=\frac {1} {2 N_h}. 
+}
+%
+On the other hand, by construction
+%
+\DispNum {P:g:Py:Nh} {
+\VNm {\M {P} _{\SB {:,n_h}}^\dagger \RB {\V {y} - \M {P} \hat {\V {g}}}} _\infty
+\leq &\VNm {\M {P}^\dagger \RB {\V {y} - \M {P} \hat {\V {g}}}} _\infty \notag \\
+%
+\leq &2\R {\log N_h} 
+}
+
+Now, by triangle inequality, together with \eqref {Q:h:1N:Nh} and \eqref {P:g:Py:Nh}, we obtain the desired result.
+%
+\DispNum {P:d:zP:Nh} {
+\VNm {\M {P} _{\SB {:,n_h}}^\dagger \M {P} \V {d}} _\infty
+\leq &\Nm {\IP {\V {z}, \M {P} _{\SB {:,n_h}}}}
++ \IP {\V {y} - \M {P} \hat {\V {g}}, \M {P} _{\SB {:,n_h}}} \notag \\
+%
+\simeq &\R {2 \log N_h} + \R {2 \log N_h} 
+}
+
+Lastly, the following two propositions are taken from \cite {CaT07}, Lemma \m {1}.
+The generalization from real vector spaces to complex spaces is obvious.
+The first quoted propositions reads
+%
+\DispNum {d:2:dA:12} {
+\VNm {\V {d}} _2^2
+\leq \VNm {\V {d} _{\SB {\mathcal {AB}}}} _2^2 + \frac {1} {S} \VNm {\V {d} _{\SB{\mathcal {C}}}} _1^2 
+}
+%
+By Jensen inequality,
+%
+\Result
+{Proposition}
+{
+%
+\DispNum {d:2:dA:C1} {
+\VNm {\V {d}} _2
+\leq \VNm {\V {d} _{\SB {\mathcal {AB}}}} _2 + \frac {1} {\R {S}} \VNm {\V {d} _{\SB{\mathcal {C}}}} _1 
+}
+}
+
+The second quoted proposition reads
+%
+\Disp {
+\VNm {\V {d} _{\SB{\mathcal {AB}}}} _2
+\leq \frac {1} {1- \d_{2S}} \VNm {P _{\SB {\mathcal {AB}}}^\intercal P d} _2
++ \frac {\tilde {\d}_{S, 2S}} {\RB {1- \d_{2S}} \R {S}} \VNm {d_{\SB{\mathcal {C}}}} _1 
+}
+%
+Here \m {\tilde {\d} _{s_1, s_2}} denotes the \m {s_1,s_2}-restricted isometry constant, and is defined in \cite {Can05} (which uses \m {\th}), as follows.
+Let \m {\M {Q}'} be fixed.
+For all \m {s_1}-sparse \m {\V {x}_1}, for all \m {s_2}-sparse \m {\V {x}_2}, whose nonzero-components are disjoint,
+%
+\DispNum {d:2:in:x2} {
+\tilde {\d} _{s_1, s_2}
+= \inf \CB {
+\d':\; \Nm {\IP {\M {Q}' \V {x}_1, \M {Q}' \V {x}_2}}
+   \leq \d' \VNm {\V {x}_1} \VNm {\V {x}_2}
+} 
+}
+%
+\m {\tilde {\d} _{s_1, s_2}} can be related to \m {\d_s} by \cite {Can05}
+\DispNum {d:2:ds:s2} {
+\tilde {\d} _{s_1, s_2}
+\leq \d_{s_1+s_2} 
+}
+
+We also make the approximation that
+%
+\DispNum {d':S:Ll:d's} {
+\d_{S}
+\leq \R {L} \RB {\log N_h} ^{1/4} \d_{s} 
+}
+%
+So we have
+%
+\Result
+{Proposition}
+{
+If \m {\M {P}} has \m {\d_S} RIP,
+%
+\DispNum {d:2:11:C1} {
+\VNm {\V {d} _{\SB{\mathcal {AB}}}} _2
+\leq \frac {1} {1- \R{2} \d_{S}} \VNm {P _{\SB {\mathcal {AB}}}^\intercal P d} _2
++ \frac {\R{3} \d_{S}} {\RB {1- \R{2} \d_{S}} \R {S}} \VNm {d_{\SB{\mathcal {C}}}} _1 
+}
+}
+
+
+\subsection {Proposed bound}
+
+Finally, we shall show the proposed bound by combining previous propositions.
+For simplicity, set \m {S = Ls^2}, thus
+%
+\DispNum {S:S:4N:NH} {
+S
+=L \log N_h 
+}
+%
+And, for concreteness,
+%
+\DispNum {d':S:18:18} {
+\d_S
+\leq \frac {1} {8} 
+}
+%
+\Result
+{Theorem}
+{
+Let \m {\V {y}}, \m {\M {P}}, \m {\V {g}}, \m {\hat {\V {g}}}, \m {\V {d}} be defined as above.
+Then it holds that
+%
+\DispNum {d:2:OL:H3} {
+\VNm {\V {d}} _2
+\eqsim \mathcal {O} \SB {\R {L} \R {\log N_h}^3} 
+}
+%
+for probability \m {p}, with
+%
+\DispNum {1:p:ON:13} {
+1 -p
+\eqsim \mathcal {O} \SB {\mathsf {e} ^{-N_B /12}} 
+}
+}
+
+To show this, by the definition of truncation, by \m {\ell_p} norm inequality, by \eqref {P:d:4N:Nh},
+%
+\DispNum {P:2:PP:NH} {
+\VNm {\M {P} _{\SB {\mathcal {AB}}}^\intercal \M {P} \V {d}} _2
+\leq &\VNm {\M {P}^\intercal \M {P} \V {d}} _2 \notag \\
+%
+\leq &\R {S} \VNm {\M {P}^\intercal \M {P} \V {d}} _\infty \notag \\
+%
+\leq &2.83 \R {L} \log N_h
+}
+%
+By \m {\ell_p}-norm inequality, by the definition of truncation, by \eqref {d:2:11:C1}, and by \eqref {P:2:PP:NH} just above,
+%
+\DispNum {d:1:Sd:C1} {
+\VNm {\V {d} _{\SB{\mathcal {A}}}} _1
+\leq &\R {S} \VNm {\V {d} _{\SB{\mathcal {A}}}} _2 \notag \\
+%
+\leq &\R {S} \VNm {\V {d} _{\SB{\mathcal {AB}}}} _2 \notag \\
+%
+\leq &3.44 L \R {\log N_h}^3
++0.262 \VNm {\V {d} _{\SB{\mathcal {C}}}} _1 
+}
+%
+Then, substituting \eqref {g:C:4p':NH} and \eqref {d:1:Sd:C1} above into \eqref {d:1:dA:C1}, we get
+\DispNum {d:C1:16:H2} {
+\VNm {\V {d} _{\SB{\mathcal {C}}}} _1
+%
+\leq 5.12 L \RB {\log N_h}^2
+}
+
+Now \eqref {d:2:11:C1} becomes
+%
+\DispNum {d:2:16:H3} {
+\VNm {\V {d} _{\SB{\mathcal {AB}}}} _2
+%
+\leq 3.44 \R {L} \log N_h + 1.35 \R {L} \R {\log N_h} ^3
+}
+and we are ready to estimate \m {\VNm {d} _2}, again by \eqref {d:2:dA:C1}, and plugging in \eqref {d:2:16:H3} and \eqref {d:C1:16:H2}, giving
+\DispNum {d:2:42:NH} {
+\VNm {\V {d}} _2
+\leq 4.79 \R {L} \R {\log N_h}^3
+}
+Therefore, we set
+\DispNum {c':c':8L:H3} {
+\chi
+= \R {L} \R {\log N_h}^3
+}
+so that
+\DispNum {d:d:c'-:c'-} {
+\VNm {\V {d}} _2
+= \mathcal {O} \RB {\chi}
+}
+
+We end this chapter by remarking on the four events of failure, as follows.
+Consider failure probabilities \m {q _{\mathrm {iso}, B}}, \m {q _{\mathrm {iso}, R}}, \m {q _{\mathrm {no}}}, \m {q _{\mathrm {sp}}}, respectively for restricted isometry, noise, sparsity.
+If all of them are small, a naive application of union bound suggests
+\DispNum {q:q:2q:ar} {
+q
+\eqsim 2 \RB {q _{\mathrm {iso}, B} + q _{\mathrm {iso}, R}} +q _{\mathrm {no}} +q _{\mathrm {sp}} 
+}
+Quoting previous results \eqref {1:p:2e:s4}, \eqref {1:p:ex:d's}, \eqref {1:p:NH:H2}, and \eqref {1:p:1N:H3}, we make some approximation and set
+\DispNum {q:B:2e:Lp'} {
+q _{\mathrm {iso}, B}
+\lesssim &2 \mathsf {e} ^{-N_B /12} \notag \\
+%
+q _{\mathrm {iso}, R}
+\lesssim &2 N_h ^{-1/6} \RB {\log N_h} ^{-1/6} \notag \\
+%
+q _{\mathrm {no}}
+\lesssim &N_h ^{-1} \notag \\
+%
+q _{\mathrm {sp}}
+\lesssim &2 \mathsf {e} ^{-9L/\pi} 
+}
+%
+If we provide the ideal values
+\DispNum {N:B:4l:H2} {
+N_B
+\gtrsim &2 \log N_h \\
+%
+N_R
+\gtrsim &4 L \RB {\log N_h}^2
+}
+%
+It can be seen that
+\DispNum {q:p:qn:oR} {
+q _{\mathrm {sp}}
+\lesssim q _{\mathrm {no}}
+%
+\lesssim q _{\mathrm {iso}, R}
+%
+\eqsim q _{\mathrm {iso}, B}
+}
+%
+then we get the estimation
+\DispNum {q:q:ON:13} {
+q
+\eqsim 2 \mathsf {e} ^{-N_B /12} 
+}

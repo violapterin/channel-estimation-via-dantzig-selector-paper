@@ -1,0 +1,204 @@
+
+\definemathmatrix[TheMatrix][left={\left[}, right={\right]}]
+\definecounter [NumResult] [start=0, way=bytext, prefix=no]
+\definefontfeature [default] [default] [onum=yes]
+\definefontfamily [MainFace] [rm] [TeX Gyre Pagella]
+\definefontfamily [MainFace] [ss] [TeX Gyre Heros]
+\definefontfamily [MainFace] [tt] [TeX Gyre Cursor] [features=none]
+\definefallbackfamily [MainFace] [mm] [TeX Gyre DejaVu Math] [force=yes,range=uppercasescript]
+\definefallbackfamily [MainFace] [mm] [TeX Gyre DejaVu Math] [force=yes,range=lowercasescript]
+\definefontfamily [MainFace] [mm] [TeX Gyre Pagella Math]
+\definemeasure [pointoneline] [1.5\baselineskip]
+\definecolor [headingcolor] [r=0.2, g=0.25, b=0.5]
+\definealternativestyle [TitleStyle] [\ss\bfd] []
+\definealternativestyle [AuthorStyle] [\ss\tfb] []
+\definemakeup [titlepage] [align=middle]
+\definereferenceformat [eqnref] [left=(, right=), text=Eqn.] 
+\definetextbackground [framedcode] [frame=off, background=no, rightoffset=0.3cm, location=paragraph]
+\definetyping [Code] [
+   numbering=no, bodyfont=small, before={\startframedcode}, after={\stopframedcode}]
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\define [0] {\a} {\alpha}
+\define [0] {\b} {\beta}
+\define [0] {\g} {\gamma}
+\define [0] {\G} {\Gamma}
+\define [0] {\h} {\eta}
+\define [0] {\d} {\delta}
+\define [0] {\e} {\varepsilon}
+\define [0] {\f} {\varphi}
+\define [0] {\l} {\lambda}
+\define [0] {\s} {\sigma}
+\define [0] {\i} {\iota}
+\define [0] {\th} {\vartheta}
+\define [0] {\z} {\zeta}
+\define [0] {\O} {\Omega}
+\define [0] {\o} {\omega}
+\define [0] {\D} {\cdot}
+\define [0] {\Adj} {\dagger}
+\define [0] {\Tr} {\intercal}
+\define [0] {\LA} {\leftarrow}
+\define [0] {\Q} {\quad}
+\define [0] {\FourQ} {\Q \Q \Q \Q}
+\define [0] {\SixQ} {\Q \Q \Q \Q \Q \Q}
+
+
+\define [1] {\MB} {{\mathblackboard {#1}}}
+\define [1] {\MC} {{\mathscript {#1}}}
+\define [1] {\MF} {{\mathfraktur {#1}}}
+\define [1] {\Rm} {{\rm {#1}}}
+\define [1] {\It} {{\it {#1}}}
+\define [1] {\Bf} {{\bf {#1}}}
+\define [1] {\Ss} {{\ss {#1}}}
+\define [1] {\Tt} {{\tt {#1}}}
+\define [1] {\RB} {\left( #1 \right)}
+\define [1] {\SB} {\left[ #1 \right]}
+\define [1] {\CB} {\left { #1 \right}}
+\define [1] {\DB} {\left[ \! \left[ #1 \right] \! \right]}
+\define [1] {\Fl} {\left \lfloor #1 \right \rfloor}
+\define [1] {\Cl} {\left \lfloor #1 \right \rfloor}
+\define [1] {\Nm} {\left \vert #1 \right \vert}
+\define [1] {\VNm} {\left \Vert #1 \right \Vert}
+\define [1] {\R} {\sqrt {#1}}
+\define [1] {\Min} {\underset {#1} {\Rm {min}}\;}
+\define [1] {\IP} {\left \langle #1 \right \rangle}
+\define [1] {\V} {\underline {#1 \mkern -1mu} \mkern 2mu}
+\define [1] {\T} {\tilde {\vphantom {\overline {#1}} #1}}
+\define [1] {\Hat} {\hat {\vphantom {\overline {#1}} #1}}
+\define [1] {\Stack} {\startsubstack #1 \stopsubstack}
+\define [1] {\Rf} {\eqnref [#1]}
+\define [1] {\Quote} {\quotation {#1}}
+\define [1] {\M} {
+   \underline {{\underline {#1 \mkern -1mu} \mkern 2mu} \mkern -2mu}
+   \mkern 2mu}
+\define[1] {\Uurrll} {
+   \goto {\mono {\hyphenatedurl {#1}}} [url (#1)]}
+\define [1] {\Disp} {
+   \startsplitformula
+   \startalign
+      #1
+   \stopalign
+   \stopsplitformula
+   \noindent}
+
+\define [2] {\F} {\frac {#1} {#2}}
+\define[2] {\Result} {
+   \incrementcounter[NumResult]
+   \bigskip
+   \noindent \Bf {\getnumber [NumResult] \; #1} \par
+   #2 \par
+   \hfill \m {\blacksquare} \break
+}
+\define [2] {\DispNum} {
+   \placeformula [#1]
+   \startsplitformula
+   \startalign
+      #2 [+]
+   \stopalign
+   \stopsplitformula
+   \noindent}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\setupparagraphs [n=3, before={\blank}, after={\blank}]
+\setupbodyfont [MainFace, 12pt]
+\setupinteraction [state=start]
+\setupcolors [state=start]
+\setuppapersize [A4] [A4]
+\setuppagenumbering [location={footer,middle}, style=slanted]
+\setuphead [chapter, section, subsection] [color=headingcolor]
+\setuphead [chapter] [style={\ss\bfd}]
+\setuphead [section] [style={\ss\tfc}]
+\setuphead [subsection] [style={\ss\itb}]
+\setuphead[title] [incrementnumber=list, number=no]
+\setuphead[subject] [incrementnumber=list, number=no]
+\setuphead[subsubject] [incrementnumber=list, number=no]
+\setuplist[chapter] [width=2cm]
+\setuplist[section] [width=2cm]
+\setuplist[subject] [width=2cm]
+\setupitemize [inbetween={}, style=bold]
+\setuptype [lines=hyphenated]
+\setupindenting[big,always]
+\setupwhitespace[medium]
+\setupcombinedlist [content] [list={chapter, title, section, subject, subsection, subsubject}]
+\setuplayout [
+   backspace=17mm,
+   margin=15mm,
+   margindistance=0mm,
+   width=168mm,
+   topspace=13mm,
+   height=260mm,
+   header=10mm,
+   footer=10mm,
+   bottomdistance=0mm,
+   bottom=8mm]
+\setupformulae [spacebefore=2mm, spaceafter=2mm, indentnext=no]
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\usebtxdataset [references.bib]
+\setupbtx [alternative=num]
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% % % % % % SLIDES ONLY % % % % % %
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\define [0] {\I} {\item}
+
+\define [0] {\TitleText}
+{
+   Dantzig Selector \\
+   Applied on mm-Wave MIMO \\
+   Channel Estimation}
+\define [0] {\AuthorText}
+{
+   Presenter: Tzu-Yu Jeng \\
+   Advisor: Prof.\ H.\ J.\ Su}
+\define [0] {\InstitutionText}
+{
+Graduate Instute of Communication Engineering, \\
+National Taiwan University}
+
+\define [1] {\Title} {
+   \startalignment [middle]
+   {\ss\bfc #1}
+   \stopalignment}
+\define [1] {\Subtitle} {
+   \startalignment [middle]
+   {\ss\tfb #1}
+   \stopalignment}
+\define [1] {\Subsubtitle} {
+   \startalignment [middle]
+   {\ss\itx #1}
+   \stopalignment}
+\define [1] {\Frametitle} {
+   {\ss\bfb #1}} % Comment out if white background is desired
+\define [1] {\Emph} {
+   {\bf{#1}}} % Comment out if white background is desired
+
+\define [2] {\Frame} {
+   \Frametitle {#1}
+   \startitemize #2 \stopitemize
+   \page [yes]}
+
+\setuppapersize[S4][S4]
+% \setupbackgrounds [page] [background=color, backgroundcolor=midnightblue] % Comment out if white background is desired
+\setuplayout [
+   backspace=9mm,
+   margin=0mm,
+   margindistance=0mm,
+   width=122mm,
+   topspace=9mm,
+   height=90mm,
+   header=0mm,
+   footer=4mm,
+   bottomdistance=0mm,
+   bottom=4mm
+]
+
+\setupitemize [] [serried]
+
+\usecolors[xwi]
+
+% \startcolor[white] % Comment out if white background is desired

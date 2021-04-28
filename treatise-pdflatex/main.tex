@@ -1,0 +1,47 @@
+
+\documentclass [a4paper, 12pt, twoside, openright] {book}
+
+\input {preamble.tex}
+
+\begin{document}
+\title{
+   \textbf {Dantzig Selector} \\ \bigskip
+   \textbf {Applied on mm-Wave MIMO} \\ \bigskip
+   \textbf {Channel Estimation} \\ \bigskip
+   \textbf {and Error Analysis}
+}
+\author{
+   {\it Tzu-Yu Jeng} \\ \bigskip
+   {\it Advisor: Prof.\ H.\ J.\ Su} \\ \bigskip
+   {\it Graduate Institute of Communication Engineering} \\ \bigskip
+   {\it National Taiwan University} \\ \bigskip
+   {\it Taipei, Taiwan}
+}
+{\date{Nov 2020}}
+
+\hypersetup {pageanchor = false}
+
+\maketitle
+
+\frontmatter
+\input {abstract.tex}
+\input {foreword.tex}
+\input {notation.tex}
+\tableofcontents
+\listoffigures
+
+\hypersetup {pageanchor = true}
+
+\mainmatter
+
+\input {1_introduction.tex}
+\input {2_problem_setting.tex}
+\input {3_error_analysis.tex}
+\input {4_simulation.tex}
+\input {5_conclusion.tex}
+\input {source_code.tex}
+
+\printbibliography
+
+\end{document}
+

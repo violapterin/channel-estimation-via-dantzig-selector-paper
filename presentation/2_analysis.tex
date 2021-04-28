@@ -1,0 +1,38 @@
+\Frame {Error Analysis}
+{
+\I Fix sparsity \m {s = L \RB {\log N_H}^2} for definiteness.
+
+\I Can we bound \m {\VNm {\V {h} -\Hat {\V {h}}} _2}?
+
+\I Does it matter that \m {\V {g}} is not strictly sparse?
+
+\I If \m {\M {F}_B, \M {F}_R, \M {W}_B, \M {W}_R}, all have restricted isometry, does \m {\m {P}} have too?
+
+\I Big \m {\MC {O}} probability of failure events?
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {The Bound}
+{
+\I We argue in the treatise that it holds for probability \m {p} that
+\Disp {
+\NC \VNm {\Hat {\V {g}} - \V {g}} _2
+%
+\eqsim \NC \MC {O} \SB {\R {L} \RB {\log N_H} ^{3/2}} \NR
+}
+%
+\I For ideal values
+\Disp {
+\NC N_{B,t}, N_{B,r}
+\gtrsim 16 L \RB {\log N_H}^2 \NR
+}
+%
+\I And it holds that
+\Disp {
+\NC 1 - p
+\eqsim \NC \MC {O} \SB {\Ss {e} ^{-\R {N_{B,t} N_{B,r}} /12}}
+ \NR
+}
+}
+
+
+

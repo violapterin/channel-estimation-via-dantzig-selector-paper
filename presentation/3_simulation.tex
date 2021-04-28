@@ -1,0 +1,87 @@
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Reducing the complexity}
+{
+\I Casting to a linear program (not used now)
+
+\I Successively estimate the nonzero components (not used now)
+
+\I Use the basis pursuit denoising form
+
+\Disp {
+\NC \Hat {\V {g}}
+\LA \NC \Min {\V {g}'} 
+\CB {
+\VNm {\V {g}'} _1 
++ \l_{\Ss {DS}} \VNm {\M {P}^\Adj \RB {\V {y} -\M {P} \V {g}'}} _\infty
+} \NR
+}
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Error norm (1/6)}
+{
+\I \m {N_B=2, N_R=3, N_{H,t}=6, N_{H,r}=8}, 6 stages
+\blank [big]
+\externalfigure [error-small-more-tall-six-usual.png] [width=11cm]
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Error norm (2/6)}
+{
+\I \m {N_B=2, N_R=3, N_{H,t}=8, N_{H,r}=6}, 6 stages
+\blank [big]
+\externalfigure [error-small-more-wide-six-usual.png] [width=11cm]
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Error norm (3/6)}
+{
+\I \m {N_B=4, N_R=6, N_{H,t}=12, N_{H,r}=16}, 6 stages
+\blank [big]
+\externalfigure [error-small-more-tall-six-usual.png] [width=11cm]
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Error norm (4/6)}
+{
+\I \m {N_B=4, N_R=6, N_{H,t}=16, N_{H,r}=12}, 6 stages
+\blank [big]
+\externalfigure [error-small-more-wide-six-usual.png] [width=11cm]
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Error norm (5/6)}
+{
+\I \m {N_B=6, N_R=8, N_{H,t}=18, N_{H,r}=24}, 6 stages
+\blank [big]
+\externalfigure [error-small-more-tall-six-usual.png] [width=11cm]
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Error norm (6/6)}
+{
+\I \m {N_B=6, N_R=8, N_{H,t}=24, N_{H,r}=18}, 6 stages
+\blank [big]
+\externalfigure [error-small-more-wide-six-usual.png] [width=11cm]
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Discussion}
+{
+\I DS outperforms other methods in the high noise case and less measurement
+
+\I The relaxed sparsity may have compromised its effectiveness.
+
+\I DS has complexity much higher than OMP, and somewhat higher than Lasso.
+
+\I Unfortunately, the values are too small to verify the asymptotic bound.
+}
+% XXX % % XXX % % XXX % % XXX % % XXX % % XXX %
+\Frame {Complexity}
+{
+\I Let \m {C} denote big-O estimation of complexity, then
+\Disp {
+\NC C_{\Rm {OMP}} =\NC \mathcal {O} \SB {N_H^2 \log N_{B,t} N_{B,r}} \NR
+\NC C_{\Rm {Lasso}} =\NC \mathcal {O} \SB {N_H^6} \NR
+\NC C_{\Rm {DS}} =\NC \mathcal {O} \SB {N_{H}^6} \NR
+}
+
+\I Fitting the exponent of runtime statistics roughly agrees these result.
+
+\I In certain conditions it is pointed out Lasso and DS are equivalent.
+}
+
+
