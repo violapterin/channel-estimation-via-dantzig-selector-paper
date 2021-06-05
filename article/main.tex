@@ -1,6 +1,77 @@
 
 \documentclass[journal]{IEEEtran}
 
+
+\usepackage [utf8] {inputenc}
+\usepackage [english] {babel}
+\usepackage [final] {microtype}
+\usepackage {graphicx}
+\usepackage {csquotes}
+\usepackage {amssymb}
+\usepackage {amsmath}
+\usepackage {amsfonts}
+\usepackage {mathtools}
+\usepackage {float}
+\usepackage {hyperref}
+\usepackage {listingsutf8}
+\usepackage{chngcntr}
+
+\renewcommand {\a} {\alpha}
+\renewcommand {\b} {\beta}
+\newcommand {\g} {\gamma}
+\newcommand {\G} {\Gamma}
+\newcommand {\h} {\eta}
+\renewcommand {\d} {\delta}
+\newcommand {\e} {\varepsilon}
+\newcommand {\f} {\varphi}
+\renewcommand {\l} {\lambda}
+\newcommand {\s} {\sigma}
+\renewcommand {\i} {\iota}
+\renewcommand {\th} {\vartheta}
+\newcommand {\z} {\zeta}
+\renewcommand {\O} {\Omega}
+\renewcommand {\o} {\omega}
+\newcommand {\D} {\cdot}
+\newcommand {\Adj} {\dagger}
+\newcommand {\Tr} {\intercal}
+
+\newcommand {\m} [1] {\( #1 \)}
+\newcommand {\V} [1] {\underline {#1}}
+\newcommand {\M} [1] {\underline {\underline {#1}}}
+\newcommand {\T} [1] {\tilde {#1}}
+\newcommand {\RB} [1] {\left( #1 \right)}
+\newcommand {\SB} [1] {\left[ #1 \right]}
+\newcommand {\CB} [1] {\left\{ #1 \right\}}
+\newcommand {\DB} [1] {\left[ \! \left[ #1 \right] \! \right]}
+\newcommand {\Fl} [1] {\left \lfloor #1 \right \rfloor}
+\newcommand {\Cl} [1] {\left \lfloor #1 \right \rfloor}
+\newcommand {\Nm} [1] {\left \vert #1 \right \vert}
+\newcommand {\VNm} [1] {\left \Vert #1 \right \Vert}
+\newcommand {\R} [1] {\sqrt {#1}}
+\newcommand {\Min} [1] {\underset {#1} {\mathrm {min}}\;}
+\newcommand {\IP} [1] {\left \langle #1 \right \rangle}
+\newcommand {\Stack} [1] {\startsubstack #1 \stopsubstack}
+\newcommand {\DispNum} [2] {
+   \begin {align}
+      \label {#1}
+      #2
+   \end {align}
+}
+\newcommand {\Disp} [1] {
+   \begin {align*}
+      #1
+   \end {align*}
+}
+\newcounter {result}
+\newcommand {\Result} [2] {
+   \par
+   \refstepcounter {result}
+   \textbf {\theresult \; #1} \par
+   #2 \par
+   \hfill $\blacksquare$ \par
+}
+
+
 \begin{document}
 
 \title{Dantzig Selector Applied on mm-Wave MIMO Channel Estimation and and Error Analysis}
@@ -13,6 +84,8 @@ of Electrical Engineering, National Taiwan University.}
 
 \markboth{IEEE Journal of whatever,~Vol.~0, No.~0, June~2020}%
 {Jeng and Su: Dantzig Selector Applied on mm-Wave MIMO Channel Estimation}
+
+
 
 \maketitle
 
@@ -38,23 +111,95 @@ channel estimation, compressive sensing, sparsity, Dantzig Selector, regularizat
 
 \section{Introduction}
 
-I wish you the best of success.
-%\IEEEPARstart{T}{his} demo file is intended to serve as a ``starter file''
-%for IEEE journal papers produced under \LaTeX\ using
-%IEEEtran.cls version 1.8b and later.
+\subsection {Background}
 
-\hfill mds
- 
-\hfill August 26, 2015
+Multiple-input multiple-output (MIMO) communication systems will be part of the 5G specification.
+With a large number of antennae on both transmitter and receiver ends, MIMO is expected to provide a large signal gain.
+Parallel and redundant transmission of data improves the error-correcting ability, and beamforming improves the signal level.
+The millimeter wave (mm-wave) is adopted, since its smaller wavelength (and thus higher frequency) makes wider bands available.
+Moreover the antennae may be closer-spaced, allowing us to increase their number \cite {RSM13}.
+However, because of a larger antennae array and of larger noise corruption in higher frequency, estimation of MIMO channel state information gives rise to higher complexity, and hence higher hardware overhead and power consumption.
+Indeed, RF chains are more expensive and power-consuming, so there is growing attention on hybrid beamforming, where there are not fewer RF chain than the antennae.
 
-\subsection{Subsection Heading Here}
-Subsection text here.
+If we consider a slow varying MIMO channel for simplicity, in terms of a channel representation, to estimate the channel is to determine the parameters of the representation.
+It amounts to invert a linear system whose dimension is the number of antennae, for which conventional training-based algorithms are not very effective.
 
+Fortunately, physical evidence has suggested that mm-wave channel are poor in scattering \cite {ALS14}, which reduces the number of paths, and compressive sensing techniques may be used.
+Generally speaking, compressive sensing aims to reconstruct an underdetermined linear system, when the sparsity of solution guarantees successful recovery for most cases.
+In our settings for hybrid beamforming structure, a way of generating the sensing matrix and pilot vectors in the estimation stage has to be devised and justified.
+
+Compressive sensing approaches can be divided into two categories, the convex programming approach and the greedy approach \cite {RDD18}.
+We will discuss one from each in more detail: Dantzig Selector and Orthogonal Matching Pursuit.
+
+Back to our problem of MIMO channel estimation, recall that, luckily, physical evidences suggest that mm-wave channels are sparse in the number of paths.
+Bajwa et.\ al.\ \cite {BHS10} used DS, where they argued that if the \m {\ell_0}-norm of the channel matrix may be bounded by a constant, DS may be applied to estimate the time-dependent single-antenna channel response,
+and in the accompanying note \cite {BHR08} they justified that \m {X} has RIP for overwhelming probability.
+However, there seems to be no work by now which addresses the constraint of hybrid beamforming.
+
+Some scholars applied least absolute shrinkage and selection operator (Lasso) instead.
+In fact, it can be shown that Lasso and DS have similar behavior \cite {AsR10}.
+Lian, Liu and Lau applied Lasso on MIMO with an analog combiner \cite {LLL17}.
+Destino, Juntti, and Nagaraj used an adaptive Lasso \cite {DJN15}, and Vlachos, Alexandropoulos, and Thompson \cite {VAT19} used Lasso on hybrid beamforming with an additional random spatial sampling device.
+Both Destino et al and Vlachos et al optimize formulate an algorithm to jointly find the channel and the sensing matrix, which can result in high complexity.
+
+
+OMP has since been commonly used for channel estimation.
+Alkhateeb, Leus, and Heath Jr.\ \cite {ALH15} examined the trade-off between number of measurement and accuracy for an all-phase-shifter beamforming matrix based on nonuniform fixed set of angles.
+Hu, Wang, and He \cite {HWH13} applied OMP to estimate path delay of OFDM subcarriers.
+Lee, Gil, and Lee \cite {LGL16} considered a hybrid system, where the hybrid beamforming matrix serves as sensing matrix;
+the analog stage is a Fourier matrix, and the digital stage consists of a collection of columns vectors of a unitary matrix.
+Gao, Dai, and Wang proposed a variant of OMP which there is the assumption of spatially common sparsity \cite {GDW15}.
+
+Performance guarantee of OMP is also studied on various conditions.
+Cai, Wang, and Xu \cite {CWX10} gave a new bound on performance of OMP under assumption of low coherence of columns.
+Cai and Wang \cite {CaW11} extended the study to DS and other convex programs for sparse recovery, and Ben-Haim et.\ al.\ \cite {BEE10} followed up and refined their bounds, concluding that OMP is better for low SNR scenario, and DS is better for high SNR.
+
+\subsection {Contribution}
+
+Due to the constraint of hybrid structure, the designs which use fully digital beamforming cannot be directly applied, and the designs which use only analog beamforming might not be optimal.
+Indeed, if DS is shown to be optimal \cite {CaT07}, then if we can overcome the problem of complexity among other difficulties, it may turn out to outperform greedy methods, and is even necessary for less ideal situations.
+
+In this treatise, we consider a hybrid structure with a uniform linear array with both precoders and combiners on each side.
+We shall generate random beamforming matrices, and use DS to estimate the channel in the space frequency domain.
+To the best of our knowledge, the sensing matrix with i.i.d.\ entries in both analog and digital stages has not been discussed on the literature.
+We shall see that in our proposed method, the effective sensing matrix has RIP for high probability, which may serve as the sensing matrix for DS,
+for which we give a quantitative bound, holding for high probability, on the expected error norm.
+Numerical results show that DS is superior to other methods for our problem.
+Since DS is more accurate, it can be used when the sample is less sufficient and the noise level is higher, where it might be the case that only DS can recover successfully.
+Considering its higher complexity, we remark that it can be cast as a linear program, and the basis pursuit denoising form may be used.
+
+It appears that, for a given number of sampling, DS recovers better than OMP, except perhaps in high noise scenario.
+Moreover, our setting is more general than Alkhateeb, Leus, and Heath Jr.\ \cite {ALH15} with only an analog combiner,
+and our random generation of sensing matrix is simpler than Lee, Gil, and Lee \cite {LGL16},
+and we do not rely on additional assumptions on sparsity as in Gao, Dai, and Wang \cite {GDW15}.
+
+Our work is also an improvement to Bajwa et.\ al.\ \cite {BHS10}.
+First, while their method takes many time slices, for our case a few time slices suffice, since the channel is time independent.
+Second, with the further constraint of hybrid beamforming, the channel matrix is downsampled, it is unclear whether their guarantee for successful signal recovery is still valid.
+Third, generating random sequences can lead to high complexity \cite {LGL16}, and we instead use random beamforming matrices.
+
+In addition, it seems that with the same threshold, DS recovers better than Lasso, except perhaps in low noise scenario.
+Again, our proposed method is more general than Lian, Liu and Lau \cite {LLL17} with only an analog combiner,
+and our sensing matrix is generated more simply than in Destino, Juntti, and Nagaraj \cite {DJN15},
+and we do not require special devices as in Vlachos, Alexandropoulos, and Thompson \cite {VAT19}.
+Overall, it is clear that DS leads to a relatively better regularization than OMP and Lasso.
+
+
+\section{Configuration}
 
 
 \section{Conclusion}
-The conclusion goes here.
 
+The treatise aims to answer the problem of effective estimating a MIMO mm-wave channel by exploiting its sparsity.
+To do so, we apply the Dantzig Selector (DS), by exploiting the sparsity in the spatial frequency domain, and justified the restricted isometry of the effective beamforming matrix.
+We then prove quantitatively that the expected error norm is bounded for overwhelming probability.
+We also suggest several ways of reducing the complexity without losing much performance.
+Simulation is done, and we see that DS indeed outperforms other methods in most datasets.
+
+Since we have RIP, a whole series of compressive sensing techniques become possible.
+But moreover, we corroborate the prediction that DS gives better regularization, and it may extract more information than other methods do when the sampling rate is low.
+In particular, when the sample is less abundant and the noise level is higher, sometimes only DS can recover successfully.
+Therefore, one may use DS for sake of higher precision, or with limited RF chains and fewer stages of estimation, for example, in the ultra reliable or low latency scenario.
 
 
 \appendices
@@ -67,20 +212,87 @@ Appendix two text goes here.
 
 \section*{Acknowledgment}
 
-The authors would like to thank...
+The authors would like to thank the heaven.
 
+\begin{thebibliography}{30}
+\bibitem{RSM13}
+T. S. Rappaport, S. Sun, R. Mayzus, H. Zhao, Y. Azar, K. Wang, G. N. Wong, J. K. Schulz, M. Samimi, and F. Gutierrez, “Millimeter wave mobile communications for 5g cellular: It will work!” IEEE access, vol. 1, pp. 335–349, 2013.
 
-% Can use something like this to put references on a page
-% by themselves when using endfloat and the captionsoff option.
-\ifCLASSOPTIONcaptionsoff
-  \newpage
-\fi
+\bibitem{RDD18}
+M. Rani, S. B. Dhok, and R. Deshmukh, “A systematic review of compressive sensing: Concepts, implementations and applications,” IEEE Access, vol. 6, pp. 4875–4894, 2018.
 
-\begin{thebibliography}{1}
+\bibitem{CaT05}
+E. J. Candès and T. Tao, “Decoding by linear programming,” IEEE Transactions on Information Theory, vol. 51, no. 12, p. 4203, 2005.
 
-\bibitem{IEEEhowto:kopka}
-H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
-  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
+\bibitem{CaT07}
+E. Candès and T. Tao, “The dantzig selector: Statistical estimation when p is much larger than n,” The annals of Statistics, vol. 35, no. 6, pp. 2313–2351, 2007.
+
+\bibitem{CaR05}
+E. Candès and J. Romberg, `11-magic: Recovery of sparse signals via convex programming. retrieved from , 2005.
+
+\bibitem{BDD08}
+[6] R. Baraniuk, M. Davenport, R. DeVore, and M. Wakin, “A simple proof of the restricted isometry property for random matrices,” Constructive Approximation, vol. 28, no. 3, pp. 253–263, 2008.
+
+\bibitem{BHS10}
+W. U. Bajwa, J. Haupt, A. M. Sayeed, and R. Nowak, “Compressed channel sensing: A new approach to estimating sparse multipath channels,” Proceedings of the IEEE, vol. 98, no. 6, pp. 1058–1076, 2010.
+
+\bibitem{BHR08}
+W. U. Bajwa, J. Haupt, G. Raz, and R. Nowak, “Compressed channel sensing,” 2008 42nd Annual Conference on Information Sciences and Systems, pp. 5–10, 2008.
+
+\bibitem{AsR10}
+M. S. Asif and J. Romberg, “On the lasso and dantzig selector equivalence,” 2010 44th Annual Conference on Information Sciences and Systems (CISS), pp. 1–6, 2010.
+
+\bibitem{LLL17}
+L. Lian, A. Liu, and V. K. Lau, “Optimal-tuned weighted lasso for massive mimo channel estimation with limited rf chains,” IEEE Global Communications Conference, pp. 1–6, 2017.
+
+\bibitem{DJN15}
+G. Destino, M. Juntti, and S. Nagaraj, “Leveraging sparsity into massive mimo channel estimation with the adaptive-lasso,” IEEE Global Conference on Signal and Information Processing (GlobalSIP), pp. 166–170, 2015.
+
+\bibitem{VAT19}
+E. Vlachos, G. C. Alexandropoulos, and J. Thompson, “Wideband mimo channel estimation for hybrid beamforming millimeter wave systems via random spatial sampling,” IEEE Journal of Selected Topics in Signal Processing, vol. 13, no. 5, pp. 1136–1150, 2019.
+
+\bibitem{TrG07a}
+J. A. Tropp and A. C. Gilbert, “Signal recovery from random measurements via orthogonal matching pursuit,” IEEE Transactions on information theory, vol. 53, no. 12, pp. 4655–4666, 2007.
+
+\bibitem{TrG07b}
+J. A. Tropp and A. C. Gilbert, “Signal recovery from random measurements via orthogonal match-
+ing pursuit: The gaussian case,” 2007.
+
+\bibitem{ALH15}
+A. Alkhateeb, G. Leus, and R. W. Heath, “Compressed sensing based multi-user millimeter wave systems: How many measurements are needed?” 2015 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP), pp. 2909–2913, 2015.
+
+\bibitem{HWH13}
+D. Hu, X. Wang, and L. He, “A new sparse channel estimation and tracking method for time-varying ofdm systems,” IEEE Transactions on Vehicular Technology, vol. 62, no. 9, pp. 4648–4653, 2013.
+
+\bibitem{LGL16}
+J. Lee, G.-T. Gil, and Y. H. Lee, “Channel estimation via orthogonal matching pursuit for hybrid mimo systems in millimeter wave communications,” IEEE Transactions on Communications, vol. 64, no. 6, pp. 2370–2386, 2016.
+
+\bibitem{GDW15}
+Z. Gao, L. Dai, Z. Wang, and S. Chen, “Spatially common sparsity based adaptive channel estimation and feedback for fdd massive mimo,” IEEE Transactions on Signal Processing, vol. 63, no. 23, pp. 6169–6183, 2015.
+
+\bibitem{CWX10}
+T. T. Cai, L. Wang, and G. Xu, “Stable recovery of sparse signals and an oracle inequality,” IEEE Transactions on Information Theory, vol. 56, no. 7, pp. 3516–3522, 2010.
+
+\bibitem{CaW11}
+T. T. Cai and L. Wang, “Orthogonal matching pursuit for sparse signal recovery with noise,” Information Theory, IEEE Transactions on, 2011.
+
+\bibitem{BEE10}
+Z. Ben-Haim, Y. C. Eldar, and M. Elad, “Coherence-based performance guarantees for estimating a sparse vector under random noise,” IEEE Transactions on Signal Processing, vol. 58, no. 10, pp. 5030–5043, 2010.
+
+\bibitem{ALS14}
+M. R. Akdeniz, Y. Liu, M. K. Samimi, S. Sun, S. Rangan, T. S. Rappaport, and E. Erkip, “Millimeter wave channel modeling and cellular capacity evaluation,” IEEE journal on selected areas in communications, vol. 32, no. 6, pp. 1164–1179, 2014.
+
+\bibitem{LaM00}
+B. Laurent and P. Massart, “Adaptive estimation of a quadratic functional by model selection,” Annals of Statistics, pp. 1302–1338, 2000.
+
+\bibitem{KlM17}
+B. Klartag and E. Milman, Geometric Aspects of Functional Analysis. Springer, 2017.
+
+\bibitem{BoV04}
+S. Boyd and L. Vandenberghe, Convex optimization. Cambridge U. press, 2004.
+
+\bibitem{FrS07}
+M. P. Friedlander and M. A. Saunders, “Discussion: The dantzig selector: Statistical estimation when p is much larger than n,” The Annals of Statistics, vol. 35, no. 6, pp. 2385–2391, 2007.
 
 \end{thebibliography}
 
