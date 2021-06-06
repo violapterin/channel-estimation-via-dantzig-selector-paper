@@ -5,11 +5,12 @@
 \usepackage [utf8] {inputenc}
 \usepackage [english] {babel}
 \usepackage [final] {microtype}
-\usepackage {graphicx}
-\usepackage {csquotes}
 \usepackage {amssymb}
 \usepackage {amsmath}
 \usepackage {amsfonts}
+\usepackage {graphicx}
+\usepackage {dblfloatfix}
+\usepackage {csquotes}
 \usepackage {mathtools}
 \usepackage {float}
 \usepackage {hyperref}
@@ -51,24 +52,10 @@
 \newcommand {\Min} [1] {\underset {#1} {\mathrm {min}}\;}
 \newcommand {\IP} [1] {\left \langle #1 \right \rangle}
 \newcommand {\Stack} [1] {\startsubstack #1 \stopsubstack}
-\newcommand {\DispNum} [2] {
-   \begin {align}
-      \label {#1}
-      #2
-   \end {align}
-}
 \newcommand {\Disp} [1] {
    \begin {align*}
       #1
    \end {align*}
-}
-\newcounter {result}
-\newcommand {\Result} [2] {
-   \par
-   \refstepcounter {result}
-   \textbf {\theresult \; #1} \par
-   #2 \par
-   \hfill $\blacksquare$ \par
 }
 
 
@@ -76,7 +63,7 @@
 
 \title{Dantzig Selector Applied on mm-Wave MIMO Channel Estimation and and Error Analysis}
 
-\author{Tzu-Yu Jeng
+\author{Tzu-Yu Jeng \\
         Hsuan-Jung Su%
 \thanks{Hsuan-Jung Su is with the Department
 of Electrical Engineering, National Taiwan University.}
@@ -95,7 +82,7 @@ A larger antennae array makes channel estimation more difficult.
 Meanwhile, hybrid beamforming, which utilizes fewer RF chains, is applied too, so that new estimation methods have to be designed.
 This can be seen as a compressive sensing problem, for which Orthogonal Matching Pursuit is usually used.
 
-We consider a hybrid structure with a uniform linear array with both precoders and combiners on each side.
+We consider a single user, hybrid structure with a uniform linear array with both precoders and combiners on each side.
 We generate random beamforming matrices and use Dantzig Selector to estimate the channel in the space frequency domain.
 Then, we give a quantitative bound (which holds for high probability) on the expected error norm.
 To reduce the complexity, we cast it as a linear program, and suggest the basis pursuit denoising form.
@@ -107,7 +94,11 @@ We therefore propose that DS may be used, when the number of RF chains is more l
 channel estimation, compressive sensing, sparsity, Dantzig Selector, regularization, restricted isometry
 \end{IEEEkeywords}
 
-
+\begin {figure*} [!b]
+\centering
+\includegraphics [width = \textwidth] {system.png}
+\caption {Schematic diagram of the hybrid beamforming system we consider.}
+\end {figure*}
 
 \section{Introduction}
 
@@ -123,36 +114,32 @@ Indeed, RF chains are more expensive and power-consuming, so there is growing at
 
 If we consider a slow varying MIMO channel for simplicity, in terms of a channel representation, to estimate the channel is to determine the parameters of the representation.
 It amounts to invert a linear system whose dimension is the number of antennae, for which conventional training-based algorithms are not very effective.
-
 Fortunately, physical evidence has suggested that mm-wave channel are poor in scattering \cite {ALS14}, which reduces the number of paths, and compressive sensing techniques may be used.
 Generally speaking, compressive sensing aims to reconstruct an underdetermined linear system, when the sparsity of solution guarantees successful recovery for most cases.
 In our settings for hybrid beamforming structure, a way of generating the sensing matrix and pilot vectors in the estimation stage has to be devised and justified.
 
+\subsection {Literature}
+
 Compressive sensing approaches can be divided into two categories, the convex programming approach and the greedy approach \cite {RDD18}.
 We will discuss one from each in more detail: Dantzig Selector and Orthogonal Matching Pursuit.
-
-Back to our problem of MIMO channel estimation, recall that, luckily, physical evidences suggest that mm-wave channels are sparse in the number of paths.
-Bajwa et.\ al.\ \cite {BHS10} used DS, where they argued that if the \m {\ell_0}-norm of the channel matrix may be bounded by a constant, DS may be applied to estimate the time-dependent single-antenna channel response,
+For the the convex programming approach, Dantzig Selector (DS) is one of the earlier method, and it recovers the sparse signal with expected error norm bounded with overwhelming probability, and near optimality \cite {CaT07}.
+DS is an minimization problem on \m {\ell_1}-norm, with \m {\ell_\infty}-constraint, which may be recast as a linear program, so that techniques from convex optimization may be used.
+For our purpose in MIMO channel estimation, physical evidences suggest that mm-wave channels are sparse in the number of paths.
+Bajwa et.\ al.\ \cite {BHS10} used DS to estimate the time-dependent single-antenna channel response,
 and in the accompanying note \cite {BHR08} they justified that \m {X} has RIP for overwhelming probability.
-However, there seems to be no work by now which addresses the constraint of hybrid beamforming.
+Some later results show that Least absolute shrinkage and selection operator (Lasso) and DS have similar behavior \cite {AsR10}.
+Lian, Liu and Lau applied Lasso on MIMO with an analog combiner \cite {LLL17};
+Destino, Juntti, and Nagaraj used an adaptive Lasso \cite {DJN15};
+Vlachos, Alexandropoulos, and Thompson \cite {VAT19} used Lasso on hybrid beamforming with an additional random spatial sampling device.
+These formulations rely on joint optimization on the estimated channel and the sensing matrix, which can result in high complexity.
 
-Some scholars applied least absolute shrinkage and selection operator (Lasso) instead.
-In fact, it can be shown that Lasso and DS have similar behavior \cite {AsR10}.
-Lian, Liu and Lau applied Lasso on MIMO with an analog combiner \cite {LLL17}.
-Destino, Juntti, and Nagaraj used an adaptive Lasso \cite {DJN15}, and Vlachos, Alexandropoulos, and Thompson \cite {VAT19} used Lasso on hybrid beamforming with an additional random spatial sampling device.
-Both Destino et al and Vlachos et al optimize formulate an algorithm to jointly find the channel and the sensing matrix, which can result in high complexity.
-
-
-OMP has since been commonly used for channel estimation.
+On the other hand, OMP has since been commonly used for channel estimation.
 Alkhateeb, Leus, and Heath Jr.\ \cite {ALH15} examined the trade-off between number of measurement and accuracy for an all-phase-shifter beamforming matrix based on nonuniform fixed set of angles.
 Hu, Wang, and He \cite {HWH13} applied OMP to estimate path delay of OFDM subcarriers.
-Lee, Gil, and Lee \cite {LGL16} considered a hybrid system, where the hybrid beamforming matrix serves as sensing matrix;
-the analog stage is a Fourier matrix, and the digital stage consists of a collection of columns vectors of a unitary matrix.
-Gao, Dai, and Wang proposed a variant of OMP which there is the assumption of spatially common sparsity \cite {GDW15}.
-
-Performance guarantee of OMP is also studied on various conditions.
-Cai, Wang, and Xu \cite {CWX10} gave a new bound on performance of OMP under assumption of low coherence of columns.
-Cai and Wang \cite {CaW11} extended the study to DS and other convex programs for sparse recovery, and Ben-Haim et.\ al.\ \cite {BEE10} followed up and refined their bounds, concluding that OMP is better for low SNR scenario, and DS is better for high SNR.
+Lee, Gil, and Lee \cite {LGL16} considered a hybrid system, where the hybrid beamforming matrix serves as sensing matrix.
+Gao, Dai, and Wang \cite {GDW15} proposed a variant of OMP which there is the assumption of spatially common sparsity.
+For the performance guarantee of OMP, Cai, Wang, and Xu \cite {CWX10} gave a new bound on performance of OMP under assumption of low coherence of columns.
+Cai and Wang \cite {CaW11} extended the study to DS and other convex programs for sparse recovery, and Ben-Haim et.\ al.\ \cite {BEE10} refined their bounds, concluding that OMP is better for low SNR scenario, and DS is better for high SNR.
 
 \subsection {Contribution}
 
@@ -184,9 +171,416 @@ and our sensing matrix is generated more simply than in Destino, Juntti, and Nag
 and we do not require special devices as in Vlachos, Alexandropoulos, and Thompson \cite {VAT19}.
 Overall, it is clear that DS leads to a relatively better regularization than OMP and Lasso.
 
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
-\section{Configuration}
+\section{System model}
 
+\subsection {Channel model}
+
+For simplicity we suppose uniform linear arrays, for which the response would be,
+%
+\Disp {
+\V {a} \SB {\psi', N}
+= \frac {1} {\R {N}} \sum_{n_h=0}^{N-1} \mathsf {e} ^{\mathsf {i} n_h \psi'} \V {u} _{n_h}
+\in \mathbb {C} ^ {N} 
+}
+
+And consider the virtual representation of the MIMO channel, \cite {ALS14},
+%
+\Disp {
+\M {H}
+=\sum_{l=0} ^{L-1}
+\a_l
+\V {a} \SB { 2\pi \frac {d_{\mathrm {arr}}} {\l _{\mathrm {arr}}} \sin \f_l', N_{H,r}}
+\V {a} \SB { 2\pi \frac {d_{\mathrm {arr}}} {\l _{\mathrm {arr}}} \sin \th_l', N_{H,t}}^\dagger 
+}
+%
+The physical meaning of \m {\f_l'} is the \m {l}-th angle of incidence of departure electronic wave, and \m {\th_l'}, the \m {l}-th angle of arrival wave, and \m {d_{\mathrm {arr}}} is the distance between two adjacent antennae.
+
+\subsection {System model}
+
+We consider hybrid beamforming at both the transmitter and receiver ends, as shown in Figure 2.
+Each end consists of both digital and analog precoders and combiners.
+In the transmitter end, there are (seeing towards the receiver end), the digital precoder \m {\M {F} _B \in \mathbb {C} ^{N_B \D N_B}} and the analog precoder \m {\M {F} _R \in \mathbb {C} ^{N_{H,t} \D N_B}}.
+Similarly, in the receiver end, there are (seeing towards the transmitter end) the digital combiner \m {\M {W} _B \in \mathbb {C} ^{N_B \D N_B}} and the analog combiner \m {\M {W} _R \in \mathbb {C} ^{N_B \D N_{H,r}}}.
+Recall that analog precoders may only have values of unity magnitude.
+%
+\Disp {
+\Nm {\RB {\M {F} _R} _{\SB {n_H, n_{R,t}}}}
+= &1, \\
+%
+\Nm {\RB {\M {W} _R} _{\SB {n_{R,r}, n_H}}}
+= &1,
+}
+%
+where we assume \m {N_{H,t}, N_{H,r} \gg N_B}.
+
+Since we restrict our discussion to a short interval of time, the noise term may be simply taken as a matrix \m {\M {Z} \in \mathbb {C} ^{N_B \D N_B}} with each entry being i.i.d.\ standard normal.
+Let us introduce the effective channel
+%
+\Disp {
+\M {Y}
+:=\M {W} _B \M {W} _R \RB {\M {H} \M {F} _R \M {F} _B +\M {Z}} 
+}
+%
+Our task then amounts to recovering \m {\M {H}}, and generating \m {\M {W} _R}, \m {\M {W} _B}, \m {\M {F} _R}, and \m {\M {F} _B}.
+
+\subsection{Proposed method}
+
+Let vec stand for vectorization of matrices along each column, and \m {\otimes} for Kronecker product.
+Then it is more appealing to write
+\Disp {
+\V {h}
+:= &\mathrm {vec} \SB {\M {H}} \\
+\V {y}
+:= &\mathrm {vec} \SB {\M {Y}} \\
+\V {z}
+:= &\mathrm {vec} \SB {\M {W} _B \M {W} _R \M {Z}} \\
+\M {Q}
+:= &\RB {\M {F} _B^\intercal \M {F} _R^\Tr} \otimes \RB {\M {W} _B \M {W} _R} \\
+}
+to formulate the problem as a linear system:
+\Disp {
+\V {y}
+=\M {Q} \V {h} +\V {z} 
+}
+
+At this stage, it is not obvious that \m {\V {h}} must be sparse, so we apply discrete Fourier transform matrix \m {\M {K}} on both sides.
+Indeed, if we write
+\Disp {
+\M {G}
+=\M {K}^\dagger _r \M {H} \M {K} _t
+}
+then
+\Disp {
+\M {Y}
+=\M {W} _B \M {W} _R \M {K} _r \D \M {G} \D \M {K}^\dagger _t \M {F} _R \M {F} _B
++\M {W} _B \M {W} _R \M {Z}
+}
+Now, set for brevity
+\Disp {
+\M {P}
+:=\RB {\M {F} _B^\intercal \M {F} _R^\intercal \M {K}^\ast _t} \otimes \RB {\M {W} _B \M {W} _R \M {K} _r}
+}
+and
+\Disp {
+\V {g}
+:= \mathrm {vec} \SB {\M {G}}
+}
+accordingly
+\Disp {
+\V {y}
+=\M {P} \V {g} +\V {z} 
+}
+
+In short, our plan becomes
+
+\begin {itemize}
+\item Let \m {\g_{\mathrm {DS}} \geq 0} be given.
+\item Input \m {\M {F} _B \in \mathbb {C} ^{N_R \D N_B}},
+\m {\M {F} _R \in \mathbb {C} ^{N_{H,t} \D N_R}},
+\m {\M {W} _R \in \mathbb {C} ^{N_R \D N_{H,r}}},
+\m {\M {W} _B \in \mathbb {C} ^{N_B \D N_R}},
+and \m {\M {Y} \in \mathbb {C} ^{N_B \D N_B}}.
+\item Find \m {\M {P} \in \mathbb {C} ^{N_B ^2 \D N_{H,t} N_{H,r}}}, \m {\V {y} \in \mathbb {C} ^{N_B ^2}} as in above.
+\item Compute the convex program
+\Disp {
+\hat {\V {g}}
+\leftarrow \begin {cases}
+\Min {\V {g}' \in \mathbb {C} ^{N_{H,t} N_{H,r}}} & \VNm {\V {g}'} _1 \\
+\mathrm {subject} \; \mathrm {to} \quad & \VNm {\M {P}^\dagger \RB {\V {y} -\M {P} \V {g}'}} _\infty \leq \g_{\mathrm {DS}} \\
+\end {cases} 
+}
+\item Convert \m {\hat {\V {g}}} back to the space domain, namely
+\Disp {
+\hat {\M {G}}
+\leftarrow \mathrm {vec}^{-1} \SB {\hat {\V {g}}} 
+}
+\item Recover the estimated \m {\hat {\M {H}}}, as
+\Disp {
+\hat {\M {H}}
+\leftarrow \M {K} _r \hat {\M {G}} \M {K}^\dagger _t
+}
+\item Output \m {\hat {\M {H}}}.
+\end {itemize}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\section{Error Analysis}
+
+\subsection {Sparsity of channel}
+
+To simplify expressions, define
+%
+\Disp {
+\f_l
+= &2\pi \frac {d_{\mathrm {arr}}} {\l_{\mathrm {arr}}} \sin \f_l'
+  \; \mathrm {mod}\; \RB {2\pi} \\
+%
+\th_l
+= &2\pi \frac {d_{\mathrm {arr}}} {\l_{\mathrm {arr}}} \sin \th_l'
+  \; \mathrm {mod}\; \RB {2\pi} 
+}
+
+\textbf {Proposition}
+Let \m {\f} be given.
+Then, for any random instance of \m {\f},
+%
+\Disp {
+\VNm {\V {b} \SB {\f} _{\SB{\mathcal {C}}}} _1
+\leq \frac {2} {\pi} \log N 
+}
+
+\textbf {Proposition}
+The bound
+%
+\Disp {
+\VNm {\M {g} _{\SB{\mathcal {C}}}} _1
+\leq \frac {1} {3} L \RB {\log N_{H,t} + \log N_{H,r}} ^2
+}
+%
+holds for probability \m {p}, with
+%
+\Disp {
+1 -p
+\leq 2 \exp \SB {- \frac {9L} {\pi}} 
+}
+
+% % % % % % % % % % % % % % % %
+
+\subsection {Generating beamforming matrices}
+
+
+\textbf {Proposition}
+It holds that
+%
+\Disp {
+\Nm {\VNm {\M {F} _B \V {u}} _2 ^2 - 1}
+\geq \d_s 
+}
+for probability \m {p}, with
+\Disp {
+1 -p
+\leq 2 \mathsf {e} ^{-N_R \R {\d_s} /4} 
+}
+
+
+\textbf {Proposition}
+Suppose
+\Disp {
+N_R
+\geq \frac {s} {\d_s^2} \RB {\log s}^2 \log N_{H,t}
+}
+Then \m {\M {F}_R} (respectively \m {\M {W} _R}) has \m {\d_s} RIP for probability \m {p}, with
+\Disp {
+1 -p
+\leq \RB {\frac {\d_s} {N_{H,t} s}} ^{1/3} 
+}
+
+
+% % % % % % % % % % % % % % % %
+
+\subsection {Bound for expected error norm}
+
+The propositions below are taken from \cite {CaT07} and modified slightly in accordance to our settings, in addition to the generalization to complex vectors.
+%
+\textbf {Proposition}
+{
+\Disp {
+\VNm {\V {d} _{\SB{\mathcal {C}}}} _1
+\leq \VNm {\V {d} _{\SB{\mathcal {A}}}} _1
++\VNm {\V {g} _{\SB{\mathcal {C}}}} _1 
+}
+
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\section{Simulation}
+
+\subsection{Settings}
+
+Let \m {\mathcal {R}} denote the representation of complex vectors and matrices by real vectors and matrices.
+With definitions \m {\tilde {\V {y}} = \mathcal {R} \SB {\V {y}}},
+\m {\tilde {\V {g}} = \mathcal {R} \SB {\V {g}}},
+\m {\tilde {\M {P}} = \mathcal {R} \SB {\M {P}}},
+\m {\tilde {\V {z}} = \mathcal {R} \SB {\V {z}}},
+we have by construction
+%
+\Disp {
+\V {\tilde {y}}
+= \M {\tilde {P}} \V {\tilde {g}} +\V {\tilde {z}} 
+}
+
+
+To do convex optimization, we choose the Python library CVXPY.
+Considering its high complexity, there are several possible methods.
+First of all, it is equivalent to a linear program.
+Moreover, we may apply DS more than once to better estimate the nonzero components:
+We apply DS for the first time, and we extract largest components of the estimated vector, then apply Moore–Penrose inverse to get the returned solution, before scrambling back the resulting indices to the original ones.
+In doing such successive estimation, it is possible to have more than one stage of extraction \cite {CaT07}.
+
+Alternatively, in our investigation, we cast DS into a basis pursuit denoising form, for suitable \m {\l} \cite {BoV04} as below.
+
+\Disp {
+\Hat {\V {g}}
+\leftarrow \Min {\V {g}' \in \mathbb {C} ^{N_{H,t} N_{H,r}}}
+\RB {\VNm {\V {g}'} _1 + \l \VNm {\M {P}^\Adj \RB {\V {y} -\M {P} \V {g}'}} _\infty}
+}
+
+However, there is no simple way to determine the value of \m {\l} in advance.
+We have tried \m {\l = N_{H,t} N_{H,r} / \g_{\mathrm {DS}}} in the simulation.
+
+In addition to DS, we shall simulate OMP for three different stop conditions, Lasso, and Moore Penrose pseudoinverse (marked as LS which stands for least square).
+Each data point for DS and Lasso is repeated for \m {256} times, and taken arithmetic average.
+Other methods are repeated for more times: OMP for \m {4 \D 256} times, LS for \m {12 \D 256} times.
+
+Let \m {1/\s} be the SNR, which takes value starting with \m {2^{-2}}, and being multiplied by powers of \m {\R {2}}, for \m {6} values.
+We take \m {N_B} to be \m {2, 4, 6}, respectively.
+Three series of plots are simulated.
+The first series for \m {N_{H,t} = 3 N_B} and \m {N_{H,r} = 3 N_B}.
+The second series for \m {N_{H,t} = 3 N_B} and \m {N_{H,r} = 4 N_B}.
+The third series for \m {N_{H,t} = 4 N_B} and \m {N_{H,r} = 3 N_B}.
+Unfortunately, this is very far from achieving the ideal values for which our approximation is valid, and this may be part of the reason the result is not as successful as expected.
+
+Other parameters are fixed in these experiments.
+The number of grid of quantization of phase shifters is \m {16}.
+The number of paths \m {L = \lfloor \R {N_{H,t} N_{H,r}} / 2 \rfloor}.
+The ratio of the wavelength of carrier over the antenna spacing, \m {\l _{\mathrm {ant}} / d _{\mathrm {ant}} = 1 / 2}.
+
+Denote the threshold for DS to be \m {\g_{\mathrm {DS}}}, and similar threshold of Lasso to be \m {\g_{\mathrm {Lasso}}}.
+We set \m {\g_{\mathrm {DS}} = 2 \log \RB {N_{H,t} N_{H,r}}} as suggested in \cite {CaT07}.
+For sake of comparison, \m {\g_{\mathrm {Lasso}} = \g_{\mathrm {DS}}}.
+
+For OMP, we consult Cai and Wang \cite {CaW11} for \m {\ell _2}-norm condition in their Theorem 7, and \m {\ell _\infty}-norm condition in their Theorem 8.
+We take \m {\h_{\mathrm {OMP}} = \R {2 \log \RB {N_{H,t} N_{H,r}}}} for \m {\infty}-norm condition, \m {\h_{\mathrm {OMP}} = \R {3 N_B}} for 2-norm condition.
+
+For Lasso, \m {\l _{\mathrm {Lasso}}} is also crucial to the performance, but cannot be obtained in advance.
+Thus, for sake of comparison, we set the same threshold for Lasso and DS.
+In view of the fact that \m {\VNm {g} _1 \leq 2 N_{H,t} N_{H,r} \VNm {g} _\infty}, we tentatively set \m {\l _{\mathrm {DS}} =  N_{H,t} N_{H,r} / \g _{\mathrm {DS}}} and \m {\l _{\mathrm {Lasso}} =  1 / \g _{\mathrm {Lasso}}}.
+Still, there may be other values of \m {\g} (or \m {\l}) for which DS and Lasso are both better.
+
+For performance metric, we also follow Lee, Gil, and Lee \cite {LGL16} to use
+\Disp {
+\tilde {\chi}
+=\RB {
+   \frac {\log_2 {\VNm {\V {h} -\hat {\V {h}}} _2}}
+   {\log_2 {\VNm {\V {h}}_2}}
+} _{\mathsf {avg}}, 
+}
+However, we remark that when \m {\VNm {\V {h}}_2} is small, this can blow up.
+Indeed, since we did not consider a definite a channel model in this treatise, \m {\T {\chi}} may not necessarily be proportional to the channel capacity.
+
+\subsection {Result}
+
+In the following, we plot for different values and ratios of \m {N_B, N_{H,t}, N_{H,r}}.
+We fix \m {N_R = \RB {3/2} N_B}, and with \m {6} sets of observation.
+
+\begin {figure} [H]
+\includegraphics [width = 0.45 \textwidth]
+{error-small-more-tall-six-usual.png}
+\caption {\m {N_B = 2, N_{H,t} = 6, N_{H,r} = 8}, error.}
+\end {figure}
+
+\begin {figure} [H]
+\includegraphics [width = 0.45 \textwidth]
+{error-small-more-wide-six-usual.png}
+\caption {\m {N_B = 2, N_{H,t} = 8, N_{H,r} = 6}, error.}
+\end {figure}
+
+\begin {figure} [H]
+\includegraphics [width = 0.45 \textwidth]
+{error-medium-more-tall-six-usual.png}
+\caption {\m {N_B = 4, N_{H,t} = 12, N_{H,r} = 16}, error.}
+\end {figure}
+
+\begin {figure} [H]
+\includegraphics [width = 0.45 \textwidth]
+{error-medium-more-wide-six-usual.png}
+\caption {\m {N_B = 4, N_{H,t} = 16, N_{H,r} = 12}, error.}
+\end {figure}
+
+\begin {figure} [H]
+\includegraphics [width = 0.45 \textwidth]
+{error-big-more-tall-six-usual.png}
+\caption {\m {N_B = 6, N_{H,t} = 24, N_{H,r} = 18}, error.}
+\end {figure}
+
+\begin {figure} [H]
+\includegraphics [width = 0.45 \textwidth]
+{error-big-more-wide-six-usual.png}
+\caption {\m {N_B = 6, N_{H,t} = 18, N_{H,r} = 24}, error.}
+\end {figure}
+
+\subsection {Discussion}
+
+From the simulation, DS outperforms other methods in most of the datasets.
+With low noise, \m {\tilde {\chi} _{\mathrm {DS}} \approx \tilde {\chi} _{\mathrm {OMP}} \leq \tilde {\chi} _{\mathrm {Lasso}} \leq \tilde {\chi} _{\mathrm {LS}}},
+although sometimes \m {\tilde {\chi} _{\mathrm {DS}} \geq \tilde {\chi} _{\mathrm {OMP}}}.
+With high noise, \m {\tilde {\chi} _{\mathrm {DS}} \approx \tilde {\chi} _{\mathrm {Lasso}} \leq \tilde {\chi} _{\mathrm {OMP}} \leq \tilde {\chi} _{\mathrm {LS}}}.
+although sometimes \m {\tilde {\chi} _{\mathrm {DS}} \geq \tilde {\chi} _{\mathrm {Lasso}}}.
+LS is so much poorer that it is not a main contender.
+These trends is true with different number of stages, and with the case \m {N_B = N_R}.
+In general, we can say that overall, DS gives a better regularization for both low noise and high noise scenario, and in most cases, DS is even better than both of them.
+
+Differing thresholds does not to seem have much effect on OMP and DS.
+Meanwhile for Lasso, where a suitable threshold may improve the accuracy, but a excessively tight threshold may also result in a overfitting, and blowing up for high signal cases.
+Increasing the number of stages obviously improves the estimation for all methods.
+
+Unfortunately, we report that CVXPY sometimes gives overflowing values, some of them as large as \m {10^{11}}.
+This probably indicates some typical-looking output may in fact be unreliable.
+Therefore we have discarded outputs larger than a given threshold, for instance \m {10^4}, and simply return the answer to be a Moore–Penrose inverse.
+
+\m {\chi} is not shown in the figure, because the big O bound is much larger than \m {\tilde {\chi}}.
+It is possible that the nonsparsity of \m {\V {g}} undermines the analysis in chapter 3, despite our attempts to account for that effect.
+It is curious to see whether for very large \m {N_H}, whether \m {\tilde {\chi}} and \m {\chi} will be asymptotically close.
+
+\subsection {Complexity}
+
+We discuss the complexity of DS, Lasso, and OMP.
+Abbreviate \m {N_h = N_{H,t} N_{H,r}}.
+
+For DS, suppose a linear program has an \m {N} dimensional variable and \m {M} inequality constraints, then its complexity is \m {\mathcal {O} \SB {N^2 M}}, assuming the Dantzig simplex method is used \cite {BoV04}.
+For our case, that would be \m {\mathcal {O} \SB {4 N_h ^2 \D 8 N_h} = \mathcal {O} \SB {N_h ^3}}.
+
+Alternatively, suppose Newton method is used.
+Here, we have self-concordance for linear program \cite {BoV04}.
+Let \m {\V {g} _0} denote the starting value of \m {\V {g}'}, and \m {\V {g} ^{\star}} the the point of convergence.
+Then the number of Newton steps, which we take to be the complexity, is bounded by \cite {BoV04}
+\Disp {
+C_{\mathrm {Newton}}
+\propto \RB {\VNm {\V {g}_0 -\V {g} ^{\star}}_1
++ \log_2 \log_2 \frac {1} {\e}}
+}
+
+Assume that, at the start the iteration, the Moore–Penrose inverse is close to the initial value of \m {\V {g}_0}, namely
+%
+\Disp {
+\V {g}_0
+=\V {g}_{\mathrm {LS}}
+= \RB {\M {P} ^\dagger \M {P}} ^{-1} \M {P} ^\dagger \V {y} 
+}
+And suppose that, in view of restricted isometry, \m {\M {P}} has unity-normed, almost orthogonal columns, so that
+\m {\M {P} ^\dagger \M {P} \approx I _{N_h}}
+Moreover, assume that \m {\V {g} ^\star \approx \V {g}}.
+Then we simply have
+\Disp {
+C_{\mathrm {DS}}
+=\mathcal {O} \SB {N_h ^3} 
+}
+
+For OMP \cite {TrG07}, \m {C_{\mathrm {OMP}} =\mathcal {O} \SB {L \RB {\log N_h} ^2}}.
+
+For Lasso, it is equivalent to a quadratically constrained quadratic program, and there is not always a closed form for its complexity.
+However, Lasso and DS are equivalent in certain conditions \cite {AsR10}, and we may suppose here they have the same complexity.
+Alternatively, an argument similar to the above one for DS is valid for Lasso.
+Therefore we take \m {C_{\mathrm {Lasso}} =\mathcal {O} \SB {N_h ^3}}.
+
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 
 \section{Conclusion}
 
@@ -214,85 +608,81 @@ Appendix two text goes here.
 
 The authors would like to thank the heaven.
 
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
 \begin{thebibliography}{30}
 \bibitem{RSM13}
-T. S. Rappaport, S. Sun, R. Mayzus, H. Zhao, Y. Azar, K. Wang, G. N. Wong, J. K. Schulz, M. Samimi, and F. Gutierrez, “Millimeter wave mobile communications for 5g cellular: It will work!” IEEE access, vol. 1, pp. 335–349, 2013.
+T. S. Rappaport, S. Sun, R. Mayzus, H. Zhao, Y. Azar, K. Wang, G. N. Wong, J. K. Schulz, M. Samimi, and F. Gutierrez, “Millimeter wave mobile communications for 5g cellular: It will work!” \textit {IEEE access}, vol. 1, pp. 335–349, 2013.
 
 \bibitem{RDD18}
-M. Rani, S. B. Dhok, and R. Deshmukh, “A systematic review of compressive sensing: Concepts, implementations and applications,” IEEE Access, vol. 6, pp. 4875–4894, 2018.
+M. Rani, S. B. Dhok, and R. Deshmukh, “A systematic review of compressive sensing: Concepts, implementations and applications,” \textit {IEEE Access}, vol. 6, pp. 4875–4894, 2018.
 
 \bibitem{CaT05}
-E. J. Candès and T. Tao, “Decoding by linear programming,” IEEE Transactions on Information Theory, vol. 51, no. 12, p. 4203, 2005.
+E. J. Candès and T. Tao, “Decoding by linear programming,” \textit {IEEE Transactions on Information Theory}, vol. 51, no. 12, p. 4203, 2005.
 
 \bibitem{CaT07}
-E. Candès and T. Tao, “The dantzig selector: Statistical estimation when p is much larger than n,” The annals of Statistics, vol. 35, no. 6, pp. 2313–2351, 2007.
-
-\bibitem{CaR05}
-E. Candès and J. Romberg, `11-magic: Recovery of sparse signals via convex programming. retrieved from , 2005.
+E. Candès and T. Tao, “The dantzig selector: Statistical estimation when p is much larger than n,” \textit {The annals of Statistics}, vol. 35, no. 6, pp. 2313–2351, 2007.
 
 \bibitem{BDD08}
-[6] R. Baraniuk, M. Davenport, R. DeVore, and M. Wakin, “A simple proof of the restricted isometry property for random matrices,” Constructive Approximation, vol. 28, no. 3, pp. 253–263, 2008.
+[6] R. Baraniuk, M. Davenport, R. DeVore, and M. Wakin, “A simple proof of the restricted isometry property for random matrices,” \textit {Constructive Approximation}, vol. 28, no. 3, pp. 253–263, 2008.
 
 \bibitem{BHS10}
-W. U. Bajwa, J. Haupt, A. M. Sayeed, and R. Nowak, “Compressed channel sensing: A new approach to estimating sparse multipath channels,” Proceedings of the IEEE, vol. 98, no. 6, pp. 1058–1076, 2010.
+W. U. Bajwa, J. Haupt, A. M. Sayeed, and R. Nowak, “Compressed channel sensing: A new approach to estimating sparse multipath channels,” \textit {Proceedings of the IEEE}, vol. 98, no. 6, pp. 1058–1076, 2010.
 
 \bibitem{BHR08}
-W. U. Bajwa, J. Haupt, G. Raz, and R. Nowak, “Compressed channel sensing,” 2008 42nd Annual Conference on Information Sciences and Systems, pp. 5–10, 2008.
+W. U. Bajwa, J. Haupt, G. Raz, and R. Nowak, “Compressed channel sensing,” 2008 \textit {42nd Annual Conference on Information Sciences and Systems}, pp. 5–10, 2008.
 
 \bibitem{AsR10}
-M. S. Asif and J. Romberg, “On the lasso and dantzig selector equivalence,” 2010 44th Annual Conference on Information Sciences and Systems (CISS), pp. 1–6, 2010.
+M. S. Asif and J. Romberg, “On the lasso and dantzig selector equivalence,” 2010 \textit {44th Annual Conference on Information Sciences and Systems} (CISS), pp. 1–6, 2010.
 
 \bibitem{LLL17}
-L. Lian, A. Liu, and V. K. Lau, “Optimal-tuned weighted lasso for massive mimo channel estimation with limited rf chains,” IEEE Global Communications Conference, pp. 1–6, 2017.
+L. Lian, A. Liu, and V. K. Lau, “Optimal-tuned weighted lasso for massive mimo channel estimation with limited rf chains,” \textit {IEEE Global Communications Conference}, pp. 1–6, 2017.
 
 \bibitem{DJN15}
-G. Destino, M. Juntti, and S. Nagaraj, “Leveraging sparsity into massive mimo channel estimation with the adaptive-lasso,” IEEE Global Conference on Signal and Information Processing (GlobalSIP), pp. 166–170, 2015.
+G. Destino, M. Juntti, and S. Nagaraj, “Leveraging sparsity into massive mimo channel estimation with the adaptive-lasso,” \textit {IEEE Global Conference on Signal and Information Processing} (GlobalSIP), pp. 166–170, 2015.
 
 \bibitem{VAT19}
-E. Vlachos, G. C. Alexandropoulos, and J. Thompson, “Wideband mimo channel estimation for hybrid beamforming millimeter wave systems via random spatial sampling,” IEEE Journal of Selected Topics in Signal Processing, vol. 13, no. 5, pp. 1136–1150, 2019.
+E. Vlachos, G. C. Alexandropoulos, and J. Thompson, “Wideband mimo channel estimation for hybrid beamforming millimeter wave systems via random spatial sampling,” \textit {IEEE Journal of Selected Topics in Signal Processing}, vol. 13, no. 5, pp. 1136–1150, 2019.
 
-\bibitem{TrG07a}
-J. A. Tropp and A. C. Gilbert, “Signal recovery from random measurements via orthogonal matching pursuit,” IEEE Transactions on information theory, vol. 53, no. 12, pp. 4655–4666, 2007.
-
-\bibitem{TrG07b}
-J. A. Tropp and A. C. Gilbert, “Signal recovery from random measurements via orthogonal match-
-ing pursuit: The gaussian case,” 2007.
+\bibitem{TrG07}
+J. A. Tropp and A. C. Gilbert, “Signal recovery from random measurements via orthogonal matching pursuit,” \textit {IEEE Transactions on information theory}, vol. 53, no. 12, pp. 4655–4666, 2007.
 
 \bibitem{ALH15}
-A. Alkhateeb, G. Leus, and R. W. Heath, “Compressed sensing based multi-user millimeter wave systems: How many measurements are needed?” 2015 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP), pp. 2909–2913, 2015.
+A. Alkhateeb, G. Leus, and R. W. Heath, “Compressed sensing based multi-user millimeter wave systems: How many measurements are needed?” 2015 \textit {IEEE International Conference on Acoustics, Speech and Signal Processing} (ICASSP), pp. 2909–2913, 2015.
 
 \bibitem{HWH13}
-D. Hu, X. Wang, and L. He, “A new sparse channel estimation and tracking method for time-varying ofdm systems,” IEEE Transactions on Vehicular Technology, vol. 62, no. 9, pp. 4648–4653, 2013.
+D. Hu, X. Wang, and L. He, “A new sparse channel estimation and tracking method for time-varying ofdm systems,” \textit {IEEE Transactions on Vehicular Technology}, vol. 62, no. 9, pp. 4648–4653, 2013.
 
 \bibitem{LGL16}
-J. Lee, G.-T. Gil, and Y. H. Lee, “Channel estimation via orthogonal matching pursuit for hybrid mimo systems in millimeter wave communications,” IEEE Transactions on Communications, vol. 64, no. 6, pp. 2370–2386, 2016.
+J. Lee, G.-T. Gil, and Y. H. Lee, “Channel estimation via orthogonal matching pursuit for hybrid mimo systems in millimeter wave communications,” \textit {IEEE Transactions on Communications}, vol. 64, no. 6, pp. 2370–2386, 2016.
 
 \bibitem{GDW15}
-Z. Gao, L. Dai, Z. Wang, and S. Chen, “Spatially common sparsity based adaptive channel estimation and feedback for fdd massive mimo,” IEEE Transactions on Signal Processing, vol. 63, no. 23, pp. 6169–6183, 2015.
+Z. Gao, L. Dai, Z. Wang, and S. Chen, “Spatially common sparsity based adaptive channel estimation and feedback for fdd massive mimo,” \textit {IEEE Transactions on Signal Processing}, vol. 63, no. 23, pp. 6169–6183, 2015.
 
 \bibitem{CWX10}
-T. T. Cai, L. Wang, and G. Xu, “Stable recovery of sparse signals and an oracle inequality,” IEEE Transactions on Information Theory, vol. 56, no. 7, pp. 3516–3522, 2010.
+T. T. Cai, L. Wang, and G. Xu, “Stable recovery of sparse signals and an oracle inequality,” \textit {IEEE Transactions on Information Theory}, vol. 56, no. 7, pp. 3516–3522, 2010.
 
 \bibitem{CaW11}
-T. T. Cai and L. Wang, “Orthogonal matching pursuit for sparse signal recovery with noise,” Information Theory, IEEE Transactions on, 2011.
+T. T. Cai and L. Wang, “Orthogonal matching pursuit for sparse signal recovery with noise,” \textit {IEEE Transactions on Information Theory}, 2011.
 
 \bibitem{BEE10}
-Z. Ben-Haim, Y. C. Eldar, and M. Elad, “Coherence-based performance guarantees for estimating a sparse vector under random noise,” IEEE Transactions on Signal Processing, vol. 58, no. 10, pp. 5030–5043, 2010.
+Z. Ben-Haim, Y. C. Eldar, and M. Elad, “Coherence-based performance guarantees for estimating a sparse vector under random noise,” \textit {IEEE Transactions on Signal Processing}, vol. 58, no. 10, pp. 5030–5043, 2010.
 
 \bibitem{ALS14}
-M. R. Akdeniz, Y. Liu, M. K. Samimi, S. Sun, S. Rangan, T. S. Rappaport, and E. Erkip, “Millimeter wave channel modeling and cellular capacity evaluation,” IEEE journal on selected areas in communications, vol. 32, no. 6, pp. 1164–1179, 2014.
+M. R. Akdeniz, Y. Liu, M. K. Samimi, S. Sun, S. Rangan, T. S. Rappaport, and E. Erkip, “Millimeter wave channel modeling and cellular capacity evaluation,” \textit {IEEE journal on selected areas in communications}, vol. 32, no. 6, pp. 1164–1179, 2014.
 
 \bibitem{LaM00}
-B. Laurent and P. Massart, “Adaptive estimation of a quadratic functional by model selection,” Annals of Statistics, pp. 1302–1338, 2000.
+B. Laurent and P. Massart, “Adaptive estimation of a quadratic functional by model selection,” \textit {Annals of Statistics}, pp. 1302–1338, 2000.
 
 \bibitem{KlM17}
-B. Klartag and E. Milman, Geometric Aspects of Functional Analysis. Springer, 2017.
+B. Klartag and E. Milman, \textit {Geometric Aspects of Functional Analysis}. Springer, 2017.
 
 \bibitem{BoV04}
-S. Boyd and L. Vandenberghe, Convex optimization. Cambridge U. press, 2004.
+S. Boyd and L. Vandenberghe, \textit {Convex optimization}. Cambridge U. press, 2004.
 
 \bibitem{FrS07}
-M. P. Friedlander and M. A. Saunders, “Discussion: The dantzig selector: Statistical estimation when p is much larger than n,” The Annals of Statistics, vol. 35, no. 6, pp. 2385–2391, 2007.
+M. P. Friedlander and M. A. Saunders, “Discussion: The dantzig selector: Statistical estimation when p is much larger than n,” \textit {The Annals of Statistics}, vol. 35, no. 6, pp. 2385–2391, 2007.
 
 \end{thebibliography}
 
