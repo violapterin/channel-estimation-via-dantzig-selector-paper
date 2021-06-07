@@ -382,28 +382,25 @@ Or, if we drop \m {s},
 \leq &\frac {2} {\pi} \log N 
 }
 
-
 \textbf {Proposition 2}
 The bound
-%
 \Disp {
 \VNm {\M {g} _{\SB{\mathcal {C}}}} _1
 \leq \frac {1} {3} L \RB {\log N_{H,t} + \log N_{H,r}} ^2
 }
-%
 holds for probability \m {p}, with
-%
 \Disp {
 1 -p
 \leq 2 \exp \SB {- \frac {9L} {\pi}} 
 }
+This is proved by using Proposition 1 with triangle inequality, and bound the sample mean by Hoeffding inequality.
+
 
 % % % % % % % % % % % % % % % %
 
 \subsection {Generating beamforming matrices}
 
-
-To investigate \m {\VNm {\M {F} _B \V {u}} _2} (respectively for \m {\M {W} _B}), we need a large deviation result for i.i.d.\ sum of chi-square random variables \cite {LaM00}, as below.
+To investigate \m {\VNm {\M {F} _B \V {u}} _2} (respectively for \m {\M {W} _B}), for \m {\V {u}} is a unit vector, we need a large deviation result for i.i.d.\ sum of chi-square random variables \cite {LaM00}, as below.
 
 \textbf {Proposition 3}
 It holds that
@@ -432,7 +429,7 @@ Then \m {\M {F}_R} (respectively \m {\M {W} _R}) has \m {\d_s} RIP for probabili
 \leq \RB {\frac {\d_s} {N_{H,t} s}} ^{1/3} 
 }
 
-Since both \m {\M {F}_B^\Tr \M {F}_B^\Tr} and \m {\M {W}_B \M {W}_R} are \m {\d_s} RIP, it does appear (if we ignore the sparsity constraint) that \m {\M {P}} has approximately \m {2\d_s} RIP.
+Since both \m {\M {F}_B^\Tr \M {F}_R^\Tr} and \m {\M {W}_B \M {W}_R} are \m {\d_s} RIP, it does appear (if we ignore the sparsity constraint) that \m {\M {P}} has approximately \m {2\d_s} RIP.
 However, it remain to show that their Kronecker product still has RIP.
 
 Nevertheless, notice that if angles \m {\th_l} (respectively \m {\f_l}) are exactly the multiples of \m {2 \pi / N_{H,t}} (respectively \m {2 \pi / N_{H,r}}), then for some \m {S}-sparse \m {\V {d}'} and unitary \m {\M {U}},
@@ -514,7 +511,7 @@ Then it holds that
 for probability \m {p}, with
 \Disp {
 1 -p
-\eqsim \mathcal {O} \SB {\mathsf {e} ^{-N_B /12}} 
+\eqsim \mathcal {O} \SB {\mathsf {e} ^{-N_R \R {\d_s} /4}} 
 }
 
 To show this, by the definition of truncation, by \m {\ell_p} norm inequality, by Proposition 6,
@@ -548,6 +545,7 @@ Finally, by plugging \m {\VNm {\V {d} _{\SB{\mathcal {AB}}}} _2} and \m {\VNm {\
 \leq 4.79 \R {L} \R {\log N_h}^3
 }
 Therefore, we set \m {\chi = \R {L} \R {\log N_h}^3}, so that \m {\VNm {\V {d}} _2 = \mathcal {O} \RB {\chi}}, as claimed.
+The failure probability is taken from Proposition 3.
 
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
@@ -557,6 +555,7 @@ Therefore, we set \m {\chi = \R {L} \R {\log N_h}^3}, so that \m {\VNm {\V {d}} 
 
 \subsection{Settings}
 
+First, complex numbers have to be recorded as the real and imaginary parts, to speed up calculation.
 Let \m {\mathcal {R}} denote the representation of complex vectors and matrices by real vectors and matrices.
 With definitions \m {\tilde {\V {y}} = \mathcal {R} \SB {\V {y}}},
 \m {\tilde {\V {g}} = \mathcal {R} \SB {\V {g}}},
@@ -568,7 +567,6 @@ we have by construction
 \V {\tilde {y}}
 = \M {\tilde {P}} \V {\tilde {g}} +\V {\tilde {z}} 
 }
-
 
 To do convex optimization, we choose the Python library CVXPY.
 Considering its high complexity, there are several possible methods.
@@ -747,15 +745,6 @@ Since we have RIP, a whole series of compressive sensing techniques become possi
 But moreover, we corroborate the prediction that DS gives better regularization, and it may extract more information than other methods do when the sampling rate is low.
 In particular, when the sample is less abundant and the noise level is higher, sometimes only DS can recover successfully.
 Therefore, one may use DS for sake of higher precision, or with limited RF chains and fewer stages of estimation, for example, in the ultra reliable or low latency scenario.
-
-
-\appendices
-\section{Proof of the First Zonklar Equation}
-Appendix one text goes here.
-
-\section{Proof of the First Zonklar Equation}
-Appendix two text goes here.
-
 
 \section*{Acknowledgment}
 
