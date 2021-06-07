@@ -310,6 +310,17 @@ and \m {\M {Y} \in \mathbb {C} ^{N_B \D N_B}}.
 
 \section{Error Analysis}
 
+Let \m {\hat {\V {g}}} be the Dantzig Selector, and let the sparsity level \m {S} be fixed.
+Split \m {\V {g}} into two parts: \m {\V {g} _{\SB{\mathcal {A}}}}, the largest-magnitude \m {s} components of \m {\V {g}}, \m {\V {g} _{\SB{\mathcal {B}}}} the next \m {s} largest-magnitude components of \m {\V {g}}, and \m {\V {g} _{\SB{\mathcal {C}}}} are the components complement to \m {\V {g} _{\SB{\mathcal {A}}}}.
+For example, if \m {\V {g} =\IP {-1,3,-4,2,8}}, and \m {S=2}, then \m {\V {g} _{\SB{\mathcal {A}}} =\IP {0,0,-4,0,8}}, \m {\V {g} _{\SB{\mathcal {B}}} =\IP {0,3,0,2,0}}, and \m {\V {g} _{\SB{\mathcal {C}}} =\IP {-1,3,0,2,0}}.
+In this section, the subscripts \m {\mathcal {A}, \mathcal {B}, \mathcal {C}} will bear analogous meaning.
+
+We hope that \m {\VNm {\V {g} _{\SB{\mathcal {C}}}} _1} is small.
+If so, we shall substitute the quantity into the expected square error of DS, thus generalizing to the almost-sparse case.
+Recall that \m {\M {G}} is just the vectorization of \m {\V {g}}, and is the function of \m {\V {a}}, so we seek to establish that \m {\V {a}} is almost sparse.
+We define, similarly, \m {\V {a} _{\SB{\mathcal {A}}}} and \m {\V {a} _{\SB{\mathcal {C}}}}, with sparsity level \m {s} different from \m {S}.
+If \m {N} is large, we may forget for a moment that \m {s} is an integer.
+
 \subsection {Sparsity of channel}
 
 To simplify expressions, define
@@ -324,7 +335,7 @@ To simplify expressions, define
   \; \mathrm {mod}\; \RB {2\pi} 
 }
 
-\textbf {Proposition}
+\textbf {Proposition 1}
 Let \m {\f} be given.
 Then, for any random instance of \m {\f},
 %
@@ -333,7 +344,46 @@ Then, for any random instance of \m {\f},
 \leq \frac {2} {\pi} \log N 
 }
 
-\textbf {Proposition}
+To show this, introduce
+\Disp {
+\psi \SB {\f, n_H}
+:=\RB {
+   \f \; \mathrm {Mod}\; \frac {2\pi} {N}
+   + \RB {\frac {2 n_H} {N} + 1} \pi
+} \;
+\mathrm {mod}\; \RB {2\pi}
+- \pi 
+}
+Also define
+\Disp {
+\Nm {D \SB {\psi'}}
+:= &\frac {\Nm {\sin \SB {N \psi'/2}}} {\Nm {\sin \SB {\psi' /2}}} \\
+\leq &B \SB {\psi'}
+:= \frac {48} {\Nm {\psi'^2 -24} \Nm {\psi'}}, \\
+}
+Then,
+\Disp {
+\VNm {\V {b} \SB {\f} _{\SB{\mathcal {C}}}} _1
+\leq \frac {1} {N}
+\VNm {
+\RB {
+   \sum_{n_H' =0}^{N -1}
+      B \SB {\psi \SB {\f, n_H'}}
+      \V {u} _{n_H'}
+} _{\SB{\mathcal {C}}}
+} _1
+}
+Or, if we drop \m {s},
+\Disp {
+\VNm {\V {b} \SB {\f} _{\SB{\mathcal {C}}}} _1
+\leq &\frac {1} {N} \D \frac {N} {2\pi} \D 2 \int_{\pi s/N}^{\pi} B \SB {\psi'} ^2 d \psi' \\
+= &\frac {48} {N \pi^3}
+\int _{s /N} ^1 \frac {1} {\RB {24/\pi^2 -x'^2} ^2 x'^2} dx' \\
+\leq &\frac {2} {\pi} \log N 
+}
+
+
+\textbf {Proposition 2}
 The bound
 %
 \Disp {
@@ -353,7 +403,9 @@ holds for probability \m {p}, with
 \subsection {Generating beamforming matrices}
 
 
-\textbf {Proposition}
+To investigate \m {\VNm {\M {F} _B \V {u}} _2} (respectively for \m {\M {W} _B}), we need a large deviation result for i.i.d.\ sum of chi-square random variables \cite {LaM00}, as below.
+
+\textbf {Proposition 3}
 It holds that
 %
 \Disp {
@@ -366,8 +418,9 @@ for probability \m {p}, with
 \leq 2 \mathsf {e} ^{-N_R \R {\d_s} /4} 
 }
 
+To investigate \m {\VNm {\M {F} _B \V {u}} _2} (respectively for \m {\M {W} _B}), we apply a bound for the failure probability of a DFT submatrix with \m {\d_s} RIP, in Haviv and Regev, ``The restricted isometry property of subsampled Fourier matrices'' \cite {KlM17}, and drop lower ordered terms as below,
 
-\textbf {Proposition}
+\textbf {Proposition 4}
 Suppose
 \Disp {
 N_R
@@ -379,20 +432,122 @@ Then \m {\M {F}_R} (respectively \m {\M {W} _R}) has \m {\d_s} RIP for probabili
 \leq \RB {\frac {\d_s} {N_{H,t} s}} ^{1/3} 
 }
 
+Since both \m {\M {F}_B^\Tr \M {F}_B^\Tr} and \m {\M {W}_B \M {W}_R} are \m {\d_s} RIP, it does appear (if we ignore the sparsity constraint) that \m {\M {P}} has approximately \m {2\d_s} RIP.
+However, it remain to show that their Kronecker product still has RIP.
+
+Nevertheless, notice that if angles \m {\th_l} (respectively \m {\f_l}) are exactly the multiples of \m {2 \pi / N_{H,t}} (respectively \m {2 \pi / N_{H,r}}), then for some \m {S}-sparse \m {\V {d}'} and unitary \m {\M {U}},
+\Disp {
+&\VNm {\M {W} _B \M {W} _R \M {H} \M {F} _R \M {F} _B} _2 \notag \\
+= &\VNm {
+   \M {W} _B \M {W} _R \M {K} _r \M {U} \D
+   \mathrm {diag} \SB {\mathrm {abs} \SB {\V {d}'}} \D
+   \M {U} ^\dagger \M {K} _t ^\dagger \M {F} _R \M {F} _B} _2 \notag \\
+= &\VNm {
+   \M {W} _B \M {W} _R \M {K} _r \M {U}
+   \R {\mathrm {abs} \SB {\V {d}'}}} _2 \D
+   \VNm {\M {F} _B ^\dagger \M {F} _R ^\dagger \M {K} _t \M {U}
+   \R {\mathrm {abs} \SB {\V {d}'}}} _2 \notag \\
+\eqsim &\VNm {\M {G}} _2 \RB {1 +2\d_s} 
+}
+Thus, even we cannot make sure that \m {\M {P}} is \m {\d_s} RIP with respect to all possible \m {\V {g}}'s, at least \m {\M {P}} has RIP with respect to relevant values of \m {\V {g}}.
+
+
 
 % % % % % % % % % % % % % % % %
 
 \subsection {Bound for expected error norm}
 
-The propositions below are taken from \cite {CaT07} and modified slightly in accordance to our settings, in addition to the generalization to complex vectors.
+Set for short \m {\V {d} = \hat {\V {g}} - \V {g}}.
+And for convenience, let \m {N_h = N_{H,t} N_{H,r}}.
 %
-\textbf {Proposition}
-{
+To bound \m {\VNm {\V {d}} _2}, we illustrate that \m {\V {g}} can be seen as sparse, and for that purpose we generously bound \m {\d_{S}} by \m {1}.
+We shall see below that it suffices to set
+\Disp {
+\g
+= \R {2 \log N_h} 
+}
+
+The propositions below are taken from \cite {CaT07} and modified slightly according to our settings.
+
+\textbf {Proposition 5}
 \Disp {
 \VNm {\V {d} _{\SB{\mathcal {C}}}} _1
 \leq \VNm {\V {d} _{\SB{\mathcal {A}}}} _1
 +\VNm {\V {g} _{\SB{\mathcal {C}}}} _1 
 }
+
+\textbf {Proposition 6}
+\Disp {
+\VNm {\M {P}^\dagger \M {P} \V {d}} _\infty
+\leq 2 \R {2 \log N_h} 
+}
+for probability \m {p}, with
+\Disp {
+1 -p
+\leq N_h^{-1}.
+}
+
+\textbf {Proposition 7}
+\Disp {
+\VNm {\V {d}} _2
+\leq \VNm {\V {d} _{\SB {\mathcal {AB}}}} _2 + \frac {1} {\R {S}} \VNm {\V {d} _{\SB{\mathcal {C}}}} _1 
+}
+
+\textbf {Proposition 8}
+\Disp {
+\VNm {\V {d} _{\SB{\mathcal {AB}}}} _2
+\leq \frac {1} {1- \R{2} \d_{S}} \VNm {P _{\SB {\mathcal {AB}}}^\intercal P d} _2
++ \frac {\R{3} \d_{S}} {\RB {1- \R{2} \d_{S}} \R {S}} \VNm {d_{\SB{\mathcal {C}}}} _1 
+}
+
+Finally, we shall show the proposed bound.
+For simplicity, set \m {S = Ls^2}, thus \m {S =L \log N_h}.
+And, for concreteness, suppose \m {\d_S \leq \frac {1} {8}}.
+
+\textbf {Theorem 9}
+Let \m {\V {y}}, \m {\M {P}}, \m {\V {g}}, \m {\hat {\V {g}}}, \m {\V {d}} be defined as above.
+Then it holds that
+\Disp {
+\VNm {\V {d}} _2
+\eqsim \mathcal {O} \SB {\R {L} \R {\log N_h}^3} 
+}
+for probability \m {p}, with
+\Disp {
+1 -p
+\eqsim \mathcal {O} \SB {\mathsf {e} ^{-N_B /12}} 
+}
+
+To show this, by the definition of truncation, by \m {\ell_p} norm inequality, by Proposition 6,
+\Disp {
+\VNm {\M {P} _{\SB {\mathcal {AB}}}^\intercal \M {P} \V {d}} _2
+\leq &\VNm {\M {P}^\intercal \M {P} \V {d}} _2 \notag \\
+\leq &\R {S} \VNm {\M {P}^\intercal \M {P} \V {d}} _\infty \notag \\
+\leq &2.83 \R {L} \log N_h
+}
+By \m {\ell_p}-norm inequality, by the definition of truncation, by Proposition 8, and by above,
+\Disp {
+\VNm {\V {d} _{\SB{\mathcal {A}}}} _1
+\leq &\R {S} \VNm {\V {d} _{\SB{\mathcal {A}}}} _2 \notag \\
+\leq &\R {S} \VNm {\V {d} _{\SB{\mathcal {AB}}}} _2 \notag \\
+\leq &3.44 L \R {\log N_h}^3
++0.262 \VNm {\V {d} _{\SB{\mathcal {C}}}} _1
+}
+Then, substituting this and Proposition 2 above into Proposition 5, we get
+\Disp {
+\VNm {\V {d} _{\SB{\mathcal {C}}}} _1
+\leq 5.12 L \RB {\log N_h}^2
+}
+Now Proposition 8 becomes
+\Disp {
+\VNm {\V {d} _{\SB{\mathcal {AB}}}} _2
+\leq 3.44 \R {L} \log N_h + 1.35 \R {L} \R {\log N_h} ^3
+}
+Finally, by plugging \m {\VNm {\V {d} _{\SB{\mathcal {AB}}}} _2} and \m {\VNm {\V {d} _{\SB{\mathcal {C}}}} _1} into Proposition 7, we get
+\Disp {
+\VNm {\V {d}} _2
+\leq 4.79 \R {L} \R {\log N_h}^3
+}
+Therefore, we set \m {\chi = \R {L} \R {\log N_h}^3}, so that \m {\VNm {\V {d}} _2 = \mathcal {O} \RB {\chi}}, as claimed.
 
 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
@@ -540,8 +695,6 @@ It is curious to see whether for very large \m {N_H}, whether \m {\tilde {\chi}}
 \subsection {Complexity}
 
 We discuss the complexity of DS, Lasso, and OMP.
-Abbreviate \m {N_h = N_{H,t} N_{H,r}}.
-
 For DS, suppose a linear program has an \m {N} dimensional variable and \m {M} inequality constraints, then its complexity is \m {\mathcal {O} \SB {N^2 M}}, assuming the Dantzig simplex method is used \cite {BoV04}.
 For our case, that would be \m {\mathcal {O} \SB {4 N_h ^2 \D 8 N_h} = \mathcal {O} \SB {N_h ^3}}.
 
